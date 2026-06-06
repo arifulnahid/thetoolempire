@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JSON Explained: The Complete Developer Guide to JSON Formatting, Validation & Best Practices (2026)</title>
+  <meta name="description" content="A complete guide to JSON: syntax rules, data types, formatting, validation, common errors, and how to use JSON in JavaScript, Python, and APIs. With examples."/>
+  <meta name="keywords" content="json guide, json tutorial, json syntax, json formatter guide, json validation, json best practices 2026, what is json"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/blog/json-formatter-guide.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="JSON Explained: The Complete Developer Guide (2026)"/>
+  <meta property="og:description" content="JSON syntax, data types, formatting, validation, common errors and best practices with real examples."/>
+  <meta property="og:url" content="https://thetoolempire.com/blog/json-formatter-guide.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"BlogPosting",
+      "headline":"JSON Explained: The Complete Developer Guide to Formatting, Validation & Best Practices (2026)",
+      "description":"A complete guide to JSON: syntax rules, data types, formatting, common errors, and using JSON in JavaScript, Python, and APIs.",
+      "url":"https://thetoolempire.com/blog/json-formatter-guide.html",
+      "datePublished":"2026-06-06","dateModified":"2026-06-06",
+      "author":{"@type":"Organization","name":"The Tool Empire"},
+      "publisher":{"@type":"Organization","name":"The Tool Empire","logo":{"@type":"ImageObject","url":"https://thetoolempire.com/assets/favicon.svg"}},
+      "mainEntityOfPage":"https://thetoolempire.com/blog/json-formatter-guide.html"
+    },
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Blog","item":"https://thetoolempire.com/blog.html"},
+      {"@type":"ListItem","position":3,"name":"JSON Complete Guide","item":"https://thetoolempire.com/blog/json-formatter-guide.html"}
+    ]}
+  ]}</script>
+
+  <style>
+    :root{--bg:#0f0f14;--bg-card:#1e1e28;--bg-surface:#18181f;--border:rgba(255,255,255,.08);--text:#e8e8f0;--text-muted:#a0a0bc;--text-faint:#555570;--primary:#f59e0b;--secondary:#10b981;--radius-md:14px;--radius-sm:8px;--transition:.2s}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.7;font-size:1rem}
+
+    /* ── Header ── */
+    .site-header{position:sticky;top:0;z-index:100;background:rgba(15,15,20,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+    .header-inner{max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none}.logo-icon{width:32px;height:32px}.logo-text{font-weight:700;font-size:1.1rem;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .main-nav{display:flex;gap:6px}.nav-link{padding:6px 14px;border-radius:var(--radius-sm);font-size:.87rem;font-weight:500;color:var(--text-muted);text-decoration:none;transition:all var(--transition)}.nav-link:hover,.nav-link.active{color:var(--text);background:rgba(255,255,255,.06)}
+
+    /* ── Progress bar ── */
+    #progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--secondary));width:0%;z-index:200;transition:width .1s linear}
+
+    /* ── Layout ── */
+    .blog-wrap{max-width:1200px;margin:0 auto;padding:32px 24px;display:grid;grid-template-columns:1fr 280px;gap:40px;align-items:start}
+    @media(max-width:1023px){.blog-wrap{grid-template-columns:1fr}.toc-sidebar{display:none!important}}
+
+    /* ── Article ── */
+    .article-header{margin-bottom:40px}
+    .article-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(245,158,11,.12);color:var(--primary);border:1px solid rgba(245,158,11,.2);margin-bottom:18px}
+    .article-title{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:800;line-height:1.22;margin-bottom:18px;letter-spacing:-.02em}
+    .gradient-title{background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .article-meta{display:flex;align-items:center;flex-wrap:wrap;gap:14px;font-size:.82rem;color:var(--text-faint)}
+    .meta-item{display:flex;align-items:center;gap:5px}
+    .meta-sep{width:3px;height:3px;border-radius:50%;background:var(--border)}
+
+    /* ── Body ── */
+    .article-body h2{font-size:1.45rem;font-weight:700;margin:2.4rem 0 .9rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);color:var(--text)}
+    .article-body h3{font-size:1.12rem;font-weight:700;margin:1.8rem 0 .7rem;color:var(--text)}
+    .article-body p{margin-bottom:1.1rem;color:var(--text-muted)}
+    .article-body ul,.article-body ol{padding-left:1.6rem;margin-bottom:1.1rem;color:var(--text-muted)}
+    .article-body li{margin-bottom:.45rem}
+    .article-body strong{color:var(--text);font-weight:600}
+    .article-body code{background:rgba(245,158,11,.1);color:var(--primary);padding:2px 7px;border-radius:5px;font-family:'Fira Code',monospace;font-size:.86em}
+    .article-body a{color:var(--primary);text-decoration:none;border-bottom:1px solid rgba(245,158,11,.3)}.article-body a:hover{border-color:var(--primary)}
+
+    /* ── Code blocks ── */
+    .code-block{background:#12121a;border:1px solid var(--border);border-radius:var(--radius-md);margin:1.4rem 0;overflow:hidden}
+    .code-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border);font-size:.75rem;font-weight:700;color:var(--text-faint);text-transform:uppercase;letter-spacing:.07em}
+    .code-body{padding:18px 20px;overflow-x:auto}
+    .code-body pre{font-family:'Fira Code',monospace;font-size:.85rem;line-height:1.7;color:#e8e8f0;white-space:pre}
+    .ck{color:#7dd3fc}.cs{color:#86efac}.cn{color:#fbbf24}.cb{color:#f472b6}.cnu{color:#94a3b8}.cbr{color:#8888a8}.ce{color:#f87171}
+
+    /* ── Demo boxes ── */
+    .demo-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.4rem 0}
+    @media(max-width:700px){.demo-row{grid-template-columns:1fr}}
+    .demo-box{border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border)}
+    .demo-label{padding:8px 14px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;background:rgba(255,255,255,.04);border-bottom:1px solid var(--border)}
+    .demo-label.valid{color:var(--secondary)}.demo-label.invalid{color:#f87171}
+    .demo-pre{padding:14px 16px;font-family:'Fira Code',monospace;font-size:.82rem;line-height:1.65;color:#e8e8f0;background:#12121a;white-space:pre}
+
+    /* ── Callouts ── */
+    .callout{border-radius:var(--radius-md);padding:16px 20px;margin:1.5rem 0;border-left:4px solid}
+    .callout-tip{background:rgba(16,185,129,.07);border-color:var(--secondary)}.callout-tip .callout-head{color:var(--secondary)}
+    .callout-info{background:rgba(56,189,248,.07);border-color:#38bdf8}.callout-info .callout-head{color:#38bdf8}
+    .callout-warn{background:rgba(251,191,36,.07);border-color:#fbbf24}.callout-warn .callout-head{color:#fbbf24}
+    .callout-head{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+    .callout p{margin:0;font-size:.9rem;color:var(--text-muted)}
+
+    /* ── Tables ── */
+    .table-wrap{overflow-x:auto;margin:1.4rem 0;border-radius:var(--radius-md);border:1px solid var(--border)}
+    table{width:100%;border-collapse:collapse;font-size:.87rem}
+    th{background:rgba(255,255,255,.05);padding:10px 14px;text-align:left;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-faint);border-bottom:1px solid var(--border)}
+    td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text-muted)}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:rgba(255,255,255,.02)}
+    .td-pass{color:var(--secondary);font-weight:600}
+    .td-fail{color:#f87171;font-weight:600}
+
+    /* ── TOC sidebar ── */
+    .toc-sidebar{position:sticky;top:90px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:20px}
+    .toc-title{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:14px}
+    .toc-list{list-style:none;display:flex;flex-direction:column;gap:4px}
+    .toc-list a{font-size:.83rem;color:var(--text-muted);text-decoration:none;padding:4px 8px;border-radius:var(--radius-sm);display:block;transition:all var(--transition);border-left:2px solid transparent}.toc-list a:hover{color:var(--text);background:rgba(255,255,255,.04);border-color:var(--primary)}
+
+    /* ── Tool spotlight ── */
+    .tool-spotlight{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(16,185,129,.08));border:1px solid rgba(245,158,11,.25);border-radius:var(--radius-md);padding:24px;margin:2rem 0;text-align:center}
+    .spotlight-title{font-size:1.1rem;font-weight:700;margin-bottom:6px}
+    .spotlight-desc{font-size:.9rem;color:var(--text-muted);margin-bottom:16px}
+    .spotlight-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:var(--radius-sm);background:linear-gradient(135deg,var(--primary),var(--secondary));color:#000;font-weight:700;font-size:.9rem;text-decoration:none;transition:opacity var(--transition)}.spotlight-btn:hover{opacity:.88}
+
+    /* ── Author box ── */
+    .author-box{display:flex;align-items:flex-start;gap:18px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:22px;margin-top:2.5rem}
+    .author-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.2rem;color:#000;flex-shrink:0}
+    .author-name{font-weight:700;font-size:1rem;margin-bottom:4px}
+    .author-bio{font-size:.85rem;color:var(--text-muted);line-height:1.6}
+
+    /* ── Related ── */
+    .related-section{margin-top:2.5rem}
+    .related-title{font-size:1.1rem;font-weight:700;margin-bottom:16px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+    .related-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;text-decoration:none;transition:border-color var(--transition)}.related-card:hover{border-color:rgba(245,158,11,.4)}
+    .related-icon{width:36px;height:36px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;margin-bottom:10px}.related-icon svg{width:18px;height:18px;stroke:#fff}
+    .related-name{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:4px}
+    .related-desc{font-size:.8rem;color:var(--text-faint)}
+
+    /* ── Footer ── */
+    .site-footer{background:var(--bg-card);border-top:1px solid var(--border);padding:48px 24px 24px;margin-top:64px}
+    .footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+    @media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+    .footer-brand-text{font-size:.85rem;color:var(--text-faint);margin-top:8px;line-height:1.6}
+    .footer-heading{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:12px}
+    .footer-links{display:flex;flex-direction:column;gap:8px}.footer-links a{font-size:.87rem;color:var(--text-muted);text-decoration:none;transition:color var(--transition)}.footer-links a:hover{color:var(--text)}
+    .footer-bottom{max-width:1200px;margin:32px auto 0;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.8rem;color:var(--text-faint)}
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<script>
+  window.addEventListener('scroll',()=>{
+    const d=document.documentElement;
+    const p=(d.scrollTop||document.body.scrollTop)/(d.scrollHeight-d.clientHeight)*100;
+    document.getElementById('progress-bar').style.width=p+'%';
+  });
+</script>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+        <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+        <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#f59e0b"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../tools.html" class="nav-link">Tools</a>
+      <a href="../blog.html" class="nav-link active">Blog</a>
+      <a href="../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="blog-wrap">
+
+  <!-- Main article -->
+  <article>
+
+    <!-- Ad -->
+    <div style="margin-bottom:24px">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" style="margin-bottom:18px">
+      <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:var(--text-faint);flex-wrap:wrap">
+        <li><a href="../index.html" style="color:var(--text-faint)">Home</a></li><li>›</li>
+        <li><a href="../blog.html" style="color:var(--text-faint)">Blog</a></li><li>›</li>
+        <li style="color:var(--text-muted)">JSON Developer Guide</li>
+      </ol>
+    </nav>
+
+    <header class="article-header">
+      <div class="article-tag">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Developer Guide
+      </div>
+      <h1 class="article-title"><span class="gradient-title">JSON Explained:</span> The Complete Developer Guide to Formatting, Validation &amp; Best Practices (2026)</h1>
+      <div class="article-meta">
+        <span class="meta-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          12 min read
+        </span>
+        <span class="meta-sep"></span>
+        <span class="meta-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          June 6, 2026
+        </span>
+        <span class="meta-sep"></span>
+        <span class="meta-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          JSON, Data Formats, Development
+        </span>
+      </div>
+    </header>
+
+    <div class="article-body">
+
+      <p>JSON (JavaScript Object Notation) is the lingua franca of the web. It connects APIs, configures applications, stores structured data, and powers modern front-end and back-end systems alike. Yet for all its ubiquity, developers — from beginners to seniors — frequently run into JSON errors, formatting inconsistencies, and validation failures.</p>
+
+      <p>This guide covers everything: the syntax rules, all six data types, correct formatting conventions, the most common errors and how to fix them, and best practices for using JSON in production systems in 2026.</p>
+
+      <!-- Tool spotlight -->
+      <div class="tool-spotlight">
+        <div class="spotlight-title">Need to format or validate JSON right now?</div>
+        <div class="spotlight-desc">Use our free browser-based JSON Formatter — with syntax highlighting, auto-repair, diff comparison, and one-click download.</div>
+        <a href="../tools/coding/json-formatter.html" class="spotlight-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Open JSON Formatter
+        </a>
+      </div>
+
+      <!-- Ad mid-article -->
+      <div style="margin:24px 0">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+      </div>
+
+      <h2 id="what-is-json">What Is JSON?</h2>
+
+      <p>JSON is a lightweight, text-based data-interchange format originally derived from JavaScript object literal syntax. Despite the name, JSON is entirely language-independent — there are JSON parsers for every major programming language, runtime, and platform.</p>
+
+      <p>Douglas Crockford popularized the format in the early 2000s. It was standardised in <strong>ECMA-404</strong> (2013) and <strong>RFC 8259</strong> (2017), which is the definitive specification today.</p>
+
+      <div class="callout callout-info">
+        <div class="callout-head">Key insight</div>
+        <p>JSON is a <em>serialisation format</em>, not a programming language. It describes static data structures — there are no functions, no comments, no executable expressions.</p>
+      </div>
+
+      <h3>Why JSON replaced XML</h3>
+
+      <p>Before JSON, XML dominated web data exchange. JSON displaced it for three reasons:</p>
+      <ul>
+        <li><strong>Conciseness</strong> — JSON removes tag verbosity. The same data typically occupies 30–50% less space.</li>
+        <li><strong>Native parsing</strong> — <code>JSON.parse()</code> is built into every modern JavaScript runtime, browser, and Node.js. No library required.</li>
+        <li><strong>Readability</strong> — Humans can read and write JSON without tooling; XML requires discipline to stay readable.</li>
+      </ul>
+
+      <h2 id="json-syntax">The Six JSON Data Types</h2>
+
+      <p>JSON supports exactly six value types. Understanding what is and isn't valid is the foundation of working with JSON correctly.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Type</th><th>Syntax</th><th>Example</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><strong>String</strong></td><td>Double-quoted Unicode text</td><td><code>"Hello, world"</code></td><td>Must use <code>"</code>, not <code>'</code></td></tr>
+            <tr><td><strong>Number</strong></td><td>Integer or decimal</td><td><code>42</code>, <code>3.14</code>, <code>-7</code>, <code>1.5e10</code></td><td>No hex, no NaN, no Infinity</td></tr>
+            <tr><td><strong>Boolean</strong></td><td>Lowercase literal</td><td><code>true</code> / <code>false</code></td><td>Not <code>True</code> or <code>TRUE</code></td></tr>
+            <tr><td><strong>Null</strong></td><td>Lowercase literal</td><td><code>null</code></td><td>Not <code>None</code>, <code>nil</code>, or <code>NULL</code></td></tr>
+            <tr><td><strong>Array</strong></td><td>Ordered list in <code>[]</code></td><td><code>[1, "two", true]</code></td><td>Mixed types allowed</td></tr>
+            <tr><td><strong>Object</strong></td><td>Key-value pairs in <code>{}</code></td><td><code>{"key": "value"}</code></td><td>Keys must be strings</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="json-object-syntax">Object Syntax</h2>
+
+      <p>A JSON object is a collection of zero or more key-value pairs wrapped in curly braces. Keys must be strings (double-quoted). Values can be any of the six types. Pairs are separated by commas; there is <strong>no trailing comma</strong> after the last pair.</p>
+
+      <div class="code-block">
+        <div class="code-header"><span>Valid JSON Object</span></div>
+        <div class="code-body"><pre><span class="cbr">{</span>
+  <span class="ck">"name"</span>: <span class="cs">"Jane Smith"</span>,
+  <span class="ck">"age"</span>: <span class="cn">32</span>,
+  <span class="ck">"active"</span>: <span class="cb">true</span>,
+  <span class="ck">"score"</span>: <span class="cn">9.8</span>,
+  <span class="ck">"department"</span>: <span class="cnu">null</span>,
+  <span class="ck">"roles"</span>: <span class="cbr">[</span><span class="cs">"admin"</span>, <span class="cs">"editor"</span><span class="cbr">]</span>
+<span class="cbr">}</span></pre></div>
+      </div>
+
+      <h3>Nested objects</h3>
+
+      <p>Objects can be nested to any depth. There is no theoretical nesting limit, though parsers may enforce practical maximums (typically 500–1000 levels).</p>
+
+      <div class="code-block">
+        <div class="code-header"><span>Nested Objects</span></div>
+        <div class="code-body"><pre><span class="cbr">{</span>
+  <span class="ck">"user"</span>: <span class="cbr">{</span>
+    <span class="ck">"id"</span>: <span class="cn">1001</span>,
+    <span class="ck">"address"</span>: <span class="cbr">{</span>
+      <span class="ck">"city"</span>: <span class="cs">"Berlin"</span>,
+      <span class="ck">"country"</span>: <span class="cs">"DE"</span>
+    <span class="cbr">}</span>
+  <span class="cbr">}</span>
+<span class="cbr">}</span></pre></div>
+      </div>
+
+      <h2 id="json-array-syntax">Array Syntax</h2>
+
+      <p>A JSON array is an ordered list of values in square brackets. Items can be of different types. Like objects, arrays do not allow trailing commas.</p>
+
+      <div class="code-block">
+        <div class="code-header"><span>Array of objects (common API pattern)</span></div>
+        <div class="code-body"><pre><span class="cbr">[</span>
+  <span class="cbr">{</span> <span class="ck">"id"</span>: <span class="cn">1</span>, <span class="ck">"name"</span>: <span class="cs">"Alice"</span> <span class="cbr">}</span>,
+  <span class="cbr">{</span> <span class="ck">"id"</span>: <span class="cn">2</span>, <span class="ck">"name"</span>: <span class="cs">"Bob"</span> <span class="cbr">}</span>,
+  <span class="cbr">{</span> <span class="ck">"id"</span>: <span class="cn">3</span>, <span class="ck">"name"</span>: <span class="cs">"Carol"</span> <span class="cbr">}</span>
+<span class="cbr">]</span></pre></div>
+      </div>
+
+      <h2 id="string-values">String Rules and Escape Sequences</h2>
+
+      <p>JSON strings are sequences of Unicode characters enclosed in double quotes. Certain characters must be escaped with a backslash:</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Escape</th><th>Meaning</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td><code>\"</code></td><td>Double quote</td><td><code>"She said \"hello\""</code></td></tr>
+            <tr><td><code>\\</code></td><td>Backslash</td><td><code>"C:\\Users\\name"</code></td></tr>
+            <tr><td><code>\/</code></td><td>Forward slash (optional)</td><td><code>"https:\/\/example.com"</code></td></tr>
+            <tr><td><code>\n</code></td><td>Newline</td><td><code>"line1\nline2"</code></td></tr>
+            <tr><td><code>\r</code></td><td>Carriage return</td><td><code>"CR\r"</code></td></tr>
+            <tr><td><code>\t</code></td><td>Tab</td><td><code>"col1\tcol2"</code></td></tr>
+            <tr><td><code>\uXXXX</code></td><td>Unicode code point</td><td><code>"A"</code> = "A"</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout callout-warn">
+        <div class="callout-head">Common mistake</div>
+        <p>Literal newlines and tabs inside a string are <strong>not valid</strong>. You must use <code>\n</code> and <code>\t</code> escape sequences instead. Many hand-written config errors come from pasting multi-line text directly into a string value.</p>
+      </div>
+
+      <h2 id="number-format">Number Format</h2>
+
+      <p>JSON numbers follow a strict subset of JavaScript number syntax. The following are valid JSON numbers:</p>
+
+      <div class="code-block">
+        <div class="code-header"><span>Valid numbers</span></div>
+        <div class="code-body"><pre><span class="cn">42</span>          <span style="color:#555570">// integer</span>
+<span class="cn">-7</span>          <span style="color:#555570">// negative</span>
+<span class="cn">3.14159</span>     <span style="color:#555570">// decimal</span>
+<span class="cn">0.001</span>       <span style="color:#555570">// less than 1 — note leading 0</span>
+<span class="cn">1.5e10</span>      <span style="color:#555570">// scientific notation</span>
+<span class="cn">-2.7E-4</span>     <span style="color:#555570">// negative scientific</span></pre></div>
+      </div>
+
+      <p>The following are <strong>not valid</strong> JSON numbers: <code>0xFF</code> (hex), <code>NaN</code>, <code>Infinity</code>, <code>-Infinity</code>, <code>077</code> (octal), <code>+42</code> (explicit positive sign).</p>
+
+      <h2 id="common-errors">The 7 Most Common JSON Errors</h2>
+
+      <p>These are the errors that break JSON validation most often in the real world:</p>
+
+      <div class="demo-row">
+        <div class="demo-box">
+          <div class="demo-label invalid">✗ Trailing comma</div>
+          <pre class="demo-pre"><span class="cbr">{</span>
+  <span class="ck">"a"</span>: <span class="cn">1</span>,
+  <span class="ck">"b"</span>: <span class="cn">2</span><span class="ce">,</span>  ← invalid
+<span class="cbr">}</span></pre>
+        </div>
+        <div class="demo-box">
+          <div class="demo-label valid">✓ Correct</div>
+          <pre class="demo-pre"><span class="cbr">{</span>
+  <span class="ck">"a"</span>: <span class="cn">1</span>,
+  <span class="ck">"b"</span>: <span class="cn">2</span>
+<span class="cbr">}</span></pre>
+        </div>
+      </div>
+
+      <div class="demo-row">
+        <div class="demo-box">
+          <div class="demo-label invalid">✗ Single quotes</div>
+          <pre class="demo-pre"><span class="cbr">{</span>
+  <span class="ce">'name'</span>: <span class="ce">'Alice'</span>
+<span class="cbr">}</span></pre>
+        </div>
+        <div class="demo-box">
+          <div class="demo-label valid">✓ Double quotes only</div>
+          <pre class="demo-pre"><span class="cbr">{</span>
+  <span class="ck">"name"</span>: <span class="cs">"Alice"</span>
+<span class="cbr">}</span></pre>
+        </div>
+      </div>
+
+      <div class="demo-row">
+        <div class="demo-box">
+          <div class="demo-label invalid">✗ Unquoted keys</div>
+          <pre class="demo-pre"><span class="cbr">{</span>
+  <span class="ce">name</span>: <span class="cs">"Alice"</span>
+<span class="cbr">}</span></pre>
+        </div>
+        <div class="demo-box">
+          <div class="demo-label invalid">✗ Comments (not allowed)</div>
+          <pre class="demo-pre"><span class="cbr">{</span>
+  <span class="ce">// user data</span>
+  <span class="ck">"name"</span>: <span class="cs">"Alice"</span>
+<span class="cbr">}</span></pre>
+        </div>
+      </div>
+
+      <div class="table-wrap" style="margin-top:0">
+        <table>
+          <thead><tr><th>Error</th><th>Cause</th><th>Fix</th></tr></thead>
+          <tbody>
+            <tr><td>Trailing comma</td><td>Comma after last property or element</td><td>Remove the final comma</td></tr>
+            <tr><td>Single quotes</td><td>Using <code>'</code> instead of <code>"</code></td><td>Replace all single quotes</td></tr>
+            <tr><td>Unquoted keys</td><td>JavaScript object syntax habit</td><td>Add double quotes around every key</td></tr>
+            <tr><td>Comments</td><td><code>//</code> or <code>/* */</code> copied from JS/config</td><td>Remove all comments</td></tr>
+            <tr><td>Undefined value</td><td><code>undefined</code> is not a JSON type</td><td>Replace with <code>null</code> or omit the key</td></tr>
+            <tr><td>NaN / Infinity</td><td>Not valid JSON numbers</td><td>Use a numeric sentinel or <code>null</code></td></tr>
+            <tr><td>Duplicate keys</td><td>Repeated keys in one object</td><td>Parsers accept it but behavior is undefined — deduplicate</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout callout-tip">
+        <div class="callout-head">Quick fix</div>
+        <p>The first three errors (trailing commas, single quotes, unquoted keys) are automatically fixed by the <strong>Auto-Repair</strong> button in our <a href="../tools/coding/json-formatter.html">JSON Formatter</a>.</p>
+      </div>
+
+      <h2 id="formatting-json">Formatting JSON: Beautify vs Minify</h2>
+
+      <p>Formatted (beautified) JSON uses consistent indentation and line breaks. Minified JSON removes all whitespace. Both are semantically equivalent — parsers see the same data.</p>
+
+      <div class="demo-row">
+        <div class="demo-box">
+          <div class="demo-label valid">Beautified (human-readable)</div>
+          <pre class="demo-pre"><span class="cbr">{</span>
+  <span class="ck">"status"</span>: <span class="cs">"ok"</span>,
+  <span class="ck">"data"</span>: <span class="cbr">{</span>
+    <span class="ck">"id"</span>: <span class="cn">42</span>,
+    <span class="ck">"active"</span>: <span class="cb">true</span>
+  <span class="cbr">}</span>
+<span class="cbr">}</span></pre>
+        </div>
+        <div class="demo-box">
+          <div class="demo-label valid">Minified (production / API)</div>
+          <pre class="demo-pre"><span class="cbr">{</span><span class="ck">"status"</span>:<span class="cs">"ok"</span>,<span class="ck">"data"</span>:<span class="cbr">{</span><span class="ck">"id"</span>:<span class="cn">42</span>,<span class="ck">"active"</span>:<span class="cb">true</span><span class="cbr">}}</span></pre>
+        </div>
+      </div>
+
+      <h3>Indentation conventions</h3>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Convention</th><th>Usage</th><th>Size overhead</th></tr></thead>
+          <tbody>
+            <tr><td>2 spaces</td><td>Node.js, npm, most JS style guides</td><td>Low</td></tr>
+            <tr><td>4 spaces</td><td>Python projects, many back-end teams</td><td>Medium</td></tr>
+            <tr><td>Tab (<code>\t</code>)</td><td>Editor-agnostic, user-controlled width</td><td>Lowest character count</td></tr>
+            <tr><td>No indent (minified)</td><td>Production APIs, embedded configs</td><td>None</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout callout-tip">
+        <div class="callout-head">Tip</div>
+        <p>For files in version control, pick the indentation your project already uses and stick to it. Changing indentation between commits creates noisy diffs that obscure real changes.</p>
+      </div>
+
+      <h2 id="using-json-js">Using JSON in JavaScript</h2>
+
+      <p>JavaScript has two native methods for working with JSON:</p>
+
+      <div class="code-block">
+        <div class="code-header"><span>JSON.parse — deserialise a string to an object</span></div>
+        <div class="code-body"><pre>const str = <span class="cs">'{"name":"Alice","age":30}'</span>;
+const obj = JSON.parse(str);
+console.log(obj.name); <span style="color:#555570">// "Alice"</span></pre></div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><span>JSON.stringify — serialise an object to a string</span></div>
+        <div class="code-body"><pre>const obj = <span class="cbr">{</span> name: <span class="cs">"Alice"</span>, age: <span class="cn">30</span> <span class="cbr">}</span>;
+
+<span style="color:#555570">// Minified</span>
+JSON.stringify(obj);
+<span style="color:#555570">// → '{"name":"Alice","age":30}'</span>
+
+<span style="color:#555570">// Formatted with 2-space indent</span>
+JSON.stringify(obj, null, <span class="cn">2</span>);
+
+<span style="color:#555570">// Filter/transform with replacer</span>
+JSON.stringify(obj, [<span class="cs">'name'</span>]); <span style="color:#555570">// only 'name' key</span></pre></div>
+      </div>
+
+      <h3>Handling parse errors</h3>
+
+      <div class="code-block">
+        <div class="code-header"><span>Always wrap JSON.parse in try/catch</span></div>
+        <div class="code-body"><pre>function safeParseJSON(str) <span class="cbr">{</span>
+  try <span class="cbr">{</span>
+    return <span class="cbr">{</span> ok: true, data: JSON.parse(str) <span class="cbr">}</span>;
+  <span class="cbr">}</span> catch (err) <span class="cbr">{</span>
+    return <span class="cbr">{</span> ok: false, error: err.message <span class="cbr">}</span>;
+  <span class="cbr">}</span>
+<span class="cbr">}</span></pre></div>
+      </div>
+
+      <h3>The reviver parameter</h3>
+
+      <p><code>JSON.parse</code> accepts an optional reviver function that transforms values during parsing. A common use-case is converting ISO 8601 date strings back to <code>Date</code> objects:</p>
+
+      <div class="code-block">
+        <div class="code-header"><span>Reviver for date strings</span></div>
+        <div class="code-body"><pre>const ISO = /^\d{4}-\d{2}-\d{2}T/;
+const data = JSON.parse(str, (key, value) =>
+  typeof value === <span class="cs">'string'</span> && ISO.test(value)
+    ? new Date(value)
+    : value
+);</pre></div>
+      </div>
+
+      <h2 id="using-json-python">Using JSON in Python</h2>
+
+      <div class="code-block">
+        <div class="code-header"><span>Python json module</span></div>
+        <div class="code-body"><pre>import json
+
+<span style="color:#555570"># Parse (deserialise)</span>
+data = json.loads('{"name": "Alice", "age": 30}')
+print(data['name'])  <span style="color:#555570"># Alice</span>
+
+<span style="color:#555570"># Serialise</span>
+json.dumps(data)              <span style="color:#555570"># minified</span>
+json.dumps(data, indent=2)    <span style="color:#555570"># formatted</span>
+
+<span style="color:#555570"># Read/write file</span>
+with open('data.json', 'r') as f:
+    obj = json.load(f)
+
+with open('out.json', 'w') as f:
+    json.dump(obj, f, indent=2)</pre></div>
+      </div>
+
+      <div class="callout callout-info">
+        <div class="callout-head">Python type mapping</div>
+        <p>Python maps JSON types as: object → <code>dict</code>, array → <code>list</code>, string → <code>str</code>, number → <code>int</code> or <code>float</code>, boolean → <code>bool</code>, null → <code>None</code>. When serialising, Python's <code>True</code>/<code>False</code>/<code>None</code> are automatically converted to JSON's <code>true</code>/<code>false</code>/<code>null</code>.</p>
+      </div>
+
+      <h2 id="json-in-apis">JSON in REST APIs</h2>
+
+      <p>REST APIs return JSON for data responses. The standard conventions are:</p>
+
+      <div class="code-block">
+        <div class="code-header"><span>HTTP request/response pattern</span></div>
+        <div class="code-body"><pre><span style="color:#555570">// Request</span>
+POST /api/users HTTP/1.1
+Content-Type: application/json
+
+<span class="cbr">{</span>
+  <span class="ck">"name"</span>: <span class="cs">"Alice"</span>,
+  <span class="ck">"email"</span>: <span class="cs">"alice@example.com"</span>
+<span class="cbr">}</span>
+
+<span style="color:#555570">// Response</span>
+HTTP/1.1 201 Created
+Content-Type: application/json
+
+<span class="cbr">{</span>
+  <span class="ck">"id"</span>: <span class="cn">1001</span>,
+  <span class="ck">"name"</span>: <span class="cs">"Alice"</span>,
+  <span class="ck">"created_at"</span>: <span class="cs">"2026-06-06T12:00:00Z"</span>
+<span class="cbr">}</span></pre></div>
+      </div>
+
+      <h3>Common API JSON patterns</h3>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Pattern</th><th>Description</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td>Envelope</td><td>Wrap data in a <code>data</code> key</td><td><code>{"data": {...}, "meta": {...}}</code></td></tr>
+            <tr><td>Error object</td><td>Consistent error shape</td><td><code>{"error": {"code": 404, "message": "Not found"}}</code></td></tr>
+            <tr><td>Pagination</td><td>Next/prev links + count</td><td><code>{"items": [...], "total": 100, "next": "/api?page=2"}</code></td></tr>
+            <tr><td>Timestamps</td><td>ISO 8601 strings</td><td><code>"2026-06-06T12:00:00Z"</code></td></tr>
+            <tr><td>IDs as strings</td><td>Avoid 64-bit integer loss</td><td><code>"id": "9007199254740993"</code> instead of large integer</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout callout-warn">
+        <div class="callout-head">Large integer warning</div>
+        <p>JavaScript's <code>Number</code> type is a 64-bit float and can only safely represent integers up to 2⁵³ − 1 (9,007,199,254,740,991). If your IDs exceed this, serialize them as strings in JSON to avoid silent precision loss in browser clients.</p>
+      </div>
+
+      <h2 id="json5-jsonc">JSON5 and JSONC (Extensions)</h2>
+
+      <p>Two unofficial extensions address JSON's limitations for human-authored config files:</p>
+
+      <h3>JSON5</h3>
+      <p>JSON5 adds comments, trailing commas, single-quoted strings, unquoted keys, multi-line strings, and hex numbers. It is widely used for config files in tools like Babel, ESLint (via <code>.eslintrc</code>), and TypeScript (<code>tsconfig.json</code> accepts some JSON5 features).</p>
+
+      <h3>JSONC (JSON with Comments)</h3>
+      <p>JSONC is JSON plus <code>//</code> and <code>/* */</code> comments only. Used by VS Code settings files (<code>settings.json</code>, <code>launch.json</code>). It is not valid JSON and requires a JSONC-aware parser.</p>
+
+      <div class="callout callout-info">
+        <div class="callout-head">Key point</div>
+        <p>Neither JSON5 nor JSONC is accepted by standard <code>JSON.parse()</code>. If you receive one of these as a string, you need a dedicated parser library. For API payloads, always use strict JSON.</p>
+      </div>
+
+      <h2 id="json-schema">JSON Schema Validation</h2>
+
+      <p>JSON Schema is a vocabulary for describing the structure of JSON data. You define a schema document (itself written in JSON) that specifies required fields, types, string patterns, numeric ranges, and more. Validators then check any JSON document against the schema.</p>
+
+      <div class="code-block">
+        <div class="code-header"><span>Simple JSON Schema example</span></div>
+        <div class="code-body"><pre><span class="cbr">{</span>
+  <span class="ck">"$schema"</span>: <span class="cs">"https://json-schema.org/draft/2020-12/schema"</span>,
+  <span class="ck">"type"</span>: <span class="cs">"object"</span>,
+  <span class="ck">"required"</span>: <span class="cbr">[</span><span class="cs">"name"</span>, <span class="cs">"email"</span><span class="cbr">]</span>,
+  <span class="ck">"properties"</span>: <span class="cbr">{</span>
+    <span class="ck">"name"</span>: <span class="cbr">{</span> <span class="ck">"type"</span>: <span class="cs">"string"</span>, <span class="ck">"minLength"</span>: <span class="cn">1</span> <span class="cbr">}</span>,
+    <span class="ck">"email"</span>: <span class="cbr">{</span> <span class="ck">"type"</span>: <span class="cs">"string"</span>, <span class="ck">"format"</span>: <span class="cs">"email"</span> <span class="cbr">}</span>,
+    <span class="ck">"age"</span>: <span class="cbr">{</span> <span class="ck">"type"</span>: <span class="cs">"integer"</span>, <span class="ck">"minimum"</span>: <span class="cn">0</span> <span class="cbr">}</span>
+  <span class="cbr">}</span>
+<span class="cbr">}</span></pre></div>
+      </div>
+
+      <p>JSON Schema is used extensively in: OpenAPI/Swagger API specifications, VS Code IntelliSense for config files, form validation in front-end frameworks, and automated API contract testing.</p>
+
+      <h2 id="best-practices">Best Practices for JSON in 2026</h2>
+
+      <ol>
+        <li><strong>Always validate on both ends.</strong> Don't trust JSON from external sources. Validate structure and types with JSON Schema or manual checks before using the data.</li>
+        <li><strong>Use ISO 8601 for dates.</strong> <code>"2026-06-06T12:00:00Z"</code> is unambiguous. Never embed locale-specific date strings in JSON.</li>
+        <li><strong>Strings for large IDs.</strong> Any ID that could exceed 2⁵³ should be a string in the JSON payload to prevent silent precision loss in JavaScript clients.</li>
+        <li><strong>Consistent key naming.</strong> Pick one convention — <code>camelCase</code>, <code>snake_case</code>, or <code>kebab-case</code> — and use it throughout your entire API. Mixing is a maintenance problem.</li>
+        <li><strong>Minify for network, format for humans.</strong> Ship minified JSON in API responses. Store formatted JSON in version control for config files and schemas humans need to read.</li>
+        <li><strong>Avoid deeply nested structures.</strong> Flat or shallow structures (2–3 levels) are easier to work with in code. Very deep nesting often signals a missing abstraction.</li>
+        <li><strong>Explicit nulls vs missing keys.</strong> Decide whether missing key means "not provided" and explicit <code>null</code> means "intentionally empty." Document and enforce this distinction consistently in your API.</li>
+      </ol>
+
+      <h2 id="jq-commandline">Formatting JSON on the Command Line</h2>
+
+      <p><code>jq</code> is the standard command-line JSON processor. Install it with your package manager.</p>
+
+      <div class="code-block">
+        <div class="code-header"><span>jq cheatsheet</span></div>
+        <div class="code-body"><pre><span style="color:#555570"># Pretty-print</span>
+cat data.json | jq .
+
+<span style="color:#555570"># Minify</span>
+jq -c . data.json
+
+<span style="color:#555570"># Extract a value</span>
+jq '.user.name' data.json
+
+<span style="color:#555570"># Filter array by condition</span>
+jq '.users[] | select(.active == true)' data.json
+
+<span style="color:#555570"># Output specific keys</span>
+jq '.users[] | {id, name}' data.json
+
+<span style="color:#555570"># Sort keys</span>
+jq --sort-keys . data.json
+
+<span style="color:#555570"># Pretty-print API response inline</span>
+curl -s https://api.example.com/data | jq .</pre></div>
+      </div>
+
+      <div class="callout callout-tip">
+        <div class="callout-head">Browser alternative</div>
+        <p>For quick formatting without installing anything, our <a href="../tools/coding/json-formatter.html">JSON Formatter</a> runs entirely in the browser. Upload a file, paste a payload, or use it for live diff comparison — no account required.</p>
+      </div>
+
+      <h2 id="json-vs-alternatives">JSON vs Alternatives in 2026</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Format</th><th>Best for</th><th>Weakness</th></tr></thead>
+          <tbody>
+            <tr><td><strong>JSON</strong></td><td>APIs, config, storage — universal support</td><td>No comments, strict syntax</td></tr>
+            <tr><td><strong>YAML</strong></td><td>Human-authored config (Docker, Kubernetes, GitHub Actions)</td><td>Indentation-sensitive, surprising type coercions</td></tr>
+            <tr><td><strong>TOML</strong></td><td>Config files — very readable for flat structures</td><td>Awkward for deeply nested data</td></tr>
+            <tr><td><strong>Protocol Buffers</strong></td><td>High-performance, typed, binary inter-service communication</td><td>Binary (not human-readable), requires schema</td></tr>
+            <tr><td><strong>MessagePack</strong></td><td>Binary JSON — same structure, smaller size</td><td>Not human-readable</td></tr>
+            <tr><td><strong>XML</strong></td><td>Document-centric data, SOAP APIs, SVG</td><td>Verbose, complex parsing</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>For most web APIs in 2026, JSON remains the default choice. Its universality, developer familiarity, and native browser/runtime support make it the lowest-friction option. Only switch to binary formats when measured performance requirements justify the added complexity.</p>
+
+    </div>
+
+    <!-- Author box -->
+    <div class="author-box">
+      <div class="author-avatar">T</div>
+      <div>
+        <div class="author-name">The Tool Empire Team</div>
+        <div class="author-bio">We build free, browser-based tools for developers and designers. No accounts, no limits — just fast tools that work in any browser. Explore the full collection at <a href="../tools.html" style="color:var(--primary);text-decoration:none">thetoolempire.com/tools</a>.</div>
+      </div>
+    </div>
+
+    <!-- Ad -->
+    <div style="margin-top:28px">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+
+    <!-- Related Tools -->
+    <div class="related-section">
+      <div class="related-title">Related Tools</div>
+      <div class="related-grid">
+        <a href="../tools/coding/json-formatter.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <div class="related-name">JSON Formatter</div>
+          <div class="related-desc">Format, validate, minify and repair JSON online.</div>
+        </a>
+        <a href="../tools/design/color-picker.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#a78bfa,#38bdf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></div>
+          <div class="related-name">Color Picker</div>
+          <div class="related-desc">HEX, RGB, HSL colour picker with harmonies.</div>
+        </a>
+        <a href="../tools/design/contrast-checker.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#a78bfa,#34d399)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+          <div class="related-name">Contrast Checker</div>
+          <div class="related-desc">WCAG AA/AAA accessibility compliance tool.</div>
+        </a>
+        <a href="../tools/text/diff-checker.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#34d399,#059669)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></div>
+          <div class="related-name">Text Diff Checker</div>
+          <div class="related-desc">Compare two text documents line by line.</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Related Blogs -->
+    <div class="related-section" style="margin-top:28px">
+      <div class="related-title">Related Articles</div>
+      <div class="related-grid">
+        <a href="hex-rgb-guide.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#38bdf8,#818cf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="related-name">HEX vs RGB: Complete Color Guide</div>
+          <div class="related-desc">Every color format with conversion formulas.</div>
+        </a>
+        <a href="gradient-generator-guide.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#a78bfa,#f472b6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="related-name">CSS Gradients Complete Guide</div>
+          <div class="related-desc">Linear, radial, and conic gradients explained.</div>
+        </a>
+        <a href="contrast-checker-guide.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#a78bfa,#34d399)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="related-name">WCAG Color Contrast Guide</div>
+          <div class="related-desc">Accessibility contrast rules and how to pass them.</div>
+        </a>
+        <a href="color-picker-guide.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#f97316,#fbbf24)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="related-name">Color Theory for Designers</div>
+          <div class="related-desc">HEX, RGB, HSL, CMYK and when to use each.</div>
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+  <!-- TOC Sidebar -->
+  <aside class="toc-sidebar">
+    <div class="toc-title">On this page</div>
+    <ul class="toc-list">
+      <li><a href="#what-is-json">What Is JSON?</a></li>
+      <li><a href="#json-syntax">The Six Data Types</a></li>
+      <li><a href="#json-object-syntax">Object Syntax</a></li>
+      <li><a href="#json-array-syntax">Array Syntax</a></li>
+      <li><a href="#string-values">String Rules &amp; Escapes</a></li>
+      <li><a href="#number-format">Number Format</a></li>
+      <li><a href="#common-errors">7 Common JSON Errors</a></li>
+      <li><a href="#formatting-json">Formatting: Beautify vs Minify</a></li>
+      <li><a href="#using-json-js">Using JSON in JavaScript</a></li>
+      <li><a href="#using-json-python">Using JSON in Python</a></li>
+      <li><a href="#json-in-apis">JSON in REST APIs</a></li>
+      <li><a href="#json5-jsonc">JSON5 and JSONC</a></li>
+      <li><a href="#json-schema">JSON Schema</a></li>
+      <li><a href="#best-practices">Best Practices 2026</a></li>
+      <li><a href="#jq-commandline">jq Command Line</a></li>
+      <li><a href="#json-vs-alternatives">JSON vs Alternatives</a></li>
+    </ul>
+  </aside>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+          <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+          <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#f59e0b"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../tools.html#coding">Coding Tools</a><a href="../tools.html#design">Design Tools</a><a href="../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../about.html">About</a><a href="../blog.html">Blog</a><a href="../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+</body>
+</html>

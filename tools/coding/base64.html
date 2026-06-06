@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Base64 Encoder & Decoder — Free Online Tool | The Tool Empire</title>
+  <meta name="description" content="Encode and decode Base64 online for free. Supports text, Unicode, URL-safe Base64, file-to-Base64 conversion, batch processing, and one-click download. No signup required."/>
+  <meta name="keywords" content="base64 encoder decoder online, base64 encode text, base64 decode, url safe base64, file to base64, base64 image encoder free"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/coding/base64.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Base64 Encoder & Decoder — Free Online Tool"/>
+  <meta property="og:description" content="Encode and decode Base64 instantly — text, Unicode, URL-safe, files. All in-browser, no data sent to any server."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/coding/base64.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"Base64 Encoder & Decoder","description":"Free browser-based Base64 encoder and decoder supporting text, Unicode, URL-safe Base64, file encoding, batch processing, and download.","url":"https://thetoolempire.com/tools/coding/base64.html","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Base64 text encoding and decoding","Unicode and emoji support","URL-safe Base64 (RFC 4648)","File to Base64 converter","Image preview from Base64","Batch line-by-line processing","Download output as file","No data sent to server"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Coding Tools","item":"https://thetoolempire.com/tools.html#coding"},
+      {"@type":"ListItem","position":3,"name":"Base64 Encoder Decoder","item":"https://thetoolempire.com/tools/coding/base64.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is Base64 encoding?","acceptedAnswer":{"@type":"Answer","text":"Base64 is a binary-to-text encoding scheme that represents binary data using 64 printable ASCII characters (A–Z, a–z, 0–9, +, /). It is used to safely transmit binary data over text-based systems like email and HTTP headers."}},
+      {"@type":"Question","name":"Is Base64 encryption?","acceptedAnswer":{"@type":"Answer","text":"No. Base64 is encoding, not encryption. It is fully reversible without any key. Anyone can decode Base64. Do not use it to protect sensitive data — use proper encryption like AES-256 for that purpose."}},
+      {"@type":"Question","name":"What is URL-safe Base64?","acceptedAnswer":{"@type":"Answer","text":"URL-safe Base64 (RFC 4648 §5) replaces + with - and / with _ so the encoded string can be used in URLs and filenames without percent-encoding. Padding (=) is also typically omitted."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="base64.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <rect x="7" y="11" width="22" height="3" rx="1.5" fill="#fff" fill-opacity=".9"/>
+        <rect x="7" y="17" width="16" height="3" rx="1.5" fill="#fff" fill-opacity=".7"/>
+        <rect x="7" y="23" width="19" height="3" rx="1.5" fill="#fff" fill-opacity=".55"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#818cf8"/><stop offset="1" stop-color="#c084fc"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="base64App()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li style="color:#e8e8f0">Base64 Encoder / Decoder</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot" style="width:100%;margin-bottom:18px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      Coding Tool
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">Base64</span> Encoder &amp; Decoder</h1>
+    <p class="tool-subtitle">Encode text to Base64 or decode Base64 back to text instantly. Supports Unicode, URL-safe mode, file encoding, and batch processing.</p>
+  </div>
+
+  <!-- Mode selector -->
+  <div class="mode-tabs">
+    <button class="mode-tab" :class="{active: mode==='encode'}" @click="setMode('encode')">Encode</button>
+    <button class="mode-tab" :class="{active: mode==='decode'}" @click="setMode('decode')">Decode</button>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="toolbar-group">
+      <button class="btn-tool btn-primary" @click="run()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <span x-text="mode==='encode'?'Encode':'Decode'"></span>
+      </button>
+      <button class="btn-tool btn-secondary" @click="swap()" title="Swap input/output and flip mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+        Swap
+      </button>
+    </div>
+    <div class="toolbar-divider"></div>
+    <div class="toolbar-group">
+      <label style="display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:var(--text-muted);cursor:pointer">
+        <input type="checkbox" x-model="urlSafe" @change="run()" style="accent-color:var(--primary)"/>
+        URL-safe (RFC 4648)
+      </label>
+    </div>
+    <div class="toolbar-divider"></div>
+    <div class="toolbar-group">
+      <button class="btn-tool btn-secondary" @click="download()" :disabled="!output">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        Download
+      </button>
+      <button class="btn-tool btn-danger" @click="clear()">Clear</button>
+    </div>
+    <div class="status-pill" :class="statusClass" x-text="statusLabel"></div>
+  </div>
+
+  <!-- Editor -->
+  <div class="editor-layout">
+    <!-- Input -->
+    <div class="editor-pane" :class="{'error-state': isValid===false}">
+      <div class="pane-header">
+        <span class="pane-title">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          <span x-text="mode==='encode'?'Plain Text Input':'Base64 Input'"></span>
+        </span>
+        <div class="pane-actions">
+          <button class="pane-btn" @click="copyInput()">Copy</button>
+          <button class="pane-btn" @click="clear()">Clear</button>
+        </div>
+      </div>
+      <div class="error-banner" :class="{visible: errorMsg}" x-text="errorMsg"></div>
+      <textarea
+        class="editor-textarea"
+        x-model="input"
+        @input="run()"
+        :placeholder="mode==='encode' ? 'Type or paste plain text here…' : 'Paste Base64 string here…'"
+        spellcheck="false"
+      ></textarea>
+    </div>
+
+    <!-- Output -->
+    <div class="editor-pane">
+      <div class="pane-header">
+        <span class="pane-title">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span x-text="mode==='encode'?'Base64 Output':'Decoded Text'"></span>
+        </span>
+        <div class="pane-actions">
+          <button class="pane-btn" @click="copyOutput()">Copy</button>
+          <button class="pane-btn" @click="download()">Download</button>
+        </div>
+      </div>
+      <pre class="output-pre" x-text="output || (isValid===false ? '' : (mode==='encode' ? 'Base64 output will appear here…' : 'Decoded text will appear here…'))" :style="!output ? 'color:var(--text-faint)' : ''"></pre>
+    </div>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="stats-bar" x-show="input.trim()">
+    <div class="stat-item">
+      <span class="stat-label">Input</span>
+      <span class="stat-value" x-text="inputSize"></span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Output</span>
+      <span class="stat-value" x-text="outputSize"></span>
+    </div>
+    <div class="stat-item" x-show="outputSizeRatio">
+      <span class="stat-label">Size ratio</span>
+      <span class="stat-value" x-text="outputSizeRatio"></span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Mode</span>
+      <span class="stat-value" x-text="urlSafe ? 'URL-safe' : 'Standard'"></span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Input chars</span>
+      <span class="stat-value" x-text="input.length"></span>
+    </div>
+    <div class="stat-item" x-show="output">
+      <span class="stat-label">Output chars</span>
+      <span class="stat-value" x-text="output.length"></span>
+    </div>
+  </div>
+
+  <!-- Ad -->
+  <div class="ad-slot" style="width:100%;margin-top:20px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- ── FILE TO BASE64 ── -->
+  <div class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">File to Base64 Converter</h2>
+      <p class="section-desc">Upload any file — image, PDF, font, audio — and instantly get its Base64-encoded data URI. Max 5 MB. Everything stays in your browser.</p>
+    </div>
+    <div style="max-width:640px;margin-inline:auto">
+      <div class="file-card">
+        <div class="file-drop-zone" x-show="!fileName">
+          <svg class="file-drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+          <div class="file-drop-text">Click or drag a file here</div>
+          <div class="file-drop-sub">Images, PDFs, fonts, audio — up to 5 MB</div>
+          <input type="file" class="file-input-hidden" @change="handleFile($event)"/>
+        </div>
+        <div x-show="fileError" style="color:#f87171;font-size:.85rem;margin:10px 0" x-text="fileError"></div>
+        <div x-show="fileName">
+          <!-- Image preview -->
+          <div x-show="imagePreviewSrc" style="margin-bottom:14px">
+            <img :src="imagePreviewSrc" alt="Preview" style="max-width:100%;max-height:200px;border-radius:var(--radius-md);border:1px solid var(--border);object-fit:contain"/>
+          </div>
+          <!-- File info -->
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:12px 14px;background:var(--bg-surface);border-radius:var(--radius-md);border:1px solid var(--border)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <div>
+              <div style="font-size:.9rem;font-weight:700;color:var(--text)" x-text="fileName"></div>
+              <div style="font-size:.75rem;color:var(--text-faint)" x-text="fileSize + ' · ' + fileMime"></div>
+            </div>
+            <button class="btn-tool btn-danger" style="margin-left:auto" @click="clearFile()">Remove</button>
+          </div>
+          <!-- Base64 output -->
+          <div class="file-result">
+            <div class="file-result-label">Base64 Data URI</div>
+            <div class="file-result-value" x-text="fileBase64.slice(0,300) + (fileBase64.length > 300 ? '…' : '')"></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+            <button class="btn-tool btn-primary" @click="copyRaw()">Copy Base64</button>
+            <button class="btn-tool btn-secondary" @click="() => { const a=document.createElement('a'); a.href=fileBase64; a.download='base64_'+fileName+'.txt'; a.click(); }">Download .txt</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── BATCH SECTION ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Batch Encoder / Decoder</h2>
+      <p class="section-desc">Process multiple values at once — one value per line. Each line is encoded or decoded independently.</p>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap">
+      <button class="btn-tool" :class="batchMode==='encode'?'btn-primary':'btn-secondary'" @click="batchMode='encode';runBatch()">Encode lines</button>
+      <button class="btn-tool" :class="batchMode==='decode'?'btn-primary':'btn-secondary'" @click="batchMode='decode';runBatch()">Decode lines</button>
+    </div>
+    <div class="batch-layout">
+      <div class="editor-pane">
+        <div class="pane-header">
+          <span class="pane-title">Input (one value per line)</span>
+          <div class="pane-actions"><button class="pane-btn" @click="batchInput='';batchOutput=''">Clear</button></div>
+        </div>
+        <textarea class="editor-textarea" x-model="batchInput" @input="runBatch()" placeholder="Hello World&#10;foo bar&#10;another value" spellcheck="false" style="min-height:200px"></textarea>
+      </div>
+      <div class="editor-pane">
+        <div class="pane-header">
+          <span class="pane-title">Output</span>
+          <div class="pane-actions"><button class="pane-btn" @click="copyBatch()">Copy all</button></div>
+        </div>
+        <pre class="output-pre" x-text="batchOutput || 'Results will appear here…'" :style="!batchOutput ? 'color:var(--text-faint)' : ''" style="min-height:200px"></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── HOW TO USE ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">How to Use This Tool</h2>
+      <p class="section-desc">Everything you can do with this Base64 encoder and decoder in one place.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-title">Encode Text</div>
+        <div class="step-desc">Select <strong>Encode</strong> mode, paste or type any plain text — including Unicode and emojis — into the input panel. Output updates in real time.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-title">Decode Base64</div>
+        <div class="step-desc">Switch to <strong>Decode</strong> mode, paste your Base64 string. Invalid characters are caught immediately with a clear error message showing exactly what went wrong.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-title">Use URL-Safe Mode</div>
+        <div class="step-desc">Check <strong>URL-safe</strong> to replace <code>+</code>→<code>-</code> and <code>/</code>→<code>_</code>. Use this for JWT tokens, URL parameters, and filenames that cannot contain those characters.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div class="step-title">Encode Files</div>
+        <div class="step-desc">Upload any file up to 5 MB in the <strong>File to Base64</strong> section. Images preview inline; all files produce a complete data URI you can copy or download.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">5</div>
+        <div class="step-title">Batch Process</div>
+        <div class="step-desc">Need to encode or decode many values? Use the <strong>Batch</strong> section — one value per line. Lines with errors show inline error labels without stopping other lines.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">6</div>
+        <div class="step-title">Swap & Download</div>
+        <div class="step-desc">Click <strong>Swap</strong> to push output back to input and flip the mode — useful for verifying a round-trip. Download the result as a <code>.txt</code> file anytime.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FEATURES ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Everything Packed In</h2>
+      <p class="section-desc">No installs, no accounts, no data leaving your device.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🔤</div>
+        <div class="feature-title">Full Unicode Support</div>
+        <div class="feature-desc">Encodes any Unicode character — including emoji, CJK, Arabic, and RTL scripts — using UTF-8 byte encoding before Base64.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔗</div>
+        <div class="feature-title">URL-Safe Base64</div>
+        <div class="feature-desc">RFC 4648 §5 compliant — replaces <code>+/</code> with <code>-_</code> and strips padding. Required for JWTs, OAuth tokens, and URL parameters.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🖼️</div>
+        <div class="feature-title">File Encoder</div>
+        <div class="feature-desc">Encode any file to a data URI. Images preview inline. Copy the raw Base64 or the full <code>data:mime;base64,…</code> string.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <div class="feature-title">Batch Processing</div>
+        <div class="feature-desc">Encode or decode multiple values at once — one per line. Each line processed independently; errors don't break other lines.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔁</div>
+        <div class="feature-title">Swap Mode</div>
+        <div class="feature-desc">One click swaps input/output and flips encode/decode mode — perfect for verifying round-trip correctness.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Size Stats</div>
+        <div class="feature-desc">Live stats show input/output byte size and the size ratio — Base64 adds ~33% overhead, confirmed visually.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">100% Private</div>
+        <div class="feature-desc">All processing happens in your browser via native JavaScript APIs. Your data is never sent to any server.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💾</div>
+        <div class="feature-title">Download Output</div>
+        <div class="feature-desc">Download encoded or decoded results as a <code>.txt</code> file with one click. No clipboard size limits.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── CHEATSHEET ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Base64 Quick Reference</h2>
+      <p class="section-desc">The key facts developers need to know about Base64.</p>
+    </div>
+    <div class="cheat-grid">
+      <div class="cheat-card">
+        <div class="cheat-title">Character Set (standard)</div>
+        <div class="cheat-body">A–Z  (26)
+a–z  (26)
+0–9  (10)
++    (1)
+/    (1)
+=    padding
+─────────────
+Total: 64 chars</div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">URL-safe differences</div>
+        <div class="cheat-body">Standard → URL-safe
++    →    -
+/    →    _
+=    →    (omitted)
+
+Use for: JWT, OAuth tokens,
+URLs, filenames, cookies</div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Size overhead</div>
+        <div class="cheat-body">Every 3 bytes → 4 chars
+Overhead: ~33.3%
+
+10 KB plain text
+→ ~13.3 KB Base64
+
+Images in HTML are
+~33% heavier as data URIs</div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">JavaScript (browser)</div>
+        <div class="cheat-body">// Encode ASCII
+btoa("hello")
+// → "aGVsbG8="
+
+// Decode
+atob("aGVsbG8=")
+// → "hello"
+
+// Unicode needs escaping
+btoa(unescape(
+  encodeURIComponent(str)))</div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Python</div>
+        <div class="cheat-body">import base64
+
+# Encode
+base64.b64encode(
+  b"Hello")
+# → b"SGVsbG8="
+
+# Decode
+base64.b64decode(
+  "SGVsbG8=")
+# → b"Hello"
+
+# URL-safe
+base64.urlsafe_b64encode(...)</div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Common uses</div>
+        <div class="cheat-body">✓ HTTP Basic Auth headers
+✓ Data URIs (images/fonts)
+✓ JWT token encoding
+✓ Email attachment (MIME)
+✓ Binary data in JSON/XML
+✓ Cryptographic key storage
+✗ NOT for security/passwords</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FAQ ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-desc">Everything you need to know about Base64 encoding and this tool.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is Base64 and why is it used?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Base64 is a binary-to-text encoding scheme that converts arbitrary binary data into a string of 64 printable ASCII characters. It exists because many text-based protocols — such as email (SMTP/MIME), HTTP headers, HTML attributes, and JSON — were designed for text only and cannot reliably transmit arbitrary binary bytes. Base64 bridges the gap, allowing binary data like images, certificates, and files to travel over these text channels without corruption.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Is Base64 the same as encryption?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>No. Base64 is <strong>encoding</strong>, not encryption. It is completely reversible by anyone — no key or password is needed to decode it. It provides zero security or confidentiality. Never use Base64 as a way to "hide" or "protect" sensitive data like passwords, tokens, or personal information. For actual security, use proper encryption algorithms such as AES-256, RSA, or bcrypt (for passwords).</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is URL-safe Base64?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Standard Base64 uses <code>+</code> and <code>/</code> characters, which have special meanings in URLs (<code>+</code> means space in query strings; <code>/</code> separates URL path segments). URL-safe Base64 (defined in RFC 4648 §5) replaces <code>+</code> with <code>-</code> and <code>/</code> with <code>_</code>, making the output safe in URLs, filenames, cookies, and HTTP headers without percent-encoding. Padding (<code>=</code>) is typically omitted too. Use URL-safe for JWTs, OAuth tokens, and any Base64 value that will appear in a URL.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">How much does Base64 increase file size?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Base64 increases the encoded size by approximately <strong>33%</strong>. The math: every 3 bytes of input becomes 4 Base64 characters (each character representing 6 bits). So a 100 KB image becomes roughly 133 KB in Base64. When embedding images as data URIs in HTML or CSS, this overhead is a real cost — weigh it against the HTTP request saved. For large assets, a separate file request is typically more efficient.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Why does Base64 end with = signs?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Base64 processes input in 3-byte (24-bit) groups and outputs 4-character groups. When the input length is not a multiple of 3, padding characters (<code>=</code>) are added to make the output length a multiple of 4. One <code>=</code> means 1 byte was added; two <code>==</code> means 2 bytes were padded. URL-safe Base64 often strips padding since the decoder can calculate the original length from the character count alone.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Can I encode images to Base64 with this tool?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Yes. Use the <strong>File to Base64</strong> section on this page. Upload any image file (JPEG, PNG, GIF, SVG, WebP) up to 5 MB. The tool generates a complete <code>data:image/...;base64,...</code> data URI that you can paste directly into an HTML <code>img</code> tag's <code>src</code> attribute, a CSS <code>background-image</code>, or a <code>&lt;img src="..."&gt;</code> element. Images also preview inline so you can verify the encoding before copying.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Why does encoding Unicode fail with btoa()?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>The native browser function <code>btoa()</code> only accepts "Latin1" characters (code points 0–255). Unicode characters like emoji (🌍) or CJK characters have code points above 255, causing a <code>DOMException: Failed to execute 'btoa'</code> error. The solution is to first encode the string as UTF-8 bytes: <code>btoa(unescape(encodeURIComponent(str)))</code>. This tool handles that automatically so you never need to worry about it.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Is my data sent to a server?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>No. All encoding and decoding happens entirely in your browser using native JavaScript APIs (<code>btoa</code>, <code>atob</code>, <code>FileReader</code>, <code>TextEncoder</code>). Your text, files, and Base64 strings are never sent to any server, never stored, and never logged. This makes the tool safe for sensitive payloads like API keys, tokens, and internal data.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is a Base64 data URI?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>A data URI embeds a file's full contents directly in a URL string. The format is <code>data:[mime type];base64,[Base64 data]</code>. For example: <code>data:image/png;base64,iVBORw0KGgo…</code>. Data URIs let you embed images, fonts, and small files directly into HTML, CSS, or JSON without a separate HTTP request. They're useful for email templates, single-file web pages, and small icons — but for larger files, separate requests are usually more performant.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">How is Base64 used in JWTs?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>JSON Web Tokens (JWTs) consist of three URL-safe Base64-encoded parts separated by dots: <code>header.payload.signature</code>. The header and payload are JSON objects encoded with URL-safe Base64 (no padding). The signature is computed over the header and payload using HMAC or RSA. Since the encoding is URL-safe, JWTs can be placed directly in HTTP headers, URL parameters, and cookies. Critically, the payload is only <em>encoded</em> — not encrypted — so anyone can read it by decoding it. Use JWE if the payload needs to be private.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── RELATED TOOLS ── -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="json-formatter.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <div class="related-name">JSON Formatter</div>
+        <div class="related-desc">Format, validate, minify and repair JSON.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../text/diff-checker.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#34d399,#059669)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></div>
+        <div class="related-name">Text Diff Checker</div>
+        <div class="related-desc">Compare two blocks of text side by side.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../design/hex-rgb-converter.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#38bdf8,#818cf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></div>
+        <div class="related-name">HEX RGB Converter</div>
+        <div class="related-desc">Convert between HEX, RGB, HSL, and CMYK.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="qr-code-maker.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f97316,#fbbf24)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM17 17h3v3h-3z"/></svg></div>
+        <div class="related-name">QR Code Maker</div>
+        <div class="related-desc">Generate QR codes for URLs and text.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Related Blogs -->
+  <div class="page-section" style="margin-top:20px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Articles</h2>
+      <a href="../../blog.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="../../blog/base64-guide.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#818cf8,#c084fc)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="related-name">Base64 Complete Guide</div>
+        <div class="related-desc">How Base64 works, when to use it, and common pitfalls.</div>
+        <span class="related-link">Read article →</span>
+      </a>
+      <a href="../../blog/json-formatter-guide.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="related-name">JSON Developer Guide</div>
+        <div class="related-desc">JSON syntax, validation, and best practices.</div>
+        <span class="related-link">Read article →</span>
+      </a>
+      <a href="../../blog/hex-rgb-guide.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#38bdf8,#818cf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="related-name">HEX vs RGB Guide</div>
+        <div class="related-desc">Color format guide for designers and developers.</div>
+        <span class="related-link">Read article →</span>
+      </a>
+      <a href="../../blog/contrast-checker-guide.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#a78bfa,#34d399)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="related-name">WCAG Contrast Guide</div>
+        <div class="related-desc">Accessibility color contrast rules explained.</div>
+        <span class="related-link">Read article →</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <rect x="7" y="11" width="22" height="3" rx="1.5" fill="#fff" fill-opacity=".9"/>
+          <rect x="7" y="17" width="16" height="3" rx="1.5" fill="#fff" fill-opacity=".7"/>
+          <rect x="7" y="23" width="19" height="3" rx="1.5" fill="#fff" fill-opacity=".55"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#818cf8"/><stop offset="1" stop-color="#c084fc"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#coding">Coding Tools</a><a href="../../tools.html#design">Design Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a><a href="../../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="base64.js"></script>
+</body>
+</html>

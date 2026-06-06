@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Every HTML Entity You Actually Need — Special Characters, XSS, and When to Encode (2026)</title>
+  <meta name="description" content="A practical look at HTML entities: which characters you must always encode, named vs numeric entities, how encoding stops XSS, and the full reference table developers bookmark."/>
+  <meta name="keywords" content="html entities reference, html encoding explained, html special characters, html entities list 2026, html escape characters, xss html encoding, &amp;amp; &amp;lt; &amp;gt; meaning"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/blog/html-entities-explained.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="Every HTML Entity You Actually Need (2026)"/>
+  <meta property="og:description" content="Named vs numeric entities, the five you must always encode, how encoding blocks XSS, and a full reference table."/>
+  <meta property="og:url" content="https://thetoolempire.com/blog/html-entities-explained.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"BlogPosting",
+      "headline":"Every HTML Entity You Actually Need — Special Characters, XSS, and When to Encode (2026)",
+      "description":"A practical look at HTML entities: which characters you must always encode, named vs numeric entities, how encoding stops XSS, and a full reference table.",
+      "url":"https://thetoolempire.com/blog/html-entities-explained.html",
+      "datePublished":"2026-06-06","dateModified":"2026-06-06",
+      "author":{"@type":"Organization","name":"The Tool Empire"},
+      "publisher":{"@type":"Organization","name":"The Tool Empire","logo":{"@type":"ImageObject","url":"https://thetoolempire.com/assets/favicon.svg"}},
+      "mainEntityOfPage":"https://thetoolempire.com/blog/html-entities-explained.html"
+    },
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Blog","item":"https://thetoolempire.com/blog.html"},
+      {"@type":"ListItem","position":3,"name":"HTML Entities Explained","item":"https://thetoolempire.com/blog/html-entities-explained.html"}
+    ]}
+  ]}</script>
+
+  <style>
+    :root{--bg:#0f0f14;--bg-card:#1e1e28;--bg-surface:#18181f;--border:rgba(255,255,255,.08);--text:#e8e8f0;--text-muted:#a0a0bc;--text-faint:#555570;--primary:#34d399;--secondary:#06b6d4;--radius-md:14px;--radius-sm:8px;--transition:.2s}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.7;font-size:1rem}
+
+    .site-header{position:sticky;top:0;z-index:100;background:rgba(15,15,20,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+    .header-inner{max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none}.logo-icon{width:32px;height:32px}.logo-text{font-weight:700;font-size:1.1rem;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .main-nav{display:flex;gap:6px}.nav-link{padding:6px 14px;border-radius:var(--radius-sm);font-size:.87rem;font-weight:500;color:var(--text-muted);text-decoration:none;transition:all var(--transition)}.nav-link:hover,.nav-link.active{color:var(--text);background:rgba(255,255,255,.06)}
+
+    #progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--secondary));width:0%;z-index:200;transition:width .1s linear}
+
+    .blog-wrap{max-width:1200px;margin:0 auto;padding:32px 24px;display:grid;grid-template-columns:1fr 280px;gap:40px;align-items:start}
+    @media(max-width:1023px){.blog-wrap{grid-template-columns:1fr}.toc-sidebar{display:none!important}}
+
+    .article-header{margin-bottom:36px}
+    .article-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(52,211,153,.1);color:var(--primary);border:1px solid rgba(52,211,153,.2);margin-bottom:18px}
+    .article-title{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:800;line-height:1.22;margin-bottom:18px;letter-spacing:-.02em}
+    .gradient-title{background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .article-meta{display:flex;align-items:center;flex-wrap:wrap;gap:14px;font-size:.82rem;color:var(--text-faint)}
+    .meta-item{display:flex;align-items:center;gap:5px}
+    .meta-sep{width:3px;height:3px;border-radius:50%;background:var(--border)}
+
+    .article-body h2{font-size:1.45rem;font-weight:700;margin:2.4rem 0 .9rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);color:var(--text)}
+    .article-body h3{font-size:1.12rem;font-weight:700;margin:1.8rem 0 .7rem;color:var(--text)}
+    .article-body p{margin-bottom:1.1rem;color:var(--text-muted)}
+    .article-body ul,.article-body ol{padding-left:1.6rem;margin-bottom:1.1rem;color:var(--text-muted)}
+    .article-body li{margin-bottom:.45rem}
+    .article-body strong{color:var(--text);font-weight:600}
+    .article-body code{background:rgba(52,211,153,.1);color:var(--primary);padding:2px 7px;border-radius:5px;font-family:'Fira Code',monospace;font-size:.86em}
+    .article-body a{color:var(--primary);text-decoration:none;border-bottom:1px solid rgba(52,211,153,.3)}.article-body a:hover{border-color:var(--primary)}
+
+    .code-block{background:#12121a;border:1px solid var(--border);border-radius:var(--radius-md);margin:1.4rem 0;overflow:hidden}
+    .code-header{display:flex;padding:10px 16px;border-bottom:1px solid var(--border);font-size:.75rem;font-weight:700;color:var(--text-faint);text-transform:uppercase;letter-spacing:.07em}
+    .code-body{padding:18px 20px;overflow-x:auto}
+    .code-body pre{font-family:'Fira Code',monospace;font-size:.85rem;line-height:1.7;color:#e8e8f0;white-space:pre}
+
+    /* entity demo rows */
+    .entity-demo{display:flex;flex-wrap:wrap;gap:8px;margin:1.2rem 0}
+    .entity-pill{display:inline-flex;align-items:center;gap:8px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 14px;font-family:'Fira Code',monospace;font-size:.82rem}
+    .entity-pill .char{font-size:1.1rem;font-weight:700;min-width:22px;text-align:center}
+    .entity-pill .arrow{color:var(--text-faint)}
+    .entity-pill .entity{color:var(--primary)}
+
+    /* big reference table */
+    .ref-table-wrap{overflow-x:auto;margin:1.4rem 0;border-radius:var(--radius-md);border:1px solid var(--border)}
+    .ref-table{width:100%;border-collapse:collapse;font-size:.85rem}
+    .ref-table th{background:rgba(255,255,255,.05);padding:9px 12px;text-align:left;font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-faint);border-bottom:1px solid var(--border)}
+    .ref-table td{padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text-muted);vertical-align:middle}
+    .ref-table tr:last-child td{border-bottom:none}
+    .ref-table tr:hover td{background:rgba(255,255,255,.02)}
+    .ref-table .char-cell{font-size:1.2rem;font-weight:700;color:var(--text);text-align:center;width:42px}
+    .ref-table .entity-cell{font-family:'Fira Code',monospace;color:var(--primary)}
+    .ref-table .num-cell{font-family:'Fira Code',monospace;color:#94a3b8;font-size:.78rem}
+    .ref-table .cat-head td{background:rgba(52,211,153,.06);font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--primary);padding:6px 12px}
+
+    /* XSS demo */
+    .xss-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.4rem 0}
+    @media(max-width:700px){.xss-row{grid-template-columns:1fr}}
+    .xss-box{border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border)}
+    .xss-label{padding:8px 14px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;background:rgba(255,255,255,.04);border-bottom:1px solid var(--border)}
+    .xss-label.bad{color:#f87171}.xss-label.good{color:var(--primary)}
+    .xss-pre{padding:14px 16px;font-family:'Fira Code',monospace;font-size:.82rem;line-height:1.65;color:#e8e8f0;background:#12121a;white-space:pre-wrap}
+
+    .callout{border-radius:var(--radius-md);padding:16px 20px;margin:1.5rem 0;border-left:4px solid}
+    .callout-tip{background:rgba(52,211,153,.07);border-color:var(--primary)}.callout-tip .callout-head{color:var(--primary)}
+    .callout-info{background:rgba(6,182,212,.07);border-color:var(--secondary)}.callout-info .callout-head{color:var(--secondary)}
+    .callout-warn{background:rgba(251,191,36,.07);border-color:#fbbf24}.callout-warn .callout-head{color:#fbbf24}
+    .callout-danger{background:rgba(248,113,113,.07);border-color:#f87171}.callout-danger .callout-head{color:#f87171}
+    .callout-head{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+    .callout p,.callout li{margin:0;font-size:.9rem;color:var(--text-muted)}
+    .callout ul{padding-left:1.2rem;margin-top:6px}
+
+    .tool-spotlight{background:linear-gradient(135deg,rgba(52,211,153,.12),rgba(6,182,212,.08));border:1px solid rgba(52,211,153,.25);border-radius:var(--radius-md);padding:24px;margin:2rem 0;text-align:center}
+    .spotlight-title{font-size:1.1rem;font-weight:700;margin-bottom:6px}
+    .spotlight-desc{font-size:.9rem;color:var(--text-muted);margin-bottom:16px}
+    .spotlight-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:var(--radius-sm);background:linear-gradient(135deg,var(--primary),var(--secondary));color:#0f0f14;font-weight:700;font-size:.9rem;text-decoration:none;transition:opacity var(--transition)}.spotlight-btn:hover{opacity:.88}
+
+    .toc-sidebar{position:sticky;top:90px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:20px}
+    .toc-title{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:14px}
+    .toc-list{list-style:none;display:flex;flex-direction:column;gap:4px}
+    .toc-list a{font-size:.83rem;color:var(--text-muted);text-decoration:none;padding:4px 8px;border-radius:var(--radius-sm);display:block;transition:all var(--transition);border-left:2px solid transparent}.toc-list a:hover{color:var(--text);background:rgba(255,255,255,.04);border-color:var(--primary)}
+
+    .author-box{display:flex;align-items:flex-start;gap:18px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:22px;margin-top:2.5rem}
+    .author-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.2rem;color:#0f0f14;flex-shrink:0}
+    .author-name{font-weight:700;font-size:1rem;margin-bottom:4px}
+    .author-bio{font-size:.85rem;color:var(--text-muted);line-height:1.6}
+
+    .related-section{margin-top:2.5rem}
+    .related-title{font-size:1.1rem;font-weight:700;margin-bottom:16px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+    .related-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;text-decoration:none;transition:border-color var(--transition)}.related-card:hover{border-color:rgba(52,211,153,.4)}
+    .related-icon{width:36px;height:36px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;margin-bottom:10px}.related-icon svg{width:18px;height:18px;stroke:#fff}
+    .related-name{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:4px}
+    .related-desc{font-size:.8rem;color:var(--text-faint)}
+
+    .site-footer{background:var(--bg-card);border-top:1px solid var(--border);padding:48px 24px 24px;margin-top:64px}
+    .footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+    @media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+    .footer-brand-text{font-size:.85rem;color:var(--text-faint);margin-top:8px;line-height:1.6}
+    .footer-heading{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:12px}
+    .footer-links{display:flex;flex-direction:column;gap:8px}.footer-links a{font-size:.87rem;color:var(--text-muted);text-decoration:none;transition:color var(--transition)}.footer-links a:hover{color:var(--text)}
+    .footer-bottom{max-width:1200px;margin:32px auto 0;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.8rem;color:var(--text-faint)}
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<script>window.addEventListener('scroll',()=>{const d=document.documentElement;const p=(d.scrollTop||document.body.scrollTop)/(d.scrollHeight-d.clientHeight)*100;document.getElementById('progress-bar').style.width=p+'%';});</script>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <path d="M8 12l4 6-4 6M14 24h14" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".9"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#34d399"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../tools.html" class="nav-link">Tools</a>
+      <a href="../blog.html" class="nav-link active">Blog</a>
+      <a href="../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="blog-wrap">
+  <article>
+
+    <div style="margin-bottom:24px">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+
+    <nav aria-label="Breadcrumb" style="margin-bottom:18px">
+      <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:var(--text-faint);flex-wrap:wrap">
+        <li><a href="../index.html" style="color:var(--text-faint)">Home</a></li><li>›</li>
+        <li><a href="../blog.html" style="color:var(--text-faint)">Blog</a></li><li>›</li>
+        <li style="color:var(--text-muted)">HTML Entities Explained</li>
+      </ol>
+    </nav>
+
+    <header class="article-header">
+      <div class="article-tag">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="4 6 2 12 4 18"/><polyline points="20 6 22 12 20 18"/></svg>
+        HTML &amp; Web Dev
+      </div>
+      <h1 class="article-title"><span class="gradient-title">Every HTML Entity You Actually Need</span> — Special Characters, XSS, and When to Encode (2026)</h1>
+      <div class="article-meta">
+        <span class="meta-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          9 min read
+        </span>
+        <span class="meta-sep"></span>
+        <span class="meta-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          June 6, 2026
+        </span>
+        <span class="meta-sep"></span>
+        <span class="meta-item">HTML, Security, Typography</span>
+      </div>
+    </header>
+
+    <div class="article-body">
+
+      <p>HTML entities are one of those topics developers learn once, use constantly, and somehow never fully nail down. When do you actually need them? What's the difference between <code>&amp;amp;</code> and <code>&amp;#38;</code>? And why does skipping them in the wrong place turn a web form into an attack surface?</p>
+
+      <p>This article cuts through the noise. You'll get the five characters you must always encode, a full reference table to bookmark, a clear explanation of how encoding blocks XSS, and the context-specific rules that most tutorials skip.</p>
+
+      <div class="tool-spotlight">
+        <div class="spotlight-title">Need to encode or decode HTML entities right now?</div>
+        <div class="spotlight-desc">Our free HTML Encoder &amp; Decoder handles named entities, numeric codes, live preview, and 80+ entity quick-insert — all in your browser.</div>
+        <a href="../tools/coding/html-encoder.html" class="spotlight-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="4 6 2 12 4 18"/><polyline points="20 6 22 12 20 18"/></svg>
+          Open HTML Encoder
+        </a>
+      </div>
+
+      <div style="margin:24px 0">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+      </div>
+
+      <h2 id="what-are-entities">What an HTML Entity Actually Is</h2>
+
+      <p>An HTML entity is a text sequence that represents a single character. Every entity starts with <code>&amp;</code> and ends with <code>;</code>. Between those delimiters is either a name (<code>&amp;amp;</code>) or a number (<code>&amp;#38;</code> or <code>&amp;#x26;</code>).</p>
+
+      <p>The browser's HTML parser recognises these sequences and replaces them with the corresponding character before rendering. So <code>&amp;lt;</code> in source becomes a visible <code>&lt;</code> on screen — it's shown as text, not treated as a tag opener.</p>
+
+      <p>There are two reasons to use entities:</p>
+      <ol>
+        <li><strong>Safety</strong> — to prevent characters with HTML meaning from being parsed as markup when they should display as text.</li>
+        <li><strong>Convenience</strong> — to insert characters that are hard or impossible to type directly, like © or —.</li>
+      </ol>
+
+      <h2 id="the-five">The Five Characters You Must Always Encode</h2>
+
+      <p>These five characters have structural meaning in HTML. Any time they appear in text content or attribute values that come from user input or an external source, they must be encoded. Skipping even one is a path to broken markup or an XSS hole.</p>
+
+      <div class="entity-demo">
+        <div class="entity-pill"><span class="char">&amp;</span><span class="arrow">→</span><span class="entity">&amp;amp;</span></div>
+        <div class="entity-pill"><span class="char">&lt;</span><span class="arrow">→</span><span class="entity">&amp;lt;</span></div>
+        <div class="entity-pill"><span class="char">&gt;</span><span class="arrow">→</span><span class="entity">&amp;gt;</span></div>
+        <div class="entity-pill"><span class="char">"</span><span class="arrow">→</span><span class="entity">&amp;quot;</span></div>
+        <div class="entity-pill"><span class="char">'</span><span class="arrow">→</span><span class="entity">&amp;apos;</span></div>
+      </div>
+
+      <p>A quick breakdown of why each one matters:</p>
+      <ul>
+        <li><strong>&amp;</strong> starts every entity sequence. Unencoded ampersands in text cause parsing ambiguity and invalid HTML. In URLs inside href attributes, an unencoded <code>&amp;</code> between query parameters is treated as an entity opener, not a separator — use <code>&amp;amp;</code>.</li>
+        <li><strong>&lt;</strong> opens HTML tags. Any unencoded <code>&lt;</code> in content can cause the parser to start reading a tag, breaking layout or creating an injection point.</li>
+        <li><strong>&gt;</strong> closes HTML tags. Less dangerous than <code>&lt;</code> in practice, but still needs encoding for spec compliance and to prevent edge-case parser issues.</li>
+        <li><strong>"</strong> terminates double-quoted attribute values. Inside <code>href="..."</code> or any attribute, an unencoded <code>"</code> ends the value early.</li>
+        <li><strong>'</strong> terminates single-quoted attribute values. Same issue for <code>href='...'</code>.</li>
+      </ul>
+
+      <div class="callout callout-warn">
+        <div class="callout-head">Real-world example</div>
+        <p>A URL with query parameters like <code>?name=Alice&amp;city=Berlin</code> inside an <code>href</code> attribute must be written as <code>href="?name=Alice&amp;amp;city=Berlin"</code>. Without encoding the <code>&amp;</code>, validators flag invalid HTML and some parsers misread the parameter boundary.</p>
+      </div>
+
+      <h2 id="named-vs-numeric">Named vs Numeric Entities</h2>
+
+      <p>Every HTML entity can be written two ways: by name or by Unicode code point number.</p>
+
+      <div class="code-block">
+        <div class="code-header"><span>Three ways to write the same character (©)</span></div>
+        <div class="code-body"><pre>Named:    &amp;copy;        ← readable, human-friendly
+Decimal:  &amp;#169;        ← Unicode code point in base 10
+Hex:      &amp;#xA9;        ← Unicode code point in base 16
+
+All three render as: ©</pre></div>
+      </div>
+
+      <p><strong>Named entities</strong> are easier to read and write. You see <code>&amp;mdash;</code> and immediately know it's an em dash. The downside is that not every character has a name — only a few hundred do, compared to over a million Unicode code points.</p>
+
+      <p><strong>Numeric entities</strong> work for any Unicode character, named or not. If you need a specific emoji or obscure symbol, use <code>&amp;#[codepoint];</code>. They're less readable but universally applicable.</p>
+
+      <div class="callout callout-info">
+        <div class="callout-head">A note on &amp;apos;</div>
+        <p><code>&amp;apos;</code> for the apostrophe was defined in XML and XHTML but was technically not part of HTML4. It's fully supported in HTML5 and all modern browsers. Use it freely — just be aware that very old or obscure parsers from pre-2008 might not recognise it (use <code>&amp;#39;</code> as a numeric fallback in those cases).</p>
+      </div>
+
+      <h2 id="xss">How HTML Encoding Stops XSS</h2>
+
+      <p>Cross-site scripting (XSS) happens when an attacker's JavaScript ends up running in another user's browser. The most common path: a user submits text containing <code>&lt;script&gt;</code> tags or event handler attributes, and the server returns that text inside an HTML page without encoding it.</p>
+
+      <div class="xss-row">
+        <div class="xss-box">
+          <div class="xss-label bad">✗ Unencoded — dangerous</div>
+          <pre class="xss-pre">User input:
+&lt;script&gt;document.cookie&lt;/script&gt;
+
+Inserted into page:
+&lt;p&gt;&lt;script&gt;document.cookie&lt;/script&gt;&lt;/p&gt;
+
+Result: script executes, steals cookies</pre>
+        </div>
+        <div class="xss-box">
+          <div class="xss-label good">✓ Encoded — safe</div>
+          <pre class="xss-pre">User input (same):
+&lt;script&gt;document.cookie&lt;/script&gt;
+
+After encoding:
+&lt;p&gt;&amp;lt;script&amp;gt;document.cookie
+&amp;lt;/script&amp;gt;&lt;/p&gt;
+
+Result: displays as text, does nothing</pre>
+        </div>
+      </div>
+
+      <p>Encoding works because <code>&amp;lt;script&amp;gt;</code> is text content — the browser displays the characters <code>&lt;script&gt;</code> on screen rather than creating a script element. The attack is neutralised at the rendering stage.</p>
+
+      <div class="callout callout-danger">
+        <div class="callout-head">Encoding is context-dependent</div>
+        <p>HTML encoding alone is not sufficient in every context:</p>
+        <ul>
+          <li><strong>JavaScript strings</strong> — data inside <code>&lt;script&gt;</code> tags needs JavaScript escaping (<code>\"</code>, <code>\'</code>, <code>\\</code>), not HTML entities</li>
+          <li><strong>CSS values</strong> — data inside <code>style</code> attributes needs CSS escaping</li>
+          <li><strong>URL parameters</strong> — values in href/src attributes need URL encoding (<code>%20</code>, etc.) in addition to HTML encoding of the surrounding attribute</li>
+          <li><strong>JavaScript event handlers</strong> — avoid putting untrusted data directly in onclick, onmouseover, etc.</li>
+        </ul>
+      </div>
+
+      <h2 id="when-not-to">When You Don't Need to Encode</h2>
+
+      <p>Modern UTF-8 HTML documents served with <code>&lt;meta charset="UTF-8"&gt;</code> can contain most Unicode characters directly — accented letters, emoji, currency symbols, math operators — without any encoding. You don't need to write <code>&amp;eacute;</code> for é if your document is UTF-8 and your text editor saves in UTF-8.</p>
+
+      <p>The only characters you always must encode, regardless of charset, are the five structural ones: <code>&amp;</code>, <code>&lt;</code>, <code>&gt;</code>, <code>"</code>, and <code>'</code>.</p>
+
+      <p>Use named entities for these cases:</p>
+      <ul>
+        <li>Your CMS or template system mangles certain characters on save</li>
+        <li>You're working in a legacy ASCII-only environment</li>
+        <li>The character is difficult to type and the entity name is more readable (<code>&amp;mdash;</code> for —)</li>
+        <li>You want explicit documentation that a space is intentionally non-breaking (<code>&amp;nbsp;</code>)</li>
+      </ul>
+
+      <h2 id="typography">Typography Entities Worth Knowing</h2>
+
+      <p>These are the most useful typography-related entities — the ones that separate professional copy from sloppy copy.</p>
+
+      <div class="entity-demo">
+        <div class="entity-pill"><span class="char">—</span><span class="arrow">→</span><span class="entity">&amp;mdash;</span></div>
+        <div class="entity-pill"><span class="char">–</span><span class="arrow">→</span><span class="entity">&amp;ndash;</span></div>
+        <div class="entity-pill"><span class="char">"</span><span class="arrow">→</span><span class="entity">&amp;ldquo;</span></div>
+        <div class="entity-pill"><span class="char">"</span><span class="arrow">→</span><span class="entity">&amp;rdquo;</span></div>
+        <div class="entity-pill"><span class="char">'</span><span class="arrow">→</span><span class="entity">&amp;lsquo;</span></div>
+        <div class="entity-pill"><span class="char">'</span><span class="arrow">→</span><span class="entity">&amp;rsquo;</span></div>
+        <div class="entity-pill"><span class="char">…</span><span class="arrow">→</span><span class="entity">&amp;hellip;</span></div>
+        <div class="entity-pill"><span class="char"> </span><span class="arrow">→</span><span class="entity">&amp;nbsp;</span></div>
+      </div>
+
+      <p>Quick usage rules:</p>
+      <ul>
+        <li><strong>Em dash (—)</strong> is used for a strong parenthetical break or interruption — like this — with no spaces on either side in American style, or with thin spaces in British style.</li>
+        <li><strong>En dash (–)</strong> is used for ranges (pages 12–18, 2020–2026) and as a minus sign in text.</li>
+        <li><strong>Curly quotes (" " ' ')</strong> are the typographically correct form. Straight quotes (<code>"</code> and <code>'</code>) are typewriter artifacts. Use curly quotes in published content.</li>
+        <li><strong>Ellipsis (…)</strong> is a single character, not three periods. It spaces differently and doesn't break across lines.</li>
+        <li><strong>Non-breaking space (&amp;nbsp;)</strong> prevents a line break between two words. Use it for measurements (10&amp;nbsp;kg), titles (Dr.&amp;nbsp;Smith), and units.</li>
+      </ul>
+
+      <h2 id="full-reference">Full Entity Reference Table</h2>
+
+      <p>The entities developers actually use — grouped by category. Use our <a href="../tools/coding/html-encoder.html">HTML Encoder</a> to quickly encode any of these into your markup.</p>
+
+      <div class="ref-table-wrap">
+        <table class="ref-table">
+          <thead><tr><th>Char</th><th>Named</th><th>Numeric</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr class="cat-head"><td colspan="4">Essential — always encode</td></tr>
+            <tr><td class="char-cell">&amp;</td><td class="entity-cell">&amp;amp;</td><td class="num-cell">&amp;#38;</td><td>Ampersand</td></tr>
+            <tr><td class="char-cell">&lt;</td><td class="entity-cell">&amp;lt;</td><td class="num-cell">&amp;#60;</td><td>Less-than sign</td></tr>
+            <tr><td class="char-cell">&gt;</td><td class="entity-cell">&amp;gt;</td><td class="num-cell">&amp;#62;</td><td>Greater-than sign</td></tr>
+            <tr><td class="char-cell">"</td><td class="entity-cell">&amp;quot;</td><td class="num-cell">&amp;#34;</td><td>Double quotation mark</td></tr>
+            <tr><td class="char-cell">'</td><td class="entity-cell">&amp;apos;</td><td class="num-cell">&amp;#39;</td><td>Apostrophe / single quote</td></tr>
+
+            <tr class="cat-head"><td colspan="4">Spaces &amp; punctuation</td></tr>
+            <tr><td class="char-cell"> </td><td class="entity-cell">&amp;nbsp;</td><td class="num-cell">&amp;#160;</td><td>Non-breaking space</td></tr>
+            <tr><td class="char-cell">—</td><td class="entity-cell">&amp;mdash;</td><td class="num-cell">&amp;#8212;</td><td>Em dash</td></tr>
+            <tr><td class="char-cell">–</td><td class="entity-cell">&amp;ndash;</td><td class="num-cell">&amp;#8211;</td><td>En dash</td></tr>
+            <tr><td class="char-cell">…</td><td class="entity-cell">&amp;hellip;</td><td class="num-cell">&amp;#8230;</td><td>Horizontal ellipsis</td></tr>
+            <tr><td class="char-cell">•</td><td class="entity-cell">&amp;bull;</td><td class="num-cell">&amp;#8226;</td><td>Bullet point</td></tr>
+            <tr><td class="char-cell">«</td><td class="entity-cell">&amp;laquo;</td><td class="num-cell">&amp;#171;</td><td>Left double angle quote</td></tr>
+            <tr><td class="char-cell">»</td><td class="entity-cell">&amp;raquo;</td><td class="num-cell">&amp;#187;</td><td>Right double angle quote</td></tr>
+
+            <tr class="cat-head"><td colspan="4">Typographic quotes</td></tr>
+            <tr><td class="char-cell">"</td><td class="entity-cell">&amp;ldquo;</td><td class="num-cell">&amp;#8220;</td><td>Left double quotation mark</td></tr>
+            <tr><td class="char-cell">"</td><td class="entity-cell">&amp;rdquo;</td><td class="num-cell">&amp;#8221;</td><td>Right double quotation mark</td></tr>
+            <tr><td class="char-cell">'</td><td class="entity-cell">&amp;lsquo;</td><td class="num-cell">&amp;#8216;</td><td>Left single quotation mark</td></tr>
+            <tr><td class="char-cell">'</td><td class="entity-cell">&amp;rsquo;</td><td class="num-cell">&amp;#8217;</td><td>Right single quotation mark (apostrophe)</td></tr>
+
+            <tr class="cat-head"><td colspan="4">Symbols &amp; intellectual property</td></tr>
+            <tr><td class="char-cell">©</td><td class="entity-cell">&amp;copy;</td><td class="num-cell">&amp;#169;</td><td>Copyright sign</td></tr>
+            <tr><td class="char-cell">®</td><td class="entity-cell">&amp;reg;</td><td class="num-cell">&amp;#174;</td><td>Registered trademark</td></tr>
+            <tr><td class="char-cell">™</td><td class="entity-cell">&amp;trade;</td><td class="num-cell">&amp;#8482;</td><td>Trade mark sign</td></tr>
+
+            <tr class="cat-head"><td colspan="4">Currency</td></tr>
+            <tr><td class="char-cell">€</td><td class="entity-cell">&amp;euro;</td><td class="num-cell">&amp;#8364;</td><td>Euro sign</td></tr>
+            <tr><td class="char-cell">£</td><td class="entity-cell">&amp;pound;</td><td class="num-cell">&amp;#163;</td><td>Pound sterling</td></tr>
+            <tr><td class="char-cell">¥</td><td class="entity-cell">&amp;yen;</td><td class="num-cell">&amp;#165;</td><td>Yen / Yuan sign</td></tr>
+            <tr><td class="char-cell">¢</td><td class="entity-cell">&amp;cent;</td><td class="num-cell">&amp;#162;</td><td>Cent sign</td></tr>
+
+            <tr class="cat-head"><td colspan="4">Math &amp; science</td></tr>
+            <tr><td class="char-cell">°</td><td class="entity-cell">&amp;deg;</td><td class="num-cell">&amp;#176;</td><td>Degree sign</td></tr>
+            <tr><td class="char-cell">±</td><td class="entity-cell">&amp;plusmn;</td><td class="num-cell">&amp;#177;</td><td>Plus-minus sign</td></tr>
+            <tr><td class="char-cell">×</td><td class="entity-cell">&amp;times;</td><td class="num-cell">&amp;#215;</td><td>Multiplication sign</td></tr>
+            <tr><td class="char-cell">÷</td><td class="entity-cell">&amp;divide;</td><td class="num-cell">&amp;#247;</td><td>Division sign</td></tr>
+            <tr><td class="char-cell">½</td><td class="entity-cell">&amp;frac12;</td><td class="num-cell">&amp;#189;</td><td>Vulgar fraction one half</td></tr>
+            <tr><td class="char-cell">¼</td><td class="entity-cell">&amp;frac14;</td><td class="num-cell">&amp;#188;</td><td>Vulgar fraction one quarter</td></tr>
+            <tr><td class="char-cell">¾</td><td class="entity-cell">&amp;frac34;</td><td class="num-cell">&amp;#190;</td><td>Vulgar fraction three quarters</td></tr>
+            <tr><td class="char-cell">∞</td><td class="entity-cell">&amp;infin;</td><td class="num-cell">&amp;#8734;</td><td>Infinity</td></tr>
+            <tr><td class="char-cell">√</td><td class="entity-cell">&amp;radic;</td><td class="num-cell">&amp;#8730;</td><td>Square root</td></tr>
+            <tr><td class="char-cell">∑</td><td class="entity-cell">&amp;sum;</td><td class="num-cell">&amp;#8721;</td><td>N-ary summation</td></tr>
+            <tr><td class="char-cell">π</td><td class="entity-cell">&amp;pi;</td><td class="num-cell">&amp;#960;</td><td>Greek small letter pi</td></tr>
+
+            <tr class="cat-head"><td colspan="4">Arrows</td></tr>
+            <tr><td class="char-cell">→</td><td class="entity-cell">&amp;rarr;</td><td class="num-cell">&amp;#8594;</td><td>Rightward arrow</td></tr>
+            <tr><td class="char-cell">←</td><td class="entity-cell">&amp;larr;</td><td class="num-cell">&amp;#8592;</td><td>Leftward arrow</td></tr>
+            <tr><td class="char-cell">↑</td><td class="entity-cell">&amp;uarr;</td><td class="num-cell">&amp;#8593;</td><td>Upward arrow</td></tr>
+            <tr><td class="char-cell">↓</td><td class="entity-cell">&amp;darr;</td><td class="num-cell">&amp;#8595;</td><td>Downward arrow</td></tr>
+            <tr><td class="char-cell">↔</td><td class="entity-cell">&amp;harr;</td><td class="num-cell">&amp;#8596;</td><td>Left right arrow</td></tr>
+
+            <tr class="cat-head"><td colspan="4">Card suits</td></tr>
+            <tr><td class="char-cell">♠</td><td class="entity-cell">&amp;spades;</td><td class="num-cell">&amp;#9824;</td><td>Black spade suit</td></tr>
+            <tr><td class="char-cell">♥</td><td class="entity-cell">&amp;hearts;</td><td class="num-cell">&amp;#9829;</td><td>Black heart suit</td></tr>
+            <tr><td class="char-cell">♦</td><td class="entity-cell">&amp;diams;</td><td class="num-cell">&amp;#9830;</td><td>Black diamond suit</td></tr>
+            <tr><td class="char-cell">♣</td><td class="entity-cell">&amp;clubs;</td><td class="num-cell">&amp;#9827;</td><td>Black club suit</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="in-code">Using Entities in Code</h2>
+
+      <p>Here's how to handle HTML encoding in the languages and frameworks developers use most in 2026.</p>
+
+      <h3>JavaScript (vanilla)</h3>
+
+      <div class="code-block">
+        <div class="code-header"><span>Manual HTML encode in plain JavaScript</span></div>
+        <div class="code-body"><pre>function htmlEncode(str) {
+  return str
+    .replace(/&/g, '&amp;amp;')
+    .replace(/</g, '&amp;lt;')
+    .replace(/>/g, '&amp;gt;')
+    .replace(/"/g, '&amp;quot;')
+    .replace(/'/g, '&amp;apos;');
+}
+
+// Use it before inserting untrusted content
+element.innerHTML = htmlEncode(userInput);</pre></div>
+      </div>
+
+      <div class="callout callout-tip">
+        <div class="callout-head">Prefer textContent over innerHTML</div>
+        <p>When you just need to display text, assign to <code>element.textContent</code> rather than <code>element.innerHTML</code>. The browser handles encoding automatically — no manual escaping needed, and there's no risk of accidentally creating a script context.</p>
+      </div>
+
+      <h3>JavaScript (decode using the DOM)</h3>
+
+      <div class="code-block">
+        <div class="code-header"><span>Decode HTML entities via a temporary element</span></div>
+        <div class="code-body"><pre>function htmlDecode(str) {
+  const el = document.createElement('textarea');
+  el.innerHTML = str;
+  return el.value;
+}
+
+htmlDecode('&amp;lt;p&amp;gt;Hello &amp;amp; welcome&amp;lt;/p&amp;gt;')
+// → '&lt;p&gt;Hello &amp; welcome&lt;/p&gt;'</pre></div>
+      </div>
+
+      <h3>PHP</h3>
+
+      <div class="code-block">
+        <div class="code-header"><span>PHP htmlspecialchars and htmlentities</span></div>
+        <div class="code-body"><pre>// Encode the 5 essential characters
+htmlspecialchars($str, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+// Encode ALL named entities (rarely needed in UTF-8 docs)
+htmlentities($str, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+// Decode
+htmlspecialchars_decode($encoded, ENT_QUOTES | ENT_HTML5);
+html_entity_decode($encoded, ENT_QUOTES | ENT_HTML5, 'UTF-8');</pre></div>
+      </div>
+
+      <h3>Python</h3>
+
+      <div class="code-block">
+        <div class="code-header"><span>Python html module</span></div>
+        <div class="code-body"><pre>import html
+
+# Encode (escapes &amp; &lt; &gt; " ')
+html.escape('&lt;p&gt;Hello &amp; World&lt;/p&gt;')
+# → '&amp;lt;p&amp;gt;Hello &amp;amp; World&amp;lt;/p&amp;gt;'
+
+# Encode without quoting apostrophes
+html.escape(s, quote=False)
+
+# Decode (handles named, decimal, and hex entities)
+html.unescape('&amp;lt;p&amp;gt;Hello &amp;amp; World&amp;lt;/p&amp;gt;')
+# → '&lt;p&gt;Hello &amp; World&lt;/p&gt;'</pre></div>
+      </div>
+
+      <h3>Template engines (React, Vue, Django, Rails)</h3>
+
+      <p>Most modern template systems auto-escape output by default:</p>
+
+      <div class="code-block">
+        <div class="code-header"><span>Framework defaults</span></div>
+        <div class="code-body"><pre>// React — JSX auto-encodes
+&lt;p&gt;{userInput}&lt;/p&gt;   ← safe, encoded automatically
+&lt;p dangerouslySetInnerHTML={{__html: userInput}}/&gt;  ← UNSAFE
+
+// Vue — double curly auto-encodes
+{{ userInput }}   ← safe
+v-html="userInput"  ← UNSAFE
+
+// Django templates — auto-escape by default
+{{ user_input }}   ← safe
+{{ user_input|safe }}  ← UNSAFE — only for trusted HTML
+
+// Rails ERB — auto-escape by default
+&lt;%= user_input %&gt;   ← safe
+&lt;%= raw user_input %&gt;  ← UNSAFE</pre></div>
+      </div>
+
+      <p>The pattern is consistent: the default interpolation syntax is safe; the "raw" or "unsafe HTML" bypass is the thing to avoid with untrusted data.</p>
+
+      <h2 id="nbsp-misuse">The &amp;nbsp; Misuse Problem</h2>
+
+      <p>Non-breaking space is probably the most misused entity. Developers sometimes add multiple <code>&amp;nbsp;</code> characters in a row to create visual indentation or padding. This is a bad pattern for several reasons:</p>
+      <ul>
+        <li><strong>Accessibility</strong> — screen readers may announce each non-breaking space, or create awkward pauses</li>
+        <li><strong>Maintenance</strong> — spacing in markup is brittle; CSS handles it more cleanly</li>
+        <li><strong>Semantics</strong> — <code>&amp;nbsp;</code> means "these two things should not be separated", not "add space here"</li>
+      </ul>
+
+      <p>Use <code>&amp;nbsp;</code> only for its intended purpose: preventing a line break between two specific words or a number and its unit. Use <code>padding</code>, <code>margin</code>, or <code>gap</code> in CSS for visual spacing.</p>
+
+    </div>
+
+    <!-- Author box -->
+    <div class="author-box">
+      <div class="author-avatar">T</div>
+      <div>
+        <div class="author-name">The Tool Empire Team</div>
+        <div class="author-bio">We build free, fast, browser-based tools for developers and designers — no accounts, no data leaving your browser. <a href="../tools.html" style="color:var(--primary);text-decoration:none">Browse all tools →</a></div>
+      </div>
+    </div>
+
+    <div style="margin-top:28px">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+
+    <!-- Related Tools -->
+    <div class="related-section">
+      <div class="related-title">Related Tools</div>
+      <div class="related-grid">
+        <a href="../tools/coding/html-encoder.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#34d399,#06b6d4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 6 2 12 4 18"/><polyline points="20 6 22 12 20 18"/></svg></div>
+          <div class="related-name">HTML Encoder / Decoder</div>
+          <div class="related-desc">Encode HTML entities and decode them back.</div>
+        </a>
+        <a href="../tools/coding/base64.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#818cf8,#c084fc)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+          <div class="related-name">Base64 Encoder</div>
+          <div class="related-desc">Encode and decode Base64 text and files.</div>
+        </a>
+        <a href="../tools/coding/json-formatter.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <div class="related-name">JSON Formatter</div>
+          <div class="related-desc">Format, validate, and diff JSON online.</div>
+        </a>
+        <a href="../tools/text/diff-checker.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#34d399,#059669)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></div>
+          <div class="related-name">Text Diff Checker</div>
+          <div class="related-desc">Compare two text blocks side by side.</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Related Blogs -->
+    <div class="related-section" style="margin-top:28px">
+      <div class="related-title">More to Read</div>
+      <div class="related-grid">
+        <a href="base64-guide.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#818cf8,#c084fc)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="related-name">Base64 Encoding: How It Actually Works</div>
+          <div class="related-desc">Bits, bytes, and the 33% overhead explained.</div>
+        </a>
+        <a href="json-formatter-guide.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="related-name">JSON Explained for Developers</div>
+          <div class="related-desc">Syntax, types, validation, and best practices.</div>
+        </a>
+        <a href="contrast-checker-guide.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#a78bfa,#34d399)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="related-name">WCAG Contrast — What It Means and Why It Matters</div>
+          <div class="related-desc">Accessibility contrast rules without the jargon.</div>
+        </a>
+        <a href="hex-rgb-guide.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#38bdf8,#818cf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="related-name">HEX, RGB, HSL — Picking the Right Color Format</div>
+          <div class="related-desc">When to use each format with conversion examples.</div>
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+  <!-- TOC -->
+  <aside class="toc-sidebar">
+    <div class="toc-title">On this page</div>
+    <ul class="toc-list">
+      <li><a href="#what-are-entities">What an Entity Is</a></li>
+      <li><a href="#the-five">The Five You Must Encode</a></li>
+      <li><a href="#named-vs-numeric">Named vs Numeric</a></li>
+      <li><a href="#xss">How Encoding Stops XSS</a></li>
+      <li><a href="#when-not-to">When You Don't Need To</a></li>
+      <li><a href="#typography">Typography Entities</a></li>
+      <li><a href="#full-reference">Full Reference Table</a></li>
+      <li><a href="#in-code">Using Entities in Code</a></li>
+      <li><a href="#nbsp-misuse">The &amp;nbsp; Misuse Problem</a></li>
+    </ul>
+  </aside>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <path d="M8 12l4 6-4 6M14 24h14" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".9"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#34d399"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../tools.html#coding">Coding Tools</a><a href="../tools.html#design">Design Tools</a><a href="../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../about.html">About</a><a href="../blog.html">Blog</a><a href="../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+</body>
+</html>

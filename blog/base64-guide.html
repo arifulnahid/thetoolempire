@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Base64 Encoding: The Complete Developer Guide — How It Works, When to Use It, and Common Mistakes (2026)</title>
+  <meta name="description" content="A practical guide to Base64 encoding: how the algorithm works, the 33% size overhead, URL-safe variant, data URIs, JWTs, and exactly when not to use it."/>
+  <meta name="keywords" content="base64 encoding guide, how base64 works, base64 tutorial 2026, url safe base64, base64 data uri, base64 jwt, base64 vs encryption"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/blog/base64-guide.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="Base64 Encoding: The Complete Developer Guide (2026)"/>
+  <meta property="og:description" content="How Base64 works, the 33% size overhead, URL-safe variant, data URIs, JWTs, and when not to use it."/>
+  <meta property="og:url" content="https://thetoolempire.com/blog/base64-guide.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"BlogPosting",
+      "headline":"Base64 Encoding: The Complete Developer Guide — How It Works, When to Use It, and Common Mistakes (2026)",
+      "description":"A practical guide to Base64 encoding: how the algorithm works, the 33% size overhead, URL-safe variant, data URIs, JWTs, and when not to use it.",
+      "url":"https://thetoolempire.com/blog/base64-guide.html",
+      "datePublished":"2026-06-06","dateModified":"2026-06-06",
+      "author":{"@type":"Organization","name":"The Tool Empire"},
+      "publisher":{"@type":"Organization","name":"The Tool Empire","logo":{"@type":"ImageObject","url":"https://thetoolempire.com/assets/favicon.svg"}},
+      "mainEntityOfPage":"https://thetoolempire.com/blog/base64-guide.html"
+    },
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Blog","item":"https://thetoolempire.com/blog.html"},
+      {"@type":"ListItem","position":3,"name":"Base64 Complete Guide","item":"https://thetoolempire.com/blog/base64-guide.html"}
+    ]}
+  ]}</script>
+
+  <style>
+    :root{--bg:#0f0f14;--bg-card:#1e1e28;--bg-surface:#18181f;--border:rgba(255,255,255,.08);--text:#e8e8f0;--text-muted:#a0a0bc;--text-faint:#555570;--primary:#818cf8;--secondary:#c084fc;--radius-md:14px;--radius-sm:8px;--transition:.2s}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.7;font-size:1rem}
+
+    .site-header{position:sticky;top:0;z-index:100;background:rgba(15,15,20,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+    .header-inner{max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none}.logo-icon{width:32px;height:32px}.logo-text{font-weight:700;font-size:1.1rem;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .main-nav{display:flex;gap:6px}.nav-link{padding:6px 14px;border-radius:var(--radius-sm);font-size:.87rem;font-weight:500;color:var(--text-muted);text-decoration:none;transition:all var(--transition)}.nav-link:hover,.nav-link.active{color:var(--text);background:rgba(255,255,255,.06)}
+
+    #progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--secondary));width:0%;z-index:200;transition:width .1s linear}
+
+    .blog-wrap{max-width:1200px;margin:0 auto;padding:32px 24px;display:grid;grid-template-columns:1fr 280px;gap:40px;align-items:start}
+    @media(max-width:1023px){.blog-wrap{grid-template-columns:1fr}.toc-sidebar{display:none!important}}
+
+    .article-header{margin-bottom:36px}
+    .article-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(129,140,248,.1);color:var(--primary);border:1px solid rgba(129,140,248,.2);margin-bottom:18px}
+    .article-title{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:800;line-height:1.22;margin-bottom:18px;letter-spacing:-.02em}
+    .gradient-title{background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .article-meta{display:flex;align-items:center;flex-wrap:wrap;gap:14px;font-size:.82rem;color:var(--text-faint)}
+    .meta-item{display:flex;align-items:center;gap:5px}
+    .meta-sep{width:3px;height:3px;border-radius:50%;background:var(--border)}
+
+    .article-body h2{font-size:1.45rem;font-weight:700;margin:2.4rem 0 .9rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);color:var(--text)}
+    .article-body h3{font-size:1.12rem;font-weight:700;margin:1.8rem 0 .7rem;color:var(--text)}
+    .article-body p{margin-bottom:1.1rem;color:var(--text-muted)}
+    .article-body ul,.article-body ol{padding-left:1.6rem;margin-bottom:1.1rem;color:var(--text-muted)}
+    .article-body li{margin-bottom:.45rem}
+    .article-body strong{color:var(--text);font-weight:600}
+    .article-body code{background:rgba(129,140,248,.1);color:var(--primary);padding:2px 7px;border-radius:5px;font-family:'Fira Code',monospace;font-size:.86em}
+    .article-body a{color:var(--primary);text-decoration:none;border-bottom:1px solid rgba(129,140,248,.3)}.article-body a:hover{border-color:var(--primary)}
+
+    .code-block{background:#12121a;border:1px solid var(--border);border-radius:var(--radius-md);margin:1.4rem 0;overflow:hidden}
+    .code-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border);font-size:.75rem;font-weight:700;color:var(--text-faint);text-transform:uppercase;letter-spacing:.07em}
+    .code-body{padding:18px 20px;overflow-x:auto}
+    .code-body pre{font-family:'Fira Code',monospace;font-size:.85rem;line-height:1.7;color:#e8e8f0;white-space:pre}
+
+    /* Base64 visual breakdown */
+    .b64-demo{display:grid;gap:10px;margin:1.4rem 0}
+    .b64-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+    .b64-byte{display:inline-flex;flex-direction:column;align-items:center;gap:2px}
+    .b64-char{font-family:'Fira Code',monospace;font-size:.9rem;font-weight:700;padding:4px 8px;border-radius:6px;min-width:32px;text-align:center}
+    .b64-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint)}
+    .bg-a{background:rgba(129,140,248,.15);color:#a5b4fc}
+    .bg-b{background:rgba(192,132,252,.15);color:#d8b4fe}
+    .bg-c{background:rgba(52,211,153,.15);color:#6ee7b7}
+    .bg-d{background:rgba(251,191,36,.15);color:#fcd34d}
+
+    /* Encoding table */
+    .b64-table{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:4px;margin:1.2rem 0}
+    .b64-cell{background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:5px 4px;text-align:center;font-family:'Fira Code',monospace;font-size:.75rem}
+    .b64-cell .val{font-weight:700;color:var(--primary);display:block}
+    .b64-cell .idx{color:var(--text-faint);font-size:.65rem;display:block}
+
+    /* Demo boxes */
+    .demo-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.4rem 0}
+    @media(max-width:700px){.demo-row{grid-template-columns:1fr}}
+    .demo-box{border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border)}
+    .demo-label{padding:8px 14px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;background:rgba(255,255,255,.04);border-bottom:1px solid var(--border);color:var(--text-faint)}
+    .demo-pre{padding:14px 16px;font-family:'Fira Code',monospace;font-size:.82rem;line-height:1.65;color:#e8e8f0;background:#12121a;white-space:pre-wrap;word-break:break-all}
+
+    .callout{border-radius:var(--radius-md);padding:16px 20px;margin:1.5rem 0;border-left:4px solid}
+    .callout-tip{background:rgba(52,211,153,.07);border-color:#34d399}.callout-tip .callout-head{color:#34d399}
+    .callout-info{background:rgba(129,140,248,.07);border-color:var(--primary)}.callout-info .callout-head{color:var(--primary)}
+    .callout-warn{background:rgba(251,191,36,.07);border-color:#fbbf24}.callout-warn .callout-head{color:#fbbf24}
+    .callout-danger{background:rgba(248,113,113,.07);border-color:#f87171}.callout-danger .callout-head{color:#f87171}
+    .callout-head{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+    .callout p{margin:0;font-size:.9rem;color:var(--text-muted)}
+
+    .table-wrap{overflow-x:auto;margin:1.4rem 0;border-radius:var(--radius-md);border:1px solid var(--border)}
+    table{width:100%;border-collapse:collapse;font-size:.87rem}
+    th{background:rgba(255,255,255,.05);padding:10px 14px;text-align:left;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-faint);border-bottom:1px solid var(--border)}
+    td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text-muted)}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:rgba(255,255,255,.02)}
+    .td-yes{color:#6ee7b7;font-weight:600}.td-no{color:#fca5a5;font-weight:600}
+
+    .toc-sidebar{position:sticky;top:90px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:20px}
+    .toc-title{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:14px}
+    .toc-list{list-style:none;display:flex;flex-direction:column;gap:4px}
+    .toc-list a{font-size:.83rem;color:var(--text-muted);text-decoration:none;padding:4px 8px;border-radius:var(--radius-sm);display:block;transition:all var(--transition);border-left:2px solid transparent}.toc-list a:hover{color:var(--text);background:rgba(255,255,255,.04);border-color:var(--primary)}
+
+    .tool-spotlight{background:linear-gradient(135deg,rgba(129,140,248,.12),rgba(192,132,252,.08));border:1px solid rgba(129,140,248,.25);border-radius:var(--radius-md);padding:24px;margin:2rem 0;text-align:center}
+    .spotlight-title{font-size:1.1rem;font-weight:700;margin-bottom:6px}
+    .spotlight-desc{font-size:.9rem;color:var(--text-muted);margin-bottom:16px}
+    .spotlight-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:var(--radius-sm);background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;font-weight:700;font-size:.9rem;text-decoration:none;transition:opacity var(--transition)}.spotlight-btn:hover{opacity:.88}
+
+    .author-box{display:flex;align-items:flex-start;gap:18px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:22px;margin-top:2.5rem}
+    .author-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.2rem;color:#fff;flex-shrink:0}
+    .author-name{font-weight:700;font-size:1rem;margin-bottom:4px}
+    .author-bio{font-size:.85rem;color:var(--text-muted);line-height:1.6}
+
+    .related-section{margin-top:2.5rem}
+    .related-title{font-size:1.1rem;font-weight:700;margin-bottom:16px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+    .related-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;text-decoration:none;transition:border-color var(--transition)}.related-card:hover{border-color:rgba(129,140,248,.4)}
+    .related-icon{width:36px;height:36px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;margin-bottom:10px}.related-icon svg{width:18px;height:18px;stroke:#fff}
+    .related-name{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:4px}
+    .related-desc{font-size:.8rem;color:var(--text-faint)}
+
+    .site-footer{background:var(--bg-card);border-top:1px solid var(--border);padding:48px 24px 24px;margin-top:64px}
+    .footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+    @media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+    .footer-brand-text{font-size:.85rem;color:var(--text-faint);margin-top:8px;line-height:1.6}
+    .footer-heading{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:12px}
+    .footer-links{display:flex;flex-direction:column;gap:8px}.footer-links a{font-size:.87rem;color:var(--text-muted);text-decoration:none;transition:color var(--transition)}.footer-links a:hover{color:var(--text)}
+    .footer-bottom{max-width:1200px;margin:32px auto 0;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.8rem;color:var(--text-faint)}
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<script>window.addEventListener('scroll',()=>{const d=document.documentElement;const p=(d.scrollTop||document.body.scrollTop)/(d.scrollHeight-d.clientHeight)*100;document.getElementById('progress-bar').style.width=p+'%';});</script>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <rect x="7" y="11" width="22" height="3" rx="1.5" fill="#fff" fill-opacity=".9"/>
+        <rect x="7" y="17" width="16" height="3" rx="1.5" fill="#fff" fill-opacity=".7"/>
+        <rect x="7" y="23" width="19" height="3" rx="1.5" fill="#fff" fill-opacity=".55"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#818cf8"/><stop offset="1" stop-color="#c084fc"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../tools.html" class="nav-link">Tools</a>
+      <a href="../blog.html" class="nav-link active">Blog</a>
+      <a href="../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="blog-wrap">
+
+  <article>
+
+    <div style="margin-bottom:24px">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+
+    <nav aria-label="Breadcrumb" style="margin-bottom:18px">
+      <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:var(--text-faint);flex-wrap:wrap">
+        <li><a href="../index.html" style="color:var(--text-faint)">Home</a></li><li>›</li>
+        <li><a href="../blog.html" style="color:var(--text-faint)">Blog</a></li><li>›</li>
+        <li style="color:var(--text-muted)">Base64 Complete Guide</li>
+      </ol>
+    </nav>
+
+    <header class="article-header">
+      <div class="article-tag">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        Developer Guide
+      </div>
+      <h1 class="article-title"><span class="gradient-title">Base64 Encoding:</span> The Complete Developer Guide — How It Works, When to Use It, and Common Mistakes (2026)</h1>
+      <div class="article-meta">
+        <span class="meta-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          10 min read
+        </span>
+        <span class="meta-sep"></span>
+        <span class="meta-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          June 6, 2026
+        </span>
+        <span class="meta-sep"></span>
+        <span class="meta-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          Encoding, Security, Web Development
+        </span>
+      </div>
+    </header>
+
+    <div class="article-body">
+
+      <p>Base64 is one of those things developers encounter constantly — in JWT tokens, CSS data URIs, HTTP Basic Auth, email attachments, and API responses — yet few people have actually sat down and understood how it works at the bit level. This guide covers everything from the underlying algorithm to real-world usage patterns and the mistakes that trip people up most often.</p>
+
+      <div class="tool-spotlight">
+        <div class="spotlight-title">Encode or decode Base64 right now</div>
+        <div class="spotlight-desc">Our free browser-based Base64 tool supports text, Unicode, files, URL-safe mode, and batch processing. Nothing leaves your device.</div>
+        <a href="../tools/coding/base64.html" class="spotlight-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          Open Base64 Tool
+        </a>
+      </div>
+
+      <div style="margin:24px 0">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+      </div>
+
+      <h2 id="what-is-base64">What Is Base64?</h2>
+
+      <p>Base64 is a binary-to-text encoding scheme. It takes arbitrary binary data — bytes that might include any value from 0 to 255 — and represents that data using only 64 specific printable ASCII characters. Those 64 characters are: A–Z (26), a–z (26), 0–9 (10), plus <code>+</code> and <code>/</code>. That's where the "64" in the name comes from.</p>
+
+      <p>The reason this exists is historical. Many protocols and systems were designed for text — things like SMTP for email, HTTP headers, HTML attributes, and XML documents. These systems either couldn't handle raw binary bytes, or they assigned special meaning to certain byte values that made binary data corrupted or unreadable in transit. Base64 sidesteps the problem by converting everything to characters those systems can handle safely.</p>
+
+      <div class="callout callout-info">
+        <div class="callout-head">The specification</div>
+        <p>Base64 is formally defined in <strong>RFC 4648</strong> (2006), which covers both the standard alphabet (<code>+/</code>) and the URL-safe alphabet (<code>-_</code>). The older RFC 2045 defined Base64 for MIME email specifically.</p>
+      </div>
+
+      <h2 id="how-it-works">How the Algorithm Works</h2>
+
+      <p>Understanding the actual bit-manipulation behind Base64 makes everything else — including the 33% size overhead and the padding characters — immediately obvious.</p>
+
+      <h3>Step 1: Take 3 bytes of input</h3>
+
+      <p>Base64 processes input in 3-byte (24-bit) groups. Each byte is 8 bits, so 3 bytes gives us 24 bits total.</p>
+
+      <div class="b64-demo">
+        <div style="font-size:.82rem;color:var(--text-faint);margin-bottom:4px">Input: <code>"Man"</code> → bytes 77, 97, 110</div>
+        <div class="b64-row">
+          <div class="b64-byte"><span class="b64-char bg-a">M</span><span class="b64-label">01001101</span></div>
+          <div class="b64-byte"><span class="b64-char bg-b">a</span><span class="b64-label">01100001</span></div>
+          <div class="b64-byte"><span class="b64-char bg-c">n</span><span class="b64-label">01101110</span></div>
+        </div>
+        <div style="font-size:.78rem;color:var(--text-faint);margin-top:6px">Combined 24-bit stream: <code style="font-size:.82rem">010011 010110 000101 101110</code></div>
+      </div>
+
+      <h3>Step 2: Split into four 6-bit groups</h3>
+
+      <p>Those 24 bits are re-grouped into <strong>four chunks of 6 bits</strong> each. 6 bits can represent values 0–63 — exactly 64 possible values, one for each character in the Base64 alphabet.</p>
+
+      <div class="b64-demo">
+        <div class="b64-row">
+          <div class="b64-byte"><span class="b64-char bg-a">010011</span><span class="b64-label">= 19 → T</span></div>
+          <div class="b64-byte"><span class="b64-char bg-b">010110</span><span class="b64-label">= 22 → W</span></div>
+          <div class="b64-byte"><span class="b64-char bg-c">000101</span><span class="b64-label">= 5 → F</span></div>
+          <div class="b64-byte"><span class="b64-char bg-d">101110</span><span class="b64-label">= 46 → u</span></div>
+        </div>
+        <div style="font-size:.78rem;color:var(--text-faint);margin-top:8px">Output: <strong style="color:var(--primary)">TWFu</strong></div>
+      </div>
+
+      <h3>Step 3: Look up each 6-bit value in the alphabet</h3>
+
+      <p>Each 6-bit number maps to a character in the Base64 alphabet:</p>
+
+      <div class="b64-table">
+        <div class="b64-cell"><span class="val">A</span><span class="idx">0</span></div><div class="b64-cell"><span class="val">B</span><span class="idx">1</span></div><div class="b64-cell"><span class="val">C</span><span class="idx">2</span></div><div class="b64-cell"><span class="val">D</span><span class="idx">3</span></div><div class="b64-cell"><span class="val">E</span><span class="idx">4</span></div><div class="b64-cell"><span class="val">F</span><span class="idx">5</span></div><div class="b64-cell"><span class="val">G</span><span class="idx">6</span></div><div class="b64-cell"><span class="val">H</span><span class="idx">7</span></div><div class="b64-cell"><span class="val">I</span><span class="idx">8</span></div><div class="b64-cell"><span class="val">J</span><span class="idx">9</span></div><div class="b64-cell"><span class="val">K</span><span class="idx">10</span></div><div class="b64-cell"><span class="val">L</span><span class="idx">11</span></div><div class="b64-cell"><span class="val">M</span><span class="idx">12</span></div><div class="b64-cell"><span class="val">N</span><span class="idx">13</span></div><div class="b64-cell"><span class="val">O</span><span class="idx">14</span></div><div class="b64-cell"><span class="val">P</span><span class="idx">15</span></div>
+        <div class="b64-cell"><span class="val">Q</span><span class="idx">16</span></div><div class="b64-cell"><span class="val">R</span><span class="idx">17</span></div><div class="b64-cell"><span class="val">S</span><span class="idx">18</span></div><div class="b64-cell"><span class="val">T</span><span class="idx">19</span></div><div class="b64-cell"><span class="val">U</span><span class="idx">20</span></div><div class="b64-cell"><span class="val">V</span><span class="idx">21</span></div><div class="b64-cell"><span class="val">W</span><span class="idx">22</span></div><div class="b64-cell"><span class="val">X</span><span class="idx">23</span></div><div class="b64-cell"><span class="val">Y</span><span class="idx">24</span></div><div class="b64-cell"><span class="val">Z</span><span class="idx">25</span></div><div class="b64-cell"><span class="val">a</span><span class="idx">26</span></div><div class="b64-cell"><span class="val">b</span><span class="idx">27</span></div><div class="b64-cell"><span class="val">c</span><span class="idx">28</span></div><div class="b64-cell"><span class="val">d</span><span class="idx">29</span></div><div class="b64-cell"><span class="val">e</span><span class="idx">30</span></div><div class="b64-cell"><span class="val">f</span><span class="idx">31</span></div>
+        <div class="b64-cell"><span class="val">g</span><span class="idx">32</span></div><div class="b64-cell"><span class="val">h</span><span class="idx">33</span></div><div class="b64-cell"><span class="val">i</span><span class="idx">34</span></div><div class="b64-cell"><span class="val">j</span><span class="idx">35</span></div><div class="b64-cell"><span class="val">k</span><span class="idx">36</span></div><div class="b64-cell"><span class="val">l</span><span class="idx">37</span></div><div class="b64-cell"><span class="val">m</span><span class="idx">38</span></div><div class="b64-cell"><span class="val">n</span><span class="idx">39</span></div><div class="b64-cell"><span class="val">o</span><span class="idx">40</span></div><div class="b64-cell"><span class="val">p</span><span class="idx">41</span></div><div class="b64-cell"><span class="val">q</span><span class="idx">42</span></div><div class="b64-cell"><span class="val">r</span><span class="idx">43</span></div><div class="b64-cell"><span class="val">s</span><span class="idx">44</span></div><div class="b64-cell"><span class="val">t</span><span class="idx">45</span></div><div class="b64-cell"><span class="val">u</span><span class="idx">46</span></div><div class="b64-cell"><span class="val">v</span><span class="idx">47</span></div>
+        <div class="b64-cell"><span class="val">w</span><span class="idx">48</span></div><div class="b64-cell"><span class="val">x</span><span class="idx">49</span></div><div class="b64-cell"><span class="val">y</span><span class="idx">50</span></div><div class="b64-cell"><span class="val">z</span><span class="idx">51</span></div><div class="b64-cell"><span class="val">0</span><span class="idx">52</span></div><div class="b64-cell"><span class="val">1</span><span class="idx">53</span></div><div class="b64-cell"><span class="val">2</span><span class="idx">54</span></div><div class="b64-cell"><span class="val">3</span><span class="idx">55</span></div><div class="b64-cell"><span class="val">4</span><span class="idx">56</span></div><div class="b64-cell"><span class="val">5</span><span class="idx">57</span></div><div class="b64-cell"><span class="val">6</span><span class="idx">58</span></div><div class="b64-cell"><span class="val">7</span><span class="idx">59</span></div><div class="b64-cell"><span class="val">8</span><span class="idx">60</span></div><div class="b64-cell"><span class="val">9</span><span class="idx">61</span></div><div class="b64-cell"><span class="val">+</span><span class="idx">62</span></div><div class="b64-cell"><span class="val">/</span><span class="idx">63</span></div>
+      </div>
+
+      <h2 id="size-overhead">Why Base64 Adds 33% to File Size</h2>
+
+      <p>The size increase follows directly from the algorithm. Every 3 bytes of input produces 4 output characters. Since each ASCII character is 1 byte, you're storing 3 bytes of data using 4 bytes of text — a ratio of 4/3 = <strong>1.333</strong>, or ~33% overhead.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Original size</th><th>Base64 size</th><th>Overhead</th></tr></thead>
+          <tbody>
+            <tr><td>1 KB</td><td>~1.37 KB</td><td>+370 B</td></tr>
+            <tr><td>10 KB</td><td>~13.7 KB</td><td>+3.7 KB</td></tr>
+            <tr><td>100 KB PNG</td><td>~137 KB</td><td>+37 KB</td></tr>
+            <tr><td>1 MB image</td><td>~1.37 MB</td><td>+370 KB</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>For small files — icons, small logos, inline SVGs — the overhead is acceptable and you save an HTTP request. For anything above roughly 10–20 KB, a separate file request with proper HTTP caching is more efficient.</p>
+
+      <h2 id="padding">Padding Characters: What = Means</h2>
+
+      <p>Base64 processes input 3 bytes at a time. When the input length isn't a multiple of 3, the last group has 1 or 2 bytes instead of 3. Padding characters (<code>=</code>) fill the gap so the output length is always a multiple of 4.</p>
+
+      <div class="demo-row">
+        <div class="demo-box">
+          <div class="demo-label">1 leftover byte → 2 output chars + ==</div>
+          <pre class="demo-pre">"M"  → "TQ=="
+(1 byte → 2 chars + padding)</pre>
+        </div>
+        <div class="demo-box">
+          <div class="demo-label">2 leftover bytes → 3 output chars + =</div>
+          <pre class="demo-pre">"Ma" → "TWE="
+(2 bytes → 3 chars + padding)</pre>
+        </div>
+      </div>
+
+      <p>Decoders use the number of <code>=</code> characters to figure out how many bytes to expect at the end. Some implementations (URL-safe Base64 in particular) omit padding entirely, since the decoder can calculate it from the output length.</p>
+
+      <h2 id="url-safe">Standard vs URL-Safe Base64</h2>
+
+      <p>Standard Base64 uses <code>+</code> for value 62 and <code>/</code> for value 63. Both characters carry special meaning in URLs: <code>+</code> is interpreted as a space in query strings, and <code>/</code> separates URL path segments. Placing a standard Base64 string in a URL either corrupts it or requires percent-encoding (<code>%2B</code>, <code>%2F</code>).</p>
+
+      <p>URL-safe Base64 (RFC 4648 §5) solves this by substituting: <code>+</code> → <code>-</code> and <code>/</code> → <code>_</code>. Padding is typically stripped too.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Feature</th><th>Standard Base64</th><th>URL-safe Base64</th></tr></thead>
+          <tbody>
+            <tr><td>Value 62</td><td><code>+</code></td><td><code>-</code></td></tr>
+            <tr><td>Value 63</td><td><code>/</code></td><td><code>_</code></td></tr>
+            <tr><td>Padding</td><td><code>=</code></td><td>Often omitted</td></tr>
+            <tr><td>Safe in URLs</td><td class="td-no">No — needs escaping</td><td class="td-yes">Yes</td></tr>
+            <tr><td>Safe in filenames</td><td class="td-no">No — <code>/</code> breaks paths</td><td class="td-yes">Yes</td></tr>
+            <tr><td>Used in</td><td>MIME email, data URIs</td><td>JWT, OAuth, cookies, filenames</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout callout-tip">
+        <div class="callout-head">Quick rule</div>
+        <p>If the Base64 string goes in a URL, a cookie, a filename, or an HTTP header that doesn't allow <code>+</code> and <code>/</code>, use URL-safe. If it goes in a data URI or MIME email body, use standard.</p>
+      </div>
+
+      <h2 id="javascript">Base64 in JavaScript</h2>
+
+      <p>Every browser and Node.js environment provides <code>btoa()</code> and <code>atob()</code> for encoding and decoding:</p>
+
+      <div class="code-block">
+        <div class="code-header"><span>btoa / atob — ASCII only</span></div>
+        <div class="code-body"><pre>// Encode
+btoa("Hello")      // → "SGVsbG8="
+btoa("Man")        // → "TWFu"
+
+// Decode
+atob("SGVsbG8=")   // → "Hello"
+atob("TWFu")       // → "Man"</pre></div>
+      </div>
+
+      <p>The catch: <code>btoa()</code> only accepts characters in the Latin-1 range (code points 0–255). Any character above that — emoji, Chinese, Arabic, accented letters like ü — throws <code>DOMException: Failed to execute 'btoa': The string to be encoded contains characters outside of the Latin1 range</code>.</p>
+
+      <div class="code-block">
+        <div class="code-header"><span>Unicode-safe encoding</span></div>
+        <div class="code-body"><pre>// Encode Unicode (encode to UTF-8 bytes first)
+function b64Encode(str) {
+  return btoa(unescape(encodeURIComponent(str)));
+}
+
+// Decode Unicode
+function b64Decode(str) {
+  return decodeURIComponent(escape(atob(str)));
+}
+
+b64Encode("Hello 🌍")  // → "SGVsbG8g8J+MjQ=="
+b64Decode("SGVsbG8g8J+MjQ==")  // → "Hello 🌍"</pre></div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><span>URL-safe variant in JavaScript</span></div>
+        <div class="code-body"><pre>function b64UrlEncode(str) {
+  return b64Encode(str)
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');  // strip padding
+}
+
+function b64UrlDecode(str) {
+  // Re-add padding
+  let s = str.replace(/-/g, '+').replace(/_/g, '/');
+  while (s.length % 4) s += '=';
+  return b64Decode(s);
+}</pre></div>
+      </div>
+
+      <h2 id="python">Base64 in Python</h2>
+
+      <div class="code-block">
+        <div class="code-header"><span>Python base64 module</span></div>
+        <div class="code-body"><pre>import base64
+
+# Standard encode/decode
+encoded = base64.b64encode(b"Hello")
+# → b"SGVsbG8="
+
+decoded = base64.b64decode("SGVsbG8=")
+# → b"Hello"
+
+# URL-safe variant
+url_enc = base64.urlsafe_b64encode(b"Hello")
+# → b"SGVsbG8="  (same here, differs when +/present)
+
+# Encode a string (not bytes)
+s = "Hello 🌍"
+encoded = base64.b64encode(s.encode('utf-8'))
+
+# Decode back to string
+decoded = base64.b64decode(encoded).decode('utf-8')
+# → "Hello 🌍"</pre></div>
+      </div>
+
+      <h2 id="data-uris">Data URIs: Embedding Files in HTML and CSS</h2>
+
+      <p>A data URI embeds a file's complete contents as a Base64 string directly in an attribute or stylesheet. The format is:</p>
+
+      <div class="code-block">
+        <div class="code-header"><span>Data URI format</span></div>
+        <div class="code-body"><pre>data:[mediatype][;base64],[data]
+
+// Example — small PNG in an img tag
+&lt;img src="data:image/png;base64,iVBORw0KGgo..." /&gt;
+
+// Example — font in CSS
+@font-face {
+  font-family: 'MyFont';
+  src: url('data:font/woff2;base64,d09GMgAB...');
+}</pre></div>
+      </div>
+
+      <h3>When data URIs make sense</h3>
+
+      <ul>
+        <li><strong>Email templates</strong> — email clients often block external image requests; embedding is the only reliable way to display images</li>
+        <li><strong>Single-file HTML</strong> — self-contained pages that must include assets without external files</li>
+        <li><strong>Small icons</strong> — tiny SVG icons or 1×1 pixel tracking images where the HTTP request overhead is larger than the image</li>
+        <li><strong>Critical above-the-fold images</strong> — embedding a tiny hero thumbnail to avoid render-blocking</li>
+      </ul>
+
+      <h3>When they don't</h3>
+
+      <ul>
+        <li>Large images — the 33% size increase and no HTTP caching means users re-download the full embedded image on every page load</li>
+        <li>Images shared across multiple pages — a referenced file is cached once; an embedded one is duplicated in each page's HTML</li>
+        <li>CSS background images for frequently visited pages — separate files with long cache headers are significantly faster</li>
+      </ul>
+
+      <h2 id="jwts">Base64 and JWTs</h2>
+
+      <p>JSON Web Tokens are one of the most common places developers encounter Base64 in practice. A JWT has three URL-safe Base64-encoded parts separated by dots:</p>
+
+      <div class="code-block">
+        <div class="code-header"><span>JWT structure</span></div>
+        <div class="code-body"><pre>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+.eyJzdWIiOiJ1c2VyXzEyMyIsIm5hbWUiOiJBbGljZSIsImlhdCI6MTcxOTQwMDAwMH0
+.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+
+Decoded header:  {"alg":"HS256","typ":"JWT"}
+Decoded payload: {"sub":"user_123","name":"Alice","iat":1719400000}
+Signature: HMAC-SHA256 of header + "." + payload</pre></div>
+      </div>
+
+      <p>The header and payload are plain JSON encoded with URL-safe Base64 (no padding). <strong>They are not encrypted.</strong> Anyone can decode them with <code>atob()</code> or any Base64 decoder. The signature is what proves the token hasn't been tampered with — it requires the secret key to verify.</p>
+
+      <div class="callout callout-danger">
+        <div class="callout-head">Critical misunderstanding</div>
+        <p>Never store secrets, passwords, or sensitive PII in a JWT payload assuming the Base64 encoding "hides" it. The payload is fully readable by anyone who has the token. Use JWE (JSON Web Encryption) if the payload itself needs to be confidential.</p>
+      </div>
+
+      <h2 id="http-auth">HTTP Basic Authentication</h2>
+
+      <p>HTTP Basic Auth sends credentials in the <code>Authorization</code> header. The format is the username and password joined with a colon, then Base64-encoded:</p>
+
+      <div class="code-block">
+        <div class="code-header"><span>Basic Auth header</span></div>
+        <div class="code-body"><pre>// Credentials: alice:mysecretpassword
+btoa("alice:mysecretpassword")
+// → "YWxpY2U6bXlzZWNyZXRwYXNzd29yZA=="
+
+// HTTP header
+Authorization: Basic YWxpY2U6bXlzZWNyZXRwYXNzd29yZA==
+
+// Anyone who intercepts this header can run:
+atob("YWxpY2U6bXlzZWNyZXRwYXNzd29yZA==")
+// → "alice:mysecretpassword"</pre></div>
+      </div>
+
+      <p>As the code above shows, Basic Auth credentials are trivially reversible from the header value. This is why HTTP Basic Auth must <strong>only</strong> be used over HTTPS. Without TLS, the credentials are exposed to anyone on the network.</p>
+
+      <h2 id="not-encryption">Base64 Is Not Security</h2>
+
+      <p>This is the most common misconception. Base64 is purely a representation change — it moves the same bits around into a different character set. It adds zero confidentiality, zero integrity protection, and zero authentication.</p>
+
+      <p>Here's the full picture:</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Property</th><th>Base64</th><th>Encryption (AES-256)</th><th>Hashing (bcrypt)</th></tr></thead>
+          <tbody>
+            <tr><td>Reversible</td><td class="td-yes">Yes — by anyone</td><td class="td-yes">Yes — with key only</td><td class="td-no">No</td></tr>
+            <tr><td>Hides content</td><td class="td-no">No</td><td class="td-yes">Yes</td><td class="td-yes">Yes (one-way)</td></tr>
+            <tr><td>Requires key</td><td class="td-no">No</td><td class="td-yes">Yes</td><td class="td-yes">Yes (salt)</td></tr>
+            <tr><td>Use for passwords</td><td class="td-no">Never</td><td class="td-no">No</td><td class="td-yes">Yes</td></tr>
+            <tr><td>Primary purpose</td><td>Binary → text transport</td><td>Confidentiality</td><td>Verification</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout callout-danger">
+        <div class="callout-head">Do not do this</div>
+        <p>Storing passwords as Base64 in a database is as insecure as storing them in plain text. Any attacker who reads the database can decode every password instantly. Use bcrypt, scrypt, or Argon2 for passwords.</p>
+      </div>
+
+      <h2 id="common-mistakes">5 Common Base64 Mistakes</h2>
+
+      <ol>
+        <li><strong>Using <code>btoa()</code> with Unicode input.</strong> <code>btoa()</code> only accepts Latin-1 characters. Strings with emoji or non-Latin characters throw exceptions. Use <code>btoa(unescape(encodeURIComponent(str)))</code> instead.</li>
+        <li><strong>Forgetting URL-safe substitutions.</strong> Standard Base64 in a URL or cookie silently corrupts when the browser interprets <code>+</code> as a space. Always use the <code>-_</code> variant in URLs.</li>
+        <li><strong>Treating Base64 as encryption.</strong> Covered above — it provides no security. Don't use it to "obscure" sensitive values.</li>
+        <li><strong>Embedding large files as data URIs.</strong> Any image over ~10 KB is better served as a separate file with HTTP caching. Embedding bypasses the browser cache and forces a re-download every page load.</li>
+        <li><strong>Forgetting to re-add padding when decoding URL-safe Base64.</strong> URL-safe Base64 often strips the trailing <code>=</code> characters. When decoding, add them back: pad until <code>str.length % 4 === 0</code>.</li>
+      </ol>
+
+      <h2 id="base64-vs-hex">Base64 vs Hex Encoding</h2>
+
+      <p>Hex encoding is another common way to represent binary data as text. Instead of 64 characters, it uses 16 (0–9 and a–f), representing each byte as two hex digits.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Property</th><th>Base64</th><th>Hex</th></tr></thead>
+          <tbody>
+            <tr><td>Characters used</td><td>64 (A–Z, a–z, 0–9, +, /)</td><td>16 (0–9, a–f)</td></tr>
+            <tr><td>Size overhead</td><td>~33%</td><td>~100% (doubles)</td></tr>
+            <tr><td>Readability</td><td>Opaque</td><td>Easier to inspect bytes</td></tr>
+            <tr><td>Common uses</td><td>Files, tokens, data URIs, JWT</td><td>Cryptographic digests, color codes, memory addresses</td></tr>
+            <tr><td>URL-safe variant</td><td class="td-yes">Yes (RFC 4648)</td><td class="td-yes">Yes — no special chars</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Choose Base64 when compactness matters (API tokens, data URIs). Choose hex when human readability of individual bytes matters (cryptographic hashes, debugging binary protocols).</p>
+
+      <h2 id="quick-reference">Quick Reference</h2>
+
+      <div class="code-block">
+        <div class="code-header"><span>JavaScript — production-ready encode/decode</span></div>
+        <div class="code-body"><pre>// Unicode-safe encode
+const encode = str => btoa(unescape(encodeURIComponent(str)));
+
+// Unicode-safe decode
+const decode = str => decodeURIComponent(escape(atob(str)));
+
+// URL-safe encode (no padding)
+const urlEncode = str => encode(str)
+  .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+
+// URL-safe decode
+const urlDecode = str => {
+  let s = str.replace(/-/g, '+').replace(/_/g, '/');
+  while (s.length % 4) s += '=';
+  return decode(s);
+};</pre></div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header"><span>Node.js — Buffer-based (more reliable for binary)</span></div>
+        <div class="code-body"><pre>// Encode
+Buffer.from('Hello 🌍').toString('base64');
+// → "SGVsbG8g8J+MjQ=="
+
+// Decode
+Buffer.from('SGVsbG8g8J+MjQ==', 'base64').toString('utf8');
+// → "Hello 🌍"
+
+// URL-safe (Node 16+)
+Buffer.from('Hello').toString('base64url');
+// → "SGVsbG8"</pre></div>
+      </div>
+
+    </div>
+
+    <!-- Author box -->
+    <div class="author-box">
+      <div class="author-avatar">T</div>
+      <div>
+        <div class="author-name">The Tool Empire Team</div>
+        <div class="author-bio">We build free, fast, browser-based tools for developers and designers. No accounts, no installs, no data leaving your browser. Browse the full collection at <a href="../tools.html" style="color:var(--primary);text-decoration:none">thetoolempire.com/tools</a>.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:28px">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+
+    <!-- Related Tools -->
+    <div class="related-section">
+      <div class="related-title">Related Tools</div>
+      <div class="related-grid">
+        <a href="../tools/coding/base64.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#818cf8,#c084fc)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+          <div class="related-name">Base64 Encoder / Decoder</div>
+          <div class="related-desc">Encode and decode Base64 with file support.</div>
+        </a>
+        <a href="../tools/coding/json-formatter.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <div class="related-name">JSON Formatter</div>
+          <div class="related-desc">Format, validate, and diff JSON online.</div>
+        </a>
+        <a href="../tools/design/hex-rgb-converter.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#38bdf8,#818cf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></div>
+          <div class="related-name">HEX RGB Converter</div>
+          <div class="related-desc">Convert between HEX, RGB, HSL, CMYK.</div>
+        </a>
+        <a href="../tools/text/diff-checker.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#34d399,#059669)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></div>
+          <div class="related-name">Text Diff Checker</div>
+          <div class="related-desc">Compare two blocks of text line by line.</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Related Blogs -->
+    <div class="related-section" style="margin-top:28px">
+      <div class="related-title">Related Articles</div>
+      <div class="related-grid">
+        <a href="json-formatter-guide.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="related-name">JSON Developer Guide</div>
+          <div class="related-desc">JSON syntax, formatting, and best practices.</div>
+        </a>
+        <a href="hex-rgb-guide.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#38bdf8,#818cf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="related-name">HEX vs RGB Color Guide</div>
+          <div class="related-desc">Every color format with conversion examples.</div>
+        </a>
+        <a href="contrast-checker-guide.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#a78bfa,#34d399)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="related-name">WCAG Contrast Guide</div>
+          <div class="related-desc">Accessibility contrast requirements explained.</div>
+        </a>
+        <a href="gradient-generator-guide.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#a78bfa,#f472b6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="related-name">CSS Gradients Guide</div>
+          <div class="related-desc">Linear, radial, conic — complete reference.</div>
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+  <!-- TOC Sidebar -->
+  <aside class="toc-sidebar">
+    <div class="toc-title">On this page</div>
+    <ul class="toc-list">
+      <li><a href="#what-is-base64">What Is Base64?</a></li>
+      <li><a href="#how-it-works">How the Algorithm Works</a></li>
+      <li><a href="#size-overhead">The 33% Size Overhead</a></li>
+      <li><a href="#padding">Padding Characters (=)</a></li>
+      <li><a href="#url-safe">Standard vs URL-Safe</a></li>
+      <li><a href="#javascript">Base64 in JavaScript</a></li>
+      <li><a href="#python">Base64 in Python</a></li>
+      <li><a href="#data-uris">Data URIs</a></li>
+      <li><a href="#jwts">Base64 and JWTs</a></li>
+      <li><a href="#http-auth">HTTP Basic Auth</a></li>
+      <li><a href="#not-encryption">Base64 Is Not Security</a></li>
+      <li><a href="#common-mistakes">5 Common Mistakes</a></li>
+      <li><a href="#base64-vs-hex">Base64 vs Hex</a></li>
+      <li><a href="#quick-reference">Quick Reference</a></li>
+    </ul>
+  </aside>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <rect x="7" y="11" width="22" height="3" rx="1.5" fill="#fff" fill-opacity=".9"/>
+          <rect x="7" y="17" width="16" height="3" rx="1.5" fill="#fff" fill-opacity=".7"/>
+          <rect x="7" y="23" width="19" height="3" rx="1.5" fill="#fff" fill-opacity=".55"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#818cf8"/><stop offset="1" stop-color="#c084fc"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../tools.html#coding">Coding Tools</a><a href="../tools.html#design">Design Tools</a><a href="../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../about.html">About</a><a href="../blog.html">Blog</a><a href="../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+</body>
+</html>

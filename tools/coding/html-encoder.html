@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HTML Encoder & Decoder — Free Online HTML Entities Tool | The Tool Empire</title>
+  <meta name="description" content="Encode special characters to HTML entities and decode HTML entities back to readable text. Supports named entities, numeric codes, Unicode, live preview, and 30+ entity quick-insert."/>
+  <meta name="keywords" content="html encoder decoder online, html entities converter, encode html special characters, decode html entities, html escape tool free, ampersand encoder"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/coding/html-encoder.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="HTML Encoder & Decoder — Free Online HTML Entities Tool"/>
+  <meta property="og:description" content="Encode special characters to HTML entities and decode HTML entities instantly. Named entities, numeric codes, live preview."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/coding/html-encoder.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"HTML Encoder & Decoder","description":"Free browser-based HTML encoder and decoder with named entities, numeric codes, live preview, Unicode support, and 30+ entity quick-insert.","url":"https://thetoolempire.com/tools/coding/html-encoder.html","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["HTML special character encoding","HTML entity decoding","Named entity support (80+)","Numeric decimal and hex entity decode","Encode-all Unicode option","Live HTML preview","Entity quick-insert table","Download output","No data sent to server"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Coding Tools","item":"https://thetoolempire.com/tools.html#coding"},
+      {"@type":"ListItem","position":3,"name":"HTML Encoder Decoder","item":"https://thetoolempire.com/tools/coding/html-encoder.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is HTML encoding?","acceptedAnswer":{"@type":"Answer","text":"HTML encoding converts special characters into HTML entities so they display correctly in a browser instead of being interpreted as HTML markup. For example, < becomes &lt; so the browser shows a literal less-than sign rather than treating it as the start of a tag."}},
+      {"@type":"Question","name":"When do I need to encode HTML?","acceptedAnswer":{"@type":"Answer","text":"You need to encode HTML whenever you insert user-provided text into an HTML page, store HTML in a database field, display code snippets in a tutorial, or pass HTML content inside a URL or JSON value. Skipping encoding is one of the primary causes of XSS (cross-site scripting) vulnerabilities."}},
+      {"@type":"Question","name":"What is the difference between named and numeric HTML entities?","acceptedAnswer":{"@type":"Answer","text":"Named entities use a readable name, like &amp; for & or &copy; for ©. Numeric entities use the Unicode code point in decimal (&amp;#169;) or hex (&amp;#xA9;). Both represent the same character. Named entities are easier to read; numeric entities work for any Unicode character regardless of whether a named entity exists."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="html-encoder.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <path d="M8 12l4 6-4 6M14 24h14" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".9"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#34d399"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="htmlEncoderApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li style="color:#e8e8f0">HTML Encoder / Decoder</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot" style="width:100%;margin-bottom:18px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 12l4 6-4 6M14 24h14"/><polyline points="4 6 2 12 4 18"/><polyline points="20 6 22 12 20 18"/></svg>
+      Coding Tool
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">HTML Encoder</span> &amp; Decoder</h1>
+    <p class="tool-subtitle">Convert special characters to HTML entities and decode them back. Named entities, numeric codes, live preview, 80+ entity support.</p>
+  </div>
+
+  <!-- Mode -->
+  <div class="mode-tabs">
+    <button class="mode-tab" :class="{active: mode==='encode'}" @click="setMode('encode')">Encode</button>
+    <button class="mode-tab" :class="{active: mode==='decode'}" @click="setMode('decode')">Decode</button>
+  </div>
+
+  <!-- Options -->
+  <div class="option-row">
+    <label class="option-label">
+      <input type="checkbox" x-model="namedEntities" @change="run()"/>
+      Named entities (<code style="font-size:.78rem;color:var(--primary)">&amp;copy;</code> etc.)
+    </label>
+    <div class="option-sep"></div>
+    <label class="option-label">
+      <input type="checkbox" x-model="encodeAll" @change="run()"/>
+      Encode all non-ASCII as numeric (<code style="font-size:.78rem;color:var(--primary)">&amp;#9829;</code>)
+    </label>
+    <div class="option-sep"></div>
+    <label class="option-label">
+      <input type="checkbox" x-model="encodeQuotes" @change="run()"/>
+      Encode quotes
+    </label>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="toolbar-group">
+      <button class="btn-tool btn-primary" @click="run()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <span x-text="mode==='encode'?'Encode':'Decode'"></span>
+      </button>
+      <button class="btn-tool btn-secondary" @click="swap()" title="Swap input/output and flip mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+        Swap
+      </button>
+    </div>
+    <div class="toolbar-divider"></div>
+    <div class="toolbar-group">
+      <button class="btn-tool btn-secondary" @click="loadSample()">Sample HTML</button>
+      <button class="btn-tool btn-secondary" @click="loadSampleDecode()">Sample Encoded</button>
+    </div>
+    <div class="toolbar-divider"></div>
+    <div class="toolbar-group">
+      <button class="btn-tool btn-secondary" @click="download()" :disabled="!output">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        Download
+      </button>
+      <button class="btn-tool btn-danger" @click="clear()">Clear</button>
+    </div>
+    <div class="status-pill" :class="statusClass" x-text="statusLabel"></div>
+  </div>
+
+  <!-- Editor -->
+  <div class="editor-layout">
+    <div class="editor-pane">
+      <div class="pane-header">
+        <span class="pane-title">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          <span x-text="mode==='encode'?'HTML / Plain Text Input':'Encoded Input'"></span>
+        </span>
+        <div class="pane-actions">
+          <button class="pane-btn" @click="copyInput()">Copy</button>
+          <button class="pane-btn" @click="clear()">Clear</button>
+        </div>
+      </div>
+      <textarea
+        class="editor-textarea"
+        x-model="input"
+        @input="run()"
+        :placeholder="mode==='encode' ? 'Paste HTML or text with special characters…' : 'Paste HTML-encoded string to decode…'"
+        spellcheck="false"
+      ></textarea>
+    </div>
+
+    <div class="editor-pane">
+      <div class="pane-header">
+        <span class="pane-title">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span x-text="mode==='encode'?'HTML Entities Output':'Decoded Output'"></span>
+        </span>
+        <div class="pane-actions">
+          <button class="pane-btn" @click="copyOutput()">Copy</button>
+          <button class="pane-btn" @click="download()">Download</button>
+        </div>
+      </div>
+      <pre class="output-pre" x-text="output || (mode==='encode' ? 'Encoded output will appear here…' : 'Decoded text will appear here…')" :style="!output ? 'color:var(--text-faint)' : ''"></pre>
+    </div>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="stats-bar" x-show="input.trim()">
+    <div class="stat-item">
+      <span class="stat-label">Input</span>
+      <span class="stat-value" x-text="inputSize"></span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Output</span>
+      <span class="stat-value" x-text="outputSize"></span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Entities</span>
+      <span class="stat-value" x-text="entityCount"></span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Characters</span>
+      <span class="stat-value" x-text="input.length"></span>
+    </div>
+    <div class="stat-item" x-show="output">
+      <span class="stat-label">Output chars</span>
+      <span class="stat-value" x-text="output.length"></span>
+    </div>
+  </div>
+
+  <!-- Live HTML Preview -->
+  <div class="preview-pane" x-show="mode==='encode' && input.trim()" style="margin-top:10px">
+    <div class="pane-header">
+      <span class="pane-title">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        Live HTML Preview
+      </span>
+    </div>
+    <div class="preview-body" x-html="previewHtml"></div>
+  </div>
+
+  <!-- Ad -->
+  <div class="ad-slot" style="width:100%;margin-top:20px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- ── ENTITY QUICK-INSERT ── -->
+  <div class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">Entity Quick-Insert</h2>
+      <p class="section-desc">Click any entity to append it to the input field. Useful for inserting special characters you don't have on your keyboard.</p>
+    </div>
+    <div class="entity-grid">
+      <template x-for="e in entityRef" :key="e.entity">
+        <div class="entity-row" @click="insertEntity(e.entity)" :title="'Insert ' + e.entity">
+          <span class="entity-char" x-text="e.char"></span>
+          <span class="entity-name" x-text="e.entity"></span>
+          <span class="entity-desc" x-text="e.desc"></span>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── HOW TO USE ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">How to Use This Tool</h2>
+      <p class="section-desc">Everything this HTML encoder and decoder does — and how to get the most out of each feature.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-title">Encode HTML</div>
+        <div class="step-desc">Select <strong>Encode</strong>, paste any HTML or plain text. Characters like <code>&lt;</code>, <code>&gt;</code>, <code>&amp;</code>, <code>"</code>, and <code>'</code> are instantly converted to safe HTML entities.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-title">Decode Entities</div>
+        <div class="step-desc">Switch to <strong>Decode</strong>, paste any HTML-encoded string. Named entities (<code>&amp;amp;</code>), decimal (<code>&amp;#38;</code>), and hex (<code>&amp;#x26;</code>) codes are all resolved.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-title">Tweak Options</div>
+        <div class="step-desc">Use <strong>Named entities</strong> for readable output (<code>&amp;copy;</code>), <strong>Encode all non-ASCII</strong> for maximum compatibility, and toggle <strong>Encode quotes</strong> when working with HTML attributes.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div class="step-title">Preview the Result</div>
+        <div class="step-desc">The <strong>Live Preview</strong> panel renders your input HTML so you can see exactly how it looks in a browser — alongside the encoded output.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">5</div>
+        <div class="step-title">Insert Special Chars</div>
+        <div class="step-desc">Use the <strong>Entity Quick-Insert</strong> table to add copyright signs, arrows, fractions, Greek letters, and other symbols you can't type directly.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">6</div>
+        <div class="step-title">Swap &amp; Download</div>
+        <div class="step-desc"><strong>Swap</strong> flips the output back to input and reverses the mode — perfect for a round-trip check. Download the result as an HTML file anytime.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FEATURES ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">What's Built In</h2>
+      <p class="section-desc">A complete HTML entity tool — no extensions, no accounts, no data ever leaving your browser.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🔤</div>
+        <div class="feature-title">80+ Named Entities</div>
+        <div class="feature-desc">Covers all essential HTML5 named entities — symbols, accented letters, Greek alphabet, currencies, arrows, and math operators.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔢</div>
+        <div class="feature-title">Numeric Code Decode</div>
+        <div class="feature-desc">Decodes both decimal (<code>&amp;#169;</code>) and hexadecimal (<code>&amp;#xA9;</code>) numeric entities — any Unicode character, not just those with names.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <div class="feature-title">Encode All Unicode</div>
+        <div class="feature-desc">The "Encode all non-ASCII" option converts every character above code point 127 to a numeric entity — for maximum ASCII-safe output.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👁️</div>
+        <div class="feature-title">Live HTML Preview</div>
+        <div class="feature-desc">See your HTML rendered in real time alongside the encoded output — so you know the markup is valid before copying it.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Real-Time Processing</div>
+        <div class="feature-desc">Output updates as you type — no button needed. Ideal for spot-checking specific characters as you work through a document.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔁</div>
+        <div class="feature-title">Swap Mode</div>
+        <div class="feature-desc">One click moves output back to input and flips encode/decode — useful for verifying that a round-trip produces the original string.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <div class="feature-title">Quick-Insert Table</div>
+        <div class="feature-desc">32 clickable entity tiles let you insert copyright, trademark, currency, arrows, fractions, and Greek letters without memorising the entity names.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">100% In-Browser</div>
+        <div class="feature-desc">All processing happens locally via JavaScript. Your HTML content — which may contain private data or unpublished code — never touches a server.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FAQ ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-desc">Common questions about HTML encoding, entities, and how this tool works.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is HTML encoding and why does it matter?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>HTML encoding converts characters that have special meaning in HTML into entity sequences that are displayed as text instead of parsed as markup. For example, <code>&lt;</code> becomes <code>&amp;lt;</code> so the browser shows a literal less-than sign rather than treating it as the start of an HTML tag. This matters in two scenarios: security (preventing XSS attacks by neutralising injected markup) and correctness (displaying code snippets, math expressions, or special symbols in a web page).</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What are the five characters you must always encode?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>The five characters with special HTML meaning are: <code>&amp;</code> → <code>&amp;amp;</code>, <code>&lt;</code> → <code>&amp;lt;</code>, <code>&gt;</code> → <code>&amp;gt;</code>, <code>"</code> → <code>&amp;quot;</code>, and <code>'</code> → <code>&amp;apos;</code>. Of these, <code>&amp;</code>, <code>&lt;</code>, and <code>&gt;</code> are critical everywhere. Quotes need encoding primarily inside HTML attribute values. Failing to encode any of these when inserting user-supplied content is a classic XSS vulnerability.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is the difference between named and numeric HTML entities?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Named entities use a memorable shorthand — <code>&amp;copy;</code> for ©, <code>&amp;amp;</code> for &amp;, <code>&amp;mdash;</code> for —. Numeric entities use the Unicode code point in decimal (<code>&amp;#169;</code>) or hex (<code>&amp;#xA9;</code>) for the same ©. Both formats are valid HTML and render identically in all browsers. Named entities are easier to read in source code; numeric entities work for any Unicode character, even those without a named equivalent.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Does HTML encoding prevent XSS attacks?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Yes — when applied correctly. HTML encoding neutralises injected HTML by converting <code>&lt;</code> and <code>&gt;</code> to <code>&amp;lt;</code> and <code>&amp;gt;</code>, preventing a browser from parsing attacker-controlled strings as tags or script elements. However, encoding alone is not sufficient in all contexts: JavaScript event handlers require JavaScript escaping, CSS values need CSS escaping, and URL parameters need URL encoding. The right encoding must match the context where the data appears.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">When should I use &amp;nbsp; instead of a regular space?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Use <code>&amp;nbsp;</code> (non-breaking space) when you need two words to stay on the same line and never wrap — for example, "10&amp;nbsp;km", "Dr.&amp;nbsp;Smith", or a number with its unit. The non-breaking space prevents the browser from inserting a line break at that position. For general paragraph spacing, use CSS <code>margin</code> or <code>padding</code> — adding multiple <code>&amp;nbsp;</code> characters for visual indentation is a bad practice that affects accessibility and screen readers.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Is this tool safe to use with private or sensitive HTML?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Yes. All encoding and decoding happens entirely inside your browser using JavaScript. Your HTML is never sent to any server, never stored, and never logged. You can safely paste confidential markup, internal template code, or HTML containing personal data without any risk of it being intercepted or stored externally.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What does "Encode all non-ASCII" do?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Checking "Encode all non-ASCII" converts every character with a Unicode code point above 127 to a numeric entity (<code>&amp;#[number];</code>). This produces a fully ASCII-safe output string — useful when the target system doesn't support UTF-8, when embedding HTML inside another encoding context, or when you need to ensure the output contains only the 128 basic ASCII characters. For normal HTML documents served with a UTF-8 charset, this option is unnecessary.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Why are there two dashes — en dash and em dash?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>They serve different typographic purposes. The <strong>en dash</strong> (<code>&amp;ndash;</code> –) is roughly the width of the letter N and is used for ranges (pages 10–20, 2020–2026) and to connect related items. The <strong>em dash</strong> (<code>&amp;mdash;</code> —) is the width of the letter M and is used as a strong parenthetical break — like this — or to signal an interruption in speech. Neither should be confused with a hyphen (-), which is a keyboard character used for compound words and word breaks.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Why does my encoded HTML look longer than the original?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>HTML encoding always increases the text length because single characters are replaced by multi-character sequences. The ampersand <code>&amp;</code> (1 character) becomes <code>&amp;amp;</code> (5 characters). The copyright symbol <code>©</code> (1 character) becomes <code>&amp;copy;</code> (6 characters). This is expected — the longer encoded form is how the browser knows to display the character rather than parse it as markup. The rendered output looks identical to the original in a browser.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Do I need to encode HTML in modern UTF-8 web pages?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>For symbols like ©, €, and em dash, you can write them directly in a UTF-8 HTML document and they display fine. The only characters you <em>must</em> always encode are <code>&lt;</code>, <code>&gt;</code>, and <code>&amp;</code> — these must be entities regardless of the character encoding because the HTML parser treats them as markup delimiters. In attribute values, you also need to encode <code>"</code> or <code>'</code> depending on which quote character delimits the attribute.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── RELATED TOOLS ── -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="base64.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#818cf8,#c084fc)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+        <div class="related-name">Base64 Encoder / Decoder</div>
+        <div class="related-desc">Encode and decode Base64 text and files.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="json-formatter.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <div class="related-name">JSON Formatter</div>
+        <div class="related-desc">Format, validate, and diff JSON.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../text/diff-checker.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#34d399,#059669)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></div>
+        <div class="related-name">Text Diff Checker</div>
+        <div class="related-desc">Compare two text blocks side by side.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../design/color-picker.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#a78bfa,#38bdf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></div>
+        <div class="related-name">Color Picker</div>
+        <div class="related-desc">HEX, RGB, HSL picker with harmonies.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Related Blogs -->
+  <div class="page-section" style="margin-top:20px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Articles</h2>
+      <a href="../../blog.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="../../blog/html-entities-explained.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#34d399,#06b6d4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="related-name">Every HTML Entity You Actually Need</div>
+        <div class="related-desc">The complete reference with examples and when to use each one.</div>
+        <span class="related-link">Read →</span>
+      </a>
+      <a href="../../blog/base64-guide.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#818cf8,#c084fc)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="related-name">Base64 Encoding: How It Actually Works</div>
+        <div class="related-desc">Bits, bytes, and the 33% overhead explained clearly.</div>
+        <span class="related-link">Read →</span>
+      </a>
+      <a href="../../blog/json-formatter-guide.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="related-name">JSON Explained for Developers</div>
+        <div class="related-desc">Syntax, types, validation, and best practices.</div>
+        <span class="related-link">Read →</span>
+      </a>
+      <a href="../../blog/contrast-checker-guide.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#a78bfa,#34d399)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="related-name">WCAG Color Contrast — What It Means and Why It Matters</div>
+        <div class="related-desc">Accessibility contrast rules in plain language.</div>
+        <span class="related-link">Read →</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <path d="M8 12l4 6-4 6M14 24h14" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".9"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#34d399"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#coding">Coding Tools</a><a href="../../tools.html#design">Design Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a><a href="../../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="html-encoder.js"></script>
+</body>
+</html>

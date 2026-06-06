@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Markdown From the Ground Up — Syntax, Flavours, and When to Use It | The Tool Empire</title>
+  <meta name="description" content="Everything you need to know about Markdown — the syntax, the different flavours (CommonMark, GFM, MDX), how it converts to HTML, and when plain Markdown isn't enough."/>
+  <meta name="keywords" content="markdown tutorial, markdown syntax, github flavored markdown, markdown to html, commonmark, markdown cheatsheet, what is markdown"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/blog/markdown-explained.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="Markdown From the Ground Up — Syntax, Flavours, and When to Use It"/>
+  <meta property="og:description" content="The complete Markdown reference — syntax, GFM tables, task lists, code blocks, flavours compared, and when to reach for something else."/>
+  <meta property="og:url" content="https://thetoolempire.com/blog/markdown-explained.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"BlogPosting",
+     "headline":"Markdown From the Ground Up — Syntax, Flavours, and When to Use It",
+     "description":"Everything you need to know about Markdown — the full syntax, the different flavours (CommonMark, GFM, MDX), how it converts to HTML, and when plain Markdown isn't enough.",
+     "url":"https://thetoolempire.com/blog/markdown-explained.html",
+     "datePublished":"2026-06-06","dateModified":"2026-06-06",
+     "author":{"@type":"Person","name":"The Tool Empire Team"},
+     "publisher":{"@type":"Organization","name":"The Tool Empire","url":"https://thetoolempire.com"},
+     "mainEntityOfPage":{"@type":"WebPage","@id":"https://thetoolempire.com/blog/markdown-explained.html"},
+     "articleSection":"Coding","keywords":"markdown tutorial, markdown syntax, github flavored markdown, commonmark"},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Blog","item":"https://thetoolempire.com/blog.html"},
+      {"@type":"ListItem","position":3,"name":"Markdown From the Ground Up","item":"https://thetoolempire.com/blog/markdown-explained.html"}
+    ]}
+  ]}</script>
+
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#0f0f14;--bg-card:#1e1e28;--bg-surface:#18181f;
+      --border:rgba(255,255,255,.08);--border-hover:rgba(255,255,255,.16);
+      --text:#e8e8f0;--text-muted:#9898b8;--text-faint:#555570;
+      --primary:#38bdf8;--secondary:#818cf8;
+      --radius:14px;--radius-sm:8px;
+      --font-mono:'Fira Code','Cascadia Code','JetBrains Mono',monospace;
+    }
+    body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;line-height:1.7;font-size:16px}
+    a{color:var(--primary);text-decoration:none}a:hover{text-decoration:underline}
+    code{font-family:var(--font-mono);font-size:.88em;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.2);border-radius:4px;padding:2px 6px;color:#7dd3fc}
+    pre{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:20px 22px;overflow-x:auto;margin:18px 0;font-family:var(--font-mono);font-size:.85rem;line-height:1.7}
+    pre code{background:none;border:none;padding:0;font-size:inherit;color:#e8e8f0}
+    img{max-width:100%;border-radius:var(--radius-sm)}
+    #progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--secondary));width:0%;z-index:9999;transition:width .1s}
+    .site-header{border-bottom:1px solid var(--border);background:rgba(15,15,20,.95);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100;height:60px;display:flex;align-items:center}
+    .header-inner{max-width:1200px;width:100%;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:10px;color:var(--text);font-weight:700;font-size:1.05rem;text-decoration:none}
+    .logo-icon{width:32px;height:32px;border-radius:8px;flex-shrink:0}
+    .main-nav{display:flex;align-items:center;gap:4px}
+    .nav-link{padding:7px 14px;border-radius:var(--radius-sm);font-size:.88rem;font-weight:500;color:var(--text-muted);transition:.15s;text-decoration:none}
+    .nav-link:hover,.nav-link.active{color:var(--text);background:rgba(255,255,255,.06);text-decoration:none}
+    .page-wrap{max-width:1200px;margin:0 auto;padding:40px 24px 80px;display:grid;grid-template-columns:1fr 280px;gap:48px;align-items:start}
+    .article-wrap{min-width:0}
+    .bc{display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--text-faint);margin-bottom:28px;flex-wrap:wrap}
+    .bc a{color:var(--text-faint);text-decoration:none}.bc a:hover{color:var(--text-muted)}
+    .article-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600;letter-spacing:.03em;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.25);color:var(--primary);margin-bottom:16px;text-transform:uppercase}
+    .article-title{font-size:clamp(1.6rem,3.5vw,2.3rem);font-weight:800;line-height:1.2;letter-spacing:-.02em;margin-bottom:18px}
+    .gradient-title{background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .article-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--text-faint);margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+    .meta-dot{width:3px;height:3px;border-radius:50%;background:var(--text-faint);flex-shrink:0}
+    .prose h2{font-size:1.45rem;font-weight:700;margin:42px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--border);color:var(--text)}
+    .prose h3{font-size:1.15rem;font-weight:700;margin:30px 0 10px;color:var(--text)}
+    .prose h4{font-size:1rem;font-weight:700;margin:22px 0 8px;color:var(--text)}
+    .prose p{margin-bottom:16px;color:#c8c8dc}
+    .prose ul,.prose ol{margin:12px 0 16px 22px;color:#c8c8dc}
+    .prose li{margin-bottom:6px}
+    .prose strong{color:var(--text);font-weight:600}
+    .prose blockquote{border-left:3px solid var(--primary);padding:14px 20px;background:rgba(56,189,248,.06);border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:20px 0;font-style:italic;color:var(--text-muted)}
+    .callout{border-radius:var(--radius-sm);padding:16px 20px;margin:20px 0;display:flex;gap:12px;align-items:flex-start}
+    .callout-tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);color:#6ee7b7}
+    .callout-warn{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);color:#fcd34d}
+    .callout-info{background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.2);color:#7dd3fc}
+    .callout-danger{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);color:#fca5a5}
+    .callout-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px}
+    .callout-body{font-size:.9rem;line-height:1.6}
+    .callout-body p{color:inherit;margin-bottom:8px}.callout-body p:last-child{margin-bottom:0}
+    .callout-body strong{color:inherit}
+    /* Side-by-side md/html comparison */
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+    .compare-pane{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden}
+    .compare-head{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:6px 14px;border-bottom:1px solid var(--border);color:var(--text-faint)}
+    .compare-body{padding:14px;font-family:var(--font-mono);font-size:.82rem;line-height:1.7;color:#c8c8dc;white-space:pre-wrap;word-break:break-word}
+    /* Flavour table */
+    .data-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.88rem}
+    .data-table th{text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text-muted);font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
+    .data-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);color:#c8c8dc;vertical-align:top}
+    .data-table tr:hover td{background:rgba(255,255,255,.02)}
+    .tick{color:#34d399;font-weight:700}.cross{color:#f87171;font-weight:700}.partial{color:#fbbf24;font-weight:700}
+    /* Tool spotlight */
+    .tool-spotlight{background:linear-gradient(135deg,rgba(56,189,248,.1),rgba(129,140,248,.08));border:1px solid rgba(56,189,248,.25);border-radius:var(--radius);padding:24px;margin:32px 0}
+    .ts-title{font-weight:700;font-size:1.05rem;margin-bottom:8px;color:var(--text)}
+    .ts-desc{font-size:.88rem;color:var(--text-muted);margin-bottom:16px;line-height:1.6}
+    .ts-link{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:var(--radius-sm);background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;font-size:.85rem;font-weight:600;text-decoration:none;transition:.15s}
+    .ts-link:hover{opacity:.9;text-decoration:none}
+    /* Author */
+    .author-box{display:flex;align-items:center;gap:16px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-top:40px}
+    .author-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+    .author-name{font-weight:700;font-size:.95rem;margin-bottom:3px}
+    .author-bio{font-size:.82rem;color:var(--text-muted)}
+    /* Related */
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:16px}
+    .related-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;text-decoration:none;color:var(--text);transition:.2s;display:block}
+    .related-card:hover{border-color:var(--primary);transform:translateY(-2px);text-decoration:none}
+    .related-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+    .related-icon svg{width:18px;height:18px;stroke:#fff}
+    .related-name{font-weight:700;font-size:.9rem;margin-bottom:4px;color:var(--text)}
+    .related-desc{font-size:.8rem;color:var(--text-muted);line-height:1.5;margin-bottom:8px}
+    .related-link{font-size:.78rem;color:var(--primary);font-weight:600}
+    /* TOC */
+    .toc-sidebar{position:sticky;top:80px}
+    .toc-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+    .toc-title{font-size:.78rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
+    .toc-list{list-style:none;display:flex;flex-direction:column;gap:4px}
+    .toc-list a{font-size:.83rem;color:var(--text-faint);text-decoration:none;padding:4px 8px;border-radius:5px;display:block;line-height:1.4;transition:.15s;border-left:2px solid transparent}
+    .toc-list a:hover{color:var(--text);background:rgba(255,255,255,.04);border-left-color:var(--primary)}
+    .toc-list a.active{color:var(--primary);border-left-color:var(--primary);background:rgba(56,189,248,.07)}
+    /* Footer */
+    .site-footer{border-top:1px solid var(--border);padding:48px 24px 32px;background:var(--bg-surface)}
+    .footer-grid{max-width:1200px;margin:0 auto 32px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+    .footer-brand-text{font-size:.82rem;color:var(--text-faint);margin-top:10px;line-height:1.6}
+    .footer-heading{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin-bottom:12px}
+    .footer-links{display:flex;flex-direction:column;gap:8px}
+    .footer-links a{font-size:.85rem;color:var(--text-faint);text-decoration:none;transition:.15s}.footer-links a:hover{color:var(--text)}
+    .footer-bottom{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid var(--border);font-size:.8rem;color:var(--text-faint);flex-wrap:wrap;gap:10px}
+    @media(max-width:1023px){.page-wrap{grid-template-columns:1fr}.toc-sidebar{display:none}.footer-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:600px){.page-wrap{padding:24px 16px 60px}.main-nav{display:none}.footer-grid{grid-template-columns:1fr}.compare-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div id="progress-bar"></div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <text x="5" y="26" font-family="'Fira Code',monospace" font-size="16" font-weight="900" fill="#fff" fill-opacity=".92">MD</text>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#38bdf8"/><stop offset="1" stop-color="#818cf8"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../tools.html" class="nav-link">Tools</a>
+      <a href="../blog.html" class="nav-link active">Blog</a>
+      <a href="../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-wrap">
+  <article class="article-wrap">
+    <nav class="bc" aria-label="Breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="../blog.html">Blog</a><span>›</span>
+      <span>Markdown From the Ground Up</span>
+    </nav>
+
+    <ins class="adsbygoogle" style="display:block;margin-bottom:24px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+
+    <div class="article-badge">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Coding
+    </div>
+    <h1 class="article-title"><span class="gradient-title">Markdown From the Ground Up</span> — Syntax, Flavours, and When to Use It</h1>
+
+    <div class="article-meta">
+      <span>By The Tool Empire Team</span>
+      <span class="meta-dot"></span>
+      <span>June 6, 2026</span>
+      <span class="meta-dot"></span>
+      <span>16 min read</span>
+      <span class="meta-dot"></span>
+      <span>Coding · Markdown</span>
+    </div>
+
+    <div class="prose">
+
+      <p>Markdown is everywhere. GitHub READMEs, technical documentation, blog posts, Slack messages, Notion pages, Discord — all of them speak Markdown. Yet most people pick it up piecemeal: they learn <code>#</code> for headings, <code>**</code> for bold, and call it a day. This article starts from the beginning and covers everything: what Markdown actually is, the full syntax, the different flavours, how it converts to HTML, and when to reach for something else.</p>
+
+      <h2 id="what-is-markdown">What Markdown Actually Is</h2>
+
+      <p>Markdown is a <strong>text-to-HTML conversion tool</strong> invented by John Gruber and Aaron Swartz in 2004. The core idea was simple: write plain text that looks good as plain text, and have a program convert it to clean HTML. A pound sign before a word becomes a heading tag. Asterisks around text become a bold tag. Dashes at the start of lines become a list.</p>
+
+      <p>The design goal was readability. Markdown source should be publishable as-is, as plain text, without looking like it's been marked up with tags. That's what separates it from HTML — an HTML document is not pleasant to read in raw form. A Markdown document is.</p>
+
+      <blockquote>"The overriding design goal for Markdown's formatting syntax is to make it as readable as possible." — John Gruber</blockquote>
+
+      <p>Markdown is <em>not</em> a programming language, a binary format, or a markup language in the XML sense. It's just a convention — an agreed set of plain-text patterns that tools know how to convert. This simplicity is its greatest strength and, occasionally, its biggest frustration.</p>
+
+      <h2 id="how-conversion-works">How the Conversion Works</h2>
+
+      <p>When you write Markdown, a parser reads your plain text and emits HTML. The original Gruber parser was a Perl script. Today there are implementations in every language: marked.js and micromark in JavaScript, Python-Markdown and mistune in Python, pulldown-cmark in Rust, and dozens more.</p>
+
+      <p>The mapping is direct. Here's what happens to common syntax:</p>
+
+      <div class="compare-grid">
+        <div class="compare-pane">
+          <div class="compare-head">Markdown</div>
+          <div class="compare-body"># My Heading
+
+Some **bold** and *italic* text.
+
+- Item one
+- Item two
+
+[Link](https://example.com)</div>
+        </div>
+        <div class="compare-pane">
+          <div class="compare-head">Rendered HTML</div>
+          <div class="compare-body">&lt;h1&gt;My Heading&lt;/h1&gt;
+&lt;p&gt;Some &lt;strong&gt;bold&lt;/strong&gt; and &lt;em&gt;italic&lt;/em&gt; text.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Item one&lt;/li&gt;
+  &lt;li&gt;Item two&lt;/li&gt;
+&lt;/ul&gt;
+&lt;a href="https://example.com"&gt;Link&lt;/a&gt;</div>
+        </div>
+      </div>
+
+      <p>The important thing to understand: Markdown <em>is</em> HTML at the end. It's not a replacement — it's a convenient way to write HTML without typing angle brackets. This means anything you can do in HTML, you can technically do in most Markdown parsers by just writing raw HTML inline. But you rarely need to.</p>
+
+      <h2 id="complete-syntax">The Complete Syntax</h2>
+
+      <h3>Headings</h3>
+      <p>Use <code>#</code> signs followed by a space. One <code>#</code> gives you an <code>&lt;h1&gt;</code>, two give <code>&lt;h2&gt;</code>, and so on up to six levels.</p>
+      <pre><code># Heading 1
+## Heading 2
+### Heading 3
+#### Heading 4
+##### Heading 5
+###### Heading 6</code></pre>
+      <p>There's also <strong>setext style</strong> for H1 and H2 — underline the text with <code>===</code> or <code>---</code>:</p>
+      <pre><code>My H1 Heading
+=============
+
+My H2 Heading
+-------------</code></pre>
+
+      <h3>Paragraphs and Line Breaks</h3>
+      <p>Paragraphs are created by separating text with a <strong>blank line</strong>. A single line break within a paragraph is ignored — the text wraps together. To force a line break within a paragraph, end the line with <strong>two or more spaces</strong> before pressing Enter.</p>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body"><p><strong>The two-space line break is invisible.</strong> This trips up a lot of writers — editors that strip trailing whitespace will silently remove your intended line breaks. Some flavours accept a backslash <code>\</code> at end of line as a more visible alternative.</p></div>
+      </div>
+
+      <h3>Emphasis</h3>
+      <pre><code>**bold text**          → &lt;strong&gt;
+*italic text*          → &lt;em&gt;
+***bold and italic***  → &lt;strong&gt;&lt;em&gt;
+~~strikethrough~~      → &lt;del&gt;  (GFM only)
+__bold with underscores__
+_italic with underscore_</code></pre>
+
+      <h3>Lists</h3>
+      <p>Unordered lists use <code>-</code>, <code>*</code>, or <code>+</code> as the bullet marker. Ordered lists use numbers followed by a period. The actual numbers don't have to be sequential — most parsers renumber them anyway.</p>
+      <pre><code>- Unordered item
+- Another item
+  - Nested item (indent 2 spaces)
+
+1. First
+2. Second
+3. Third
+
+1. The numbers
+1. don't need to
+1. be sequential</code></pre>
+
+      <h3>Task Lists (GFM)</h3>
+      <p>GitHub Flavored Markdown adds task list items — checkboxes that can be checked or unchecked:</p>
+      <pre><code>- [x] Write the article
+- [x] Add code examples
+- [ ] Add images
+- [ ] Publish</code></pre>
+
+      <h3>Code</h3>
+      <p>Inline code uses single backticks. Fenced code blocks use triple backticks with an optional language name for syntax highlighting:</p>
+      <pre><code>Use `npm install` to install dependencies.
+
+```javascript
+const greet = name => `Hello, ${name}!`;
+console.log(greet('World'));
+```
+
+```python
+def greet(name):
+    return f"Hello, {name}!"
+```</code></pre>
+      <p>You can also indent code with 4 spaces, but fenced blocks are strongly preferred because they support language labels.</p>
+
+      <h3>Links and Images</h3>
+      <pre><code>[Link text](https://example.com)
+[Link with title](https://example.com "Hover text")
+![Image alt text](https://example.com/image.png)
+![Image with title](image.png "Image title")
+
+[Reference-style link][ref-name]
+[ref-name]: https://example.com</code></pre>
+
+      <h3>Blockquotes</h3>
+      <p>Prefix lines with <code>&gt;</code>. Blockquotes can contain other Markdown elements, and they nest with multiple <code>&gt;</code> signs:</p>
+      <pre><code>&gt; This is a blockquote.
+&gt; It can span multiple lines.
+&gt;
+&gt;&gt; This is nested.
+
+&gt; **Note:** blockquotes can contain **bold** text.</code></pre>
+
+      <h3>Horizontal Rules</h3>
+      <p>Three or more hyphens, asterisks, or underscores on a line by themselves:</p>
+      <pre><code>---
+***
+___</code></pre>
+
+      <h3>Tables (GFM)</h3>
+      <p>Tables are a GitHub Flavored Markdown extension. They use pipe characters to separate columns and a separator row of dashes between header and body:</p>
+      <pre><code>| Name     | Age | Role       |
+|----------|-----|------------|
+| Alice    | 30  | Engineer   |
+| Bob      | 25  | Designer   |
+| Charlie  | 35  | Manager    |
+
+| Left     | Center | Right    |
+|:---------|:------:|---------:|
+| aligned  | middle | aligned  |</code></pre>
+
+      <h3>Escaping Special Characters</h3>
+      <p>To display a character that Markdown would normally interpret as syntax, prefix it with a backslash:</p>
+      <pre><code>\*not italic\*
+\# not a heading
+\[not a link\]
+\`not code\`</code></pre>
+
+      <h2 id="flavours">The Flavour Problem</h2>
+
+      <p>Gruber's original Markdown spec left many edge cases undefined. What happens when you nest bold inside italic? What does a list item followed immediately by a heading look like? Different parsers answered these questions differently, and the ecosystem fragmented into dozens of incompatible "Markdown flavours."</p>
+
+      <table class="data-table">
+        <thead><tr><th>Flavour</th><th>Tables</th><th>Task lists</th><th>Strikethrough</th><th>Footnotes</th><th>Math</th><th>Used by</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Original Markdown</strong></td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td>Daring Fireball</td></tr>
+          <tr><td><strong>CommonMark</strong></td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td>Reddit, Stack Overflow</td></tr>
+          <tr><td><strong>GFM</strong></td><td class="tick">✓</td><td class="tick">✓</td><td class="tick">✓</td><td class="cross">✗</td><td class="cross">✗</td><td>GitHub, GitLab</td></tr>
+          <tr><td><strong>MultiMarkdown</strong></td><td class="tick">✓</td><td class="cross">✗</td><td class="cross">✗</td><td class="tick">✓</td><td class="partial">~</td><td>Academic writing</td></tr>
+          <tr><td><strong>Pandoc Markdown</strong></td><td class="tick">✓</td><td class="tick">✓</td><td class="tick">✓</td><td class="tick">✓</td><td class="tick">✓</td><td>Document conversion</td></tr>
+          <tr><td><strong>MDX</strong></td><td class="tick">✓</td><td class="tick">✓</td><td class="tick">✓</td><td class="partial">~</td><td class="partial">~</td><td>React/Next.js docs</td></tr>
+        </tbody>
+      </table>
+
+      <h3>CommonMark — the attempt at a standard</h3>
+      <p>In 2014, a group including Jeff Atwood (Stack Overflow) and John MacFarlane worked to create <strong>CommonMark</strong> — a precise, unambiguous Markdown specification. Every edge case is defined. The spec has a test suite. It's the closest thing Markdown has to a standard.</p>
+      <p>CommonMark doesn't include tables, task lists, or strikethrough — those are GFM extensions that most implementations add on top.</p>
+
+      <h3>GitHub Flavored Markdown (GFM)</h3>
+      <p>GFM is the Markdown dialect most developers encounter. It's a CommonMark superset that adds:</p>
+      <ul>
+        <li><strong>Tables</strong> — pipe-separated with separator row</li>
+        <li><strong>Task lists</strong> — <code>- [x]</code> checkboxes</li>
+        <li><strong>Strikethrough</strong> — <code>~~text~~</code></li>
+        <li><strong>Autolinks</strong> — bare URLs become clickable links</li>
+        <li><strong>Disallowed HTML</strong> — certain HTML tags are filtered for security</li>
+      </ul>
+      <p>If you're writing for GitHub, GitLab, or most documentation tools, GFM is what you're using.</p>
+
+      <h3>MDX</h3>
+      <p>MDX is Markdown for the React ecosystem. It lets you use JSX components directly inside Markdown files — essentially writing Markdown that can render interactive React components. It's used by documentation frameworks like Docusaurus, Nextra, and Astro.</p>
+      <pre><code>## My Post
+
+Here's a normal paragraph.
+
+&lt;MyComponent prop="value" /&gt;
+
+And back to normal **Markdown**.
+</code></pre>
+
+      <h2 id="frontmatter">Front Matter</h2>
+      <p>Many static site generators extend Markdown files with <strong>YAML front matter</strong> — a block of metadata at the top of the file, fenced with triple dashes. It's not standard Markdown, but it's nearly universal in the documentation and blogging tool space:</p>
+      <pre><code>---
+title: My Blog Post
+date: 2026-06-06
+author: Jane Smith
+tags: [markdown, writing, web]
+published: true
+---
+
+# My Blog Post
+
+The body starts here...
+</code></pre>
+      <p>Tools like Jekyll, Hugo, Eleventy, and Astro read this metadata to build page titles, dates, category pages, and more.</p>
+
+      <h2 id="best-practices">Writing Better Markdown</h2>
+
+      <h3>Use blank lines liberally</h3>
+      <p>The most common Markdown mistake is not having enough blank lines. A heading not preceded by a blank line, a list not separated from the paragraph before it, a code block with no breathing room — all of these can cause parsers to misinterpret your structure. When in doubt, add a blank line.</p>
+
+      <h3>Pick one bullet style and stick to it</h3>
+      <p>You can use <code>-</code>, <code>*</code>, or <code>+</code> for unordered lists. They all work, but mixing them in the same file looks inconsistent. Most style guides prefer <code>-</code>.</p>
+
+      <h3>Use fenced code blocks, not indented ones</h3>
+      <p>Four-space indented code blocks are original Markdown, but fenced blocks (<code>```</code>) are clearer, support language labels, and work everywhere. Always prefer fenced blocks.</p>
+
+      <h3>Don't use Markdown for complex layouts</h3>
+      <p>Markdown was designed for prose. It handles headings, paragraphs, lists, links, and code beautifully. It doesn't handle multi-column layouts, sidebars, custom components, or complex nesting well. If you find yourself fighting the parser, you've outgrown what Markdown is for.</p>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">💡</span>
+        <div class="callout-body"><p><strong>Use a linter.</strong> Tools like <code>markdownlint</code> enforce consistent style — heading hierarchy, blank lines around blocks, consistent list markers, no trailing whitespace. Running it in CI prevents style drift across a team documentation repo.</p></div>
+      </div>
+
+      <h2 id="markdown-vs-html">Markdown vs. Raw HTML</h2>
+      <p>Most Markdown parsers allow raw HTML inline. You <em>can</em> write <code>&lt;div class="warning"&gt;...&lt;/div&gt;</code> inside a Markdown file and it'll render. But you generally shouldn't:</p>
+      <ul>
+        <li>It ties your content to a specific HTML structure</li>
+        <li>It makes the source harder to read — defeating Markdown's purpose</li>
+        <li>Many parsers sanitise or block raw HTML for security (GitHub does)</li>
+        <li>It won't work with all Markdown targets (some output PDF, EPUB, LaTeX, not HTML)</li>
+      </ul>
+      <p>Reserve raw HTML for cases where Markdown genuinely can't express what you need — like a <code>&lt;video&gt;</code> embed or a custom element with specific attributes.</p>
+
+      <h2 id="markdown-vs-alternatives">When to Use Something Else</h2>
+
+      <table class="data-table">
+        <thead><tr><th>Need</th><th>Better choice than plain Markdown</th></tr></thead>
+        <tbody>
+          <tr><td>Rich components, interactive elements</td><td>MDX (React/Vue) or AsciiDoc</td></tr>
+          <tr><td>Academic writing with citations, math</td><td>Pandoc Markdown or LaTeX</td></tr>
+          <tr><td>Complex document structure</td><td>AsciiDoc or reStructuredText</td></tr>
+          <tr><td>Multi-output formats (PDF, EPUB, HTML)</td><td>Pandoc</td></tr>
+          <tr><td>Collaborative editing with comments</td><td>Google Docs, Notion, Confluence</td></tr>
+          <tr><td>CMS-managed content with rich media</td><td>MDX, Contentful, Sanity</td></tr>
+        </tbody>
+      </table>
+
+      <p>For most technical writing, documentation, README files, and blog posts, plain Markdown — or GFM — is the right tool. It's simple, portable, version-controllable, and readable in any text editor. Use it until you hit a wall, then consider the alternatives.</p>
+
+      <div class="tool-spotlight">
+        <div class="ts-title">Write and preview Markdown right now</div>
+        <div class="ts-desc">Our free Markdown editor shows live HTML preview as you type. Export to <code>.md</code> or a styled <code>.html</code> file. Supports GFM tables, task lists, code blocks, and the full syntax covered in this article.</div>
+        <a class="ts-link" href="../tools/coding/markdown.html">Open Markdown Editor →</a>
+      </div>
+
+      <h2 id="where-markdown-is-used">Where Markdown Shows Up</h2>
+      <p>Once you know to look, Markdown is everywhere:</p>
+      <ul>
+        <li><strong>GitHub / GitLab</strong> — READMEs, issues, pull request descriptions, wiki pages</li>
+        <li><strong>Stack Overflow</strong> — all question and answer formatting</li>
+        <li><strong>Slack / Discord / Teams</strong> — message formatting (simplified subset)</li>
+        <li><strong>Notion / Obsidian / Bear</strong> — note-taking apps</li>
+        <li><strong>Jekyll / Hugo / Eleventy / Astro</strong> — static site generators</li>
+        <li><strong>npm / PyPI / Cargo</strong> — package documentation</li>
+        <li><strong>Jupyter Notebooks</strong> — text cells between code cells</li>
+        <li><strong>VS Code</strong> — built-in preview, README rendering in the file explorer</li>
+        <li><strong>Jira / Linear / GitHub Projects</strong> — issue descriptions</li>
+      </ul>
+
+      <h2 id="quick-reference">Quick Reference</h2>
+      <pre><code># H1   ## H2   ### H3 … ###### H6
+
+**bold**   *italic*   ***both***   ~~strike~~   `code`
+
+- unordered    1. ordered    - [x] task    - [ ] task
+
+[text](url)    ![alt](url)
+
+> blockquote
+
+---  (horizontal rule)
+
+| Col | Col |         ```js
+|-----|-----|         code block
+| a   | b   |         ```
+</code></pre>
+
+    </div><!-- /prose -->
+
+    <div class="author-box">
+      <div class="author-avatar">📝</div>
+      <div>
+        <div class="author-name">The Tool Empire Team</div>
+        <div class="author-bio">We build free browser-based tools and write about the practical techniques behind them. No signup required, nothing sent to a server.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:40px">
+      <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:16px">Related Tools</h2>
+      <div class="related-grid">
+        <a href="../tools/coding/markdown.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#38bdf8,#818cf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="related-name">Markdown Editor</div><div class="related-desc">Live preview Markdown editor with export.</div><span class="related-link">Use tool →</span></a>
+        <a href="../tools/coding/html-encoder.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#34d399,#06b6d4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 6 2 12 4 18"/><polyline points="20 6 22 12 20 18"/></svg></div><div class="related-name">HTML Encoder</div><div class="related-desc">Encode and decode HTML entities.</div><span class="related-link">Use tool →</span></a>
+        <a href="../tools/coding/regex.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#e879f9,#a78bfa)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div><div class="related-name">Regex Tester</div><div class="related-desc">Test regular expressions with live highlighting.</div><span class="related-link">Use tool →</span></a>
+        <a href="../tools/coding/json-formatter.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div class="related-name">JSON Formatter</div><div class="related-desc">Format, validate, and diff JSON data.</div><span class="related-link">Use tool →</span></a>
+      </div>
+    </div>
+
+    <div style="margin-top:32px">
+      <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:16px">Related Articles</h2>
+      <div class="related-grid">
+        <a href="regex-explained.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#e879f9,#a78bfa)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="related-name">Regex Patterns That Actually Work</div><div class="related-desc">Email, URL, phone — with edge cases explained.</div><span class="related-link">Read →</span></a>
+        <a href="html-entities-explained.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#34d399,#06b6d4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="related-name">Every HTML Entity You Actually Need</div><div class="related-desc">Special characters, XSS, and when to encode.</div><span class="related-link">Read →</span></a>
+        <a href="json-formatter-guide.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="related-name">JSON Explained for Developers</div><div class="related-desc">Types, syntax, errors, and best practices 2026.</div><span class="related-link">Read →</span></a>
+        <a href="base64-guide.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#818cf8,#c084fc)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="related-name">Base64 Encoding: How It Actually Works</div><div class="related-desc">Bits, bytes, and the 33% overhead explained.</div><span class="related-link">Read →</span></a>
+      </div>
+    </div>
+
+    <ins class="adsbygoogle" style="display:block;margin-top:32px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+
+  </article>
+
+  <aside class="toc-sidebar" aria-label="Table of contents">
+    <div class="toc-card">
+      <div class="toc-title">In this article</div>
+      <ul class="toc-list">
+        <li><a href="#what-is-markdown">What Markdown Actually Is</a></li>
+        <li><a href="#how-conversion-works">How the Conversion Works</a></li>
+        <li><a href="#complete-syntax">The Complete Syntax</a></li>
+        <li><a href="#flavours">The Flavour Problem</a></li>
+        <li><a href="#frontmatter">Front Matter</a></li>
+        <li><a href="#best-practices">Writing Better Markdown</a></li>
+        <li><a href="#markdown-vs-html">Markdown vs. Raw HTML</a></li>
+        <li><a href="#markdown-vs-alternatives">When to Use Something Else</a></li>
+        <li><a href="#where-markdown-is-used">Where Markdown Shows Up</a></li>
+        <li><a href="#quick-reference">Quick Reference</a></li>
+      </ul>
+    </div>
+  </aside>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <text x="5" y="26" font-family="'Fira Code',monospace" font-size="16" font-weight="900" fill="#fff" fill-opacity=".92">MD</text>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#38bdf8"/><stop offset="1" stop-color="#818cf8"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../tools.html#coding">Coding Tools</a><a href="../tools.html#design">Design Tools</a><a href="../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../about.html">About</a><a href="../blog.html">Blog</a><a href="../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  const el = document.documentElement;
+  const pct = el.scrollTop / (el.scrollHeight - el.clientHeight) * 100;
+  document.getElementById('progress-bar').style.width = Math.min(pct, 100) + '%';
+});
+const tocLinks = document.querySelectorAll('.toc-list a');
+const headings = document.querySelectorAll('.prose h2[id], .prose h3[id]');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  headings.forEach(h => { if (h.getBoundingClientRect().top < 120) cur = h.id; });
+  tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+}, { passive: true });
+</script>
+</body>
+</html>

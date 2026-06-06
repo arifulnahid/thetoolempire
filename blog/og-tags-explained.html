@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Open Graph Tags — Why Your Links Look Bad on Social Media | The Tool Empire</title>
+  <meta name="description" content="Your links are showing the wrong image or title on Facebook, LinkedIn, and Twitter. Here's the complete breakdown of Open Graph meta tags, how each platform reads them, and how to fix common mistakes."/>
+  <meta name="keywords" content="open graph tags, og tags, og:image, og:title, og:description, facebook link preview, social share tags, og:type, twitter card, article og tags"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/blog/og-tags-explained.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="Open Graph Tags — Why Your Links Look Bad on Social Media"/>
+  <meta property="og:description" content="The complete breakdown of OG tags — every property, the Facebook origin story, platform differences, image specs, article properties, and the mistakes most developers make."/>
+  <meta property="og:url" content="https://thetoolempire.com/blog/og-tags-explained.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"BlogPosting","headline":"Open Graph Tags — Why Your Links Look Bad on Social Media","description":"The complete breakdown of OG tags — every property, the Facebook origin story, platform differences, image specs, article properties, and the mistakes most developers make.","url":"https://thetoolempire.com/blog/og-tags-explained.html","datePublished":"2026-06-06","dateModified":"2026-06-06","author":{"@type":"Organization","name":"The Tool Empire","url":"https://thetoolempire.com"},"publisher":{"@type":"Organization","name":"The Tool Empire","url":"https://thetoolempire.com"},"image":{"@type":"ImageObject","url":"https://thetoolempire.com/assets/og-image.png","width":1200,"height":630},"mainEntityOfPage":{"@type":"WebPage","@id":"https://thetoolempire.com/blog/og-tags-explained.html"}},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Blog","item":"https://thetoolempire.com/blog.html"},
+      {"@type":"ListItem","position":3,"name":"Open Graph Tags Explained","item":"https://thetoolempire.com/blog/og-tags-explained.html"}
+    ]}
+  ]}</script>
+
+  <style>
+    :root{
+      --bg:#0f0f14;--bg-card:#1e1e28;--bg-surface:#18181f;
+      --primary:#6366f1;--secondary:#8b5cf6;
+      --text:#e8e8f0;--text-muted:#9999b8;--text-faint:#555570;
+      --border:rgba(255,255,255,.08);--border-strong:rgba(255,255,255,.14);
+      --radius:14px;--radius-sm:8px;
+      --font:'Inter',system-ui,sans-serif;--font-mono:'Fira Code','Cascadia Code',monospace;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+    a{color:var(--primary);text-decoration:none}
+    a:hover{text-decoration:underline}
+    code{font-family:var(--font-mono);font-size:.875em;background:rgba(99,102,241,.12);color:#a5b4fc;padding:2px 6px;border-radius:4px}
+    pre{background:#12121a;border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px 20px;overflow-x:auto;font-family:var(--font-mono);font-size:.83rem;line-height:1.7;tab-size:2;margin:8px 0}
+    pre code{background:none;padding:0;color:#c4c4e0;font-size:inherit}
+
+    /* Header */
+    .site-header{background:rgba(15,15,20,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;padding:0 24px;height:58px;display:flex;align-items:center}
+    .header-inner{width:100%;max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+    .logo-icon{width:32px;height:32px;flex-shrink:0}
+    .logo-text{font-size:.97rem;font-weight:700;color:var(--text);letter-spacing:-.01em}
+    .main-nav{display:flex;gap:6px}
+    .nav-link{padding:5px 12px;border-radius:var(--radius-sm);font-size:.84rem;font-weight:500;color:var(--text-muted);text-decoration:none;transition:color .15s,background .15s}
+    .nav-link:hover,.nav-link.active{color:var(--text);background:rgba(255,255,255,.06)}
+
+    /* Progress bar */
+    .progress-bar{position:fixed;top:58px;left:0;height:2px;background:linear-gradient(90deg,var(--primary),var(--secondary));z-index:99;transition:width .1s}
+
+    /* Layout */
+    .blog-wrap{max-width:1200px;margin:0 auto;padding:32px 24px 80px;display:grid;grid-template-columns:1fr 260px;gap:48px;align-items:start}
+    @media(max-width:1023px){.blog-wrap{grid-template-columns:1fr}.toc-sidebar{display:none!important}}
+    @media(max-width:640px){.blog-wrap{padding:20px 16px 60px}}
+
+    /* TOC */
+    .toc-sidebar{position:sticky;top:80px}
+    .toc-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+    .toc-title{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:12px}
+    .toc-list{list-style:none;display:flex;flex-direction:column;gap:2px}
+    .toc-list a{font-size:.82rem;color:var(--text-muted);display:block;padding:4px 8px;border-radius:5px;border-left:2px solid transparent;transition:all .15s}
+    .toc-list a:hover{color:var(--text);border-left-color:var(--primary);background:rgba(99,102,241,.08);text-decoration:none}
+    .toc-list .toc-h3{padding-left:18px;font-size:.78rem}
+
+    /* Article */
+    .article-header{margin-bottom:36px}
+    .article-breadcrumb{display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--text-faint);margin-bottom:16px;flex-wrap:wrap}
+    .article-breadcrumb a{color:#8888a8;text-decoration:none}
+    .article-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:rgba(99,102,241,.12);color:var(--primary);border-radius:20px;font-size:.72rem;font-weight:600;margin-bottom:14px}
+    .article-title{font-size:clamp(1.7rem,4vw,2.4rem);font-weight:800;line-height:1.2;letter-spacing:-.02em;margin-bottom:14px}
+    .gradient-title{background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .article-meta{display:flex;align-items:center;gap:16px;font-size:.82rem;color:var(--text-muted);flex-wrap:wrap;margin-bottom:20px}
+    .article-meta span{display:flex;align-items:center;gap:5px}
+    .article-intro{font-size:1.08rem;color:var(--text-muted);line-height:1.75;border-left:3px solid var(--primary);padding-left:18px;margin-bottom:36px}
+
+    /* Content typography */
+    .article-body h2{font-size:1.45rem;font-weight:700;letter-spacing:-.015em;margin:42px 0 14px;color:var(--text);scroll-margin-top:80px}
+    .article-body h3{font-size:1.12rem;font-weight:600;margin:28px 0 10px;color:var(--text);scroll-margin-top:80px}
+    .article-body p{margin-bottom:16px;color:#cccce0}
+    .article-body ul,.article-body ol{margin:0 0 16px 20px;display:flex;flex-direction:column;gap:6px;color:#cccce0}
+    .article-body li{line-height:1.65}
+    .article-body strong{color:var(--text);font-weight:600}
+    .article-body blockquote{border-left:3px solid var(--primary);padding:12px 18px;background:rgba(99,102,241,.06);border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:20px 0;color:var(--text-muted);font-style:italic}
+
+    /* Ad slot */
+    .ad-slot{background:rgba(255,255,255,.02);border:1px dashed rgba(255,255,255,.07);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;min-height:90px;margin:24px 0;font-size:.75rem;color:var(--text-faint);text-align:center;padding:12px}
+
+    /* Callout boxes */
+    .callout{border-radius:var(--radius-sm);padding:16px 18px;margin:20px 0;display:flex;gap:12px;align-items:flex-start}
+    .callout.tip{background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25)}
+    .callout.info{background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.2)}
+    .callout.warn{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2)}
+    .callout.danger{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2)}
+    .callout-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px}
+    .callout-body{font-size:.9rem;line-height:1.6;color:var(--text-muted)}
+    .callout-body strong{color:var(--text)}
+
+    /* Tables */
+    .table-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius-sm);border:1px solid var(--border)}
+    table{width:100%;border-collapse:collapse;font-size:.875rem}
+    thead{background:rgba(255,255,255,.04)}
+    th{padding:10px 14px;text-align:left;font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--text-faint);border-bottom:1px solid var(--border)}
+    td{padding:10px 14px;border-bottom:1px solid var(--border);color:#cccce0;vertical-align:top}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:rgba(255,255,255,.02)}
+    .tick{color:#34d399;font-weight:700}
+    .cross{color:#f87171}
+    .partial{color:#fbbf24}
+
+    /* Section divider */
+    .section-divider{height:1px;background:var(--border);margin:48px 0}
+
+    /* Tool CTA */
+    .tool-cta{background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(139,92,246,.12));border:1px solid rgba(99,102,241,.3);border-radius:var(--radius);padding:28px 28px;margin:32px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .tool-cta-text h3{font-size:1.1rem;font-weight:700;margin-bottom:5px}
+    .tool-cta-text p{font-size:.88rem;color:var(--text-muted)}
+    .tool-cta-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;background:var(--primary);color:#fff;border-radius:var(--radius-sm);font-size:.88rem;font-weight:600;text-decoration:none;white-space:nowrap;transition:opacity .15s}
+    .tool-cta-btn:hover{opacity:.88;text-decoration:none}
+
+    /* Author box */
+    .author-box{display:flex;align-items:flex-start;gap:16px;padding:20px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border);margin-top:40px}
+    .author-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+    .author-name{font-weight:600;margin-bottom:3px}
+    .author-bio{font-size:.85rem;color:var(--text-muted)}
+
+    /* Related grid */
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+    .related-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;text-decoration:none;transition:border-color .2s,transform .2s;display:flex;flex-direction:column;gap:8px}
+    .related-card:hover{border-color:rgba(99,102,241,.4);transform:translateY(-2px);text-decoration:none}
+    .related-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+    .related-icon svg{width:16px;height:16px;stroke:#fff}
+    .related-name{font-size:.88rem;font-weight:600;color:var(--text)}
+    .related-desc{font-size:.78rem;color:var(--text-muted);flex:1}
+    .related-link{font-size:.76rem;color:var(--primary);font-weight:600;margin-top:4px}
+
+    /* Footer */
+    .site-footer{background:var(--bg-surface);border-top:1px solid var(--border);padding:48px 24px 28px}
+    .footer-grid{max-width:1200px;margin:0 auto 32px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+    @media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+    .footer-brand-text{font-size:.82rem;color:var(--text-faint);margin-top:8px;max-width:220px;line-height:1.6}
+    .footer-heading{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-faint);margin-bottom:12px}
+    .footer-links{display:flex;flex-direction:column;gap:8px}
+    .footer-links a{font-size:.84rem;color:var(--text-muted);text-decoration:none;transition:color .15s}
+    .footer-links a:hover{color:var(--text)}
+    .footer-bottom{max-width:1200px;margin:0 auto;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:.78rem;color:var(--text-faint);flex-wrap:wrap;gap:8px}
+
+    /* Syntax colors in code blocks */
+    .c-com{color:#555570}
+    .c-tag{color:#7dd3fc}
+    .c-attr{color:#fda4af}
+    .c-val{color:#86efac}
+    .c-str{color:#6ee7b7}
+    .c-key{color:#c4b5fd}
+
+    /* Platform badge */
+    .platform-badges{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+    .pbadge{padding:4px 12px;border-radius:20px;font-size:.76rem;font-weight:600}
+    .pbadge.fb{background:rgba(24,119,242,.15);color:#60a5fa;border:1px solid rgba(24,119,242,.3)}
+    .pbadge.tw{background:rgba(29,161,242,.12);color:#7dd3fc;border:1px solid rgba(29,161,242,.25)}
+    .pbadge.li{background:rgba(10,102,194,.12);color:#93c5fd;border:1px solid rgba(10,102,194,.25)}
+    .pbadge.wa{background:rgba(37,211,102,.1);color:#4ade80;border:1px solid rgba(37,211,102,.2)}
+    .pbadge.sl{background:rgba(74,21,75,.2);color:#e879f9;border:1px solid rgba(74,21,75,.4)}
+
+    /* Image spec table highlight */
+    .img-spec-ideal{color:#34d399;font-weight:600}
+    .img-spec-min{color:#fbbf24}
+    .img-spec-bad{color:#f87171}
+  </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <text x="5" y="25" font-family="'Fira Code',monospace" font-size="12" font-weight="900" fill="#fff" fill-opacity=".92">OG</text>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../tools.html" class="nav-link">Tools</a>
+      <a href="../blog.html" class="nav-link active">Blog</a>
+      <a href="../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="blog-wrap">
+  <!-- MAIN CONTENT -->
+  <main>
+    <div class="article-header">
+      <nav class="article-breadcrumb">
+        <a href="../index.html">Home</a>›<a href="../blog.html">Blog</a>›<span>Open Graph Tags</span>
+      </nav>
+      <div class="article-badge">SEO &amp; Social</div>
+      <h1 class="article-title"><span class="gradient-title">Open Graph Tags</span> — Why Your Links Look Bad on Social Media</h1>
+      <div class="article-meta">
+        <span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          June 6, 2026
+        </span>
+        <span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          9 min read
+        </span>
+        <span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+          SEO · Social Media
+        </span>
+      </div>
+      <p class="article-intro">You've spent days building a feature, write a great blog post, share the link on Slack or Twitter — and the preview card shows a completely wrong image and a title that makes no sense. That's not a bug. It's missing Open Graph tags. Here's everything you need to know about them.</p>
+    </div>
+
+    <div class="article-body">
+
+      <h2 id="what-is-og">What Are Open Graph Tags?</h2>
+      <p>Open Graph is a protocol Facebook announced in 2010 that lets any web page become a rich "object" in a social graph. The core idea was simple: add a handful of HTML meta tags to your page's <code>&lt;head&gt;</code> and Facebook would use them to build a proper link card instead of guessing.</p>
+      <p>The tags look like this:</p>
+      <pre><code><span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:title"</span> <span class="c-attr">content</span>=<span class="c-val">"My Amazing Article"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:description"</span> <span class="c-attr">content</span>=<span class="c-val">"A short description of the article."</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:image"</span> <span class="c-attr">content</span>=<span class="c-val">"https://example.com/og-image.png"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:url"</span> <span class="c-attr">content</span>=<span class="c-val">"https://example.com/my-amazing-article"</span><span class="c-tag">&gt;</span></code></pre>
+      <p>Notice the <code>property</code> attribute, not <code>name</code>. That's the first thing developers get wrong. Standard meta tags use <code>name</code>; OG tags use <code>property</code>. If you use <code>name="og:title"</code>, some platforms will still read it, but others won't.</p>
+      <p>The protocol spread fast. LinkedIn, Pinterest, Twitter, WhatsApp, iMessage, Slack, Discord — they all adopted OG tags as the standard way to read link metadata. Today, putting OG tags on your page is as fundamental as setting a <code>&lt;title&gt;</code>.</p>
+
+      <div class="platform-badges">
+        <span class="pbadge fb">Facebook</span>
+        <span class="pbadge li">LinkedIn</span>
+        <span class="pbadge tw">Twitter / X</span>
+        <span class="pbadge wa">WhatsApp</span>
+        <span class="pbadge sl">Slack</span>
+      </div>
+      <p style="margin-top:4px">All of these read <code>og:</code> tags when someone pastes your URL.</p>
+
+      <div class="callout info">
+        <div class="callout-icon">ℹ️</div>
+        <div class="callout-body"><strong>Property vs name:</strong> OG tags always use <code>property="og:..."</code>. Twitter Card tags use <code>name="twitter:..."</code>. This distinction matters — mixing them up is one of the most common reasons tags are silently ignored.</div>
+      </div>
+
+      <h2 id="the-core-four">The Core Four OG Tags</h2>
+      <p>Every page should have at minimum these four:</p>
+      <pre><code><span class="c-com">&lt;!-- Required for every page --&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:type"</span>        <span class="c-attr">content</span>=<span class="c-val">"website"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:title"</span>       <span class="c-attr">content</span>=<span class="c-val">"Your Page Title"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:description"</span> <span class="c-attr">content</span>=<span class="c-val">"One or two sentences about this page."</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:image"</span>       <span class="c-attr">content</span>=<span class="c-val">"https://example.com/og-image.png"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:url"</span>         <span class="c-attr">content</span>=<span class="c-val">"https://example.com/your-page"</span><span class="c-tag">&gt;</span></code></pre>
+      <p><code>og:type</code> defaults to <code>website</code> for most pages. <code>og:title</code> should be your page's social-facing title — it can differ slightly from your HTML <code>&lt;title&gt;</code> tag. <code>og:url</code> should be the canonical URL, exactly matching your <code>&lt;link rel="canonical"&gt;</code> tag.</p>
+
+      <h2 id="og-image">The og:image — The Tag That Actually Makes the Difference</h2>
+      <p>Of all the OG tags, <code>og:image</code> has the most impact on click-through rates. A good share image can double the engagement on a post. A missing or broken one drops it off a cliff.</p>
+
+      <h3 id="image-specs">Image specifications by platform</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Platform</th><th>Ideal size</th><th>Min size</th><th>Aspect ratio</th><th>Max file size</th></tr></thead>
+          <tbody>
+            <tr><td>Facebook</td><td class="img-spec-ideal">1200×630 px</td><td class="img-spec-min">200×200 px</td><td>1.91:1</td><td>8 MB</td></tr>
+            <tr><td>Twitter (large)</td><td class="img-spec-ideal">1200×628 px</td><td class="img-spec-min">300×157 px</td><td>1.91:1</td><td>5 MB</td></tr>
+            <tr><td>LinkedIn</td><td class="img-spec-ideal">1200×627 px</td><td class="img-spec-min">200×200 px</td><td>1.91:1</td><td>5 MB</td></tr>
+            <tr><td>WhatsApp</td><td class="img-spec-ideal">1200×630 px</td><td class="img-spec-min">300×200 px</td><td>Any</td><td>—</td></tr>
+            <tr><td>Slack</td><td class="img-spec-ideal">1200×630 px</td><td class="img-spec-min">150×150 px</td><td>Any</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The practical answer: make one <code>1200×630 px</code> image and it works everywhere. Provide explicit width and height tags alongside it so platforms don't need to download the image just to know its dimensions:</p>
+      <pre><code><span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:image"</span>        <span class="c-attr">content</span>=<span class="c-val">"https://example.com/og.png"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:image:width"</span>  <span class="c-attr">content</span>=<span class="c-val">"1200"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:image:height"</span> <span class="c-attr">content</span>=<span class="c-val">"630"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:image:alt"</span>    <span class="c-attr">content</span>=<span class="c-val">"Alt text for screen readers"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:image:type"</span>   <span class="c-attr">content</span>=<span class="c-val">"image/png"</span><span class="c-tag">&gt;</span></code></pre>
+
+      <div class="callout warn">
+        <div class="callout-icon">⚠️</div>
+        <div class="callout-body"><strong>og:image must be an absolute URL.</strong> Relative paths like <code>/images/og.png</code> won't work — platforms fetch your image server-side and need the full URL including the protocol and domain. <code>https://example.com/images/og.png</code> is correct.</div>
+      </div>
+
+      <h3 id="image-design">What to put in the image</h3>
+      <p>Your OG image is essentially an ad for your link. Some proven approaches:</p>
+      <ul>
+        <li><strong>Article title in large text</strong> on a branded background — works for blog posts</li>
+        <li><strong>Product screenshot or demo</strong> — works for tools and apps</li>
+        <li><strong>Bold stat or headline</strong> — works for data-heavy pages</li>
+        <li><strong>Your site logo + article category</strong> — minimal but consistent across all posts</li>
+      </ul>
+      <p>Avoid putting important content in the corners or very bottom — Facebook and some platforms overlay UI elements there. Keep a safe zone of at least 50–60 pixels from each edge.</p>
+
+      <!-- Ad -->
+      <div class="ad-slot">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+      </div>
+
+      <h2 id="og-type">The og:type Property and What It Unlocks</h2>
+      <p>The <code>og:type</code> tag tells platforms what kind of content your page represents. The default is <code>website</code>, but setting it to <code>article</code> unlocks a whole extra set of properties:</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Type value</th><th>Used for</th><th>Extra properties unlocked</th></tr></thead>
+          <tbody>
+            <tr><td><code>website</code></td><td>Homepages, general pages</td><td>None</td></tr>
+            <tr><td><code>article</code></td><td>Blog posts, news, documentation</td><td><code>article:published_time</code>, <code>article:author</code>, <code>article:section</code>, <code>article:tag</code></td></tr>
+            <tr><td><code>product</code></td><td>E-commerce product pages</td><td>Used with Pinterest rich pins</td></tr>
+            <tr><td><code>profile</code></td><td>User / author profile pages</td><td><code>profile:first_name</code>, <code>profile:last_name</code>, <code>profile:username</code></td></tr>
+            <tr><td><code>video.other</code></td><td>Video pages</td><td><code>og:video</code>, <code>og:video:width</code>, <code>og:video:height</code>, <code>og:video:type</code></td></tr>
+            <tr><td><code>music.song</code></td><td>Music tracks</td><td>Music-specific OG properties</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="article-tags">Article Properties — the Hidden SEO Boost</h2>
+      <p>When you set <code>og:type</code> to <code>article</code>, you can add article-specific metadata that Facebook and some news aggregators actually parse. This is especially useful for content sites and blogs:</p>
+      <pre><code><span class="c-com">&lt;!-- Set type to article first --&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:type"</span> <span class="c-attr">content</span>=<span class="c-val">"article"</span><span class="c-tag">&gt;</span>
+
+<span class="c-com">&lt;!-- Then add article-specific properties --&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"article:published_time"</span> <span class="c-attr">content</span>=<span class="c-val">"2026-06-06T10:00:00Z"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"article:modified_time"</span>  <span class="c-attr">content</span>=<span class="c-val">"2026-06-06T12:00:00Z"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"article:author"</span>         <span class="c-attr">content</span>=<span class="c-val">"Jane Smith"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"article:section"</span>        <span class="c-attr">content</span>=<span class="c-val">"Technology"</span><span class="c-tag">&gt;</span>
+<span class="c-com">&lt;!-- One meta element per tag --&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"article:tag"</span>           <span class="c-attr">content</span>=<span class="c-val">"SEO"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"article:tag"</span>           <span class="c-attr">content</span>=<span class="c-val">"Open Graph"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"article:tag"</span>           <span class="c-attr">content</span>=<span class="c-val">"Meta Tags"</span><span class="c-tag">&gt;</span></code></pre>
+      <p>Note that <code>article:tag</code> is one element per tag, not a comma-separated list. Dates should be ISO 8601 format. The <code>article:author</code> can be either a plain text name or a URL pointing to the author's profile.</p>
+
+      <h2 id="twitter-cards">Twitter Cards vs Open Graph</h2>
+      <p>Twitter/X introduced its own tagging system called Twitter Cards, which uses <code>name</code> attributes instead of <code>property</code>. The key insight is that Twitter <em>falls back to OG tags</em> for title, description, and image if twitter-specific tags aren't present — but you need <code>twitter:card</code> at minimum to control the card layout.</p>
+
+      <h3 id="card-types">Twitter Card types</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Card type</th><th>Layout</th><th>Best for</th></tr></thead>
+          <tbody>
+            <tr><td><code>summary_large_image</code></td><td>Full-width image above content</td><td>Blog posts, news, marketing pages</td></tr>
+            <tr><td><code>summary</code></td><td>Small thumbnail beside text</td><td>General pages, profiles, homepages</td></tr>
+            <tr><td><code>app</code></td><td>App download card with ratings</td><td>Mobile app pages</td></tr>
+            <tr><td><code>player</code></td><td>Embedded video/audio player</td><td>Media pages (requires approval)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>For most content, <code>summary_large_image</code> is what you want. The full set of Twitter Card tags looks like this:</p>
+      <pre><code><span class="c-com">&lt;!-- Twitter Card --&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">name</span>=<span class="c-val">"twitter:card"</span>        <span class="c-attr">content</span>=<span class="c-val">"summary_large_image"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">name</span>=<span class="c-val">"twitter:site"</span>        <span class="c-attr">content</span>=<span class="c-val">"@yoursite"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">name</span>=<span class="c-val">"twitter:creator"</span>     <span class="c-attr">content</span>=<span class="c-val">"@authorhandle"</span><span class="c-tag">&gt;</span>
+<span class="c-com">&lt;!-- These are optional — Twitter falls back to og: if omitted --&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">name</span>=<span class="c-val">"twitter:title"</span>       <span class="c-attr">content</span>=<span class="c-val">"Override title for Twitter"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">name</span>=<span class="c-val">"twitter:description"</span> <span class="c-attr">content</span>=<span class="c-val">"Override description for Twitter"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">name</span>=<span class="c-val">"twitter:image"</span>       <span class="c-attr">content</span>=<span class="c-val">"https://example.com/twitter-image.png"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">name</span>=<span class="c-val">"twitter:image:alt"</span>   <span class="c-attr">content</span>=<span class="c-val">"Alt text for the image"</span><span class="c-tag">&gt;</span></code></pre>
+
+      <h2 id="full-example">A Complete Production Head Section</h2>
+      <p>Here's everything together in the order you should place it, for an article page:</p>
+      <pre><code><span class="c-tag">&lt;head&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">charset</span>=<span class="c-val">"UTF-8"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">name</span>=<span class="c-val">"viewport"</span> <span class="c-attr">content</span>=<span class="c-val">"width=device-width, initial-scale=1.0"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;title&gt;</span>How Open Graph Tags Work | My Blog<span class="c-tag">&lt;/title&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">name</span>=<span class="c-val">"description"</span> <span class="c-attr">content</span>=<span class="c-val">"A 160-char SEO description for search results."</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-val">"canonical"</span> <span class="c-attr">href</span>=<span class="c-val">"https://example.com/blog/og-tags"</span><span class="c-tag">&gt;</span>
+
+  <span class="c-com">&lt;!-- Open Graph --&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:type"</span>             <span class="c-attr">content</span>=<span class="c-val">"article"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:title"</span>            <span class="c-attr">content</span>=<span class="c-val">"How Open Graph Tags Work"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:description"</span>     <span class="c-attr">content</span>=<span class="c-val">"150–200 char description for social cards."</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:url"</span>              <span class="c-attr">content</span>=<span class="c-val">"https://example.com/blog/og-tags"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:site_name"</span>        <span class="c-attr">content</span>=<span class="c-val">"My Blog"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:locale"</span>           <span class="c-attr">content</span>=<span class="c-val">"en_US"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:image"</span>            <span class="c-attr">content</span>=<span class="c-val">"https://example.com/og.png"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:image:width"</span>     <span class="c-attr">content</span>=<span class="c-val">"1200"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:image:height"</span>    <span class="c-attr">content</span>=<span class="c-val">"630"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:image:alt"</span>      <span class="c-attr">content</span>=<span class="c-val">"Alt text for the image"</span><span class="c-tag">&gt;</span>
+
+  <span class="c-com">&lt;!-- Article properties --&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"article:published_time"</span> <span class="c-attr">content</span>=<span class="c-val">"2026-06-06T10:00:00Z"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"article:author"</span>          <span class="c-attr">content</span>=<span class="c-val">"Jane Smith"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"article:tag"</span>             <span class="c-attr">content</span>=<span class="c-val">"SEO"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"article:tag"</span>             <span class="c-attr">content</span>=<span class="c-val">"Open Graph"</span><span class="c-tag">&gt;</span>
+
+  <span class="c-com">&lt;!-- Twitter Card --&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">name</span>=<span class="c-val">"twitter:card"</span>    <span class="c-attr">content</span>=<span class="c-val">"summary_large_image"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">name</span>=<span class="c-val">"twitter:site"</span>    <span class="c-attr">content</span>=<span class="c-val">"@myblog"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;/head&gt;</span></code></pre>
+
+      <!-- Tool CTA -->
+      <div class="tool-cta">
+        <div class="tool-cta-text">
+          <h3>Generate your OG tags right now</h3>
+          <p>Fill in a form, see live Facebook/Twitter/LinkedIn previews, copy the HTML in one click.</p>
+        </div>
+        <a href="../tools/coding/og-tag-generator.html" class="tool-cta-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          OG Tag Generator →
+        </a>
+      </div>
+
+      <h2 id="debugging">Debugging OG Tags — Why Your Change Isn't Showing</h2>
+      <p>You've updated your tags, deployed, pasted the URL on Facebook — and the old image is still there. This is almost always a caching problem. Social platforms crawl your page and cache the result heavily. After a change, you have to force each platform to re-scrape your URL.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Platform</th><th>Debugger / Inspector</th><th>How to refresh</th></tr></thead>
+          <tbody>
+            <tr><td>Facebook</td><td>developers.facebook.com/tools/debug</td><td>Paste URL, click "Scrape Again" (may need to do it 2–3 times)</td></tr>
+            <tr><td>LinkedIn</td><td>linkedin.com/post-inspector</td><td>Paste URL, click Inspect — it fetches fresh data immediately</td></tr>
+            <tr><td>Twitter/X</td><td>cards-dev.twitter.com/validator</td><td>Paste URL, click "Preview Card" to re-fetch</td></tr>
+            <tr><td>Pinterest</td><td>developers.pinterest.com/tools/url-debugger</td><td>Paste URL and submit</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body"><strong>Tip:</strong> The Facebook Sharing Debugger is the most useful — it shows you exactly what OG tags Facebook read, any warnings about your tags, and the cached data. If your tags look correct in Facebook's debugger but the wrong content is still showing in posts, click "Scrape Again" and wait a few minutes before testing a new share.</div>
+      </div>
+
+      <h3 id="common-mistakes">Common mistakes that break OG tags</h3>
+      <ul>
+        <li><strong>Using relative URLs for og:image</strong> — platforms fetch images server-side and need absolute URLs with https://</li>
+        <li><strong>Using <code>name</code> instead of <code>property</code></strong> on OG tags — silently ignored by many platforms</li>
+        <li><strong>Image behind login or IP restriction</strong> — platforms can't fetch private images</li>
+        <li><strong>og:url doesn't match the canonical URL</strong> — causes deduplication issues in Facebook's object graph</li>
+        <li><strong>No og:image at all</strong> — platforms fall back to the first <code>&lt;img&gt;</code> on the page, which is usually your logo or a tiny icon</li>
+        <li><strong>Image too small</strong> — anything smaller than 600×315 on Facebook won't render as a large card</li>
+        <li><strong>Tags in the body, not the head</strong> — some platforms stop reading meta tags once they encounter the <code>&lt;/head&gt;</code> tag</li>
+        <li><strong>Duplicate og:title tags</strong> — some platforms take the first one, others take the last; be explicit and have only one</li>
+      </ul>
+
+      <h2 id="video-audio">Video and Audio OG Properties</h2>
+      <p>If your page features embedded video or audio content, you can add <code>og:video</code> and <code>og:audio</code> tags. These are used by Facebook for native video previews and by some platforms to render inline playback.</p>
+      <pre><code><span class="c-com">&lt;!-- Video OG --&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:video"</span>        <span class="c-attr">content</span>=<span class="c-val">"https://example.com/video.mp4"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:video:width"</span>  <span class="c-attr">content</span>=<span class="c-val">"1280"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:video:height"</span> <span class="c-attr">content</span>=<span class="c-val">"720"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:video:type"</span>   <span class="c-attr">content</span>=<span class="c-val">"video/mp4"</span><span class="c-tag">&gt;</span>
+
+<span class="c-com">&lt;!-- Audio OG --&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:audio"</span>      <span class="c-attr">content</span>=<span class="c-val">"https://example.com/podcast.mp3"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:audio:type"</span> <span class="c-attr">content</span>=<span class="c-val">"audio/mpeg"</span><span class="c-tag">&gt;</span></code></pre>
+      <p>In practice, native video OG rendering is only available to publishers approved by Facebook for Instant Articles or video distribution. For most sites, these tags are a nice signal but won't change the visual rendering.</p>
+
+      <h2 id="cms-implementations">Setting OG Tags in CMS Platforms</h2>
+      <p>You don't always edit HTML directly. Here's how OG tags work in the most common platforms:</p>
+
+      <h3>WordPress (Yoast SEO / Rank Math)</h3>
+      <p>Yoast SEO and Rank Math both auto-generate OG tags from your post title, excerpt, and featured image. Go to the post editor → SEO plugin panel → Social tab to set custom OG title, description, and image that differ from the SEO fields. The featured image is used as <code>og:image</code> automatically.</p>
+
+      <h3>Next.js App Router</h3>
+      <pre><code><span class="c-com">// app/blog/og-tags/page.tsx</span>
+<span class="c-key">export</span> <span class="c-key">const</span> metadata = {
+  openGraph: {
+    title: <span class="c-str">'How Open Graph Tags Work'</span>,
+    description: <span class="c-str">'Your social share description here.'</span>,
+    url: <span class="c-str">'https://example.com/blog/og-tags'</span>,
+    siteName: <span class="c-str">'My Blog'</span>,
+    images: [{ url: <span class="c-str">'https://example.com/og.png'</span>, width: 1200, height: 630, alt: <span class="c-str">'Alt text'</span> }],
+    type: <span class="c-str">'article'</span>,
+    publishedTime: <span class="c-str">'2026-06-06T10:00:00Z'</span>,
+    authors: [<span class="c-str">'Jane Smith'</span>],
+  },
+  twitter: {
+    card: <span class="c-str">'summary_large_image'</span>,
+    site: <span class="c-str">'@myblog'</span>,
+  },
+};</code></pre>
+
+      <h3>Shopify</h3>
+      <p>Edit your theme's <code>theme.liquid</code>. Shopify exposes <code>page_title</code>, <code>page_description</code>, and <code>page.featured_image</code> objects you can use in the <code>&lt;head&gt;</code>:</p>
+      <pre><code><span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:title"</span>       <span class="c-attr">content</span>=<span class="c-val">"{{ page_title }}"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:description"</span> <span class="c-attr">content</span>=<span class="c-val">"{{ page_description | escape }}"</span><span class="c-tag">&gt;</span>
+{% if page.featured_image %}
+<span class="c-tag">&lt;meta</span> <span class="c-attr">property</span>=<span class="c-val">"og:image"</span> <span class="c-attr">content</span>=<span class="c-val">"https:{{ page.featured_image | img_url: '1200x630' }}"</span><span class="c-tag">&gt;</span>
+{% endif %}</code></pre>
+
+      <h2 id="og-vs-seo">OG Tags vs SEO Meta Tags — What's the Difference?</h2>
+      <p>A common point of confusion: OG tags and standard SEO meta tags exist side by side and serve different audiences.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tag</th><th>Read by</th><th>Affects</th></tr></thead>
+          <tbody>
+            <tr><td><code>&lt;title&gt;</code></td><td>Google, Bing, browsers</td><td>Search result title, browser tab</td></tr>
+            <tr><td><code>meta name="description"</code></td><td>Google, Bing</td><td>Search result snippet text</td></tr>
+            <tr><td><code>meta property="og:title"</code></td><td>Facebook, LinkedIn, WhatsApp, Slack</td><td>Social share card title</td></tr>
+            <tr><td><code>meta property="og:description"</code></td><td>Facebook, LinkedIn, WhatsApp, Slack</td><td>Social share card description</td></tr>
+            <tr><td><code>meta name="twitter:card"</code></td><td>Twitter/X</td><td>Twitter link card layout</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>You need all of them. Google doesn't look at OG tags for ranking (though it may use them as signals for Knowledge Graph). Facebook doesn't look at the standard meta description. Set both sets of tags independently, even if the content is identical — it gives each platform exactly what it expects.</p>
+
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body"><strong>Pro tip:</strong> OG titles can be slightly more conversational or punchy than your SEO title. The SEO title needs to fit in ~60 characters for Google. The OG title has a bit more flexibility and should be written for a social sharing context — someone scrolling a feed, not searching a query.</div>
+      </div>
+
+      <!-- Ad -->
+      <div class="ad-slot">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+      </div>
+
+      <h2 id="audit-checklist">Quick Audit Checklist</h2>
+      <p>Before shipping any page, run through this list:</p>
+      <ul>
+        <li>✅ <code>og:title</code> set with <code>property</code> attribute (not <code>name</code>)</li>
+        <li>✅ <code>og:description</code> between 150–200 characters</li>
+        <li>✅ <code>og:image</code> is an absolute URL (starts with <code>https://</code>)</li>
+        <li>✅ <code>og:image:width</code> and <code>og:image:height</code> present</li>
+        <li>✅ <code>og:image:alt</code> present for accessibility</li>
+        <li>✅ <code>og:url</code> matches canonical URL</li>
+        <li>✅ <code>og:type</code> correct — <code>article</code> for posts, <code>website</code> for general pages</li>
+        <li>✅ <code>twitter:card</code> set (at minimum)</li>
+        <li>✅ Tested in Facebook Sharing Debugger after deploy</li>
+        <li>✅ Tested in LinkedIn Post Inspector</li>
+      </ul>
+
+      <div class="section-divider"></div>
+
+      <!-- Author -->
+      <div class="author-box">
+        <div class="author-avatar">🔧</div>
+        <div>
+          <div class="author-name">The Tool Empire Team</div>
+          <div class="author-bio">We build free, browser-based tools for developers and creators. No signup, no installs, no nonsense — just tools that work.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- Related articles -->
+    <div>
+      <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:16px">Related Articles</h2>
+      <div class="related-grid">
+        <a href="meta-tags-matter.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#f97316,#fb923c)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="related-name">Meta Tags That Still Matter in 2026</div><div class="related-desc">The full breakdown of every meta tag that affects SEO.</div><span class="related-link">Read →</span></a>
+        <a href="regex-explained.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#e879f9,#a78bfa)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="related-name">Regex Patterns That Actually Work</div><div class="related-desc">Email, URL, phone — with real-world edge cases.</div><span class="related-link">Read →</span></a>
+        <a href="markdown-explained.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#38bdf8,#818cf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="related-name">Markdown From the Ground Up</div><div class="related-desc">Syntax, flavours, and when to use plain Markdown.</div><span class="related-link">Read →</span></a>
+        <a href="html-entities-explained.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#34d399,#06b6d4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="related-name">Every HTML Entity You Actually Need</div><div class="related-desc">Special characters, XSS, and when to encode.</div><span class="related-link">Read →</span></a>
+      </div>
+    </div>
+
+    <div style="margin-top:28px">
+      <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:16px">Related Tools</h2>
+      <div class="related-grid">
+        <a href="../tools/coding/og-tag-generator.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div><div class="related-name">OG Tag Generator</div><div class="related-desc">Generate all OG tags with live social previews.</div><span class="related-link">Use tool →</span></a>
+        <a href="../tools/coding/meta-tag-generator.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#f97316,#fb923c)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div><div class="related-name">Meta Tag Generator</div><div class="related-desc">Full SEO + OG + Twitter Cards generator.</div><span class="related-link">Use tool →</span></a>
+        <a href="../tools/coding/json-formatter.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div class="related-name">JSON Formatter</div><div class="related-desc">Format and validate JSON-LD structured data.</div><span class="related-link">Use tool →</span></a>
+        <a href="../tools/coding/html-encoder.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#34d399,#06b6d4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 6 2 12 4 18"/><polyline points="20 6 22 12 20 18"/></svg></div><div class="related-name">HTML Encoder</div><div class="related-desc">Encode and decode HTML entities safely.</div><span class="related-link">Use tool →</span></a>
+      </div>
+    </div>
+  </main>
+
+  <!-- SIDEBAR TOC -->
+  <aside class="toc-sidebar">
+    <div class="toc-box">
+      <div class="toc-title">In this article</div>
+      <ul class="toc-list">
+        <li><a href="#what-is-og">What Are Open Graph Tags?</a></li>
+        <li><a href="#the-core-four">The Core Four OG Tags</a></li>
+        <li><a href="#og-image">The og:image Tag</a></li>
+        <li class="toc-h3"><a href="#image-specs">Image specs by platform</a></li>
+        <li class="toc-h3"><a href="#image-design">What to put in the image</a></li>
+        <li><a href="#og-type">The og:type Property</a></li>
+        <li><a href="#article-tags">Article Properties</a></li>
+        <li><a href="#twitter-cards">Twitter Cards vs OG</a></li>
+        <li class="toc-h3"><a href="#card-types">Card types</a></li>
+        <li><a href="#full-example">Complete Head Section</a></li>
+        <li><a href="#debugging">Debugging OG Tags</a></li>
+        <li class="toc-h3"><a href="#common-mistakes">Common mistakes</a></li>
+        <li><a href="#video-audio">Video &amp; Audio OG</a></li>
+        <li><a href="#cms-implementations">CMS Implementations</a></li>
+        <li><a href="#og-vs-seo">OG Tags vs SEO Tags</a></li>
+        <li><a href="#audit-checklist">Audit Checklist</a></li>
+      </ul>
+    </div>
+  </aside>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <text x="5" y="25" font-family="'Fira Code',monospace" font-size="12" font-weight="900" fill="#fff" fill-opacity=".92">OG</text>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../tools.html#coding">Coding Tools</a><a href="../tools.html#design">Design Tools</a><a href="../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../about.html">About</a><a href="../blog.html">Blog</a><a href="../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<script>
+  // Reading progress bar
+  window.addEventListener('scroll', () => {
+    const s = document.documentElement;
+    const p = (s.scrollTop / (s.scrollHeight - s.clientHeight)) * 100;
+    document.getElementById('progressBar').style.width = p + '%';
+  });
+</script>
+</body>
+</html>

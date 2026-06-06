@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Robots.txt Generator — Free Visual Builder with Live Preview | The Tool Empire</title>
+  <meta name="description" content="Build a perfect robots.txt file visually. Add User-agent rules, Allow/Disallow paths, Crawl-delay, and Sitemap URL. Includes presets for WordPress, e-commerce, Next.js, and more. Free, no signup."/>
+  <meta name="keywords" content="robots.txt generator, robots txt builder, robots.txt creator, disallow user-agent, crawl delay generator, sitemap robots txt, SEO robots file"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/coding/robots-txt-generator.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Robots.txt Generator — Visual Builder with Live Preview"/>
+  <meta property="og:description" content="Create a perfect robots.txt file for your site. Visual rule builder with Allow/Disallow paths, Crawl-delay, Sitemap, and built-in validation."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/coding/robots-txt-generator.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"Robots.txt Generator","description":"Free browser-based robots.txt generator. Create User-agent groups with Allow/Disallow rules, Crawl-delay, Sitemap URL, and built-in validation. Includes presets for WordPress, e-commerce, Next.js, and bad-bot blocking.","url":"https://thetoolempire.com/tools/coding/robots-txt-generator.html","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Visual rule builder","Multiple User-agent groups","Allow and Disallow path rules","Crawl-delay support","Sitemap URL field","Inline validation","Presets for WordPress / e-commerce / Next.js","Download robots.txt file","No data sent to server"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Coding Tools","item":"https://thetoolempire.com/tools.html#coding"},
+      {"@type":"ListItem","position":3,"name":"Robots.txt Generator","item":"https://thetoolempire.com/tools/coding/robots-txt-generator.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is a robots.txt file?","acceptedAnswer":{"@type":"Answer","text":"A robots.txt file is a plain text file placed at the root of your website (yoursite.com/robots.txt) that instructs web crawlers which pages or sections they should and should not crawl. It uses the Robots Exclusion Protocol — a loose standard that well-behaved bots like Googlebot follow voluntarily."}},
+      {"@type":"Question","name":"Does robots.txt block pages from Google's index?","acceptedAnswer":{"@type":"Answer","text":"No. Disallowing a page in robots.txt tells Google not to crawl it, but if another site links to that page, Google may still index it. To prevent a page from appearing in search results, use a noindex meta tag or X-Robots-Tag header instead. Robots.txt and noindex serve different purposes."}},
+      {"@type":"Question","name":"What is the correct format for robots.txt?","acceptedAnswer":{"@type":"Answer","text":"A valid robots.txt file consists of one or more groups. Each group starts with one or more User-agent lines, followed by Disallow and Allow directives. Lines beginning with # are comments. The file must be UTF-8 encoded, placed exactly at the root of your domain (not a subdirectory), and served with Content-Type text/plain."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="robots-txt-generator.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <text x="5" y="25" font-family="'Fira Code',monospace" font-size="11" font-weight="900" fill="#fff" fill-opacity=".92">R.T</text>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#10b981"/><stop offset="1" stop-color="#34d399"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="robotsApp()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li style="color:#e8e8f0">Robots.txt Generator</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot" style="margin-bottom:18px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      SEO · Crawlers
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">Robots.txt Generator</span></h1>
+    <p class="tool-subtitle">Build a valid robots.txt visually — set User-agent rules, Allow/Disallow paths, Crawl-delay, and Sitemap. Download or copy in one click.</p>
+  </div>
+
+  <!-- Presets -->
+  <div class="form-card" style="margin-bottom:14px">
+    <div class="pane-header">
+      <span class="pane-title">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Presets
+      </span>
+    </div>
+    <div class="form-body">
+      <div class="presets-grid">
+        <button class="preset-btn" @click="applyPreset('allow-all')">🟢 Allow all</button>
+        <button class="preset-btn" @click="applyPreset('block-all')">🔴 Block all</button>
+        <button class="preset-btn" @click="applyPreset('minimal')">✅ Minimal</button>
+        <button class="preset-btn" @click="applyPreset('wordpress')">🔵 WordPress</button>
+        <button class="preset-btn" @click="applyPreset('ecommerce')">🛒 E-commerce</button>
+        <button class="preset-btn" @click="applyPreset('nextjs')">⚡ Next.js</button>
+        <button class="preset-btn" @click="applyPreset('block-bots')">🚫 Block bad bots</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-label">Groups</span>
+      <span class="stat-value" :class="groupCount > 0 ? 'good' : ''" x-text="groupCount"></span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Rules</span>
+      <span class="stat-value" x-text="ruleCount"></span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Lines</span>
+      <span class="stat-value" x-text="lineCount"></span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Sitemap</span>
+      <span class="stat-value" :class="sitemapUrl ? 'good' : 'warn'" x-text="sitemapUrl ? 'Set' : 'Missing'"></span>
+    </div>
+  </div>
+
+  <!-- Main grid -->
+  <div class="tool-grid">
+
+    <!-- LEFT — Form -->
+    <div>
+
+      <!-- Global settings -->
+      <div class="form-card">
+        <div class="pane-header">
+          <span class="pane-title">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M16.24 7.76a6 6 0 0 1 0 8.49M4.93 4.93a10 10 0 0 0 0 14.14M7.76 7.76a6 6 0 0 0 0 8.49"/></svg>
+            Global Settings
+          </span>
+        </div>
+        <div class="form-body">
+          <div class="field">
+            <label class="field-label">Sitemap URL</label>
+            <input type="url" class="field-input" x-model="sitemapUrl" placeholder="https://example.com/sitemap.xml"/>
+            <span class="field-hint">Absolute URL to your XML sitemap. Strongly recommended.</span>
+          </div>
+          <div class="col2">
+            <div class="field">
+              <label class="field-label">Host directive</label>
+              <input type="text" class="field-input" x-model="hostDirective" placeholder="example.com"/>
+              <span class="field-hint">Preferred domain (Yandex). Optional.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rule groups -->
+      <template x-for="group in groups" :key="group.id">
+        <div class="form-card">
+          <div class="pane-header" style="cursor:pointer" @click="toggleGroup(group.id)">
+            <span class="pane-title">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/></svg>
+              <span x-text="'User-agent: ' + (group.userAgent || '*')"></span>
+            </span>
+            <div style="display:flex;align-items:center;gap:8px">
+              <button class="rule-action-btn" @click.stop="duplicateGroup(group.id)" title="Duplicate">⧉</button>
+              <button class="rule-action-btn" style="color:#f87171" @click.stop="removeGroup(group.id)" title="Delete">✕</button>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" :style="group.expanded ? '' : 'transform:rotate(-90deg)'"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div x-show="group.expanded" class="form-body">
+            <div class="field">
+              <label class="field-label">User-agent</label>
+              <input type="text" class="field-input" x-model="group.userAgent" placeholder="* (all bots) or Googlebot, etc."/>
+              <span class="field-hint">Use <code>*</code> for all bots, or a specific bot name like <code>Googlebot</code>.</span>
+            </div>
+            <div class="field">
+              <label class="field-label">Crawl-delay <span style="font-weight:400;color:var(--text-faint)">(optional, seconds)</span></label>
+              <input type="number" class="field-input" x-model="group.crawlDelay" placeholder="e.g. 10" min="0"/>
+            </div>
+
+            <!-- Rules list -->
+            <div class="field">
+              <label class="field-label">Rules</label>
+              <div class="rules-list">
+                <template x-for="(rule, idx) in group.rules" :key="idx">
+                  <div class="rule-item">
+                    <div class="rule-header">
+                      <span class="rule-badge" :class="rule.type" x-text="rule.type.charAt(0).toUpperCase()+rule.type.slice(1)"></span>
+                      <input type="text" style="flex:1;background:transparent;border:none;color:var(--text);font-family:var(--font-mono);font-size:.82rem;outline:none;padding:2px 0" x-model="rule.path" :placeholder="rule.type==='disallow' ? '/admin or / or empty to allow all' : '/public-api/'"/>
+                      <div class="rule-actions">
+                        <button class="rule-action-btn" @click="rule.type = rule.type==='allow' ? 'disallow' : 'allow'" title="Toggle type">⇄</button>
+                        <button class="rule-action-btn" style="color:#f87171" @click="removeRule(group, idx)" title="Remove">✕</button>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </div>
+              <div style="display:flex;gap:6px;margin-top:6px">
+                <button class="add-rule-btn" style="flex:1" @click="addRule(group,'disallow')">+ Disallow</button>
+                <button class="add-rule-btn" style="flex:1;border-color:rgba(52,211,153,.3);color:#34d399" @click="addRule(group,'allow')">+ Allow</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </template>
+
+      <!-- Add group -->
+      <button class="add-rule-btn" style="width:100%;margin-bottom:12px" @click="addGroup()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add User-agent group
+      </button>
+
+    </div><!-- /left -->
+
+    <!-- RIGHT — Output -->
+    <div>
+      <div class="output-card">
+        <div class="output-header">
+          <span class="output-title">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            robots.txt
+          </span>
+          <div class="output-actions">
+            <button class="out-btn" @click="copyOutput()">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              Copy
+            </button>
+            <button class="out-btn primary" @click="downloadFile()">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </button>
+          </div>
+        </div>
+        <pre class="output-pre" x-html="outputHighlighted"></pre>
+
+        <!-- Validation -->
+        <div class="validation-list" x-show="showValidation">
+          <template x-for="item in validationItems" :key="item.msg">
+            <div class="val-item">
+              <span class="val-icon" :class="'val-'+item.type" x-text="item.type==='ok' ? '✓' : item.type==='warn' ? '⚠' : '✕'"></span>
+              <span class="val-msg" x-text="item.msg"></span>
+            </div>
+          </template>
+        </div>
+
+      </div>
+    </div><!-- /right -->
+
+  </div><!-- /tool-grid -->
+
+  <!-- Ad -->
+  <div class="ad-slot" style="width:100%;margin-top:20px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- ── DIRECTIVES REFERENCE ── -->
+  <div class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">Directives Reference</h2>
+      <p class="section-desc">Every valid directive and what it does in a robots.txt file.</p>
+    </div>
+    <div class="cheat-grid">
+      <div class="cheat-card">
+        <div class="cheat-title">Core Directives</div>
+        <div class="cheat-rows">
+          <div class="cheat-row"><span class="cheat-token">User-agent</span><span class="cheat-desc">Specifies the bot this group applies to. <code>*</code> matches all bots.</span></div>
+          <div class="cheat-row"><span class="cheat-token">Disallow</span><span class="cheat-desc">Path the bot must not crawl. Empty value means "allow all".</span></div>
+          <div class="cheat-row"><span class="cheat-token">Allow</span><span class="cheat-desc">Explicitly permits crawling a path, even within a Disallowed tree.</span></div>
+          <div class="cheat-row"><span class="cheat-token">Crawl-delay</span><span class="cheat-desc">Seconds to wait between requests. Not supported by Googlebot.</span></div>
+          <div class="cheat-row"><span class="cheat-token">Sitemap</span><span class="cheat-desc">Absolute URL to your XML sitemap. Can appear multiple times.</span></div>
+          <div class="cheat-row"><span class="cheat-token">Host</span><span class="cheat-desc">Preferred domain for Yandex. Not a Google directive.</span></div>
+        </div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Path Pattern Examples</div>
+        <div class="cheat-rows">
+          <div class="cheat-row"><span class="cheat-token">/admin/</span><span class="cheat-desc">Block the /admin/ directory and all its contents</span></div>
+          <div class="cheat-row"><span class="cheat-token">/</span><span class="cheat-desc">Block the entire site</span></div>
+          <div class="cheat-row"><span class="cheat-token">(empty)</span><span class="cheat-desc">Allow the entire site (Disallow with empty value)</span></div>
+          <div class="cheat-row"><span class="cheat-token">/*.pdf$</span><span class="cheat-desc">Block all URLs ending in .pdf (uses $ anchor)</span></div>
+          <div class="cheat-row"><span class="cheat-token">/search*</span><span class="cheat-desc">Block any URL starting with /search</span></div>
+          <div class="cheat-row"><span class="cheat-token">/*?*</span><span class="cheat-desc">Block all URLs with query strings</span></div>
+        </div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Common Bot Names</div>
+        <div class="cheat-rows">
+          <div class="cheat-row"><span class="cheat-token">Googlebot</span><span class="cheat-desc">Google's main web crawler</span></div>
+          <div class="cheat-row"><span class="cheat-token">Bingbot</span><span class="cheat-desc">Microsoft Bing crawler</span></div>
+          <div class="cheat-row"><span class="cheat-token">Slurp</span><span class="cheat-desc">Yahoo! crawler</span></div>
+          <div class="cheat-row"><span class="cheat-token">DuckDuckBot</span><span class="cheat-desc">DuckDuckGo crawler</span></div>
+          <div class="cheat-row"><span class="cheat-token">facebot</span><span class="cheat-desc">Facebook's crawler (for OG tags)</span></div>
+          <div class="cheat-row"><span class="cheat-token">Twitterbot</span><span class="cheat-desc">Twitter's card crawler</span></div>
+        </div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Path Priority Rules</div>
+        <div class="cheat-rows">
+          <div class="cheat-row"><span class="cheat-token">More specific wins</span><span class="cheat-desc">Google picks the most specific matching rule</span></div>
+          <div class="cheat-row"><span class="cheat-token">Allow beats Disallow</span><span class="cheat-desc">When rules are equally specific, Allow wins</span></div>
+          <div class="cheat-row"><span class="cheat-token">Case-sensitive</span><span class="cheat-desc">Paths are case-sensitive; <code>/Admin</code> ≠ <code>/admin</code></span></div>
+          <div class="cheat-row"><span class="cheat-token">$ = end of URL</span><span class="cheat-desc">Anchors the pattern to the end of the URL string</span></div>
+          <div class="cheat-row"><span class="cheat-token">* = wildcard</span><span class="cheat-desc">Matches zero or more characters at that position</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── HOW TO USE ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">How to Use This Tool</h2>
+      <p class="section-desc">From generating your file to placing it on your server.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-title">Pick a Preset</div>
+        <div class="step-desc">Start from a preset that matches your platform — WordPress, e-commerce, Next.js, or a minimal template. It pre-fills the most common rules for that setup.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-title">Set Your Sitemap URL</div>
+        <div class="step-desc">Enter the full URL to your XML sitemap (e.g. <code>https://example.com/sitemap.xml</code>). This is required for Googlebot to discover all your pages efficiently.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-title">Configure User-agent Groups</div>
+        <div class="step-desc">Each group targets specific bots. Use <code>*</code> for all bots, or name specific ones like <code>Googlebot</code>. Add as many groups as you need.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div class="step-title">Add Allow/Disallow Rules</div>
+        <div class="step-desc">Click <strong>+ Disallow</strong> or <strong>+ Allow</strong> to add path rules. Use <code>/admin/</code> to block a folder, <code>/*.pdf$</code> for file types, or leave blank to allow everything.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">5</div>
+        <div class="step-title">Check the Validation Panel</div>
+        <div class="step-desc">The validation panel flags common mistakes — missing sitemap, paths not starting with /, blocking your entire site. Fix any errors before downloading.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">6</div>
+        <div class="step-title">Download &amp; Deploy</div>
+        <div class="step-desc">Click <strong>Download</strong> to save the file, then upload it to the root of your domain as <code>robots.txt</code>. It must be accessible at <code>https://yourdomain.com/robots.txt</code>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FEATURES ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">What's Built In</h2>
+      <p class="section-desc">Everything you need to build, validate, and deploy a robots.txt file.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">🏗️</div><div class="feature-title">Visual Builder</div><div class="feature-desc">Add and remove rules with buttons — no need to remember directive syntax or worry about formatting.</div></div>
+      <div class="feature-card"><div class="feature-icon">👥</div><div class="feature-title">Multiple Groups</div><div class="feature-desc">Add as many User-agent groups as you need. Target specific bots with custom rules while keeping general rules for all others.</div></div>
+      <div class="feature-card"><div class="feature-icon">⚡</div><div class="feature-title">Presets</div><div class="feature-desc">Seven ready-to-use presets covering WordPress, e-commerce, Next.js, minimal, block-all, allow-all, and bad-bot blocking.</div></div>
+      <div class="feature-card"><div class="feature-icon">✅</div><div class="feature-title">Inline Validation</div><div class="feature-desc">Real-time checks catch missing sitemaps, incorrect path formats, accidental full-site blocks, and other common mistakes.</div></div>
+      <div class="feature-card"><div class="feature-icon">💾</div><div class="feature-title">Download as robots.txt</div><div class="feature-desc">Download the generated file with the correct filename, ready to upload directly to your domain root.</div></div>
+      <div class="feature-card"><div class="feature-icon">🔒</div><div class="feature-title">100% Private</div><div class="feature-desc">Everything runs in your browser. Your domain and paths never leave your device — no server calls, no data collection.</div></div>
+      <div class="feature-card"><div class="feature-icon">🔄</div><div class="feature-title">Toggle Rule Types</div><div class="feature-desc">Flip any rule between Allow and Disallow with one click. Duplicate groups to test different configurations side by side.</div></div>
+      <div class="feature-card"><div class="feature-icon">🌐</div><div class="feature-title">Sitemap Integration</div><div class="feature-desc">Set your sitemap URL and it's added to the top of the file — the recommended location for all major crawlers.</div></div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FAQ ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-desc">Everything you need to know about robots.txt files.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is a robots.txt file?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>A robots.txt file is a plain text file placed at the root of your website (<code>yoursite.com/robots.txt</code>) that instructs web crawlers which pages or sections they should and should not crawl. It uses the Robots Exclusion Protocol — a standard that well-behaved bots like Googlebot follow voluntarily. It does not enforce access control; it's purely advisory.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Does robots.txt prevent pages from appearing in Google?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Not reliably. Disallowing a page in robots.txt tells Google not to crawl it, but if another site links to that blocked URL, Google may still index it and show it in search results — just without any snippet content. To actually prevent a page from appearing in search results, you need a <code>&lt;meta name="noindex"&gt;</code> tag on the page, or an <code>X-Robots-Tag: noindex</code> HTTP response header. <strong>Robots.txt controls crawling. Noindex controls indexing.</strong> They serve different purposes and should be used together when both behaviors are needed.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Where exactly does robots.txt have to be placed?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>The file must be named exactly <code>robots.txt</code> (lowercase) and placed at the root of your domain — accessible at <code>https://yourdomain.com/robots.txt</code>. It cannot be in a subdirectory. If your site is on a subdomain like <code>blog.example.com</code>, that subdomain needs its own robots.txt at <code>blog.example.com/robots.txt</code>. The server must return it with a <code>200 OK</code> status and <code>Content-Type: text/plain</code>. A <code>404</code> response means "no restrictions" to most crawlers. A <code>500</code> or <code>503</code> may cause crawlers to pause and retry later.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What happens if I have both Allow and Disallow rules for the same path?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Google applies the most specific matching rule. If two rules are equally specific, Allow takes precedence over Disallow. For example, if you have <code>Disallow: /cms/</code> and <code>Allow: /cms/public/</code>, then <code>/cms/public/</code> is allowed (more specific match) while all other <code>/cms/</code> paths are blocked. The older rule of "Disallow wins on ties" no longer applies for Google — Allow beats Disallow when rules have the same specificity score. Other crawlers may behave differently.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Should I add a Crawl-delay directive?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Crawl-delay tells a bot how many seconds to wait between requests. It's useful for bots that crawl aggressively and overload your server. However, <strong>Googlebot ignores Crawl-delay entirely</strong> — Google manages its crawl rate based on server response times and settings in Google Search Console. Crawl-delay is respected by Bingbot, Yandex, and some other bots. If you need to throttle Googlebot, use the crawl rate settings in Google Search Console instead.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Can I use wildcards in robots.txt paths?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Google and most modern crawlers support two pattern-matching characters: <code>*</code> (matches zero or more characters) and <code>$</code> (anchors the pattern to the end of the URL). For example, <code>Disallow: /*.pdf$</code> blocks all URLs ending in <code>.pdf</code>. <code>Disallow: /search*</code> blocks any URL starting with <code>/search</code>. Not all crawlers support wildcards — the original robots.txt spec didn't include them, but Google explicitly supports both patterns.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Is it safe to block crawlers using robots.txt?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Robots.txt only works on well-behaved, cooperative bots. Malicious crawlers, scrapers, and most spam bots simply ignore it. If you need to actually block bots, use server-level solutions: IP blocking, rate limiting, CAPTCHAs, or bot-management services like Cloudflare Bot Management. The robots.txt file is intended as a crawl management tool for legitimate search engines — it's not a security measure.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is the difference between blocking a folder vs a file?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p><code>Disallow: /admin</code> blocks <code>/admin</code>, <code>/admin/</code>, and <code>/administrator</code> — anything starting with that string. <code>Disallow: /admin/</code> (with trailing slash) blocks <code>/admin/</code> and all its contents, but technically <em>not</em> the URL <code>/admin</code> by itself. In practice, Google interprets <code>/admin/</code> conservatively, so both work for directory blocking. The trailing slash makes intent clearer for directories; omit it for specific page stems.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">How do I verify Google is following my robots.txt?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Use <strong>Google Search Console</strong> → Settings → Robots.txt tester. It shows you the live robots.txt file Google is reading for your site, lets you test specific URLs to see whether they're blocked or allowed, and highlights any errors in the file. You can also visit <code>https://yourdomain.com/robots.txt</code> directly in a browser to confirm the file is serving correctly. After making changes, it typically takes Google 24–48 hours to re-read the updated file.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Does robots.txt affect page speed or SEO?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Robots.txt directly affects how efficiently Google's crawl budget is spent on your site. Blocking irrelevant or duplicate pages (like faceted navigation URLs, session-based URLs, admin pages, and pagination variations) means Googlebot spends its crawl budget on pages you actually want indexed. This matters more for large sites with thousands of pages. For small sites with clean architecture, a minimal robots.txt is usually sufficient. Robots.txt is not a ranking factor itself — but helping Google crawl your important pages efficiently has indirect SEO benefits.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── RELATED ── -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="meta-tag-generator.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#f97316,#fb923c)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div><div class="related-name">Meta Tag Generator</div><div class="related-desc">Full SEO + OG + Twitter Cards generator.</div><span class="related-link">Use tool →</span></a>
+      <a href="og-tag-generator.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div><div class="related-name">OG Tag Generator</div><div class="related-desc">Generate OG tags with live social previews.</div><span class="related-link">Use tool →</span></a>
+      <a href="json-formatter.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div class="related-name">JSON Formatter</div><div class="related-desc">Format and validate JSON data.</div><span class="related-link">Use tool →</span></a>
+      <a href="regex.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#e879f9,#a78bfa)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div><div class="related-name">Regex Tester</div><div class="related-desc">Test and debug regular expressions.</div><span class="related-link">Use tool →</span></a>
+    </div>
+  </div>
+
+  <div class="page-section" style="margin-top:20px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Articles</h2>
+      <a href="../../blog.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="../../blog/robots-txt-explained.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#10b981,#34d399)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="related-name">Robots.txt — What It Does and What It Doesn't</div><div class="related-desc">The complete breakdown with real-world examples.</div><span class="related-link">Read →</span></a>
+      <a href="../../blog/meta-tags-matter.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#f97316,#fb923c)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="related-name">Meta Tags That Still Matter in 2026</div><div class="related-desc">Every meta tag that affects how search engines see your site.</div><span class="related-link">Read →</span></a>
+      <a href="../../blog/og-tags-explained.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="related-name">Open Graph Tags Explained</div><div class="related-desc">Why your social share links look bad and how to fix them.</div><span class="related-link">Read →</span></a>
+      <a href="../../blog/regex-explained.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#e879f9,#a78bfa)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="related-name">Regex Patterns That Actually Work</div><div class="related-desc">Email, URL, phone — with real edge cases explained.</div><span class="related-link">Read →</span></a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <text x="5" y="25" font-family="'Fira Code',monospace" font-size="11" font-weight="900" fill="#fff" fill-opacity=".92">R.T</text>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#10b981"/><stop offset="1" stop-color="#34d399"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#coding">Coding Tools</a><a href="../../tools.html#design">Design Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a><a href="../../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="robots-txt-generator.js"></script>
+</body>
+</html>

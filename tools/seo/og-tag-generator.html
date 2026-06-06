@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OG Tag Generator — Open Graph Meta Tags for Facebook, Twitter & LinkedIn | The Tool Empire</title>
+  <meta name="description" content="Generate complete Open Graph meta tags with live previews for Facebook, Twitter/X, and LinkedIn. Supports og:image, og:type, article tags, video, audio, and Twitter Cards. Free, no signup."/>
+  <meta name="keywords" content="og tag generator, open graph generator, og meta tags, facebook og tags, og image generator, twitter card generator, social share preview"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/coding/og-tag-generator.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="OG Tag Generator — Open Graph Tags with Live Social Previews"/>
+  <meta property="og:description" content="Generate og:title, og:image, og:type, article tags, Twitter Cards and more. See live Facebook, Twitter, and LinkedIn share card previews instantly."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/coding/og-tag-generator.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"OG Tag Generator","description":"Free browser-based Open Graph tag generator. Creates og:title, og:description, og:image, og:type, article tags, video tags, audio tags, and Twitter Cards. Includes live Facebook, Twitter/X, and LinkedIn share card previews with JSON-LD output.","url":"https://thetoolempire.com/tools/coding/og-tag-generator.html","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Open Graph core tags","Article, video, audio OG properties","Twitter/X Card tags","Live Facebook preview","Live Twitter/X preview","Live LinkedIn preview","JSON-LD structured data output","Syntax-highlighted HTML output","Image resolution validator","No data sent to server"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Coding Tools","item":"https://thetoolempire.com/tools.html#coding"},
+      {"@type":"ListItem","position":3,"name":"OG Tag Generator","item":"https://thetoolempire.com/tools/coding/og-tag-generator.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What are Open Graph tags?","acceptedAnswer":{"@type":"Answer","text":"Open Graph (OG) tags are HTML meta tags placed inside the <head> section of a web page. They control how your page appears when shared on social media platforms like Facebook, LinkedIn, Pinterest, WhatsApp, and Slack. The og:title, og:description, and og:image tags define the title, summary text, and preview image shown in a link card."}},
+      {"@type":"Question","name":"What image size should I use for og:image?","acceptedAnswer":{"@type":"Answer","text":"The recommended og:image size is 1200×630 pixels (1.91:1 aspect ratio). This works across Facebook, LinkedIn, Twitter summary_large_image, and most other platforms. The minimum accepted size for Facebook is 200×200 pixels, but images smaller than 600×315 may not display as a large card. Keep the file size under 8 MB and use PNG or JPG format."}},
+      {"@type":"Question","name":"Do I need both Open Graph and Twitter Card tags?","acceptedAnswer":{"@type":"Answer","text":"Yes, ideally. Most platforms use Open Graph tags, but Twitter/X has its own twitter: tag system. Twitter will fall back to OG tags if twitter: tags are missing, but setting explicit Twitter Card tags gives you more control — particularly over the card type (summary vs summary_large_image) and the @site handle attribution."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="og-tag-generator.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <text x="5" y="25" font-family="'Fira Code',monospace" font-size="12" font-weight="900" fill="#fff" fill-opacity=".92">OG</text>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="ogTagApp()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li style="color:#e8e8f0">OG Tag Generator</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot" style="width:100%;margin-bottom:18px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+      SEO · Social
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">OG Tag Generator</span></h1>
+    <p class="tool-subtitle">Generate complete Open Graph tags with live previews for Facebook, Twitter/X, and LinkedIn — including article, video, and audio properties.</p>
+  </div>
+
+  <!-- Quick actions -->
+  <div class="quick-actions">
+    <button class="q-btn" @click="loadExample()">Load example</button>
+    <button class="q-btn" @click="reset()">Reset</button>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-label">Tags</span>
+      <span class="stat-value" :class="tagCount > 0 ? 'good' : ''" x-text="tagCount"></span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Title</span>
+      <span class="stat-value" :class="titleStatus.cls" x-text="titleStatus.label"></span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Description</span>
+      <span class="stat-value" :class="descStatus.cls" x-text="descStatus.label"></span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Image size</span>
+      <span class="stat-value" :class="imageStatus.cls" x-text="imageStatus.label"></span>
+    </div>
+  </div>
+
+  <!-- ── MAIN GRID ── -->
+  <div class="tool-grid">
+
+    <!-- LEFT — Form -->
+    <div>
+
+      <!-- ── CORE OG ── -->
+      <div class="form-card">
+        <div class="pane-header">
+          <span class="pane-title">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+            Open Graph — Core
+          </span>
+        </div>
+        <div class="form-body">
+
+          <div class="field">
+            <label class="field-label">og:title</label>
+            <input type="text" class="field-input" x-model="title" placeholder="Your page title for social sharing" maxlength="100"/>
+            <div class="char-counter" :class="titleCharClass()" x-text="title.length + ' / 60'"></div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">og:description</label>
+            <textarea class="field-textarea" x-model="description" placeholder="Description shown in social share cards (150–200 chars)" maxlength="300"></textarea>
+            <div class="char-counter" :class="descCharClass()" x-text="description.length + ' / 200'"></div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">og:url</label>
+            <input type="url" class="field-input" x-model="url" placeholder="https://example.com/your-page"/>
+            <span class="field-hint">The canonical URL for this page — the URL you want shared.</span>
+          </div>
+
+          <div class="col2">
+            <div class="field">
+              <label class="field-label">og:type</label>
+              <select class="field-select" x-model="type" @change="articleEnabled = type === 'article'">
+                <option value="website">website</option>
+                <option value="article">article</option>
+                <option value="product">product</option>
+                <option value="profile">profile</option>
+                <option value="video.other">video.other</option>
+                <option value="music.song">music.song</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field-label">og:site_name</label>
+              <input type="text" class="field-input" x-model="siteName" placeholder="Your Site Name"/>
+            </div>
+          </div>
+
+          <div class="col2">
+            <div class="field">
+              <label class="field-label">og:locale</label>
+              <select class="field-select" x-model="locale">
+                <option value="en_US">en_US — English (US)</option>
+                <option value="en_GB">en_GB — English (UK)</option>
+                <option value="es_ES">es_ES — Spanish</option>
+                <option value="fr_FR">fr_FR — French</option>
+                <option value="de_DE">de_DE — German</option>
+                <option value="pt_BR">pt_BR — Portuguese (BR)</option>
+                <option value="it_IT">it_IT — Italian</option>
+                <option value="ja_JP">ja_JP — Japanese</option>
+                <option value="zh_CN">zh_CN — Chinese (Simplified)</option>
+                <option value="ar_AR">ar_AR — Arabic</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field-label">og:locale:alternate</label>
+              <input type="text" class="field-input" x-model="localeAlt" placeholder="e.g. fr_FR"/>
+              <span class="field-hint">Optional alternate locale.</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── OG IMAGE ── -->
+      <div class="form-card">
+        <div class="pane-header">
+          <span class="pane-title">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            og:image
+          </span>
+        </div>
+        <div class="form-body">
+
+          <div class="field">
+            <label class="field-label">og:image URL</label>
+            <input type="url" class="field-input" x-model="image" placeholder="https://example.com/og-image.png"/>
+            <span class="field-hint">Full absolute URL. Recommended: 1200×630 px, PNG or JPG, under 8 MB.</span>
+          </div>
+
+          <div class="col2">
+            <div class="field">
+              <label class="field-label">og:image:width</label>
+              <input type="number" class="field-input" x-model="imageWidth" placeholder="1200" min="1" max="9999"/>
+            </div>
+            <div class="field">
+              <label class="field-label">og:image:height</label>
+              <input type="number" class="field-input" x-model="imageHeight" placeholder="630" min="1" max="9999"/>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">og:image:alt</label>
+            <input type="text" class="field-input" x-model="imageAlt" placeholder="Descriptive alt text for screen readers"/>
+            <span class="field-hint">Required for accessibility. Also used as twitter:image:alt.</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── ARTICLE PROPERTIES ── -->
+      <div class="form-card">
+        <div class="pane-header" style="cursor:pointer" @click="articleEnabled=!articleEnabled">
+          <span class="pane-title">Article Properties</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:.71rem;color:var(--text-faint)" x-text="articleEnabled ? 'Enabled' : 'Disabled (set type to article)'"></span>
+            <div class="toggle-switch" :style="articleEnabled ? 'background:var(--primary)' : 'background:rgba(255,255,255,.12)'">
+              <div class="toggle-knob" :style="articleEnabled ? 'transform:translateX(17px)' : ''"></div>
+            </div>
+          </div>
+        </div>
+        <div class="form-body" x-show="articleEnabled">
+          <div class="col2">
+            <div class="field">
+              <label class="field-label">Published time</label>
+              <input type="datetime-local" class="field-input" x-model="articlePublished"/>
+            </div>
+            <div class="field">
+              <label class="field-label">Modified time</label>
+              <input type="datetime-local" class="field-input" x-model="articleModified"/>
+            </div>
+          </div>
+          <div class="col2">
+            <div class="field">
+              <label class="field-label">article:author</label>
+              <input type="text" class="field-input" x-model="articleAuthor" placeholder="Author name or profile URL"/>
+            </div>
+            <div class="field">
+              <label class="field-label">article:section</label>
+              <input type="text" class="field-input" x-model="articleSection" placeholder="e.g. Technology"/>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label">article:tag</label>
+            <input type="text" class="field-input" x-model="articleTag" placeholder="tag1, tag2, tag3 (comma-separated)"/>
+            <span class="field-hint">Each tag generates a separate article:tag meta element.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TWITTER / X ── -->
+      <div class="form-card">
+        <div class="pane-header" style="cursor:pointer" @click="twitterEnabled=!twitterEnabled">
+          <span class="pane-title">Twitter / X Card</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:.71rem;color:var(--text-faint)" x-text="twitterEnabled ? 'Enabled' : 'Disabled'"></span>
+            <div class="toggle-switch" :style="twitterEnabled ? 'background:var(--primary)' : 'background:rgba(255,255,255,.12)'">
+              <div class="toggle-knob" :style="twitterEnabled ? 'transform:translateX(17px)' : ''"></div>
+            </div>
+          </div>
+        </div>
+        <div class="form-body" x-show="twitterEnabled">
+          <div class="field">
+            <label class="field-label">twitter:card</label>
+            <select class="field-select" x-model="twitterCard">
+              <option value="summary_large_image">summary_large_image — large image above content</option>
+              <option value="summary">summary — small thumbnail beside content</option>
+              <option value="app">app — mobile app download card</option>
+              <option value="player">player — embedded video/audio</option>
+            </select>
+          </div>
+          <div class="col2">
+            <div class="field">
+              <label class="field-label">twitter:site</label>
+              <input type="text" class="field-input" x-model="twitterSite" placeholder="@yoursite"/>
+            </div>
+            <div class="field">
+              <label class="field-label">twitter:creator</label>
+              <input type="text" class="field-input" x-model="twitterCreator" placeholder="@author"/>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label">twitter:title <span style="font-weight:400;color:var(--text-faint)">(blank = use og:title)</span></label>
+            <input type="text" class="field-input" x-model="twitterTitle" :placeholder="title || 'Twitter card title override'"/>
+          </div>
+          <div class="field">
+            <label class="field-label">twitter:description <span style="font-weight:400;color:var(--text-faint)">(blank = use og:description)</span></label>
+            <textarea class="field-textarea" style="min-height:52px" x-model="twitterDesc" :placeholder="description || 'Twitter card description override'"></textarea>
+          </div>
+          <div class="field">
+            <label class="field-label">twitter:image <span style="font-weight:400;color:var(--text-faint)">(blank = use og:image)</span></label>
+            <input type="url" class="field-input" x-model="twitterImage" :placeholder="image || 'https://example.com/twitter-image.png'"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── VIDEO / AUDIO ── -->
+      <div class="form-card">
+        <div class="pane-header">
+          <span class="pane-title">Video &amp; Audio Properties</span>
+        </div>
+        <div class="form-body">
+          <div class="toggle-row">
+            <span class="toggle-label">og:video</span>
+            <div class="toggle-switch" :style="videoEnabled ? 'background:var(--primary)' : 'background:rgba(255,255,255,.12)'" @click="videoEnabled=!videoEnabled">
+              <div class="toggle-knob" :style="videoEnabled ? 'transform:translateX(17px)' : ''"></div>
+            </div>
+          </div>
+          <template x-if="videoEnabled">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="field">
+                <label class="field-label">og:video URL</label>
+                <input type="url" class="field-input" x-model="videoUrl" placeholder="https://example.com/video.mp4"/>
+              </div>
+              <div class="col2">
+                <div class="field">
+                  <label class="field-label">og:video:width</label>
+                  <input type="number" class="field-input" x-model="videoWidth" placeholder="1280"/>
+                </div>
+                <div class="field">
+                  <label class="field-label">og:video:height</label>
+                  <input type="number" class="field-input" x-model="videoHeight" placeholder="720"/>
+                </div>
+              </div>
+              <div class="field">
+                <label class="field-label">og:video:type</label>
+                <select class="field-select" x-model="videoType">
+                  <option value="video/mp4">video/mp4</option>
+                  <option value="video/webm">video/webm</option>
+                  <option value="application/x-shockwave-flash">application/x-shockwave-flash</option>
+                </select>
+              </div>
+            </div>
+          </template>
+
+          <div class="toggle-row" style="margin-top:8px">
+            <span class="toggle-label">og:audio</span>
+            <div class="toggle-switch" :style="audioEnabled ? 'background:var(--primary)' : 'background:rgba(255,255,255,.12)'" @click="audioEnabled=!audioEnabled">
+              <div class="toggle-knob" :style="audioEnabled ? 'transform:translateX(17px)' : ''"></div>
+            </div>
+          </div>
+          <template x-if="audioEnabled">
+            <div class="field">
+              <label class="field-label">og:audio URL</label>
+              <input type="url" class="field-input" x-model="audioUrl" placeholder="https://example.com/audio.mp3"/>
+            </div>
+          </template>
+        </div>
+      </div>
+
+    </div><!-- /left -->
+
+    <!-- RIGHT — Output + Previews -->
+    <div>
+      <div class="output-card">
+        <div class="output-tabs">
+          <button class="output-tab" :class="{active:activeTab==='html'}"     @click="activeTab='html'">HTML Tags</button>
+          <button class="output-tab" :class="{active:activeTab==='jsonld'}"   @click="activeTab='jsonld'">JSON-LD</button>
+          <button class="output-tab" :class="{active:activeTab==='facebook'}" @click="activeTab='facebook'">Facebook</button>
+          <button class="output-tab" :class="{active:activeTab==='twitter'}"  @click="activeTab='twitter'">Twitter/X</button>
+          <button class="output-tab" :class="{active:activeTab==='linkedin'}" @click="activeTab='linkedin'">LinkedIn</button>
+        </div>
+
+        <!-- HTML output -->
+        <div class="output-body" x-show="activeTab==='html'">
+          <pre class="output-pre" x-html="htmlHighlighted"></pre>
+        </div>
+
+        <!-- JSON-LD -->
+        <div class="output-body" x-show="activeTab==='jsonld'">
+          <pre class="output-pre" x-text="jsonLdOutput"></pre>
+        </div>
+
+        <!-- Facebook preview -->
+        <div x-show="activeTab==='facebook'">
+          <div class="preview-lbl">Facebook / LinkedIn Link Preview</div>
+          <div class="fb-card">
+            <div class="fb-img">
+              <template x-if="image">
+                <img :src="image" :alt="imageAlt || title" onerror="this.parentElement.innerHTML='<span>Image failed to load</span>'"/>
+              </template>
+              <template x-if="!image"><span>og:image will appear here · 1200×630 px recommended</span></template>
+            </div>
+            <div class="fb-info">
+              <div class="fb-domain" x-text="_domain"></div>
+              <div class="fb-title" x-text="title || 'Your og:title will appear here'"></div>
+              <div class="fb-desc" x-text="description || 'Your og:description will appear here. Aim for 150–200 characters for best display.'"></div>
+            </div>
+          </div>
+          <div style="padding:8px 18px 14px;font-size:.71rem;color:var(--text-faint)">Facebook caches OG data. Use the Sharing Debugger to force a refresh after changes.</div>
+        </div>
+
+        <!-- Twitter preview -->
+        <div x-show="activeTab==='twitter'">
+          <div class="preview-lbl">Twitter / X Card Preview</div>
+          <div class="tw-card">
+            <div class="tw-img" x-show="twitterCard==='summary_large_image'">
+              <template x-if="_twImage">
+                <img :src="_twImage" :alt="imageAlt || _twTitle" onerror="this.parentElement.innerHTML='<span>Image failed to load</span>'"/>
+              </template>
+              <template x-if="!_twImage"><span>twitter:image · summary_large_image needs 1200×628 px</span></template>
+            </div>
+            <div class="tw-info">
+              <div class="tw-title" x-text="_twTitle || 'Your twitter:title will appear here'"></div>
+              <div class="tw-desc" x-text="_twDesc || 'Your twitter:description will appear here.'"></div>
+              <div class="tw-domain" style="margin-top:4px" x-text="_domain"></div>
+            </div>
+          </div>
+          <div style="padding:8px 18px 14px;font-size:.71rem;color:var(--text-faint)">Twitter falls back to og: tags if twitter: tags are absent. summary_large_image needs approval for some accounts.</div>
+        </div>
+
+        <!-- LinkedIn preview -->
+        <div x-show="activeTab==='linkedin'">
+          <div class="preview-lbl">LinkedIn Post Preview</div>
+          <div class="li-card">
+            <div class="li-img">
+              <template x-if="image">
+                <img :src="image" :alt="imageAlt || title" onerror="this.parentElement.innerHTML='<span>Image failed to load</span>'"/>
+              </template>
+              <template x-if="!image"><span>og:image will appear here · 1200×627 px recommended for LinkedIn</span></template>
+            </div>
+            <div class="li-info">
+              <div class="li-title" x-text="title || 'Your og:title will appear here'"></div>
+              <div class="li-domain" x-text="_domain"></div>
+            </div>
+          </div>
+          <div style="padding:8px 18px 14px;font-size:.71rem;color:var(--text-faint)">LinkedIn uses og: tags. Use the Post Inspector to refresh cached data after deploying.</div>
+        </div>
+
+        <button class="copy-all-btn" @click="activeTab==='jsonld' ? copyJsonLd() : copyHtml()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          <span x-text="activeTab==='jsonld' ? 'Copy JSON-LD' : 'Copy All OG Tags'"></span>
+        </button>
+      </div>
+    </div><!-- /right -->
+
+  </div><!-- /tool-grid -->
+
+  <!-- Ad -->
+  <div class="ad-slot" style="width:100%;margin-top:20px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- ── OG TAG REFERENCE ── -->
+  <div class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">Open Graph Tag Reference</h2>
+      <p class="section-desc">Every property generated by this tool and what it controls.</p>
+    </div>
+    <div class="cheat-grid">
+      <div class="cheat-card">
+        <div class="cheat-title">Core Properties</div>
+        <div class="cheat-rows">
+          <div class="cheat-row"><span class="cheat-token">og:title</span><span class="cheat-desc">Title shown in the share card — keep under 60 chars</span></div>
+          <div class="cheat-row"><span class="cheat-token">og:description</span><span class="cheat-desc">Summary text in the share card — 150–200 chars</span></div>
+          <div class="cheat-row"><span class="cheat-token">og:url</span><span class="cheat-desc">Canonical URL for the shared page</span></div>
+          <div class="cheat-row"><span class="cheat-token">og:type</span><span class="cheat-desc">Content type: website, article, product, profile…</span></div>
+          <div class="cheat-row"><span class="cheat-token">og:site_name</span><span class="cheat-desc">Your website's display name in the card</span></div>
+          <div class="cheat-row"><span class="cheat-token">og:locale</span><span class="cheat-desc">Language/locale, e.g. en_US, fr_FR</span></div>
+        </div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Image Properties</div>
+        <div class="cheat-rows">
+          <div class="cheat-row"><span class="cheat-token">og:image</span><span class="cheat-desc">Absolute URL of the preview image</span></div>
+          <div class="cheat-row"><span class="cheat-token">og:image:width</span><span class="cheat-desc">Image width in pixels — helps platforms pre-size</span></div>
+          <div class="cheat-row"><span class="cheat-token">og:image:height</span><span class="cheat-desc">Image height in pixels</span></div>
+          <div class="cheat-row"><span class="cheat-token">og:image:alt</span><span class="cheat-desc">Alt text for accessibility — required by Facebook</span></div>
+          <div class="cheat-row"><span class="cheat-token">og:image:type</span><span class="cheat-desc">MIME type — image/jpeg or image/png</span></div>
+        </div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Article Properties</div>
+        <div class="cheat-rows">
+          <div class="cheat-row"><span class="cheat-token">article:published_time</span><span class="cheat-desc">ISO 8601 publish date</span></div>
+          <div class="cheat-row"><span class="cheat-token">article:modified_time</span><span class="cheat-desc">ISO 8601 last-modified date</span></div>
+          <div class="cheat-row"><span class="cheat-token">article:author</span><span class="cheat-desc">Author name or profile URL</span></div>
+          <div class="cheat-row"><span class="cheat-token">article:section</span><span class="cheat-desc">High-level topic section, e.g. Technology</span></div>
+          <div class="cheat-row"><span class="cheat-token">article:tag</span><span class="cheat-desc">Tag keywords — one tag per meta element</span></div>
+        </div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Twitter Card Properties</div>
+        <div class="cheat-rows">
+          <div class="cheat-row"><span class="cheat-token">twitter:card</span><span class="cheat-desc">summary, summary_large_image, app, player</span></div>
+          <div class="cheat-row"><span class="cheat-token">twitter:title</span><span class="cheat-desc">Override og:title for Twitter</span></div>
+          <div class="cheat-row"><span class="cheat-token">twitter:description</span><span class="cheat-desc">Override og:description for Twitter</span></div>
+          <div class="cheat-row"><span class="cheat-token">twitter:image</span><span class="cheat-desc">Override og:image for Twitter</span></div>
+          <div class="cheat-row"><span class="cheat-token">twitter:site</span><span class="cheat-desc">@handle of the website</span></div>
+          <div class="cheat-row"><span class="cheat-token">twitter:creator</span><span class="cheat-desc">@handle of the content author</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── HOW TO USE ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">How to Use This Tool</h2>
+      <p class="section-desc">From filling in the form to seeing your tags live in the real platforms.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-title">Fill in Core OG</div>
+        <div class="step-desc">Enter your page title, description, canonical URL, and select the OG type. The character counters show green when you're in the ideal range for each field.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-title">Add Your OG Image</div>
+        <div class="step-desc">Paste the full URL of your share image. Set width and height (1200×630 ideal) so platforms can pre-size the card. Add alt text for accessibility.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-title">Enable Article Tags</div>
+        <div class="step-desc">For blog posts, switch type to <strong>article</strong> and fill in the published time, author, section, and tags. These power Facebook Instant Articles and news aggregators.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div class="step-title">Configure Twitter Cards</div>
+        <div class="step-desc">Choose your card type (<strong>summary_large_image</strong> for most content), add your @site handle. Leave title/description/image blank to automatically inherit your OG values.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">5</div>
+        <div class="step-title">Check All Previews</div>
+        <div class="step-desc">Switch between the <strong>Facebook</strong>, <strong>Twitter/X</strong>, and <strong>LinkedIn</strong> tabs to see how your link will look on each platform before deploying.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">6</div>
+        <div class="step-title">Copy &amp; Deploy</div>
+        <div class="step-desc">Click <strong>Copy All OG Tags</strong> and paste the HTML inside your page's <code>&lt;head&gt;</code>. After deploying, use each platform's debugger to validate and clear any cached previews.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FEATURES ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">What's Built In</h2>
+      <p class="section-desc">Everything you need to generate, preview, and deploy perfect OG tags.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">📘</div><div class="feature-title">Facebook Preview</div><div class="feature-desc">Realistic Facebook-style link card showing your og:image, title, description, and domain.</div></div>
+      <div class="feature-card"><div class="feature-icon">🐦</div><div class="feature-title">Twitter/X Preview</div><div class="feature-desc">Live Twitter card preview — switches between summary_large_image and summary layouts.</div></div>
+      <div class="feature-card"><div class="feature-icon">💼</div><div class="feature-title">LinkedIn Preview</div><div class="feature-desc">LinkedIn-style link card preview matching how posts appear in the feed.</div></div>
+      <div class="feature-card"><div class="feature-icon">📰</div><div class="feature-title">Article Properties</div><div class="feature-desc">Full article:published_time, article:author, article:section, and multi-tag support.</div></div>
+      <div class="feature-card"><div class="feature-icon">🎬</div><div class="feature-title">Video &amp; Audio</div><div class="feature-desc">og:video and og:audio properties for rich media sharing on compatible platforms.</div></div>
+      <div class="feature-card"><div class="feature-icon">📋</div><div class="feature-title">JSON-LD Output</div><div class="feature-desc">Schema.org structured data generated automatically from your OG fields — ready for Google rich results.</div></div>
+      <div class="feature-card"><div class="feature-icon">📏</div><div class="feature-title">Image Validator</div><div class="feature-desc">Real-time image size status — green for ideal 1200×630, yellow for minimum acceptable, red for too small.</div></div>
+      <div class="feature-card"><div class="feature-icon">🔒</div><div class="feature-title">100% Private</div><div class="feature-desc">All generation and previews happen in your browser. Your URLs and content never leave your device.</div></div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FAQ ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-desc">Common questions about Open Graph tags and social sharing.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What are Open Graph tags?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Open Graph (OG) tags are HTML meta tags placed inside the <code>&lt;head&gt;</code> section of a web page. Developed by Facebook in 2010, they're now the universal standard used by Facebook, LinkedIn, Pinterest, WhatsApp, Slack, Discord, and most other platforms to build the preview card shown when someone shares your URL. Without OG tags, platforms make their best guess at a title, description, and image — usually with poor results.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What's the best og:image size?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>The universal recommendation is <strong>1200×630 pixels</strong> (1.91:1 aspect ratio). This works across Facebook, LinkedIn, Twitter's summary_large_image, WhatsApp, and Slack. Facebook's minimum is 200×200 pixels, but anything smaller than 600×315 won't render as a large card. Keep file size under 8 MB. Use PNG for graphics/screenshots with text; JPG for photographs. Avoid putting critical information in the corners — some platforms overlay elements on the image edges.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Why does my OG image still show the old one after I changed it?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Social platforms cache OG data aggressively — sometimes for days. After updating your tags, you need to force a cache refresh on each platform: <strong>Facebook</strong> → Sharing Debugger (developers.facebook.com/tools/debug), click "Scrape Again". <strong>LinkedIn</strong> → Post Inspector (linkedin.com/post-inspector), enter your URL. <strong>Twitter/X</strong> → Card Validator (cards-dev.twitter.com/validator). Each tool re-fetches your page and clears the cached preview.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Do I need both og: tags and twitter: tags?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Twitter will fall back to OG tags if Twitter-specific tags are missing. However, setting explicit <code>twitter:card</code> and <code>twitter:site</code> tags is recommended because: (1) <code>twitter:card</code> controls the card layout — without it you get the smaller "summary" card even if your OG image is 1200×630; (2) <code>twitter:site</code> adds your @handle attribution to the card; (3) you can use a different image or description optimised for the Twitter timeline. This generator defaults to leaving twitter:title and twitter:description blank, which means they automatically inherit from og:title and og:description.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What does og:type do?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>The <code>og:type</code> property tells platforms what kind of content your page is. <strong>website</strong> is the default for homepages and general pages. <strong>article</strong> unlocks additional article-specific properties (<code>article:published_time</code>, <code>article:author</code>, <code>article:tag</code>) used by Facebook, news aggregators, and some RSS readers. <strong>product</strong> is used by e-commerce platforms. <strong>video.other</strong> enables video-specific OG properties. Choosing the correct type helps platforms categorise and display your content appropriately.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Where exactly do I paste the generated tags?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Paste all tags inside the <code>&lt;head&gt;</code> element, before the closing <code>&lt;/head&gt;</code> tag. Placement relative to other head elements doesn't matter much, but convention is to put them after the <code>&lt;title&gt;</code> and standard <code>&lt;meta charset&gt;</code> / <code>&lt;meta viewport&gt;</code> tags. For CMS platforms: WordPress uses Yoast/Rank Math; Next.js uses the <code>metadata</code> export or <code>next/head</code>; Shopify uses the theme's <code>theme.liquid</code>; Webflow uses the Page Settings "Head Code" field.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is og:locale and do I need it?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p><code>og:locale</code> declares the language and regional dialect of your page content, using underscore-separated locale codes like <code>en_US</code>, <code>fr_FR</code>, or <code>es_MX</code>. Facebook uses it to serve translated interface elements around your share card and to route your content to regionally-targeted feeds. <code>og:locale:alternate</code> lists additional locales if your page is available in multiple languages. If you have a single-language site, setting <code>og:locale</code> is a minor best-practice signal — it won't break anything if omitted.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Does Google use Open Graph tags?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Google primarily uses structured data (JSON-LD), the <code>&lt;title&gt;</code> tag, and meta description for search results — not OG tags directly. However, Google does read OG tags to understand page content and may use them as signals for Knowledge Graph entries, Google Discover cards, and rich previews. The JSON-LD tab in this tool generates Schema.org structured data from your OG fields, which is what actually powers Google rich results. Set both for maximum coverage.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What are article: tags and when should I use them?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Article-specific OG properties apply when <code>og:type</code> is set to <code>article</code>. They include <code>article:published_time</code> and <code>article:modified_time</code> (ISO 8601 datetime strings), <code>article:author</code> (author name or profile URL), <code>article:section</code> (broad topic category), and <code>article:tag</code> (keyword tags — one per meta element). Facebook uses these for its news features. Some RSS readers and content aggregators also parse them. Use them on every blog post and news article — they add meaningful metadata without any downside.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Why isn't my preview image loading in the tool?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>The preview in this tool loads images directly from the URL you enter. Common reasons it won't load: (1) <strong>Not deployed yet</strong> — the image must be on a publicly accessible URL, not localhost; (2) <strong>CORS headers</strong> — the server hosting the image may block cross-origin requests in a browser preview; (3) <strong>Wrong URL</strong> — double-check the full absolute URL including https://; (4) <strong>Private CDN</strong> — images behind authentication or IP restrictions won't load. The preview failing in the tool doesn't mean social platforms can't fetch it — they make server-side requests that bypass browser CORS.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── RELATED ── -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="meta-tag-generator.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#f97316,#fb923c)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div><div class="related-name">Meta Tag Generator</div><div class="related-desc">Full SEO + OG + Twitter Cards generator.</div><span class="related-link">Use tool →</span></a>
+      <a href="json-formatter.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div class="related-name">JSON Formatter</div><div class="related-desc">Format, validate, and diff JSON data.</div><span class="related-link">Use tool →</span></a>
+      <a href="html-encoder.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#34d399,#06b6d4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 6 2 12 4 18"/><polyline points="20 6 22 12 20 18"/></svg></div><div class="related-name">HTML Encoder</div><div class="related-desc">Encode and decode HTML entities.</div><span class="related-link">Use tool →</span></a>
+      <a href="markdown.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#38bdf8,#818cf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="related-name">Markdown Editor</div><div class="related-desc">Write and preview Markdown live.</div><span class="related-link">Use tool →</span></a>
+    </div>
+  </div>
+
+  <div class="page-section" style="margin-top:20px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Articles</h2>
+      <a href="../../blog.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="../../blog/og-tags-explained.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="related-name">Open Graph Tags — Why Your Links Look Bad on Social Media</div><div class="related-desc">The full OG spec explained with real-world examples.</div><span class="related-link">Read →</span></a>
+      <a href="../../blog/meta-tags-matter.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#f97316,#fb923c)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="related-name">Meta Tags — What They Are and Why They Still Matter</div><div class="related-desc">The full breakdown of every meta tag that affects SEO.</div><span class="related-link">Read →</span></a>
+      <a href="../../blog/html-entities-explained.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#34d399,#06b6d4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="related-name">Every HTML Entity You Actually Need</div><div class="related-desc">Special characters, XSS, and when to encode.</div><span class="related-link">Read →</span></a>
+      <a href="../../blog/regex-explained.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#e879f9,#a78bfa)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="related-name">Regex Patterns That Actually Work</div><div class="related-desc">Email, URL, phone — with edge cases explained.</div><span class="related-link">Read →</span></a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <text x="5" y="25" font-family="'Fira Code',monospace" font-size="12" font-weight="900" fill="#fff" fill-opacity=".92">OG</text>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#coding">Coding Tools</a><a href="../../tools.html#design">Design Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a><a href="../../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="og-tag-generator.js"></script>
+</body>
+</html>

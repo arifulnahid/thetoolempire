@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Compound Interest Calculator — Future Value, Growth Schedule & Frequency Comparison | The Tool Empire</title>
+  <meta name="description" content="Calculate compound interest with monthly contributions, inflation adjustment, and a full year-by-year growth table. Compare compounding frequencies. Free, no signup."/>
+  <meta name="keywords" content="compound interest calculator, future value calculator, investment calculator, savings calculator, compound interest formula, APY calculator, compounding frequency"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/math/compound-interest.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Compound Interest Calculator — Future Value, Growth & Frequency Comparison"/>
+  <meta property="og:description" content="See exactly how your money grows with compound interest. Supports contributions, inflation adjustment, 6 compounding frequencies, and a full year-by-year growth schedule."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/math/compound-interest.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"Compound Interest Calculator","description":"Free browser-based compound interest calculator. Computes future value, total interest, APY, inflation-adjusted value, year-by-year growth schedule, and compounding frequency comparison for savings, investments, and retirement planning.","url":"https://thetoolempire.com/tools/math/compound-interest.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Future value with compound interest","Monthly/annual contributions (start or end of period)","6 compounding frequencies (daily to annually + continuous)","Inflation-adjusted real value","APY (effective annual yield)","Rule of 72 doubling time","Year-by-year growth schedule","Frequency comparison table","12 currency symbols","No server — 100% private"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Math Tools","item":"https://thetoolempire.com/tools.html#math"},
+      {"@type":"ListItem","position":3,"name":"Compound Interest Calculator","item":"https://thetoolempire.com/tools/math/compound-interest.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is compound interest?","acceptedAnswer":{"@type":"Answer","text":"Compound interest is interest calculated on both the initial principal and the accumulated interest from previous periods. Unlike simple interest (which is calculated only on the principal), compound interest grows exponentially. The more frequently interest compounds, the faster the balance grows. This effect — often called 'interest on interest' — is what makes it so powerful for long-term savings and investments."}},
+      {"@type":"Question","name":"What is the compound interest formula?","acceptedAnswer":{"@type":"Answer","text":"The standard compound interest formula is: A = P(1 + r/n)^(nt), where A is the final amount, P is the principal, r is the annual interest rate as a decimal, n is the number of compounding periods per year, and t is the time in years. When regular contributions (PMT) are added, the formula becomes: A = P(1+r/n)^(nt) + PMT × [(1+r/n)^(nt) − 1] / (r/n), adjusted by one extra compounding period if contributions are made at the start of each period."}},
+      {"@type":"Question","name":"How does compounding frequency affect returns?","acceptedAnswer":{"@type":"Answer","text":"The more frequently interest compounds, the more you earn — but with diminishing returns as frequency increases. The difference between annual and monthly compounding is meaningful; the difference between daily and continuous compounding is negligible. For example, at 7% annual rate: annually yields ~7% effective APY, monthly yields ~7.229%, daily yields ~7.250%, and continuous compounding yields ~7.251%. The 'Frequency comparison' section in this calculator shows the exact impact for your numbers."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="compound-interest.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <text x="8" y="24" font-family="'Inter',sans-serif" font-size="13" font-weight="900" fill="#fff" fill-opacity=".92">∞%</text>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#7c3aed"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="compoundApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li><a href="../../tools.html#math" style="color:#8888a8">Math</a></li><li>›</li>
+      <li style="color:#e8e8f0">Compound Interest Calculator</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot" style="margin-bottom:18px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+      Finance · Calculator
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">Compound Interest Calculator</span></h1>
+    <p class="tool-subtitle">See how your money grows with the power of compounding. Add contributions, compare frequencies, adjust for inflation, and view a full year-by-year growth schedule.</p>
+  </div>
+
+  <!-- Preset tabs -->
+  <div class="comp-tabs">
+    <template x-for="p in presets" :key="p.id">
+      <button class="comp-tab" :class="{active: preset === p.id}" @click="setPreset(p.id)" x-text="p.label"></button>
+    </template>
+  </div>
+
+  <!-- ── TOOL GRID ── -->
+  <div class="tool-grid">
+
+    <!-- LEFT: Inputs -->
+    <div class="input-card">
+      <div class="card-header">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+        </div>
+        <span class="card-title">Calculator Settings</span>
+      </div>
+      <div class="card-body">
+
+        <!-- Currency -->
+        <div class="field">
+          <label class="field-label">Currency</label>
+          <select class="field-select" x-model="currency" @change="calculate()">
+            <template x-for="(s, code) in currencies" :key="code">
+              <option :value="code" x-text="code + ' (' + s + ')'"></option>
+            </template>
+          </select>
+        </div>
+
+        <!-- Principal -->
+        <div class="field">
+          <label class="field-label">Initial principal <span x-text="fmt(principal)"></span></label>
+          <div class="input-prefix-wrap">
+            <span class="input-prefix" x-text="sym"></span>
+            <input type="number" class="field-input has-prefix" x-model="principal" @input="calculate()" min="0" step="500" placeholder="10000"/>
+          </div>
+          <div class="range-wrap">
+            <input type="range" class="range-input" x-model="principal" @input="calculate()" min="0" max="1000000" step="500"/>
+            <div class="range-labels"><span x-text="sym+'0'"></span><span x-text="sym+'1M'"></span></div>
+          </div>
+        </div>
+
+        <!-- Rate -->
+        <div class="field">
+          <label class="field-label">Annual interest rate <span x-text="annualRate + '%'"></span></label>
+          <div class="input-prefix-wrap">
+            <input type="number" class="field-input has-suffix" x-model="annualRate" @input="calculate()" min="0" max="100" step="0.1" placeholder="7"/>
+            <span class="input-suffix">%</span>
+          </div>
+          <div class="range-wrap">
+            <input type="range" class="range-input" x-model="annualRate" @input="calculate()" min="0.1" max="30" step="0.1"/>
+            <div class="range-labels"><span>0.1%</span><span>30%</span></div>
+          </div>
+        </div>
+
+        <!-- Time period -->
+        <div class="field">
+          <label class="field-label">Time period</label>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div class="input-prefix-wrap">
+              <input type="number" class="field-input has-suffix" x-model="years" @input="calculate()" min="0" max="100" step="1" placeholder="10"/>
+              <span class="input-suffix" style="font-size:.75rem">yr</span>
+            </div>
+            <div class="input-prefix-wrap">
+              <input type="number" class="field-input has-suffix" x-model="months" @input="calculate()" min="0" max="11" step="1" placeholder="0"/>
+              <span class="input-suffix" style="font-size:.75rem">mo</span>
+            </div>
+          </div>
+          <div class="range-wrap">
+            <input type="range" class="range-input" x-model="years" @input="calculate()" min="1" max="50" step="1"/>
+            <div class="range-labels"><span>1 yr</span><span>50 yr</span></div>
+          </div>
+        </div>
+
+        <!-- Compounding frequency -->
+        <div class="field">
+          <label class="field-label">Compounding frequency</label>
+          <select class="field-select" x-model="frequency" @change="calculate()">
+            <template x-for="(fd, key) in frequencies" :key="key">
+              <option :value="key" x-text="fd.label"></option>
+            </template>
+          </select>
+        </div>
+
+        <!-- Contributions -->
+        <div class="field">
+          <label class="field-label">Regular contribution <span x-text="parseFloat(contribution) > 0 ? fmt(contribution) + '/period' : 'Optional'"></span></label>
+          <div class="input-prefix-wrap">
+            <span class="input-prefix" x-text="sym"></span>
+            <input type="number" class="field-input has-prefix" x-model="contribution" @input="calculate()" min="0" step="50" placeholder="0"/>
+          </div>
+        </div>
+
+        <!-- Contribution timing -->
+        <div class="field" x-show="parseFloat(contribution) > 0">
+          <label class="field-label">Contribution timing</label>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <button style="padding:9px;border-radius:var(--radius-sm);font-size:.8rem;font-weight:600;border:1px solid var(--border);background:var(--bg-surface);cursor:pointer;transition:all .15s"
+              :style="contribWhen==='end' ? 'border-color:var(--primary);background:rgba(167,139,250,.1);color:var(--primary)' : 'color:var(--text-muted)'"
+              @click="contribWhen='end';calculate()">End of period</button>
+            <button style="padding:9px;border-radius:var(--radius-sm);font-size:.8rem;font-weight:600;border:1px solid var(--border);background:var(--bg-surface);cursor:pointer;transition:all .15s"
+              :style="contribWhen==='start' ? 'border-color:var(--primary);background:rgba(167,139,250,.1);color:var(--primary)' : 'color:var(--text-muted)'"
+              @click="contribWhen='start';calculate()">Start of period</button>
+          </div>
+        </div>
+
+        <!-- Inflation -->
+        <div class="field">
+          <label class="field-label">Inflation rate <span x-text="parseFloat(inflation) > 0 ? inflation + '%' : 'Optional'"></span></label>
+          <div class="input-prefix-wrap">
+            <input type="number" class="field-input has-suffix" x-model="inflation" @input="calculate()" min="0" max="20" step="0.1" placeholder="0"/>
+            <span class="input-suffix">%</span>
+          </div>
+          <div class="range-wrap">
+            <input type="range" class="range-input" x-model="inflation" @input="calculate()" min="0" max="15" step="0.1"/>
+            <div class="range-labels"><span>0%</span><span>15%</span></div>
+          </div>
+        </div>
+
+        <button class="calc-btn" @click="calculate()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline;vertical-align:middle;margin-right:5px"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          Calculate
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT: Results -->
+    <div class="results-card">
+
+      <template x-if="!result">
+        <div class="empty-state">
+          <div class="empty-icon">📈</div>
+          <p>Enter your details on the left to see your compound growth.</p>
+        </div>
+      </template>
+
+      <template x-if="result">
+        <div>
+
+          <!-- Summary band -->
+          <div class="summary-band">
+            <div class="summary-chip">
+              <div class="chip-val big" x-text="fmt(result.futureValue, 0)"></div>
+              <div class="chip-label">Future value</div>
+            </div>
+            <div class="summary-chip">
+              <div class="chip-val" x-text="fmt(result.totalInterest, 0)"></div>
+              <div class="chip-label">Total interest</div>
+            </div>
+            <div class="summary-chip">
+              <div class="chip-val" x-text="result.apy + '%'"></div>
+              <div class="chip-label">Effective APY</div>
+            </div>
+          </div>
+
+          <!-- Breakdown rows -->
+          <div class="breakdown-section">
+            <div class="breakdown-title">Breakdown</div>
+            <div class="breakdown-row">
+              <span class="br-label"><span class="br-dot" style="background:#a78bfa"></span>Initial principal</span>
+              <span class="br-val" x-text="fmt(parseFloat(principal), 0)"></span>
+              <button class="copy-btn" @click="copyVal(fmtNum(parseFloat(principal)), 'Principal')">Copy</button>
+            </div>
+            <div class="breakdown-row" x-show="parseFloat(contribution) > 0">
+              <span class="br-label"><span class="br-dot" style="background:#818cf8"></span>Total contributions</span>
+              <span class="br-val" x-text="fmt(result.totalContributions - parseFloat(principal), 0)"></span>
+            </div>
+            <div class="breakdown-row">
+              <span class="br-label"><span class="br-dot" style="background:#f9a8d4"></span>Interest earned</span>
+              <span class="br-val" x-text="fmt(result.totalInterest, 0)"></span>
+              <button class="copy-btn" @click="copyVal(fmtNum(result.totalInterest), 'Interest')">Copy</button>
+            </div>
+            <div class="breakdown-row">
+              <span class="br-label"><span class="br-dot" style="background:#c4b5fd"></span>Future value</span>
+              <span class="br-val" x-text="fmt(result.futureValue, 2)"></span>
+              <button class="copy-btn" @click="copyVal(fmtNum(result.futureValue), 'Future value')">Copy</button>
+            </div>
+            <div class="breakdown-row" x-show="result.realValue !== null">
+              <span class="br-label" style="color:#60a5fa">📉 Inflation-adjusted value</span>
+              <span class="br-val" style="color:#60a5fa" x-text="result.realValue ? fmt(result.realValue, 0) : '—'"></span>
+            </div>
+            <div class="breakdown-row">
+              <span class="br-label">Interest as % of total</span>
+              <span class="br-val" x-text="result.interestPct + '%'"></span>
+            </div>
+            <div class="breakdown-row" x-show="result.doublingTime">
+              <span class="br-label">Doubling time (Rule of 72)</span>
+              <span class="br-val" x-text="result.doublingTime + ' years'"></span>
+            </div>
+          </div>
+
+          <!-- Donut chart -->
+          <div class="chart-section">
+            <div class="breakdown-title">Principal vs Interest</div>
+            <div class="chart-wrap">
+              <div style="position:relative;width:130px;height:130px;flex-shrink:0">
+                <svg width="130" height="130" viewBox="0 0 130 130">
+                  <circle cx="65" cy="65" r="50" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="18"/>
+                  <circle cx="65" cy="65" r="50" fill="none" stroke="#f9a8d4" stroke-width="18"
+                    stroke-dasharray="314.16" stroke-dashoffset="0" transform="rotate(-90 65 65)"/>
+                  <circle cx="65" cy="65" r="50" fill="none" stroke="#a78bfa" stroke-width="18"
+                    :stroke-dasharray="314.16"
+                    :stroke-dashoffset="314.16 * (1 - result.principalPct / 100)"
+                    transform="rotate(-90 65 65)"
+                    style="transition:stroke-dashoffset .6s cubic-bezier(.4,0,.2,1)"/>
+                </svg>
+                <div class="donut-center">
+                  <div class="donut-pct" x-text="result.principalPct + '%'"></div>
+                  <div class="donut-sub">principal</div>
+                </div>
+              </div>
+              <div class="chart-legend">
+                <div class="legend-item">
+                  <span class="legend-dot" style="background:#a78bfa"></span>
+                  <span class="legend-label">Principal</span>
+                  <span class="legend-val" x-text="fmt(parseFloat(principal), 0)"></span>
+                </div>
+                <div class="legend-item" x-show="parseFloat(contribution) > 0">
+                  <span class="legend-dot" style="background:#818cf8"></span>
+                  <span class="legend-label">Contributions</span>
+                  <span class="legend-val" x-text="fmt(result.totalContributions - parseFloat(principal), 0)"></span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot" style="background:#f9a8d4"></span>
+                  <span class="legend-label">Interest</span>
+                  <span class="legend-val" x-text="fmt(result.totalInterest, 0)"></span>
+                </div>
+                <div class="legend-item" style="padding-top:8px;border-top:1px solid var(--border)">
+                  <span class="legend-label" style="font-weight:600;color:var(--text)">Total</span>
+                  <span class="legend-val" style="color:var(--primary)" x-text="fmt(result.futureValue, 0)"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Growth bar chart -->
+          <div class="growth-section" x-show="result.schedule.length > 1">
+            <div class="breakdown-title" style="padding-top:14px">Year-by-year growth</div>
+            <div class="growth-bars" x-data="{get maxBal(){return Math.max(...$root.result.schedule.map(r=>r.endBalance))}}">
+              <template x-for="row in result.schedule" :key="row.year">
+                <div class="growth-bar-wrap">
+                  <div class="growth-bar"
+                    :style="'height:' + barHeight(row.endBalance, Math.max(...result.schedule.map(r=>r.endBalance))) + ';background:linear-gradient(to top,var(--secondary),var(--primary))'">
+                  </div>
+                  <div class="growth-bar-year" x-text="'Y' + row.year"></div>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <!-- Frequency comparison -->
+          <div class="breakdown-section" style="border-top:1px solid var(--border)">
+            <div class="breakdown-title">Compounding frequency comparison</div>
+            <div class="freq-grid">
+              <template x-for="c in result.freqComparisons" :key="c.key">
+                <div class="freq-card" :class="{highlight: c.key === frequency}">
+                  <div class="freq-name" x-text="c.label"></div>
+                  <div class="freq-total" x-text="fmt(c.fv, 0)"></div>
+                  <div class="freq-interest" x-text="'+' + fmt(c.interest, 0) + ' interest'"></div>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <!-- Year-by-year table -->
+          <div class="amort-section">
+            <div class="amort-controls">
+              <div class="breakdown-title" style="margin:0">Year-by-year schedule</div>
+              <label class="amort-toggle">
+                <span>Show table</span>
+                <div class="toggle-switch" :style="showTable ? 'background:var(--primary)' : 'background:rgba(255,255,255,.12)'" @click="showTable=!showTable">
+                  <div class="toggle-knob" :style="showTable ? 'transform:translateX(15px)' : ''"></div>
+                </div>
+              </label>
+            </div>
+
+            <template x-if="showTable">
+              <div>
+                <div class="amort-table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Year</th>
+                        <th style="color:#a78bfa">Start</th>
+                        <th style="color:#818cf8">Contributions</th>
+                        <th style="color:#f9a8d4">Interest</th>
+                        <th>End balance</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <template x-for="row in result.schedule.slice(0, tableRows)" :key="row.year">
+                        <tr>
+                          <td x-text="row.year"></td>
+                          <td class="td-principal" x-text="sym + fmtNum(row.startBalance)"></td>
+                          <td class="td-principal" style="color:#818cf8" x-text="sym + fmtNum(row.contributions)"></td>
+                          <td class="td-interest" x-text="sym + fmtNum(row.interest)"></td>
+                          <td class="td-balance" x-text="sym + fmtNum(row.endBalance)"></td>
+                        </tr>
+                      </template>
+                    </tbody>
+                  </table>
+                </div>
+                <template x-if="tableRows < result.schedule.length">
+                  <div style="display:flex;gap:8px;margin-top:8px">
+                    <button class="amort-more-btn" style="flex:1" @click="showMore()" x-text="'Show more (' + result.schedule.length + ' total)'"></button>
+                    <button class="amort-more-btn" style="flex:0 0 auto;padding:9px 16px" @click="showAll()">All</button>
+                  </div>
+                </template>
+              </div>
+            </template>
+          </div>
+
+        </div>
+      </template>
+    </div><!-- /results -->
+  </div><!-- /tool-grid -->
+
+  <!-- Ad -->
+  <div class="ad-slot" style="margin-top:20px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- ── FORMULA REFERENCE ── -->
+  <div class="page-section" style="margin-top:40px">
+    <div class="section-head">
+      <h2 class="section-title">The Compound Interest Formula</h2>
+      <p class="section-desc">Understand exactly what the calculator is computing.</p>
+    </div>
+    <div class="formula-box">
+      <div class="formula-eq">A = P × (1 + r/n)<sup>nt</sup> + PMT × [(1 + r/n)<sup>nt</sup> − 1] ÷ (r/n)</div>
+      <div class="formula-vars">
+        <div class="fv"><code>A</code><span>Future value (final balance)</span></div>
+        <div class="fv"><code>P</code><span>Principal (initial deposit)</span></div>
+        <div class="fv"><code>r</code><span>Annual interest rate (decimal)</span></div>
+        <div class="fv"><code>n</code><span>Compounding periods per year</span></div>
+        <div class="fv"><code>t</code><span>Time in years</span></div>
+        <div class="fv"><code>PMT</code><span>Regular payment per period</span></div>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-faint);margin-top:14px">For continuous compounding: A = Pe<sup>rt</sup></p>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── HOW TO USE ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">How to Use This Calculator</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-title">Pick a Preset</div>
+        <div class="step-desc">Start with Savings, Investment, Retirement, Education, or Aggressive to pre-fill realistic rate and time period assumptions for each scenario. Switch to Custom to enter any values.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-title">Enter Principal and Rate</div>
+        <div class="step-desc">Type your initial deposit (or lump sum) and annual interest rate. Use the sliders to quickly explore different scenarios — the results update instantly as you drag.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-title">Set Compounding Frequency</div>
+        <div class="step-desc">Choose how often interest compounds: annually, semi-annually, quarterly, monthly, weekly, daily, or continuously. Monthly is the most common for savings accounts and investments.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div class="step-title">Add Contributions</div>
+        <div class="step-desc">Enter a regular contribution amount to model ongoing deposits — like monthly savings or investment contributions. Choose whether deposits happen at the start or end of each compounding period (start earns slightly more).</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">5</div>
+        <div class="step-title">Factor in Inflation</div>
+        <div class="step-desc">Enter an expected annual inflation rate to see the inflation-adjusted (real) value of your future balance. This shows what your money will actually be worth in today's purchasing power.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">6</div>
+        <div class="step-title">Read the Growth Table</div>
+        <div class="step-desc">Toggle on the year-by-year schedule to see your balance at the end of each year — broken into starting balance, contributions, interest earned, and ending balance. Toggle the bar chart to visualize the growth curve.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FEATURES ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">What's Included</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">📈</div><div class="feature-title">Future Value</div><div class="feature-desc">Exact final balance based on principal, rate, time, and compounding frequency — instantly recalculated as you type.</div></div>
+      <div class="feature-card"><div class="feature-icon">🔁</div><div class="feature-title">6 Compounding Frequencies</div><div class="feature-desc">Annually, semi-annually, quarterly, monthly, weekly, daily, and continuous compounding. See how each one affects your outcome.</div></div>
+      <div class="feature-card"><div class="feature-icon">💳</div><div class="feature-title">Regular Contributions</div><div class="feature-desc">Model ongoing deposits with configurable start-of-period or end-of-period timing. The effect compounds alongside your principal.</div></div>
+      <div class="feature-card"><div class="feature-icon">📉</div><div class="feature-title">Inflation Adjustment</div><div class="feature-desc">Enter an inflation rate to calculate the real (purchasing power) value of your future balance, not just the nominal figure.</div></div>
+      <div class="feature-card"><div class="feature-icon">⚡</div><div class="feature-title">APY Display</div><div class="feature-desc">Shows the effective annual yield (APY) — the true annual return accounting for how often interest compounds within the year.</div></div>
+      <div class="feature-card"><div class="feature-icon">✂️</div><div class="feature-title">Rule of 72</div><div class="feature-desc">Instantly see how many years it takes for your investment to double at your current rate using the classic doubling-time estimate.</div></div>
+      <div class="feature-card"><div class="feature-icon">📊</div><div class="feature-title">Growth Bar Chart</div><div class="feature-desc">Visual year-by-year bar chart showing the compounding curve — the acceleration in growth as time passes is immediately visible.</div></div>
+      <div class="feature-card"><div class="feature-icon">🔒</div><div class="feature-title">100% Private</div><div class="feature-desc">All calculations are done in your browser. No data is sent to any server — your financial details stay on your device.</div></div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FAQ ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is compound interest and how is it different from simple interest?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Simple interest is calculated only on the original principal each period: Interest = P × r × t. Compound interest is calculated on both the principal and the accumulated interest from all previous periods. This means your balance earns interest on interest — creating exponential, not linear, growth. Over long periods, the difference is dramatic. At 7% annual rate, $10,000 becomes $19,672 with simple interest over 30 years, but $76,123 with monthly compounding.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What does compounding frequency actually mean?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Compounding frequency is how often interest is calculated and added to your balance. Annual compounding adds interest once a year; monthly adds it 12 times; daily adds it 365 times. Each time interest is added, it becomes part of the balance that earns interest in the next period. More frequent compounding means interest-on-interest kicks in sooner and more often. The difference between monthly and daily compounding is small; the big jump is from annual to monthly.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is APY and how is it different from APR?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>APR (Annual Percentage Rate) is the stated annual interest rate without accounting for compounding. APY (Annual Percentage Yield) is the effective annual return after compounding is applied. For example, a 7% APR compounded monthly has an APY of approximately 7.229% because each month's interest earns interest in subsequent months. APY always equals or exceeds APR. When comparing savings accounts or investments, APY is the more accurate number to compare because it reflects what you actually earn in a year.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is the Rule of 72?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>The Rule of 72 is a quick mental math shortcut to estimate how long it takes an investment to double. Divide 72 by your annual interest rate to get the approximate doubling time in years. At 6%, money doubles in roughly 72 ÷ 6 = 12 years. At 9%, it doubles in about 8 years. It's a rough estimate but surprisingly accurate for rates between 2% and 15%. The exact calculation uses the formula: t = ln(2) / ln(1 + r).</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Should contributions go at the start or end of a period?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>If contributions happen at the start of each period (annuity due), each contribution earns interest for that entire period before the next one starts — resulting in slightly higher returns. End-of-period contributions (ordinary annuity) is the more common default, used by most automatic savings and 401(k) payroll deductions. The difference is one extra compounding period per contribution. For a $500/month contribution at 7% over 30 years, start-of-month yields roughly $6,000 more than end-of-month.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Why is the inflation-adjusted value so much lower?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Inflation erodes the purchasing power of money over time. Even at 3% annual inflation, something that costs $100 today costs about $243 in 30 years. To "break even" against inflation, your investment must grow faster than the inflation rate. The inflation-adjusted (real) value shows what your future balance would be worth in today's dollars: Real Value = Nominal Value / (1 + inflation)^years. This is often called the "real return" — what you actually gain in purchasing power, not just nominal dollars.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What interest rate should I use for investments?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Common benchmarks: high-yield savings accounts (4–5% in 2024–2025), S&P 500 average historical return (~10% nominal, ~7% real after inflation), diversified stock portfolio (~7–8% real), bonds (~3–5%), and money market funds (~4–5%). For retirement planning, many financial advisors use 6–7% as a conservative real return for a balanced stock/bond portfolio. The presets in this calculator use rates commonly cited for each scenario — but your actual returns will vary.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Does this calculator account for taxes?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>No — this calculator shows pre-tax growth. In a taxable brokerage account, capital gains and dividends may be taxed each year, reducing the effective compounding rate. In tax-advantaged accounts like a 401(k), Traditional IRA, or Roth IRA, growth is either tax-deferred or tax-free, allowing the full compound effect shown here. To approximate after-tax returns in a taxable account, reduce your annual rate by roughly your marginal tax rate × expected annual return (e.g., if you're taxed 25% on a 7% return, use ~5.25%).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── RELATED ── -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="loan-calculator.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><div class="related-name">Loan Calculator</div><div class="related-desc">Monthly payment, total interest, and amortization schedule.</div><span class="related-link">Use tool →</span></a>
+      <a href="percentage-calculator.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#10b981,#34d399)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div><div class="related-name">Percentage Calculator</div><div class="related-desc">Calculate percentages, increase, decrease, and ratios.</div><span class="related-link">Use tool →</span></a>
+      <a href="age-calculator.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#ec4899,#f43f5e)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="related-name">Age Calculator</div><div class="related-desc">Exact age in years, months, and days.</div><span class="related-link">Use tool →</span></a>
+      <a href="../datetime/date-difference.html" class="related-card"><div class="related-icon" style="background:linear-gradient(135deg,#818cf8,#a78bfa)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="related-name">Date Difference</div><div class="related-desc">Days, weeks, and months between two dates.</div><span class="related-link">Use tool →</span></a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <text x="8" y="24" font-family="'Inter',sans-serif" font-size="13" font-weight="900" fill="#fff" fill-opacity=".92">∞%</text>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#7c3aed"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#math">Math Tools</a><a href="../../tools.html#coding">Coding Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a><a href="../../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="compound-interest.js"></script>
+</body>
+</html>

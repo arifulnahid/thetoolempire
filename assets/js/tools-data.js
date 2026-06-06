@@ -167,7 +167,7 @@ const TOOLS_DATA = [
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 9l1.5 1.5L15 9M9 15l1.5-1.5L15 15M12 3a9 9 0 1 0 0 18A9 9 0 0 0 12 3z"/></svg>',
     color: 'linear-gradient(135deg,#667eea,#764ba2)',
     categories: ['Coding'],
-    url: 'tools/coding/regex-tester.html',
+    url: 'tools/coding/regex.html',
   },
   {
     id: 'markdown-previewer',
@@ -176,7 +176,7 @@ const TOOLS_DATA = [
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>',
     color: 'linear-gradient(135deg,#43e97b,#38f9d7)',
     categories: ['Coding', 'Text'],
-    url: 'tools/coding/markdown-previewer.html',
+    url: 'tools/coding/markdown.html',
   },
 
   // ── SEO TOOLS ─────────────────────────────────────────────────
@@ -265,7 +265,7 @@ const CATEGORIES_DATA = [
   { slug: 'Math', label: 'Math & Calculators' },
   { slug: 'Color', label: 'Color Tools' },
   { slug: 'Coding', label: 'Coding' },
-  { slug: 'SEO', label: 'SEO' },
+  { slug: 'seo', label: 'SEO' },
   { slug: 'Date & Time', label: 'Date & Time' },
   { slug: 'Finance', label: 'Finance' },
   { slug: 'Design', label: 'Design' },

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free online Text Diff Checker — compare two texts side-by-side and highlight additions, deletions and changes instantly. Split view and unified view. No sign-up, 100% private." />
+  <meta name="keywords" content="text diff checker, compare two texts online, find text differences, diff tool, text comparison, online diff, side by side comparison, file diff" />
+  <meta name="author" content="The Tool Empire" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://thetoolempire.com/tools/text/diff-checker.html" />
+
+  <meta property="og:title" content="Free Text Diff Checker — Compare Texts & Find Differences | The Tool Empire" />
+  <meta property="og:description" content="Paste two texts and instantly see what changed — additions in green, deletions in red. Split view and unified view. Free, private, no login." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://thetoolempire.com/tools/text/diff-checker.html" />
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Free Text Diff Checker — The Tool Empire" />
+  <meta name="twitter:description" content="Compare two texts instantly. Additions in green, deletions in red. Split and unified views." />
+
+  <title>Free Text Diff Checker — Compare Texts & Highlight Changes | The Tool Empire</title>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
+  <link rel="manifest" href="../../manifest.json" />
+  <meta name="theme-color" content="#6C63FF" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config', 'G-CNN44ER8MF');
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="diff-checker.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Text Diff Checker",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "url": "https://thetoolempire.com/tools/text/diff-checker.html",
+    "description": "Free online text diff tool that compares two texts side-by-side and highlights additions, deletions and unchanged lines. Split and unified view modes.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "featureList": ["Side-by-side split view","Unified diff view","Line-level comparison","Ignore case option","Ignore whitespace option","Copy diff output"],
+    "provider": { "@type": "Organization", "name": "The Tool Empire", "url": "https://thetoolempire.com" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home",       "item": "https://thetoolempire.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools",      "item": "https://thetoolempire.com/tools.html" },
+      { "@type": "ListItem", "position": 3, "name": "Text Tools", "item": "https://thetoolempire.com/tools.html?cat=text" },
+      { "@type": "ListItem", "position": 4, "name": "Text Diff Checker", "item": "https://thetoolempire.com/tools/text/diff-checker.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "How does the diff checker work?", "acceptedAnswer": { "@type": "Answer", "text": "The tool implements the Longest Common Subsequence (LCS) algorithm to identify lines that are identical in both texts, then marks the remaining lines as additions or deletions. All computation runs locally in your browser." } },
+      { "@type": "Question", "name": "Is my text sent to a server?", "acceptedAnswer": { "@type": "Answer", "text": "No. Everything is processed locally in JavaScript inside your browser. Your text never leaves your device." } },
+      { "@type": "Question", "name": "What is split view vs unified view?", "acceptedAnswer": { "@type": "Answer", "text": "Split view shows the original text on the left and the revised text on the right, with changed lines highlighted side-by-side. Unified view shows a single column with additions (+) and deletions (-) interspersed." } },
+      { "@type": "Question", "name": "What does 'ignore whitespace' do?", "acceptedAnswer": { "@type": "Answer", "text": "When enabled, leading/trailing spaces are stripped and consecutive spaces are collapsed to one before comparison. This is useful when you only care about content differences, not formatting." } },
+      { "@type": "Question", "name": "What does 'ignore case' do?", "acceptedAnswer": { "@type": "Answer", "text": "All text is converted to lowercase before comparison so lines that differ only in capitalisation are treated as equal." } },
+      { "@type": "Question", "name": "Can I compare entire documents?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Paste any amount of text — articles, code files, contracts, emails. The tool handles large documents, though very large inputs (100k+ lines) may be slower due to the O(m×n) LCS algorithm." } },
+      { "@type": "Question", "name": "Does it work for code comparison?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The monospace font and line-by-line comparison make it well-suited for comparing code snippets, configuration files, or JSON between two versions." } },
+      { "@type": "Question", "name": "Can I copy the diff result?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — click the Copy button in the controls bar to copy the unified diff output to your clipboard, with + and - prefixes indicating additions and deletions." } },
+      { "@type": "Question", "name": "How is the similarity percentage calculated?", "acceptedAnswer": { "@type": "Answer", "text": "Similarity is the number of unchanged lines divided by the total lines in the longer document, expressed as a percentage." } },
+      { "@type": "Question", "name": "What algorithm is used?", "acceptedAnswer": { "@type": "Answer", "text": "The Longest Common Subsequence (LCS) dynamic programming algorithm — the same approach used by Unix diff and Git. It finds the minimal set of edits to transform text A into text B." } }
+    ]
+  }
+  </script>
+</head>
+<body x-data="diffApp()" x-init="init()">
+
+<!-- ── HEADER ─────────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="../../index.html" class="logo" aria-label="The Tool Empire Home">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+          <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+          <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+          <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+          <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="../../index.html" class="nav-link">Home</a>
+        <a href="../../tools.html" class="nav-link active">Tools</a>
+        <a href="../../blog.html" class="nav-link">Blog</a>
+        <a href="../../about.html" class="nav-link">About</a>
+        <a href="../../contact.html" class="nav-link">Contact</a>
+      </nav>
+      <button class="menu-toggle" @click="mobileMenuOpen=!mobileMenuOpen" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="mobile-nav" :class="mobileMenuOpen ? 'open' : ''" aria-label="Mobile navigation">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+      <a href="../../contact.html" class="nav-link">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- AD LEADERBOARD -->
+  <div class="container">
+    <div class="ad-slot ad-leaderboard" aria-hidden="true">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="tool-hero">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol class="breadcrumb-list">
+          <li><a href="../../index.html">Home</a></li>
+          <li class="breadcrumb-sep">›</li>
+          <li><a href="../../tools.html">Tools</a></li>
+          <li class="breadcrumb-sep">›</li>
+          <li><a href="../../tools.html?cat=text">Text Tools</a></li>
+          <li class="breadcrumb-sep">›</li>
+          <li aria-current="page">Text Diff Checker</li>
+        </ol>
+      </nav>
+      <div class="tool-hero-inner">
+        <div class="tool-badge-row">
+          <span class="tool-cat-badge badge-text">Text Tools</span>
+          <span class="tool-cat-badge badge-coding">Coding</span>
+        </div>
+        <h1 class="tool-title">Free <span class="gradient-text">Text Diff Checker</span></h1>
+        <p class="tool-subtitle">Paste two texts and instantly see every addition, deletion and change — line by line. Split view or unified view. No sign-up, 100% private.</p>
+        <div class="tool-meta-row">
+          <span class="tool-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Free forever
+          </span>
+          <span class="tool-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>No sign-up
+          </span>
+          <span class="tool-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Instant results
+          </span>
+          <span class="tool-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>100% private
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOL -->
+  <section class="tool-section">
+    <div class="container">
+
+      <!-- Controls bar -->
+      <div class="controls-bar">
+        <div class="controls-left">
+          <span class="mode-label">View:</span>
+          <button class="mode-btn" :class="mode==='split'?'active':''" @click="mode='split'">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="9" height="18" rx="1"/><rect x="13" y="3" width="9" height="18" rx="1"/></svg>
+            Split
+          </button>
+          <button class="mode-btn" :class="mode==='unified'?'active':''" @click="mode='unified'">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="1"/><path d="M8 7h8M8 12h8M8 17h5"/></svg>
+            Unified
+          </button>
+          <span class="mode-label" style="margin-left:8px;">Options:</span>
+          <label style="display:flex;align-items:center;gap:6px;font-size:.83rem;color:var(--text-muted);cursor:pointer;">
+            <input type="checkbox" x-model="ignoreCase" style="accent-color:var(--primary);" />
+            Ignore case
+          </label>
+          <label style="display:flex;align-items:center;gap:6px;font-size:.83rem;color:var(--text-muted);cursor:pointer;">
+            <input type="checkbox" x-model="ignoreWhitespace" style="accent-color:var(--primary);" />
+            Ignore whitespace
+          </label>
+        </div>
+        <div class="controls-right">
+          <button class="btn-action" @click="swapTexts()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4 4 4M17 8v12m0 0 4-4m-4 4-4-4"/></svg>
+            Swap
+          </button>
+          <button class="btn-action" @click="copyResult()" :disabled="isEmpty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy diff
+          </button>
+          <button class="btn-action" @click="clearAll()" :disabled="isEmpty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+            Clear
+          </button>
+        </div>
+      </div>
+
+      <!-- Input panels -->
+      <div class="inputs-grid">
+        <div class="input-panel">
+          <div class="input-panel-header">
+            <span class="input-panel-label label-original">
+              <span class="label-dot original"></span>Original Text
+            </span>
+            <div class="input-actions">
+              <button class="btn-sm" @click="pasteA()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+                Paste
+              </button>
+              <button class="btn-sm" @click="textA=''" :disabled="!textA">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                Clear
+              </button>
+            </div>
+          </div>
+          <textarea class="diff-textarea" x-model="textA"
+            placeholder="Paste your original text here…" aria-label="Original text"></textarea>
+        </div>
+
+        <div class="input-panel">
+          <div class="input-panel-header">
+            <span class="input-panel-label label-revised">
+              <span class="label-dot revised"></span>Revised Text
+            </span>
+            <div class="input-actions">
+              <button class="btn-sm" @click="pasteB()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+                Paste
+              </button>
+              <button class="btn-sm" @click="textB=''" :disabled="!textB">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                Clear
+              </button>
+            </div>
+          </div>
+          <textarea class="diff-textarea" x-model="textB"
+            placeholder="Paste your revised text here…" aria-label="Revised text"></textarea>
+        </div>
+      </div>
+
+      <!-- In-content ad -->
+      <div class="ad-slot ad-incontent" aria-hidden="true">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
+      </div>
+
+      <!-- Diff output -->
+      <div class="diff-output">
+        <div class="diff-output-header">
+          <span class="diff-output-title">Diff Result</span>
+          <div class="diff-legend">
+            <span class="legend-item"><span class="legend-dot add"></span>Added</span>
+            <span class="legend-item"><span class="legend-dot del"></span>Removed</span>
+          </div>
+        </div>
+
+        <!-- Placeholder -->
+        <template x-if="isEmpty">
+          <div class="diff-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/>
+            </svg>
+            Paste text in both panels above to see the diff
+          </div>
+        </template>
+
+        <!-- No differences -->
+        <template x-if="!isEmpty && !hasChanges">
+          <div class="diff-placeholder" style="color:var(--success);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity:.6;">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            The texts are identical — no differences found.
+          </div>
+        </template>
+
+        <!-- Split view -->
+        <template x-if="!isEmpty && hasChanges && mode==='split'">
+          <div class="diff-split">
+            <div class="diff-split-pane" aria-label="Original">
+              <template x-for="(row, i) in splitRows" :key="i">
+                <div class="diff-line" :class="row.type === 'del' ? 'del' : row.type === 'eq' ? 'eq' : 'eq'" x-show="row.aNum !== null || row.type === 'eq'">
+                  <span class="diff-line-num" x-text="row.aNum ?? ''"></span>
+                  <span class="diff-line-text" x-html="row.aHtml"></span>
+                </div>
+              </template>
+            </div>
+            <div class="diff-split-pane" aria-label="Revised">
+              <template x-for="(row, i) in splitRows" :key="i">
+                <div class="diff-line" :class="row.type === 'add' ? 'add' : row.type === 'eq' ? 'eq' : 'eq'" x-show="row.bNum !== null || row.type === 'eq'">
+                  <span class="diff-line-num" x-text="row.bNum ?? ''"></span>
+                  <span class="diff-line-text" x-html="row.bHtml"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+        </template>
+
+        <!-- Unified view -->
+        <template x-if="!isEmpty && hasChanges && mode==='unified'">
+          <div class="diff-unified">
+            <template x-for="(line, i) in unifiedLines" :key="i">
+              <div class="diff-line" :class="line.type">
+                <span class="diff-line-num" x-text="line.num"></span>
+                <span class="diff-line-text" x-html="line.text"></span>
+              </div>
+            </template>
+          </div>
+        </template>
+
+        <!-- Stats bar -->
+        <template x-if="!isEmpty">
+          <div class="diff-stats">
+            <span class="diff-stat">
+              <span class="diff-stat-dot add"></span>
+              <span class="diff-stat-val" x-text="addCount"></span>
+              <span class="diff-stat-lbl">added</span>
+            </span>
+            <span class="diff-stat">
+              <span class="diff-stat-dot del"></span>
+              <span class="diff-stat-val" x-text="delCount"></span>
+              <span class="diff-stat-lbl">removed</span>
+            </span>
+            <span class="diff-stat">
+              <span class="diff-stat-dot eq"></span>
+              <span class="diff-stat-val" x-text="eqCount"></span>
+              <span class="diff-stat-lbl">unchanged</span>
+            </span>
+            <span class="diff-stat" style="margin-left:auto;">
+              <span class="diff-stat-lbl">Similarity:</span>
+              <span class="diff-stat-val" style="margin-left:4px;" x-text="(linesA.length + linesB.length) > 0 ? Math.round(eqCount * 2 / (linesA.length + linesB.length) * 100) + '%' : '—'"></span>
+            </span>
+          </div>
+        </template>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INFO TABS -->
+  <section class="info-section">
+    <div class="container">
+      <div class="info-tabs-nav" role="tablist">
+        <button class="info-tab-btn active" data-tab="description" onclick="switchInfoTab('description')" role="tab">Description</button>
+        <button class="info-tab-btn" data-tab="how-it-works" onclick="switchInfoTab('how-it-works')" role="tab">How It Works</button>
+        <button class="info-tab-btn" data-tab="behind-scenes" onclick="switchInfoTab('behind-scenes')" role="tab">Behind the Scenes</button>
+        <button class="info-tab-btn" data-tab="use-cases" onclick="switchInfoTab('use-cases')" role="tab">Use Cases</button>
+      </div>
+
+      <div id="tab-description" class="info-tab-pane active">
+        <div class="prose">
+          <h2>About the Text Diff Checker</h2>
+          <p>The Tool Empire Text Diff Checker compares any two pieces of text and instantly highlights every line that was added, removed, or left unchanged. It works equally well for prose documents, code files, configuration files, JSON data, contracts, emails, and anything else you can paste as plain text.</p>
+          <p>Additions are shown in <strong style="color:#0fd850;">green</strong> and deletions in <strong style="color:#ff6b6b;">red</strong>, with the unchanged context lines in between so you always have orientation within the document. Choose between <strong>Split view</strong> — original on the left, revised on the right — or <strong>Unified view</strong>, which shows a single column with + and − prefixes, similar to a Git diff output.</p>
+          <p>Two optional flags help you focus on what matters: <strong>Ignore case</strong> treats uppercase and lowercase as identical, and <strong>Ignore whitespace</strong> strips leading/trailing spaces so pure formatting changes don't clutter the result. The stats bar at the bottom reports lines added, removed, unchanged, and a similarity percentage so you can quickly gauge how much of the document changed.</p>
+          <h3>Privacy first</h3>
+          <p>All comparison logic runs locally in JavaScript — your text is never transmitted to any server. This makes it safe to compare confidential drafts, proprietary code, legal documents, or patient notes.</p>
+        </div>
+      </div>
+
+      <div id="tab-how-it-works" class="info-tab-pane">
+        <div class="prose">
+          <h2>How to Use the Diff Checker</h2>
+        </div>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-title">Paste Original</div>
+            <div class="step-desc">Paste your first (original) text into the left panel. Use the Paste button for quick clipboard access.</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-title">Paste Revised</div>
+            <div class="step-desc">Paste the updated or revised version of the text into the right panel.</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-title">See Differences</div>
+            <div class="step-desc">The diff result appears immediately below — green for additions, red for deletions, grey for unchanged lines.</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <div class="step-title">Choose View Mode</div>
+            <div class="step-desc">Toggle between Split (side-by-side) and Unified (single column) using the buttons in the controls bar.</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">5</div>
+            <div class="step-title">Apply Filters</div>
+            <div class="step-desc">Enable "Ignore case" or "Ignore whitespace" to hide cosmetic differences and focus on meaningful changes.</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">6</div>
+            <div class="step-title">Copy or Share</div>
+            <div class="step-desc">Click "Copy diff" to copy the unified diff output to your clipboard with + and − line prefixes.</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-behind-scenes" class="info-tab-pane">
+        <div class="prose">
+          <h2>Behind the Scenes</h2>
+          <p>The diff engine uses the <strong>Longest Common Subsequence (LCS)</strong> dynamic programming algorithm — the same fundamental approach used by Unix <code>diff</code> and Git. Here's how it works step by step:</p>
+          <h3>Step 1 — Split into lines</h3>
+          <p>Both texts are split on newline characters (<code>\n</code>) to produce two arrays of strings. Each element is a single line.</p>
+          <h3>Step 2 — Build the DP table</h3>
+          <p>A 2D table of size <code>(m+1) × (n+1)</code> is filled where <code>m</code> and <code>n</code> are the line counts of the two texts. Each cell <code>dp[i][j]</code> stores the length of the longest common subsequence of the first <code>i</code> lines of text A and the first <code>j</code> lines of text B.</p>
+          <h3>Step 3 — Backtrack to build the edit script</h3>
+          <p>Starting from <code>dp[m][n]</code>, the algorithm walks backwards through the table. A diagonal step (both indexes decrease by 1) means the lines are equal (<code>eq</code>). A step left means a line was added in B; a step up means a line was deleted from A.</p>
+          <h3>Step 4 — Render the result</h3>
+          <p>Alpine.js renders the edit script as a reactive list. Each line gets a CSS class (<code>add</code>, <code>del</code>, or <code>eq</code>) which applies the colour-coded background and left border.</p>
+        </div>
+        <div class="tech-grid">
+          <div class="tech-card">
+            <div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg></div>
+            <div><div class="tech-name">LCS Algorithm</div><div class="tech-desc">O(m×n) DP — minimal edit distance between two line sequences</div></div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+            <div><div class="tech-name">Alpine.js</div><div class="tech-desc">Reactive computed properties re-run the diff on every keystroke</div></div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+            <div><div class="tech-name">Vanilla JS</div><div class="tech-desc">Zero dependencies beyond Alpine — no libraries, no bundle</div></div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg></div>
+            <div><div class="tech-name">No Server</div><div class="tech-desc">100% client-side — text never leaves your browser</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-use-cases" class="info-tab-pane">
+        <div class="prose">
+          <h2>Use Cases</h2>
+          <h3>Writers &amp; Editors</h3>
+          <p>Compare a first draft against an edited version to see exactly what an editor changed — without needing Microsoft Word's Track Changes feature. Useful for freelancers reviewing editor revisions before accepting them.</p>
+          <h3>Software Developers</h3>
+          <p>Compare code snippets, configuration files, JSON responses, SQL scripts, or log files between two versions. The monospace font and line-level precision make it ideal for spotting regressions in output.</p>
+          <h3>SEO &amp; Content Teams</h3>
+          <p>Compare an original page's body copy against a rewrite to ensure key phrases are preserved, no accidental deletions occurred, and the character count change is within expected bounds before pushing to production.</p>
+          <h3>Legal &amp; Contract Review</h3>
+          <p>Identify exactly which clauses were added, removed, or modified between two contract versions. The privacy-first design means sensitive legal text never leaves your device.</p>
+          <h3>Students &amp; Academic Writers</h3>
+          <p>Compare assignment drafts before and after tutor feedback. Check that all suggested edits were incorporated. Compare two sources for unintentional paraphrasing.</p>
+          <h3>Translators</h3>
+          <p>Compare source document revisions to identify exactly which sentences changed — so you only re-translate the modified portions rather than the entire document.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-list" role="list">
+
+        <div class="faq-item" :class="openFaq===0?'open':''">
+          <button class="faq-q" @click="toggleFaq(0)">How does the diff checker work?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="faq-a"><div class="faq-a-inner">The tool implements the Longest Common Subsequence (LCS) algorithm to identify lines that are identical in both texts, then marks the remaining lines as additions or deletions. All computation runs locally in your browser — nothing is sent to a server.</div></div>
+        </div>
+
+        <div class="faq-item" :class="openFaq===1?'open':''">
+          <button class="faq-q" @click="toggleFaq(1)">Is my text sent to a server?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="faq-a"><div class="faq-a-inner">No. Everything is processed locally in JavaScript inside your browser. Your text never leaves your device, making it safe to compare confidential documents, source code, or personal data.</div></div>
+        </div>
+
+        <div class="faq-item" :class="openFaq===2?'open':''">
+          <button class="faq-q" @click="toggleFaq(2)">What is split view vs unified view?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="faq-a"><div class="faq-a-inner">Split view shows the original text on the left and the revised text on the right, with changed lines highlighted side-by-side — great for visual comparison. Unified view shows a single column with + and − prefixes like a standard Git diff — better for copying and sharing.</div></div>
+        </div>
+
+        <div class="faq-item" :class="openFaq===3?'open':''">
+          <button class="faq-q" @click="toggleFaq(3)">What does "Ignore whitespace" do?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="faq-a"><div class="faq-a-inner">When enabled, leading and trailing spaces are stripped and consecutive internal spaces are collapsed to one before comparison. Lines that differ only in spacing are treated as equal, so you can focus on meaningful content changes rather than formatting.</div></div>
+        </div>
+
+        <div class="faq-item" :class="openFaq===4?'open':''">
+          <button class="faq-q" @click="toggleFaq(4)">What does "Ignore case" do?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="faq-a"><div class="faq-a-inner">All text is converted to lowercase before comparison so lines that differ only in capitalisation — like "Hello World" vs "hello world" — are treated as equal and shown as unchanged.</div></div>
+        </div>
+
+        <div class="faq-item" :class="openFaq===5?'open':''">
+          <button class="faq-q" @click="toggleFaq(5)">Can I compare entire documents?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="faq-a"><div class="faq-a-inner">Yes. Paste any amount of text — articles, code files, contracts, emails. The tool handles large documents well, though very long inputs (100k+ lines) may be slightly slower due to the O(m×n) algorithm complexity.</div></div>
+        </div>
+
+        <div class="faq-item" :class="openFaq===6?'open':''">
+          <button class="faq-q" @click="toggleFaq(6)">Does it work for comparing code?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="faq-a"><div class="faq-a-inner">Yes. The monospace font and line-by-line comparison make it well-suited for comparing code snippets, config files, JSON, SQL, or any structured text between two versions.</div></div>
+        </div>
+
+        <div class="faq-item" :class="openFaq===7?'open':''">
+          <button class="faq-q" @click="toggleFaq(7)">Can I copy the diff result?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="faq-a"><div class="faq-a-inner">Yes — click "Copy diff" in the controls bar to copy the unified diff output to your clipboard. Each line is prefixed with "+" for additions, "-" for deletions, and two spaces for unchanged lines.</div></div>
+        </div>
+
+        <div class="faq-item" :class="openFaq===8?'open':''">
+          <button class="faq-q" @click="toggleFaq(8)">How is the similarity percentage calculated?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="faq-a"><div class="faq-a-inner">Similarity = (unchanged lines × 2) / (total lines in A + total lines in B). This gives a value between 0% (completely different) and 100% (identical).</div></div>
+        </div>
+
+        <div class="faq-item" :class="openFaq===9?'open':''">
+          <button class="faq-q" @click="toggleFaq(9)">What algorithm does it use?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="faq-a"><div class="faq-a-inner">The Longest Common Subsequence (LCS) dynamic programming algorithm — the same fundamental approach used by Unix diff and Git. It finds the minimal set of line-level edits needed to transform text A into text B.</div></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TAGS -->
+  <section class="tags-section">
+    <div class="container">
+      <div class="tags-row">
+        <span class="tags-label">Tags</span>
+        <span class="tag-chip">Text Diff</span>
+        <span class="tag-chip">Compare Text</span>
+        <span class="tag-chip">Find Differences</span>
+        <span class="tag-chip">Side by Side</span>
+        <span class="tag-chip">Unified Diff</span>
+        <span class="tag-chip">Code Compare</span>
+        <span class="tag-chip">Document Compare</span>
+        <span class="tag-chip">Version Control</span>
+        <span class="tag-chip">LCS Algorithm</span>
+        <span class="tag-chip">Writing Tool</span>
+        <span class="tag-chip">SEO Content</span>
+        <span class="tag-chip">Free Online Tool</span>
+      </div>
+      <div class="tags-row">
+        <span class="tags-label">Hashtags</span>
+        <span class="tag-chip hashtag-chip">#DiffChecker</span>
+        <span class="tag-chip hashtag-chip">#TextComparison</span>
+        <span class="tag-chip hashtag-chip">#DevTools</span>
+        <span class="tag-chip hashtag-chip">#WritingTools</span>
+        <span class="tag-chip hashtag-chip">#ContentSEO</span>
+        <span class="tag-chip hashtag-chip">#CodeReview</span>
+        <span class="tag-chip hashtag-chip">#FreeTools</span>
+        <span class="tag-chip hashtag-chip">#GitDiff</span>
+        <span class="tag-chip hashtag-chip">#TheToolEmpire</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- REPORT -->
+  <div class="container">
+    <div class="report-strip">
+      <span class="report-text">Found an issue with this tool?</span>
+      <button class="btn-report" @click="reportOpen=true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Report an Issue
+      </button>
+    </div>
+  </div>
+
+  <!-- RELATED TOOLS -->
+  <section class="related-section">
+    <div class="container">
+      <div class="related-header">
+        <h2 class="related-title">Related Tools</h2>
+        <a href="../../tools.html?cat=text" class="btn-view-all">All text tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="related-grid">
+        <a href="word-counter.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#667eea,#764ba2);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 10h16M4 14h10"/></svg>
+          </div>
+          <div class="related-tool-name">Word Counter</div>
+          <div class="related-tool-desc">Count words, characters, sentences, reading time and keyword density in real time.</div>
+          <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </a>
+        <a href="case-converter.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#f093fb,#f5576c);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+          </div>
+          <div class="related-tool-name">Case Converter</div>
+          <div class="related-tool-desc">Convert text to UPPER, lower, Title, camelCase, snake_case and more.</div>
+          <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </a>
+        <a href="../coding/json-formatter.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#0fd850,#00c896);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div class="related-tool-name">JSON Formatter</div>
+          <div class="related-tool-desc">Format, validate and minify JSON. Spot syntax errors with highlighted lines.</div>
+          <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </a>
+        <a href="../coding/qr-code-maker.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#6C63FF,#4ECDC4);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="3" height="3"/></svg>
+          </div>
+          <div class="related-tool-name">QR Code Maker</div>
+          <div class="related-tool-desc">Generate QR codes for URLs, WiFi, vCard and more. Download as branded PNG.</div>
+          <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RELATED BLOGS -->
+  <section class="related-section">
+    <div class="container">
+      <div class="related-header">
+        <h2 class="related-title">Related Articles</h2>
+        <a href="../../blog.html" class="btn-view-all">All articles <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="blog-cards-grid">
+        <a href="../../blog/text-diff-seo-guide.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(250,112,154,.1);color:#fcacc3;border:1px solid rgba(250,112,154,.25);">SEO</span>
+          <div class="blog-card-title">How Text Diff Tools Help You Protect SEO Rankings During Content Updates</div>
+          <div class="blog-card-excerpt">How to use a diff checker before every content update to avoid accidentally removing keywords, internal links, or structured data.</div>
+          <div class="blog-card-meta"><span>5 min read</span></div>
+          <span class="blog-read-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </a>
+        <a href="../../blog/text-manipulation-tricks.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(102,126,234,.12);color:#a0aef8;border:1px solid rgba(102,126,234,.25);">Text Tools</span>
+          <div class="blog-card-title">10 Text Manipulation Tricks That Save Hours of Work</div>
+          <div class="blog-card-excerpt">Case conversion, word count, find and replace, text diff — master these free browser tools.</div>
+          <div class="blog-card-meta"><span>7 min read</span></div>
+          <span class="blog-read-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </a>
+        <a href="../../blog/writing-productivity-tools.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(118,75,162,.12);color:#c4a5f5;border:1px solid rgba(118,75,162,.25);">Productivity</span>
+          <div class="blog-card-title">Best Free Writing Productivity Tools for 2025</div>
+          <div class="blog-card-excerpt">From word counters to diff checkers — the free browser tools that make writers faster and cleaner.</div>
+          <div class="blog-card-meta"><span>6 min read</span></div>
+          <span class="blog-read-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </a>
+        <a href="../../blog/seo-meta-tags-guide.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(163,157,255,.1);color:#c4c0ff;border:1px solid rgba(163,157,255,.25);">SEO</span>
+          <div class="blog-card-title">The Complete Guide to SEO Meta Tags in 2025</div>
+          <div class="blog-card-excerpt">Title tags, descriptions, Open Graph, Twitter Cards — everything you need to rank higher.</div>
+          <div class="blog-card-meta"><span>8 min read</span></div>
+          <span class="blog-read-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- REPORT MODAL -->
+<div class="modal-overlay" x-show="reportOpen" x-transition.opacity @click.self="closeReport()" role="dialog" aria-modal="true">
+  <div class="modal-box" @click.stop>
+    <template x-if="!reportSent">
+      <div>
+        <h2 class="modal-title">Report an Issue</h2>
+        <p class="modal-sub">What's wrong with the Diff Checker?</p>
+        <div class="report-options">
+          <label class="report-option" :class="reportSelected==='incorrect'?'selected':''"><input type="radio" x-model="reportSelected" value="incorrect"/><span class="report-radio"></span>Results are incorrect</label>
+          <label class="report-option" :class="reportSelected==='slow'?'selected':''"><input type="radio" x-model="reportSelected" value="slow"/><span class="report-radio"></span>Tool is slow or unresponsive</label>
+          <label class="report-option" :class="reportSelected==='display'?'selected':''"><input type="radio" x-model="reportSelected" value="display"/><span class="report-radio"></span>Display or layout is broken</label>
+          <label class="report-option" :class="reportSelected==='feature'?'selected':''"><input type="radio" x-model="reportSelected" value="feature"/><span class="report-radio"></span>Missing feature I need</label>
+          <label class="report-option" :class="reportSelected==='other'?'selected':''"><input type="radio" x-model="reportSelected" value="other"/><span class="report-radio"></span>Other issue</label>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-cancel" @click="closeReport()">Cancel</button>
+          <button class="btn-submit" @click="submitReport()" :disabled="!reportSelected">Submit</button>
+        </div>
+      </div>
+    </template>
+    <template x-if="reportSent">
+      <div class="report-success">
+        <div class="report-success-icon">✅</div>
+        <h3>Thanks for the report!</h3>
+        <p>We'll look into it and fix the issue as soon as possible.</p>
+        <button class="btn-submit" style="margin-top:16px;" @click="closeReport()">Close</button>
+      </div>
+    </template>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="dc-toast" class="toast" role="status" aria-live="polite" x-text="toastMsg"></div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="../../index.html" class="logo" aria-label="The Tool Empire Home">
+          <svg class="logo-icon" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+            <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+            <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+            <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+            <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+          </svg>
+          <span class="logo-text">The Tool Empire</span>
+        </a>
+        <p class="footer-brand-text">Free browser-based tools for developers, designers, writers, and students. No login, no server, no data collection.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Tools</div>
+        <div class="footer-links">
+          <a href="../../tools.html?cat=text">Text Tools</a>
+          <a href="../../tools.html?cat=coding">Coding Tools</a>
+          <a href="../../tools.html?cat=color">Color Tools</a>
+          <a href="../../tools.html?cat=seo">SEO Tools</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Company</div>
+        <div class="footer-links">
+          <a href="../../about.html">About</a>
+          <a href="../../blog.html">Blog</a>
+          <a href="../../contact.html">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Legal</div>
+        <div class="footer-links">
+          <a href="../../privacy.html">Privacy Policy</a>
+          <a href="../../terms.html">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 The Tool Empire. All rights reserved.</span>
+      <span>Made with care — no cookies, no tracking, no BS.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="diff-checker.js"></script>
+</body>
+</html>

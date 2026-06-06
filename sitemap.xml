@@ -61,6 +61,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/text/diff-checker.html</loc>
+    <lastmod>2025-06-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
 
   <!-- Future tool pages — add here as they are built -->
   <!-- Text tools -->
@@ -184,6 +190,12 @@
   </url>
   <url>
     <loc>https://thetoolempire.com/blog/writing-productivity-tools.html</loc>
+    <lastmod>2025-06-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/blog/text-diff-seo-guide.html</loc>
     <lastmod>2025-06-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>

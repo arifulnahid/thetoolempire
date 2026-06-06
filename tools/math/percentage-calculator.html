@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Percentage Calculator — Free Online % Tool | The Tool Empire</title>
+  <meta name="description" content="Calculate percentages instantly: what is X% of Y, percentage change, reverse percentage, add or subtract a percentage. Free, fast, no login required." />
+  <meta name="keywords" content="percentage calculator, percent calculator, what is X percent of Y, percentage change calculator, reverse percentage, increase decrease by percent, online percentage tool" />
+  <link rel="canonical" href="https://thetoolempire.com/tools/math/percentage-calculator.html" />
+  <meta name="robots" content="index, follow" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Percentage Calculator — Free Online % Tool" />
+  <meta property="og:description" content="5 calculators in one: basic %, what percent, % change, reverse %, add/subtract %. Instant results with calculation history." />
+  <meta property="og:url" content="https://thetoolempire.com/tools/math/percentage-calculator.html" />
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png" />
+  <meta property="og:site_name" content="The Tool Empire" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Percentage Calculator — Free Online % Tool" />
+  <meta name="twitter:description" content="5 calculators in one: basic %, what percent, % change, reverse %, add/subtract %. Instant results with calculation history." />
+  <meta name="twitter:image" content="https://thetoolempire.com/assets/og-image.png" />
+
+  <link rel="icon" href="../../assets/favicon.ico" sizes="any" />
+  <link rel="icon" href="../../assets/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png" />
+  <link rel="manifest" href="../../manifest.json" />
+  <meta name="theme-color" content="#6C63FF" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="percentage-calculator.css" />
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Percentage Calculator","description":"Free online percentage calculator with 5 modes: basic percentage, what percent, percentage change, reverse percentage, and add/subtract percentage. Includes calculation history.","applicationCategory":"UtilitiesApplication","operatingSystem":"Web Browser","url":"https://thetoolempire.com/tools/math/percentage-calculator.html","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"The Tool Empire","url":"https://thetoolempire.com"},"featureList":["5 calculation modes","Calculation history","Copy results","No registration"]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},{"@type":"ListItem","position":3,"name":"Math Tools","item":"https://thetoolempire.com/tools.html#math"},{"@type":"ListItem","position":4,"name":"Percentage Calculator","item":"https://thetoolempire.com/tools/math/percentage-calculator.html"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I calculate what is X% of a number?","acceptedAnswer":{"@type":"Answer","text":"Multiply the number by X then divide by 100. For example, 20% of 150 = (20 ÷ 100) × 150 = 30. Use the Basic tab in this calculator to get instant results."}},{"@type":"Question","name":"How do I find what percentage one number is of another?","acceptedAnswer":{"@type":"Answer","text":"Divide the part by the whole and multiply by 100. For example, 30 is what percent of 150? (30 ÷ 150) × 100 = 20%. Use the What % tab."}},{"@type":"Question","name":"How do I calculate percentage change?","acceptedAnswer":{"@type":"Answer","text":"Subtract the original value from the new value, divide by the absolute original value, then multiply by 100. Formula: ((New − Old) ÷ |Old|) × 100. A positive result is an increase; negative is a decrease."}},{"@type":"Question","name":"What is a reverse percentage calculation?","acceptedAnswer":{"@type":"Answer","text":"A reverse percentage finds the original whole when you know a part and the percentage it represents. Formula: Whole = Part ÷ (Percentage ÷ 100). For example, 30 is 20% of what number? 30 ÷ 0.20 = 150."}},{"@type":"Question","name":"How do I increase a number by a percentage?","acceptedAnswer":{"@type":"Answer","text":"Multiply the number by (1 + percentage/100). For example, 200 increased by 15% = 200 × 1.15 = 230. Use the Add/Subtract tab for both increase and decrease in one step."}},{"@type":"Question","name":"How do I decrease a number by a percentage?","acceptedAnswer":{"@type":"Answer","text":"Multiply the number by (1 − percentage/100). For example, 200 decreased by 15% = 200 × 0.85 = 170."}},{"@type":"Question","name":"Is this calculator accurate for financial calculations?","acceptedAnswer":{"@type":"Answer","text":"Yes for general use. Results are computed using standard floating-point arithmetic and displayed to up to 8 significant decimal places. For high-stakes financial decisions always verify with a certified financial tool."}},{"@type":"Question","name":"Can I see my past calculations?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every calculation is automatically saved in the History panel at the bottom of the tool. You can clear the history at any time."}},{"@type":"Question","name":"What is the difference between percentage points and percent change?","acceptedAnswer":{"@type":"Answer","text":"Percentage points are the arithmetic difference between two percentages (e.g., 30% − 20% = 10 percentage points). Percent change is relative: a change from 20% to 30% is a 50% increase (10 ÷ 20 × 100)."}},{"@type":"Question","name":"Does this tool store my calculations?","acceptedAnswer":{"@type":"Answer","text":"No data is sent to any server. All calculations run in your browser using JavaScript. History is stored in memory only and cleared when you refresh the page."}}]}
+  </script>
+</head>
+<body x-data="pctCalcApp()" x-init="init()">
+
+<!-- ── HEADER ──────────────────────────────────────────────── -->
+<header class="site-header" role="banner">
+  <div class="container">
+    <div class="header-inner">
+      <a href="../../index.html" class="logo" aria-label="The Tool Empire Home">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+          <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+          <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+          <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+          <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="../../index.html" class="nav-link">Home</a>
+        <a href="../../tools.html" class="nav-link active">Tools</a>
+        <a href="../../blog.html" class="nav-link">Blog</a>
+        <a href="../../about.html" class="nav-link">About</a>
+        <a href="../../contact.html" class="nav-link">Contact</a>
+      </nav>
+      <button class="menu-toggle" aria-label="Toggle menu" @click="mobileMenuOpen = !mobileMenuOpen">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="mobile-nav" :class="{ open: mobileMenuOpen }" aria-label="Mobile navigation">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+      <a href="../../contact.html" class="nav-link">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ── HERO ────────────────────────────────────────────────── -->
+<section class="tool-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol class="breadcrumb-list">
+        <li><a href="../../index.html">Home</a></li>
+        <li class="breadcrumb-sep" aria-hidden="true">›</li>
+        <li><a href="../../tools.html">Tools</a></li>
+        <li class="breadcrumb-sep" aria-hidden="true">›</li>
+        <li aria-current="page">Percentage Calculator</li>
+      </ol>
+    </nav>
+    <div class="tool-hero-inner">
+      <div class="tool-badge-row">
+        <span class="tool-cat-badge badge-math">Math Tool</span>
+        <span class="tool-cat-badge badge-quick">5 Calculators</span>
+      </div>
+      <h1 class="tool-title"><span class="gradient-text">Percentage Calculator</span></h1>
+      <p class="tool-subtitle">Every percentage calculation you need in one place — basic %, what percent, % change, reverse %, and add/subtract. Instant results, calculation history, no login.</p>
+      <div class="tool-meta-row">
+        <span class="tool-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          5 calculation modes
+        </span>
+        <span class="tool-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Calculation history
+        </span>
+        <span class="tool-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          100% browser-side
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── AD LEADERBOARD ─────────────────────────────────────── -->
+<div class="container">
+  <div class="ad-slot ad-leaderboard" aria-label="Advertisement">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+</div>
+
+<!-- ── TOOL ─────────────────────────────────────────────────── -->
+<main class="tool-section">
+  <div class="container">
+
+    <!-- Tab nav -->
+    <div class="calc-tabs-nav" role="tablist" aria-label="Calculator type">
+      <button class="calc-tab" :class="{active:activeTab==='basic'}"   @click="activeTab='basic'"   role="tab" :aria-selected="activeTab==='basic'">Basic %</button>
+      <button class="calc-tab" :class="{active:activeTab==='whatpct'}" @click="activeTab='whatpct'" role="tab" :aria-selected="activeTab==='whatpct'">What %?</button>
+      <button class="calc-tab" :class="{active:activeTab==='change'}"  @click="activeTab='change'"  role="tab" :aria-selected="activeTab==='change'">% Change</button>
+      <button class="calc-tab" :class="{active:activeTab==='reverse'}" @click="activeTab='reverse'" role="tab" :aria-selected="activeTab==='reverse'">Reverse %</button>
+      <button class="calc-tab" :class="{active:activeTab==='addsub'}"  @click="activeTab='addsub'"  role="tab" :aria-selected="activeTab==='addsub'">Add / Subtract</button>
+    </div>
+
+    <!-- ── TAB: Basic % ── -->
+    <div x-show="activeTab==='basic'" role="tabpanel">
+      <div class="calc-card">
+        <h2 class="calc-card-title">What is X% of Y?</h2>
+        <p class="calc-card-desc">Find a percentage of any number. Great for tips, discounts, taxes, and scores.</p>
+        <div class="calc-formula">result = (X ÷ 100) × Y</div>
+        <div class="inputs-row">
+          <div class="input-group">
+            <label class="input-label" for="b-pct">Percentage (X)</label>
+            <input id="b-pct" class="num-field" type="number" placeholder="e.g. 20" x-model="b_pct" @keydown.enter="calcBasic()" />
+          </div>
+          <span class="input-sep">% of</span>
+          <div class="input-group">
+            <label class="input-label" for="b-val">Number (Y)</label>
+            <input id="b-val" class="num-field" type="number" placeholder="e.g. 150" x-model="b_val" @keydown.enter="calcBasic()" />
+          </div>
+          <button class="btn-calc" @click="calcBasic()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Calculate
+          </button>
+        </div>
+        <div class="result-box">
+          <template x-if="b_result !== null">
+            <div>
+              <div class="result-value" x-text="b_result"></div>
+              <div class="result-label" x-text="`${b_pct}% of ${b_val} = ${b_result}`"></div>
+            </div>
+          </template>
+          <template x-if="b_result === null">
+            <span class="result-empty">Enter values above and click Calculate</span>
+          </template>
+          <button class="btn-copy-result" @click="copyResult(b_result)" x-show="b_result !== null">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copy
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TAB: What % ── -->
+    <div x-show="activeTab==='whatpct'" role="tabpanel">
+      <div class="calc-card">
+        <h2 class="calc-card-title">X is what percent of Y?</h2>
+        <p class="calc-card-desc">Find what percentage one number is of another. Perfect for grades, ratios, and market share.</p>
+        <div class="calc-formula">result = (X ÷ Y) × 100</div>
+        <div class="inputs-row">
+          <div class="input-group">
+            <label class="input-label" for="w-x">Number (X)</label>
+            <input id="w-x" class="num-field" type="number" placeholder="e.g. 30" x-model="w_x" @keydown.enter="calcWhatPct()" />
+          </div>
+          <span class="input-sep">is what % of</span>
+          <div class="input-group">
+            <label class="input-label" for="w-y">Number (Y)</label>
+            <input id="w-y" class="num-field" type="number" placeholder="e.g. 150" x-model="w_y" @keydown.enter="calcWhatPct()" />
+          </div>
+          <button class="btn-calc" @click="calcWhatPct()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Calculate
+          </button>
+        </div>
+        <div class="result-box">
+          <template x-if="w_result !== null">
+            <div>
+              <div class="result-value" x-text="w_result"></div>
+              <div class="result-label" x-text="`${w_x} is ${w_result} of ${w_y}`"></div>
+            </div>
+          </template>
+          <template x-if="w_result === null">
+            <span class="result-empty">Enter values above and click Calculate</span>
+          </template>
+          <button class="btn-copy-result" @click="copyResult(w_result)" x-show="w_result !== null">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copy
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TAB: % Change ── -->
+    <div x-show="activeTab==='change'" role="tabpanel">
+      <div class="calc-card">
+        <h2 class="calc-card-title">Percentage Change</h2>
+        <p class="calc-card-desc">Calculate the percentage increase or decrease between two values. Essential for sales growth, price changes, and statistics.</p>
+        <div class="calc-formula">result = ((New − Old) ÷ |Old|) × 100</div>
+        <div class="inputs-row">
+          <div class="input-group">
+            <label class="input-label" for="c-from">Original value</label>
+            <input id="c-from" class="num-field" type="number" placeholder="e.g. 80" x-model="c_from" @keydown.enter="calcChange()" />
+          </div>
+          <span class="input-sep">→</span>
+          <div class="input-group">
+            <label class="input-label" for="c-to">New value</label>
+            <input id="c-to" class="num-field" type="number" placeholder="e.g. 100" x-model="c_to" @keydown.enter="calcChange()" />
+          </div>
+          <button class="btn-calc" @click="calcChange()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Calculate
+          </button>
+        </div>
+        <div class="result-box">
+          <template x-if="c_result !== null">
+            <div>
+              <div class="result-value" x-text="c_result"></div>
+              <div class="result-label" x-text="changeLabel ? `${c_from} → ${c_to} is a ${c_result} ${changeLabel}` : c_result"></div>
+            </div>
+          </template>
+          <template x-if="c_result === null">
+            <span class="result-empty">Enter original and new values above</span>
+          </template>
+          <button class="btn-copy-result" @click="copyResult(c_result)" x-show="c_result !== null">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copy
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TAB: Reverse % ── -->
+    <div x-show="activeTab==='reverse'" role="tabpanel">
+      <div class="calc-card">
+        <h2 class="calc-card-title">X is Y% of what number?</h2>
+        <p class="calc-card-desc">Work backwards from a known part and percentage to find the original whole. Useful for finding original prices before a discount.</p>
+        <div class="calc-formula">result = X ÷ (Y ÷ 100)</div>
+        <div class="inputs-row">
+          <div class="input-group">
+            <label class="input-label" for="r-x">The part (X)</label>
+            <input id="r-x" class="num-field" type="number" placeholder="e.g. 30" x-model="r_x" @keydown.enter="calcReverse()" />
+          </div>
+          <span class="input-sep">is</span>
+          <div class="input-group">
+            <label class="input-label" for="r-pct">Percentage (Y%)</label>
+            <input id="r-pct" class="num-field" type="number" placeholder="e.g. 20" x-model="r_pct" @keydown.enter="calcReverse()" />
+          </div>
+          <button class="btn-calc" @click="calcReverse()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Calculate
+          </button>
+        </div>
+        <div class="result-box">
+          <template x-if="r_result !== null">
+            <div>
+              <div class="result-value" x-text="r_result"></div>
+              <div class="result-label" x-text="`${r_x} is ${r_pct}% of ${r_result}`"></div>
+            </div>
+          </template>
+          <template x-if="r_result === null">
+            <span class="result-empty">Enter the part and percentage above</span>
+          </template>
+          <button class="btn-copy-result" @click="copyResult(r_result)" x-show="r_result !== null">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copy
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TAB: Add / Subtract ── -->
+    <div x-show="activeTab==='addsub'" role="tabpanel">
+      <div class="calc-card">
+        <h2 class="calc-card-title">Add or Subtract a Percentage</h2>
+        <p class="calc-card-desc">Increase or decrease a number by a percentage in one step. Ideal for applying VAT, discounts, commissions, or markups.</p>
+        <div class="calc-formula">add: Y × (1 + X/100) &nbsp;|&nbsp; sub: Y × (1 − X/100)</div>
+        <div class="inputs-row">
+          <div class="input-group">
+            <label class="input-label" for="as-val">Base number (Y)</label>
+            <input id="as-val" class="num-field" type="number" placeholder="e.g. 200" x-model="as_val" @keydown.enter="calcAddSub()" />
+          </div>
+          <span class="input-sep">±</span>
+          <div class="input-group">
+            <label class="input-label" for="as-pct">Percentage (X%)</label>
+            <input id="as-pct" class="num-field" type="number" placeholder="e.g. 15" x-model="as_pct" @keydown.enter="calcAddSub()" />
+          </div>
+          <button class="btn-calc" @click="calcAddSub()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Calculate
+          </button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="result-box">
+            <template x-if="as_add_result !== null">
+              <div>
+                <div class="result-value" x-text="as_add_result"></div>
+                <div class="result-label" x-text="`${as_val} + ${as_pct}%`"></div>
+              </div>
+            </template>
+            <template x-if="as_add_result === null">
+              <span class="result-empty">Increased value</span>
+            </template>
+            <button class="btn-copy-result" @click="copyResult(as_add_result)" x-show="as_add_result !== null">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+          <div class="result-box">
+            <template x-if="as_sub_result !== null">
+              <div>
+                <div class="result-value" x-text="as_sub_result"></div>
+                <div class="result-label" x-text="`${as_val} − ${as_pct}%`"></div>
+              </div>
+            </template>
+            <template x-if="as_sub_result === null">
+              <span class="result-empty">Decreased value</span>
+            </template>
+            <button class="btn-copy-result" @click="copyResult(as_sub_result)" x-show="as_sub_result !== null">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── History ── -->
+    <div class="history-section" x-show="history.length > 0">
+      <div class="history-header">
+        <span class="history-title">Calculation History</span>
+        <button class="btn-clear-hist" @click="clearHistory()">Clear</button>
+      </div>
+      <div class="history-list">
+        <template x-for="item in history.slice(0,10)" :key="item.id">
+          <div class="history-item">
+            <span class="history-expr" x-text="item.expr"></span>
+            <span class="history-ans" x-text="item.ans"></span>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <!-- Ad in-content -->
+    <div class="ad-slot ad-incontent" aria-label="Advertisement">
+      <ins class="adsbygoogle" style="display:block;text-align:center" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="fluid" data-ad-layout="in-article" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+
+  </div>
+</main>
+
+<!-- ── INFO TABS ─────────────────────────────────────────────── -->
+<section class="info-section">
+  <div class="container">
+    <div class="info-tabs-nav" role="tablist" aria-label="Tool information">
+      <button class="info-tab-btn active" role="tab" data-tab="desc"     onclick="switchInfoTab('desc')">Description</button>
+      <button class="info-tab-btn"        role="tab" data-tab="how"      onclick="switchInfoTab('how')">How It Works</button>
+      <button class="info-tab-btn"        role="tab" data-tab="behind"   onclick="switchInfoTab('behind')">Formulas</button>
+      <button class="info-tab-btn"        role="tab" data-tab="usecases" onclick="switchInfoTab('usecases')">Use Cases</button>
+    </div>
+
+    <div id="tab-desc" class="info-tab-pane active prose" role="tabpanel">
+      <h2>Your All-in-One Percentage Calculator</h2>
+      <p>This tool puts five of the most common percentage calculations on one page so you never have to remember a formula or open a spreadsheet. Every calculation runs instantly in your browser — nothing is sent to a server.</p>
+      <h3>The five modes</h3>
+      <ul>
+        <li><strong>Basic %</strong> — "What is 20% of 150?" → 30. Use for tips, discounts, and tax amounts.</li>
+        <li><strong>What %?</strong> — "30 is what percent of 150?" → 20%. Use for grades, ratios, and market share.</li>
+        <li><strong>% Change</strong> — "What is the % change from 80 to 100?" → +25%. Use for growth rates and price movements.</li>
+        <li><strong>Reverse %</strong> — "30 is 20% of what?" → 150. Use to find original prices after discounts.</li>
+        <li><strong>Add / Subtract</strong> — "200 plus 15%" → 230 and "200 minus 15%" → 170. Use for VAT, markups, and commissions.</li>
+      </ul>
+      <p>Every result is logged in the <strong>Calculation History</strong> panel so you can track your work without switching tabs or opening a notepad.</p>
+    </div>
+
+    <div id="tab-how" class="info-tab-pane prose" role="tabpanel">
+      <h2>How to Use the Percentage Calculator</h2>
+      <div class="steps-grid">
+        <div class="step-card"><div class="step-num">1</div><div class="step-title">Pick a mode</div><div class="step-desc">Click the tab that matches your question — Basic %, What %, % Change, Reverse %, or Add/Subtract.</div></div>
+        <div class="step-card"><div class="step-num">2</div><div class="step-title">Enter your numbers</div><div class="step-desc">Fill in the input fields. Labels tell you exactly what each field expects.</div></div>
+        <div class="step-card"><div class="step-num">3</div><div class="step-title">Calculate</div><div class="step-desc">Click Calculate or press Enter. The result appears instantly with a plain-English explanation.</div></div>
+        <div class="step-card"><div class="step-num">4</div><div class="step-title">Copy or review</div><div class="step-desc">Copy the result to your clipboard, or scroll down to see all recent calculations in History.</div></div>
+      </div>
+    </div>
+
+    <div id="tab-behind" class="info-tab-pane prose" role="tabpanel">
+      <h2>Percentage Formulas Reference</h2>
+      <table class="formula-table">
+        <thead><tr><th>Mode</th><th>Formula</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Basic %</td><td><code>(X ÷ 100) × Y</code></td><td>20% of 150 = 30</td></tr>
+          <tr><td>What %?</td><td><code>(X ÷ Y) × 100</code></td><td>30 ÷ 150 × 100 = 20%</td></tr>
+          <tr><td>% Change</td><td><code>((New − Old) ÷ |Old|) × 100</code></td><td>(100−80)÷80×100 = +25%</td></tr>
+          <tr><td>Reverse %</td><td><code>X ÷ (Y ÷ 100)</code></td><td>30 ÷ 0.20 = 150</td></tr>
+          <tr><td>Add %</td><td><code>Y × (1 + X ÷ 100)</code></td><td>200 × 1.15 = 230</td></tr>
+          <tr><td>Subtract %</td><td><code>Y × (1 − X ÷ 100)</code></td><td>200 × 0.85 = 170</td></tr>
+        </tbody>
+      </table>
+      <h3>Important distinctions</h3>
+      <ul>
+        <li><strong>Percent vs percentage points</strong> — going from 20% to 30% is 10 <em>percentage points</em> but a 50% <em>increase</em>.</li>
+        <li><strong>Absolute vs relative change</strong> — % Change uses the absolute value of the original for the denominator, so negative-to-positive changes are handled correctly.</li>
+        <li><strong>Reverse % vs basic %</strong> — if you already know the part and the percentage, use Reverse % to find the whole; if you know the whole and the percentage, use Basic %.</li>
+      </ul>
+    </div>
+
+    <div id="tab-usecases" class="info-tab-pane prose" role="tabpanel">
+      <h2>Real-World Use Cases</h2>
+      <h3>Shopping &amp; Finance</h3>
+      <ul>
+        <li>Calculate a <strong>sale discount</strong> — "What is 30% off $89.99?" (Basic %)</li>
+        <li>Find the <strong>original price</strong> — "A $63 item is 30% off — what was the original price?" (Reverse %)</li>
+        <li>Add <strong>sales tax or VAT</strong> — "What is $120 plus 8% tax?" (Add/Subtract)</li>
+        <li>Calculate a <strong>tip</strong> — "What is 18% of $47.50?" (Basic %)</li>
+      </ul>
+      <h3>Business &amp; Analytics</h3>
+      <ul>
+        <li>Track <strong>revenue growth</strong> — "Revenue went from $45k to $58k — what's the growth rate?" (% Change)</li>
+        <li>Calculate <strong>profit margin</strong> — "Profit is $12k on revenue of $80k — what's the margin?" (What %)</li>
+        <li>Apply a <strong>commission</strong> — "Add 7.5% commission to a $2,500 sale" (Add/Subtract)</li>
+        <li>Measure <strong>conversion rate</strong> — "450 conversions from 3,200 visitors — what is the rate?" (What %)</li>
+      </ul>
+      <h3>Education &amp; Science</h3>
+      <ul>
+        <li>Calculate a <strong>test score</strong> — "42 correct out of 55 — what percentage?" (What %)</li>
+        <li>Find a <strong>percentage error</strong> — "Measured 98, expected 100 — what is the error?" (% Change)</li>
+        <li>Determine a <strong>concentration</strong> — "What is 3% of 500ml?" (Basic %)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Ad 2 -->
+<div class="container">
+  <div class="ad-slot ad-incontent" aria-label="Advertisement">
+    <ins class="adsbygoogle" style="display:block;text-align:center" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="fluid" data-ad-layout="in-article" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+</div>
+
+<!-- ── FAQ ──────────────────────────────────────────────────── -->
+<section class="faq-section">
+  <div class="container">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <template x-for="(faq,i) in [
+        {q:'How do I calculate what is X% of a number?',a:'Multiply the number by X then divide by 100. For example, 20% of 150 = (20 ÷ 100) × 150 = 30. Use the Basic tab in this calculator for instant results.'},
+        {q:'How do I find what percentage one number is of another?',a:'Divide the part by the whole and multiply by 100. For example, 30 is what percent of 150? (30 ÷ 150) × 100 = 20%. Use the What % tab.'},
+        {q:'How do I calculate percentage change?',a:'Subtract the original value from the new value, divide by the absolute original, then multiply by 100. Formula: ((New − Old) ÷ |Old|) × 100. Positive = increase, negative = decrease.'},
+        {q:'What is a reverse percentage calculation?',a:'A reverse percentage finds the original whole when you know a part and the percentage it represents. Formula: Whole = Part ÷ (Percentage ÷ 100). For example, 30 is 20% of what? 30 ÷ 0.20 = 150.'},
+        {q:'How do I increase a number by a percentage?',a:'Multiply the number by (1 + percentage/100). For example, 200 increased by 15% = 200 × 1.15 = 230. The Add/Subtract tab does this automatically.'},
+        {q:'How do I decrease a number by a percentage?',a:'Multiply the number by (1 − percentage/100). For example, 200 decreased by 15% = 200 × 0.85 = 170.'},
+        {q:'Is this calculator accurate for financial calculations?',a:'Yes for general use. Results use standard floating-point arithmetic displayed to up to 8 decimal places. For high-stakes financial decisions always verify with a certified financial tool.'},
+        {q:'Can I see my past calculations?',a:'Yes. Every calculation is automatically saved in the History panel below the calculator. You can clear the history at any time.'},
+        {q:'What is the difference between percentage points and percent change?',a:'Percentage points are the arithmetic difference between two percentages (e.g., 30% − 20% = 10 percentage points). Percent change is relative: a change from 20% to 30% is a 50% increase (10 ÷ 20 × 100).'},
+        {q:'Does this tool store my calculations?',a:'No data is sent to any server. All calculations run in your browser. History is stored in memory only and cleared when you refresh the page.'}
+      ]" :key="i">
+        <div class="faq-item" :class="{open:openFaq===i}">
+          <button class="faq-q" @click="toggleFaq(i)" :aria-expanded="openFaq===i">
+            <span x-text="faq.q"></span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner" x-text="faq.a"></div></div>
+        </div>
+      </template>
+    </div>
+  </div>
+</section>
+
+<!-- ── TAGS ──────────────────────────────────────────────────── -->
+<section class="tags-section">
+  <div class="container">
+    <div class="tags-row">
+      <span class="tags-label">Tags</span>
+      <a href="../../tools.html?q=percentage" class="tag-chip">percentage</a>
+      <a href="../../tools.html?q=math" class="tag-chip">math tool</a>
+      <a href="../../tools.html?q=calculator" class="tag-chip">calculator</a>
+      <a href="../../tools.html?q=finance" class="tag-chip">finance</a>
+      <a href="../../tools.html?q=discount" class="tag-chip">discount</a>
+      <a href="../../tools.html?q=tax" class="tag-chip">tax calculator</a>
+      <a href="../../tools.html?q=growth" class="tag-chip">growth rate</a>
+    </div>
+    <div class="tags-row">
+      <span class="tags-label">Hashtags</span>
+      <span class="tag-chip hashtag-chip">#PercentageCalculator</span>
+      <span class="tag-chip hashtag-chip">#MathTools</span>
+      <span class="tag-chip hashtag-chip">#PercentChange</span>
+      <span class="tag-chip hashtag-chip">#FreeCalculator</span>
+      <span class="tag-chip hashtag-chip">#FinanceTool</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── REPORT ────────────────────────────────────────────────── -->
+<div class="container">
+  <div class="report-strip">
+    <p class="report-text">Found a calculation error or UI bug?</p>
+    <button class="btn-report" @click="reportOpen = true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Report Issue
+    </button>
+  </div>
+</div>
+
+<div class="modal-overlay" x-show="reportOpen" x-transition.opacity @click.self="closeReport()" aria-modal="true" role="dialog" aria-labelledby="report-title">
+  <div class="modal-box">
+    <template x-if="!reportSent">
+      <div>
+        <h2 class="modal-title" id="report-title">Report an Issue</h2>
+        <p class="modal-sub">What's wrong with the Percentage Calculator?</p>
+        <div class="report-options" role="radiogroup">
+          <template x-for="opt in ['Incorrect calculation result','Wrong formula displayed','Copy button not working','UI / display bug','Other issue']" :key="opt">
+            <label class="report-option" :class="{selected:reportSelected===opt}">
+              <input type="radio" :value="opt" x-model="reportSelected" />
+              <span class="report-radio"></span>
+              <span x-text="opt"></span>
+            </label>
+          </template>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-cancel" @click="closeReport()">Cancel</button>
+          <button class="btn-submit" @click="submitReport()" :disabled="!reportSelected">Send Report</button>
+        </div>
+      </div>
+    </template>
+    <template x-if="reportSent">
+      <div class="report-success">
+        <div class="report-success-icon">✓</div>
+        <h3>Thanks for the report!</h3>
+        <p>We'll investigate and fix it as soon as possible.</p>
+        <button class="btn-submit" style="margin-top:16px" @click="closeReport()">Close</button>
+      </div>
+    </template>
+  </div>
+</div>
+
+<!-- ── RELATED TOOLS ─────────────────────────────────────────── -->
+<section class="related-section">
+  <div class="container">
+    <div class="related-header">
+      <h2 class="related-title">Related Tools</h2>
+      <a href="../../tools.html" class="btn-view-all">View all tools →</a>
+    </div>
+    <div class="related-grid">
+      <a href="../text/word-counter.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#667eea,#764ba2)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div class="related-tool-name">Word Counter</div>
+        <div class="related-tool-desc">Count words, characters, and reading time instantly.</div>
+        <span class="related-tool-link">Try it →</span>
+      </a>
+      <a href="../text/case-converter.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#f093fb,#f5576c)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+        </div>
+        <div class="related-tool-name">Case Converter</div>
+        <div class="related-tool-desc">Convert text to camelCase, snake_case, UPPER and more.</div>
+        <span class="related-tool-link">Try it →</span>
+      </a>
+      <a href="../coding/qr-code-maker.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#4ECDC4,#2980b9)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM17 17h3v3h-3zM14 20h3"/></svg>
+        </div>
+        <div class="related-tool-name">QR Code Maker</div>
+        <div class="related-tool-desc">Generate scannable QR codes for URLs, text, and Wi-Fi.</div>
+        <span class="related-tool-link">Try it →</span>
+      </a>
+      <a href="../text/diff-checker.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#fa709a,#fee140)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <div class="related-tool-name">Text Diff Checker</div>
+        <div class="related-tool-desc">Compare two texts and highlight every difference.</div>
+        <span class="related-tool-link">Try it →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── RELATED BLOGS ─────────────────────────────────────────── -->
+<section class="related-section" style="padding-top:0">
+  <div class="container">
+    <div class="related-header">
+      <h2 class="related-title">Related Articles</h2>
+      <a href="../../blog.html" class="btn-view-all">View all articles →</a>
+    </div>
+    <div class="blog-cards-grid">
+      <a href="../../blog/percentage-calculator-guide.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(167,139,250,.1);color:#c4b5fd;border:1px solid rgba(167,139,250,.3)">Math</span>
+        <div class="blog-card-title">Percentage Formulas Everyone Should Know</div>
+        <div class="blog-card-excerpt">From tip calculations to compound growth — master every percentage formula with real examples.</div>
+        <div class="blog-card-meta">7 min read</div>
+        <span class="blog-read-link">Read →</span>
+      </a>
+      <a href="../../blog/writing-productivity-tools.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(78,205,196,.1);color:#7eeee8;border:1px solid rgba(78,205,196,.3)">Productivity</span>
+        <div class="blog-card-title">Best Free Productivity Tools for 2025</div>
+        <div class="blog-card-excerpt">Eight browser tools that speed up daily work — including this calculator.</div>
+        <div class="blog-card-meta">7 min read</div>
+        <span class="blog-read-link">Read →</span>
+      </a>
+      <a href="../../blog/seo-meta-tags-guide.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(245,87,108,.1);color:#ffacb8;border:1px solid rgba(245,87,108,.3)">SEO</span>
+        <div class="blog-card-title">Complete SEO Meta Tags Guide for 2025</div>
+        <div class="blog-card-excerpt">Every meta tag that matters for search — percentages of visibility that add up fast.</div>
+        <div class="blog-card-meta">9 min read</div>
+        <span class="blog-read-link">Read →</span>
+      </a>
+      <a href="../../blog/word-count-guide.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(102,126,234,.1);color:#b3c0ff;border:1px solid rgba(102,126,234,.3)">Writing</span>
+        <div class="blog-card-title">Word Count Guide: How Long Should Your Content Be?</div>
+        <div class="blog-card-excerpt">Data-backed targets — percentages of engagement improve with the right length.</div>
+        <div class="blog-card-meta">6 min read</div>
+        <span class="blog-read-link">Read →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div id="pc-toast" class="toast" role="status" aria-live="polite" x-text="toastMsg"></div>
+
+<!-- ── FOOTER ────────────────────────────────────────────────── -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="../../index.html" class="logo">
+          <svg class="logo-icon" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+            <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+            <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+            <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+            <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+          </svg>
+          <span class="logo-text">The Tool Empire</span>
+        </a>
+        <p class="footer-brand-text">Free, privacy-first browser tools for developers, writers, and designers. No login. No tracking. Just tools.</p>
+      </div>
+      <div>
+        <p class="footer-heading">Tools</p>
+        <nav class="footer-links">
+          <a href="percentage-calculator.html">Percentage Calculator</a>
+          <a href="../text/word-counter.html">Word Counter</a>
+          <a href="../text/case-converter.html">Case Converter</a>
+          <a href="../coding/qr-code-maker.html">QR Code Maker</a>
+          <a href="../../tools.html">All Tools →</a>
+        </nav>
+      </div>
+      <div>
+        <p class="footer-heading">Content</p>
+        <nav class="footer-links">
+          <a href="../../blog.html">Blog</a>
+          <a href="../../blog/percentage-calculator-guide.html">% Formulas Guide</a>
+          <a href="../../blog/writing-productivity-tools.html">Productivity Tools</a>
+          <a href="../../blog/seo-meta-tags-guide.html">SEO Guide</a>
+        </nav>
+      </div>
+      <div>
+        <p class="footer-heading">Company</p>
+        <nav class="footer-links">
+          <a href="../../about.html">About</a>
+          <a href="../../contact.html">Contact</a>
+          <a href="../../privacy.html">Privacy Policy</a>
+          <a href="../../terms.html">Terms of Service</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="footer-year"></span> The Tool Empire. All rights reserved.</span>
+      <span>Built with ♥ — 100% free, forever.</span>
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById('footer-year').textContent=new Date().getFullYear();</script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+<script src="percentage-calculator.js"></script>
+</body>
+</html>

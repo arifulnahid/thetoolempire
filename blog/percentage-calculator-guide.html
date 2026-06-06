@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Percentage Formulas Everyone Should Know (With Real Examples) | The Tool Empire</title>
+  <meta name="description" content="Master every percentage formula: basic %, percentage change, reverse percentage, tip calculations, discounts, VAT, profit margins, and compound growth — with worked examples." />
+  <meta name="keywords" content="percentage formulas, how to calculate percentage, percentage change formula, reverse percentage, percentage increase decrease, percent of a number, percentage calculator guide" />
+  <link rel="canonical" href="https://thetoolempire.com/blog/percentage-calculator-guide.html" />
+  <meta name="robots" content="index, follow" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Percentage Formulas Everyone Should Know (With Real Examples)" />
+  <meta property="og:description" content="Master every percentage formula: basic %, percentage change, reverse percentage, discounts, VAT, profit margins — with worked examples and a free calculator." />
+  <meta property="og:url" content="https://thetoolempire.com/blog/percentage-calculator-guide.html" />
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png" />
+  <meta property="og:site_name" content="The Tool Empire" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Percentage Formulas Everyone Should Know (With Real Examples)" />
+  <meta name="twitter:description" content="Master every percentage formula with worked examples and a free online calculator." />
+  <meta name="twitter:image" content="https://thetoolempire.com/assets/og-image.png" />
+
+  <link rel="icon" href="../assets/favicon.ico" sizes="any" />
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+  <link rel="manifest" href="../manifest.json" />
+  <meta name="theme-color" content="#6C63FF" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BlogPosting","headline":"Percentage Formulas Everyone Should Know (With Real Examples)","description":"Master every percentage formula: basic %, percentage change, reverse percentage, tip calculations, discounts, VAT, profit margins, and compound growth with worked examples.","image":"https://thetoolempire.com/assets/og-image.png","author":{"@type":"Organization","name":"The Tool Empire","url":"https://thetoolempire.com"},"publisher":{"@type":"Organization","name":"The Tool Empire","url":"https://thetoolempire.com"},"datePublished":"2026-06-06","dateModified":"2026-06-06","mainEntityOfPage":{"@type":"WebPage","@id":"https://thetoolempire.com/blog/percentage-calculator-guide.html"},"keywords":["percentage formula","percentage change","reverse percentage","percent calculator","discount calculation","VAT calculation"],"articleSection":"Math"}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://thetoolempire.com/blog.html"},{"@type":"ListItem","position":3,"name":"Percentage Formulas Guide","item":"https://thetoolempire.com/blog/percentage-calculator-guide.html"}]}
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #a78bfa; --secondary: #60a5fa; --accent: #4ECDC4;
+      --bg: #0f0f14; --bg-surface: #18181f; --bg-card: #1e1e28;
+      --border: rgba(255,255,255,.08); --border-hover: rgba(167,139,250,.4);
+      --text: #e8e8f0; --text-muted: #8888a8; --text-faint: #555570;
+      --success: #0fd850; --radius-sm: 8px; --radius-md: 14px; --radius-lg: 20px;
+      --transition: .2s cubic-bezier(.4,0,.2,1); --max-w: 1280px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    svg { display: block; }
+    .container { width: 100%; max-width: var(--max-w); margin-inline: auto; padding-inline: clamp(16px,4vw,48px); }
+
+    /* header */
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(15,15,20,.88); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    .site-header.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,.4); }
+    .header-inner { display: flex; align-items: center; gap: 24px; height: 64px; }
+    .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .logo-icon { width: 36px; height: 36px; }
+    .logo-text { font-size: 1.1rem; font-weight: 700; letter-spacing: -.02em; background: linear-gradient(135deg,#fff 40%,var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .main-nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+    .nav-link { padding: 6px 14px; border-radius: var(--radius-sm); font-size: .9rem; font-weight: 500; color: var(--text-muted); transition: color var(--transition), background var(--transition); }
+    .nav-link:hover, .nav-link.active { color: var(--text); background: rgba(255,255,255,.06); }
+    .menu-toggle { display: none; flex-direction: column; gap: 5px; margin-left: auto; padding: 8px; cursor: pointer; background: none; border: none; }
+    .menu-toggle span { display: block; width: 22px; height: 2px; background: var(--text-muted); border-radius: 2px; }
+    .mobile-nav { display: none; flex-direction: column; padding: 12px 16px 16px; border-top: 1px solid var(--border); background: var(--bg-surface); gap: 2px; }
+    .mobile-nav.open { display: flex; }
+
+    /* breadcrumb */
+    .breadcrumb { padding: 16px 0 0; }
+    .breadcrumb-list { display: flex; align-items: center; gap: 6px; list-style: none; font-size: .8rem; color: var(--text-faint); flex-wrap: wrap; }
+    .breadcrumb-list a { color: var(--text-muted); }
+    .breadcrumb-list a:hover { color: var(--text); }
+
+    /* reading progress */
+    .reading-progress { position: fixed; top: 64px; left: 0; right: 0; height: 3px; background: rgba(255,255,255,.05); z-index: 99; }
+    .reading-progress-bar { height: 100%; background: linear-gradient(90deg,var(--primary),var(--secondary)); width: 0%; transition: width .1s linear; }
+
+    /* hero */
+    .post-hero { padding: clamp(32px,5vw,56px) 0 0; background: radial-gradient(ellipse 80% 40% at 50% 0%, rgba(167,139,250,.15) 0%, transparent 70%); }
+    .post-meta-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+    .post-cat-badge { display: inline-flex; padding: 3px 12px; border-radius: 999px; font-size: .72rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; background: rgba(167,139,250,.1); border: 1px solid rgba(167,139,250,.3); color: #c4b5fd; }
+    .post-date { font-size: .82rem; color: var(--text-faint); }
+    .post-read-time { font-size: .82rem; color: var(--text-faint); display: flex; align-items: center; gap: 4px; }
+    .post-title { font-size: clamp(1.75rem,4.5vw,3rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.2; margin-bottom: 18px; }
+    .post-excerpt { font-size: 1.05rem; color: var(--text-muted); max-width: 700px; line-height: 1.75; margin-bottom: 28px; }
+    .post-author { display: flex; align-items: center; gap: 12px; padding-bottom: clamp(24px,4vw,40px); }
+    .author-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg,var(--primary),var(--secondary)); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .9rem; color: #fff; flex-shrink: 0; }
+    .author-name { font-size: .9rem; font-weight: 700; }
+    .author-role { font-size: .78rem; color: var(--text-faint); }
+
+    /* layout */
+    .post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 48px; padding: clamp(24px,4vw,48px) 0 clamp(48px,6vw,80px); align-items: start; }
+    .post-body { min-width: 0; }
+
+    /* article prose */
+    .article-prose h2 { font-size: 1.55rem; font-weight: 800; margin: 40px 0 14px; line-height: 1.3; }
+    .article-prose h2:first-child { margin-top: 0; }
+    .article-prose h3 { font-size: 1.15rem; font-weight: 700; margin: 28px 0 10px; }
+    .article-prose p { color: var(--text-muted); margin-bottom: 16px; line-height: 1.85; }
+    .article-prose ul, .article-prose ol { color: var(--text-muted); padding-left: 22px; margin-bottom: 16px; }
+    .article-prose li { margin-bottom: 8px; line-height: 1.75; }
+    .article-prose strong { color: var(--text); font-weight: 700; }
+    .article-prose a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
+    .article-prose a:hover { color: #c4b5fd; }
+    .article-prose code { background: rgba(167,139,250,.12); color: #c4b5fd; padding: 2px 7px; border-radius: 5px; font-size: .88em; font-family: 'Fira Code', monospace; }
+    .article-prose hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+
+    /* formula box */
+    .formula-box { background: rgba(167,139,250,.06); border: 1px solid rgba(167,139,250,.2); border-left: 3px solid var(--primary); border-radius: var(--radius-md); padding: 18px 22px; margin: 20px 0; }
+    .formula-box .formula-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: #c4b5fd; margin-bottom: 6px; }
+    .formula-box .formula-text { font-family: 'Fira Code', monospace; font-size: 1rem; color: var(--text); }
+    .formula-box .formula-example { font-size: .85rem; color: var(--text-muted); margin-top: 6px; }
+
+    /* example cards */
+    .example-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 14px; margin: 20px 0; }
+    .example-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px 18px; }
+    .example-card-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-faint); margin-bottom: 6px; }
+    .example-card-q { font-size: .9rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .example-card-a { font-size: .95rem; font-weight: 800; background: linear-gradient(135deg,var(--primary),var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* tip box */
+    .tip-box { background: rgba(15,216,80,.05); border: 1px solid rgba(15,216,80,.2); border-radius: var(--radius-md); padding: 16px 20px; margin: 20px 0; display: flex; gap: 12px; }
+    .tip-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .tip-text { font-size: .9rem; color: var(--text-muted); line-height: 1.7; }
+    .tip-text strong { color: var(--text); }
+
+    /* warn box */
+    .warn-box { background: rgba(253,230,138,.05); border: 1px solid rgba(253,230,138,.2); border-radius: var(--radius-md); padding: 16px 20px; margin: 20px 0; display: flex; gap: 12px; }
+    .warn-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .warn-text { font-size: .9rem; color: var(--text-muted); line-height: 1.7; }
+    .warn-text strong { color: var(--warning); }
+
+    /* quick ref table */
+    .ref-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: .88rem; }
+    .ref-table th { background: rgba(167,139,250,.08); color: var(--text); font-weight: 700; padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+    .ref-table td { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,.04); color: var(--text-muted); }
+    .ref-table tr:hover td { background: rgba(255,255,255,.02); }
+    .ref-table code { background: rgba(167,139,250,.1); color: #c4b5fd; padding: 1px 6px; border-radius: 4px; font-family: 'Fira Code', monospace; }
+
+    /* tool spotlight */
+    .tool-spotlight { background: linear-gradient(135deg,rgba(167,139,250,.1),rgba(96,165,250,.06)); border: 1px solid rgba(167,139,250,.25); border-radius: var(--radius-lg); padding: 24px 28px; margin: 32px 0; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .spotlight-icon { width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg,var(--primary),var(--secondary)); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .spotlight-icon svg { width: 26px; height: 26px; color: #fff; }
+    .spotlight-body { flex: 1; min-width: 200px; }
+    .spotlight-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: #c4b5fd; margin-bottom: 4px; }
+    .spotlight-title { font-size: 1.05rem; font-weight: 800; margin-bottom: 4px; }
+    .spotlight-desc { font-size: .85rem; color: var(--text-muted); }
+    .btn-spotlight { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: var(--radius-md); font-size: .88rem; font-weight: 700; background: linear-gradient(135deg,var(--primary),var(--secondary)); color: #fff; border: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: opacity var(--transition); }
+    .btn-spotlight:hover { opacity: .9; }
+
+    /* ad */
+    .ad-slot { background: var(--bg-card); border: 1px dashed rgba(255,255,255,.06); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--text-faint); font-size: .75rem; text-align: center; }
+    .ad-incontent { width: 100%; min-height: 90px; margin: 28px 0; }
+
+    /* sidebar */
+    .sidebar { position: sticky; top: 84px; display: flex; flex-direction: column; gap: 20px; }
+    .sidebar-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; }
+    .sidebar-title { font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--text-faint); margin-bottom: 14px; }
+    .toc-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .toc-list a { font-size: .85rem; color: var(--text-muted); padding: 5px 8px; border-radius: var(--radius-sm); display: block; transition: all var(--transition); border-left: 2px solid transparent; }
+    .toc-list a:hover { color: var(--text); background: rgba(255,255,255,.04); border-left-color: var(--primary); }
+    .sidebar-tool-link { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--bg-surface); border-radius: var(--radius-sm); transition: all var(--transition); }
+    .sidebar-tool-link:hover { background: rgba(167,139,250,.08); }
+    .sidebar-tool-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .sidebar-tool-name { font-size: .85rem; font-weight: 600; }
+    .sidebar-tool-desc { font-size: .75rem; color: var(--text-faint); }
+
+    /* tags */
+    .post-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 24px 0; border-top: 1px solid var(--border); margin-top: 16px; }
+    .post-tags-label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--text-faint); }
+    .tag-chip { display: inline-flex; padding: 4px 12px; border-radius: 999px; font-size: .78rem; font-weight: 600; border: 1px solid var(--border); color: var(--text-muted); transition: all var(--transition); }
+    .tag-chip:hover { border-color: rgba(167,139,250,.5); color: var(--text); }
+
+    /* related */
+    .related-section { padding: clamp(24px,4vw,40px) 0; border-top: 1px solid var(--border); }
+    .related-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+    .related-title { font-size: 1.3rem; font-weight: 800; }
+    .btn-view-all { display: inline-flex; align-items: center; gap: 5px; padding: 7px 16px; border-radius: var(--radius-sm); font-size: .83rem; font-weight: 600; border: 1px solid var(--border); color: var(--text-muted); transition: all var(--transition); }
+    .btn-view-all:hover { border-color: var(--primary); color: var(--text); }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 16px; }
+    .rel-tool-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 18px; display: flex; flex-direction: column; gap: 10px; transition: all var(--transition); }
+    .rel-tool-card:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
+    .rel-tool-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+    .rel-tool-icon svg { width: 20px; height: 20px; color: #fff; }
+    .rel-tool-name { font-size: .95rem; font-weight: 700; }
+    .rel-tool-desc { font-size: .8rem; color: var(--text-muted); line-height: 1.5; flex: 1; }
+    .rel-tool-link { font-size: .8rem; font-weight: 600; color: var(--primary); }
+    .blog-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 16px; }
+    .blog-card-sm { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; display: flex; flex-direction: column; gap: 8px; transition: all var(--transition); }
+    .blog-card-sm:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+    .blog-cat-badge { display: inline-flex; padding: 2px 9px; border-radius: 999px; font-size: .7rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; width: fit-content; }
+    .blog-card-title { font-size: .95rem; font-weight: 700; line-height: 1.4; }
+    .blog-card-excerpt { font-size: .82rem; color: var(--text-muted); flex: 1; line-height: 1.6; }
+    .blog-card-meta { font-size: .75rem; color: var(--text-faint); }
+    .blog-read-link { font-size: .8rem; font-weight: 600; color: var(--primary); margin-top: 4px; }
+
+    /* footer */
+    .site-footer { background: var(--bg-surface); border-top: 1px solid var(--border); padding: clamp(32px,5vw,56px) 0 24px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-brand-text { font-size: .88rem; color: var(--text-muted); line-height: 1.7; margin: 12px 0 0; max-width: 260px; }
+    .footer-heading { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-faint); margin-bottom: 14px; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { font-size: .88rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 24px; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 12px; font-size: .82rem; color: var(--text-faint); }
+
+    @media (max-width: 1024px) {
+      .post-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; display: none; }
+    }
+    @media (max-width: 640px) {
+      .main-nav { display: none; }
+      .menu-toggle { display: flex; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .related-grid { grid-template-columns: 1fr 1fr; }
+      .blog-cards-grid { grid-template-columns: 1fr; }
+      .example-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .related-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="reading-progress" aria-hidden="true"><div class="reading-progress-bar" id="prog-bar"></div></div>
+
+<!-- ── HEADER ──────────────────────────────────────────────── -->
+<header class="site-header" id="site-header" role="banner">
+  <div class="container">
+    <div class="header-inner">
+      <a href="../index.html" class="logo" aria-label="The Tool Empire Home">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+          <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+          <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+          <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+          <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../tools.html" class="nav-link">Tools</a>
+        <a href="../blog.html" class="nav-link active">Blog</a>
+        <a href="../about.html" class="nav-link">About</a>
+        <a href="../contact.html" class="nav-link">Contact</a>
+      </nav>
+      <button class="menu-toggle" id="menu-btn" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../tools.html" class="nav-link">Tools</a>
+      <a href="../blog.html" class="nav-link active">Blog</a>
+      <a href="../about.html" class="nav-link">About</a>
+      <a href="../contact.html" class="nav-link">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ── POST HERO ──────────────────────────────────────────── -->
+<section class="post-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol class="breadcrumb-list">
+        <li><a href="../index.html">Home</a></li>
+        <li>›</li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li>›</li>
+        <li aria-current="page">Percentage Formulas Guide</li>
+      </ol>
+    </nav>
+    <div style="max-width:820px;padding-bottom:clamp(24px,4vw,40px)">
+      <div class="post-meta-row">
+        <span class="post-cat-badge">Math</span>
+        <span class="post-date">June 6, 2026</span>
+        <span class="post-read-time">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          8 min read
+        </span>
+      </div>
+      <h1 class="post-title">Percentage Formulas Everyone Should Know<br><span style="background:linear-gradient(135deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">(With Real Examples)</span></h1>
+      <p class="post-excerpt">Percentages show up in your salary, your grocery bill, your analytics dashboard, and your mortgage statement. Yet most people still reach for their phone when they need to work one out. This guide covers every formula you'll ever need — with plain-English explanations and worked examples you can follow in seconds.</p>
+      <div class="post-author">
+        <div class="author-avatar">TE</div>
+        <div>
+          <div class="author-name">The Tool Empire Team</div>
+          <div class="author-role">Tools &amp; Tutorials</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── POST LAYOUT ─────────────────────────────────────────── -->
+<div class="container">
+  <div class="post-layout">
+
+    <!-- ── ARTICLE BODY ── -->
+    <article class="post-body article-prose" itemscope itemtype="https://schema.org/BlogPosting">
+      <meta itemprop="headline" content="Percentage Formulas Everyone Should Know (With Real Examples)" />
+      <meta itemprop="datePublished" content="2026-06-06" />
+
+      <h2 id="what-is">What Is a Percentage, Really?</h2>
+      <p>A percentage is simply a fraction expressed as parts per hundred. The word comes from the Latin <em>per centum</em> — "by the hundred." When you see 25%, it means 25 out of every 100, which is the same as the fraction 1/4, or the decimal 0.25.</p>
+      <p>This might sound elementary, but understanding that equivalence is the key to all percentage arithmetic. Every formula below is just a rearrangement of the same core relationship:</p>
+
+      <div class="formula-box">
+        <div class="formula-label">Core relationship</div>
+        <div class="formula-text">Part = (Percentage ÷ 100) × Whole</div>
+        <div class="formula-example">Example: Part = (20 ÷ 100) × 150 = 30</div>
+      </div>
+
+      <p>From this single equation you can derive every other percentage formula by isolating a different variable. Let's go through each one.</p>
+
+      <!-- Ad -->
+      <div class="ad-slot ad-incontent" aria-label="Advertisement">
+        <ins class="adsbygoogle" style="display:block;text-align:center" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="fluid" data-ad-layout="in-article" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+      </div>
+
+      <h2 id="basic">Formula 1 — What Is X% of Y?</h2>
+      <p>This is the bread-and-butter percentage question. You know the percentage and the whole; you want the part.</p>
+
+      <div class="formula-box">
+        <div class="formula-label">Formula</div>
+        <div class="formula-text">Result = (X ÷ 100) × Y</div>
+        <div class="formula-example">Shortcut: multiply Y by the decimal form of X%. So 20% = 0.20, meaning 0.20 × 150 = 30</div>
+      </div>
+
+      <div class="example-grid">
+        <div class="example-card">
+          <div class="example-card-label">Tip calculation</div>
+          <div class="example-card-q">18% tip on a $47.50 bill?</div>
+          <div class="example-card-a">$8.55</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-label">Discount</div>
+          <div class="example-card-q">30% off a $89.99 jacket?</div>
+          <div class="example-card-a">$26.99 off → $63.00</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-label">Tax</div>
+          <div class="example-card-q">8.5% sales tax on $120?</div>
+          <div class="example-card-a">$10.20 tax</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-label">Test score</div>
+          <div class="example-card-q">What is 85% of 60 marks?</div>
+          <div class="example-card-a">51 marks</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">💡</div>
+        <div class="tip-text"><strong>Mental math shortcut:</strong> To find 10% of any number, move the decimal one place left. Then double it for 20%, halve it for 5%, and so on. 10% of $47.50 = $4.75. 20% = $9.50. 15% = $7.12 (average of 10% and 20%).</div>
+      </div>
+
+      <h2 id="whatpct">Formula 2 — X is What Percent of Y?</h2>
+      <p>Here you know both numbers but want to express their relationship as a percentage.</p>
+
+      <div class="formula-box">
+        <div class="formula-label">Formula</div>
+        <div class="formula-text">Percentage = (X ÷ Y) × 100</div>
+        <div class="formula-example">Example: 42 correct out of 55 questions → (42 ÷ 55) × 100 = 76.36%</div>
+      </div>
+
+      <div class="example-grid">
+        <div class="example-card">
+          <div class="example-card-label">Exam score</div>
+          <div class="example-card-q">42 right out of 55?</div>
+          <div class="example-card-a">76.36%</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-label">Market share</div>
+          <div class="example-card-q">Your brand: 3,200 of 18,500 units?</div>
+          <div class="example-card-a">17.3%</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-label">Conversion rate</div>
+          <div class="example-card-q">450 sign-ups from 6,000 visitors?</div>
+          <div class="example-card-a">7.5%</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-label">Profit margin</div>
+          <div class="example-card-q">$14k profit on $80k revenue?</div>
+          <div class="example-card-a">17.5%</div>
+        </div>
+      </div>
+
+      <!-- Tool spotlight -->
+      <a href="../tools/math/percentage-calculator.html" class="tool-spotlight">
+        <div class="spotlight-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+        </div>
+        <div class="spotlight-body">
+          <div class="spotlight-label">Free Tool</div>
+          <div class="spotlight-title">Percentage Calculator</div>
+          <div class="spotlight-desc">All 5 formulas in this guide — calculated instantly in your browser. No login, no install.</div>
+        </div>
+        <span class="btn-spotlight">Try it free →</span>
+      </a>
+
+      <h2 id="change">Formula 3 — Percentage Change</h2>
+      <p>Percentage change tells you how much a value has grown or shrunk <em>relative</em> to where it started. It is arguably the most important percentage formula in business and finance.</p>
+
+      <div class="formula-box">
+        <div class="formula-label">Formula</div>
+        <div class="formula-text">% Change = ((New − Old) ÷ |Old|) × 100</div>
+        <div class="formula-example">Positive result = increase. Negative result = decrease. |Old| means the absolute value of Old.</div>
+      </div>
+
+      <div class="example-grid">
+        <div class="example-card">
+          <div class="example-card-label">Revenue growth</div>
+          <div class="example-card-q">$45k → $58k</div>
+          <div class="example-card-a">+28.9%</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-label">Price drop</div>
+          <div class="example-card-q">$249 → $199</div>
+          <div class="example-card-a">−20.1%</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-label">User growth</div>
+          <div class="example-card-q">1,200 → 3,400 users</div>
+          <div class="example-card-a">+183.3%</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-label">Measurement error</div>
+          <div class="example-card-q">Expected 100, got 97</div>
+          <div class="example-card-a">−3%</div>
+        </div>
+      </div>
+
+      <div class="warn-box">
+        <div class="warn-icon">⚠️</div>
+        <div class="warn-text"><strong>Don't confuse percentage points with percent change.</strong> If your click-through rate goes from 2% to 3%, that is 1 <em>percentage point</em> higher — but a 50% <em>relative increase</em>. Marketers love to use whichever number sounds more impressive, so always check which is being quoted.</div>
+      </div>
+
+      <!-- Ad -->
+      <div class="ad-slot ad-incontent" aria-label="Advertisement">
+        <ins class="adsbygoogle" style="display:block;text-align:center" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="fluid" data-ad-layout="in-article" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+      </div>
+
+      <h2 id="reverse">Formula 4 — Reverse Percentage</h2>
+      <p>A reverse percentage works backwards: you know a <em>part</em> and the percentage it represents, and you want to find the original <em>whole</em>. This is invaluable for finding original prices before a discount was applied.</p>
+
+      <div class="formula-box">
+        <div class="formula-label">Formula</div>
+        <div class="formula-text">Whole = Part ÷ (Percentage ÷ 100)</div>
+        <div class="formula-example">Example: A jacket costs $63 after a 30% discount. Original price = 63 ÷ 0.70 = $90</div>
+      </div>
+
+      <p>Note the common mistake: people subtract 30% from $63 and guess $44.10, which is wrong because $63 is already the 70% price, not the 100% price.</p>
+
+      <div class="example-grid">
+        <div class="example-card">
+          <div class="example-card-label">Sale price → original</div>
+          <div class="example-card-q">$63 after 30% off</div>
+          <div class="example-card-a">Original: $90.00</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-label">Tax-inclusive price</div>
+          <div class="example-card-q">$129.99 includes 8% tax</div>
+          <div class="example-card-a">Pre-tax: $120.36</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-label">Commission earned</div>
+          <div class="example-card-q">$350 = 7% of the sale</div>
+          <div class="example-card-a">Sale value: $5,000</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-label">Tip-back calculation</div>
+          <div class="example-card-q">$8.55 tip = 18% of bill</div>
+          <div class="example-card-a">Bill total: $47.50</div>
+        </div>
+      </div>
+
+      <h2 id="addsub">Formula 5 — Add or Subtract a Percentage</h2>
+      <p>When you need to apply a percentage directly to a number — adding VAT, a markup, a commission, or subtracting a discount — use these two formulas:</p>
+
+      <div class="formula-box">
+        <div class="formula-label">Increase by X%</div>
+        <div class="formula-text">New value = Original × (1 + X ÷ 100)</div>
+        <div class="formula-example">$200 + 15% = 200 × 1.15 = $230</div>
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-label">Decrease by X%</div>
+        <div class="formula-text">New value = Original × (1 − X ÷ 100)</div>
+        <div class="formula-example">$200 − 15% = 200 × 0.85 = $170</div>
+      </div>
+
+      <div class="example-grid">
+        <div class="example-card">
+          <div class="example-card-label">VAT / Sales tax</div>
+          <div class="example-card-q">$500 product + 20% VAT</div>
+          <div class="example-card-a">$600.00</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-label">Salary raise</div>
+          <div class="example-card-q">$52,000 + 4.5% raise</div>
+          <div class="example-card-a">$54,340</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-label">Seasonal discount</div>
+          <div class="example-card-q">$399 − 25%</div>
+          <div class="example-card-a">$299.25</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-label">Markup pricing</div>
+          <div class="example-card-q">Cost $45, markup 60%</div>
+          <div class="example-card-a">Sell at $72.00</div>
+        </div>
+      </div>
+
+      <h2 id="compound">Bonus — Compound Percentage Change</h2>
+      <p>When a percentage change is applied repeatedly — annual interest, year-over-year growth, recurring discounts — the changes <strong>compound</strong>, meaning each period's change is applied to the new value, not the original.</p>
+
+      <div class="formula-box">
+        <div class="formula-label">Compound growth formula</div>
+        <div class="formula-text">Final = Start × (1 + Rate/100)^n</div>
+        <div class="formula-example">$1,000 at 7% for 10 years = 1000 × 1.07^10 = $1,967.15</div>
+      </div>
+
+      <p>This is why compound interest is so powerful — and why compound inflation is so damaging. A 7% annual return doubles your money in roughly 10 years (<strong>the Rule of 72</strong>: divide 72 by the interest rate to estimate the doubling time).</p>
+
+      <h2 id="cheatsheet">Quick Reference Cheat Sheet</h2>
+      <table class="ref-table">
+        <thead><tr><th>Question</th><th>Formula</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>What is X% of Y?</td><td><code>(X ÷ 100) × Y</code></td><td>20% of 150 = 30</td></tr>
+          <tr><td>X is what % of Y?</td><td><code>(X ÷ Y) × 100</code></td><td>30 ÷ 150 × 100 = 20%</td></tr>
+          <tr><td>% change from A to B?</td><td><code>((B−A) ÷ |A|) × 100</code></td><td>80→100 = +25%</td></tr>
+          <tr><td>X is Y% — find whole</td><td><code>X ÷ (Y ÷ 100)</code></td><td>30 ÷ 0.20 = 150</td></tr>
+          <tr><td>Y increased by X%</td><td><code>Y × (1 + X/100)</code></td><td>200 × 1.15 = 230</td></tr>
+          <tr><td>Y decreased by X%</td><td><code>Y × (1 − X/100)</code></td><td>200 × 0.85 = 170</td></tr>
+          <tr><td>Compound growth (n periods)</td><td><code>Start × (1 + r/100)^n</code></td><td>1000 × 1.07^10 = 1967</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="mistakes">3 Percentage Mistakes People Make Every Day</h2>
+      <ol>
+        <li><strong>Adding percentages directly.</strong> If a price rises 20% then falls 20%, people assume you're back to the start. You're not — you end up at 96%. (100 × 1.2 × 0.8 = 96.) Percentage changes are multiplicative, not additive.</li>
+        <li><strong>Confusing percentage points and percent change.</strong> A tax rate rising from 20% to 25% is 5 percentage points, but a 25% relative increase. The distinction matters enormously in news and financial reporting.</li>
+        <li><strong>Reverse percentage errors.</strong> If something is $70 after a 30% discount, the original was NOT $70 + 30% = $91. The correct calculation is $70 ÷ 0.70 = $100. The discount was taken off the original, not added back to the discounted price.</li>
+      </ol>
+
+      <div class="tip-box">
+        <div class="tip-icon">🧮</div>
+        <div class="tip-text"><strong>Never memorise when you can calculate.</strong> Bookmark the <a href="../tools/math/percentage-calculator.html">free Percentage Calculator</a> on this site. It covers all 5 formulas above, stores your calculation history, and works entirely in your browser — no signup, no ads interrupting your work.</div>
+      </div>
+
+      <h2 id="conclusion">Stop Guessing, Start Calculating</h2>
+      <p>Percentages are everywhere — in every price tag, every business report, every news headline about economic growth. The good news is that all percentage arithmetic comes from a single formula rearranged five different ways. Once you recognise which type of problem you're facing, the calculation is straightforward.</p>
+      <p>Keep this guide bookmarked as a reference, and use the <a href="../tools/math/percentage-calculator.html">Percentage Calculator</a> above whenever you need a quick answer without the mental gymnastics.</p>
+
+      <!-- Post tags -->
+      <div class="post-tags">
+        <span class="post-tags-label">Tags</span>
+        <a href="../tools.html?q=math" class="tag-chip">math</a>
+        <a href="../tools.html?q=percentage" class="tag-chip">percentage</a>
+        <a href="../tools.html?q=calculator" class="tag-chip">calculator</a>
+        <a href="../blog.html" class="tag-chip">finance</a>
+        <a href="../blog.html" class="tag-chip">formulas</a>
+        <a href="../blog.html" class="tag-chip">productivity</a>
+      </div>
+    </article>
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar" aria-label="Article sidebar">
+      <div class="sidebar-card">
+        <p class="sidebar-title">Table of Contents</p>
+        <ul class="toc-list">
+          <li><a href="#what-is">What is a Percentage?</a></li>
+          <li><a href="#basic">Formula 1 — Basic %</a></li>
+          <li><a href="#whatpct">Formula 2 — What %?</a></li>
+          <li><a href="#change">Formula 3 — % Change</a></li>
+          <li><a href="#reverse">Formula 4 — Reverse %</a></li>
+          <li><a href="#addsub">Formula 5 — Add/Subtract</a></li>
+          <li><a href="#compound">Bonus — Compound %</a></li>
+          <li><a href="#cheatsheet">Cheat Sheet</a></li>
+          <li><a href="#mistakes">3 Common Mistakes</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-card">
+        <p class="sidebar-title">Try These Tools</p>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <a href="../tools/math/percentage-calculator.html" class="sidebar-tool-link">
+            <div class="sidebar-tool-dot" style="background:linear-gradient(135deg,#a78bfa,#60a5fa)"></div>
+            <div><div class="sidebar-tool-name">Percentage Calculator</div><div class="sidebar-tool-desc">5 modes, history, free</div></div>
+          </a>
+          <a href="../tools/text/word-counter.html" class="sidebar-tool-link">
+            <div class="sidebar-tool-dot" style="background:linear-gradient(135deg,#667eea,#764ba2)"></div>
+            <div><div class="sidebar-tool-name">Word Counter</div><div class="sidebar-tool-desc">Count, analyse, estimate</div></div>
+          </a>
+          <a href="../tools/text/case-converter.html" class="sidebar-tool-link">
+            <div class="sidebar-tool-dot" style="background:linear-gradient(135deg,#f093fb,#f5576c)"></div>
+            <div><div class="sidebar-tool-name">Case Converter</div><div class="sidebar-tool-desc">12 case formats</div></div>
+          </a>
+          <a href="../tools/text/diff-checker.html" class="sidebar-tool-link">
+            <div class="sidebar-tool-dot" style="background:linear-gradient(135deg,#fa709a,#fee140)"></div>
+            <div><div class="sidebar-tool-name">Text Diff Checker</div><div class="sidebar-tool-desc">Compare any two texts</div></div>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<!-- ── AD ──────────────────────────────────────────────────── -->
+<div class="container">
+  <div class="ad-slot ad-incontent" aria-label="Advertisement">
+    <ins class="adsbygoogle" style="display:block;text-align:center" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="fluid" data-ad-layout="in-article" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+</div>
+
+<!-- ── RELATED TOOLS ─────────────────────────────────────────── -->
+<section class="related-section">
+  <div class="container">
+    <div class="related-header">
+      <h2 class="related-title">Tools Mentioned in This Article</h2>
+      <a href="../tools.html" class="btn-view-all">View all tools →</a>
+    </div>
+    <div class="related-grid">
+      <a href="../tools/math/percentage-calculator.html" class="rel-tool-card">
+        <div class="rel-tool-icon" style="background:linear-gradient(135deg,#a78bfa,#60a5fa)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+        </div>
+        <div class="rel-tool-name">Percentage Calculator</div>
+        <div class="rel-tool-desc">All 5 formulas in one tool. Basic %, what %, % change, reverse %, and add/subtract — with history.</div>
+        <span class="rel-tool-link">Try it →</span>
+      </a>
+      <a href="../tools/text/word-counter.html" class="rel-tool-card">
+        <div class="rel-tool-icon" style="background:linear-gradient(135deg,#667eea,#764ba2)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div class="rel-tool-name">Word Counter</div>
+        <div class="rel-tool-desc">Count words, characters, sentences, and estimate reading time for any content.</div>
+        <span class="rel-tool-link">Try it →</span>
+      </a>
+      <a href="../tools/text/case-converter.html" class="rel-tool-card">
+        <div class="rel-tool-icon" style="background:linear-gradient(135deg,#f093fb,#f5576c)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+        </div>
+        <div class="rel-tool-name">Case Converter</div>
+        <div class="rel-tool-desc">Convert text to camelCase, snake_case, UPPER, Title, and 8 more formats.</div>
+        <span class="rel-tool-link">Try it →</span>
+      </a>
+      <a href="../tools/text/diff-checker.html" class="rel-tool-card">
+        <div class="rel-tool-icon" style="background:linear-gradient(135deg,#fa709a,#fee140)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <div class="rel-tool-name">Text Diff Checker</div>
+        <div class="rel-tool-desc">Compare two texts side-by-side and highlight every addition, deletion, and change.</div>
+        <span class="rel-tool-link">Try it →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── RELATED BLOGS ─────────────────────────────────────────── -->
+<section class="related-section" style="padding-top:0">
+  <div class="container">
+    <div class="related-header">
+      <h2 class="related-title">More Articles</h2>
+      <a href="../blog.html" class="btn-view-all">View all →</a>
+    </div>
+    <div class="blog-cards-grid">
+      <a href="writing-productivity-tools.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(78,205,196,.1);color:#7eeee8;border:1px solid rgba(78,205,196,.3)">Productivity</span>
+        <div class="blog-card-title">Best Free Writing Productivity Tools for 2025</div>
+        <div class="blog-card-excerpt">Eight browser tools that save hours every week — no downloads, no logins.</div>
+        <div class="blog-card-meta">7 min read</div>
+        <span class="blog-read-link">Read →</span>
+      </a>
+      <a href="text-manipulation-tricks.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(247,151,30,.1);color:#ffd580;border:1px solid rgba(247,151,30,.3)">Dev</span>
+        <div class="blog-card-title">Text Manipulation Tricks Every Developer Should Know</div>
+        <div class="blog-card-excerpt">Regex patterns, case tricks, and string transforms that save real development time.</div>
+        <div class="blog-card-meta">5 min read</div>
+        <span class="blog-read-link">Read →</span>
+      </a>
+      <a href="seo-meta-tags-guide.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(245,87,108,.1);color:#ffacb8;border:1px solid rgba(245,87,108,.3)">SEO</span>
+        <div class="blog-card-title">Complete SEO Meta Tags Guide for 2025</div>
+        <div class="blog-card-excerpt">Every meta tag that affects rankings and click-through rate — with copy-paste templates.</div>
+        <div class="blog-card-meta">9 min read</div>
+        <span class="blog-read-link">Read →</span>
+      </a>
+      <a href="word-count-guide.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(102,126,234,.1);color:#b3c0ff;border:1px solid rgba(102,126,234,.3)">Writing</span>
+        <div class="blog-card-title">Word Count Guide: How Long Should Your Content Be?</div>
+        <div class="blog-card-excerpt">Data-backed length targets for blog posts, landing pages, and social copy.</div>
+        <div class="blog-card-meta">6 min read</div>
+        <span class="blog-read-link">Read →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────────── -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="../index.html" class="logo">
+          <svg class="logo-icon" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+            <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+            <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+            <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+            <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+          </svg>
+          <span class="logo-text">The Tool Empire</span>
+        </a>
+        <p class="footer-brand-text">Free, privacy-first browser tools for developers, writers, and designers. No login. No tracking. Just tools.</p>
+      </div>
+      <div>
+        <p class="footer-heading">Tools</p>
+        <nav class="footer-links">
+          <a href="../tools/math/percentage-calculator.html">Percentage Calculator</a>
+          <a href="../tools/text/word-counter.html">Word Counter</a>
+          <a href="../tools/text/case-converter.html">Case Converter</a>
+          <a href="../tools/text/diff-checker.html">Text Diff Checker</a>
+          <a href="../tools.html">All Tools →</a>
+        </nav>
+      </div>
+      <div>
+        <p class="footer-heading">Blog</p>
+        <nav class="footer-links">
+          <a href="percentage-calculator-guide.html">% Formulas Guide</a>
+          <a href="writing-productivity-tools.html">Productivity Tools</a>
+          <a href="seo-meta-tags-guide.html">SEO Guide</a>
+          <a href="word-count-guide.html">Word Count Guide</a>
+          <a href="../blog.html">All Articles →</a>
+        </nav>
+      </div>
+      <div>
+        <p class="footer-heading">Company</p>
+        <nav class="footer-links">
+          <a href="../about.html">About</a>
+          <a href="../contact.html">Contact</a>
+          <a href="../privacy.html">Privacy Policy</a>
+          <a href="../terms.html">Terms of Service</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="footer-year"></span> The Tool Empire. All rights reserved.</span>
+      <span>Built with ♥ — 100% free, forever.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  // reading progress
+  window.addEventListener('scroll', () => {
+    const el = document.documentElement;
+    const pct = (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
+    document.getElementById('prog-bar').style.width = pct + '%';
+    document.getElementById('site-header').classList.toggle('scrolled', el.scrollTop > 10);
+  }, { passive: true });
+  // mobile menu
+  document.getElementById('menu-btn').addEventListener('click', () => {
+    document.getElementById('mobile-nav').classList.toggle('open');
+  });
+</script>
+</body>
+</html>

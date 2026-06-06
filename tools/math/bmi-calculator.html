@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BMI Calculator — Free Online Body Mass Index Tool | The Tool Empire</title>
+  <meta name="description" content="Calculate your BMI instantly with our free online BMI calculator. Supports metric (kg/cm) and imperial (lbs/ft/in), shows BMI category, healthy weight range, and personalized health tips."/>
+  <meta name="keywords" content="BMI calculator, body mass index, BMI chart, healthy weight, overweight calculator, obesity calculator, free BMI tool"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/math/bmi-calculator.html"/>
+  <!-- OG -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="BMI Calculator — Free Online Body Mass Index Tool"/>
+  <meta property="og:description" content="Calculate your BMI instantly. Metric & imperial support, BMI category, healthy weight range — 100% free, no signup."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/math/bmi-calculator.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="BMI Calculator — Free Online Body Mass Index Tool"/>
+  <meta name="twitter:description" content="Calculate your BMI instantly. Metric & imperial, category display, healthy weight range."/>
+  <!-- Manifest & Icons -->
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" href="../../favicon.ico"/>
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <!-- AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+  <!-- Styles -->
+  <link rel="stylesheet" href="bmi-calculator.css"/>
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "BMI Calculator",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Any",
+        "url": "https://thetoolempire.com/tools/math/bmi-calculator.html",
+        "description": "Free online BMI calculator. Supports metric and imperial units, shows BMI category, healthy weight range and ideal weight.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "provider": { "@type": "Organization", "name": "The Tool Empire", "url": "https://thetoolempire.com" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home",       "item": "https://thetoolempire.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Math Tools", "item": "https://thetoolempire.com/tools.html#math" },
+          { "@type": "ListItem", "position": 3, "name": "BMI Calculator", "item": "https://thetoolempire.com/tools/math/bmi-calculator.html" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "What is BMI?", "acceptedAnswer": { "@type": "Answer", "text": "BMI (Body Mass Index) is a numerical value calculated from your weight and height, used as a screening tool to categorise weight status." } },
+          { "@type": "Question", "name": "What is a healthy BMI range?", "acceptedAnswer": { "@type": "Answer", "text": "For most adults, a BMI between 18.5 and 24.9 is considered healthy by the WHO and CDC." } },
+          { "@type": "Question", "name": "Is BMI accurate?", "acceptedAnswer": { "@type": "Answer", "text": "BMI is a useful population-level screening tool but doesn't measure body fat directly. Athletes, the elderly, and pregnant women may get misleading results." } },
+          { "@type": "Question", "name": "How is BMI calculated?", "acceptedAnswer": { "@type": "Answer", "text": "BMI = weight (kg) ÷ height² (m²) for metric. For imperial: BMI = 703 × weight (lbs) ÷ height² (in²)." } },
+          { "@type": "Question", "name": "What BMI is considered obese?", "acceptedAnswer": { "@type": "Answer", "text": "A BMI of 30 or above is classified as obese according to the World Health Organization." } }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body x-data="bmiCalcApp()" x-init="init()">
+
+<!-- ── HEADER ─────────────────────────────────────────────── -->
+<header class="site-header" id="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="../../index.html" class="logo" aria-label="The Tool Empire home">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+          <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+          <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+          <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+          <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#f472b6"/><stop offset="1" stop-color="#fb923c"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="../../index.html" class="nav-link">Home</a>
+        <a href="../../tools.html" class="nav-link active">Tools</a>
+        <a href="../../blog.html" class="nav-link">Blog</a>
+        <a href="../../about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" @click="mobileMenuOpen=!mobileMenuOpen" aria-label="Toggle menu" aria-expanded="mobileMenuOpen">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" :class="{open:mobileMenuOpen}" aria-label="Mobile navigation">
+    <a href="../../index.html" class="nav-link">Home</a>
+    <a href="../../tools.html" class="nav-link">Tools</a>
+    <a href="../../blog.html" class="nav-link">Blog</a>
+    <a href="../../about.html" class="nav-link">About</a>
+  </nav>
+</header>
+
+<!-- ── HERO ───────────────────────────────────────────────── -->
+<section class="tool-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol class="breadcrumb-list">
+        <li><a href="../../index.html">Home</a></li>
+        <li class="breadcrumb-sep" aria-hidden="true">›</li>
+        <li><a href="../../tools.html">Tools</a></li>
+        <li class="breadcrumb-sep" aria-hidden="true">›</li>
+        <li><a href="../../tools.html#math">Math</a></li>
+        <li class="breadcrumb-sep" aria-hidden="true">›</li>
+        <li aria-current="page">BMI Calculator</li>
+      </ol>
+    </nav>
+    <div class="tool-hero-inner">
+      <div class="tool-badge-row">
+        <span class="tool-cat-badge badge-health">Health</span>
+        <span class="tool-cat-badge badge-free">Free Forever</span>
+      </div>
+      <h1 class="tool-title">
+        <span class="gradient-text">BMI Calculator</span>
+      </h1>
+      <p class="tool-subtitle">Check your Body Mass Index in seconds. Supports metric and imperial units with BMI category, healthy weight range, and personalised health insights.</p>
+      <div class="tool-meta-row">
+        <span class="tool-meta-item">
+          <svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 4.5v4l2.5 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Instant results
+        </span>
+        <span class="tool-meta-item">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C4.13 1 1 4.13 1 8s3.13 7 7 7 7-3.13 7-7-3.13-7-7-7zm3.5 8h-4V5h1.5v2.5H11.5V9z"/></svg>
+          Metric &amp; Imperial
+        </span>
+        <span class="tool-meta-item">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 14A6 6 0 108 2a6 6 0 000 12z"/><path d="M8 5v4l3 1.5" stroke-linecap="round"/></svg>
+          No signup needed
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TOOL ────────────────────────────────────────────────── -->
+<main>
+  <section class="tool-section">
+    <div class="container">
+
+      <!-- AdSense leaderboard top -->
+      <div class="ad-slot ad-leaderboard" aria-label="Advertisement">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+      </div>
+
+      <!-- Calculator layout -->
+      <div class="calc-layout">
+
+        <!-- ── INPUT CARD ─────────────────────────────────── -->
+        <div class="input-card">
+          <h2 class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+            Enter Your Details
+          </h2>
+
+          <!-- Unit toggle -->
+          <div class="unit-toggle" role="group" aria-label="Unit system">
+            <button class="unit-btn" :class="{active: unit==='metric'}"   @click="setUnit('metric')"   type="button">Metric (kg / cm)</button>
+            <button class="unit-btn" :class="{active: unit==='imperial'}" @click="setUnit('imperial')" type="button">Imperial (lbs / ft)</button>
+          </div>
+
+          <!-- Metric inputs -->
+          <div x-show="unit==='metric'">
+            <div class="input-group">
+              <label class="input-label" for="bmi-height-cm">Height <span class="input-hint">cm</span></label>
+              <input id="bmi-height-cm" class="num-field" type="number" placeholder="e.g. 175" min="50" max="280" x-model="cm" @keydown.enter="calculate()"/>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="bmi-weight-kg">Weight <span class="input-hint">kg</span></label>
+              <input id="bmi-weight-kg" class="num-field" type="number" placeholder="e.g. 70" min="2" max="700" x-model="kg" @keydown.enter="calculate()"/>
+            </div>
+          </div>
+
+          <!-- Imperial inputs -->
+          <div x-show="unit==='imperial'">
+            <div class="input-group">
+              <label class="input-label">Height <span class="input-hint">ft &amp; in</span></label>
+              <div class="dual-inputs">
+                <div>
+                  <input class="num-field" type="number" placeholder="ft" min="1" max="9" x-model="ft" @keydown.enter="calculate()"/>
+                  <div class="dual-label">feet</div>
+                </div>
+                <div>
+                  <input class="num-field" type="number" placeholder="in" min="0" max="11" x-model="inch" @keydown.enter="calculate()"/>
+                  <div class="dual-label">inches</div>
+                </div>
+              </div>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="bmi-weight-lbs">Weight <span class="input-hint">lbs</span></label>
+              <input id="bmi-weight-lbs" class="num-field" type="number" placeholder="e.g. 154" min="5" max="1500" x-model="lbs" @keydown.enter="calculate()"/>
+            </div>
+          </div>
+
+          <!-- Age & Sex -->
+          <div class="meta-row">
+            <div class="input-group" style="margin-bottom:0">
+              <label class="input-label" for="bmi-age">Age <span class="input-hint">years (optional)</span></label>
+              <input id="bmi-age" class="num-field" type="number" placeholder="e.g. 28" min="2" max="120" x-model="age"/>
+            </div>
+            <div class="input-group" style="margin-bottom:0">
+              <label class="input-label">Biological sex</label>
+              <div class="sex-btns">
+                <button class="sex-btn" :class="{active: sex==='male'}"   @click="sex='male'"   type="button">Male</button>
+                <button class="sex-btn" :class="{active: sex==='female'}" @click="sex='female'" type="button">Female</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Calculate button -->
+          <button class="btn-calc" @click="calculate()" type="button" style="margin-top:22px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Calculate BMI
+          </button>
+
+          <!-- BMI Table -->
+          <div class="bmi-table-section" style="margin-top:28px">
+            <table class="bmi-table" aria-label="BMI categories">
+              <thead>
+                <tr><th>Category</th><th>BMI Range</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="cat-chip" style="background:rgba(96,165,250,.12);color:#93c5fd">Underweight</span></td>
+                  <td>Below 18.5</td>
+                </tr>
+                <tr>
+                  <td><span class="cat-chip" style="background:rgba(74,222,128,.12);color:#86efac">Normal weight</span></td>
+                  <td>18.5 – 24.9</td>
+                </tr>
+                <tr>
+                  <td><span class="cat-chip" style="background:rgba(251,191,36,.12);color:#fde68a">Overweight</span></td>
+                  <td>25 – 29.9</td>
+                </tr>
+                <tr>
+                  <td><span class="cat-chip" style="background:rgba(248,113,113,.12);color:#fca5a5">Obese</span></td>
+                  <td>30 and above</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ── RESULT CARD ──────────────────────────────── -->
+        <div class="result-card">
+
+          <!-- Empty state -->
+          <div class="result-empty" x-show="!hasResult">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="20"/><path d="M24 14v10l6 4" stroke-linecap="round"/></svg>
+            <p>Enter your height and weight,<br>then click <strong>Calculate BMI</strong></p>
+          </div>
+
+          <!-- Results -->
+          <div x-show="hasResult">
+
+            <!-- BMI number -->
+            <div class="bmi-display">
+              <div class="bmi-number gradient-text" x-text="bmi"></div>
+              <div class="bmi-category" :style="`background:${category?.color}1a;border:1px solid ${category?.color}55;color:${category?.color}`" x-text="category?.label"></div>
+              <p class="bmi-desc" x-text="bmiDesc"></p>
+            </div>
+
+            <!-- Gauge -->
+            <div class="bmi-gauge-wrap">
+              <div class="bmi-gauge-track">
+                <div class="bmi-gauge-needle" :style="`left:${gaugeLeft}`"></div>
+              </div>
+              <div class="bmi-gauge-labels">
+                <span>10</span><span>18.5</span><span>25</span><span>30</span><span>45+</span>
+              </div>
+            </div>
+
+            <!-- Healthy weight range -->
+            <div class="weight-range-card" x-show="weightRange">
+              <div class="wr-title">Weight ranges for your height</div>
+              <div class="wr-row">
+                <span class="wr-cat"><span class="wr-dot" style="background:#60a5fa"></span>Underweight</span>
+                <span class="wr-range" x-text="weightRange ? `Below ${weightRange.min} ${weightRange.unit}` : ''"></span>
+              </div>
+              <div class="wr-row">
+                <span class="wr-cat"><span class="wr-dot" style="background:#4ade80"></span>Normal weight</span>
+                <span class="wr-range" x-text="weightRange ? `${weightRange.min}–${weightRange.max} ${weightRange.unit}` : ''"></span>
+              </div>
+              <div class="wr-row">
+                <span class="wr-cat"><span class="wr-dot" style="background:#fbbf24"></span>Overweight</span>
+                <span class="wr-range" x-text="weightRange?.owMax ? `${weightRange.max}–${weightRange.owMax} ${weightRange.unit}` : ''"></span>
+              </div>
+              <div class="wr-row">
+                <span class="wr-cat"><span class="wr-dot" style="background:#f87171"></span>Obese</span>
+                <span class="wr-range" x-text="weightRange?.owMax ? `Above ${weightRange.owMax} ${weightRange.unit}` : ''"></span>
+              </div>
+            </div>
+
+            <!-- Ideal weight -->
+            <div class="ideal-card" x-show="idealWeight">
+              <div class="ideal-title">Ideal Weight (Devine Formula)</div>
+              <div class="ideal-range" x-text="idealWeight ? `${idealWeight.min} – ${idealWeight.max} ${idealWeight.unit}` : ''"></div>
+              <div class="ideal-sub">Estimated range based on height and biological sex</div>
+            </div>
+
+            <!-- Copy button -->
+            <button class="btn-report" style="margin-top:4px;width:100%;justify-content:center;padding:10px" @click="copyBMI()" type="button">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="8" height="9" rx="1.5"/><path d="M3 11V3a1 1 0 011-1h7" stroke-linecap="round"/></svg>
+              Copy BMI
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- AdSense in-content -->
+      <div class="ad-slot ad-incontent" aria-label="Advertisement">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── INFO TABS ──────────────────────────────────────────── -->
+  <section class="info-section">
+    <div class="container">
+      <div class="info-tabs-nav" role="tablist">
+        <button class="info-tab-btn active" role="tab" data-tab="desc"    onclick="switchInfoTab('desc')"    aria-selected="true">Description</button>
+        <button class="info-tab-btn"         role="tab" data-tab="how"     onclick="switchInfoTab('how')"     aria-selected="false">How It Works</button>
+        <button class="info-tab-btn"         role="tab" data-tab="behind"  onclick="switchInfoTab('behind')"  aria-selected="false">Behind the Scenes</button>
+        <button class="info-tab-btn"         role="tab" data-tab="uses"    onclick="switchInfoTab('uses')"    aria-selected="false">Use Cases</button>
+      </div>
+
+      <!-- Description -->
+      <div class="info-tab-pane active prose" id="tab-desc" role="tabpanel">
+        <h2>What Is BMI?</h2>
+        <p>Body Mass Index (BMI) is a simple numerical value derived from your weight and height. It's the most widely used screening tool by doctors, nutritionists, and health organisations worldwide to assess whether a person's weight falls within a healthy range for their stature.</p>
+        <p>Our free BMI calculator supports both <strong>metric</strong> (kilograms and centimetres) and <strong>imperial</strong> (pounds, feet and inches) input systems. After calculating, you'll see your exact BMI value, your weight category, a visual gauge, and the healthy weight range for your specific height.</p>
+        <h3>BMI Categories (WHO Standard)</h3>
+        <ul>
+          <li><strong>Below 18.5</strong> — Underweight</li>
+          <li><strong>18.5 – 24.9</strong> — Normal weight</li>
+          <li><strong>25 – 29.9</strong> — Overweight</li>
+          <li><strong>30 – 34.9</strong> — Obese Class I</li>
+          <li><strong>35 – 39.9</strong> — Obese Class II</li>
+          <li><strong>40 and above</strong> — Obese Class III (Severe)</li>
+        </ul>
+        <p>BMI is a population-level screening indicator, not a diagnostic tool. Athletes with high muscle mass, elderly people with muscle loss, and pregnant women may get misleading readings. Always consult a healthcare professional for a full assessment.</p>
+      </div>
+
+      <!-- How It Works -->
+      <div class="info-tab-pane prose" id="tab-how" role="tabpanel">
+        <h2>How to Use the BMI Calculator</h2>
+        <div class="steps-grid">
+          <div class="step-card"><div class="step-num">1</div><div class="step-title">Choose Units</div><div class="step-desc">Select Metric (kg/cm) or Imperial (lbs/ft/in) — whichever you're most comfortable with.</div></div>
+          <div class="step-card"><div class="step-num">2</div><div class="step-title">Enter Height</div><div class="step-desc">Type your height in centimetres, or in feet and inches if using imperial units.</div></div>
+          <div class="step-card"><div class="step-num">3</div><div class="step-title">Enter Weight</div><div class="step-desc">Input your current weight in kilograms or pounds. Use your most recent measurement.</div></div>
+          <div class="step-card"><div class="step-num">4</div><div class="step-title">View Results</div><div class="step-desc">Click Calculate BMI to see your score, category, gauge, and healthy weight range instantly.</div></div>
+        </div>
+        <h3>The Formulas</h3>
+        <p><strong>Metric:</strong> <code>BMI = weight(kg) ÷ height²(m²)</code><br>
+           <strong>Imperial:</strong> <code>BMI = 703 × weight(lbs) ÷ height²(in²)</code></p>
+        <p>The ideal weight shown uses the <strong>Devine formula</strong>, a widely-used clinical estimate: <code>50 kg + 2.3 kg per inch over 5ft</code> for men, <code>45.5 kg + 2.3 kg per inch over 5ft</code> for women, with a ±5 kg range shown.</p>
+      </div>
+
+      <!-- Behind the Scenes -->
+      <div class="info-tab-pane prose" id="tab-behind" role="tabpanel">
+        <h2>Behind the Scenes</h2>
+        <p>Everything runs in your browser — no data is sent to any server. The calculations are pure JavaScript using the standard WHO/CDC formulas.</p>
+        <p>The <strong>BMI gauge</strong> maps the BMI range 10–45 to a 0–100% position on the track, then uses CSS transitions to animate the needle smoothly on each calculation.</p>
+        <p>The <strong>healthy weight range</strong> is back-calculated from BMI 18.5 and 24.9 for your entered height: <code>min weight = 18.5 × height(m)²</code> and <code>max weight = 24.9 × height(m)²</code>.</p>
+        <p>For imperial display, weights are converted from kg using the factor <code>1 kg = 2.2046 lbs</code>, rounded to one decimal place.</p>
+        <p>The <strong>Devine ideal weight</strong> formula was created by B.J. Devine in 1974 and remains one of the most cited clinical estimates despite newer alternatives. We use it for its wide recognition, not as a strict target.</p>
+      </div>
+
+      <!-- Use Cases -->
+      <div class="info-tab-pane prose" id="tab-uses" role="tabpanel">
+        <h2>Use Cases</h2>
+        <ul>
+          <li><strong>Personal health tracking</strong> — Check your BMI periodically to track progress during a diet or fitness programme.</li>
+          <li><strong>Goal setting</strong> — Use the healthy weight range to set realistic target weights before starting a weight-loss journey.</li>
+          <li><strong>Healthcare screening</strong> — Nurses and doctors use BMI as a quick initial screen in clinical consultations.</li>
+          <li><strong>Fitness coaching</strong> — Personal trainers use BMI alongside body fat % and waist circumference to give clients a fuller picture.</li>
+          <li><strong>Insurance and research</strong> — BMI is frequently used in health insurance risk assessments and epidemiological studies.</li>
+          <li><strong>Education</strong> — Students studying nutrition, public health, or medicine often use BMI calculators for coursework.</li>
+        </ul>
+        <p>Remember: BMI is one data point among many. Combining it with waist circumference, body fat percentage, blood pressure, and other health markers gives a much more complete picture of overall health.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AdSense in-content bottom -->
+  <div class="container">
+    <div class="ad-slot ad-incontent" aria-label="Advertisement">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+  </div>
+
+  <!-- ── FAQ ─────────────────────────────────────────────────── -->
+  <section class="faq-section">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-list" role="list">
+
+        <div class="faq-item" :class="{open: openFaq===0}" role="listitem">
+          <button class="faq-q" @click="toggleFaq(0)" :aria-expanded="openFaq===0">
+            What is a normal BMI for adults?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">According to the World Health Organization (WHO), a BMI between 18.5 and 24.9 is considered normal or healthy for most adults. However, optimal ranges can vary slightly by age, ethnicity, and muscle mass.</div></div>
+        </div>
+
+        <div class="faq-item" :class="{open: openFaq===1}" role="listitem">
+          <button class="faq-q" @click="toggleFaq(1)" :aria-expanded="openFaq===1">
+            Is BMI different for men and women?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">The BMI formula and categories are the same for both men and women. However, men typically have more muscle mass and women more body fat at the same BMI, so the health implications can differ slightly. The sex selector in our tool affects the ideal weight estimate, not the BMI calculation itself.</div></div>
+        </div>
+
+        <div class="faq-item" :class="{open: openFaq===2}" role="listitem">
+          <button class="faq-q" @click="toggleFaq(2)" :aria-expanded="openFaq===2">
+            Why is my BMI high if I'm muscular?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">BMI doesn't differentiate between muscle and fat. A bodybuilder or athlete with very high muscle mass can have a BMI in the "overweight" range while having very low body fat. For such individuals, DEXA scans, hydrostatic weighing, or skinfold measurements are better assessments.</div></div>
+        </div>
+
+        <div class="faq-item" :class="{open: openFaq===3}" role="listitem">
+          <button class="faq-q" @click="toggleFaq(3)" :aria-expanded="openFaq===3">
+            What BMI is considered underweight?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">A BMI below 18.5 is classified as underweight. This can indicate malnutrition, an eating disorder, or other health conditions. If you're underweight, it's important to speak with a doctor or registered dietitian for guidance.</div></div>
+        </div>
+
+        <div class="faq-item" :class="{open: openFaq===4}" role="listitem">
+          <button class="faq-q" @click="toggleFaq(4)" :aria-expanded="openFaq===4">
+            How often should I check my BMI?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">For most people, checking BMI every 1–3 months is sufficient during active diet or exercise programmes. If your weight is stable, an annual check during a routine health check-up is generally enough. BMI fluctuates day-to-day with hydration and food intake, so avoid checking it daily.</div></div>
+        </div>
+
+        <div class="faq-item" :class="{open: openFaq===5}" role="listitem">
+          <button class="faq-q" @click="toggleFaq(5)" :aria-expanded="openFaq===5">
+            Does BMI apply to children?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">For children and teenagers (ages 2–19), BMI is interpreted using age- and sex-specific percentile charts rather than fixed adult cut-off values. A BMI in the 85th–94th percentile is considered overweight for children. Paediatric BMI calculators use CDC or WHO growth charts.</div></div>
+        </div>
+
+        <div class="faq-item" :class="{open: openFaq===6}" role="listitem">
+          <button class="faq-q" @click="toggleFaq(6)" :aria-expanded="openFaq===6">
+            Is a BMI of 25 unhealthy?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">A BMI of exactly 25 sits at the boundary between normal and overweight. Technically it falls in the overweight category, but a single point on the BMI scale doesn't determine health. Other factors like blood pressure, cholesterol, blood sugar, diet, and fitness levels matter far more for overall health outcomes.</div></div>
+        </div>
+
+        <div class="faq-item" :class="{open: openFaq===7}" role="listitem">
+          <button class="faq-q" @click="toggleFaq(7)" :aria-expanded="openFaq===7">
+            What is the BMI formula in imperial?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">The imperial BMI formula is: BMI = 703 × weight(lbs) ÷ height²(inches²). For example, a person weighing 154 lbs and standing 5'7" (67 inches tall) has a BMI of: 703 × 154 ÷ (67 × 67) = 108,262 ÷ 4,489 ≈ 24.1.</div></div>
+        </div>
+
+        <div class="faq-item" :class="{open: openFaq===8}" role="listitem">
+          <button class="faq-q" @click="toggleFaq(8)" :aria-expanded="openFaq===8">
+            Does ethnicity affect BMI cut-offs?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Yes. Research shows that people of Asian descent have higher health risks at lower BMI values. The WHO recommends lower thresholds for Asian populations — overweight starting at BMI 23 and obesity at BMI 27.5. Our calculator uses standard WHO thresholds; if you're of Asian descent, consider these adjusted values.</div></div>
+        </div>
+
+        <div class="faq-item" :class="{open: openFaq===9}" role="listitem">
+          <button class="faq-q" @click="toggleFaq(9)" :aria-expanded="openFaq===9">
+            Is this BMI calculator accurate?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Yes — as accurate as any BMI calculator can be. We use the standard WHO formulas and convert units precisely. The limitation isn't calculation accuracy; it's that BMI itself is an imperfect proxy for body fat and health. Your result matches what any doctor or health app would calculate from the same inputs.</div></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TAGS ────────────────────────────────────────────────── -->
+  <section class="tags-section">
+    <div class="container">
+      <div class="tags-row">
+        <span class="tags-label">Category</span>
+        <a href="../../tools.html#health" class="tag-chip">Health</a>
+        <a href="../../tools.html#math" class="tag-chip">Math</a>
+        <a href="../../tools.html#fitness" class="tag-chip">Fitness</a>
+      </div>
+      <div class="tags-row">
+        <span class="tags-label">Tags</span>
+        <span class="tag-chip hashtag-chip">#BMI</span>
+        <span class="tag-chip hashtag-chip">#BodyMassIndex</span>
+        <span class="tag-chip hashtag-chip">#HealthyWeight</span>
+        <span class="tag-chip hashtag-chip">#WeightCalculator</span>
+        <span class="tag-chip hashtag-chip">#ImperialMetric</span>
+        <span class="tag-chip hashtag-chip">#FitnessTracker</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── REPORT ──────────────────────────────────────────────── -->
+  <div class="container">
+    <div class="report-strip">
+      <span class="report-text">Found an issue with this tool?</span>
+      <button class="btn-report" @click="reportOpen=true" type="button">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 4v3m0 2.5v.5" stroke-linecap="round"/></svg>
+        Report a Problem
+      </button>
+    </div>
+  </div>
+
+  <!-- ── RELATED TOOLS ───────────────────────────────────────── -->
+  <section class="related-section">
+    <div class="container">
+      <div class="related-header">
+        <h2 class="related-title">Related Tools</h2>
+        <a href="../../tools.html" class="btn-view-all">View all tools →</a>
+      </div>
+      <div class="related-grid">
+        <a href="percentage-calculator.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#a78bfa,#60a5fa)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><text x="5" y="17" font-size="13" fill="white" stroke="none">%</text></svg>
+          </div>
+          <div class="related-tool-name">Percentage Calculator</div>
+          <div class="related-tool-desc">Calculate percentages, percent change, reverse percentage, and more.</div>
+          <span class="related-tool-link">Try it →</span>
+        </a>
+        <a href="../text/word-counter.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#06b6d4,#3b82f6)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h7" stroke-linecap="round"/></svg>
+          </div>
+          <div class="related-tool-name">Word Counter</div>
+          <div class="related-tool-desc">Count words, characters, sentences and reading time in any text.</div>
+          <span class="related-tool-link">Try it →</span>
+        </a>
+        <a href="../text/case-converter.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#f093fb,#f5576c)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h3m0 0v10m0-10h3M16 7l-4 10m4-10l4 10M14 14h4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="related-tool-name">Case Converter</div>
+          <div class="related-tool-desc">Convert text to camelCase, UPPER, Title Case, snake_case and more.</div>
+          <span class="related-tool-link">Try it →</span>
+        </a>
+        <a href="../coding/qr-code-maker.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#667eea,#764ba2)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="3" height="3"/></svg>
+          </div>
+          <div class="related-tool-name">QR Code Maker</div>
+          <div class="related-tool-desc">Generate QR codes for URLs, text, contacts and more — free.</div>
+          <span class="related-tool-link">Try it →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RELATED BLOGS ───────────────────────────────────────── -->
+  <section class="related-section" style="padding-top:0">
+    <div class="container">
+      <div class="related-header">
+        <h2 class="related-title">Related Articles</h2>
+        <a href="../../blog.html" class="btn-view-all">View all articles →</a>
+      </div>
+      <div class="blog-cards-grid">
+        <a href="../../blog/bmi-calculator-guide.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(244,114,182,.12);color:#f9a8d4;border:1px solid rgba(244,114,182,.2)">Health</span>
+          <div class="blog-card-title">What Your BMI Really Tells You (And What It Doesn't)</div>
+          <div class="blog-card-excerpt">A deep dive into BMI categories, limitations, and how to use it alongside other health markers for a complete picture.</div>
+          <div class="blog-card-meta">June 6, 2026 · 7 min read</div>
+          <span class="blog-read-link">Read article →</span>
+        </a>
+        <a href="../../blog/percentage-calculator-guide.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(167,139,250,.12);color:#c4b5fd;border:1px solid rgba(167,139,250,.2)">Math</span>
+          <div class="blog-card-title">Percentage Formulas Everyone Should Know</div>
+          <div class="blog-card-excerpt">Master percent change, reverse percentage, and compound growth with real-world examples and a handy cheat sheet.</div>
+          <div class="blog-card-meta">June 6, 2026 · 8 min read</div>
+          <span class="blog-read-link">Read article →</span>
+        </a>
+        <a href="../../blog/word-count-guide.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(6,182,212,.12);color:#67e8f9;border:1px solid rgba(6,182,212,.2)">Writing</span>
+          <div class="blog-card-title">Word Count Guide for Writers</div>
+          <div class="blog-card-excerpt">Everything you need to know about ideal word counts for blog posts, essays, novels, and more.</div>
+          <div class="blog-card-meta">June 6, 2026 · 5 min read</div>
+          <span class="blog-read-link">Read article →</span>
+        </a>
+        <a href="../../blog/text-manipulation-tricks.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(251,146,60,.12);color:#fdba74;border:1px solid rgba(251,146,60,.2)">Productivity</span>
+          <div class="blog-card-title">Text Manipulation Tricks for Developers</div>
+          <div class="blog-card-excerpt">Powerful text transformations that save hours of manual editing — from case conversion to regex shortcuts.</div>
+          <div class="blog-card-meta">April 15, 2026 · 6 min read</div>
+          <span class="blog-read-link">Read article →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── REPORT MODAL ────────────────────────────────────────── -->
+<div class="modal-overlay" x-show="reportOpen" x-transition style="display:none" @click.self="closeReport()">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="report-title">
+    <div x-show="!reportSent">
+      <h2 class="modal-title" id="report-title">Report a Problem</h2>
+      <p class="modal-sub">Help us improve! Select the issue you encountered.</p>
+      <div class="report-options">
+        <label class="report-option" :class="{selected: reportSelected==='wrong_result'}">
+          <input type="radio" value="wrong_result" x-model="reportSelected"/>
+          <span class="report-radio"></span> Wrong calculation result
+        </label>
+        <label class="report-option" :class="{selected: reportSelected==='ui_broken'}">
+          <input type="radio" value="ui_broken" x-model="reportSelected"/>
+          <span class="report-radio"></span> UI element is broken
+        </label>
+        <label class="report-option" :class="{selected: reportSelected==='slow'}">
+          <input type="radio" value="slow" x-model="reportSelected"/>
+          <span class="report-radio"></span> Tool is slow or unresponsive
+        </label>
+        <label class="report-option" :class="{selected: reportSelected==='missing_feature'}">
+          <input type="radio" value="missing_feature" x-model="reportSelected"/>
+          <span class="report-radio"></span> Missing feature or unit
+        </label>
+        <label class="report-option" :class="{selected: reportSelected==='other'}">
+          <input type="radio" value="other" x-model="reportSelected"/>
+          <span class="report-radio"></span> Other
+        </label>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" @click="closeReport()" type="button">Cancel</button>
+        <button class="btn-submit" @click="submitReport()" :disabled="!reportSelected" type="button">Submit Report</button>
+      </div>
+    </div>
+    <div class="report-success" x-show="reportSent">
+      <div class="report-success-icon">✓</div>
+      <h3>Thanks for the feedback!</h3>
+      <p>We'll look into the issue and fix it as soon as possible.</p>
+      <button class="btn-submit" @click="closeReport()" style="margin-top:16px" type="button">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOAST ───────────────────────────────────────────────── -->
+<div class="toast" id="bmi-toast" role="status" aria-live="polite" x-text="toastMsg"></div>
+
+<!-- ── FOOTER ──────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="../../index.html" class="logo" style="margin-bottom:12px">
+          <svg class="logo-icon" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+            <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+            <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+            <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+            <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#f472b6"/><stop offset="1" stop-color="#fb923c"/></linearGradient></defs>
+          </svg>
+          <span class="logo-text">The Tool Empire</span>
+        </a>
+        <p class="footer-brand-text">Free, fast, browser-based tools for everyone. No signup, no installs, no nonsense.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Tools</div>
+        <div class="footer-links">
+          <a href="../../tools.html#text">Text Tools</a>
+          <a href="../../tools.html#math">Math Tools</a>
+          <a href="../../tools.html#coding">Coding Tools</a>
+          <a href="../../tools.html">All Tools</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Company</div>
+        <div class="footer-links">
+          <a href="../../about.html">About</a>
+          <a href="../../blog.html">Blog</a>
+          <a href="../../contact.html">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Legal</div>
+        <div class="footer-links">
+          <a href="../../privacy.html">Privacy Policy</a>
+          <a href="../../terms.html">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 The Tool Empire. All rights reserved.</span>
+      <span>Made with care for the web</span>
+    </div>
+  </div>
+</footer>
+
+<script src="bmi-calculator.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</body>
+</html>

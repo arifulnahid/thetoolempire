@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Unit Converter — Length, Weight, Temperature, Area & More | The Tool Empire</title>
+  <meta name="description" content="Free online unit converter. Convert length, weight, temperature, area, volume, speed, time, data, energy, and pressure — 100+ units across 10 categories. Instant results, no signup."/>
+  <meta name="keywords" content="unit converter, length converter, weight converter, temperature converter, metric converter, imperial converter, online unit converter free"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/math/unit-converter.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Unit Converter — Length, Weight, Temperature & 100+ Units"/>
+  <meta property="og:description" content="Convert any unit instantly — length, weight, temperature, area, volume, speed, time, data, energy, pressure. Free, no signup."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/math/unit-converter.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" href="../../favicon.ico"/>
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <!-- AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="unit-converter.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Unit Converter",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "url": "https://thetoolempire.com/tools/math/unit-converter.html",
+        "description": "Free online unit converter. Convert length, weight, temperature, area, volume, speed, time, data, energy and pressure. 100+ units, instant results.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "provider": { "@type": "Organization", "name": "The Tool Empire", "url": "https://thetoolempire.com" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home",       "item": "https://thetoolempire.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Math Tools", "item": "https://thetoolempire.com/tools.html#math" },
+          { "@type": "ListItem", "position": 3, "name": "Unit Converter", "item": "https://thetoolempire.com/tools/math/unit-converter.html" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "How do I convert meters to feet?", "acceptedAnswer": { "@type": "Answer", "text": "Select the Length category, set From to Meter and To to Foot, then enter your value. The result appears instantly. 1 meter = 3.28084 feet." } },
+          { "@type": "Question", "name": "How do I convert Celsius to Fahrenheit?", "acceptedAnswer": { "@type": "Answer", "text": "Select Temperature, choose Celsius as the From unit and Fahrenheit as the To unit. The formula is °F = (°C × 9/5) + 32." } },
+          { "@type": "Question", "name": "How many units does this converter support?", "acceptedAnswer": { "@type": "Answer", "text": "Over 100 units across 10 categories: Length, Weight, Temperature, Area, Volume, Speed, Time, Data Storage, Energy, and Pressure." } }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body x-data="unitConverterApp()" x-init="init()">
+
+<!-- ── HEADER ─────────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="../../index.html" class="logo" aria-label="The Tool Empire home">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+          <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+          <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+          <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+          <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#34d399"/><stop offset="1" stop-color="#fbbf24"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="../../index.html" class="nav-link">Home</a>
+        <a href="../../tools.html" class="nav-link active">Tools</a>
+        <a href="../../blog.html" class="nav-link">Blog</a>
+        <a href="../../about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" @click="mobileMenuOpen=!mobileMenuOpen" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" :class="{open:mobileMenuOpen}">
+    <a href="../../index.html" class="nav-link">Home</a>
+    <a href="../../tools.html" class="nav-link">Tools</a>
+    <a href="../../blog.html" class="nav-link">Blog</a>
+    <a href="../../about.html" class="nav-link">About</a>
+  </nav>
+</header>
+
+<!-- ── HERO ───────────────────────────────────────────────── -->
+<section class="tool-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol class="breadcrumb-list">
+        <li><a href="../../index.html">Home</a></li>
+        <li>›</li>
+        <li><a href="../../tools.html">Tools</a></li>
+        <li>›</li>
+        <li><a href="../../tools.html#math">Math</a></li>
+        <li>›</li>
+        <li aria-current="page">Unit Converter</li>
+      </ol>
+    </nav>
+    <div class="tool-hero-inner">
+      <div class="tool-badge-row">
+        <span class="tool-cat-badge badge-util">10 Categories</span>
+        <span class="tool-cat-badge badge-free">100+ Units</span>
+      </div>
+      <h1 class="tool-title"><span class="gradient-text">Unit Converter</span></h1>
+      <p class="tool-subtitle">Convert length, weight, temperature, area, volume, speed, time, data, energy and pressure — instantly, with every unit shown at once.</p>
+      <div class="tool-meta-row">
+        <span>Instant conversion</span>
+        <span>·</span>
+        <span>All results at once</span>
+        <span>·</span>
+        <span>Copy any value</span>
+        <span>·</span>
+        <span>No signup</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CATEGORY TABS ──────────────────────────────────────── -->
+<div class="cat-tabs-wrap">
+  <div class="container">
+    <div class="cat-tabs" role="tablist" aria-label="Unit categories">
+      <template x-for="key in catKeys" :key="key">
+        <button
+          class="cat-tab"
+          :class="{ active: activeCat === key }"
+          @click="setCat(key)"
+          role="tab"
+          :aria-selected="activeCat === key"
+          x-text="categories[key].emoji + ' ' + categories[key].label"
+          type="button">
+        </button>
+      </template>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOOL ────────────────────────────────────────────────── -->
+<main>
+  <section class="tool-section">
+    <div class="container">
+
+      <!-- AdSense leaderboard -->
+      <div class="ad-slot ad-leaderboard" aria-label="Advertisement">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+      </div>
+
+      <!-- Converter card -->
+      <div class="converter-card">
+
+        <!-- Header -->
+        <div class="converter-top">
+          <div class="converter-cat-label">
+            <span class="cat-emoji" x-text="currentCat.emoji"></span>
+            <span x-text="currentCat.label"></span>
+            <span class="unit-count-badge" x-text="unitKeys.length + ' units'"></span>
+          </div>
+        </div>
+
+        <!-- I/O row -->
+        <div class="io-row">
+          <!-- FROM -->
+          <div class="io-group">
+            <label class="io-label">From</label>
+            <select class="unit-select" x-model="fromUnit" aria-label="From unit">
+              <template x-for="key in unitKeys" :key="key">
+                <option :value="key" x-text="currentCat.units[key].label + ' (' + currentCat.units[key].symbol + ')'"></option>
+              </template>
+            </select>
+            <input class="num-input" type="number" x-model="inputVal" placeholder="Enter value…" aria-label="Input value" step="any"/>
+          </div>
+
+          <!-- SWAP -->
+          <button class="swap-btn" @click="swap()" type="button" aria-label="Swap units">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+
+          <!-- TO -->
+          <div class="io-group">
+            <label class="io-label">To</label>
+            <select class="unit-select" x-model="toUnit" aria-label="To unit">
+              <template x-for="key in unitKeys" :key="key">
+                <option :value="key" x-text="currentCat.units[key].label + ' (' + currentCat.units[key].symbol + ')'"></option>
+              </template>
+            </select>
+            <input class="num-input output-field" type="text" :value="outputVal" readonly aria-label="Output value" placeholder="Result…"/>
+          </div>
+        </div>
+
+        <!-- Formula chip -->
+        <div class="formula-chip" x-show="outputVal && outputVal !== '—'">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8h12M8 2v12" stroke-linecap="round"/></svg>
+          <span x-text="formulaText"></span>
+        </div>
+
+        <!-- All results -->
+        <div x-show="inputVal && !isNaN(parseFloat(inputVal))">
+          <div class="all-results-title">All conversions for <span x-text="inputVal || '0'"></span> <span x-text="currentCat.units[fromUnit]?.symbol"></span></div>
+          <div class="results-grid">
+            <template x-for="r in allResults" :key="r.key">
+              <div
+                class="result-item"
+                :class="{ highlight: r.isTo }"
+                @click="copyResult(r.val, r.key)"
+                role="button"
+                :aria-label="'Copy ' + r.val + ' ' + r.symbol"
+                tabindex="0"
+                @keydown.enter="copyResult(r.val, r.key)">
+                <div>
+                  <div class="result-unit" x-text="r.label"></div>
+                  <div class="result-val" x-text="r.val + ' ' + r.symbol"></div>
+                </div>
+                <svg class="result-copy-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="8" height="9" rx="1.5"/><path d="M3 11V3a1 1 0 011-1h7" stroke-linecap="round"/></svg>
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <!-- Action bar -->
+        <div class="action-bar">
+          <button class="btn-action btn-action-primary" @click="copyFormula()" type="button">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="8" height="9" rx="1.5"/><path d="M3 11V3a1 1 0 011-1h7" stroke-linecap="round"/></svg>
+            Copy Formula
+          </button>
+          <button class="btn-action" @click="clearInput()" type="button">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 2l12 12M14 2L2 14" stroke-linecap="round"/></svg>
+            Clear
+          </button>
+        </div>
+      </div>
+
+      <!-- AdSense in-content -->
+      <div class="ad-slot ad-incontent" aria-label="Advertisement">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── INFO TABS ──────────────────────────────────────────── -->
+  <section class="info-section">
+    <div class="container">
+      <div class="info-tabs-nav" role="tablist">
+        <button class="info-tab-btn active" data-tab="desc"   onclick="switchInfoTab('desc')"   role="tab">Description</button>
+        <button class="info-tab-btn"         data-tab="how"    onclick="switchInfoTab('how')"    role="tab">How It Works</button>
+        <button class="info-tab-btn"         data-tab="behind" onclick="switchInfoTab('behind')" role="tab">Behind the Scenes</button>
+        <button class="info-tab-btn"         data-tab="uses"   onclick="switchInfoTab('uses')"   role="tab">Use Cases</button>
+      </div>
+
+      <div class="info-tab-pane active prose" id="tab-desc">
+        <h2>The All-in-One Unit Converter</h2>
+        <p>This free unit converter covers <strong>10 measurement categories</strong> and over <strong>100 individual units</strong>. Unlike converters that show only one result at a time, ours displays every unit in the chosen category simultaneously — so you can see all conversions at a glance and click any result to copy it instantly.</p>
+        <h3>Categories</h3>
+        <ul>
+          <li><strong>📏 Length</strong> — km, m, cm, mm, mile, yard, foot, inch, nautical mile, light year</li>
+          <li><strong>⚖️ Weight / Mass</strong> — metric ton, kg, g, mg, lb, oz, stone, US ton</li>
+          <li><strong>🌡️ Temperature</strong> — Celsius, Fahrenheit, Kelvin, Rankine</li>
+          <li><strong>⬜ Area</strong> — km², m², cm², hectare, acre, sq. mile, sq. foot</li>
+          <li><strong>🧪 Volume</strong> — m³, L, mL, US gallon, pint, cup, fl oz, tablespoon, imp. gallon</li>
+          <li><strong>💨 Speed</strong> — m/s, km/h, mph, knot, Mach, speed of light</li>
+          <li><strong>⏱️ Time</strong> — year, month, week, day, hour, minute, second, millisecond</li>
+          <li><strong>💾 Data Storage</strong> — bit, byte, KB, MB, GB, TB, PB, KiB, MiB, GiB</li>
+          <li><strong>⚡ Energy</strong> — joule, kJ, calorie, kcal, kWh, BTU, electronvolt</li>
+          <li><strong>🔵 Pressure</strong> — Pa, kPa, bar, atm, Torr, PSI, mmHg</li>
+        </ul>
+      </div>
+
+      <div class="info-tab-pane prose" id="tab-how">
+        <h2>How to Use the Unit Converter</h2>
+        <div class="steps-grid">
+          <div class="step-card"><div class="step-num">1</div><div class="step-title">Pick a Category</div><div class="step-desc">Click any category tab at the top — Length, Weight, Temperature, and so on.</div></div>
+          <div class="step-card"><div class="step-num">2</div><div class="step-title">Select Units</div><div class="step-desc">Choose your "From" unit and "To" unit from the dropdowns. All units in the category are available.</div></div>
+          <div class="step-card"><div class="step-num">3</div><div class="step-title">Enter a Value</div><div class="step-desc">Type your number. Results update instantly — no button press needed.</div></div>
+          <div class="step-card"><div class="step-num">4</div><div class="step-title">Copy Any Result</div><div class="step-desc">Click any result card in the "All conversions" grid to copy that value + symbol to clipboard.</div></div>
+        </div>
+        <h3>Swap Button</h3>
+        <p>The ⇅ swap button between the two fields reverses the From and To units and transfers the output value back to the input — useful for quick round-trip checks.</p>
+      </div>
+
+      <div class="info-tab-pane prose" id="tab-behind">
+        <h2>Behind the Scenes</h2>
+        <p>All conversions run entirely in your browser using JavaScript. No data is sent to any server.</p>
+        <p><strong>Factor-based conversion:</strong> Every unit stores a multiplication factor relative to a base unit for that category (e.g. for Length, the base is <code>meter</code>). To convert from Unit A to Unit B: multiply by A's factor to get the base value, then divide by B's factor.</p>
+        <p><strong>Temperature</strong> uses custom formulas instead of factors (since Celsius ↔ Fahrenheit involves an additive offset). All four scales (°C, °F, K, °R) are handled via dedicated <code>toCelsius</code> / <code>fromCelsius</code> functions.</p>
+        <p><strong>Smart formatting:</strong> Very large and very small numbers (e.g. light-years to nanometers) are shown in scientific notation to avoid overflow. Values between those extremes use up to 8 significant figures.</p>
+        <p><strong>Alpine.js reactivity:</strong> The <code>outputVal</code> and <code>allResults</code> are computed getters — they recalculate instantly on every keystroke or unit change.</p>
+      </div>
+
+      <div class="info-tab-pane prose" id="tab-uses">
+        <h2>Who Needs a Unit Converter?</h2>
+        <ul>
+          <li><strong>Travellers</strong> — Convert miles ↔ kilometres, Fahrenheit ↔ Celsius, gallons ↔ litres when crossing between metric and imperial countries.</li>
+          <li><strong>Students &amp; scientists</strong> — Convert between SI units (Pa, J, m/s) and practical units (atm, kcal, mph) for physics and chemistry problems.</li>
+          <li><strong>Developers &amp; IT</strong> — Convert between bit, byte, KB, MB, GB, TB instantly when estimating storage or bandwidth requirements.</li>
+          <li><strong>Cooks &amp; bakers</strong> — Convert cups to mL, tablespoons to grams, Fahrenheit to Celsius for oven temperatures.</li>
+          <li><strong>Engineers</strong> — Convert pressure (PSI ↔ bar ↔ kPa), energy (kWh ↔ BTU), speed (m/s ↔ mph) in technical documents.</li>
+          <li><strong>E-commerce &amp; import/export</strong> — Convert weights (kg ↔ lbs), dimensions (cm ↔ inches) for product listings across markets.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- AdSense in-content bottom -->
+  <div class="container">
+    <div class="ad-slot ad-incontent" aria-label="Advertisement">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+  </div>
+
+  <!-- ── FAQ ─────────────────────────────────────────────────── -->
+  <section class="faq-section">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-list">
+
+        <div class="faq-item" :class="{open:openFaq===0}">
+          <button class="faq-q" @click="toggleFaq(0)">How do I convert meters to feet?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Select the <strong>Length</strong> category, set From to <em>Meter</em> and To to <em>Foot</em>, then type your value. The result appears instantly. The exact conversion is 1 meter = 3.28084 feet.</div></div>
+        </div>
+
+        <div class="faq-item" :class="{open:openFaq===1}">
+          <button class="faq-q" @click="toggleFaq(1)">How do I convert Celsius to Fahrenheit?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Select <strong>Temperature</strong>, choose <em>Celsius</em> → <em>Fahrenheit</em>. Formula: °F = (°C × 9/5) + 32. For example, 100 °C = 212 °F.</div></div>
+        </div>
+
+        <div class="faq-item" :class="{open:openFaq===2}">
+          <button class="faq-q" @click="toggleFaq(2)">How many kilograms in a pound?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">1 pound = 0.45359237 kilograms exactly (by international definition). Select <strong>Weight</strong>, set Pound → Kilogram to verify. So 10 lbs ≈ 4.536 kg.</div></div>
+        </div>
+
+        <div class="faq-item" :class="{open:openFaq===3}">
+          <button class="faq-q" @click="toggleFaq(3)">What is the difference between a US gallon and an imperial gallon?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">A US gallon = 3.785 litres. An imperial (UK) gallon = 4.546 litres — about 20% larger. Both are available in the <strong>Volume</strong> category. This difference is why UK fuel economy (mpg) figures appear better than US figures for the same car.</div></div>
+        </div>
+
+        <div class="faq-item" :class="{open:openFaq===4}">
+          <button class="faq-q" @click="toggleFaq(4)">How do I convert km/h to mph?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Select <strong>Speed</strong>, set Kilometer/Hour → Mile/Hour. 1 km/h = 0.621371 mph. So 100 km/h ≈ 62.14 mph — a useful figure for European speed limits.</div></div>
+        </div>
+
+        <div class="faq-item" :class="{open:openFaq===5}">
+          <button class="faq-q" @click="toggleFaq(5)">What is a Mach number?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Mach 1 is the speed of sound in dry air at 20 °C — approximately 343 m/s (1,235 km/h or 767 mph). Mach 2 = twice the speed of sound. Our converter uses 343 m/s as the Mach base value.</div></div>
+        </div>
+
+        <div class="faq-item" :class="{open:openFaq===6}">
+          <button class="faq-q" @click="toggleFaq(6)">What is the difference between KB and KiB?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">KB (kilobyte) in SI definition = 1,000 bytes. KiB (kibibyte) = 1,024 bytes. In practice most operating systems use 1,024-byte kilobytes but label them "KB." Our converter provides both so you can convert accurately for either convention.</div></div>
+        </div>
+
+        <div class="faq-item" :class="{open:openFaq===7}">
+          <button class="faq-q" @click="toggleFaq(7)">How do I convert acres to square meters?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Select <strong>Area</strong>, set Acre → Square Meter. 1 acre = 4,046.856 m². This is approximately 63.6 × 63.6 metres — useful for comparing land areas between US/UK and metric countries.</div></div>
+        </div>
+
+        <div class="faq-item" :class="{open:openFaq===8}">
+          <button class="faq-q" @click="toggleFaq(8)">Can I convert calories to kilojoules?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Yes — select <strong>Energy</strong>, set Kilocalorie → Kilojoule. 1 kcal = 4.184 kJ. Food labels in Europe show kJ; US labels show kcal. A 2,000 kcal diet ≈ 8,368 kJ.</div></div>
+        </div>
+
+        <div class="faq-item" :class="{open:openFaq===9}">
+          <button class="faq-q" @click="toggleFaq(9)">Is the converter accurate for scientific use?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Yes. All conversion factors use internationally defined exact values where available (e.g. 1 inch = 0.0254 m exactly, 1 pound = 0.45359237 kg exactly). Results are displayed to up to 8 significant figures. For extreme ranges (light years to nanometers) scientific notation is used automatically.</div></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TAGS ────────────────────────────────────────────────── -->
+  <section class="tags-section">
+    <div class="container">
+      <div class="tags-row">
+        <span class="tags-label">Category</span>
+        <a href="../../tools.html#math" class="tag-chip">Math</a>
+        <a href="../../tools.html#utility" class="tag-chip">Utility</a>
+        <a href="../../tools.html#science" class="tag-chip">Science</a>
+      </div>
+      <div class="tags-row">
+        <span class="tags-label">Tags</span>
+        <span class="tag-chip hashtag-chip">#UnitConverter</span>
+        <span class="tag-chip hashtag-chip">#MetricImperial</span>
+        <span class="tag-chip hashtag-chip">#LengthConverter</span>
+        <span class="tag-chip hashtag-chip">#TempConverter</span>
+        <span class="tag-chip hashtag-chip">#WeightConverter</span>
+        <span class="tag-chip hashtag-chip">#UnitConversion</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── REPORT ──────────────────────────────────────────────── -->
+  <div class="container">
+    <div class="report-strip">
+      <span class="report-text">Found an issue with this tool?</span>
+      <button class="btn-report" @click="reportOpen=true" type="button">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 4v3m0 2.5v.5" stroke-linecap="round"/></svg>
+        Report a Problem
+      </button>
+    </div>
+  </div>
+
+  <!-- ── RELATED TOOLS ───────────────────────────────────────── -->
+  <section class="related-section">
+    <div class="container">
+      <div class="related-header">
+        <h2 class="related-title">Related Tools</h2>
+        <a href="../../tools.html" class="btn-view-all">View all tools →</a>
+      </div>
+      <div class="related-grid">
+        <a href="percentage-calculator.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#a78bfa,#60a5fa)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="9" r="3"/><circle cx="15" cy="15" r="3"/><path d="M6 18L18 6" stroke-linecap="round"/></svg>
+          </div>
+          <div class="related-tool-name">Percentage Calculator</div>
+          <div class="related-tool-desc">Calculate percentages, percent change, and reverse percentage in one tool.</div>
+          <span class="related-tool-link">Try it →</span>
+        </a>
+        <a href="bmi-calculator.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#f472b6,#fb923c)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+          </div>
+          <div class="related-tool-name">BMI Calculator</div>
+          <div class="related-tool-desc">Check your Body Mass Index with metric or imperial inputs and BMI category.</div>
+          <span class="related-tool-link">Try it →</span>
+        </a>
+        <a href="age-calculator.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#818cf8,#38bdf8)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18" stroke-linecap="round"/></svg>
+          </div>
+          <div class="related-tool-name">Age Calculator</div>
+          <div class="related-tool-desc">Find your exact age in years, months, days, total hours, and next birthday countdown.</div>
+          <span class="related-tool-link">Try it →</span>
+        </a>
+        <a href="../coding/qr-code-maker.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#667eea,#764ba2)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="3" height="3"/></svg>
+          </div>
+          <div class="related-tool-name">QR Code Maker</div>
+          <div class="related-tool-desc">Generate QR codes for URLs, text, contacts, and more — free.</div>
+          <span class="related-tool-link">Try it →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RELATED BLOGS ───────────────────────────────────────── -->
+  <section class="related-section" style="padding-top:0">
+    <div class="container">
+      <div class="related-header">
+        <h2 class="related-title">Related Articles</h2>
+        <a href="../../blog.html" class="btn-view-all">View all articles →</a>
+      </div>
+      <div class="blog-cards-grid">
+        <a href="../../blog/unit-converter-guide.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(52,211,153,.12);color:#6ee7b7;border:1px solid rgba(52,211,153,.2)">Science</span>
+          <div class="blog-card-title">Metric vs Imperial: The Complete Unit Conversion Guide</div>
+          <div class="blog-card-excerpt">Everything you need to know to convert between metric and imperial units — with the most common conversions you'll actually use.</div>
+          <div class="blog-card-meta">June 6, 2026 · 8 min read</div>
+          <span class="blog-read-link">Read article →</span>
+        </a>
+        <a href="../../blog/percentage-calculator-guide.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(167,139,250,.12);color:#c4b5fd;border:1px solid rgba(167,139,250,.2)">Math</span>
+          <div class="blog-card-title">Percentage Formulas Everyone Should Know</div>
+          <div class="blog-card-excerpt">Master percent change, reverse percentage, and compound growth with real-world examples.</div>
+          <div class="blog-card-meta">June 6, 2026 · 8 min read</div>
+          <span class="blog-read-link">Read article →</span>
+        </a>
+        <a href="../../blog/bmi-calculator-guide.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(244,114,182,.12);color:#f9a8d4;border:1px solid rgba(244,114,182,.2)">Health</span>
+          <div class="blog-card-title">What Your BMI Really Tells You (And What It Doesn't)</div>
+          <div class="blog-card-excerpt">A clear guide to BMI categories, honest limitations, and what to measure alongside it.</div>
+          <div class="blog-card-meta">June 6, 2026 · 7 min read</div>
+          <span class="blog-read-link">Read article →</span>
+        </a>
+        <a href="../../blog/age-calculator-guide.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(129,140,248,.12);color:#a5b4fc;border:1px solid rgba(129,140,248,.2)">Life</span>
+          <div class="blog-card-title">How Many Days Old Are You? The Surprising Math of Your Age</div>
+          <div class="blog-card-excerpt">Most people know their age in years. Discover the fascinating numbers hiding behind your birthdate.</div>
+          <div class="blog-card-meta">June 6, 2026 · 6 min read</div>
+          <span class="blog-read-link">Read article →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── REPORT MODAL ────────────────────────────────────────── -->
+<div class="modal-overlay" x-show="reportOpen" x-transition style="display:none" @click.self="closeReport()">
+  <div class="modal-box" role="dialog" aria-modal="true">
+    <div x-show="!reportSent">
+      <h2 class="modal-title">Report a Problem</h2>
+      <p class="modal-sub">Help us improve! Select the issue you encountered.</p>
+      <div class="report-options">
+        <label class="report-option" :class="{selected:reportSelected==='wrong'}"><input type="radio" value="wrong" x-model="reportSelected"/><span class="report-radio"></span> Wrong conversion result</label>
+        <label class="report-option" :class="{selected:reportSelected==='missing'}"><input type="radio" value="missing" x-model="reportSelected"/><span class="report-radio"></span> Missing unit</label>
+        <label class="report-option" :class="{selected:reportSelected==='ui'}"><input type="radio" value="ui" x-model="reportSelected"/><span class="report-radio"></span> UI element is broken</label>
+        <label class="report-option" :class="{selected:reportSelected==='slow'}"><input type="radio" value="slow" x-model="reportSelected"/><span class="report-radio"></span> Tool is slow or unresponsive</label>
+        <label class="report-option" :class="{selected:reportSelected==='other'}"><input type="radio" value="other" x-model="reportSelected"/><span class="report-radio"></span> Other</label>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" @click="closeReport()" type="button">Cancel</button>
+        <button class="btn-submit" @click="submitReport()" :disabled="!reportSelected" type="button">Submit</button>
+      </div>
+    </div>
+    <div class="report-success" x-show="reportSent">
+      <div class="report-success-icon">✓</div>
+      <h3>Thanks for the feedback!</h3>
+      <p>We'll look into it as soon as possible.</p>
+      <button class="btn-submit" @click="closeReport()" style="margin-top:16px" type="button">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOAST ───────────────────────────────────────────────── -->
+<div class="toast" id="uc-toast" role="status" aria-live="polite" x-text="toastMsg"></div>
+
+<!-- ── FOOTER ──────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="../../index.html" class="logo" style="margin-bottom:12px">
+          <svg class="logo-icon" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+            <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+            <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+            <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+            <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#34d399"/><stop offset="1" stop-color="#fbbf24"/></linearGradient></defs>
+          </svg>
+          <span class="logo-text">The Tool Empire</span>
+        </a>
+        <p class="footer-brand-text">Free, fast, browser-based tools for everyone. No signup, no installs, no nonsense.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Tools</div>
+        <div class="footer-links">
+          <a href="../../tools.html#text">Text Tools</a>
+          <a href="../../tools.html#math">Math Tools</a>
+          <a href="../../tools.html#coding">Coding Tools</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Company</div>
+        <div class="footer-links">
+          <a href="../../about.html">About</a>
+          <a href="../../blog.html">Blog</a>
+          <a href="../../contact.html">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Legal</div>
+        <div class="footer-links">
+          <a href="../../privacy.html">Privacy Policy</a>
+          <a href="../../terms.html">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 The Tool Empire. All rights reserved.</span>
+      <span>Made with care for the web</span>
+    </div>
+  </div>
+</footer>
+
+<script src="unit-converter.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</body>
+</html>

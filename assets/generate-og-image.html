@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Generate OG Image</title>
+<style>body{background:#111;color:#fff;font-family:system-ui;padding:24px;text-align:center;} canvas{border:1px solid #333;margin:16px 0;max-width:100%;} .btn{display:inline-block;padding:12px 28px;background:#6c63ff;color:#fff;border-radius:8px;cursor:pointer;font-size:1rem;font-weight:700;margin:8px;text-decoration:none;}</style>
+</head>
+<body>
+<h2>OG Image Generator</h2>
+<p>Click "Download" to save <code>og-image.png</code> then upload it to <code>/assets/og-image.png</code></p>
+<canvas id="c" width="1200" height="630"></canvas><br>
+<a class="btn" id="dl">⬇ Download og-image.png</a>
+<script>
+const c = document.getElementById('c');
+const ctx = c.getContext('2d');
+const W = 1200, H = 630;
+
+// Background
+const bg = ctx.createLinearGradient(0, 0, W, H);
+bg.addColorStop(0, '#0f0f14');
+bg.addColorStop(0.5, '#1a1025');
+bg.addColorStop(1, '#0f0f14');
+ctx.fillStyle = bg;
+ctx.fillRect(0, 0, W, H);
+
+// Glow blob top-right
+const glow = ctx.createRadialGradient(900, 150, 0, 900, 150, 400);
+glow.addColorStop(0, 'rgba(108,99,255,0.25)');
+glow.addColorStop(1, 'rgba(108,99,255,0)');
+ctx.fillStyle = glow;
+ctx.fillRect(0, 0, W, H);
+
+// Glow blob bottom-left
+const glow2 = ctx.createRadialGradient(200, 500, 0, 200, 500, 300);
+glow2.addColorStop(0, 'rgba(244,114,182,0.15)');
+glow2.addColorStop(1, 'rgba(244,114,182,0)');
+ctx.fillStyle = glow2;
+ctx.fillRect(0, 0, W, H);
+
+// Grid dots
+ctx.fillStyle = 'rgba(255,255,255,0.04)';
+for (let x = 40; x < W; x += 60) {
+  for (let y = 40; y < H; y += 60) {
+    ctx.beginPath();
+    ctx.arc(x, y, 2, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+// Top badge
+ctx.beginPath();
+ctx.roundRect(80, 80, 220, 36, 18);
+ctx.fillStyle = 'rgba(108,99,255,0.15)';
+ctx.fill();
+ctx.strokeStyle = 'rgba(108,99,255,0.4)';
+ctx.lineWidth = 1;
+ctx.stroke();
+ctx.fillStyle = '#a78bfa';
+ctx.font = '700 13px system-ui';
+ctx.letterSpacing = '2px';
+ctx.fillText('FREE ONLINE TOOLS', 105, 103);
+
+// Main title line 1
+ctx.letterSpacing = '-2px';
+ctx.font = '900 86px system-ui';
+const grad1 = ctx.createLinearGradient(80, 160, 680, 260);
+grad1.addColorStop(0, '#ffffff');
+grad1.addColorStop(0.5, '#c4b5fd');
+grad1.addColorStop(1, '#a78bfa');
+ctx.fillStyle = grad1;
+ctx.fillText('The Tool', 80, 250);
+
+// Main title line 2
+const grad2 = ctx.createLinearGradient(80, 270, 680, 370);
+grad2.addColorStop(0, '#f472b6');
+grad2.addColorStop(1, '#fb923c');
+ctx.fillStyle = grad2;
+ctx.fillText('Empire', 80, 355);
+
+// Tagline
+ctx.letterSpacing = '0px';
+ctx.font = '400 28px system-ui';
+ctx.fillStyle = 'rgba(255,255,255,0.55)';
+ctx.fillText('Free browser-based tools — no signup, no server,', 80, 420);
+ctx.fillText('no nonsense.', 80, 460);
+
+// Feature pills
+const pills = ['Text Tools', 'Math Tools', 'Unit Converter', 'Age Calculator', 'BMI Calculator'];
+let px = 80;
+pills.forEach(text => {
+  const tw = ctx.measureText(text).width;
+  const pw = tw + 32;
+  ctx.beginPath();
+  ctx.roundRect(px, 510, pw, 40, 20);
+  ctx.fillStyle = 'rgba(255,255,255,0.07)';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  ctx.font = '600 15px system-ui';
+  ctx.fillStyle = 'rgba(255,255,255,0.7)';
+  ctx.fillText(text, px + 16, 535);
+  px += pw + 12;
+});
+
+// Right-side icon cluster (decorative)
+const tools = [
+  { emoji: '🔢', label: 'Calculator' },
+  { emoji: '📝', label: 'Text Tools' },
+  { emoji: '🔄', label: 'Converter' },
+  { emoji: '📊', label: 'Charts' },
+];
+tools.forEach((t, i) => {
+  const col = i % 2;
+  const row = Math.floor(i / 2);
+  const bx = 780 + col * 200;
+  const by = 180 + row * 180;
+  ctx.beginPath();
+  ctx.roundRect(bx, by, 160, 130, 16);
+  ctx.fillStyle = 'rgba(255,255,255,0.04)';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  ctx.font = '48px system-ui';
+  ctx.letterSpacing = '0px';
+  ctx.fillText(t.emoji, bx + 56, by + 68);
+  ctx.font = '600 15px system-ui';
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.fillText(t.label, bx + (160 - ctx.measureText(t.label).width) / 2, by + 108);
+});
+
+// Domain watermark
+ctx.font = '600 18px system-ui';
+ctx.fillStyle = 'rgba(255,255,255,0.25)';
+ctx.fillText('thetoolempire.com', W - 260, H - 28);
+
+// Border glow
+const border = ctx.createLinearGradient(0, 0, W, H);
+border.addColorStop(0, 'rgba(108,99,255,0.4)');
+border.addColorStop(1, 'rgba(244,114,182,0.4)');
+ctx.strokeStyle = border;
+ctx.lineWidth = 3;
+ctx.strokeRect(1.5, 1.5, W - 3, H - 3);
+
+document.getElementById('dl').href = c.toDataURL('image/png');
+document.getElementById('dl').download = 'og-image.png';
+</script>
+</body>
+</html>

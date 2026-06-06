@@ -1,0 +1,7 @@
+<svg class="logo-icon" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+          <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+          <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+          <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+          <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+        </svg>

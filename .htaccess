@@ -1,8 +1,16 @@
 # .htaccess — The Tool Empire
-# Apache config for SEO, performance, and security
+# Apache/LiteSpeed config for SEO, performance, and security
+
+# ── Default document (CRITICAL — prevents directory listing) ────
+DirectoryIndex index.html index.htm
+
+# ── Prevent directory listing ────────────────────────────────────
+Options -Indexes
+
+# ── Rewrite engine ───────────────────────────────────────────────
+RewriteEngine On
 
 # ── Redirect www → non-www ──────────────────────────────────────
-RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www\.thetoolempire\.com [NC]
 RewriteRule ^(.*)$ https://thetoolempire.com/$1 [R=301,L]
 
@@ -84,5 +92,17 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} (.+)/$
 RewriteRule ^ %1 [R=301,L]
 
-# ── Prevent directory listing ────────────────────────────────────
-Options -Indexes
+# ── Clean URLs: /tools → /tools.html ─────────────────────────────
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L,QSA]
+
+# ── Favicon.ico → SVG fallback ───────────────────────────────────
+RewriteCond %{REQUEST_URI} ^/favicon\.ico$
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ /assets/favicon.svg [L,T=image/svg+xml]
+
+# ── Block bad bots ───────────────────────────────────────────────
+RewriteCond %{HTTP_USER_AGENT} (AhrefsBot|SemrushBot|MJ12bot|DotBot|BLEXBot) [NC]
+RewriteRule .* - [F,L]

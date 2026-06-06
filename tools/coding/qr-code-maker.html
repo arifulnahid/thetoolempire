@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free Advanced QR Code Maker — generate QR codes for URLs, text, email, WiFi, vCard, SMS, and phone numbers. Download as PNG, SVG, or a custom branded card with your logo, title, and description. No signup required." />
+  <meta name="keywords" content="qr code maker, qr code generator, free qr code, custom qr code, qr code with logo, download qr code, url qr code, wifi qr code, vcard qr code" />
+  <meta name="author" content="The Tool Empire" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://thetoolempire.com/tools/coding/qr-code-maker.html" />
+
+  <meta property="og:title" content="Free Advanced QR Code Maker — The Tool Empire" />
+  <meta property="og:description" content="Generate QR codes for URLs, WiFi, email, vCard, and more. Download as PNG, SVG, or a custom branded card with your logo." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://thetoolempire.com/tools/coding/qr-code-maker.html" />
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Free Advanced QR Code Maker — The Tool Empire" />
+  <meta name="twitter:description" content="Generate QR codes for URLs, WiFi, email, vCard, and more. Download as a branded PNG card." />
+
+  <title>Free Advanced QR Code Maker — Generate, Customize & Download | The Tool Empire</title>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
+  <link rel="manifest" href="../../manifest.json" />
+  <meta name="theme-color" content="#6C63FF" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- qrcodejs by davidshimjs — browser-native, no bundler needed -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config', 'G-CNN44ER8MF');
+  </script>
+
+  <!-- AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Advanced QR Code Maker",
+    "description": "Free browser-based QR code generator supporting URL, text, email, WiFi, vCard, SMS, and phone. Download as PNG, SVG, or branded card.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "url": "https://thetoolempire.com/tools/coding/qr-code-maker.html",
+    "publisher": { "@type": "Organization", "name": "The Tool Empire", "url": "https://thetoolempire.com" },
+    "featureList": ["URL QR Code", "WiFi QR Code", "vCard QR Code", "Logo overlay", "Download PNG", "Download SVG", "Branded card download"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home",  "item": "https://thetoolempire.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://thetoolempire.com/tools.html" },
+      { "@type": "ListItem", "position": 3, "name": "Coding Tools", "item": "https://thetoolempire.com/tools.html?cat=coding" },
+      { "@type": "ListItem", "position": 4, "name": "QR Code Maker", "item": "https://thetoolempire.com/tools/coding/qr-code-maker.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Is this QR code generator free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The QR Code Maker on The Tool Empire is completely free with no signup, no watermark, and no usage limits." } },
+      { "@type": "Question", "name": "Can I add my logo to the QR code?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Upload a PNG or JPG logo and it will be overlaid in the center of the QR code. Use M or Q error correction levels to ensure the code remains scannable." } },
+      { "@type": "Question", "name": "Does my data get sent to a server?", "acceptedAnswer": { "@type": "Answer", "text": "No. All QR code generation happens entirely in your browser. Your URLs, WiFi passwords, and personal data never leave your device." } }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="qr-code-maker.css" />
+</head>
+<body x-data="qrApp()" x-init="init()" @keydown.escape="reportOpen = false; mobileMenuOpen = false">
+
+  <!-- HEADER -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <div class="header-inner">
+        <a href="../../index.html" class="logo" aria-label="The Tool Empire — home">
+          <svg class="logo-icon" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <rect width="36" height="36" rx="9" fill="url(#hlg)"/>
+            <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+            <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+            <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+            <defs><linearGradient id="hlg" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+          </svg>
+          <span class="logo-text">The Tool Empire</span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="../../tools.html" class="nav-link active">Tools</a>
+          <a href="../../blog.html" class="nav-link">Blog</a>
+          <a href="../../about.html" class="nav-link">About</a>
+          <a href="../../contact.html" class="nav-link">Contact</a>
+        </nav>
+        <button class="menu-toggle" @click="mobileMenuOpen = !mobileMenuOpen" :aria-expanded="mobileMenuOpen" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <nav class="mobile-nav" :class="{ open: mobileMenuOpen }" aria-label="Mobile navigation">
+      <a href="../../tools.html" class="nav-link">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+      <a href="../../contact.html" class="nav-link">Contact</a>
+    </nav>
+  </header>
+
+  <!-- BREADCRUMB -->
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol class="breadcrumb-list">
+        <li><a href="../../index.html">Home</a></li>
+        <li class="breadcrumb-sep" aria-hidden="true">/</li>
+        <li><a href="../../tools.html">Tools</a></li>
+        <li class="breadcrumb-sep" aria-hidden="true">/</li>
+        <li><a href="../../tools.html?cat=coding">Coding</a></li>
+        <li class="breadcrumb-sep" aria-hidden="true">/</li>
+        <li aria-current="page">QR Code Maker</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- HERO -->
+  <div class="tool-hero">
+    <div class="container">
+      <div class="tool-hero-inner">
+        <div class="tool-badge-row">
+          <span class="tool-cat-badge badge-coding">Coding</span>
+          <span class="tool-cat-badge badge-design">Design</span>
+          <span class="tool-cat-badge badge-seo">SEO</span>
+        </div>
+        <h1 class="tool-title">Advanced <span class="gradient-text">QR Code</span> Maker</h1>
+        <p class="tool-subtitle">Generate QR codes for URLs, WiFi, email, phone, SMS, and vCards. Add your logo, customize colors, and download as a beautiful branded card — all free, all in your browser.</p>
+        <div class="tool-meta-row" aria-label="Tool features">
+          <span class="tool-meta-item">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+            No signup required
+          </span>
+          <span class="tool-meta-item">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+            Runs in browser
+          </span>
+          <span class="tool-meta-item">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+            PNG &amp; SVG export
+          </span>
+          <span class="tool-meta-item">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+            Branded card download
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AD: Leaderboard -->
+  <div class="container">
+    <div class="ad-container ad-leaderboard" aria-label="Advertisement">
+      <ins class="adsbygoogle" style="display:block;width:728px;height:90px;" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins>
+    </div>
+  </div>
+
+  <!-- MAIN TOOL -->
+  <section class="tool-section" aria-label="QR Code Generator">
+    <div class="container">
+      <div class="tool-grid">
+
+        <!-- LEFT: INPUT PANEL -->
+        <div>
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-icon" style="background:linear-gradient(135deg,#6C63FF,#4ECDC4);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true">
+                  <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>
+                  <rect x="5" y="5" width="3" height="3" fill="#fff" stroke="none"/><rect x="16" y="5" width="3" height="3" fill="#fff" stroke="none"/><rect x="5" y="16" width="3" height="3" fill="#fff" stroke="none"/>
+                </svg>
+              </div>
+              <div class="panel-title">QR Code Content</div>
+            </div>
+            <div class="panel-body">
+
+              <!-- TYPE TABS -->
+              <div class="tab-bar" role="tablist" aria-label="QR code content type">
+                <template x-for="tab in [
+                  {id:'url',    label:'URL'},
+                  {id:'text',   label:'Text'},
+                  {id:'email',  label:'Email'},
+                  {id:'phone',  label:'Phone'},
+                  {id:'sms',    label:'SMS'},
+                  {id:'wifi',   label:'WiFi'},
+                  {id:'vcard',  label:'vCard'},
+                ]" :key="tab.id">
+                  <button class="tab-btn" :class="{ active: activeTab === tab.id }"
+                    @click="activeTab = tab.id"
+                    role="tab" :aria-selected="activeTab === tab.id"
+                    x-text="tab.label"></button>
+                </template>
+              </div>
+
+              <!-- URL -->
+              <div x-show="activeTab === 'url'" x-transition>
+                <div class="form-group">
+                  <label class="form-label" for="input-url">Website URL</label>
+                  <input id="input-url" type="url" class="form-input" placeholder="https://thetoolempire.com" x-model="inputs.url.value" />
+                </div>
+              </div>
+
+              <!-- TEXT -->
+              <div x-show="activeTab === 'text'" x-transition>
+                <div class="form-group">
+                  <label class="form-label" for="input-text">Text Content</label>
+                  <textarea id="input-text" class="form-textarea" placeholder="Enter any text…" x-model="inputs.text.value" style="min-height:100px;"></textarea>
+                </div>
+              </div>
+
+              <!-- EMAIL -->
+              <div x-show="activeTab === 'email'" x-transition>
+                <div class="form-group">
+                  <label class="form-label" for="input-email-to">Email Address</label>
+                  <input id="input-email-to" type="email" class="form-input" placeholder="hello@example.com" x-model="inputs.email.to" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="input-email-subject">Subject <span>(optional)</span></label>
+                  <input id="input-email-subject" type="text" class="form-input" placeholder="Email subject line" x-model="inputs.email.subject" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="input-email-body">Body <span>(optional)</span></label>
+                  <textarea id="input-email-body" class="form-textarea" placeholder="Pre-filled message…" x-model="inputs.email.body"></textarea>
+                </div>
+              </div>
+
+              <!-- PHONE -->
+              <div x-show="activeTab === 'phone'" x-transition>
+                <div class="form-group">
+                  <label class="form-label" for="input-phone">Phone Number</label>
+                  <input id="input-phone" type="tel" class="form-input" placeholder="+1 555 000 0000" x-model="inputs.phone.number" />
+                </div>
+              </div>
+
+              <!-- SMS -->
+              <div x-show="activeTab === 'sms'" x-transition>
+                <div class="form-group">
+                  <label class="form-label" for="input-sms-num">Phone Number</label>
+                  <input id="input-sms-num" type="tel" class="form-input" placeholder="+1 555 000 0000" x-model="inputs.sms.number" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="input-sms-msg">Pre-filled Message <span>(optional)</span></label>
+                  <textarea id="input-sms-msg" class="form-textarea" placeholder="Message text…" x-model="inputs.sms.message"></textarea>
+                </div>
+              </div>
+
+              <!-- WIFI -->
+              <div x-show="activeTab === 'wifi'" x-transition>
+                <div class="form-group">
+                  <label class="form-label" for="input-wifi-ssid">Network Name (SSID)</label>
+                  <input id="input-wifi-ssid" type="text" class="form-input" placeholder="MyWiFiNetwork" x-model="inputs.wifi.ssid" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="input-wifi-pass">Password</label>
+                  <input id="input-wifi-pass" type="text" class="form-input" placeholder="WiFi password" x-model="inputs.wifi.password" />
+                </div>
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label class="form-label" for="input-wifi-sec">Security</label>
+                    <select id="input-wifi-sec" class="form-select" x-model="inputs.wifi.security">
+                      <option value="WPA">WPA / WPA2</option>
+                      <option value="WEP">WEP</option>
+                      <option value="nopass">None (Open)</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="display:flex;align-items:flex-end;padding-bottom:16px;">
+                    <label style="display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--text-muted);cursor:pointer;">
+                      <input type="checkbox" x-model="inputs.wifi.hidden" style="accent-color:var(--primary);width:15px;height:15px;" />
+                      Hidden network
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- VCARD -->
+              <div x-show="activeTab === 'vcard'" x-transition>
+                <div class="form-group">
+                  <label class="form-label" for="vc-name">Full Name</label>
+                  <input id="vc-name" type="text" class="form-input" placeholder="Jane Smith" x-model="inputs.vcard.name" />
+                </div>
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label class="form-label" for="vc-phone">Phone</label>
+                    <input id="vc-phone" type="tel" class="form-input" placeholder="+1 555 000 0000" x-model="inputs.vcard.phone" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="vc-email">Email</label>
+                    <input id="vc-email" type="email" class="form-input" placeholder="jane@example.com" x-model="inputs.vcard.email" />
+                  </div>
+                </div>
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label class="form-label" for="vc-org">Organization</label>
+                    <input id="vc-org" type="text" class="form-input" placeholder="Acme Corp" x-model="inputs.vcard.org" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="vc-url">Website</label>
+                    <input id="vc-url" type="url" class="form-input" placeholder="https://" x-model="inputs.vcard.url" />
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- QR STYLE PANEL -->
+          <div class="panel" style="margin-top:20px;">
+            <div class="panel-header">
+              <div class="panel-icon" style="background:linear-gradient(135deg,#f093fb,#c850c0);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+              </div>
+              <div class="panel-title">Style &amp; Options</div>
+            </div>
+            <div class="panel-body">
+              <div class="form-grid-2">
+                <!-- Foreground -->
+                <div class="form-group">
+                  <label class="form-label">QR Color (Dark)</label>
+                  <div class="color-row">
+                    <input type="color" class="color-swatch-input" x-model="fgColor" aria-label="QR foreground color" />
+                    <input type="text" class="form-input color-hex-input" :value="fgColor" @input="syncFgColor($event.target.value)" placeholder="#000000" maxlength="7" />
+                  </div>
+                </div>
+                <!-- Background -->
+                <div class="form-group">
+                  <label class="form-label">Background Color</label>
+                  <div class="color-row">
+                    <input type="color" class="color-swatch-input" x-model="bgColor" aria-label="QR background color" />
+                    <input type="text" class="form-input color-hex-input" :value="bgColor" @input="syncBgColor($event.target.value)" placeholder="#ffffff" maxlength="7" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="err-level">Error Correction</label>
+                  <select id="err-level" class="form-select" x-model="errorLevel">
+                    <option value="L">L — 7% recovery</option>
+                    <option value="M" selected>M — 15% (recommended)</option>
+                    <option value="Q">Q — 25% (with logo)</option>
+                    <option value="H">H — 30% (max)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="qr-margin-sel">Quiet Zone (margin)</label>
+                  <select id="qr-margin-sel" class="form-select" x-model.number="qrMargin">
+                    <option value="1">Minimal (1)</option>
+                    <option value="2" selected>Standard (2)</option>
+                    <option value="4">Generous (4)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Size slider -->
+              <div class="form-group">
+                <label class="form-label">QR Code Size</label>
+                <div class="range-row">
+                  <input type="range" class="range-input" min="160" max="480" step="8" x-model.number="qrSize" aria-label="QR code size" />
+                  <span class="range-val" x-text="qrSize + 'px'"></span>
+                </div>
+              </div>
+
+              <!-- Logo upload -->
+              <div class="form-group">
+                <label class="form-label">Center Logo <span>(PNG, JPG, SVG — max 2MB)</span></label>
+                <div x-show="!logoDataUrl">
+                  <div class="logo-upload-area" id="logo-drop-zone"
+                    @dragover.prevent="$el.classList.add('dragover')"
+                    @dragleave="$el.classList.remove('dragover')"
+                    @drop.prevent="$el.classList.remove('dragover'); handleLogoUpload({target:{files:$event.dataTransfer.files}})">
+                    <input type="file" id="logo-upload-input" accept="image/*" @change="handleLogoUpload($event)" aria-label="Upload logo image" />
+                    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    <p class="upload-text"><strong>Click to upload</strong> or drag and drop</p>
+                  </div>
+                </div>
+                <div x-show="logoDataUrl" class="logo-preview-wrap">
+                  <img class="logo-preview-img" :src="logoDataUrl" alt="Logo preview" />
+                  <span class="logo-preview-name" x-text="logoFileName"></span>
+                  <button class="logo-remove-btn" @click="removeLogo()" aria-label="Remove logo">✕</button>
+                </div>
+                <p x-show="logoDataUrl" style="font-size:.75rem;color:var(--text-faint);margin-top:6px;">
+                  Tip: Use Q or H error correction for better scannability with a logo.
+                </p>
+              </div>
+
+              <!-- GENERATE -->
+              <button class="btn-generate" @click="generate()" :class="{ loading: generating }" :disabled="generating" aria-label="Generate QR code">
+                <template x-if="!generating">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="5" y="5" width="3" height="3" fill="currentColor" stroke="none"/><rect x="16" y="5" width="3" height="3" fill="currentColor" stroke="none"/><rect x="5" y="16" width="3" height="3" fill="currentColor" stroke="none"/></svg>
+                </template>
+                <template x-if="generating">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="animation:spin .7s linear infinite;"><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" opacity=".25"/><path d="M21 12a9 9 0 0 1-9 9"/></svg>
+                </template>
+                <span x-text="generating ? 'Generating…' : 'Generate QR Code'"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- CARD CUSTOMISER -->
+          <div class="card-settings">
+            <div class="card-settings-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 2v4M16 2v4M2 10h20"/></svg>
+              Branded Card Settings
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="card-title-inp">Card Title <span>(shown under QR)</span></label>
+              <input id="card-title-inp" type="text" class="form-input" placeholder="e.g. Scan to visit our site" x-model="cardTitle" maxlength="60" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="card-desc-inp">Short Description <span>(optional)</span></label>
+              <input id="card-desc-inp" type="text" class="form-input" placeholder="e.g. thetoolempire.com" x-model="cardDesc" maxlength="80" />
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label">Card Background</label>
+                <div class="color-row">
+                  <input type="color" class="color-swatch-input" x-model="cardBg" aria-label="Card background color" />
+                  <input type="text" class="form-input color-hex-input" :value="cardBg" @input="if(/^#[0-9A-Fa-f]{6}$/.test($event.target.value)) cardBg=$event.target.value" maxlength="7" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Text Color</label>
+                <div class="color-row">
+                  <input type="color" class="color-swatch-input" x-model="cardTextColor" aria-label="Card text color" />
+                  <input type="text" class="form-input color-hex-input" :value="cardTextColor" @input="if(/^#[0-9A-Fa-f]{6}$/.test($event.target.value)) cardTextColor=$event.target.value" maxlength="7" />
+                </div>
+              </div>
+            </div>
+            <label style="display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--text-muted);cursor:pointer;margin-bottom:0;">
+              <input type="checkbox" x-model="showBranding" style="accent-color:var(--primary);width:15px;height:15px;" />
+              Show "thetoolempire.com" branding on card
+            </label>
+          </div>
+        </div>
+
+        <!-- RIGHT: OUTPUT PANEL -->
+        <div>
+          <div class="panel qr-output">
+            <div class="panel-header">
+              <div class="panel-icon" style="background:linear-gradient(135deg,#4ECDC4,#44a89a);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </div>
+              <div class="panel-title">Generated QR Code</div>
+            </div>
+
+            <!-- QR Canvas Area -->
+            <div class="qr-canvas-wrap" aria-live="polite" aria-label="QR code output">
+              <div class="qr-placeholder" x-show="!generated" aria-hidden="true">
+                <svg class="qr-placeholder-icon" width="80" height="80" viewBox="0 0 80 80" fill="none">
+                  <rect x="5" y="5" width="30" height="30" rx="4" fill="currentColor" opacity=".3"/>
+                  <rect x="45" y="5" width="30" height="30" rx="4" fill="currentColor" opacity=".3"/>
+                  <rect x="5" y="45" width="30" height="30" rx="4" fill="currentColor" opacity=".3"/>
+                  <rect x="13" y="13" width="14" height="14" rx="2" fill="currentColor" opacity=".5"/>
+                  <rect x="53" y="13" width="14" height="14" rx="2" fill="currentColor" opacity=".5"/>
+                  <rect x="13" y="53" width="14" height="14" rx="2" fill="currentColor" opacity=".5"/>
+                  <rect x="45" y="45" width="30" height="30" rx="4" fill="currentColor" opacity=".15"/>
+                </svg>
+                <p>Fill in the fields and click<br><strong style="color:var(--primary)">Generate QR Code</strong></p>
+              </div>
+              <canvas id="qr-canvas" x-show="generated" role="img" aria-label="Generated QR code"></canvas>
+            </div>
+
+            <!-- Copy content row -->
+            <div class="copy-url-wrap" x-show="generated" x-transition>
+              <div class="copy-url-row">
+                <div class="copy-url-display" x-text="contentPreview" aria-label="QR code content preview"></div>
+                <button class="btn-copy" @click="copyContent()" id="copy-btn" aria-label="Copy QR code content">Copy</button>
+              </div>
+            </div>
+
+            <!-- Download actions -->
+            <div class="download-actions" x-show="generated" x-transition>
+              <button class="btn-dl btn-dl-primary" @click="downloadQR()" :disabled="!generated" aria-label="Download QR code as PNG">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                PNG
+              </button>
+              <button class="btn-dl btn-dl-outline" @click="downloadSVG()" :disabled="!generated" aria-label="Download QR code as SVG">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"/><polyline points="14 2 14 8 20 8"/><path d="m3 15 2 2 4-4"/></svg>
+                SVG
+              </button>
+              <button class="btn-dl btn-dl-outline" @click="downloadCard()" :disabled="!generated" aria-label="Download branded QR card as PNG">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 2v4M16 2v4M2 10h20"/></svg>
+                Card
+              </button>
+            </div>
+
+            <!-- Card Preview — always in DOM so canvas is accessible; hidden until generated -->
+            <div class="card-preview-section" :style="generated ? '' : 'display:none'">
+              <div class="card-preview-label">Card Preview</div>
+              <div class="download-card">
+                <div id="download-card-inner" :style="`background:${cardBg};color:${cardTextColor};`">
+                  <!-- Logo — optional -->
+                  <div class="dc-logo-wrap" x-show="logoDataUrl">
+                    <img id="dc-logo-img" :src="logoDataUrl || ''" alt="Brand logo" />
+                  </div>
+                  <!-- QR canvas — always present in DOM -->
+                  <div class="dc-qr-wrap">
+                    <canvas id="dc-qr-canvas" role="img" aria-label="QR code for card"></canvas>
+                  </div>
+                  <!-- Title — optional -->
+                  <div class="dc-text" x-show="cardTitle.trim() || cardDesc.trim()">
+                    <div class="dc-title" x-show="cardTitle.trim()" x-text="cardTitle"></div>
+                    <div class="dc-desc" x-show="cardDesc.trim()" x-text="cardDesc"></div>
+                  </div>
+                  <!-- Branding — optional -->
+                  <div class="dc-branding" x-show="showBranding">thetoolempire.com</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AD: Rectangle in sidebar -->
+          <div class="ad-container ad-rectangle" aria-label="Advertisement" style="margin-top:20px;">
+            <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px;" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- REPORT STRIP -->
+  <div class="container">
+    <div class="report-strip" role="complementary" aria-label="Report an issue">
+      <div class="report-left">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>Found a bug or issue with this tool? Let us know.</span>
+      </div>
+      <button class="btn-report" @click="reportOpen = true" aria-label="Report an issue with this tool">
+        Report Issue
+      </button>
+    </div>
+  </div>
+
+  <!-- TAGS & HASHTAGS -->
+  <div class="container">
+    <div class="tags-section" aria-label="Tags and hashtags">
+      <p style="font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-faint);margin-bottom:10px;">Tags</p>
+      <div class="tags-row">
+        <span class="tag-chip regular">QR Code</span>
+        <span class="tag-chip regular">QR Generator</span>
+        <span class="tag-chip regular">Barcode</span>
+        <span class="tag-chip regular">URL Shortener</span>
+        <span class="tag-chip regular">WiFi QR</span>
+        <span class="tag-chip regular">vCard</span>
+        <span class="tag-chip regular">Business Card</span>
+        <span class="tag-chip regular">Marketing</span>
+        <span class="tag-chip regular">Print</span>
+        <span class="tag-chip regular">PNG Download</span>
+        <span class="tag-chip regular">SVG Export</span>
+        <span class="tag-chip regular">Logo QR Code</span>
+      </div>
+      <div class="tags-row" style="margin-top:8px;">
+        <span class="tag-chip hashtag">#QRCode</span>
+        <span class="tag-chip hashtag">#QRGenerator</span>
+        <span class="tag-chip hashtag">#FreeTools</span>
+        <span class="tag-chip hashtag">#WebDev</span>
+        <span class="tag-chip hashtag">#Marketing</span>
+        <span class="tag-chip hashtag">#BusinessCard</span>
+        <span class="tag-chip hashtag">#NoSignup</span>
+        <span class="tag-chip hashtag">#OpenSource</span>
+        <span class="tag-chip hashtag">#PrivacyFirst</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- AD: In-content -->
+  <div class="container">
+    <div class="ad-container ad-in-content" aria-label="Advertisement">
+      <ins class="adsbygoogle" style="display:block;width:728px;height:90px;" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins>
+    </div>
+  </div>
+
+  <!-- INFO TABS (Description / How it Works / Behind the Scenes) -->
+  <section class="info-section" aria-label="Tool information">
+    <div class="container">
+      <div class="info-tabs" role="tablist" aria-label="Tool information tabs">
+        <button class="info-tab active" role="tab" aria-selected="true" data-tab="description" onclick="switchTab(this,'description')">Description</button>
+        <button class="info-tab" role="tab" aria-selected="false" data-tab="how-it-works" onclick="switchTab(this,'how-it-works')">How It Works</button>
+        <button class="info-tab" role="tab" aria-selected="false" data-tab="behind-scenes" onclick="switchTab(this,'behind-scenes')">Behind the Scenes</button>
+        <button class="info-tab" role="tab" aria-selected="false" data-tab="use-cases" onclick="switchTab(this,'use-cases')">Use Cases</button>
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="info-panel active" id="tab-description" role="tabpanel">
+        <h2>Advanced QR Code Maker — Free, Private &amp; Powerful</h2>
+        <p>The Tool Empire's QR Code Maker is a fully browser-based tool for generating professional QR codes of any type — URLs, plain text, email addresses with pre-filled subjects and bodies, phone numbers, SMS messages, WiFi network credentials, and full vCard contact information.</p>
+        <p>Unlike most online QR generators, <strong>everything runs client-side in your browser</strong>. Your URLs, WiFi passwords, phone numbers, and contact details are never transmitted to any server. There's no sign-up, no watermark, and no usage limit.</p>
+
+        <h3>What Makes This Tool "Advanced"?</h3>
+        <ul>
+          <li><strong>7 QR content types:</strong> URL, text, email (with subject + body), phone, SMS, WiFi, and vCard</li>
+          <li><strong>Full color customization:</strong> Set both the foreground (module) color and background color independently</li>
+          <li><strong>Logo overlay:</strong> Upload a PNG, JPG, or SVG logo to embed in the QR center. The quiet zone handles error correction automatically</li>
+          <li><strong>Error correction levels:</strong> Choose L (7%), M (15%), Q (25%), or H (30%) depending on how much of the code might be obscured</li>
+          <li><strong>Three export formats:</strong> PNG (raster), SVG (vector, infinite scale), and branded card (PNG with your logo, title, and description)</li>
+          <li><strong>Branded card download:</strong> Set a custom background color, text color, card title, and description. Great for print campaigns, restaurant menus, business cards, and retail signage</li>
+        </ul>
+
+        <h3>Who Is This Tool For?</h3>
+        <p>The QR Code Maker is built for developers, designers, marketers, restaurant owners, educators, event organizers, and anyone who needs to create QR codes without handing their data to a third-party server. If you're running a privacy-conscious campaign or just need a quick QR code to print on flyers, this is the fastest path from idea to downloadable file.</p>
+      </div>
+
+      <!-- HOW IT WORKS -->
+      <div class="info-panel" id="tab-how-it-works" role="tabpanel">
+        <h2>How to Use the QR Code Maker</h2>
+        <p>Generating a professional QR code takes under a minute. Follow these steps:</p>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-title">Choose Content Type</div>
+            <div class="step-body">Select from URL, Text, Email, Phone, SMS, WiFi, or vCard using the tab buttons at the top of the input panel.</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-title">Enter Your Data</div>
+            <div class="step-body">Fill in the relevant fields. For WiFi, enter the SSID and password. For vCard, add name, phone, email, and organization.</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-title">Customize Style</div>
+            <div class="step-body">Pick your QR color, background color, error correction level, and quiet zone margin. Upload a center logo if needed.</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <div class="step-title">Set Card Options</div>
+            <div class="step-body">Enter a card title and description. Choose a card background color and text color. Toggle the branding footer.</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">5</div>
+            <div class="step-title">Generate</div>
+            <div class="step-body">Click "Generate QR Code." The QR renders instantly in the output panel alongside a live card preview.</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">6</div>
+            <div class="step-title">Download</div>
+            <div class="step-body">Download as <strong>PNG</strong> (for web/digital), <strong>SVG</strong> (for print/infinite scaling), or <strong>Card</strong> (branded PNG with your branding).</div>
+          </div>
+        </div>
+
+        <h3>When to Use Each Error Correction Level</h3>
+        <ul>
+          <li><strong>L (7%)</strong> — Clean digital use only, never printed or overlaid with a logo</li>
+          <li><strong>M (15%)</strong> — Standard recommendation for most use cases</li>
+          <li><strong>Q (25%)</strong> — Use when overlaying a logo that covers up to 20% of the QR</li>
+          <li><strong>H (30%)</strong> — Use for dirty or partially obscured physical environments (outdoor signage, textured surfaces)</li>
+        </ul>
+
+        <h3>Tips for Maximum Scan Rate</h3>
+        <ul>
+          <li>Maintain at least a 3:1 contrast ratio between dark modules and background</li>
+          <li>Don't make QR codes smaller than 2cm × 2cm in print</li>
+          <li>Always test with at least 2 different scanner apps before printing</li>
+          <li>Include a brief "scan me" text below the QR — users are more likely to engage</li>
+          <li>For logos, keep the logo under 25% of the total QR area</li>
+        </ul>
+      </div>
+
+      <!-- BEHIND THE SCENES -->
+      <div class="info-panel" id="tab-behind-scenes" role="tabpanel">
+        <h2>Behind the Scenes: How QR Code Generation Works</h2>
+        <p>QR codes (Quick Response codes) are a 2D matrix barcode format invented by Denso Wave in 1994. They encode data using a pattern of black squares on a white background. Here's how this tool generates them — and why everything stays in your browser.</p>
+
+        <h3>The QR Encoding Process</h3>
+        <ol>
+          <li><strong>Data analysis:</strong> The content string (e.g., a URL) is analyzed to determine the best encoding mode — numeric, alphanumeric, byte, or Kanji.</li>
+          <li><strong>Data encoding:</strong> The data is converted to binary using the selected mode. Byte mode handles the full UTF-8 character set including emoji and international characters.</li>
+          <li><strong>Error correction:</strong> Reed-Solomon error correction codes are calculated and appended. This is what lets a QR code still scan when part of it is obscured or damaged.</li>
+          <li><strong>Module placement:</strong> Data and error correction bits are placed into the matrix, interleaved with format and version information patterns.</li>
+          <li><strong>Masking:</strong> One of 8 masking patterns is applied to minimize large runs of same-color modules, which could confuse scanners.</li>
+          <li><strong>Rendering:</strong> The final matrix is drawn onto an HTML5 <code>&lt;canvas&gt;</code> element using the JavaScript Canvas API.</li>
+        </ol>
+
+        <h3>Technologies Used</h3>
+        <div class="tech-grid">
+          <div class="tech-card">
+            <div class="tech-label">Library</div>
+            <div class="tech-name">qrcodejs v1.0</div>
+            <div class="tech-desc">Browser-native QR encoding library by davidshimjs. Handles all encoding modes, error correction, and Canvas rendering with zero dependencies.</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-label">Framework</div>
+            <div class="tech-name">Alpine.js v3</div>
+            <div class="tech-desc">Lightweight reactive UI framework. Manages form state, tab switching, and live preview updates.</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-label">Rendering</div>
+            <div class="tech-name">HTML5 Canvas API</div>
+            <div class="tech-desc">Browser-native 2D rendering. Used for QR output, logo overlay compositing, and card PNG export.</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-label">Export</div>
+            <div class="tech-name">Canvas.toDataURL()</div>
+            <div class="tech-desc">Converts the rendered canvas to a Base64-encoded PNG string for client-side download — no server needed.</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-label">SVG Export</div>
+            <div class="tech-name">Canvas → SVG conversion</div>
+            <div class="tech-desc">Reads pixel data from the rendered canvas and emits equivalent SVG rect elements — vector output with infinite-resolution scaling for print.</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-label">Privacy</div>
+            <div class="tech-name">Zero Network Requests</div>
+            <div class="tech-desc">No data leaves the browser. The FileReader API handles logo uploads locally. Nothing is logged or stored.</div>
+          </div>
+        </div>
+
+        <h3>Logo Overlay Technique</h3>
+        <p>When a logo is uploaded, the tool uses the <code>FileReader</code> API to read the image file into a Base64 data URL. After the QR matrix is rendered to canvas, the logo is composited on top using <code>drawImage()</code>, centered within a white rounded-rectangle background. The background ensures the logo doesn't interfere with the finder patterns in the corners.</p>
+        <p>The logo occupies approximately 22% of the QR area. With Q-level error correction (25% recovery), the code remains fully scannable even with the logo blocking the center.</p>
+
+        <h3>Branded Card Generation</h3>
+        <p>The card download creates a new off-screen <code>&lt;canvas&gt;</code> element programmatically, sized based on whether a logo, title, and description are present. It draws the background, the logo (if any), the QR code, title and description text, and the optional branding footer — all in memory — before calling <code>toDataURL('image/png')</code> to produce the final downloadable image. No server, no upload, no latency.</p>
+      </div>
+
+      <!-- USE CASES -->
+      <div class="info-panel" id="tab-use-cases" role="tabpanel">
+        <h2>QR Code Use Cases</h2>
+        <h3>Business &amp; Marketing</h3>
+        <ul>
+          <li>Link a physical flyer to a landing page or lead capture form</li>
+          <li>Print QR codes on business cards that open your vCard contact details</li>
+          <li>Add QR codes to product packaging that link to manuals, tutorial videos, or warranty registration</li>
+          <li>Place QR codes in store windows linking to Google Maps or reservation pages</li>
+        </ul>
+        <h3>Restaurants &amp; Hospitality</h3>
+        <ul>
+          <li>Contactless menus on table cards — scan to view the current menu</li>
+          <li>WiFi QR codes at reception so guests don't need to type passwords</li>
+          <li>Link to review platforms (Google, Yelp) to boost ratings</li>
+        </ul>
+        <h3>Events &amp; Education</h3>
+        <ul>
+          <li>Conference badges with vCard QR for instant contact exchange</li>
+          <li>Classroom posters linking to supplementary videos or quiz forms</li>
+          <li>Event tickets with URL QR codes for digital check-in</li>
+        </ul>
+        <h3>Developers &amp; Designers</h3>
+        <ul>
+          <li>Quick mobile testing — scan a URL instead of typing it on a phone keyboard</li>
+          <li>Share staging/preview URLs with clients during review sessions</li>
+          <li>Generate WiFi QR for development environments and shared workspaces</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title" id="faq-heading">Frequently Asked Questions</h2>
+      <p class="section-sub">Everything you need to know about this QR Code Maker.</p>
+
+      <div class="faq-list" role="list">
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-q" @click="toggleFaq(0)" aria-expanded="false">
+            Is this QR code generator completely free?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Yes — 100% free, forever. There are no plans, no subscriptions, no watermarks on downloaded files, and no usage limits. You can generate as many QR codes as you need without creating an account.</div></div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-q" @click="toggleFaq(1)" aria-expanded="false">
+            Does my data (URLs, WiFi passwords) get sent to a server?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">No. All QR code generation runs entirely in your browser using JavaScript. Your URLs, WiFi credentials, phone numbers, and contact information are never transmitted to any server, never stored, and never logged. This is fully client-side processing.</div></div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-q" @click="toggleFaq(2)" aria-expanded="false">
+            Can I add my company logo to the center of the QR code?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Yes. Upload any PNG, JPG, or SVG image (under 2MB) as a center logo. The logo is composited directly onto the QR canvas. When using a logo, set the error correction level to Q (25%) or H (30%) to ensure the code remains scannable despite the logo covering the center modules.</div></div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-q" @click="toggleFaq(3)" aria-expanded="false">
+            What is a "branded card" download?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">The branded card is a complete PNG image that includes your logo (if uploaded), the QR code, a title, a short description, and an optional branding footer. You can customize the card background color and text color. It's designed for printing on flyers, restaurant table cards, business cards, and marketing materials.</div></div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-q" @click="toggleFaq(4)" aria-expanded="false">
+            What's the difference between PNG and SVG export?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">PNG is a raster format — fixed pixel dimensions, best for digital use (websites, email, social media). SVG is a vector format — infinitely scalable without quality loss, ideal for print. Use SVG when you need the QR code printed large (poster, banner, billboard) and PNG for digital/screen use.</div></div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-q" @click="toggleFaq(5)" aria-expanded="false">
+            What do the error correction levels (L, M, Q, H) mean?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Error correction determines how much of the QR code can be damaged or obscured while still scanning correctly. L (7%) — minimal redundancy, smallest code. M (15%) — standard balance of size and resilience. Q (25%) — recommended when using a center logo. H (30%) — maximum resilience for harsh physical environments. Higher levels produce denser, slightly larger QR codes.</div></div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-q" @click="toggleFaq(6)" aria-expanded="false">
+            Will the QR code work forever? Does it expire?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Static QR codes (like the ones generated here) never expire — they simply encode the data you provided. A URL QR code will keep working as long as the URL itself remains active. Since we don't use redirect servers or short links, there's no risk of a third-party shutting down and breaking your code.</div></div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-q" @click="toggleFaq(7)" aria-expanded="false">
+            Can I generate a QR code for WiFi that works on iPhones?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Yes. iOS 11+ and Android 10+ both support WiFi QR codes natively through the camera app. The WiFi QR format used here (<code>WIFI:T:WPA;S:NetworkName;P:Password;H:false;;</code>) is the industry standard recognized by all major smartphone platforms. No app required — just point the camera.</div></div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-q" @click="toggleFaq(8)" aria-expanded="false">
+            What's the minimum print size for a QR code to scan reliably?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">The ISO/IEC 18004 standard recommends a minimum QR code size of 2cm × 2cm for typical scanning distances (10-25cm). For distances above 25cm (e.g., wall posters), multiply the minimum by the scan distance in meters. A QR code scanned from 1 meter away should be at least 6-8cm. Always download as SVG for print to avoid pixelation at larger sizes.</div></div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-q" @click="toggleFaq(9)" aria-expanded="false">
+            Can I track how many people scan my QR code?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">This tool generates static QR codes that point directly to your URL — there's no redirect layer, so scan counts aren't tracked here. To track scans, use a UTM-tagged URL (e.g., <code>https://yoursite.com?utm_source=qr&utm_medium=print</code>) and monitor it in Google Analytics 4. This approach gives you full analytics without depending on a third-party QR tracking service.</div></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- RELATED BLOG POSTS -->
+  <section class="related-blogs-section" aria-labelledby="related-blogs-heading">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="section-label">From the Blog</div>
+          <h2 class="section-title" id="related-blogs-heading">Related Articles</h2>
+        </div>
+        <a href="../../blog.html" class="view-all-link" aria-label="View all blog posts">
+          View all posts
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </a>
+      </div>
+
+      <div class="blog-grid-4" role="list">
+
+        <article class="blog-card" role="listitem">
+          <a href="../../blog/best-free-json-tools.html" class="blog-card-link" aria-label="Read: Best Free JSON Tools for Developers in 2025">
+            <div class="blog-card-img">
+              <div class="blog-img-gradient" style="background:linear-gradient(135deg,#0fd850,#0aab30);">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true"><text x="5" y="28" font-family="monospace" font-size="22" fill="white" opacity=".7">{ }</text></svg>
+              </div>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span class="blog-cat-badge" style="background:rgba(15,216,80,.12);color:#0fd850;">Coding</span>
+                <time class="blog-card-date" datetime="2025-05-20">May 20, 2025</time>
+              </div>
+              <h3 class="blog-card-title">Best Free JSON Tools for Developers in 2025</h3>
+              <p class="blog-card-excerpt">Format, validate, and diff JSON instantly without installing anything.</p>
+            </div>
+          </a>
+        </article>
+
+        <article class="blog-card" role="listitem">
+          <a href="../../blog/seo-meta-tags-guide.html" class="blog-card-link" aria-label="Read: The Complete Guide to SEO Meta Tags in 2025">
+            <div class="blog-card-img">
+              <div class="blog-img-gradient" style="background:linear-gradient(135deg,#a39dff,#6C63FF);">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true"><text x="6" y="26" font-family="monospace" font-size="14" fill="white" opacity=".7">&lt;meta&gt;</text></svg>
+              </div>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span class="blog-cat-badge" style="background:rgba(163,157,255,.12);color:#a39dff;">SEO</span>
+                <time class="blog-card-date" datetime="2025-04-28">April 28, 2025</time>
+              </div>
+              <h3 class="blog-card-title">The Complete Guide to SEO Meta Tags in 2025</h3>
+              <p class="blog-card-excerpt">Title tags, Open Graph, canonical URLs — everything to rank higher.</p>
+            </div>
+          </a>
+        </article>
+
+        <article class="blog-card" role="listitem">
+          <a href="../../blog/color-theory-web-design.html" class="blog-card-link" aria-label="Read: Color Theory Basics Every Web Designer Should Know">
+            <div class="blog-card-img">
+              <div class="blog-img-gradient" style="background:linear-gradient(135deg,#f093fb,#c850c0);">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="12" stroke="white" stroke-width="2" opacity=".5"/><circle cx="20" cy="20" r="5" fill="white" opacity=".4"/></svg>
+              </div>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span class="blog-cat-badge" style="background:rgba(240,147,251,.12);color:#f093fb;">Design</span>
+                <time class="blog-card-date" datetime="2025-05-10">May 10, 2025</time>
+              </div>
+              <h3 class="blog-card-title">Color Theory Basics Every Web Designer Should Know</h3>
+              <p class="blog-card-excerpt">Contrast ratios, palettes, and accessibility in one practical guide.</p>
+            </div>
+          </a>
+        </article>
+
+        <article class="blog-card" role="listitem">
+          <a href="../../blog/text-manipulation-tricks.html" class="blog-card-link" aria-label="Read: 10 Text Manipulation Tricks That Save Hours">
+            <div class="blog-card-img">
+              <div class="blog-img-gradient" style="background:linear-gradient(135deg,#667eea,#5548cc);">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="8" y="12" width="24" height="3" rx="1.5" fill="white" opacity=".5"/><rect x="8" y="19" width="18" height="3" rx="1.5" fill="white" opacity=".5"/><rect x="8" y="26" width="22" height="3" rx="1.5" fill="white" opacity=".35"/></svg>
+              </div>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span class="blog-cat-badge" style="background:rgba(102,126,234,.12);color:#667eea;">Text</span>
+                <time class="blog-card-date" datetime="2025-04-15">April 15, 2025</time>
+              </div>
+              <h3 class="blog-card-title">10 Text Manipulation Tricks That Save Hours of Work</h3>
+              <p class="blog-card-excerpt">Case conversion, find &amp; replace, diff — master these text tools.</p>
+            </div>
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../../index.html" class="logo" aria-label="The Tool Empire home">
+            <svg class="logo-icon" viewBox="0 0 36 36" fill="none" style="width:32px;height:32px;" aria-hidden="true">
+              <rect width="36" height="36" rx="9" fill="url(#flg)"/>
+              <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+              <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+              <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+              <defs><linearGradient id="flg" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+            </svg>
+            <span class="logo-text">The Tool Empire</span>
+          </a>
+          <p>Free browser-based tools for everyone. No login, no server, no data collection.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Tools</div>
+          <ul class="footer-links">
+            <li><a href="../../tools.html?cat=text">Text Tools</a></li>
+            <li><a href="../../tools.html?cat=coding">Coding Tools</a></li>
+            <li><a href="../../tools.html?cat=seo">SEO Tools</a></li>
+            <li><a href="../../tools.html?cat=color">Color Tools</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Company</div>
+          <ul class="footer-links">
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../blog.html">Blog</a></li>
+            <li><a href="../../contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Legal</div>
+          <ul class="footer-links">
+            <li><a href="../../privacy.html">Privacy Policy</a></li>
+            <li><a href="../../terms.html">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2025 The Tool Empire. All rights reserved.</p>
+        <p class="footer-copy"><a href="../../sitemap.xml" style="color:inherit;">Sitemap</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- REPORT MODAL -->
+  <div class="modal-overlay" x-show="reportOpen" x-transition @click.self="closeReport()" role="dialog" aria-modal="true" aria-labelledby="report-title">
+    <div class="modal-box">
+      <template x-if="!reportSent">
+        <div>
+          <h2 class="modal-title" id="report-title">Report an Issue</h2>
+          <p class="modal-sub">What's wrong with this tool? We'll look into it.</p>
+          <button class="modal-close" @click="closeReport()" aria-label="Close modal">✕</button>
+          <div class="report-options" role="radiogroup" aria-label="Issue type">
+            <label class="report-option" :class="{ selected: reportSelected === 'broken' }">
+              <input type="radio" name="report" value="broken" x-model="reportSelected" /> <span class="report-option-label">Tool is broken or not working</span>
+            </label>
+            <label class="report-option" :class="{ selected: reportSelected === 'wrong-output' }">
+              <input type="radio" name="report" value="wrong-output" x-model="reportSelected" /> <span class="report-option-label">Output is incorrect or unexpected</span>
+            </label>
+            <label class="report-option" :class="{ selected: reportSelected === 'ui-bug' }">
+              <input type="radio" name="report" value="ui-bug" x-model="reportSelected" /> <span class="report-option-label">UI / display problem</span>
+            </label>
+            <label class="report-option" :class="{ selected: reportSelected === 'suggestion' }">
+              <input type="radio" name="report" value="suggestion" x-model="reportSelected" /> <span class="report-option-label">Feature suggestion</span>
+            </label>
+            <label class="report-option" :class="{ selected: reportSelected === 'other' }">
+              <input type="radio" name="report" value="other" x-model="reportSelected" /> <span class="report-option-label">Other issue</span>
+            </label>
+          </div>
+          <button class="btn-report-submit" @click="submitReport()" :disabled="!reportSelected">Submit Report</button>
+        </div>
+      </template>
+      <template x-if="reportSent">
+        <div class="report-success">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <h3 style="font-weight:700;margin-bottom:6px;">Thank you!</h3>
+          <p>Your report has been submitted. We'll review it shortly.</p>
+          <button class="btn-report-submit" style="margin-top:16px;" @click="closeReport()">Close</button>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    <span class="toast-msg"></span>
+  </div>
+
+  <!-- Spin animation -->
+  <style>
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+
+  <!-- Info tab switcher (plain JS — no Alpine needed) -->
+  <script>
+    function switchTab(btn, tabId) {
+      document.querySelectorAll('.info-tab').forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.info-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      const panel = document.getElementById('tab-' + tabId);
+      if (panel) panel.classList.add('active');
+    }
+  </script>
+
+  <script src="qr-code-maker.js"></script>
+</body>
+</html>

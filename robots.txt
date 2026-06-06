@@ -1,0 +1,41 @@
+# robots.txt — The Tool Empire
+# https://thetoolempire.com
+
+User-agent: *
+Allow: /
+
+# Disallow any future admin or draft paths
+Disallow: /admin/
+Disallow: /draft/
+Disallow: /private/
+
+# Allow all major crawlers explicitly
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: facebot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Sitemap location
+Sitemap: https://thetoolempire.com/sitemap.xml

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -sI \"https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js\")",
+      "Bash(curl -s \"https://cdn.jsdelivr.net/npm/qrcode@1.5.3/\")",
+      "Bash(curl -sI \"https://cdn.jsdelivr.net/npm/qrcode@1.5.3/lib/browser.js\")",
+      "Bash(curl -sI \"https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js\")",
+      "Bash(curl -sI \"https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.js\")",
+      "Bash(curl -s \"https://cdn.jsdelivr.net/npm/qrcode@1.5.3/lib/browser.js\")",
+      "Bash(curl -s \"https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js\")"
+    ]
+  }
+}

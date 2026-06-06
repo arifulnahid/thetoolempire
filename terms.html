@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Terms of Use for The Tool Empire — understand your rights and responsibilities when using our free online tools." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://thetoolempire.com/terms.html" />
+  <meta property="og:title" content="Terms of Use — The Tool Empire" />
+  <meta property="og:type" content="website" />
+  <title>Terms of Use — The Tool Empire</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#6C63FF" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config', 'G-CNN44ER8MF');
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #6C63FF; --primary-dark: #5548e0; --secondary: #4ECDC4;
+      --bg: #0f0f14; --bg-surface: #18181f; --bg-card: #1e1e28;
+      --border: rgba(255,255,255,.08); --text: #e8e8f0;
+      --text-muted: #8888a8; --text-faint: #555570;
+      --radius-sm: 8px; --radius-md: 14px;
+      --transition: .2s cubic-bezier(.4,0,.2,1); --max-w: 1280px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: var(--primary); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--secondary); }
+    button { cursor: pointer; font: inherit; border: none; background: none; }
+    svg { display: block; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .container { width: 100%; max-width: var(--max-w); margin-inline: auto; padding-inline: clamp(16px, 4vw, 48px); }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(15,15,20,.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); transition: box-shadow var(--transition); }
+    .site-header.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,.4); }
+    .header-inner { display: flex; align-items: center; gap: 24px; height: 64px; }
+    .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .logo-icon { width: 36px; height: 36px; border-radius: 9px; }
+    .logo-text { font-size: 1.1rem; font-weight: 700; letter-spacing: -.02em; background: linear-gradient(135deg, #fff 40%, var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .main-nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+    .nav-link { padding: 6px 14px; border-radius: var(--radius-sm); font-size: .9rem; font-weight: 500; color: var(--text-muted); transition: color var(--transition), background var(--transition); }
+    .nav-link:hover { color: var(--text); background: rgba(255,255,255,.06); }
+    .menu-toggle { display: none; flex-direction: column; gap: 5px; margin-left: auto; padding: 8px; border-radius: var(--radius-sm); }
+    .menu-toggle span { display: block; width: 22px; height: 2px; background: var(--text-muted); border-radius: 2px; }
+    .mobile-nav { display: none; flex-direction: column; padding: 12px 16px 16px; border-top: 1px solid var(--border); background: var(--bg-surface); gap: 2px; }
+    .mobile-nav.open { display: flex; }
+
+    .page-hero { padding: clamp(40px, 6vw, 80px) 0 clamp(32px, 4vw, 56px); background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(108,99,255,.15) 0%, transparent 70%); border-bottom: 1px solid var(--border); }
+    .page-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(108,99,255,.15); border: 1px solid rgba(108,99,255,.3); color: #a39dff; font-size: .75rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; margin-bottom: 16px; }
+    .page-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -.03em; margin-bottom: 12px; }
+    .page-subtitle { font-size: .95rem; color: var(--text-muted); }
+    .page-meta { margin-top: 16px; font-size: .82rem; color: var(--text-faint); }
+
+    .page-content { display: grid; grid-template-columns: 220px 1fr; gap: 48px; padding: clamp(32px, 5vw, 64px) 0; align-items: start; max-width: 1100px; margin-inline: auto; }
+
+    .toc { position: sticky; top: 80px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; }
+    .toc-title { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-faint); margin-bottom: 12px; }
+    .toc-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .toc-list a { font-size: .82rem; color: var(--text-muted); padding: 5px 10px; border-radius: var(--radius-sm); display: block; transition: all var(--transition); border-left: 2px solid transparent; }
+    .toc-list a:hover, .toc-list a.active { color: var(--primary); background: rgba(108,99,255,.08); border-left-color: var(--primary); }
+
+    .prose { min-width: 0; }
+    .prose section { margin-bottom: 48px; scroll-margin-top: 90px; }
+    .prose h2 { font-size: 1.35rem; font-weight: 700; letter-spacing: -.02em; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+    .prose h2 .section-num { font-size: .7rem; font-weight: 700; background: rgba(108,99,255,.15); color: #a39dff; padding: 2px 8px; border-radius: 999px; }
+    .prose p { font-size: .93rem; color: var(--text-muted); margin-bottom: 14px; }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose ul { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+    .prose ul li { font-size: .93rem; color: var(--text-muted); padding-left: 20px; position: relative; }
+    .prose ul li::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--primary); opacity: .6; }
+    .prose strong { color: var(--text); font-weight: 600; }
+    .prose a { color: var(--primary); }
+    .highlight-box { background: rgba(108,99,255,.08); border: 1px solid rgba(108,99,255,.2); border-radius: var(--radius-md); padding: 20px 24px; margin-bottom: 20px; }
+    .highlight-box p { margin-bottom: 0; }
+    .highlight-box.yellow { background: rgba(249,240,71,.07); border-color: rgba(249,240,71,.2); }
+    .highlight-box.yellow p { color: #fde68a; }
+
+    .site-footer { background: var(--bg-surface); border-top: 1px solid var(--border); }
+    .footer-inner { display: grid; grid-template-columns: 1fr auto; gap: 48px; padding-block: clamp(40px, 5vw, 64px); align-items: start; }
+    .footer-brand { max-width: 260px; }
+    .footer-tagline { margin-top: 10px; font-size: .83rem; color: var(--text-faint); }
+    .footer-nav { display: flex; gap: 48px; flex-wrap: wrap; }
+    .footer-col { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col h4 { font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--text-faint); margin-bottom: 4px; }
+    .footer-col a { font-size: .85rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-block: 20px; }
+    .footer-bottom .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .footer-bottom p { font-size: .78rem; color: var(--text-faint); }
+
+    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 3px; }
+    :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 4px; }
+
+    @media (max-width: 768px) {
+      .main-nav { display: none; } .menu-toggle { display: flex; }
+      .page-content { grid-template-columns: 1fr; } .toc { position: static; }
+      .footer-inner { grid-template-columns: 1fr; } .footer-bottom .container { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body x-data="{ mobileMenuOpen: false, activeSection: '' }" x-init="
+  window.addEventListener('scroll', () => {
+    document.querySelector('.site-header').classList.toggle('scrolled', window.scrollY > 10);
+    document.querySelectorAll('.prose section').forEach(s => { if (s.getBoundingClientRect().top < 120) activeSection = s.id; });
+  });
+  window.addEventListener('resize', () => { if(window.innerWidth > 768) mobileMenuOpen = false; });
+">
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#lg1)"/><path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/><defs><linearGradient id="lg1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs></svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <nav class="main-nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/#tools" class="nav-link">Tools</a>
+        <a href="/#blog" class="nav-link">Blog</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <button class="menu-toggle" @click="mobileMenuOpen = !mobileMenuOpen" :aria-expanded="mobileMenuOpen" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="mobile-nav" :class="{ open: mobileMenuOpen }">
+      <a href="/" class="nav-link" @click="mobileMenuOpen = false">Home</a>
+      <a href="/#tools" class="nav-link" @click="mobileMenuOpen = false">Tools</a>
+      <a href="/#blog" class="nav-link" @click="mobileMenuOpen = false">Blog</a>
+      <a href="contact.html" class="nav-link" @click="mobileMenuOpen = false">Contact</a>
+    </nav>
+  </header>
+
+  <div class="page-hero">
+    <div class="container">
+      <div class="page-badge">Legal</div>
+      <h1 class="page-title">Terms of Use</h1>
+      <p class="page-subtitle">Please read these terms carefully before using The Tool Empire. By using our site, you agree to these terms.</p>
+      <p class="page-meta">Last updated: <time datetime="2025-06-01">June 1, 2025</time> &nbsp;·&nbsp; Effective: June 1, 2025</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="page-content">
+
+      <aside>
+        <nav class="toc">
+          <p class="toc-title">On this page</p>
+          <ul class="toc-list">
+            <li><a href="#acceptance" :class="{ active: activeSection === 'acceptance' }">Acceptance</a></li>
+            <li><a href="#services" :class="{ active: activeSection === 'services' }">Services</a></li>
+            <li><a href="#use-rules" :class="{ active: activeSection === 'use-rules' }">Acceptable Use</a></li>
+            <li><a href="#ip" :class="{ active: activeSection === 'ip' }">Intellectual Property</a></li>
+            <li><a href="#disclaimer" :class="{ active: activeSection === 'disclaimer' }">Disclaimers</a></li>
+            <li><a href="#liability" :class="{ active: activeSection === 'liability' }">Liability</a></li>
+            <li><a href="#advertising" :class="{ active: activeSection === 'advertising' }">Advertising</a></li>
+            <li><a href="#links" :class="{ active: activeSection === 'links' }">External Links</a></li>
+            <li><a href="#changes" :class="{ active: activeSection === 'changes' }">Changes</a></li>
+            <li><a href="#governing" :class="{ active: activeSection === 'governing' }">Governing Law</a></li>
+            <li><a href="#contact-us" :class="{ active: activeSection === 'contact-us' }">Contact</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <article class="prose">
+
+        <section id="acceptance">
+          <h2><span class="section-num">01</span> Acceptance of Terms</h2>
+          <p>By accessing or using thetoolempire.com ("the Site"), you agree to be bound by these Terms of Use. If you do not agree to all the terms, please do not use the Site.</p>
+          <p>These terms apply to all visitors, users, and others who access the Site.</p>
+        </section>
+
+        <section id="services">
+          <h2><span class="section-num">02</span> Description of Services</h2>
+          <p>The Tool Empire provides free, browser-based online tools for personal and professional use. All tools run entirely client-side in your browser and do not transmit your data to any server.</p>
+          <p>We reserve the right to modify, suspend, or discontinue any tool or service at any time without notice.</p>
+        </section>
+
+        <section id="use-rules">
+          <h2><span class="section-num">03</span> Acceptable Use</h2>
+          <p>You may use our tools freely for both personal and commercial projects. You agree not to:</p>
+          <ul>
+            <li>Use the Site for any unlawful purpose or in violation of any applicable laws</li>
+            <li>Attempt to gain unauthorized access to any portion of the Site</li>
+            <li>Engage in aggressive scraping, crawling, or automated access that disrupts the Site</li>
+            <li>Distribute malware, viruses, or other harmful code through the Site</li>
+            <li>Impersonate any person or entity or misrepresent your affiliation</li>
+            <li>Use the Site in any manner that could disable, overburden, or impair it</li>
+          </ul>
+        </section>
+
+        <section id="ip">
+          <h2><span class="section-num">04</span> Intellectual Property</h2>
+          <p>The Site and its original content, features, and functionality are owned by The Tool Empire and are protected by international copyright, trademark, and other intellectual property laws.</p>
+          <p><strong>Output of tools:</strong> Any content you create using our tools (formatted JSON, converted text, generated CSS, etc.) is entirely yours. We claim no ownership over your outputs.</p>
+          <p>You may not copy, reproduce, distribute, or create derivative works of our website's design, code, or content without explicit written permission.</p>
+        </section>
+
+        <section id="disclaimer">
+          <h2><span class="section-num">05</span> Disclaimers</h2>
+          <p>The tools on this Site are provided on an <strong>"as is" and "as available"</strong> basis without warranties of any kind, either express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+          <p>We do not warrant that:</p>
+          <ul>
+            <li>The tools will be error-free or produce perfectly accurate results</li>
+            <li>The Site will be available uninterrupted or at any specific time</li>
+            <li>Any errors or defects will be corrected</li>
+          </ul>
+          <p>Always verify results from our tools before using them in critical applications. For financial, medical, or legal decisions, please consult a qualified professional.</p>
+        </section>
+
+        <section id="liability">
+          <h2><span class="section-num">06</span> Limitation of Liability</h2>
+          <p>To the maximum extent permitted by applicable law, The Tool Empire shall not be liable for any indirect, incidental, special, consequential, or punitive damages — including loss of profits, data, goodwill, or other intangible losses — resulting from your use of the Site or its tools.</p>
+          <p>Our total liability to you for any claims arising from use of the Site shall not exceed $0 (as all services are provided free of charge).</p>
+        </section>
+
+        <section id="advertising">
+          <h2><span class="section-num">07</span> Advertising</h2>
+          <p>The Tool Empire displays advertisements provided by Google AdSense and potentially other advertising networks. These ads help us keep all tools free.</p>
+          <p>We are not responsible for the content of advertisements shown on this Site. Clicking on ads will take you to third-party websites not controlled by us.</p>
+        </section>
+
+        <section id="links">
+          <h2><span class="section-num">08</span> External Links</h2>
+          <p>Our Site may contain links to third-party websites. These links are provided for convenience only. We have no control over the content of those sites and accept no responsibility for them or for any loss or damage arising from your use of them.</p>
+        </section>
+
+        <section id="changes">
+          <h2><span class="section-num">09</span> Changes to Terms</h2>
+          <p>We reserve the right to modify these Terms at any time. Changes will be effective immediately upon posting. Your continued use of the Site after any changes constitutes acceptance of the new Terms.</p>
+        </section>
+
+        <section id="governing">
+          <h2><span class="section-num">10</span> Governing Law</h2>
+          <p>These Terms shall be governed by and construed in accordance with applicable law. Any disputes arising from these Terms or use of the Site will be resolved through good-faith negotiation where possible.</p>
+        </section>
+
+        <section id="contact-us">
+          <h2><span class="section-num">11</span> Contact Us</h2>
+          <p>If you have any questions about these Terms, please contact us via our <a href="contact.html">contact form</a>.</p>
+        </section>
+
+      </article>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="logo">
+          <svg class="logo-icon" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#lg2)"/><path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/><defs><linearGradient id="lg2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs></svg>
+          <span class="logo-text">The Tool Empire</span>
+        </a>
+        <p class="footer-tagline">Free tools, no limits.</p>
+      </div>
+      <nav class="footer-nav">
+        <div class="footer-col">
+          <h4>Tools</h4>
+          <a href="/#tools">All Tools</a>
+          <a href="/#blog">Blog</a>
+          <a href="contact.html">Contact</a>
+          <a href="about.html">About</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Use</a>
+          <a href="sitemap.xml">Sitemap</a>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; <span x-text="new Date().getFullYear()"></span> The Tool Empire. All rights reserved.</p>
+        <p>All tools run locally in your browser.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

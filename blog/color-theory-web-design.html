@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Color theory basics every web designer should know. Learn contrast ratios, color palettes, complementary colors, and accessibility in one practical guide." />
+  <meta name="keywords" content="color theory web design, color palettes, contrast ratio, complementary colors, web design accessibility, color tools online" />
+  <meta name="author" content="The Tool Empire" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://thetoolempire.com/blog/color-theory-web-design.html" />
+
+  <meta property="og:title" content="Color Theory Basics Every Web Designer Should Know — The Tool Empire" />
+  <meta property="og:description" content="Contrast ratios, palettes, complementary colors, and accessibility in one practical guide." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://thetoolempire.com/blog/color-theory-web-design.html" />
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <title>Color Theory Basics Every Web Designer Should Know — The Tool Empire</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <link rel="manifest" href="../manifest.json" />
+  <meta name="theme-color" content="#6C63FF" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config', 'G-CNN44ER8MF');
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Color Theory Basics Every Web Designer Should Know",
+    "description": "Contrast ratios, palettes, complementary colors, and accessibility in one practical guide.",
+    "author": { "@type": "Organization", "name": "The Tool Empire" },
+    "publisher": { "@type": "Organization", "name": "The Tool Empire", "url": "https://thetoolempire.com" },
+    "datePublished": "2025-05-10",
+    "url": "https://thetoolempire.com/blog/color-theory-web-design.html",
+    "mainEntityOfPage": "https://thetoolempire.com/blog/color-theory-web-design.html"
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #6C63FF; --primary-dark: #5548e0; --secondary: #4ECDC4;
+      --bg: #0f0f14; --bg-surface: #18181f; --bg-card: #1e1e28; --bg-card-hover: #25253a;
+      --border: rgba(255,255,255,.08); --border-hover: rgba(108,99,255,.5);
+      --text: #e8e8f0; --text-muted: #8888a8; --text-faint: #555570;
+      --cat-color: #f093fb;
+      --radius-sm: 8px; --radius-md: 14px; --radius-lg: 20px;
+      --transition: .2s cubic-bezier(.4,0,.2,1); --max-w: 1280px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font: inherit; border: none; background: none; }
+    svg { display: block; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .container { width: 100%; max-width: var(--max-w); margin-inline: auto; padding-inline: clamp(16px, 4vw, 48px); }
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(15,15,20,.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); transition: box-shadow var(--transition); }
+    .site-header.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,.4); }
+    .header-inner { display: flex; align-items: center; gap: 24px; height: 64px; }
+    .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .logo-icon { width: 36px; height: 36px; border-radius: 9px; }
+    .logo-text { font-size: 1.1rem; font-weight: 700; letter-spacing: -.02em; background: linear-gradient(135deg,#fff 40%,var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .main-nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+    .nav-link { padding: 6px 14px; border-radius: var(--radius-sm); font-size: .9rem; font-weight: 500; color: var(--text-muted); transition: color var(--transition), background var(--transition); }
+    .nav-link:hover, .nav-link.active { color: var(--text); background: rgba(255,255,255,.06); }
+    .menu-toggle { display: none; flex-direction: column; gap: 5px; margin-left: auto; padding: 8px; }
+    .menu-toggle span { display: block; width: 22px; height: 2px; background: var(--text-muted); border-radius: 2px; }
+    .mobile-nav { display: none; flex-direction: column; padding: 12px 16px 16px; border-top: 1px solid var(--border); background: var(--bg-surface); gap: 2px; }
+    .mobile-nav.open { display: flex; }
+    .post-hero { padding: clamp(48px,7vw,88px) 0 0; background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(240,147,251,.12) 0%, transparent 70%); }
+    .post-hero-inner { max-width: 800px; margin-inline: auto; text-align: center; padding-bottom: clamp(36px,5vw,56px); }
+    .post-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(240,147,251,.12); border: 1px solid rgba(240,147,251,.3); color: #f093fb; font-size: .75rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; margin-bottom: 16px; }
+    .post-title { font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 800; letter-spacing: -.04em; margin-bottom: 16px; line-height: 1.2; }
+    .post-meta { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; font-size: .85rem; color: var(--text-muted); margin-bottom: 24px; }
+    .post-meta-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--text-faint); }
+    .post-excerpt { font-size: 1.05rem; color: var(--text-muted); max-width: 600px; margin-inline: auto; }
+    .post-hero-img { width: 100%; max-width: 800px; margin-inline: auto; height: clamp(180px, 30vw, 320px); border-radius: var(--radius-lg) var(--radius-lg) 0 0; overflow: hidden; }
+    .hero-img-fill { width: 100%; height: 100%; background: linear-gradient(135deg, #f093fb 0%, #c850c0 50%, #9428a0 100%); display: flex; align-items: center; justify-content: center; gap: 16px; }
+    .color-swatch { width: 72px; height: 72px; border-radius: 50%; border: 3px solid rgba(255,255,255,.3); }
+    .post-layout { display: grid; grid-template-columns: 1fr 260px; gap: 48px; padding-block: clamp(32px,5vw,56px); align-items: start; max-width: 1100px; margin-inline: auto; }
+    .post-article { min-width: 0; }
+    .post-content h2 { font-size: 1.45rem; font-weight: 700; letter-spacing: -.02em; margin: 2.4rem 0 .8rem; color: var(--text); scroll-margin-top: 80px; }
+    .post-content h3 { font-size: 1.15rem; font-weight: 600; margin: 1.8rem 0 .6rem; color: var(--text); scroll-margin-top: 80px; }
+    .post-content p { margin-bottom: 1.2rem; color: var(--text-muted); font-size: .97rem; }
+    .post-content ul, .post-content ol { margin: 0 0 1.2rem 1.4rem; color: var(--text-muted); font-size: .97rem; }
+    .post-content li { margin-bottom: .4rem; }
+    .post-content strong { color: var(--text); font-weight: 600; }
+    .post-content a { color: var(--primary); text-decoration: underline; text-decoration-color: rgba(108,99,255,.35); transition: text-decoration-color var(--transition); }
+    .post-content a:hover { text-decoration-color: var(--primary); }
+    .post-content code { background: var(--bg-card); border: 1px solid var(--border); border-radius: 5px; padding: 2px 7px; font-family: 'Fira Code', monospace; font-size: .87rem; color: var(--secondary); }
+    .post-content blockquote { border-left: 3px solid #f093fb; margin: 1.6rem 0; padding: .8rem 1.2rem; background: rgba(240,147,251,.08); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-style: italic; color: var(--text-muted); }
+    .post-content hr { border: none; border-top: 1px solid var(--border); margin: 2.4rem 0; }
+    .highlight-box { background: rgba(240,147,251,.08); border: 1px solid rgba(240,147,251,.25); border-radius: var(--radius-md); padding: 20px 22px; margin: 1.6rem 0; }
+    .highlight-box .hb-label { font-size: .72rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #f093fb; margin-bottom: 6px; }
+    .highlight-box p { margin: 0; color: var(--text-muted); font-size: .93rem; }
+    /* Color palette display */
+    .palette-row { display: flex; gap: 8px; margin: 1.2rem 0; flex-wrap: wrap; }
+    .palette-chip { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .palette-chip-color { width: 60px; height: 60px; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,.12); }
+    .palette-chip-label { font-size: .7rem; color: var(--text-faint); font-family: monospace; }
+    .contrast-table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: .88rem; }
+    .contrast-table th { text-align: left; padding: 8px 12px; background: var(--bg-card); color: var(--text-muted); font-weight: 600; font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; border-bottom: 1px solid var(--border); }
+    .contrast-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+    .contrast-table tr:last-child td { border-bottom: none; }
+    .pass-badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: .72rem; font-weight: 700; }
+    .pass-badge.pass { background: rgba(15,216,80,.15); color: #0fd850; }
+    .pass-badge.fail { background: rgba(255,80,80,.15); color: #ff5050; }
+    .post-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2.4rem; padding-top: 1.6rem; border-top: 1px solid var(--border); }
+    .post-tag { padding: 4px 12px; border-radius: 999px; border: 1px solid var(--border); font-size: .78rem; color: var(--text-muted); }
+    .author-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 22px 24px; margin-top: 2.4rem; display: flex; gap: 16px; align-items: flex-start; }
+    .author-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg,var(--primary),var(--secondary)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; color: #fff; flex-shrink: 0; }
+    .author-name { font-weight: 700; font-size: .95rem; margin-bottom: 4px; }
+    .author-bio { font-size: .85rem; color: var(--text-muted); }
+    .related-section { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .related-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; }
+    .related-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+    .related-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px 18px; transition: border-color var(--transition), background var(--transition); }
+    .related-card:hover { border-color: var(--border-hover); background: var(--bg-card-hover); }
+    .related-cat { font-size: .72rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; margin-bottom: 6px; }
+    .related-card-title { font-size: .9rem; font-weight: 600; color: var(--text); line-height: 1.4; }
+    .post-sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 24px; }
+    .sidebar-widget { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; }
+    .widget-title { font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 14px; }
+    .toc-list { list-style: none; }
+    .toc-list li { border-left: 2px solid var(--border); padding: 3px 0 3px 12px; margin-bottom: 2px; transition: border-color var(--transition); }
+    .toc-list li.active { border-color: var(--primary); }
+    .toc-list a { font-size: .84rem; color: var(--text-muted); transition: color var(--transition); line-height: 1.4; display: block; }
+    .toc-list li.active a, .toc-list a:hover { color: var(--text); }
+    .toc-list .toc-h3 { padding-left: 22px; }
+    .toc-list .toc-h3 a { font-size: .8rem; }
+    .progress-bar-wrap { height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 14px; overflow: hidden; }
+    .progress-bar { height: 100%; background: linear-gradient(90deg,#f093fb,#c850c0); border-radius: 2px; transition: width .1s linear; }
+    .related-sidebar { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .related-sidebar li a { display: block; font-size: .86rem; color: var(--text-muted); transition: color var(--transition); line-height: 1.4; }
+    .related-sidebar li a:hover { color: var(--text); }
+    .related-sidebar li span { font-size: .75rem; color: var(--text-faint); }
+    .site-footer { background: var(--bg-surface); border-top: 1px solid var(--border); padding: clamp(40px,6vw,64px) 0 24px; margin-top: 80px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr repeat(3,1fr); gap: 40px; margin-bottom: 40px; }
+    .footer-brand p { font-size: .85rem; color: var(--text-faint); margin-top: 10px; max-width: 240px; line-height: 1.6; }
+    .footer-col-title { font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 14px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { font-size: .875rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .footer-copy { font-size: .8rem; color: var(--text-faint); }
+    .ad-container { display: flex; align-items: center; justify-content: center; background: var(--bg-surface); border: 1px dashed rgba(255,255,255,.06); border-radius: var(--radius-md); color: var(--text-faint); font-size: .72rem; letter-spacing: .05em; text-transform: uppercase; }
+    .ad-leaderboard { width: 100%; height: 90px; margin-block: 2rem; }
+    .ad-sidebar { width: 100%; height: 250px; }
+    @media (max-width: 900px) {
+      .post-layout { grid-template-columns: 1fr; }
+      .post-sidebar { position: static; }
+      .related-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .main-nav { display: none; }
+      .menu-toggle { display: flex; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body x-data="{
+  mobileMenuOpen: false,
+  scrolled: false,
+  readProgress: 0,
+  activeSection: '',
+  init() {
+    window.addEventListener('scroll', () => {
+      this.scrolled = window.scrollY > 10;
+      const article = document.querySelector('.post-content');
+      if (article) {
+        const total = article.offsetHeight;
+        const scrolled = Math.max(0, -(article.getBoundingClientRect().top));
+        this.readProgress = Math.min(100, Math.round((scrolled / total) * 100));
+      }
+      const headings = document.querySelectorAll('.post-content h2, .post-content h3');
+      let current = '';
+      headings.forEach(h => { if (window.scrollY >= h.offsetTop - 100) current = h.id; });
+      this.activeSection = current;
+    });
+  }
+}" @keydown.escape="mobileMenuOpen = false">
+
+  <header class="site-header" :class="{ scrolled }" role="banner">
+    <div class="container">
+      <div class="header-inner">
+        <a href="../index.html" class="logo" aria-label="The Tool Empire — home">
+          <svg class="logo-icon" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <rect width="36" height="36" rx="9" fill="url(#lg)"/>
+            <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+            <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+            <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+            <defs><linearGradient id="lg" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+          </svg>
+          <span class="logo-text">The Tool Empire</span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="../tools.html" class="nav-link">Tools</a>
+          <a href="../blog.html" class="nav-link active">Blog</a>
+          <a href="../about.html" class="nav-link">About</a>
+          <a href="../contact.html" class="nav-link">Contact</a>
+        </nav>
+        <button class="menu-toggle" @click="mobileMenuOpen = !mobileMenuOpen" :aria-expanded="mobileMenuOpen" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <nav class="mobile-nav" :class="{ open: mobileMenuOpen }" aria-label="Mobile navigation">
+      <a href="../tools.html" class="nav-link" @click="mobileMenuOpen = false">Tools</a>
+      <a href="../blog.html" class="nav-link" @click="mobileMenuOpen = false">Blog</a>
+      <a href="../about.html" class="nav-link" @click="mobileMenuOpen = false">About</a>
+      <a href="../contact.html" class="nav-link" @click="mobileMenuOpen = false">Contact</a>
+    </nav>
+  </header>
+
+  <div class="post-hero">
+    <div class="container">
+      <div class="post-hero-inner">
+        <div class="post-badge">Design</div>
+        <h1 class="post-title">Color Theory Basics Every Web Designer Should Know</h1>
+        <div class="post-meta">
+          <span>The Tool Empire</span>
+          <span class="post-meta-sep"></span>
+          <time datetime="2025-05-10">May 10, 2025</time>
+          <span class="post-meta-sep"></span>
+          <span>7 min read</span>
+        </div>
+        <p class="post-excerpt">Choosing colors that work together is both art and science. Learn contrast ratios, palettes, complementary colors, and accessibility — all in one practical guide.</p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="post-hero-img">
+        <div class="hero-img-fill">
+          <div class="color-swatch" style="background:#ff6b6b;"></div>
+          <div class="color-swatch" style="background:#f093fb;"></div>
+          <div class="color-swatch" style="background:#6C63FF;"></div>
+          <div class="color-swatch" style="background:#4ECDC4;"></div>
+          <div class="color-swatch" style="background:#fde68a;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="ad-container ad-leaderboard" aria-label="Advertisement">
+      <ins class="adsbygoogle" style="display:block;width:728px;height:90px;" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="post-layout">
+      <article class="post-article">
+        <div class="post-content">
+
+          <h2 id="why-color-theory">Why Color Theory Matters for Web Design</h2>
+          <p>Color is the first thing visitors notice about a website — before they read a single word. A well-chosen palette communicates brand personality, directs attention, and affects how long people stay on the page. A poorly chosen one drives visitors away in seconds.</p>
+          <p>The good news: color theory isn't reserved for fine art graduates. The core principles are learnable in an afternoon, and once you understand them, you can build professional-looking palettes confidently and quickly.</p>
+
+          <h2 id="color-wheel">The Color Wheel: Your Foundation</h2>
+          <p>Everything in color theory starts with the color wheel. It arranges colors by their relationship to each other, making it easy to identify harmonious combinations at a glance.</p>
+          <p><strong>Primary colors</strong> (red, yellow, blue) are the base. <strong>Secondary colors</strong> (orange, green, purple) mix two primaries. <strong>Tertiary colors</strong> mix a primary and secondary. Modern digital design uses the <strong>RGB model</strong> (red, green, blue) instead of traditional pigment mixing, but the wheel relationships still apply.</p>
+
+          <h2 id="color-harmonies">The 5 Core Color Harmonies</h2>
+          <p>A color harmony is a rule for combining colors that reliably looks good together. Here are the five you'll use most.</p>
+
+          <h3 id="complementary">Complementary</h3>
+          <p>Two colors directly opposite on the wheel. Maximum contrast, high energy. <strong>Use for:</strong> calls to action, badges, accent highlights. <strong>Avoid:</strong> using both at full saturation in large areas — it vibrates visually.</p>
+          <div class="palette-row">
+            <div class="palette-chip"><div class="palette-chip-color" style="background:#6C63FF;"></div><div class="palette-chip-label">#6C63FF</div></div>
+            <div class="palette-chip"><div class="palette-chip-color" style="background:#FFD163;"></div><div class="palette-chip-label">#FFD163</div></div>
+          </div>
+
+          <h3 id="analogous">Analogous</h3>
+          <p>Three colors side-by-side on the wheel. Low contrast, calm and cohesive. <strong>Use for:</strong> backgrounds, large sections, illustrations. The most beginner-friendly harmony to work with.</p>
+          <div class="palette-row">
+            <div class="palette-chip"><div class="palette-chip-color" style="background:#6C63FF;"></div><div class="palette-chip-label">#6C63FF</div></div>
+            <div class="palette-chip"><div class="palette-chip-color" style="background:#4ECDC4;"></div><div class="palette-chip-label">#4ECDC4</div></div>
+            <div class="palette-chip"><div class="palette-chip-color" style="background:#63C6FF;"></div><div class="palette-chip-label">#63C6FF</div></div>
+          </div>
+
+          <h3 id="triadic">Triadic</h3>
+          <p>Three colors evenly spaced (120° apart). Vibrant and balanced. Works best when one color dominates and the other two accent.</p>
+
+          <h3 id="split-complementary">Split-Complementary</h3>
+          <p>One base color plus the two colors adjacent to its complement. High contrast like complementary, but softer and easier to balance in UI.</p>
+
+          <h3 id="monochromatic">Monochromatic</h3>
+          <p>One hue at multiple lightness and saturation levels. Minimal, professional, elegant. Very easy to keep accessible. Often used in minimalist and SaaS product design.</p>
+
+          <h2 id="contrast-ratios">Contrast Ratios and Accessibility</h2>
+          <p>WCAG (Web Content Accessibility Guidelines) defines minimum contrast ratios between text and its background. This isn't just a legal requirement in many jurisdictions — it makes your design usable for people with visual impairments, people in bright sunlight, and anyone using a low-quality screen.</p>
+
+          <table class="contrast-table">
+            <thead>
+              <tr>
+                <th>Use Case</th>
+                <th>Minimum Ratio</th>
+                <th>Enhanced Ratio (AAA)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Normal text (under 18px)</td>
+                <td>4.5:1 <span class="pass-badge pass">AA</span></td>
+                <td>7:1 <span class="pass-badge pass">AAA</span></td>
+              </tr>
+              <tr>
+                <td>Large text (18px+ or 14px+ bold)</td>
+                <td>3:1 <span class="pass-badge pass">AA</span></td>
+                <td>4.5:1 <span class="pass-badge pass">AAA</span></td>
+              </tr>
+              <tr>
+                <td>UI components, icons</td>
+                <td>3:1 <span class="pass-badge pass">AA</span></td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>Decorative elements</td>
+                <td colspan="2">No requirement</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="highlight-box">
+            <div class="hb-label">Quick Check</div>
+            <p>Use a contrast checker to verify any text/background combination before publishing. Our free Color Contrast Checker tool lets you enter hex codes and see WCAG results instantly.</p>
+          </div>
+
+          <h2 id="color-temperature">Color Temperature</h2>
+          <p>Colors have an emotional temperature. <strong>Warm colors</strong> (red, orange, yellow) feel energetic, urgent, and inviting. <strong>Cool colors</strong> (blue, green, purple) feel calm, trustworthy, and professional.</p>
+          <p>This is why:</p>
+          <ul>
+            <li>Banks and healthcare use blue — trust and calm</li>
+            <li>Food brands use red and orange — appetite and energy</li>
+            <li>Eco brands use green — nature and growth</li>
+            <li>Luxury brands use black and gold — exclusivity</li>
+            <li>Tech startups use purple — innovation and creativity</li>
+          </ul>
+          <p>Your color choices tell a story even before users consciously register them.</p>
+
+          <h2 id="saturation-lightness">Saturation and Lightness</h2>
+          <p>Hue (the named color) is just one dimension. <strong>Saturation</strong> controls intensity — a fully saturated red is vivid and bold; a desaturated red becomes dusty rose. <strong>Lightness</strong> controls how bright or dark a color is.</p>
+          <p>A common mistake in beginner palettes: using full-saturation colors everywhere. Real designs use a wide range of saturations. Use high-saturation colors only for key interactive elements — buttons, badges, links. Use low-saturation versions for backgrounds and supporting text.</p>
+
+          <h2 id="building-a-palette">Building a Practical UI Palette</h2>
+          <p>A solid UI color palette typically has these roles:</p>
+          <ol>
+            <li><strong>Primary</strong> — your brand color, used for primary CTAs and key accents</li>
+            <li><strong>Secondary</strong> — complements the primary, used for secondary actions and highlights</li>
+            <li><strong>Neutral scale</strong> — 6-8 shades from near-black to near-white for backgrounds, text, borders</li>
+            <li><strong>Semantic colors</strong> — success (green), warning (yellow), error (red), info (blue)</li>
+          </ol>
+
+          <blockquote>
+            Start with one hue you love. Generate a 9-shade neutral scale from it (slightly warm or cool to match the brand). Then pick one accent from a complementary or analogous relationship. That's all most UIs need.
+          </blockquote>
+
+          <h2 id="dark-mode">Dark Mode Color Considerations</h2>
+          <p>Dark mode isn't just inverting your palette. Fully saturated colors on dark backgrounds create harsh visual noise. In dark UIs:</p>
+          <ul>
+            <li>Desaturate primary colors by 15-25% compared to your light-mode version</li>
+            <li>Don't use pure black (<code>#000000</code>) — use a very dark navy or dark gray (like <code>#0f0f14</code>)</li>
+            <li>Use elevation through subtle brightness differences, not just borders</li>
+            <li>Keep accent colors slightly brighter to maintain contrast against dark backgrounds</li>
+            <li>Test contrast ratios separately for dark mode — they shift significantly</li>
+          </ul>
+
+          <h2 id="tools">Color Tools That Help</h2>
+          <p>You don't need to do this all by hand. These tools accelerate the process:</p>
+          <ul>
+            <li><strong>Color Picker</strong> — explore HSL and RGB values for any color</li>
+            <li><strong>Gradient Generator</strong> — create smooth multi-stop CSS gradients</li>
+            <li><strong>Contrast Checker</strong> — verify WCAG compliance before publishing</li>
+            <li><strong>Color Palette Extractor</strong> — pull a palette from any image</li>
+          </ul>
+          <p>All of these are available for free on The Tool Empire — no login required.</p>
+
+          <hr />
+
+          <h2 id="conclusion">Start Simple, Refine Over Time</h2>
+          <p>Color mastery is a skill that develops over years, but the fundamentals are immediately useful. Pick a harmony, establish a neutral scale, verify your contrast ratios, and be deliberate about temperature and saturation. You'll be producing professional-looking work within days.</p>
+          <p>The biggest shift comes from moving from "picking colors I like" to "choosing colors that serve the design goal." Once that clicks, everything else follows.</p>
+
+        </div>
+
+        <div class="post-tags">
+          <span class="post-tag">Color</span>
+          <span class="post-tag">Design</span>
+          <span class="post-tag">Accessibility</span>
+          <span class="post-tag">WCAG</span>
+          <span class="post-tag">CSS</span>
+        </div>
+
+        <div class="author-box">
+          <div class="author-avatar">TE</div>
+          <div>
+            <div class="author-name">The Tool Empire Team</div>
+            <p class="author-bio">We build free, fast, browser-based tools for developers, designers, writers, and students. No install, no login, no data collection — just tools that work.</p>
+          </div>
+        </div>
+
+        <div class="related-section">
+          <h2 class="related-title">Related Articles</h2>
+          <div class="related-grid">
+            <a href="best-free-json-tools.html" class="related-card">
+              <div class="related-cat" style="color:#0fd850;">Coding</div>
+              <div class="related-card-title">Best Free JSON Tools for Developers in 2025</div>
+            </a>
+            <a href="seo-meta-tags-guide.html" class="related-card">
+              <div class="related-cat" style="color:#a39dff;">SEO</div>
+              <div class="related-card-title">The Complete Guide to SEO Meta Tags in 2025</div>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-widget">
+          <div class="widget-title">Reading Progress</div>
+          <div class="progress-bar-wrap"><div class="progress-bar" :style="`width:${readProgress}%`"></div></div>
+          <p style="font-size:.8rem;color:var(--text-faint);" x-text="`${readProgress}% complete`"></p>
+        </div>
+        <div class="sidebar-widget">
+          <div class="widget-title">Contents</div>
+          <ul class="toc-list">
+            <li :class="{ active: activeSection === 'why-color-theory' }"><a href="#why-color-theory">Why Color Theory Matters</a></li>
+            <li :class="{ active: activeSection === 'color-wheel' }"><a href="#color-wheel">The Color Wheel</a></li>
+            <li :class="{ active: activeSection === 'color-harmonies' }"><a href="#color-harmonies">Color Harmonies</a></li>
+            <li class="toc-h3" :class="{ active: activeSection === 'complementary' }"><a href="#complementary">Complementary</a></li>
+            <li class="toc-h3" :class="{ active: activeSection === 'analogous' }"><a href="#analogous">Analogous</a></li>
+            <li class="toc-h3" :class="{ active: activeSection === 'monochromatic' }"><a href="#monochromatic">Monochromatic</a></li>
+            <li :class="{ active: activeSection === 'contrast-ratios' }"><a href="#contrast-ratios">Contrast &amp; Accessibility</a></li>
+            <li :class="{ active: activeSection === 'color-temperature' }"><a href="#color-temperature">Color Temperature</a></li>
+            <li :class="{ active: activeSection === 'saturation-lightness' }"><a href="#saturation-lightness">Saturation &amp; Lightness</a></li>
+            <li :class="{ active: activeSection === 'building-a-palette' }"><a href="#building-a-palette">Building a UI Palette</a></li>
+            <li :class="{ active: activeSection === 'dark-mode' }"><a href="#dark-mode">Dark Mode</a></li>
+            <li :class="{ active: activeSection === 'tools' }"><a href="#tools">Color Tools</a></li>
+            <li :class="{ active: activeSection === 'conclusion' }"><a href="#conclusion">Start Simple</a></li>
+          </ul>
+        </div>
+        <div class="ad-container ad-sidebar" aria-label="Advertisement">
+          <ins class="adsbygoogle" style="display:block;width:250px;height:250px;" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins>
+        </div>
+        <div class="sidebar-widget">
+          <div class="widget-title">More Posts</div>
+          <ul class="related-sidebar">
+            <li><a href="best-free-json-tools.html">Best Free JSON Tools for Developers in 2025<br><span>Coding · 5 min</span></a></li>
+            <li><a href="seo-meta-tags-guide.html">The Complete Guide to SEO Meta Tags in 2025<br><span>SEO · 9 min</span></a></li>
+            <li><a href="text-manipulation-tricks.html">10 Text Manipulation Tricks That Save Hours<br><span>Text · 6 min</span></a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="logo">
+            <svg class="logo-icon" viewBox="0 0 36 36" fill="none" style="width:32px;height:32px;">
+              <rect width="36" height="36" rx="9" fill="url(#flg2)"/>
+              <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+              <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+              <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+              <defs><linearGradient id="flg2" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+            </svg>
+            <span class="logo-text">The Tool Empire</span>
+          </a>
+          <p>Free browser-based tools for everyone. No login, no server, no data collection.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Tools</div>
+          <ul class="footer-links">
+            <li><a href="../tools.html?cat=text">Text Tools</a></li>
+            <li><a href="../tools.html?cat=coding">Coding Tools</a></li>
+            <li><a href="../tools.html?cat=seo">SEO Tools</a></li>
+            <li><a href="../tools.html?cat=color">Color Tools</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Company</div>
+          <ul class="footer-links">
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../blog.html">Blog</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Legal</div>
+          <ul class="footer-links">
+            <li><a href="../privacy.html">Privacy Policy</a></li>
+            <li><a href="../terms.html">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2025 The Tool Empire. All rights reserved.</p>
+        <p class="footer-copy"><a href="../sitemap.xml" style="color:inherit;">Sitemap</a></p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

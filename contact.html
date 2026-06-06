@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact The Tool Empire — report a bug, suggest a new tool, or send us a message. We read every submission." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://thetoolempire.com/contact.html" />
+  <meta property="og:title" content="Contact — The Tool Empire" />
+  <meta property="og:description" content="Suggest a tool, report a bug, or just say hello." />
+  <meta property="og:type" content="website" />
+  <title>Contact — The Tool Empire</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#6C63FF" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config', 'G-CNN44ER8MF');
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #6C63FF; --primary-dark: #5548e0; --secondary: #4ECDC4;
+      --bg: #0f0f14; --bg-surface: #18181f; --bg-card: #1e1e28;
+      --border: rgba(255,255,255,.08); --border-focus: rgba(108,99,255,.5);
+      --text: #e8e8f0; --text-muted: #8888a8; --text-faint: #555570;
+      --radius-sm: 8px; --radius-md: 14px; --radius-lg: 20px;
+      --transition: .2s cubic-bezier(.4,0,.2,1); --max-w: 1280px;
+      --error: #f87171; --success: #4ade80;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--primary); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--secondary); }
+    button { cursor: pointer; font: inherit; border: none; background: none; }
+    svg { display: block; }
+
+    .container { width: 100%; max-width: var(--max-w); margin-inline: auto; padding-inline: clamp(16px, 4vw, 48px); }
+
+    /* HEADER */
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(15,15,20,.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); transition: box-shadow var(--transition); }
+    .site-header.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,.4); }
+    .header-inner { display: flex; align-items: center; gap: 24px; height: 64px; }
+    .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .logo-icon { width: 36px; height: 36px; border-radius: 9px; }
+    .logo-text { font-size: 1.1rem; font-weight: 700; letter-spacing: -.02em; background: linear-gradient(135deg, #fff 40%, var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .main-nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+    .nav-link { padding: 6px 14px; border-radius: var(--radius-sm); font-size: .9rem; font-weight: 500; color: var(--text-muted); transition: color var(--transition), background var(--transition); }
+    .nav-link:hover, .nav-link.active { color: var(--text); background: rgba(255,255,255,.06); }
+    .menu-toggle { display: none; flex-direction: column; gap: 5px; margin-left: auto; padding: 8px; border-radius: var(--radius-sm); }
+    .menu-toggle span { display: block; width: 22px; height: 2px; background: var(--text-muted); border-radius: 2px; }
+    .mobile-nav { display: none; flex-direction: column; padding: 12px 16px 16px; border-top: 1px solid var(--border); background: var(--bg-surface); gap: 2px; }
+    .mobile-nav.open { display: flex; }
+
+    /* HERO */
+    .page-hero { padding: clamp(48px, 7vw, 88px) 0 clamp(40px, 5vw, 64px); text-align: center; background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(108,99,255,.18) 0%, transparent 70%); }
+    .page-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(108,99,255,.15); border: 1px solid rgba(108,99,255,.3); color: #a39dff; font-size: .75rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; margin-bottom: 20px; }
+    .page-hero h1 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; letter-spacing: -.04em; margin-bottom: 16px; }
+    .gradient-text { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .page-hero p { font-size: .97rem; color: var(--text-muted); max-width: 520px; margin-inline: auto; }
+
+    /* LAYOUT */
+    .contact-layout { display: grid; grid-template-columns: 340px 1fr; gap: 40px; padding: clamp(40px, 5vw, 72px) 0; align-items: start; max-width: 1000px; margin-inline: auto; }
+
+    /* SIDEBAR */
+    .contact-sidebar { display: flex; flex-direction: column; gap: 16px; }
+
+    .info-card { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 24px; }
+    .info-card-title { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-faint); margin-bottom: 16px; }
+
+    .info-item { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .info-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .info-item-icon { width: 36px; height: 36px; border-radius: var(--radius-sm); background: rgba(108,99,255,.12); border: 1px solid rgba(108,99,255,.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .info-item-icon svg { width: 17px; height: 17px; color: var(--primary); }
+    .info-item-label { font-size: .72rem; color: var(--text-faint); margin-bottom: 2px; text-transform: uppercase; letter-spacing: .05em; }
+    .info-item-value { font-size: .88rem; color: var(--text); }
+    .info-item-value a { color: var(--primary); }
+
+    .topic-card { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 24px; }
+    .topic-card h3 { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-faint); margin-bottom: 14px; }
+    .topic-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .topic-list li { display: flex; align-items: center; gap: 10px; font-size: .85rem; color: var(--text-muted); }
+    .topic-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    /* FORM */
+    .contact-form-wrap { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: clamp(24px, 4vw, 40px); }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    .field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 20px; }
+    .field:last-child { margin-bottom: 0; }
+
+    label { font-size: .82rem; font-weight: 600; color: var(--text); }
+    label .req { color: var(--primary); margin-left: 2px; }
+
+    .input, .select, .textarea {
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 11px 16px;
+      font-size: .9rem;
+      color: var(--text);
+      font-family: inherit;
+      width: 100%;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+      -webkit-appearance: none;
+    }
+    .input::placeholder, .textarea::placeholder { color: var(--text-faint); }
+    .input:focus, .select:focus, .textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(108,99,255,.18); }
+    .input.error, .select.error, .textarea.error { border-color: var(--error); box-shadow: 0 0 0 3px rgba(248,113,113,.15); }
+
+    .select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238888a8' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 18px; padding-right: 40px; }
+    .select option { background: #1e1e28; }
+
+    .textarea { resize: vertical; min-height: 140px; line-height: 1.6; }
+
+    .field-hint { font-size: .75rem; color: var(--text-faint); }
+    .field-error { font-size: .75rem; color: var(--error); display: none; }
+    .field-error.visible { display: block; }
+
+    .char-counter { font-size: .72rem; color: var(--text-faint); text-align: right; }
+    .char-counter.warn { color: #fde68a; }
+    .char-counter.over { color: var(--error); }
+
+    /* Checkbox */
+    .checkbox-field { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 24px; }
+    .checkbox-field input[type="checkbox"] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; accent-color: var(--primary); }
+    .checkbox-field label { font-size: .83rem; color: var(--text-muted); font-weight: 400; cursor: pointer; }
+    .checkbox-field label a { color: var(--primary); }
+
+    /* Submit */
+    .btn-submit { width: 100%; padding: 14px; background: var(--primary); color: #fff; border-radius: var(--radius-sm); font-size: 1rem; font-weight: 600; letter-spacing: -.01em; transition: all var(--transition); display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .btn-submit:hover:not(:disabled) { background: var(--primary-dark); box-shadow: 0 6px 24px rgba(108,99,255,.4); transform: translateY(-1px); }
+    .btn-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+    .btn-submit svg { width: 18px; height: 18px; }
+
+    /* Success state */
+    .success-state { display: none; text-align: center; padding: 48px 24px; }
+    .success-state.visible { display: block; }
+    .success-icon { width: 72px; height: 72px; background: rgba(74,222,128,.12); border: 2px solid rgba(74,222,128,.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-inline: auto; margin-bottom: 24px; }
+    .success-icon svg { width: 36px; height: 36px; color: var(--success); }
+    .success-state h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 10px; }
+    .success-state p { color: var(--text-muted); font-size: .93rem; margin-bottom: 24px; }
+    .btn-reset { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border: 1.5px solid var(--border); color: var(--text-muted); border-radius: var(--radius-sm); font-size: .88rem; font-weight: 500; transition: all var(--transition); }
+    .btn-reset:hover { border-color: var(--primary); color: var(--primary); background: rgba(108,99,255,.08); }
+
+    /* FOOTER */
+    .site-footer { background: var(--bg-surface); border-top: 1px solid var(--border); }
+    .footer-inner { display: grid; grid-template-columns: 1fr auto; gap: 48px; padding-block: clamp(40px, 5vw, 64px); align-items: start; }
+    .footer-brand { max-width: 260px; }
+    .footer-tagline { margin-top: 10px; font-size: .83rem; color: var(--text-faint); }
+    .footer-nav { display: flex; gap: 48px; flex-wrap: wrap; }
+    .footer-col { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col h4 { font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--text-faint); margin-bottom: 4px; }
+    .footer-col a { font-size: .85rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-block: 20px; }
+    .footer-bottom .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .footer-bottom p { font-size: .78rem; color: var(--text-faint); }
+
+    /* Spinner */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; }
+
+    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 3px; }
+    :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 4px; }
+
+    @media (max-width: 768px) {
+      .main-nav { display: none; } .menu-toggle { display: flex; }
+      .contact-layout { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; } .footer-bottom .container { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body
+  x-data="contactApp()"
+  x-init="
+    window.addEventListener('scroll', () => { document.querySelector('.site-header').classList.toggle('scrolled', window.scrollY > 10); });
+    window.addEventListener('resize', () => { if(window.innerWidth > 768) mobileMenuOpen = false; });
+  "
+>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#lg1)"/><path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/><defs><linearGradient id="lg1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs></svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <nav class="main-nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/#tools" class="nav-link">Tools</a>
+        <a href="/#blog" class="nav-link">Blog</a>
+        <a href="contact.html" class="nav-link active">Contact</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" @click="mobileMenuOpen = !mobileMenuOpen" :aria-expanded="mobileMenuOpen" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="mobile-nav" :class="{ open: mobileMenuOpen }">
+      <a href="/" class="nav-link" @click="mobileMenuOpen = false">Home</a>
+      <a href="/#tools" class="nav-link" @click="mobileMenuOpen = false">Tools</a>
+      <a href="/#blog" class="nav-link" @click="mobileMenuOpen = false">Blog</a>
+      <a href="contact.html" class="nav-link active" @click="mobileMenuOpen = false">Contact</a>
+      <a href="about.html" class="nav-link" @click="mobileMenuOpen = false">About</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="page-hero" aria-labelledby="contact-heading">
+    <div class="container">
+      <div class="page-badge">Get in Touch</div>
+      <h1 id="contact-heading">We'd Love to <span class="gradient-text">Hear from You</span></h1>
+      <p>Report a bug, suggest a new tool, share feedback, or just say hello. We read every message.</p>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main>
+    <div class="container">
+      <div class="contact-layout">
+
+        <!-- SIDEBAR -->
+        <aside aria-label="Contact information">
+
+          <div class="info-card" style="margin-bottom: 0;">
+            <p class="info-card-title">Contact Details</p>
+
+            <div class="info-item">
+              <div class="info-item-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <div class="info-item-label">Email</div>
+                <div class="info-item-value"><a href="mailto:contact@thetoolempire.com">contact@thetoolempire.com</a></div>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-item-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              </div>
+              <div>
+                <div class="info-item-label">Response Time</div>
+                <div class="info-item-value">Within 48 hours</div>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-item-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <div>
+                <div class="info-item-label">Website</div>
+                <div class="info-item-value"><a href="https://thetoolempire.com">thetoolempire.com</a></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="topic-card" style="margin-top: 16px;">
+            <h3>What can we help with?</h3>
+            <ul class="topic-list">
+              <li><span class="topic-dot" style="background:#6ee7b7;"></span> Suggest a new tool</li>
+              <li><span class="topic-dot" style="background:#f87171;"></span> Report a bug or error</li>
+              <li><span class="topic-dot" style="background:#a39dff;"></span> General feedback</li>
+              <li><span class="topic-dot" style="background:#fde68a;"></span> Advertising / Partnership</li>
+              <li><span class="topic-dot" style="background:#4ECDC4;"></span> Other questions</li>
+            </ul>
+          </div>
+
+        </aside>
+
+        <!-- FORM -->
+        <div class="contact-form-wrap" role="main">
+
+          <!-- Success state -->
+          <div class="success-state" :class="{ visible: submitted }" aria-live="polite">
+            <div class="success-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <h2>Message Sent!</h2>
+            <p>Thanks for reaching out. We'll get back to you within 48 hours.</p>
+            <button class="btn-reset" @click="resetForm()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              Send Another Message
+            </button>
+          </div>
+
+          <!-- Form -->
+          <form
+            x-show="!submitted"
+            @submit.prevent="submitForm()"
+            novalidate
+            aria-label="Contact form"
+          >
+            <div class="form-row">
+              <div class="field">
+                <label for="name">Name <span class="req" aria-label="required">*</span></label>
+                <input
+                  id="name"
+                  type="text"
+                  class="input"
+                  :class="{ error: errors.name }"
+                  placeholder="Your name"
+                  x-model="form.name"
+                  @blur="validateField('name')"
+                  autocomplete="name"
+                  required
+                />
+                <span class="field-error" :class="{ visible: errors.name }" role="alert" x-text="errors.name"></span>
+              </div>
+              <div class="field">
+                <label for="email">Email <span class="req" aria-label="required">*</span></label>
+                <input
+                  id="email"
+                  type="email"
+                  class="input"
+                  :class="{ error: errors.email }"
+                  placeholder="you@example.com"
+                  x-model="form.email"
+                  @blur="validateField('email')"
+                  autocomplete="email"
+                  required
+                />
+                <span class="field-error" :class="{ visible: errors.email }" role="alert" x-text="errors.email"></span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="topic">Topic <span class="req" aria-label="required">*</span></label>
+              <select
+                id="topic"
+                class="select"
+                :class="{ error: errors.topic }"
+                x-model="form.topic"
+                @change="validateField('topic')"
+                required
+              >
+                <option value="">Select a topic…</option>
+                <option value="suggest">Suggest a New Tool</option>
+                <option value="bug">Report a Bug</option>
+                <option value="feedback">General Feedback</option>
+                <option value="advertising">Advertising / Partnership</option>
+                <option value="other">Other</option>
+              </select>
+              <span class="field-error" :class="{ visible: errors.topic }" role="alert" x-text="errors.topic"></span>
+            </div>
+
+            <div class="field">
+              <label for="subject">Subject <span class="req" aria-label="required">*</span></label>
+              <input
+                id="subject"
+                type="text"
+                class="input"
+                :class="{ error: errors.subject }"
+                placeholder="Brief subject line"
+                x-model="form.subject"
+                @blur="validateField('subject')"
+                maxlength="120"
+                required
+              />
+              <span class="field-error" :class="{ visible: errors.subject }" role="alert" x-text="errors.subject"></span>
+            </div>
+
+            <div class="field">
+              <div style="display:flex; justify-content: space-between; align-items: center;">
+                <label for="message">Message <span class="req" aria-label="required">*</span></label>
+                <span class="char-counter" :class="{ warn: form.message.length > 900, over: form.message.length > 1000 }">
+                  <span x-text="form.message.length"></span>/1000
+                </span>
+              </div>
+              <textarea
+                id="message"
+                class="textarea"
+                :class="{ error: errors.message }"
+                placeholder="Tell us more…"
+                x-model="form.message"
+                @blur="validateField('message')"
+                maxlength="1000"
+                required
+              ></textarea>
+              <span class="field-error" :class="{ visible: errors.message }" role="alert" x-text="errors.message"></span>
+            </div>
+
+            <div class="checkbox-field">
+              <input
+                type="checkbox"
+                id="agree"
+                x-model="form.agree"
+                @change="validateField('agree')"
+              />
+              <label for="agree">
+                I agree to the <a href="privacy.html" target="_blank">Privacy Policy</a> and consent to being contacted regarding my message.
+              </label>
+            </div>
+            <span class="field-error" style="margin-top: -16px; margin-bottom: 20px; display:block;" :class="{ visible: errors.agree }" role="alert" x-text="errors.agree"></span>
+
+            <button type="submit" class="btn-submit" :disabled="submitting">
+              <template x-if="!submitting">
+                <span style="display:flex;align-items:center;gap:8px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+                  Send Message
+                </span>
+              </template>
+              <template x-if="submitting">
+                <span style="display:flex;align-items:center;gap:10px;">
+                  <span class="spinner"></span>
+                  Sending…
+                </span>
+              </template>
+            </button>
+
+            <p style="text-align:center; font-size:.75rem; color:var(--text-faint); margin-top:16px;">
+              We typically respond within 48 hours. Your data is handled per our <a href="privacy.html">Privacy Policy</a>.
+            </p>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="logo">
+          <svg class="logo-icon" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#lg2)"/><path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/><defs><linearGradient id="lg2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs></svg>
+          <span class="logo-text">The Tool Empire</span>
+        </a>
+        <p class="footer-tagline">Free tools, no limits.</p>
+      </div>
+      <nav class="footer-nav">
+        <div class="footer-col">
+          <h4>Site</h4>
+          <a href="/#tools">All Tools</a>
+          <a href="/#blog">Blog</a>
+          <a href="contact.html">Contact</a>
+          <a href="about.html">About</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Use</a>
+          <a href="sitemap.xml">Sitemap</a>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; <span x-text="new Date().getFullYear()"></span> The Tool Empire. All rights reserved.</p>
+        <p>All tools run locally in your browser.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function contactApp() {
+      return {
+        mobileMenuOpen: false,
+        submitted: false,
+        submitting: false,
+        form: {
+          name: '', email: '', topic: '', subject: '', message: '', agree: false
+        },
+        errors: {
+          name: '', email: '', topic: '', subject: '', message: '', agree: ''
+        },
+
+        validateField(field) {
+          this.errors[field] = '';
+          const v = typeof this.form[field] === 'string' ? this.form[field].trim() : this.form[field];
+          if (field === 'name'    && !v)                                  this.errors.name    = 'Name is required.';
+          if (field === 'email')  {
+            if (!v) this.errors.email = 'Email is required.';
+            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) this.errors.email = 'Please enter a valid email.';
+          }
+          if (field === 'topic'   && !v)                                  this.errors.topic   = 'Please select a topic.';
+          if (field === 'subject' && !v)                                  this.errors.subject = 'Subject is required.';
+          if (field === 'message') {
+            if (!v) this.errors.message = 'Message is required.';
+            else if (v.length < 10) this.errors.message = 'Message must be at least 10 characters.';
+          }
+          if (field === 'agree' && !this.form.agree) this.errors.agree = 'You must agree to the Privacy Policy.';
+        },
+
+        validateAll() {
+          ['name','email','topic','subject','message','agree'].forEach(f => this.validateField(f));
+          return Object.values(this.errors).every(e => !e);
+        },
+
+        submitForm() {
+          if (!this.validateAll()) return;
+          this.submitting = true;
+          // Simulate async submit (replace with real endpoint like Formspree/EmailJS)
+          setTimeout(() => {
+            this.submitting = false;
+            this.submitted = true;
+            // Track conversion
+            if (typeof gtag !== 'undefined') gtag('event', 'contact_form_submit', { topic: this.form.topic });
+          }, 1400);
+        },
+
+        resetForm() {
+          this.submitted = false;
+          this.form = { name: '', email: '', topic: '', subject: '', message: '', agree: false };
+          this.errors = { name: '', email: '', topic: '', subject: '', message: '', agree: '' };
+        }
+      };
+    }
+  </script>
+
+</body>
+</html>

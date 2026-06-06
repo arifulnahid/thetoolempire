@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, follow" />
+  <title>Page Not Found — The Tool Empire</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="manifest" href="/manifest.json" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config', 'G-CNN44ER8MF');
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #6C63FF; --secondary: #4ECDC4;
+      --bg: #0f0f14; --bg-card: #1e1e28; --border: rgba(255,255,255,.08);
+      --text: #e8e8f0; --text-muted: #8888a8; --text-faint: #555570;
+    }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text);
+           min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+           justify-content: center; padding: 24px; text-align: center; }
+    .logo-text { font-size: 1.1rem; font-weight: 700; background: linear-gradient(135deg,#fff 40%,var(--secondary));
+                 -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .error-code { font-size: clamp(5rem,20vw,9rem); font-weight: 900; letter-spacing: -.06em;
+                  background: linear-gradient(135deg,var(--primary),var(--secondary));
+                  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+                  background-clip: text; line-height: 1; margin: 24px 0 16px; }
+    h1 { font-size: clamp(1.2rem,3vw,1.8rem); font-weight: 700; margin-bottom: 12px; }
+    p  { font-size: .95rem; color: var(--text-muted); max-width: 400px; margin: 0 auto 32px; line-height: 1.6; }
+    .btn-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .btn { padding: 11px 24px; border-radius: 10px; font-size: .9rem; font-weight: 700;
+           text-decoration: none; transition: all .2s; }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: #5548e0; }
+    .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text-muted); }
+    .btn-outline:hover { border-color: var(--primary); color: var(--text); }
+    .popular { margin-top: 48px; max-width: 480px; }
+    .popular-title { font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+                     color: var(--text-faint); margin-bottom: 14px; }
+    .popular-links { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .popular-link { padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border);
+                    font-size: .82rem; color: var(--text-muted); text-decoration: none;
+                    transition: all .2s; }
+    .popular-link:hover { border-color: var(--primary); color: var(--text); }
+    .footer-note { margin-top: 48px; font-size: .78rem; color: var(--text-faint); }
+    .footer-note a { color: var(--text-faint); text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <a href="/" style="text-decoration:none;">
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" style="border-radius:9px;margin-bottom:8px;" aria-hidden="true">
+      <rect width="36" height="36" rx="9" fill="url(#lg404)"/>
+      <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+      <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+      <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+      <defs><linearGradient id="lg404" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+    </svg>
+    <div class="logo-text">The Tool Empire</div>
+  </a>
+
+  <div class="error-code">404</div>
+  <h1>Page Not Found</h1>
+  <p>The page you're looking for doesn't exist or has been moved. Let's get you back on track.</p>
+
+  <div class="btn-row">
+    <a href="/" class="btn btn-primary">Go Home</a>
+    <a href="/tools.html" class="btn btn-outline">Browse Tools</a>
+    <a href="/blog.html" class="btn btn-outline">Read Blog</a>
+  </div>
+
+  <div class="popular">
+    <div class="popular-title">Popular Tools</div>
+    <div class="popular-links">
+      <a href="/tools/coding/qr-code-maker.html" class="popular-link">QR Code Maker</a>
+      <a href="/tools.html?cat=text" class="popular-link">Text Tools</a>
+      <a href="/tools.html?cat=coding" class="popular-link">Coding Tools</a>
+      <a href="/tools.html?cat=seo" class="popular-link">SEO Tools</a>
+      <a href="/tools.html?cat=color" class="popular-link">Color Tools</a>
+    </div>
+  </div>
+
+  <p class="footer-note">
+    Think this is a mistake? <a href="/contact.html">Let us know</a>.
+  </p>
+</body>
+</html>

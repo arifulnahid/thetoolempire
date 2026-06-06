@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The Tool Empire Blog — guides, tips, and tutorials for developers, designers, and power users. Learn how to get the most from free online tools." />
+  <meta name="keywords" content="online tools blog, developer tips, design tools, seo guide, coding tutorials, free tools" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://thetoolempire.com/blog.html" />
+  <meta property="og:title" content="Blog — The Tool Empire" />
+  <meta property="og:description" content="Tips, guides and tutorials for developers, designers and creators." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://thetoolempire.com/blog.html" />
+  <title>Blog — The Tool Empire</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#6C63FF" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config', 'G-CNN44ER8MF');
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "The Tool Empire Blog",
+    "url": "https://thetoolempire.com/blog.html",
+    "description": "Tips and guides for developers, designers, and creators."
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #6C63FF; --primary-dark: #5548e0; --secondary: #4ECDC4;
+      --bg: #0f0f14; --bg-surface: #18181f; --bg-card: #1e1e28; --bg-card-hover: #25253a;
+      --border: rgba(255,255,255,.08); --border-hover: rgba(108,99,255,.5);
+      --text: #e8e8f0; --text-muted: #8888a8; --text-faint: #555570;
+      --radius-sm: 8px; --radius-md: 14px; --radius-lg: 20px;
+      --transition: .2s cubic-bezier(.4,0,.2,1); --max-w: 1280px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font: inherit; border: none; background: none; }
+    svg { display: block; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .container { width: 100%; max-width: var(--max-w); margin-inline: auto; padding-inline: clamp(16px, 4vw, 48px); }
+
+    /* HEADER */
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(15,15,20,.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); transition: box-shadow var(--transition); }
+    .site-header.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,.4); }
+    .header-inner { display: flex; align-items: center; gap: 24px; height: 64px; }
+    .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .logo-icon { width: 36px; height: 36px; border-radius: 9px; }
+    .logo-text { font-size: 1.1rem; font-weight: 700; letter-spacing: -.02em; background: linear-gradient(135deg,#fff 40%,var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .main-nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+    .nav-link { padding: 6px 14px; border-radius: var(--radius-sm); font-size: .9rem; font-weight: 500; color: var(--text-muted); transition: color var(--transition), background var(--transition); }
+    .nav-link:hover, .nav-link.active { color: var(--text); background: rgba(255,255,255,.06); }
+    .menu-toggle { display: none; flex-direction: column; gap: 5px; margin-left: auto; padding: 8px; }
+    .menu-toggle span { display: block; width: 22px; height: 2px; background: var(--text-muted); border-radius: 2px; }
+    .mobile-nav { display: none; flex-direction: column; padding: 12px 16px 16px; border-top: 1px solid var(--border); background: var(--bg-surface); gap: 2px; }
+    .mobile-nav.open { display: flex; }
+
+    /* HERO */
+    .page-hero { padding: clamp(48px,7vw,88px) 0 clamp(36px,5vw,60px); background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(108,99,255,.18) 0%, transparent 70%); }
+    .hero-inner { max-width: 680px; margin-inline: auto; text-align: center; }
+    .page-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(108,99,255,.15); border: 1px solid rgba(108,99,255,.3); color: #a39dff; font-size: .75rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; margin-bottom: 16px; }
+    .page-title { font-size: clamp(1.8rem,4vw,3rem); font-weight: 800; letter-spacing: -.04em; margin-bottom: 12px; }
+    .gradient-text { background: linear-gradient(135deg,var(--primary),var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .page-subtitle { font-size: .95rem; color: var(--text-muted); margin-bottom: 28px; }
+
+    /* SEARCH */
+    .search-wrapper { position: relative; max-width: 520px; margin-inline: auto; }
+    .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--text-faint); pointer-events: none; }
+    .search-input { width: 100%; height: 50px; background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 0 44px 0 48px; font-size: .95rem; color: var(--text); outline: none; transition: border-color var(--transition), box-shadow var(--transition); -webkit-appearance: none; }
+    .search-input::placeholder { color: var(--text-faint); }
+    .search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(108,99,255,.18); }
+    .search-clear { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); width: 26px; height: 26px; border-radius: 50%; background: rgba(255,255,255,.1); color: var(--text-muted); font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: background var(--transition); }
+    .search-clear:hover { background: rgba(255,255,255,.18); }
+
+    /* FILTER BAR */
+    .filter-bar { background: var(--bg-surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); position: sticky; top: 64px; z-index: 50; }
+    .filter-bar-inner { display: flex; align-items: center; gap: 10px; padding-block: 11px; overflow-x: auto; scrollbar-width: none; }
+    .filter-bar-inner::-webkit-scrollbar { display: none; }
+    .filter-label { font-size: .75rem; font-weight: 600; color: var(--text-faint); text-transform: uppercase; letter-spacing: .07em; flex-shrink: 0; }
+    .pill { padding: 5px 16px; border-radius: 999px; font-size: .81rem; font-weight: 500; border: 1.5px solid var(--border); color: var(--text-muted); background: transparent; transition: all var(--transition); white-space: nowrap; flex-shrink: 0; }
+    .pill:hover { border-color: rgba(108,99,255,.4); color: var(--text); background: rgba(108,99,255,.08); }
+    .pill.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+    /* LAYOUT: sidebar + main */
+    .blog-layout { display: grid; grid-template-columns: 1fr 300px; gap: 40px; padding-block: clamp(32px,5vw,56px); align-items: start; }
+
+    /* TOOLBAR */
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+    .result-count { font-size: .85rem; color: var(--text-faint); }
+    .result-count strong { color: var(--text); }
+    .sort-group { display: flex; align-items: center; gap: 8px; }
+    .sort-label { font-size: .8rem; color: var(--text-faint); }
+    .sort-select { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 6px 30px 6px 12px; font-size: .82rem; color: var(--text); font-family: inherit; outline: none; cursor: pointer; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238888a8' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; background-size: 16px; transition: border-color var(--transition); }
+    .sort-select:focus { border-color: var(--primary); }
+    .sort-select option { background: #1e1e28; }
+
+    /* FEATURED POST */
+    .featured-post { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 32px; transition: all var(--transition); display: grid; grid-template-columns: 1fr 1fr; }
+    .featured-post:hover { border-color: var(--border-hover); box-shadow: 0 8px 40px rgba(108,99,255,.2); transform: translateY(-2px); }
+    .featured-img { aspect-ratio: unset; min-height: 240px; }
+    .featured-body { padding: 32px; display: flex; flex-direction: column; justify-content: center; }
+    .featured-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--primary); margin-bottom: 12px; }
+    .featured-title { font-size: clamp(1.1rem,2vw,1.5rem); font-weight: 700; letter-spacing: -.02em; line-height: 1.3; margin-bottom: 12px; transition: color var(--transition); }
+    .featured-post:hover .featured-title { color: var(--primary); }
+    .featured-excerpt { font-size: .87rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 18px; }
+    .featured-meta { display: flex; align-items: center; gap: 12px; font-size: .78rem; color: var(--text-faint); }
+    .featured-meta .cat-badge { background: rgba(108,99,255,.12); color: #a39dff; padding: 2px 10px; border-radius: 999px; font-size: .72rem; font-weight: 600; }
+    .read-link { display: inline-flex; align-items: center; gap: 6px; color: var(--primary); font-size: .85rem; font-weight: 600; margin-top: 16px; transition: gap var(--transition); }
+    .read-link:hover { gap: 10px; }
+    .read-link svg { width: 16px; height: 16px; }
+
+    /* BLOG GRID */
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+
+    /* BLOG CARD */
+    .blog-card { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius-md); overflow: hidden; transition: all var(--transition); display: flex; flex-direction: column; }
+    .blog-card:hover { border-color: var(--border-hover); box-shadow: 0 6px 32px rgba(108,99,255,.15); transform: translateY(-2px); }
+    .blog-card-img { aspect-ratio: 16/9; overflow: hidden; flex-shrink: 0; }
+    .blog-img-placeholder { width: 100%; height: 100%; }
+    .blog-card-body { padding: 18px; flex: 1; display: flex; flex-direction: column; }
+    .blog-card-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+    .blog-cat { font-size: .7rem; font-weight: 600; padding: 2px 10px; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; }
+    .blog-date { font-size: .73rem; color: var(--text-faint); }
+    .blog-read-time { font-size: .73rem; color: var(--text-faint); }
+    .blog-card-title { font-size: .93rem; font-weight: 600; line-height: 1.4; margin-bottom: 8px; transition: color var(--transition); }
+    .blog-card:hover .blog-card-title { color: var(--primary); }
+    .blog-card-excerpt { font-size: .8rem; color: var(--text-muted); line-height: 1.6; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .blog-card-footer { padding: 0 18px 14px; display: flex; align-items: center; justify-content: space-between; }
+    .blog-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+    .tag { font-size: .68rem; padding: 2px 8px; border-radius: 999px; background: rgba(108,99,255,.1); color: #a39dff; border: 1px solid rgba(108,99,255,.18); }
+    .more-link { font-size: .78rem; color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 4px; white-space: nowrap; transition: gap var(--transition); }
+    .more-link:hover { gap: 7px; }
+    .more-link svg { width: 14px; height: 14px; }
+
+    /* SIDEBAR */
+    .sidebar { display: flex; flex-direction: column; gap: 20px; position: sticky; top: 112px; }
+    .sidebar-widget { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 20px; }
+    .widget-title { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-faint); margin-bottom: 14px; }
+
+    /* Popular posts */
+    .popular-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .popular-item { padding: 11px 0; border-bottom: 1px solid var(--border); }
+    .popular-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .popular-item a { display: flex; align-items: flex-start; gap: 12px; }
+    .popular-num { font-size: 1rem; font-weight: 800; color: var(--text-faint); line-height: 1; flex-shrink: 0; min-width: 20px; }
+    .popular-info {}
+    .popular-title { font-size: .82rem; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 3px; transition: color var(--transition); }
+    .popular-item a:hover .popular-title { color: var(--primary); }
+    .popular-meta { font-size: .72rem; color: var(--text-faint); }
+
+    /* Category widget */
+    .cat-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .cat-list li a { display: flex; align-items: center; justify-content: space-between; padding: 7px 10px; border-radius: var(--radius-sm); font-size: .85rem; color: var(--text-muted); transition: all var(--transition); }
+    .cat-list li a:hover { background: rgba(108,99,255,.08); color: var(--text); }
+    .cat-count { font-size: .72rem; background: rgba(255,255,255,.06); padding: 1px 8px; border-radius: 999px; color: var(--text-faint); }
+
+    /* Tags cloud */
+    .tags-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+    .cloud-tag { font-size: .78rem; padding: 4px 12px; border-radius: 999px; border: 1.5px solid var(--border); color: var(--text-muted); transition: all var(--transition); cursor: pointer; }
+    .cloud-tag:hover, .cloud-tag.active { border-color: var(--primary); color: var(--primary); background: rgba(108,99,255,.08); }
+
+    /* NO RESULTS */
+    .no-results { text-align: center; padding: 64px 24px; color: var(--text-muted); grid-column: 1 / -1; }
+    .no-results svg { width: 60px; height: 60px; margin-inline: auto; margin-bottom: 14px; opacity: .4; }
+    .no-results p { margin-bottom: 16px; }
+    .btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; border: 1.5px solid var(--border); color: var(--text-muted); border-radius: var(--radius-sm); font-size: .85rem; font-weight: 500; transition: all var(--transition); }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: rgba(108,99,255,.08); }
+
+    /* PAGINATION */
+    .pagination { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 40px; }
+    .page-btn { width: 38px; height: 38px; border-radius: var(--radius-sm); border: 1.5px solid var(--border); color: var(--text-muted); font-size: .87rem; font-weight: 500; display: flex; align-items: center; justify-content: center; transition: all var(--transition); }
+    .page-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(108,99,255,.08); }
+    .page-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .page-btn:disabled { opacity: .3; cursor: not-allowed; }
+    .page-btn svg { width: 16px; height: 16px; }
+
+    /* AD */
+    .ad-container { display: flex; align-items: center; justify-content: center; padding: 16px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-md); min-height: 90px; margin-bottom: 20px; overflow: hidden; }
+
+    /* FOOTER */
+    .site-footer { background: var(--bg-surface); border-top: 1px solid var(--border); margin-top: 64px; }
+    .footer-inner { display: grid; grid-template-columns: 1fr auto; gap: 48px; padding-block: clamp(40px,5vw,64px); align-items: start; }
+    .footer-brand { max-width: 260px; }
+    .footer-tagline { margin-top: 10px; font-size: .83rem; color: var(--text-faint); }
+    .footer-nav { display: flex; gap: 48px; flex-wrap: wrap; }
+    .footer-col { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col h4 { font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--text-faint); margin-bottom: 4px; }
+    .footer-col a { font-size: .85rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-block: 20px; }
+    .footer-bottom .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .footer-bottom p { font-size: .78rem; color: var(--text-faint); }
+
+    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 3px; }
+    :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 4px; }
+
+    @media (max-width: 900px) {
+      .blog-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .featured-post { grid-template-columns: 1fr; }
+      .featured-img { min-height: 180px; }
+    }
+    @media (max-width: 768px) {
+      .main-nav { display: none; } .menu-toggle { display: flex; }
+      .footer-inner { grid-template-columns: 1fr; } .footer-bottom .container { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .blog-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body x-data="blogPage()" x-init="init()">
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo" aria-label="The Tool Empire Home">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#lg1)"/>
+          <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/>
+          <defs><linearGradient id="lg1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="/" class="nav-link">Home</a>
+        <a href="tools.html" class="nav-link">Tools</a>
+        <a href="blog.html" class="nav-link active">Blog</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+      <button class="menu-toggle" @click="mobileMenuOpen = !mobileMenuOpen" :aria-expanded="mobileMenuOpen" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="mobile-nav" :class="{ open: mobileMenuOpen }">
+      <a href="/" class="nav-link" @click="mobileMenuOpen = false">Home</a>
+      <a href="tools.html" class="nav-link" @click="mobileMenuOpen = false">Tools</a>
+      <a href="blog.html" class="nav-link active" @click="mobileMenuOpen = false">Blog</a>
+      <a href="contact.html" class="nav-link" @click="mobileMenuOpen = false">Contact</a>
+      <a href="about.html" class="nav-link" @click="mobileMenuOpen = false">About</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="page-hero" aria-labelledby="blog-heading">
+    <div class="container hero-inner">
+      <div class="page-badge">Articles &amp; Guides</div>
+      <h1 id="blog-heading" class="page-title">The <span class="gradient-text">Tool Empire</span> Blog</h1>
+      <p class="page-subtitle">Tips, tutorials, and deep-dives for developers, designers, and creators.</p>
+      <div class="search-wrapper" role="search">
+        <label for="blog-search" class="sr-only">Search articles</label>
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input
+          id="blog-search"
+          type="search"
+          class="search-input"
+          placeholder="Search articles… e.g. JSON, SEO, colors"
+          x-model="searchQuery"
+          @input="applyFilters()"
+          autocomplete="off"
+        />
+        <template x-if="searchQuery">
+          <button class="search-clear" @click="searchQuery=''; applyFilters()" aria-label="Clear search">&times;</button>
+        </template>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar" role="navigation" aria-label="Filter by category">
+    <div class="container filter-bar-inner">
+      <span class="filter-label">Topic:</span>
+      <button class="pill" :class="{ active: activeCategory === '' }" @click="activeCategory=''; applyFilters()">All</button>
+      <template x-for="cat in blogCategories" :key="cat">
+        <button class="pill" :class="{ active: activeCategory === cat }" @click="activeCategory = cat; applyFilters()" x-text="cat"></button>
+      </template>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="blog-layout">
+
+      <!-- LEFT: posts -->
+      <div>
+        <!-- TOOLBAR -->
+        <div class="toolbar">
+          <p class="result-count" aria-live="polite">
+            <strong x-text="paginatedPosts.length"></strong> of <strong x-text="filteredPosts.length"></strong> articles
+            <template x-if="activeCategory"><span> in <strong x-text="activeCategory"></strong></span></template>
+          </p>
+          <div class="sort-group">
+            <label for="sort-blog" class="sort-label">Sort:</label>
+            <select id="sort-blog" class="sort-select" x-model="sortBy" @change="applyFilters()">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="az">A → Z</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- FEATURED POST (first result, only on "all" unfiltered) -->
+        <template x-if="!searchQuery && !activeCategory && currentPage === 1 && filteredPosts.length > 0">
+          <a :href="filteredPosts[0].url" class="featured-post" aria-label="Featured: read " + filteredPosts[0].title>
+            <div class="featured-img blog-img-placeholder" :class="'blog-img-' + filteredPosts[0].imgClass"></div>
+            <div class="featured-body">
+              <p class="featured-label">Featured Article</p>
+              <h2 class="featured-title" x-text="filteredPosts[0].title"></h2>
+              <p class="featured-excerpt" x-text="filteredPosts[0].excerpt"></p>
+              <div class="featured-meta">
+                <span class="cat-badge" x-text="filteredPosts[0].category"></span>
+                <time :datetime="filteredPosts[0].dateISO" x-text="filteredPosts[0].date"></time>
+                <span x-text="filteredPosts[0].readTime"></span>
+              </div>
+              <span class="read-link">
+                Read article
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </div>
+          </a>
+        </template>
+
+        <!-- AD slot -->
+        <div class="ad-container" aria-label="Advertisement">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <!-- NO RESULTS -->
+        <template x-if="filteredPosts.length === 0">
+          <div class="no-results" role="alert">
+            <svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="2"/><path d="M20 32h24M32 20v24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <p>No articles found for "<strong x-text="searchQuery || activeCategory"></strong>"</p>
+            <button class="btn-outline" @click="searchQuery=''; activeCategory=''; applyFilters()">Clear filters</button>
+          </div>
+        </template>
+
+        <!-- BLOG GRID -->
+        <div class="blog-grid" role="list">
+          <template x-for="post in paginatedPosts" :key="post.id">
+            <article class="blog-card" role="listitem" :aria-label="post.title">
+              <a :href="post.url" class="blog-card-img" :aria-label="'Read: ' + post.title">
+                <div class="blog-img-placeholder" :class="'blog-img-' + post.imgClass"></div>
+              </a>
+              <a :href="post.url" class="blog-card-body">
+                <div class="blog-card-meta">
+                  <span class="blog-cat" :style="'background:' + post.catColor + '22; color:' + post.catColor" x-text="post.category"></span>
+                  <time class="blog-date" :datetime="post.dateISO" x-text="post.date"></time>
+                  <span class="blog-read-time" x-text="post.readTime"></span>
+                </div>
+                <h2 class="blog-card-title" x-text="post.title"></h2>
+                <p class="blog-card-excerpt" x-text="post.excerpt"></p>
+              </a>
+              <div class="blog-card-footer">
+                <div class="blog-tags">
+                  <template x-for="tag in post.tags.slice(0,2)" :key="tag">
+                    <span class="tag" x-text="tag"></span>
+                  </template>
+                </div>
+                <a :href="post.url" class="more-link">
+                  Read
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </article>
+          </template>
+        </div>
+
+        <!-- PAGINATION -->
+        <template x-if="totalPages > 1">
+          <div class="pagination" role="navigation" aria-label="Pagination">
+            <button class="page-btn" @click="goPage(currentPage - 1)" :disabled="currentPage === 1" aria-label="Previous page">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <template x-for="p in pageRange" :key="p">
+              <button class="page-btn" :class="{ active: p === currentPage }" @click="goPage(p)" :aria-label="'Page ' + p" :aria-current="p === currentPage ? 'page' : undefined" x-text="p"></button>
+            </template>
+            <button class="page-btn" @click="goPage(currentPage + 1)" :disabled="currentPage === totalPages" aria-label="Next page">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+        </template>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar" aria-label="Blog sidebar">
+
+        <!-- Popular posts -->
+        <div class="sidebar-widget">
+          <h3 class="widget-title">Popular Articles</h3>
+          <ul class="popular-list">
+            <template x-for="(post, i) in posts.slice(0,5)" :key="post.id">
+              <li class="popular-item">
+                <a :href="post.url">
+                  <span class="popular-num" x-text="(i+1) + '.'"></span>
+                  <div class="popular-info">
+                    <p class="popular-title" x-text="post.title"></p>
+                    <p class="popular-meta" x-text="post.date + ' · ' + post.readTime"></p>
+                  </div>
+                </a>
+              </li>
+            </template>
+          </ul>
+        </div>
+
+        <!-- Categories -->
+        <div class="sidebar-widget">
+          <h3 class="widget-title">Categories</h3>
+          <ul class="cat-list">
+            <li>
+              <a href="#" @click.prevent="activeCategory=''; applyFilters()">
+                All Articles
+                <span class="cat-count" x-text="posts.length"></span>
+              </a>
+            </li>
+            <template x-for="cat in blogCategories" :key="cat">
+              <li>
+                <a href="#" @click.prevent="activeCategory=cat; applyFilters()">
+                  <span x-text="cat"></span>
+                  <span class="cat-count" x-text="posts.filter(p=>p.category===cat).length"></span>
+                </a>
+              </li>
+            </template>
+          </ul>
+        </div>
+
+        <!-- Tags -->
+        <div class="sidebar-widget">
+          <h3 class="widget-title">Tags</h3>
+          <div class="tags-cloud">
+            <template x-for="tag in allTags" :key="tag">
+              <button
+                class="cloud-tag"
+                :class="{ active: searchQuery === tag }"
+                @click="searchQuery = (searchQuery === tag ? '' : tag); applyFilters()"
+                x-text="tag"
+              ></button>
+            </template>
+          </div>
+        </div>
+
+        <!-- Ad -->
+        <div class="ad-container" aria-label="Advertisement" style="flex-direction:column;">
+          <ins class="adsbygoogle" style="display:inline-block;width:260px;height:260px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+      </aside>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="logo">
+          <svg class="logo-icon" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#lg2)"/><path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/><defs><linearGradient id="lg2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs></svg>
+          <span class="logo-text">The Tool Empire</span>
+        </a>
+        <p class="footer-tagline">Free tools, no limits.</p>
+      </div>
+      <nav class="footer-nav">
+        <div class="footer-col">
+          <h4>Site</h4>
+          <a href="tools.html">All Tools</a>
+          <a href="blog.html">Blog</a>
+          <a href="contact.html">Contact</a>
+          <a href="about.html">About</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Use</a>
+          <a href="sitemap.xml">Sitemap</a>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; <span x-text="new Date().getFullYear()"></span> The Tool Empire. All rights reserved.</p>
+        <p>All tools run locally in your browser.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const BLOG_POSTS = [
+      {
+        id: 1,
+        title: 'Best Free JSON Tools for Developers in 2025',
+        excerpt: 'Format, validate, minify, and diff JSON instantly without installing anything. Here are the tools developers swear by — and tips to get the most from each.',
+        category: 'Coding',
+        catColor: '#0fd850',
+        date: 'May 20, 2025',
+        dateISO: '2025-05-20',
+        readTime: '5 min read',
+        tags: ['JSON', 'Coding', 'Developer Tools'],
+        imgClass: 1,
+        url: 'blog/best-free-json-tools.html',
+      },
+      {
+        id: 2,
+        title: 'Color Theory Basics Every Web Designer Should Know',
+        excerpt: 'Choosing colors that work together is both art and science. Learn contrast ratios, palettes, complementary colors, and accessibility in one practical guide.',
+        category: 'Design',
+        catColor: '#f093fb',
+        date: 'May 10, 2025',
+        dateISO: '2025-05-10',
+        readTime: '7 min read',
+        tags: ['Color', 'Design', 'Accessibility'],
+        imgClass: 2,
+        url: 'blog/color-theory-web-design.html',
+      },
+      {
+        id: 3,
+        title: 'The Complete Guide to SEO Meta Tags in 2025',
+        excerpt: 'Title tags, meta descriptions, Open Graph, canonical URLs — everything you need to rank higher in search results and get more clicks from social media.',
+        category: 'SEO',
+        catColor: '#a39dff',
+        date: 'April 28, 2025',
+        dateISO: '2025-04-28',
+        readTime: '9 min read',
+        tags: ['SEO', 'Meta Tags', 'Open Graph'],
+        imgClass: 3,
+        url: 'blog/seo-meta-tags-guide.html',
+      },
+      {
+        id: 4,
+        title: '10 Text Manipulation Tricks That Save Hours of Work',
+        excerpt: 'Case conversion, find & replace, word count, text diffing — master these text tools and never waste time on tedious text tasks again.',
+        category: 'Text Tools',
+        catColor: '#667eea',
+        date: 'April 15, 2025',
+        dateISO: '2025-04-15',
+        readTime: '6 min read',
+        tags: ['Text', 'Productivity', 'Writing'],
+        imgClass: 4,
+        url: 'blog/text-manipulation-tricks.html',
+      },
+      {
+        id: 5,
+        title: 'How to Use RegEx Without Losing Your Mind',
+        excerpt: 'Regular expressions look terrifying at first. This beginner-friendly guide breaks them down with real examples and a live tester you can use right here.',
+        category: 'Coding',
+        catColor: '#0fd850',
+        date: 'April 5, 2025',
+        dateISO: '2025-04-05',
+        readTime: '8 min read',
+        tags: ['RegEx', 'Coding', 'Developer Tools'],
+        imgClass: 1,
+        url: 'blog/regex-guide.html',
+      },
+      {
+        id: 6,
+        title: 'CSS Gradients: From Basics to Stunning Backgrounds',
+        excerpt: 'Linear, radial, conic — CSS gradients are more powerful than most developers realize. Learn every gradient type with copy-paste examples.',
+        category: 'Design',
+        catColor: '#f093fb',
+        date: 'March 22, 2025',
+        dateISO: '2025-03-22',
+        readTime: '5 min read',
+        tags: ['CSS', 'Color', 'Design'],
+        imgClass: 2,
+        url: 'blog/css-gradients-guide.html',
+      },
+      {
+        id: 7,
+        title: 'Compound Interest Explained: The Math Behind Wealth',
+        excerpt: "Einstein supposedly called it the eighth wonder of the world. Learn how compound interest works, how to calculate it, and why starting early matters so much.",
+        category: 'Finance',
+        catColor: '#30cfd0',
+        date: 'March 10, 2025',
+        dateISO: '2025-03-10',
+        readTime: '6 min read',
+        tags: ['Finance', 'Math', 'Investing'],
+        imgClass: 3,
+        url: 'blog/compound-interest-explained.html',
+      },
+      {
+        id: 8,
+        title: 'Why Browser-Based Tools Are the Future of Productivity',
+        excerpt: 'No installs, no updates, no data breaches. The case for doing more work directly in your browser — and how client-side processing protects your privacy.',
+        category: 'Productivity',
+        catColor: '#4ECDC4',
+        date: 'February 28, 2025',
+        dateISO: '2025-02-28',
+        readTime: '4 min read',
+        tags: ['Privacy', 'Productivity', 'Browser Tools'],
+        imgClass: 4,
+        url: 'blog/browser-based-tools-future.html',
+      },
+    ];
+
+    const BLOG_CATEGORY_COLORS = {
+      'Coding':      '#0fd850',
+      'Design':      '#f093fb',
+      'SEO':         '#a39dff',
+      'Text Tools':  '#667eea',
+      'Finance':     '#30cfd0',
+      'Productivity':'#4ECDC4',
+      'Math':        '#fde68a',
+    };
+
+    function blogPage() {
+      return {
+        mobileMenuOpen: false,
+        searchQuery: '',
+        activeCategory: '',
+        sortBy: 'newest',
+        posts: BLOG_POSTS,
+        filteredPosts: [],
+        paginatedPosts: [],
+        blogCategories: [],
+        allTags: [],
+        currentPage: 1,
+        perPage: 6,
+        totalPages: 1,
+
+        get pageRange() {
+          const pages = [];
+          for (let i = 1; i <= this.totalPages; i++) pages.push(i);
+          return pages;
+        },
+
+        init() {
+          const cats = [...new Set(this.posts.map(p => p.category))];
+          this.blogCategories = cats;
+          const tags = new Set();
+          this.posts.forEach(p => p.tags.forEach(t => tags.add(t)));
+          this.allTags = [...tags];
+
+          const params = new URLSearchParams(window.location.search);
+          const q = params.get('q');
+          const cat = params.get('cat');
+          if (q) this.searchQuery = q;
+          if (cat) this.activeCategory = cat;
+
+          this.applyFilters();
+
+          window.addEventListener('scroll', () => {
+            document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 10);
+          });
+          window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) this.mobileMenuOpen = false;
+          });
+        },
+
+        applyFilters() {
+          const q = this.searchQuery.toLowerCase().trim();
+          const cat = this.activeCategory;
+
+          let result = this.posts.filter(post => {
+            const matchQ = !q ||
+              post.title.toLowerCase().includes(q) ||
+              post.excerpt.toLowerCase().includes(q) ||
+              post.category.toLowerCase().includes(q) ||
+              post.tags.some(t => t.toLowerCase().includes(q));
+            const matchCat = !cat || post.category === cat;
+            return matchQ && matchCat;
+          });
+
+          if (this.sortBy === 'newest') result = [...result].sort((a,b) => new Date(b.dateISO) - new Date(a.dateISO));
+          else if (this.sortBy === 'oldest') result = [...result].sort((a,b) => new Date(a.dateISO) - new Date(b.dateISO));
+          else if (this.sortBy === 'az') result = [...result].sort((a,b) => a.title.localeCompare(b.title));
+
+          this.filteredPosts = result;
+          this.totalPages = Math.ceil(result.length / this.perPage);
+          this.currentPage = 1;
+          this.paginate();
+        },
+
+        paginate() {
+          const start = (this.currentPage - 1) * this.perPage;
+          this.paginatedPosts = this.filteredPosts.slice(start, start + this.perPage);
+        },
+
+        goPage(p) {
+          if (p < 1 || p > this.totalPages) return;
+          this.currentPage = p;
+          this.paginate();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+      };
+    }
+  </script>
+
+  <!-- Blog image gradient styles -->
+  <style>
+    .blog-img-1 { background: linear-gradient(135deg, #0fd850, #f9f047); }
+    .blog-img-2 { background: linear-gradient(135deg, #f093fb, #f5576c); }
+    .blog-img-3 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+    .blog-img-4 { background: linear-gradient(135deg, #fa709a, #fee140); }
+  </style>
+
+</body>
+</html>

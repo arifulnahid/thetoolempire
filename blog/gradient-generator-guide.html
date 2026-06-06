@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSS Gradients: The Complete Guide to Linear, Radial & Conic (2026) | The Tool Empire</title>
+  <meta name="description" content="Master CSS gradients in 2026. Complete guide to linear-gradient(), radial-gradient(), and conic-gradient() with syntax, color stops, real examples, browser support, and design tips."/>
+  <meta name="keywords" content="css gradient guide, linear-gradient css, radial-gradient css, conic-gradient css, css gradient syntax, gradient color stops, css background gradient 2026"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/blog/gradient-generator-guide.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="CSS Gradients: The Complete Guide to Linear, Radial & Conic (2026)"/>
+  <meta property="og:description" content="Everything about CSS gradients — linear, radial, conic — with syntax, examples, color stops, browser support, and pro design tips."/>
+  <meta property="og:url" content="https://thetoolempire.com/blog/gradient-generator-guide.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"BlogPosting","headline":"CSS Gradients: The Complete Guide to Linear, Radial & Conic (2026)","description":"Master every CSS gradient type — linear, radial, conic — with full syntax, color stops, browser support, and professional design tips.","url":"https://thetoolempire.com/blog/gradient-generator-guide.html","datePublished":"2026-06-06","dateModified":"2026-06-06","author":{"@type":"Organization","name":"The Tool Empire"},"publisher":{"@type":"Organization","name":"The Tool Empire","url":"https://thetoolempire.com"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://thetoolempire.com/blog/gradient-generator-guide.html"}},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Blog","item":"https://thetoolempire.com/blog.html"},
+      {"@type":"ListItem","position":3,"name":"CSS Gradients Complete Guide","item":"https://thetoolempire.com/blog/gradient-generator-guide.html"}
+    ]}
+  ]}</script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--primary:#a78bfa;--secondary:#f472b6;--bg:#0f0f14;--bg-surface:#18181f;--bg-card:#1e1e28;--border:rgba(255,255,255,.08);--text:#e8e8f0;--text-muted:#8888a8;--text-faint:#555570;--radius-sm:8px;--radius-md:14px;--radius-lg:20px;--transition:.2s cubic-bezier(.4,0,.2,1);--max-w:1280px}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    .container{width:100%;max-width:var(--max-w);margin-inline:auto;padding-inline:clamp(16px,4vw,48px)}
+    .reading-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--secondary));z-index:200;width:0}
+    .site-header{position:sticky;top:0;z-index:100;background:rgba(15,15,20,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+    .site-header.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.4)}
+    .header-inner{display:flex;align-items:center;gap:24px;height:64px}
+    .logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+    .logo-icon{width:36px;height:36px}
+    .logo-text{font-size:1.1rem;font-weight:700;letter-spacing:-.02em;background:linear-gradient(135deg,#fff 40%,var(--primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .main-nav{display:flex;align-items:center;gap:4px;margin-left:auto}
+    .nav-link{padding:6px 14px;border-radius:var(--radius-sm);font-size:.9rem;font-weight:500;color:var(--text-muted);transition:all var(--transition)}
+    .nav-link:hover,.nav-link.active{color:var(--text);background:rgba(255,255,255,.06)}
+    .breadcrumb{padding:14px 0 0}
+    .breadcrumb-list{display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:var(--text-faint);flex-wrap:wrap}
+    .breadcrumb-list a{color:var(--text-muted)}
+    .blog-layout{display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:start;padding:clamp(24px,4vw,48px) 0 clamp(40px,6vw,72px)}
+    .article-cat-badge{display:inline-flex;padding:3px 12px;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.3);color:#c4b5fd;margin-bottom:14px}
+    .article-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:-.04em;line-height:1.15;margin-bottom:16px}
+    .gradient-text{background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .article-meta{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--text-faint);margin-bottom:20px}
+    .article-excerpt{font-size:1.05rem;color:var(--text-muted);line-height:1.8;padding:18px 20px;border-left:3px solid var(--primary);background:rgba(167,139,250,.05);border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin-bottom:32px}
+    .prose h2{font-size:1.55rem;font-weight:800;margin:40px 0 16px;letter-spacing:-.02em}
+    .prose h2:first-child{margin-top:0}
+    .prose h3{font-size:1.15rem;font-weight:700;margin:28px 0 12px}
+    .prose p{color:var(--text-muted);margin-bottom:18px;line-height:1.85;font-size:.97rem}
+    .prose ul,.prose ol{color:var(--text-muted);padding-left:22px;margin-bottom:18px}
+    .prose li{margin-bottom:8px;line-height:1.75;font-size:.97rem}
+    .prose strong{color:var(--text);font-weight:700}
+    .prose a{color:var(--primary);text-decoration:underline;text-underline-offset:3px}
+    /* Code blocks */
+    .code-fence{background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius-md);padding:16px 20px;margin:18px 0 24px;font-family:'Fira Code',monospace;font-size:.85rem;line-height:1.8;color:#c4b5fd;overflow-x:auto;white-space:pre}
+    .prose code{background:rgba(167,139,250,.1);color:#c4b5fd;padding:2px 7px;border-radius:5px;font-size:.88em;font-family:'Fira Code',monospace}
+    /* Live gradient demos */
+    .gradient-demo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin:20px 0 28px}
+    .gradient-demo{border-radius:var(--radius-md);height:120px;display:flex;align-items:flex-end;padding:10px 12px;font-size:.75rem;font-weight:700;color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.06)}
+    /* Comparison table */
+    .comp-table{width:100%;border-collapse:collapse;font-size:.9rem;margin:20px 0 28px;border-radius:var(--radius-md);overflow:hidden}
+    .comp-table th{background:rgba(167,139,250,.08);color:var(--text);font-weight:700;padding:11px 16px;text-align:left;border-bottom:1px solid var(--border);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em}
+    .comp-table td{padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text-muted)}
+    .comp-table tr:last-child td{border-bottom:none}
+    .comp-table td:first-child{font-weight:700;color:var(--text)}
+    /* Callouts */
+    .tip-box,.info-box,.warn-box{border-radius:var(--radius-md);padding:18px 22px;margin:24px 0}
+    .tip-box{background:rgba(52,211,153,.07);border-left:4px solid #34d399}
+    .info-box{background:rgba(167,139,250,.07);border-left:4px solid var(--primary)}
+    .warn-box{background:rgba(251,191,36,.07);border-left:4px solid #fbbf24}
+    .tip-box .box-label{color:#34d399;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+    .info-box .box-label{color:#c4b5fd;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+    .warn-box .box-label{color:#fde68a;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+    .tip-box p,.info-box p,.warn-box p{color:var(--text-muted);margin-bottom:0;font-size:.92rem}
+    /* Ad */
+    .ad-slot{background:var(--bg-card);border:1px dashed rgba(255,255,255,.06);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:var(--text-faint);font-size:.75rem;min-height:90px}
+    /* Sidebar */
+    .sidebar{position:sticky;top:80px;display:flex;flex-direction:column;gap:24px}
+    .sidebar-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px}
+    .sidebar-title{font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:16px}
+    .toc-list{display:flex;flex-direction:column;gap:4px;list-style:none}
+    .toc-list a{font-size:.85rem;color:var(--text-muted);padding:5px 10px;border-radius:var(--radius-sm);display:block;transition:all var(--transition);border-left:2px solid transparent}
+    .toc-list a:hover{color:var(--text);background:rgba(255,255,255,.04);border-left-color:var(--primary)}
+    .tool-spotlight{background:linear-gradient(135deg,rgba(167,139,250,.12),rgba(244,114,182,.12));border:1px solid rgba(167,139,250,.2);border-radius:var(--radius-lg);padding:22px;text-align:center}
+    .spotlight-emoji{font-size:2rem;margin-bottom:10px}
+    .spotlight-title{font-size:1rem;font-weight:800;margin-bottom:8px}
+    .spotlight-desc{font-size:.83rem;color:var(--text-muted);margin-bottom:16px;line-height:1.6}
+    .btn-spotlight{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:var(--radius-sm);font-size:.88rem;font-weight:700;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff}
+    .btn-spotlight:hover{opacity:.9}
+    /* Author */
+    .author-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;display:flex;align-items:flex-start;gap:16px;margin-top:40px}
+    .author-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+    .author-name{font-size:.95rem;font-weight:700}
+    .author-role{font-size:.8rem;color:var(--text-faint);margin-bottom:8px}
+    .author-bio{font-size:.85rem;color:var(--text-muted);line-height:1.65}
+    /* Related */
+    .related-section{padding:clamp(24px,4vw,40px) 0;border-top:1px solid var(--border)}
+    .related-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px}
+    .section-title{font-size:1.4rem;font-weight:800}
+    .btn-view-all{display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted);transition:all var(--transition)}
+    .btn-view-all:hover{border-color:var(--primary);color:var(--text)}
+    .related-tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+    .related-tool-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:18px;display:flex;flex-direction:column;gap:8px;transition:all var(--transition)}
+    .related-tool-card:hover{border-color:rgba(167,139,250,.4);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+    .related-tool-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+    .related-tool-icon svg{width:18px;height:18px;color:#fff}
+    .related-tool-name{font-size:.9rem;font-weight:700}
+    .related-tool-desc{font-size:.8rem;color:var(--text-muted);line-height:1.5;flex:1}
+    .related-tool-link{font-size:.8rem;font-weight:600;color:var(--primary)}
+    .blog-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+    .blog-card-sm{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:18px;display:flex;flex-direction:column;gap:8px;transition:all var(--transition)}
+    .blog-card-sm:hover{border-color:rgba(167,139,250,.4);transform:translateY(-2px)}
+    .blog-cat-badge{display:inline-flex;padding:2px 9px;border-radius:999px;font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;width:fit-content}
+    .blog-card-title{font-size:.9rem;font-weight:700;line-height:1.4}
+    .blog-card-excerpt{font-size:.8rem;color:var(--text-muted);line-height:1.6;flex:1}
+    .blog-card-meta{font-size:.75rem;color:var(--text-faint)}
+    .blog-read-link{font-size:.8rem;font-weight:600;color:var(--primary)}
+    /* Footer */
+    .site-footer{background:var(--bg-surface);border-top:1px solid var(--border);padding:clamp(28px,4vw,48px) 0 20px}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:36px}
+    .footer-brand-text{font-size:.88rem;color:var(--text-muted);line-height:1.7;margin-top:10px;max-width:240px}
+    .footer-heading{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:12px}
+    .footer-links{display:flex;flex-direction:column;gap:8px}
+    .footer-links a{font-size:.88rem;color:var(--text-muted);transition:color var(--transition)}
+    .footer-links a:hover{color:var(--text)}
+    .footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:20px;border-top:1px solid var(--border);flex-wrap:wrap;gap:10px;font-size:.82rem;color:var(--text-faint)}
+    @media(max-width:1024px){.sidebar{display:none}.blog-layout{grid-template-columns:1fr}}
+    @media(max-width:640px){.footer-grid{grid-template-columns:1fr}.gradient-demo-grid{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+<div class="reading-progress" id="reading-progress"></div>
+
+<header class="site-header" id="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+          <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+          <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+          <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+          <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#f472b6"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <nav class="main-nav">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../tools.html" class="nav-link">Tools</a>
+        <a href="../blog.html" class="nav-link active">Blog</a>
+        <a href="../about.html" class="nav-link">About</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <nav class="breadcrumb">
+      <ol class="breadcrumb-list">
+        <li><a href="../index.html">Home</a></li><li>›</li>
+        <li><a href="../blog.html">Blog</a></li><li>›</li>
+        <li aria-current="page">CSS Gradients Complete Guide</li>
+      </ol>
+    </nav>
+
+    <div class="ad-slot" style="width:100%;margin-bottom:20px">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+
+    <div class="blog-layout">
+      <article>
+        <header style="margin-bottom:36px">
+          <span class="article-cat-badge">Design</span>
+          <h1 class="article-title"><span class="gradient-text">CSS Gradients:</span> The Complete Guide to Linear, Radial &amp; Conic (2026)</h1>
+          <div class="article-meta">
+            <span>June 6, 2026</span><span>·</span><span>9 min read</span><span>·</span><span>By The Tool Empire Team</span>
+          </div>
+          <p class="article-excerpt">CSS gradients have come a long way. In 2026 you can generate smooth multi-stop linear transitions, radial spotlight effects, and conic pie-chart patterns — all without a single image file. This guide covers the full syntax, real design examples, color stop mechanics, and the rules that separate beautiful gradients from garish ones.</p>
+        </header>
+
+        <div class="prose">
+
+          <h2 id="why-gradients">Why CSS Gradients Beat Images</h2>
+          <p>Before CSS gradients, designers used image slices for background blends. CSS gradients replaced all of that with zero HTTP requests, infinite scalability, and instant rendering. They respond to container size changes, support animation, and can be layered with multiple gradient calls on the same element.</p>
+          <p>Today there are three CSS gradient functions, each producing a different shape:</p>
+          <ul>
+            <li><strong>linear-gradient()</strong> — straight-line transition</li>
+            <li><strong>radial-gradient()</strong> — circular or elliptical transition from a center point</li>
+            <li><strong>conic-gradient()</strong> — angular sweep around a point (like a pie chart)</li>
+          </ul>
+
+          <div class="gradient-demo-grid">
+            <div class="gradient-demo" style="background:linear-gradient(135deg,#a78bfa,#f472b6)">linear-gradient</div>
+            <div class="gradient-demo" style="background:radial-gradient(circle at center,#a78bfa,#0f0f14)">radial-gradient</div>
+            <div class="gradient-demo" style="background:conic-gradient(from 0deg,#a78bfa,#f472b6,#38bdf8,#a78bfa)">conic-gradient</div>
+          </div>
+
+          <div class="tip-box">
+            <div class="box-label">Try It Now</div>
+            <p>Build and preview any gradient visually with our free <a href="../tools/design/gradient-generator.html">CSS Gradient Generator</a> — no code required, instant CSS output.</p>
+          </div>
+
+          <h2 id="linear">linear-gradient() — Full Syntax</h2>
+          <p>The most widely used gradient. Colors transition along a straight line defined by an angle or direction keyword.</p>
+
+          <pre class="code-fence">/* Basic syntax */
+background: linear-gradient(angle, color-stop-1, color-stop-2, ...);
+
+/* Examples */
+background: linear-gradient(135deg, #a78bfa, #f472b6);
+background: linear-gradient(to right, #38bdf8, #34d399);
+background: linear-gradient(90deg, #f97316 0%, #ef4444 50%, #ec4899 100%);</pre>
+
+          <h3>Angle reference</h3>
+          <table class="comp-table">
+            <thead><tr><th>Value</th><th>Direction</th><th>Common use</th></tr></thead>
+            <tbody>
+              <tr><td>0deg</td><td>Bottom → Top</td><td>Vertical overlays</td></tr>
+              <tr><td>90deg</td><td>Left → Right</td><td>Horizontal banners</td></tr>
+              <tr><td>135deg</td><td>Top-left → Bottom-right</td><td>Cards, heroes</td></tr>
+              <tr><td>180deg</td><td>Top → Bottom</td><td>Section backgrounds</td></tr>
+              <tr><td>to right</td><td>Left → Right</td><td>Same as 90deg</td></tr>
+              <tr><td>to bottom right</td><td>Diagonal</td><td>Same as ~135deg</td></tr>
+            </tbody>
+          </table>
+
+          <div class="warn-box">
+            <div class="box-label">Angle Gotcha</div>
+            <p><code>0deg</code> points <strong>upward</strong> (from bottom to top), not rightward. This is the opposite of what you might expect from trigonometry. The gradient line starts at the "from" end and proceeds to the "to" end in the direction of the angle. <code>90deg</code> = left to right.</p>
+          </div>
+
+          <h2 id="color-stops">Color Stops: Precise Color Positioning</h2>
+          <p>Every color in a gradient is a <strong>color stop</strong> — a color value with an optional position. Without positions, stops are evenly distributed. With positions, you control exactly where each color starts.</p>
+
+          <pre class="code-fence">/* Even distribution (browser calculates positions) */
+background: linear-gradient(90deg, red, yellow, green);
+
+/* Manual positions */
+background: linear-gradient(90deg,
+  #a78bfa 0%,    /* violet from the very start */
+  #a78bfa 40%,   /* violet holds until 40% */
+  #f472b6 60%,   /* sharp transition starts at 60% */
+  #f472b6 100%   /* pink to end */
+);
+
+/* Hard color stop (no smooth transition) */
+background: linear-gradient(90deg, #a78bfa 50%, #f472b6 50%);</pre>
+
+          <p>The last example creates a <strong>hard stop</strong> — the same position value for adjacent stops eliminates the blend, producing a crisp edge. This technique is used for CSS stripes and duotone splits.</p>
+
+          <h2 id="radial">radial-gradient() — Circles and Ellipses</h2>
+          <p>Radial gradients emit from a center point outward. You can control the shape (circle or ellipse), the center position, and the extent.</p>
+
+          <pre class="code-fence">/* Basic */
+background: radial-gradient(circle, #a78bfa, #0f0f14);
+
+/* Position control */
+background: radial-gradient(circle at top left, #a78bfa, #0f0f14);
+background: radial-gradient(circle at 30% 70%, #38bdf8, #0f0f14);
+
+/* Size keywords */
+background: radial-gradient(circle closest-side at 50% 50%, #a78bfa, #0f0f14);
+background: radial-gradient(circle farthest-corner at 30% 40%, #f472b6, #0f0f14);
+
+/* Ellipse (default) */
+background: radial-gradient(ellipse at center, #a78bfa 0%, #0f0f14 70%);</pre>
+
+          <p><strong>Size keywords:</strong> <code>closest-side</code> / <code>closest-corner</code> — gradient ends at the nearest edge/corner. <code>farthest-side</code> / <code>farthest-corner</code> — extends to the farthest edge/corner.</p>
+
+          <div class="gradient-demo-grid">
+            <div class="gradient-demo" style="background:radial-gradient(circle at top left,#a78bfa,#0f0f14)">top left</div>
+            <div class="gradient-demo" style="background:radial-gradient(circle at center,#38bdf8,#0f0f14)">center</div>
+            <div class="gradient-demo" style="background:radial-gradient(circle at bottom right,#f472b6,#0f0f14)">bottom right</div>
+            <div class="gradient-demo" style="background:radial-gradient(ellipse at 30% 70%,#fbbf24,#0f0f14)">ellipse 30% 70%</div>
+          </div>
+
+          <h2 id="conic">conic-gradient() — Sweeps and Pie Charts</h2>
+          <p>Conic gradients rotate colors around a center point like a spinning color wheel. The angle sweeps from a starting angle, defaulting to <code>from 0deg</code> (pointing up).</p>
+
+          <pre class="code-fence">/* Color wheel */
+background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
+
+/* Pie chart (3 segments) */
+background: conic-gradient(
+  #a78bfa 0deg 120deg,
+  #f472b6 120deg 240deg,
+  #38bdf8 240deg 360deg
+);
+
+/* Starting angle offset */
+background: conic-gradient(from 45deg, #a78bfa, #f472b6, #38bdf8, #a78bfa);
+
+/* Position control */
+background: conic-gradient(from 0deg at 30% 50%, #a78bfa, #f472b6, #a78bfa);</pre>
+
+          <div class="info-box">
+            <div class="box-label">Pie Chart Trick</div>
+            <p>Use degree ranges for hard-stop segments: <code>#a78bfa 0deg 33%</code> fills exactly one-third of the circle with solid violet. This is the cleanest way to build pure CSS pie charts without JavaScript.</p>
+          </div>
+
+          <h2 id="stacking">Stacking Multiple Gradients</h2>
+          <p>The <code>background</code> property accepts multiple comma-separated values. Earlier values sit on top of later ones. This lets you layer gradients for complex effects:</p>
+
+          <pre class="code-fence">/* Overlay a radial glow on a linear base */
+background:
+  radial-gradient(circle at 70% 30%, rgba(167,139,250,.4), transparent 60%),
+  linear-gradient(135deg, #0f0f14 0%, #1e1b4b 100%);
+
+/* Double diagonal stripes */
+background:
+  linear-gradient(45deg, transparent 45%, rgba(255,255,255,.05) 45%, rgba(255,255,255,.05) 55%, transparent 55%),
+  linear-gradient(135deg, #a78bfa, #f472b6);</pre>
+
+          <h2 id="animation">Animating CSS Gradients</h2>
+          <p>You <em>cannot</em> directly animate <code>linear-gradient()</code> values with CSS transitions — gradients are not animatable properties. The workaround is to animate <code>background-position</code> on an oversized gradient:</p>
+
+          <pre class="code-fence">/* Animated gradient trick */
+.animated-bg {
+  background: linear-gradient(270deg, #a78bfa, #f472b6, #38bdf8, #a78bfa);
+  background-size: 300% 300%;
+  animation: gradientShift 6s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}</pre>
+
+          <p>Alternatively, use CSS custom properties with <code>@property</code> (Houdini) to animate actual color values in Chrome 85+:</p>
+
+          <pre class="code-fence">@property --color-1 {
+  syntax: '<color>';
+  initial-value: #a78bfa;
+  inherits: false;
+}
+.houdini-grad {
+  background: linear-gradient(135deg, var(--color-1), #f472b6);
+  transition: --color-1 1s ease;
+}
+.houdini-grad:hover { --color-1: #38bdf8; }</pre>
+
+          <h2 id="browser-support">Browser Support in 2026</h2>
+          <table class="comp-table">
+            <thead><tr><th>Function</th><th>Global support</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>linear-gradient()</td><td>>99%</td><td>Full support, no prefix needed</td></tr>
+              <tr><td>radial-gradient()</td><td>>99%</td><td>Full support, no prefix needed</td></tr>
+              <tr><td>conic-gradient()</td><td>~97%</td><td>All modern browsers; IE/old Edge unsupported</td></tr>
+              <tr><td>@property (Houdini)</td><td>~88%</td><td>Chrome/Edge/Opera yes; Firefox partial</td></tr>
+              <tr><td>repeating-linear-gradient()</td><td>>99%</td><td>Same support as linear-gradient()</td></tr>
+            </tbody>
+          </table>
+
+          <h2 id="design-tips">7 Rules for Beautiful Gradients</h2>
+          <ol>
+            <li><strong>Stay within 60° of hue rotation.</strong> Violet (#a78bfa) to pink (#f472b6) = 45° rotation — feels harmonious. Jumping 180° (e.g. green to red) creates muddy browns in the middle.</li>
+            <li><strong>Never use pure black (#000000).</strong> Use a near-black with slight hue tint, like #0f0a1e or #0d1117. Pure black in a gradient looks flat.</li>
+            <li><strong>135deg is the most dynamic angle.</strong> Straight 90° or 180° reads as flat. 45° / 135° diagonals create movement and energy.</li>
+            <li><strong>Control the midpoint.</strong> By default, CSS blends colors at the exact midpoint. Add a midpoint stop to push the transition earlier or later: <code>linear-gradient(135deg, #a78bfa, 30%, #f472b6)</code>.</li>
+            <li><strong>Desaturate slightly toward the center.</strong> For a 3-stop gradient, the middle stop should have 10-15% less saturation to avoid the "neon" effect.</li>
+            <li><strong>Use transparency for overlays.</strong> <code>rgba(0,0,0,0.5)</code> to <code>transparent</code> creates a perfect text-legibility overlay over photos without introducing color contamination.</li>
+            <li><strong>Test on white and dark backgrounds.</strong> Semi-transparent gradients look completely different depending on what's behind them.</li>
+          </ol>
+
+          <h2 id="use-cases">Real-World Use Cases</h2>
+          <p><strong>Hero sections:</strong> Full-bleed <code>linear-gradient(135deg, #1e1b4b, #4c1d95)</code> over a dark background gives depth without a large image.</p>
+          <p><strong>Buttons:</strong> <code>linear-gradient(135deg, #a78bfa, #f472b6)</code> on a button creates a vivid CTA that catches the eye. Use the same gradient for <code>:focus</code> ring with <code>outline</code>.</p>
+          <p><strong>Text fills:</strong> Apply the gradient to text with <code>background-clip: text</code> and <code>-webkit-text-fill-color: transparent</code> for gradient-colored headings.</p>
+          <p><strong>Loaders:</strong> Animate <code>conic-gradient(from var(--angle), #a78bfa, transparent)</code> with a rotating <code>--angle</code> custom property for a smooth CSS spinner.</p>
+          <p><strong>Cards:</strong> Layer a subtle <code>radial-gradient(at top right, rgba(167,139,250,.12), transparent)</code> over a solid dark card background for a soft glow effect.</p>
+
+        </div>
+
+        <div class="author-box">
+          <div class="author-avatar">✍️</div>
+          <div>
+            <div class="author-name">The Tool Empire Team</div>
+            <div class="author-role">Design & Developer Writers</div>
+            <div class="author-bio">We build free, fast, browser-based tools and write practical guides to help you get more done — without the fluff.</div>
+          </div>
+        </div>
+
+        <div class="ad-slot" style="width:100%;margin-top:28px">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+        </div>
+      </article>
+
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">In This Article</div>
+          <ul class="toc-list">
+            <li><a href="#why-gradients">Why CSS Gradients Beat Images</a></li>
+            <li><a href="#linear">linear-gradient() Syntax</a></li>
+            <li><a href="#color-stops">Color Stops</a></li>
+            <li><a href="#radial">radial-gradient()</a></li>
+            <li><a href="#conic">conic-gradient()</a></li>
+            <li><a href="#stacking">Stacking Gradients</a></li>
+            <li><a href="#animation">Animating Gradients</a></li>
+            <li><a href="#browser-support">Browser Support</a></li>
+            <li><a href="#design-tips">7 Design Rules</a></li>
+            <li><a href="#use-cases">Real-World Use Cases</a></li>
+          </ul>
+        </div>
+        <div class="tool-spotlight">
+          <div class="spotlight-emoji">🎨</div>
+          <div class="spotlight-title">CSS Gradient Generator</div>
+          <div class="spotlight-desc">Build any gradient visually — linear, radial, conic. Live preview, preset palettes, instant CSS code.</div>
+          <a href="../tools/design/gradient-generator.html" class="btn-spotlight">Open Generator →</a>
+        </div>
+        <div class="ad-slot" style="min-height:250px">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <section class="related-section">
+    <div class="container">
+      <div class="related-header"><h2 class="section-title">Related Tools</h2><a href="../tools.html" class="btn-view-all">View all →</a></div>
+      <div class="related-tools-grid">
+        <a href="../tools/design/gradient-generator.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#a78bfa,#f472b6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/></svg></div>
+          <div class="related-tool-name">Gradient Generator</div>
+          <div class="related-tool-desc">Build linear, radial & conic CSS gradients with live preview.</div>
+          <span class="related-tool-link">Use tool →</span>
+        </a>
+        <a href="../tools/design/color-picker.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#a78bfa,#38bdf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></div>
+          <div class="related-tool-name">Color Picker</div>
+          <div class="related-tool-desc">HEX, RGB, HSL, harmonies and WCAG contrast.</div>
+          <span class="related-tool-link">Use tool →</span>
+        </a>
+        <a href="../tools/math/pomodoro-timer.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#f87171,#fb923c)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="related-tool-name">Pomodoro Timer</div>
+          <div class="related-tool-desc">Focus sessions with task list and progress rings.</div>
+          <span class="related-tool-link">Use tool →</span>
+        </a>
+        <a href="../tools/coding/qr-code-maker.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#f97316,#fbbf24)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+          <div class="related-tool-name">QR Code Maker</div>
+          <div class="related-tool-desc">Generate QR codes for URLs, text, and contacts.</div>
+          <span class="related-tool-link">Use tool →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="related-section" style="padding-top:0">
+    <div class="container">
+      <div class="related-header"><h2 class="section-title">More Articles</h2><a href="../blog.html" class="btn-view-all">View all →</a></div>
+      <div class="blog-cards-grid">
+        <a href="color-picker-guide.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(167,139,250,.12);color:#c4b5fd;border:1px solid rgba(167,139,250,.2)">Design</span>
+          <div class="blog-card-title">Color Theory for Designers: HEX, RGB, HSL, CMYK</div>
+          <div class="blog-card-excerpt">Every color format explained with when to use each one.</div>
+          <div class="blog-card-meta">June 6, 2026 · 8 min read</div>
+          <span class="blog-read-link">Read article →</span>
+        </a>
+        <a href="pomodoro-technique-guide.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(248,113,113,.12);color:#fca5a5;border:1px solid rgba(248,113,113,.2)">Productivity</span>
+          <div class="blog-card-title">The Pomodoro Technique: Science-Backed Deep Work</div>
+          <div class="blog-card-excerpt">Why 25-minute focus sprints beat marathon work sessions.</div>
+          <div class="blog-card-meta">June 6, 2026 · 8 min read</div>
+          <span class="blog-read-link">Read article →</span>
+        </a>
+        <a href="unit-converter-guide.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(52,211,153,.12);color:#6ee7b7;border:1px solid rgba(52,211,153,.2)">Science</span>
+          <div class="blog-card-title">Metric vs Imperial: Complete Unit Conversion Guide</div>
+          <div class="blog-card-excerpt">Every formula for converting between measurement systems.</div>
+          <div class="blog-card-meta">June 6, 2026 · 8 min read</div>
+          <span class="blog-read-link">Read article →</span>
+        </a>
+        <a href="tip-calculator-guide.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(251,191,36,.12);color:#fde68a;border:1px solid rgba(251,191,36,.2)">Finance</span>
+          <div class="blog-card-title">How Much Should You Tip? Country-by-Country Guide</div>
+          <div class="blog-card-excerpt">Standard tipping norms for 12 countries and every service type.</div>
+          <div class="blog-card-meta">June 6, 2026 · 7 min read</div>
+          <span class="blog-read-link">Read article →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="../index.html" class="logo">
+          <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+            <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+            <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+            <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+            <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#f472b6"/></linearGradient></defs>
+          </svg>
+          <span class="logo-text">The Tool Empire</span>
+        </a>
+        <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+      </div>
+      <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../tools.html#design">Design Tools</a><a href="../tools.html#math">Math Tools</a><a href="../tools.html">All Tools</a></div></div>
+      <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../about.html">About</a><a href="../blog.html">Blog</a><a href="../contact.html">Contact</a></div></div>
+      <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></div></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+  </div>
+</footer>
+
+<script>
+  const prog = document.getElementById('reading-progress');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    prog.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+  }, { passive: true });
+  window.addEventListener('scroll', () => {
+    document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
+</script>
+</body>
+</html>

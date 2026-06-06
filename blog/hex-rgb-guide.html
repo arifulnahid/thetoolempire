@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HEX vs RGB: The Complete Color Code Guide for Designers & Developers (2026) | The Tool Empire</title>
+  <meta name="description" content="Everything about HEX and RGB color codes — how they work, when to use each, how to convert between them, plus HSL, HSV, CMYK, and the new CSS color functions in 2026. With real code examples."/>
+  <meta name="keywords" content="hex vs rgb, hex color code explained, rgb color format, hex to rgb tutorial, color codes web design, hsl vs rgb, css color formats 2026, hex color meaning"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/blog/hex-rgb-guide.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="HEX vs RGB: The Complete Color Code Guide for Designers & Developers (2026)"/>
+  <meta property="og:description" content="How HEX and RGB color codes work, when to use each, how to convert between them, plus HSL, CMYK, and the new CSS color functions in 2026."/>
+  <meta property="og:url" content="https://thetoolempire.com/blog/hex-rgb-guide.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"BlogPosting","headline":"HEX vs RGB: The Complete Color Code Guide for Designers & Developers (2026)","description":"A thorough guide to HEX and RGB color formats — how they work, conversion formulas, when to use each, plus HSL, HSV, CMYK, and modern CSS color functions.","url":"https://thetoolempire.com/blog/hex-rgb-guide.html","datePublished":"2026-06-06","dateModified":"2026-06-06","author":{"@type":"Organization","name":"The Tool Empire"},"publisher":{"@type":"Organization","name":"The Tool Empire","url":"https://thetoolempire.com"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://thetoolempire.com/blog/hex-rgb-guide.html"}},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Blog","item":"https://thetoolempire.com/blog.html"},
+      {"@type":"ListItem","position":3,"name":"HEX vs RGB Guide","item":"https://thetoolempire.com/blog/hex-rgb-guide.html"}
+    ]}
+  ]}</script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--primary:#38bdf8;--secondary:#818cf8;--bg:#0f0f14;--bg-surface:#18181f;--bg-card:#1e1e28;--border:rgba(255,255,255,.08);--text:#e8e8f0;--text-muted:#8888a8;--text-faint:#555570;--radius-sm:8px;--radius-md:14px;--radius-lg:20px;--transition:.2s cubic-bezier(.4,0,.2,1);--max-w:1280px}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    .container{width:100%;max-width:var(--max-w);margin-inline:auto;padding-inline:clamp(16px,4vw,48px)}
+    .reading-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--secondary));z-index:200;width:0}
+    .site-header{position:sticky;top:0;z-index:100;background:rgba(15,15,20,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+    .site-header.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.4)}
+    .header-inner{display:flex;align-items:center;gap:24px;height:64px}
+    .logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+    .logo-icon{width:36px;height:36px}
+    .logo-text{font-size:1.1rem;font-weight:700;letter-spacing:-.02em;background:linear-gradient(135deg,#fff 40%,var(--primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .main-nav{display:flex;align-items:center;gap:4px;margin-left:auto}
+    .nav-link{padding:6px 14px;border-radius:var(--radius-sm);font-size:.9rem;font-weight:500;color:var(--text-muted);transition:all var(--transition)}
+    .nav-link:hover,.nav-link.active{color:var(--text);background:rgba(255,255,255,.06)}
+    .breadcrumb{padding:14px 0 0}
+    .breadcrumb-list{display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:var(--text-faint);flex-wrap:wrap}
+    .breadcrumb-list a{color:var(--text-muted)}
+    .blog-layout{display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:start;padding:clamp(24px,4vw,48px) 0 clamp(40px,6vw,72px)}
+    .article-cat-badge{display:inline-flex;padding:3px 12px;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);color:#7dd3fc;margin-bottom:14px}
+    .article-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:-.04em;line-height:1.15;margin-bottom:16px}
+    .gradient-text{background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .article-meta{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--text-faint);margin-bottom:20px}
+    .article-excerpt{font-size:1.05rem;color:var(--text-muted);line-height:1.8;padding:18px 20px;border-left:3px solid var(--primary);background:rgba(56,189,248,.05);border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin-bottom:32px}
+    .prose h2{font-size:1.55rem;font-weight:800;margin:40px 0 16px;letter-spacing:-.02em}
+    .prose h2:first-child{margin-top:0}
+    .prose h3{font-size:1.15rem;font-weight:700;margin:28px 0 12px}
+    .prose p{color:var(--text-muted);margin-bottom:18px;line-height:1.85;font-size:.97rem}
+    .prose ul,.prose ol{color:var(--text-muted);padding-left:22px;margin-bottom:18px}
+    .prose li{margin-bottom:8px;line-height:1.75;font-size:.97rem}
+    .prose strong{color:var(--text);font-weight:700}
+    .prose a{color:var(--primary);text-decoration:underline;text-underline-offset:3px}
+    .prose code{background:rgba(56,189,248,.1);color:#7dd3fc;padding:2px 7px;border-radius:5px;font-size:.88em;font-family:'Fira Code',monospace}
+    .code-fence{background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius-md);padding:16px 20px;margin:18px 0 24px;font-family:'Fira Code',monospace;font-size:.85rem;line-height:1.85;color:#7dd3fc;overflow-x:auto;white-space:pre}
+    /* color swatch strip */
+    .swatch-strip{display:flex;gap:0;border-radius:var(--radius-md);overflow:hidden;height:56px;margin:18px 0 28px;border:1px solid rgba(255,255,255,.06)}
+    .swatch-strip-item{flex:1;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;font-family:monospace}
+    /* comparison table */
+    .cmp-table{width:100%;border-collapse:collapse;font-size:.9rem;margin:20px 0 28px;border-radius:var(--radius-md);overflow:hidden}
+    .cmp-table th{background:rgba(56,189,248,.07);color:var(--text);font-weight:700;padding:11px 16px;text-align:left;border-bottom:1px solid var(--border);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em}
+    .cmp-table td{padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text-muted)}
+    .cmp-table tr:last-child td{border-bottom:none}
+    .cmp-table td:first-child{font-weight:700;color:var(--text)}
+    /* callouts */
+    .tip-box,.info-box,.warn-box{border-radius:var(--radius-md);padding:18px 22px;margin:24px 0}
+    .tip-box{background:rgba(52,211,153,.07);border-left:4px solid #34d399}
+    .info-box{background:rgba(56,189,248,.07);border-left:4px solid var(--primary)}
+    .warn-box{background:rgba(251,191,36,.07);border-left:4px solid #fbbf24}
+    .tip-box .box-label{color:#34d399;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+    .info-box .box-label{color:#7dd3fc;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+    .warn-box .box-label{color:#fde68a;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+    .tip-box p,.info-box p,.warn-box p{color:var(--text-muted);margin-bottom:0;font-size:.92rem}
+    /* ad, sidebar, author, related — same pattern as other blogs */
+    .ad-slot{background:var(--bg-card);border:1px dashed rgba(255,255,255,.06);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:var(--text-faint);font-size:.75rem;min-height:90px}
+    .sidebar{position:sticky;top:80px;display:flex;flex-direction:column;gap:24px}
+    .sidebar-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px}
+    .sidebar-title{font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:16px}
+    .toc-list{display:flex;flex-direction:column;gap:4px;list-style:none}
+    .toc-list a{font-size:.85rem;color:var(--text-muted);padding:5px 10px;border-radius:var(--radius-sm);display:block;transition:all var(--transition);border-left:2px solid transparent}
+    .toc-list a:hover{color:var(--text);background:rgba(255,255,255,.04);border-left-color:var(--primary)}
+    .tool-spotlight{background:linear-gradient(135deg,rgba(56,189,248,.12),rgba(129,140,248,.12));border:1px solid rgba(56,189,248,.2);border-radius:var(--radius-lg);padding:22px;text-align:center}
+    .spotlight-emoji{font-size:2rem;margin-bottom:10px}
+    .spotlight-title{font-size:1rem;font-weight:800;margin-bottom:8px}
+    .spotlight-desc{font-size:.83rem;color:var(--text-muted);margin-bottom:16px;line-height:1.6}
+    .btn-spotlight{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:var(--radius-sm);font-size:.88rem;font-weight:700;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff}
+    .btn-spotlight:hover{opacity:.9}
+    .author-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;display:flex;align-items:flex-start;gap:16px;margin-top:40px}
+    .author-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+    .author-name{font-size:.95rem;font-weight:700}
+    .author-role{font-size:.8rem;color:var(--text-faint);margin-bottom:8px}
+    .author-bio{font-size:.85rem;color:var(--text-muted);line-height:1.65}
+    .related-section{padding:clamp(24px,4vw,40px) 0;border-top:1px solid var(--border)}
+    .related-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px}
+    .section-title{font-size:1.4rem;font-weight:800}
+    .btn-view-all{display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted);transition:all var(--transition)}
+    .btn-view-all:hover{border-color:var(--primary);color:var(--text)}
+    .related-tools-grid,.blog-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+    .related-tool-card,.blog-card-sm{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:18px;display:flex;flex-direction:column;gap:8px;transition:all var(--transition)}
+    .related-tool-card:hover,.blog-card-sm:hover{border-color:rgba(56,189,248,.35);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+    .related-tool-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+    .related-tool-icon svg{width:18px;height:18px;color:#fff}
+    .related-tool-name,.blog-card-title{font-size:.9rem;font-weight:700;line-height:1.4}
+    .related-tool-desc,.blog-card-excerpt{font-size:.8rem;color:var(--text-muted);line-height:1.5;flex:1}
+    .related-tool-link,.blog-read-link{font-size:.8rem;font-weight:600;color:var(--primary)}
+    .blog-cat-badge{display:inline-flex;padding:2px 9px;border-radius:999px;font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;width:fit-content}
+    .blog-card-meta{font-size:.75rem;color:var(--text-faint)}
+    .site-footer{background:var(--bg-surface);border-top:1px solid var(--border);padding:clamp(28px,4vw,48px) 0 20px}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:36px}
+    .footer-brand-text{font-size:.88rem;color:var(--text-muted);line-height:1.7;margin-top:10px;max-width:240px}
+    .footer-heading{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:12px}
+    .footer-links{display:flex;flex-direction:column;gap:8px}
+    .footer-links a{font-size:.88rem;color:var(--text-muted);transition:color var(--transition)}
+    .footer-links a:hover{color:var(--text)}
+    .footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:20px;border-top:1px solid var(--border);flex-wrap:wrap;gap:10px;font-size:.82rem;color:var(--text-faint)}
+    @media(max-width:1024px){.sidebar{display:none}.blog-layout{grid-template-columns:1fr}}
+    @media(max-width:640px){.footer-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="reading-progress" id="reading-progress"></div>
+
+<header class="site-header" id="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+          <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+          <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+          <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+          <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#38bdf8"/><stop offset="1" stop-color="#818cf8"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <nav class="main-nav">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../tools.html" class="nav-link">Tools</a>
+        <a href="../blog.html" class="nav-link active">Blog</a>
+        <a href="../about.html" class="nav-link">About</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <nav class="breadcrumb">
+      <ol class="breadcrumb-list">
+        <li><a href="../index.html">Home</a></li><li>›</li>
+        <li><a href="../blog.html">Blog</a></li><li>›</li>
+        <li aria-current="page">HEX vs RGB Complete Guide</li>
+      </ol>
+    </nav>
+    <div class="ad-slot" style="width:100%;margin-bottom:20px">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+
+    <div class="blog-layout">
+      <article>
+        <header style="margin-bottom:36px">
+          <span class="article-cat-badge">Design</span>
+          <h1 class="article-title"><span class="gradient-text">HEX vs RGB:</span> The Complete Color Code Guide for Designers &amp; Developers (2026)</h1>
+          <div class="article-meta">
+            <span>June 6, 2026</span><span>·</span><span>9 min read</span><span>·</span><span>By The Tool Empire Team</span>
+          </div>
+          <p class="article-excerpt">HEX and RGB encode the same color — but they have completely different use cases, manipulation properties, and ergonomics in CSS and JavaScript. This guide explains how both formats work from the ground up, when to use each, the conversion formulas, and where HSL, CMYK, and the new CSS color functions fit in.</p>
+        </header>
+
+        <div class="prose">
+
+          <h2 id="how-screens-work">How Screens Mix Color</h2>
+          <p>Every pixel on a digital screen is made of three sub-pixels — one red, one green, one blue (RGB). By varying the brightness of each sub-pixel from off (0) to full intensity (255), the screen can reproduce about 16.7 million distinct colors. HEX and RGB are simply two notations for the same underlying three-number system.</p>
+
+          <div class="swatch-strip">
+            <div class="swatch-strip-item" style="background:#ef4444;color:#fff">Red</div>
+            <div class="swatch-strip-item" style="background:#22c55e;color:#fff">Green</div>
+            <div class="swatch-strip-item" style="background:#3b82f6;color:#fff">Blue</div>
+            <div class="swatch-strip-item" style="background:#ffffff;color:#111">R+G+B = White</div>
+            <div class="swatch-strip-item" style="background:#000000;color:#fff">0+0+0 = Black</div>
+          </div>
+
+          <div class="tip-box">
+            <div class="box-label">Try It</div>
+            <p>Use our <a href="../tools/design/hex-rgb-converter.html">free HEX ↔ RGB Converter</a> to instantly convert any color code between HEX, RGB, HSL, HSV, and CMYK with a live preview and one-click CSS copy.</p>
+          </div>
+
+          <h2 id="hex-explained">HEX Color Codes Explained</h2>
+          <p>A HEX color is a 6-character string prefixed with <code>#</code>, written as <code>#RRGGBB</code>. Each pair of characters is a base-16 (hexadecimal) number from <code>00</code> to <code>FF</code>, representing a channel intensity from 0 to 255.</p>
+          <p>Hexadecimal digits run 0–9 then A–F, where A=10, B=11, C=12, D=13, E=14, F=15. Two-digit hex ranges from 00 (0) to FF (255).</p>
+
+          <pre class="code-fence">#38BDF8   →   R: 38hex = 56dec
+              G: BD hex = 189dec  (11×16 + 13 = 189)
+              B: F8 hex = 248dec  (15×16 + 8  = 248)
+
+= rgb(56, 189, 248)  — sky blue</pre>
+
+          <h3>Shorthand HEX (#RGB)</h3>
+          <p>When both digits of each channel are identical in the 6-digit form, you can compress to 3 digits: <code>#3388FF</code> → <code>#38F</code>. The browser expands each digit by doubling it. <code>#fff</code> = <code>#ffffff</code> (white), <code>#000</code> = <code>#000000</code> (black).</p>
+
+          <h3>8-digit HEX with alpha (#RRGGBBAA)</h3>
+          <p>Append two more hex digits for the alpha channel: <code>#38BDF880</code> = sky blue at ~50% opacity (80 hex = 128 dec = 128/255 ≈ 50%). Supported in all modern browsers since 2017.</p>
+
+          <h2 id="rgb-explained">RGB Color Values Explained</h2>
+          <p>RGB uses three decimal integers from 0 to 255: <code>rgb(56, 189, 248)</code>. CSS also supports the modern space-separated syntax without commas: <code>rgb(56 189 248)</code>.</p>
+          <p>Adding a fourth value gives RGBA, where the alpha channel accepts a decimal 0.0–1.0 or a percentage:</p>
+
+          <pre class="code-fence">rgba(56, 189, 248, 0.5)    /* 50% opacity — old syntax  */
+rgb(56 189 248 / 50%)      /* 50% opacity — modern syntax */
+rgb(56 189 248 / 0.5)      /* same — decimal alpha       */</pre>
+
+          <h2 id="conversion">How to Convert Between HEX and RGB</h2>
+
+          <h3>HEX → RGB (manual)</h3>
+          <pre class="code-fence">HEX: #FF8000
+
+RR = FF → 15×16 + 15 = 255
+GG = 80 → 8×16  + 0  = 128
+BB = 00 → 0×16  + 0  = 0
+
+Result: rgb(255, 128, 0)</pre>
+
+          <h3>RGB → HEX (manual)</h3>
+          <pre class="code-fence">RGB: (255, 128, 0)
+
+255 ÷ 16 = 15 rem 15  →  FF
+128 ÷ 16 = 8  rem 0   →  80
+0   ÷ 16 = 0  rem 0   →  00
+
+Result: #FF8000</pre>
+
+          <h3>JavaScript one-liners</h3>
+          <pre class="code-fence">// HEX → RGB
+const hexToRgb = hex => {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return { r, g, b };
+};
+
+// RGB → HEX
+const rgbToHex = (r,g,b) =>
+  '#' + [r,g,b].map(v => v.toString(16).padStart(2,'0')).join('');</pre>
+
+          <h2 id="hsl">HSL: The Format Designers Actually Think In</h2>
+          <p>HSL (Hue, Saturation, Lightness) describes color in terms that match human intuition. The three values:</p>
+          <ul>
+            <li><strong>Hue (0–360°)</strong> — position on the color wheel. 0°/360° = red, 120° = green, 240° = blue.</li>
+            <li><strong>Saturation (0–100%)</strong> — vividness. 0% = grey, 100% = fully saturated.</li>
+            <li><strong>Lightness (0–100%)</strong> — 0% = black, 100% = white, 50% = pure hue.</li>
+          </ul>
+
+          <pre class="code-fence">/* The same sky blue in three formats */
+#38BDF8
+rgb(56, 189, 248)
+hsl(199, 91%, 60%)
+
+/* Darken by 15% in HSL — trivial */
+hsl(199, 91%, 45%)
+
+/* Same operation in HEX — not obvious */
+/* Would need to convert, calculate, convert back */</pre>
+
+          <p>HSL is the right choice for design systems and CSS custom properties. Use it to build systematic scales:</p>
+          <pre class="code-fence">--sky-100: hsl(199, 91%, 90%);
+--sky-300: hsl(199, 91%, 75%);
+--sky-500: hsl(199, 91%, 60%);
+--sky-700: hsl(199, 91%, 40%);
+--sky-900: hsl(199, 91%, 20%);</pre>
+
+          <h2 id="when-to-use">When to Use Each Format</h2>
+          <table class="cmp-table">
+            <thead><tr><th>Format</th><th>Use when</th><th>Avoid when</th></tr></thead>
+            <tbody>
+              <tr><td>HEX</td><td>Static CSS colors, design tokens, sharing with devs, design hand-off</td><td>Alpha transparency needed, programmatic color math</td></tr>
+              <tr><td>RGB / RGBA</td><td>JavaScript animation, Canvas API, alpha transparency, WebGL shaders</td><td>Building color scales — requires manual math</td></tr>
+              <tr><td>HSL / HSLA</td><td>Design system scales, CSS custom properties, hover states, dark mode variants</td><td>Low-level pixel manipulation or image processing</td></tr>
+              <tr><td>HSV / HSB</td><td>Design tool color pickers (Figma, Photoshop, Illustrator)</td><td>CSS — not a valid CSS color format</td></tr>
+              <tr><td>CMYK</td><td>Print production, sending to press, offset printing</td><td>Anything screen-based — not valid in CSS</td></tr>
+            </tbody>
+          </table>
+
+          <h2 id="css-2026">Modern CSS Color Functions in 2026</h2>
+          <p>CSS has expanded well beyond HEX and RGB. Modern browsers support several new color spaces that cover wider gamuts than the traditional sRGB space:</p>
+
+          <pre class="code-fence">/* oklch — perceptually uniform, great for scales */
+color: oklch(65% 0.18 230);   /* lightness, chroma, hue */
+
+/* lab — device-independent CIE L*a*b* */
+color: lab(65% -15 -30);
+
+/* display-p3 — wider gamut for modern displays */
+color: color(display-p3 0.22 0.74 0.97);
+
+/* lch — polar form of lab */
+color: lch(65% 34 250);</pre>
+
+          <p>These formats access colors outside the sRGB gamut — vivid neons and saturated hues that HEX/RGB cannot represent. Support is 90%+ in 2026 (Chrome 111+, Firefox 113+, Safari 15.4+). Use them for vibrant UI accents while providing HEX fallbacks for older browsers.</p>
+
+          <div class="warn-box">
+            <div class="box-label">Browser Fallback Pattern</div>
+            <p>Always provide a HEX or RGB fallback before wide-gamut color declarations: <code>color: #0ea5e9; color: oklch(65% 0.18 230);</code> — unsupporting browsers use the first value and ignore the second.</p>
+          </div>
+
+          <h2 id="quick-reference">Quick Reference: All Color Formats at a Glance</h2>
+          <table class="cmp-table">
+            <thead><tr><th>Format</th><th>Example (sky blue)</th><th>CSS native?</th><th>Alpha?</th></tr></thead>
+            <tbody>
+              <tr><td>HEX 6-digit</td><td><code>#38BDF8</code></td><td>Yes</td><td>Via 8-digit (#38BDF880)</td></tr>
+              <tr><td>HEX 3-digit</td><td><code>#39F</code> (approx)</td><td>Yes</td><td>Via 4-digit</td></tr>
+              <tr><td>RGB</td><td><code>rgb(56, 189, 248)</code></td><td>Yes</td><td>Via rgba()</td></tr>
+              <tr><td>HSL</td><td><code>hsl(199, 91%, 60%)</code></td><td>Yes</td><td>Via hsla()</td></tr>
+              <tr><td>HSV / HSB</td><td><code>hsb(199, 77%, 97%)</code></td><td>No</td><td>—</td></tr>
+              <tr><td>CMYK</td><td><code>cmyk(77%, 24%, 0%, 3%)</code></td><td>No</td><td>—</td></tr>
+              <tr><td>oklch</td><td><code>oklch(75% 0.13 210)</code></td><td>Yes (modern)</td><td>Via / alpha</td></tr>
+              <tr><td>Named color</td><td><code>skyblue</code></td><td>Yes (148 names)</td><td>No</td></tr>
+            </tbody>
+          </table>
+
+          <h2 id="conclusion">The Decision Rule</h2>
+          <p>Use <strong>HEX</strong> for static values in stylesheets — it is compact, universally understood, and directly copyable from any design tool. Use <strong>RGB/RGBA</strong> when you need alpha or are manipulating colors in JavaScript. Use <strong>HSL</strong> for building systematic design tokens and scales. Everything else — HSV, CMYK, oklch — has a specific tool or context where it belongs.</p>
+          <p>When in doubt, convert with our <a href="../tools/design/hex-rgb-converter.html">free HEX ↔ RGB Converter</a> — it outputs all five formats simultaneously so you can pick the one your workflow needs.</p>
+
+        </div>
+
+        <div class="author-box">
+          <div class="author-avatar">✍️</div>
+          <div>
+            <div class="author-name">The Tool Empire Team</div>
+            <div class="author-role">Design & Developer Writers</div>
+            <div class="author-bio">We build free, fast, browser-based tools and write practical guides to help you get more done — without the fluff.</div>
+          </div>
+        </div>
+
+        <div class="ad-slot" style="width:100%;margin-top:28px">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+        </div>
+      </article>
+
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">In This Article</div>
+          <ul class="toc-list">
+            <li><a href="#how-screens-work">How Screens Mix Color</a></li>
+            <li><a href="#hex-explained">HEX Color Codes</a></li>
+            <li><a href="#rgb-explained">RGB Color Values</a></li>
+            <li><a href="#conversion">HEX ↔ RGB Conversion</a></li>
+            <li><a href="#hsl">HSL: The Designer Format</a></li>
+            <li><a href="#when-to-use">When to Use Each</a></li>
+            <li><a href="#css-2026">Modern CSS Colors 2026</a></li>
+            <li><a href="#quick-reference">Quick Reference Table</a></li>
+            <li><a href="#conclusion">The Decision Rule</a></li>
+          </ul>
+        </div>
+        <div class="tool-spotlight">
+          <div class="spotlight-emoji">🎨</div>
+          <div class="spotlight-title">HEX ↔ RGB Converter</div>
+          <div class="spotlight-desc">Instant conversion between HEX, RGB, HSL, HSV, CMYK. Bulk converter, sliders, CSS snippets.</div>
+          <a href="../tools/design/hex-rgb-converter.html" class="btn-spotlight">Open Converter →</a>
+        </div>
+        <div class="ad-slot" style="min-height:250px">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <section class="related-section">
+    <div class="container">
+      <div class="related-header"><h2 class="section-title">Related Tools</h2><a href="../tools.html" class="btn-view-all">View all →</a></div>
+      <div class="related-tools-grid">
+        <a href="../tools/design/hex-rgb-converter.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#38bdf8,#818cf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="related-tool-name">HEX ↔ RGB Converter</div>
+          <div class="related-tool-desc">Bulk conversion, sliders, all formats, CSS snippets.</div>
+          <span class="related-tool-link">Use tool →</span>
+        </a>
+        <a href="../tools/design/color-picker.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#a78bfa,#38bdf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></div>
+          <div class="related-tool-name">Color Picker</div>
+          <div class="related-tool-desc">Full color tool with harmonies and WCAG contrast.</div>
+          <span class="related-tool-link">Use tool →</span>
+        </a>
+        <a href="../tools/design/contrast-checker.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#a78bfa,#34d399)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+          <div class="related-tool-name">Contrast Checker</div>
+          <div class="related-tool-desc">WCAG AA/AAA compliance with safe color suggestions.</div>
+          <span class="related-tool-link">Use tool →</span>
+        </a>
+        <a href="../tools/design/gradient-generator.html" class="related-tool-card">
+          <div class="related-tool-icon" style="background:linear-gradient(135deg,#a78bfa,#f472b6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/></svg></div>
+          <div class="related-tool-name">Gradient Generator</div>
+          <div class="related-tool-desc">Build CSS linear, radial, and conic gradients visually.</div>
+          <span class="related-tool-link">Use tool →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="related-section" style="padding-top:0">
+    <div class="container">
+      <div class="related-header"><h2 class="section-title">More Articles</h2><a href="../blog.html" class="btn-view-all">View all →</a></div>
+      <div class="blog-cards-grid">
+        <a href="color-picker-guide.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(167,139,250,.12);color:#c4b5fd;border:1px solid rgba(167,139,250,.2)">Design</span>
+          <div class="blog-card-title">Color Theory for Designers: HEX, RGB, HSL, CMYK</div>
+          <div class="blog-card-excerpt">Every color format explained with real designer use cases.</div>
+          <div class="blog-card-meta">June 6, 2026 · 8 min read</div>
+          <span class="blog-read-link">Read article →</span>
+        </a>
+        <a href="contrast-checker-guide.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(52,211,153,.12);color:#6ee7b7;border:1px solid rgba(52,211,153,.2)">Accessibility</span>
+          <div class="blog-card-title">WCAG Color Contrast: The Complete Guide</div>
+          <div class="blog-card-excerpt">AA vs AAA requirements, the formula, and how to fix failures.</div>
+          <div class="blog-card-meta">June 6, 2026 · 10 min read</div>
+          <span class="blog-read-link">Read article →</span>
+        </a>
+        <a href="gradient-generator-guide.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(167,139,250,.12);color:#c4b5fd;border:1px solid rgba(167,139,250,.2)">Design</span>
+          <div class="blog-card-title">CSS Gradients: Complete Guide</div>
+          <div class="blog-card-excerpt">Linear, radial, conic — full syntax and pro design tips.</div>
+          <div class="blog-card-meta">June 6, 2026 · 9 min read</div>
+          <span class="blog-read-link">Read article →</span>
+        </a>
+        <a href="pomodoro-technique-guide.html" class="blog-card-sm">
+          <span class="blog-cat-badge" style="background:rgba(248,113,113,.12);color:#fca5a5;border:1px solid rgba(248,113,113,.2)">Productivity</span>
+          <div class="blog-card-title">Pomodoro Technique: Science-Backed Deep Work</div>
+          <div class="blog-card-excerpt">Why 25-minute focus sprints beat marathon sessions.</div>
+          <div class="blog-card-meta">June 6, 2026 · 8 min read</div>
+          <span class="blog-read-link">Read article →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="../index.html" class="logo">
+          <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+            <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+            <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+            <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+            <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#38bdf8"/><stop offset="1" stop-color="#818cf8"/></linearGradient></defs>
+          </svg>
+          <span class="logo-text">The Tool Empire</span>
+        </a>
+        <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+      </div>
+      <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../tools.html#design">Design Tools</a><a href="../tools.html#math">Math Tools</a><a href="../tools.html">All Tools</a></div></div>
+      <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../about.html">About</a><a href="../blog.html">Blog</a><a href="../contact.html">Contact</a></div></div>
+      <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></div></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+  </div>
+</footer>
+
+<script>
+  const prog = document.getElementById('reading-progress');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    prog.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+  }, { passive: true });
+  window.addEventListener('scroll', () => {
+    document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
+</script>
+</body>
+</html>

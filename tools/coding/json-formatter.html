@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JSON Formatter & Validator — Free Online JSON Beautifier | The Tool Empire</title>
+  <meta name="description" content="Format, validate, minify, and repair JSON online for free. Syntax highlighting, JSON diff comparison, key search, stats panel, and one-click download. No signup required."/>
+  <meta name="keywords" content="json formatter online, json validator, json beautifier, json minifier, format json free, json syntax highlighter, json diff tool"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/coding/json-formatter.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="JSON Formatter & Validator — Free Online JSON Beautifier"/>
+  <meta property="og:description" content="Format, validate, minify, and repair JSON with syntax highlighting, diff comparison, and instant download. Free."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/coding/json-formatter.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"JSON Formatter & Validator","description":"Free browser-based JSON formatter, validator, minifier, and diff tool with syntax highlighting and one-click download.","url":"https://thetoolempire.com/tools/coding/json-formatter.html","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["JSON beautifier with syntax highlighting","JSON validator with error location","JSON minifier","Auto-repair for common errors","JSON diff comparison","Key and path search","Stats panel (keys, depth, types)","Download as .json file","Upload JSON file"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Coding Tools","item":"https://thetoolempire.com/tools.html#coding"},
+      {"@type":"ListItem","position":3,"name":"JSON Formatter","item":"https://thetoolempire.com/tools/coding/json-formatter.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is a JSON formatter?","acceptedAnswer":{"@type":"Answer","text":"A JSON formatter (also called a JSON beautifier) takes minified or poorly indented JSON and reformats it with consistent indentation and line breaks, making it human-readable. This tool formats, validates, and highlights syntax in one step."}},
+      {"@type":"Question","name":"How do I validate JSON?","acceptedAnswer":{"@type":"Answer","text":"Paste your JSON into the input field and click Validate or Format. If the JSON is valid, a green badge appears. If there is a syntax error, a red banner shows the exact error message from the JavaScript parser including the position of the problem."}},
+      {"@type":"Question","name":"What does JSON minify do?","acceptedAnswer":{"@type":"Answer","text":"Minifying removes all whitespace, line breaks, and indentation from JSON, producing the smallest possible string. This reduces file size for network transfer. Use the Minify button on this tool to compress any formatted JSON."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="json-formatter.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+        <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+        <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#f59e0b"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="jsonFormatterApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li style="color:#e8e8f0">JSON Formatter</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot" style="width:100%;margin-bottom:18px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      Developer Tool
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">JSON Formatter</span> &amp; Validator</h1>
+    <p class="tool-subtitle">Format, validate, minify, repair and diff JSON instantly. Syntax highlighting, stats panel, file upload and download.</p>
+  </div>
+
+  <!-- ── TOOLBAR ── -->
+  <div class="toolbar">
+    <div class="toolbar-group">
+      <button class="btn-tool btn-primary" @click="format()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10H3M21 6H3M21 14H3M21 18H3" stroke-linecap="round"/></svg>
+        Format
+      </button>
+      <button class="btn-tool btn-secondary" @click="minify()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M9 19l3 3 3-3M19 9l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Minify
+      </button>
+      <button class="btn-tool btn-secondary" @click="validate()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Validate
+      </button>
+      <button class="btn-tool btn-secondary" @click="repair()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+        Auto-Repair
+      </button>
+    </div>
+    <div class="toolbar-divider"></div>
+    <div class="toolbar-group">
+      <label style="font-size:.75rem;font-weight:700;color:var(--text-faint)">Indent:</label>
+      <select class="indent-select" x-model="indent" @change="format()">
+        <option value="2">2 spaces</option>
+        <option value="4">4 spaces</option>
+        <option value="tab">Tab</option>
+      </select>
+    </div>
+    <div class="toolbar-group">
+      <label style="display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:var(--text-muted);cursor:pointer">
+        <input type="checkbox" x-model="sortKeys" @change="format()" style="accent-color:var(--primary)"/>
+        Sort keys
+      </label>
+    </div>
+    <div class="toolbar-divider"></div>
+    <div class="toolbar-group">
+      <button class="btn-tool btn-secondary" @click="loadSample()">Sample</button>
+      <button class="btn-tool btn-secondary" title="Upload JSON file" style="position:relative;overflow:hidden">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+        Upload
+        <input type="file" accept=".json,application/json,text/plain" @change="handleFile($event)" style="position:absolute;inset:0;opacity:0;cursor:pointer"/>
+      </button>
+      <button class="btn-tool btn-secondary" @click="download()" :disabled="!output">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        Download
+      </button>
+      <button class="btn-tool btn-danger" @click="clear()">Clear</button>
+    </div>
+    <div class="status-pill" :class="statusClass" x-text="statusLabel"></div>
+  </div>
+
+  <!-- ── EDITOR ── -->
+  <div class="editor-layout">
+    <!-- Input pane -->
+    <div class="editor-pane" :class="{'error-state': isValid === false}">
+      <div class="pane-header">
+        <span class="pane-title">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Input JSON
+        </span>
+        <div class="pane-actions">
+          <button class="pane-btn" @click="copyInput()">Copy</button>
+          <button class="pane-btn" @click="input='';format()">Clear</button>
+        </div>
+      </div>
+      <div class="error-banner" :class="{visible: errorMsg}" x-text="errorMsg"></div>
+      <textarea class="editor-textarea" x-model="input" @input="format()" placeholder='Paste JSON here… e.g. {"name":"value"}' spellcheck="false"></textarea>
+    </div>
+
+    <!-- Output pane -->
+    <div class="editor-pane">
+      <div class="pane-header">
+        <span class="pane-title">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Formatted Output
+        </span>
+        <div class="pane-actions">
+          <button class="pane-btn" @click="copyOutput()">Copy</button>
+          <button class="pane-btn" @click="download()">Download</button>
+        </div>
+      </div>
+      <pre class="output-pre" x-html="outputHtml || '<span style=\'color:#555570\'>Formatted output will appear here…</span>'"></pre>
+    </div>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="stats-bar" x-show="stats">
+    <div class="stat-item">
+      <span class="stat-label">Input size</span>
+      <span class="stat-value" x-text="inputSize"></span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Output size</span>
+      <span class="stat-value" x-text="outputSize"></span>
+    </div>
+    <div class="stat-item" x-show="stats">
+      <span class="stat-label">Keys</span>
+      <span class="stat-value" x-text="stats?.keys ?? '—'"></span>
+    </div>
+    <div class="stat-item" x-show="stats">
+      <span class="stat-label">Arrays</span>
+      <span class="stat-value" x-text="stats?.arrays ?? '—'"></span>
+    </div>
+    <div class="stat-item" x-show="stats">
+      <span class="stat-label">Strings</span>
+      <span class="stat-value" x-text="stats?.strings ?? '—'"></span>
+    </div>
+    <div class="stat-item" x-show="stats">
+      <span class="stat-label">Numbers</span>
+      <span class="stat-value" x-text="stats?.numbers ?? '—'"></span>
+    </div>
+    <div class="stat-item" x-show="stats">
+      <span class="stat-label">Depth</span>
+      <span class="stat-value" x-text="stats?.depth ?? '—'"></span>
+    </div>
+    <div class="stat-item" x-show="stats">
+      <span class="stat-label">Nulls</span>
+      <span class="stat-value" x-text="stats?.nulls ?? '—'"></span>
+    </div>
+  </div>
+
+  <!-- Ad -->
+  <div class="ad-slot" style="width:100%;margin-top:20px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- ── JSON DIFF SECTION ── -->
+  <div class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">JSON Diff — Compare Two JSON Objects</h2>
+      <p class="section-desc">Paste two JSON strings to highlight line-by-line differences. Both inputs are auto-formatted before comparison.</p>
+    </div>
+    <div class="diff-layout">
+      <div class="diff-pane">
+        <div class="pane-header"><span class="pane-title">JSON A</span></div>
+        <textarea class="diff-textarea" x-model="diffA" @input="runDiff()" placeholder='{"version":"1.0"}' spellcheck="false"></textarea>
+      </div>
+      <div class="diff-pane">
+        <div class="pane-header"><span class="pane-title">JSON B</span></div>
+        <textarea class="diff-textarea" x-model="diffB" @input="runDiff()" placeholder='{"version":"2.0"}' spellcheck="false"></textarea>
+      </div>
+    </div>
+    <div class="diff-pane" style="margin-top:10px" x-show="diffResult.length">
+      <div class="pane-header"><span class="pane-title">Diff Output</span></div>
+      <div class="diff-output">
+        <template x-for="(line, i) in diffResult" :key="i">
+          <div :class="'diff-' + line.type" x-text="(line.type==='add'?'+ ':line.type==='del'?'- ':'  ') + line.text"></div>
+        </template>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── PATH SEARCH SECTION ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Key &amp; Path Search</h2>
+      <p class="section-desc">Search for key names or paths in your formatted JSON. Results show the full dot/bracket path to each match.</p>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:14px">
+      <input
+        type="text"
+        x-model="searchQuery"
+        @input="runSearch()"
+        placeholder="e.g. users, .meta, [0]"
+        style="flex:1;background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 14px;color:var(--text);font-size:.9rem;outline:none;transition:border-color var(--transition)"
+        onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border)'"
+      />
+      <button class="btn-tool btn-secondary" @click="searchQuery='';searchPaths=[]">Clear</button>
+    </div>
+    <div x-show="searchPaths.length" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 16px;display:flex;flex-direction:column;gap:6px;max-height:220px;overflow-y:auto">
+      <template x-for="p in searchPaths" :key="p">
+        <div style="font-family:'Fira Code',monospace;font-size:.82rem;color:#7dd3fc;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)" x-text="p"></div>
+      </template>
+    </div>
+    <div x-show="searchQuery && !searchPaths.length" style="font-size:.85rem;color:var(--text-faint);margin-top:8px">No matching paths found.</div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── HOW TO USE ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">How to Use the JSON Formatter</h2>
+      <p class="section-desc">Six ways to work with JSON on this tool — each designed to save you time in real development workflows.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-title">Paste & Format</div>
+        <div class="step-desc">Paste any JSON into the left panel. Click <strong>Format</strong> or just type — the output updates live with syntax highlighting and proper indentation.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-title">Validate & Debug</div>
+        <div class="step-desc">Invalid JSON shows a red error banner with the exact parser message and position. Fix the error and the output clears the moment syntax is corrected.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-title">Minify for Production</div>
+        <div class="step-desc">Click <strong>Minify</strong> to strip all whitespace. Use this before embedding JSON in API responses, config files, or JavaScript bundles.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div class="step-title">Auto-Repair Common Errors</div>
+        <div class="step-desc"><strong>Auto-Repair</strong> fixes trailing commas, single-quoted strings, and unquoted keys — the three most common JSON mistakes from copy-pasted data.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">5</div>
+        <div class="step-title">Compare Two JSONs</div>
+        <div class="step-desc">Use the <strong>JSON Diff</strong> section to paste two objects and instantly see which lines were added, removed, or changed.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">6</div>
+        <div class="step-title">Upload or Download</div>
+        <div class="step-desc">Upload a <code>.json</code> file from disk, or download the formatted output as a properly named <code>formatted.json</code> file.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FEATURES ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">All Features at a Glance</h2>
+      <p class="section-desc">Everything packed into this free tool — no account, no limits, no ads in the output.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <div class="feature-title">Syntax Highlighting</div>
+        <div class="feature-desc">Keys, strings, numbers, booleans, and null values each render in a distinct colour for instant visual scanning.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✅</div>
+        <div class="feature-title">Instant Validation</div>
+        <div class="feature-desc">Real-time validation as you type. Exact error messages from the native JS parser — including character position.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🗜️</div>
+        <div class="feature-title">Minifier</div>
+        <div class="feature-desc">Remove all whitespace to produce the smallest valid JSON string. Ideal for APIs and embedded configs.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔧</div>
+        <div class="feature-title">Auto-Repair</div>
+        <div class="feature-desc">Automatically fixes trailing commas, single quotes, and unquoted keys — common mistakes in hand-written JSON.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔀</div>
+        <div class="feature-title">JSON Diff</div>
+        <div class="feature-desc">Side-by-side comparison of two JSON objects with colour-coded added, removed, and unchanged lines.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-title">Path Search</div>
+        <div class="feature-desc">Search for keys or paths inside deeply nested JSON. Returns all matching dot-notation and bracket paths.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Stats Panel</div>
+        <div class="feature-desc">Counts of keys, arrays, strings, numbers, nulls, and nesting depth — useful for auditing large JSON payloads.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔢</div>
+        <div class="feature-title">Sort Keys</div>
+        <div class="feature-desc">Alphabetically sort all object keys at every level. Useful for diffing, deduplication, and consistent config files.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── JSON CHEATSHEET ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">JSON Syntax Cheatsheet</h2>
+      <p class="section-desc">Quick reference for valid JSON — the rules developers most often get wrong.</p>
+    </div>
+    <div class="cheat-grid">
+      <div class="cheat-card">
+        <div class="cheat-title">Object</div>
+        <div class="cheat-body"><span class="ck">"key"</span>: <span class="cs">"value"</span>
+<span class="ck">"num"</span>: <span class="cn">42</span>
+<span class="ck">"flag"</span>: <span class="cb">true</span>
+<span class="ck">"empty"</span>: <span class="cb">null</span></div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Array</div>
+        <div class="cheat-body">[<span class="cs">"alpha"</span>, <span class="cs">"beta"</span>]
+[<span class="cn">1</span>, <span class="cn">2</span>, <span class="cn">3.14</span>]
+[<span class="cb">true</span>, <span class="cb">false</span>, <span class="cb">null</span>]
+[{}, {}, {}]</div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Valid ✓ vs Invalid ✗</div>
+        <div class="cheat-body"><span style="color:#6ee7b7">✓</span> Keys must be double-quoted
+<span style="color:#f87171">✗</span> {key: "val"}  — unquoted key
+<span style="color:#f87171">✗</span> {'key': 'val'} — single quotes
+<span style="color:#f87171">✗</span> {a:1,}         — trailing comma
+<span style="color:#f87171">✗</span> // comments    — not allowed</div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">String Escapes</div>
+        <div class="cheat-body"><span class="cs">"\""</span>  double quote
+<span class="cs">"\\"</span>  backslash
+<span class="cs">"\n"</span>  newline
+<span class="cs">"\t"</span>  tab
+<span class="cs">"A"</span> Unicode (A)</div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Number Formats</div>
+        <div class="cheat-body"><span class="cn">42</span>       integer
+<span class="cn">-7</span>       negative
+<span class="cn">3.14</span>     decimal
+<span class="cn">1.2e10</span>   scientific
+<span style="color:#f87171">✗</span> 0xff    hex not valid
+<span style="color:#f87171">✗</span> NaN     not valid</div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Whitespace Rules</div>
+        <div class="cheat-body">Spaces, tabs, newlines are
+allowed between tokens.
+
+<span style="color:#f87171">NOT</span> inside string values
+(use \n, \t escapes there).
+
+Minified = no whitespace.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FAQ ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-desc">Common questions about JSON formatting, validation, and this tool.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is the difference between JSON format and JSON minify?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Formatting (beautifying) adds indentation and line breaks to make JSON human-readable. Minifying removes all whitespace to produce the smallest possible string for machine processing. Both represent the same data — only the encoding differs. Use formatted JSON during development and debugging; use minified JSON in production APIs and config files to reduce payload size.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Why does my JSON fail validation?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>The most common causes are: (1) trailing commas after the last element in an object or array (<code>{"a":1,}</code>), (2) single-quoted strings instead of double quotes (<code>{'key':'val'}</code>), (3) unquoted keys (<code>{key: "val"}</code>), (4) JavaScript comments (<code>// or /* */</code>), (5) <code>undefined</code>, <code>NaN</code>, or <code>Infinity</code> values which are not valid JSON. Use the Auto-Repair button to fix the first three automatically.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What does "Auto-Repair" fix?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Auto-Repair handles the three most common hand-written JSON mistakes: trailing commas (<code>[1,2,]</code> → <code>[1,2]</code>), single-quoted strings (<code>'hello'</code> → <code>"hello"</code>), and unquoted object keys (<code>{name:"val"}</code> → <code>{"name":"val"}</code>). It cannot repair structural errors like mismatched brackets or completely malformed data.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Is my JSON data sent to any server?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>No. All processing happens entirely in your browser using JavaScript. Your JSON data never leaves your device and is never stored or transmitted to any server. This makes the tool safe to use with confidential API responses, configuration data, or private payloads.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is the difference between JSON and JavaScript objects?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>JSON (JavaScript Object Notation) is a strict text-based data format derived from JavaScript object syntax, but with important differences: all keys must be double-quoted strings, values can only be strings, numbers, booleans, null, arrays, or objects — not functions or undefined. JavaScript objects are runtime data structures that allow unquoted keys, functions, and special values. JSON is a serialisation format; JavaScript objects are in-memory data.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">How do I handle very large JSON files?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>This browser-based tool handles JSON up to several MB comfortably. For files larger than ~10 MB, browser performance may degrade. For large files: use the file upload button instead of pasting to avoid clipboard limits, use minify mode to reduce output size, or consider command-line tools like <code>jq</code> for gigabyte-scale files.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What does "Sort Keys" do?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Sort Keys alphabetically reorders all object keys at every nesting level. This is useful for: comparing two JSON objects that have the same data in different key order, producing deterministic output for version control, and deduplication workflows where key order varies between sources. Array element order is not changed.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Can I compare two JSON files?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Yes — use the JSON Diff section on this page. Paste the first JSON in the "JSON A" box and the second in "JSON B". Both are automatically formatted before comparison so whitespace differences are ignored. Lines shown in green were added in B; lines in red were removed from A; unmarked lines are unchanged.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What are JSON path expressions?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>JSON paths describe the location of a value inside a JSON structure using dot notation for object keys (<code>.name</code>, <code>.meta.version</code>) and bracket notation for array indices (<code>[0]</code>, <code>[2]</code>) and keys with special characters (<code>["my-key"]</code>). The path search in this tool shows the full path to every key matching your query, starting from the root <code>$</code>.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What indentation size should I use?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Two spaces is the most common convention for JSON (used by <code>npm</code>, <code>package.json</code>, and most style guides). Four spaces is popular in Python-oriented projects. Tabs produce the smallest formatted size since they are one character but visually expand. For files committed to version control, match your project's existing convention to avoid noisy diffs.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── RELATED TOOLS ── -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted);transition:all var(--transition)" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="../design/color-picker.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#a78bfa,#38bdf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></div>
+        <div class="related-name">Color Picker</div>
+        <div class="related-desc">HEX, RGB, HSL, harmonies, WCAG contrast.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../design/contrast-checker.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#a78bfa,#34d399)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <div class="related-name">Contrast Checker</div>
+        <div class="related-desc">WCAG AA/AAA accessibility compliance report.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../text/word-counter.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#34d399,#059669)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 10h16M4 14h10M4 18h6"/></svg></div>
+        <div class="related-name">Word Counter</div>
+        <div class="related-desc">Count words, characters, sentences and reading time.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="qr-code-maker.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f97316,#fbbf24)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM17 17h3v3h-3z"/></svg></div>
+        <div class="related-name">QR Code Maker</div>
+        <div class="related-desc">Generate QR codes for URLs, text, and contacts.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Related Blogs -->
+  <div class="page-section" style="margin-top:20px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Articles</h2>
+      <a href="../../blog.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="../../blog/json-formatter-guide.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="related-name">JSON Explained: Complete Developer Guide</div>
+        <div class="related-desc">JSON syntax, data types, validation rules, and best practices.</div>
+        <span class="related-link">Read article →</span>
+      </a>
+      <a href="../../blog/hex-rgb-guide.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#38bdf8,#818cf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="related-name">HEX vs RGB: Complete Color Guide</div>
+        <div class="related-desc">Every color format with when to use each.</div>
+        <span class="related-link">Read article →</span>
+      </a>
+      <a href="../../blog/contrast-checker-guide.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#a78bfa,#34d399)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="related-name">WCAG Contrast Guide</div>
+        <div class="related-desc">Accessibility contrast requirements and how to fix failures.</div>
+        <span class="related-link">Read article →</span>
+      </a>
+      <a href="../../blog/gradient-generator-guide.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#a78bfa,#f472b6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="related-name">CSS Gradients Complete Guide</div>
+        <div class="related-desc">Linear, radial, conic — full syntax and design tips.</div>
+        <span class="related-link">Read article →</span>
+      </a>
+    </div>
+  </div>
+
+</div><!-- /main-wrap -->
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+          <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+          <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#f59e0b"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#coding">Coding Tools</a><a href="../../tools.html#design">Design Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a><a href="../../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="json-formatter.js"></script>
+</body>
+</html>

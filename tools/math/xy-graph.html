@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>XY Graph — Plot Coordinates, Scatter, Line & Bar Charts Online | The Tool Empire</title>
+  <meta name="description" content="Plot XY coordinates instantly in your browser. Scatter, line, and bar charts with multiple series, linear regression trendlines, axis labels, hover tooltips, CSV import/export, and PNG download. Free."/>
+  <meta name="keywords" content="xy graph online, coordinate plotter, scatter plot maker, plot points online, linear regression graph, xy chart free, graph coordinates online, data visualizer"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/math/xy-graph.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="XY Graph — Plot Coordinates, Scatter, Line & Bar Charts Online"/>
+  <meta property="og:description" content="Free browser-based XY coordinate plotter. Multiple series, scatter/line/bar chart types, trendlines with R², CSV import, PNG export."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/math/xy-graph.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"XY Graph Plotter","description":"Browser-based XY coordinate graph tool. Enter (x,y) points manually or import CSV. Supports scatter, line, and bar chart types. Multiple series with custom colours. Auto-scaled axes with nice tick intervals. Linear regression trendline with R² value. Hover tooltip showing exact coordinates. Axis labels and chart title. Custom axis range. Download graph as PNG. Export data as CSV. 100% client-side — no data sent to server.","url":"https://thetoolempire.com/tools/math/xy-graph.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Scatter, line, and bar chart types","Multiple data series with custom colours","Auto-scaled axes with nice tick intervals","Linear regression trendline with R² coefficient","Hover tooltip showing exact (x,y) values","Axis labels and chart title","Custom axis range (min/max override)","Point labels (optional text per point)","CSV import (x,y,label format)","CSV export per series or all series","Download graph as PNG","Stats: mean, std, min, max, R², regression equation","100% client-side — no upload, no server"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Math Tools","item":"https://thetoolempire.com/tools.html#math"},
+      {"@type":"ListItem","position":3,"name":"XY Graph","item":"https://thetoolempire.com/tools/math/xy-graph.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"How do I plot XY coordinates on this tool?","acceptedAnswer":{"@type":"Answer","text":"Type your X and Y values into the point table for each series. Points are plotted instantly as you type. You can add more points with the '+' button, remove individual points, or import a whole dataset from a CSV file (one x,y pair per line). Each series can have its own colour and name."}},
+      {"@type":"Question","name":"What is a trendline (linear regression)?","acceptedAnswer":{"@type":"Answer","text":"A trendline is a straight line that best fits the scatter of points using the least-squares linear regression formula y = mx + b. It shows the overall direction and strength of the relationship. R² (coefficient of determination) measures how well the line fits the data — R²=1 is a perfect fit, R²=0 means no linear relationship. Enable it with the Trendline toggle."}},
+      {"@type":"Question","name":"How do I import data from a spreadsheet?","acceptedAnswer":{"@type":"Answer","text":"Copy two columns (X and Y) from your spreadsheet and paste them into the CSV import box. The tool accepts comma, tab, or semicolon-separated values, one row per line. An optional third column is used as a point label. Example: 1,2.5 or 1\\t2.5 or 1,2.5,label. Then click Import and the data is added to the active series."}},
+      {"@type":"Question","name":"Can I have multiple datasets on the same graph?","acceptedAnswer":{"@type":"Answer","text":"Yes. Click 'Add series' to create additional datasets. Each series has its own colour, name, and point list. All series are plotted on the same graph. You can show or hide individual series with the eye toggle, and remove them with the × button. The legend at the bottom of the graph identifies each series."}},
+      {"@type":"Question","name":"How do I download the graph as an image?","acceptedAnswer":{"@type":"Answer","text":"Click the 'Save PNG' button in the graph toolbar. The graph canvas is exported as a PNG file at the current screen resolution. For higher resolution, zoom your browser in before exporting."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="xy-graph.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <path d="M7 29V7M7 29h22" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="13" cy="22" r="2.5" fill="#60a5fa"/>
+        <circle cx="20" cy="16" r="2.5" fill="#a78bfa"/>
+        <circle cx="26" cy="11" r="2.5" fill="#2dd4bf"/>
+        <path d="M11 24l7-7 7-6" stroke="rgba(255,255,255,.4)" stroke-width="1.5" stroke-dasharray="3 2"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#3b82f6"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="xyGraphApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li><a href="../../tools.html#math" style="color:#8888a8">Math</a></li><li>›</li>
+      <li style="color:#e8e8f0">XY Graph</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 3v18h18"/><path d="M18 9l-5 5-4-4-4 4"/></svg>
+      Math · Visualization
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">XY Graph & Coordinate Plotter</span></h1>
+    <p class="tool-subtitle">Enter (x,y) coordinates and plot scatter, line, or bar charts instantly. Multiple series, trendlines with R², CSV import, and PNG export — all in your browser.</p>
+  </div>
+
+  <!-- ── SAMPLE BUTTONS ── -->
+  <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;align-items:center">
+    <span style="font-size:.76rem;color:var(--text-faint);font-weight:600">Try a sample:</span>
+    <button class="btn-secondary" style="padding:5px 11px;font-size:.76rem" @click="loadSample('linear')">Linear trend</button>
+    <button class="btn-secondary" style="padding:5px 11px;font-size:.76rem" @click="loadSample('scatter')">Scatter (height/weight)</button>
+    <button class="btn-secondary" style="padding:5px 11px;font-size:.76rem" @click="loadSample('bar')">Bar chart</button>
+    <button class="btn-secondary" style="padding:5px 11px;font-size:.76rem" @click="loadSample('quadratic')">Quadratic functions</button>
+    <button class="btn-secondary" style="padding:5px 11px;font-size:.76rem;color:#f87171;border-color:rgba(248,113,113,.2);margin-left:auto" @click="clearAll()">Clear all</button>
+  </div>
+
+  <!-- ── MAIN TOOL GRID ── -->
+  <div class="tool-grid">
+
+    <!-- ── LEFT PANEL ── -->
+    <div>
+
+      <!-- Chart type & options -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="13" width="3" height="7"/><rect x="13" y="8" width="3" height="12"/><rect x="19" y="4" width="3" height="16"/></svg></div>
+          <span class="card-title">Chart Options</span>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:10px">
+
+          <div class="opt-row">
+            <span class="opt-label">Type</span>
+            <button class="opt-chip" :class="{active:chartType==='scatter'}" @click="chartType='scatter';draw()">Scatter</button>
+            <button class="opt-chip" :class="{active:chartType==='line'}" @click="chartType='line';connectDots=true;draw()">Line</button>
+            <button class="opt-chip" :class="{active:chartType==='bar'}" @click="chartType='bar';draw()">Bar</button>
+          </div>
+
+          <div class="opt-row" style="gap:12px;flex-wrap:wrap">
+            <label class="checkbox-row"><input type="checkbox" x-model="showGrid" @change="draw()"/> Grid</label>
+            <label class="checkbox-row"><input type="checkbox" x-model="showLabels" @change="draw()"/> Point labels</label>
+            <label class="checkbox-row"><input type="checkbox" x-model="showTrend" @change="draw()"/> Trendline</label>
+            <label class="checkbox-row" x-show="chartType==='scatter'"><input type="checkbox" x-model="connectDots" @change="draw()"/> Connect dots</label>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div style="display:flex;flex-direction:column;gap:3px">
+              <label style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint)">Chart title</label>
+              <input class="opt-field" style="width:100%" x-model="chartTitle" @input="draw()" placeholder="Optional title"/>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:3px">
+              <label style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint)">Point size</label>
+              <input class="opt-field" style="width:100%" type="range" min="2" max="12" x-model="pointSize" @input="draw()"/>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:3px">
+              <label style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint)">X axis label</label>
+              <input class="opt-field" style="width:100%" x-model="xLabel" @input="draw()" placeholder="X"/>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:3px">
+              <label style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint)">Y axis label</label>
+              <input class="opt-field" style="width:100%" x-model="yLabel" @input="draw()" placeholder="Y"/>
+            </div>
+          </div>
+
+          <!-- Axis range override -->
+          <div>
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint);margin-bottom:5px">Axis range (leave blank for auto)</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px">
+              <input class="opt-field" style="width:100%;font-size:.75rem" x-model="xMin" @input="draw()" placeholder="X min"/>
+              <input class="opt-field" style="width:100%;font-size:.75rem" x-model="xMax" @input="draw()" placeholder="X max"/>
+              <input class="opt-field" style="width:100%;font-size:.75rem" x-model="yMin" @input="draw()" placeholder="Y min"/>
+              <input class="opt-field" style="width:100%;font-size:.75rem" x-model="yMax" @input="draw()" placeholder="Y max"/>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Series & data entry -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/><circle cx="4" cy="18" r="2"/><circle cx="20" cy="18" r="2"/></svg></div>
+          <span class="card-title">Data Series</span>
+          <button class="btn-secondary" style="padding:4px 10px;font-size:.74rem;margin-left:auto" @click="addSeries()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add series
+          </button>
+        </div>
+        <div class="card-body" style="padding-top:12px">
+
+          <div class="series-list">
+            <template x-for="(s, si) in series" :key="si">
+              <div class="series-item" :class="{active-series: activeSeries===si}" :style="`--series-color:${s.color}`">
+
+                <div class="series-header" @click="activeSeries=si">
+                  <div class="series-swatch" :style="`background:${s.color}`"></div>
+                  <input class="series-name-input" x-model="s.name" @click.stop @input="draw()" placeholder="Series name"/>
+                  <input type="color" :value="s.color" @input="s.color=$event.target.value;draw()"
+                    style="width:22px;height:22px;border:none;background:transparent;cursor:pointer;padding:0;border-radius:50%;flex-shrink:0"
+                    @click.stop/>
+                  <button class="series-toggle" @click.stop="toggleVisible(si)" x-text="s.visible ? 'Hide' : 'Show'"></button>
+                  <button class="series-remove" @click.stop="removeSeries(si)" title="Remove series">×</button>
+                </div>
+
+                <div class="series-body" x-show="activeSeries===si">
+                  <table class="pt-table">
+                    <thead>
+                      <tr>
+                        <th style="width:38%">X</th>
+                        <th style="width:38%">Y</th>
+                        <th style="width:18%">Label</th>
+                        <th style="width:6%"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <template x-for="(pt, pi) in s.points" :key="pi">
+                        <tr>
+                          <td><input class="pt-input" type="text" inputmode="decimal" x-model="pt.x" @input="onPointInput()" placeholder="x"/></td>
+                          <td><input class="pt-input" type="text" inputmode="decimal" x-model="pt.y" @input="onPointInput()" placeholder="y"/></td>
+                          <td><input class="pt-label-input" x-model="pt.label" @input="onPointInput()" placeholder="label"/></td>
+                          <td><button class="pt-del" @click="removePoint(si, pi)" title="Delete point">×</button></td>
+                        </tr>
+                      </template>
+                    </tbody>
+                  </table>
+                  <button class="add-point-btn" @click="addPoint(si)">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Add point
+                  </button>
+                </div>
+
+              </div>
+            </template>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CSV Import -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+          <span class="card-title">CSV Import / Export</span>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:.76rem;color:var(--text-faint)">
+            Paste <code>x,y</code> or <code>x,y,label</code> (comma, tab, or semicolon separated, one row per line). Data goes into the active series (<strong x-text="'Series ' + (activeSeries+1)"></strong>).
+          </div>
+          <textarea class="import-area" x-model="importText"
+            placeholder="1,2&#10;2,4.5&#10;3,3.1&#10;4,6&#10;5,5.8"></textarea>
+          <template x-if="importError">
+            <div style="font-size:.76rem;color:#fca5a5" x-text="importError"></div>
+          </template>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn-primary" @click="importCSV()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="7 16 12 21 17 16"/><line x1="12" y1="21" x2="12" y2="9"/></svg>
+              Import CSV
+            </button>
+            <button class="btn-secondary" @click="exportCSV()">Export active series</button>
+            <button class="btn-secondary" @click="exportAllCSV()">Export all series</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /left panel -->
+
+    <!-- ── RIGHT PANEL — CANVAS ── -->
+    <div>
+
+      <!-- Graph canvas -->
+      <div class="canvas-wrap">
+        <div class="canvas-toolbar">
+          <span class="canvas-title">Graph</span>
+          <span class="canvas-spacer"></span>
+          <button class="btn-secondary" style="padding:5px 11px;font-size:.76rem" @click="draw()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            Redraw
+          </button>
+          <button class="btn-secondary" style="padding:5px 11px;font-size:.76rem" @click="downloadPNG()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Save PNG
+          </button>
+        </div>
+
+        <div style="position:relative">
+          <canvas id="graph-canvas"
+            @mousemove="onMouseMove($event)"
+            @mouseleave="onMouseLeave()">
+          </canvas>
+
+          <!-- Hover tooltip -->
+          <div class="graph-tooltip" :class="{visible: hovX !== null}" :style="tooltipStyle">
+            <div class="tt-series" :style="`color:${series[activeSeries]?.color||'#60a5fa'}`" x-text="hovName"></div>
+            <div class="tt-coords">
+              x = <span x-text="hovX !== null ? Number(hovX).toLocaleString(undefined,{maximumFractionDigits:6}) : ''"></span>,
+              y = <span x-text="hovY !== null ? Number(hovY).toLocaleString(undefined,{maximumFractionDigits:6}) : ''"></span>
+            </div>
+            <template x-if="hovLabel">
+              <div style="font-size:.72rem;color:var(--text-faint);margin-top:2px" x-text="hovLabel"></div>
+            </template>
+          </div>
+        </div>
+
+        <!-- Stats bar -->
+        <template x-if="allStats.some(s=>s.n>0)">
+          <div>
+            <template x-for="stat in allStats" :key="stat.name">
+              <div x-show="stat.n > 0" class="stats-row">
+                <div style="font-size:.7rem;font-weight:700;color:var(--text-faint);display:flex;align-items:center;gap:5px;margin-right:4px">
+                  <span style="width:8px;height:8px;border-radius:50%;flex-shrink:0;display:inline-block" :style="`background:${stat.color}`"></span>
+                  <span x-text="stat.name"></span>
+                </div>
+                <div class="stat-chip"><div class="stat-chip-label">Points</div><div class="stat-chip-val" x-text="stat.n"></div></div>
+                <div class="stat-chip"><div class="stat-chip-label">X range</div><div class="stat-chip-val" x-text="fmtStat(stat.xMin) + ' – ' + fmtStat(stat.xMax)"></div></div>
+                <div class="stat-chip"><div class="stat-chip-label">Y range</div><div class="stat-chip-val" x-text="fmtStat(stat.yMin) + ' – ' + fmtStat(stat.yMax)"></div></div>
+                <div class="stat-chip"><div class="stat-chip-label">X̄ mean</div><div class="stat-chip-val" x-text="fmtStat(stat.xMean)"></div></div>
+                <div class="stat-chip"><div class="stat-chip-label">Ȳ mean</div><div class="stat-chip-val" x-text="fmtStat(stat.yMean)"></div></div>
+                <template x-if="stat.reg">
+                  <div class="stat-chip">
+                    <div class="stat-chip-label">R²</div>
+                    <div class="stat-chip-val" x-text="stat.reg.r2.toFixed(4)"></div>
+                  </div>
+                </template>
+                <template x-if="stat.reg">
+                  <div class="stat-chip">
+                    <div class="stat-chip-label">Regression</div>
+                    <div class="stat-chip-val" style="font-size:.75rem" x-text="'y = ' + fmtStat(stat.reg.m) + 'x + ' + fmtStat(stat.reg.b)"></div>
+                  </div>
+                </template>
+              </div>
+            </template>
+          </div>
+        </template>
+
+      </div><!-- /canvas-wrap -->
+
+    </div><!-- /right panel -->
+
+  </div><!-- /tool-grid -->
+
+  <!-- Ad -->
+  <div class="ad-slot" style="margin-top:8px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- ── DESCRIPTION ── -->
+  <div class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">What This Tool Does</h2>
+      <p class="section-desc">A complete XY coordinate plotter and data visualizer — no spreadsheet software needed.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">📊</div><div class="feature-title">Three chart types</div><div class="feature-desc">Scatter plot for raw data distribution, line chart for trends and functions, bar chart for categorical comparison. Switch between types instantly — your data stays in place.</div></div>
+      <div class="feature-card"><div class="feature-icon">📈</div><div class="feature-title">Trendlines with R²</div><div class="feature-desc">Toggle linear regression to fit a best-fit line through any scatter series. Shows the regression equation (y = mx + b) and R² coefficient in the stats bar — instantly see how well your data follows a linear trend.</div></div>
+      <div class="feature-card"><div class="feature-icon">🎨</div><div class="feature-title">Multiple series</div><div class="feature-desc">Add unlimited data series, each with a custom colour and name. Show or hide individual series. The legend identifies each series at the bottom of the graph.</div></div>
+      <div class="feature-card"><div class="feature-icon">🖱️</div><div class="feature-title">Hover tooltip</div><div class="feature-desc">Hover over any point to see its exact (x, y) values and optional label in a floating tooltip. Snaps to the nearest point within 20 pixels.</div></div>
+      <div class="feature-card"><div class="feature-icon">📥</div><div class="feature-title">CSV import</div><div class="feature-desc">Paste CSV data directly (x,y or x,y,label format). Accepts comma, tab, or semicolon delimiters. Paste from Excel, Google Sheets, or any text source.</div></div>
+      <div class="feature-card"><div class="feature-icon">🖼️</div><div class="feature-title">PNG export</div><div class="feature-desc">Download the graph as a PNG image for use in reports, presentations, or documents. Chart title, axis labels, and legend are all included in the export.</div></div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── HOW TO USE ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head"><h2 class="section-title">How to Use</h2></div>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-number">1</div><div><div class="step-title">Enter your points</div><div class="step-desc">Type X and Y values into the table in the active series panel. Points are plotted as you type. Use the "Add point" button to extend the table, or import a CSV file for bulk data.</div></div></div>
+      <div class="step-card"><div class="step-number">2</div><div><div class="step-title">Choose chart type</div><div class="step-desc">Select Scatter, Line, or Bar in the Chart Options panel. For scatter plots you can also enable "Connect dots" to draw a line between points without switching fully to line mode.</div></div></div>
+      <div class="step-card"><div class="step-number">3</div><div><div class="step-title">Add more series</div><div class="step-desc">Click "Add series" to create a second dataset. Click the colour swatch next to a series to pick a custom colour. Use the Hide/Show toggle to compare with and without a series.</div></div></div>
+      <div class="step-card"><div class="step-number">4</div><div><div class="step-title">Export your graph</div><div class="step-desc">Click "Save PNG" to download the graph image. Use "Export CSV" to save your data. Check the stats bar below the graph for mean, range, and regression equation values.</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FAQ ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head"><h2 class="section-title">Frequently Asked Questions</h2></div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">How do I plot XY coordinates?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Type your X and Y values into the point table for the active series. Points are plotted instantly as you type. Click "+ Add point" to add more rows. To bulk-import data, paste CSV lines (one <code>x,y</code> pair per line) into the CSV Import box and click Import.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is a trendline and what does R² mean?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>A trendline is the straight line that best fits your scatter of points using least-squares linear regression: <code>y = mx + b</code>. R² (coefficient of determination) measures the fit: R²=1.0 means all points lie exactly on the line; R²=0 means no linear relationship. Enable it with the Trendline checkbox. The equation and R² value appear in the stats bar below the graph.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">How do I import data from Excel or Google Sheets?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Select two columns (X and Y) in your spreadsheet, copy them, and paste into the CSV Import text area. Excel and Sheets copy with tab separators, which this tool accepts. One row per line. An optional third column is used as a point label. Click Import and the data is loaded into the active series.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Can I plot mathematical functions like y = x²?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Yes — just calculate the y values manually and enter them as (x,y) pairs, or import them as CSV. Try the "Quadratic functions" sample to see y = x² and y = x²−3x+2 plotted as line charts. For a smooth curve, use small x increments (e.g. 0.5 or 0.1) so the connected line appears smooth.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Is my data sent to a server?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>No. All plotting, regression, and CSV processing runs entirely in your browser using the HTML5 Canvas API and JavaScript. Your data never leaves your device. There is no backend — the tool works completely offline once the page is loaded.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── RELATED TOOLS ── -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:var(--radius-sm);font-size:.82rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="../gis/coordinate-distance.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#3b82f6,#2dd4bf)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="related-name">Coordinate Distance</div>
+        <div class="related-desc">Distance between two GPS coordinates with bearing and midpoint.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="unit-converter.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#a78bfa,#3b82f6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3M12 8v8M9 11l3-3 3 3"/></svg></div>
+        <div class="related-name">Unit Converter</div>
+        <div class="related-desc">Convert between length, area, volume, mass, temperature, and more.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="percentage-calculator.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#22c55e,#3b82f6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div>
+        <div class="related-name">Percentage Calculator</div>
+        <div class="related-desc">Calculate percentages, increases, decreases, and ratios.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../coding/json-formatter.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h3a2 2 0 0 1 2 2v1a2 2 0 0 0 2 2 2 2 0 0 0-2 2v1a2 2 0 0 1-2 2H4M20 7h-3a2 2 0 0 0-2 2v1a2 2 0 0 1-2 2 2 2 0 0 1 2 2v1a2 2 0 0 0 2 2h3"/></svg></div>
+        <div class="related-name">JSON Formatter</div>
+        <div class="related-desc">Format and validate JSON data with syntax highlighting.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <path d="M7 29V7M7 29h22" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="13" cy="22" r="2" fill="rgba(255,255,255,.7)"/>
+          <circle cx="20" cy="16" r="2" fill="rgba(255,255,255,.7)"/>
+          <circle cx="26" cy="11" r="2" fill="rgba(255,255,255,.7)"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#3b82f6"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#math">Math Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="xy-graph.js"></script>
+</body>
+</html>

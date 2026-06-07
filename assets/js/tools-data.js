@@ -93,6 +93,15 @@ const TOOLS_DATA = [
     categories: ['Math'],
     url: 'tools/math/unit-converter.html',
   },
+  {
+    id: 'xy-graph',
+    title: 'XY Graph & Coordinate Plotter',
+    description: 'Plot (x,y) coordinates as scatter, line, or bar charts. Multiple series, trendlines with R², hover tooltips, CSV import, and PNG export.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 9l-5 5-4-4-4 4"/></svg>',
+    color: 'linear-gradient(135deg,#3b82f6,#a78bfa)',
+    categories: ['Math'],
+    url: 'tools/math/xy-graph.html',
+  },
 
   // ── COLOR TOOLS ────────────────────────────────────────────────
   {
@@ -141,6 +150,15 @@ const TOOLS_DATA = [
     color: 'linear-gradient(135deg,#0fd850,#f9f047)',
     categories: ['Coding'],
     url: 'tools/coding/json-formatter.html',
+  },
+  {
+    id: 'json-validator',
+    title: 'JSON Validator',
+    description: 'Live JSON syntax validation with exact error location, type tree inspector, stats panel, and JSON Schema (draft-07) checking.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>',
+    color: 'linear-gradient(135deg,#22c55e,#3b82f6)',
+    categories: ['Coding'],
+    url: 'tools/coding/json-validator.html',
   },
   {
     id: 'base64',
@@ -398,6 +416,15 @@ const TOOLS_DATA = [
     color: 'linear-gradient(135deg,#2dd4bf,#3b82f6)',
     categories: ['GIS'],
     url: 'tools/gis/projection-finder.html',
+  },
+  {
+    id: 'coordinate-distance',
+    title: 'Coordinate Distance Calculator',
+    description: 'Calculate the distance between two GPS coordinates using Haversine or Vincenty formula. Results in km, miles, nautical miles, feet, and yards — plus bearing, midpoint, and multi-point route totals.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+    color: 'linear-gradient(135deg,#3b82f6,#2dd4bf)',
+    categories: ['GIS'],
+    url: 'tools/gis/coordinate-distance.html',
   },
   {
     id: 'geojson-splitter',

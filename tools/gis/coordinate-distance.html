@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Distance Between Two Coordinates — Haversine & Vincenty Calculator | The Tool Empire</title>
+  <meta name="description"
+    content="Calculate the distance between two GPS coordinates using Haversine or Vincenty formula. Get results in km, miles, nautical miles, metres, and feet. Includes bearing, midpoint, and multi-point route total." />
+  <meta name="keywords"
+    content="distance between coordinates, gps distance calculator, haversine formula, vincenty formula, latitude longitude distance, coordinate distance online, bearing between coordinates, midpoint calculator" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://thetoolempire.com/tools/gis/coordinate-distance.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Distance Between Two Coordinates — Haversine & Vincenty Calculator" />
+  <meta property="og:description"
+    content="Enter two GPS coordinates and instantly get the distance in km, miles, nautical miles, feet, and yards — plus bearing and midpoint." />
+  <meta property="og:url" content="https://thetoolempire.com/tools/gis/coordinate-distance.html" />
+  <meta property="og:site_name" content="The Tool Empire" />
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="manifest" href="../../manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+    crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"Distance Between Two Coordinates","description":"Calculate the great-circle distance between two GPS coordinates using Haversine or Vincenty formula. Input formats: decimal degrees (DD), degrees-minutes-seconds (DMS), degrees-decimal-minutes (DDM). Outputs: km, miles, nautical miles, metres, feet, yards. Also computes initial bearing, final (back) bearing with compass direction, midpoint coordinates, and multi-point route total distance.","url":"https://thetoolempire.com/tools/gis/coordinate-distance.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Distance in km, miles, nautical miles, metres, feet, yards","Haversine formula (spherical Earth)","Vincenty formula (WGS84 ellipsoid, more accurate)","Input in DD, DMS, or DDM format","Initial and final bearing with compass direction","Midpoint coordinates","Multi-point route with per-leg and total distance","Copy all results to clipboard","100% client-side — no data sent to server"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"GIS Tools","item":"https://thetoolempire.com/tools.html#gis"},
+      {"@type":"ListItem","position":3,"name":"Coordinate Distance","item":"https://thetoolempire.com/tools/gis/coordinate-distance.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is the difference between Haversine and Vincenty?","acceptedAnswer":{"@type":"Answer","text":"Haversine assumes the Earth is a perfect sphere and computes the great-circle distance. It is fast and accurate to within 0.5% for most purposes. Vincenty uses the WGS84 ellipsoid (the actual shape of Earth, slightly flattened at the poles) and is accurate to within 0.5 mm. For everyday use the difference is negligible; for surveying, aviation, or long-distance navigation, use Vincenty."}},
+      {"@type":"Question","name":"What coordinate formats does this tool accept?","acceptedAnswer":{"@type":"Answer","text":"The tool accepts three formats: (1) Decimal Degrees (DD) — e.g. 51.5074 or -0.1278; (2) Degrees Minutes Seconds (DMS) — e.g. 51°30'26\"N or 51 30 26 N; (3) Degrees Decimal Minutes (DDM) — e.g. 51°30.4333'N. All three can be mixed — you can enter Point A in DD and Point B in DMS."}},
+      {"@type":"Question","name":"What is bearing?","acceptedAnswer":{"@type":"Answer","text":"Bearing is the direction of travel from one point to another, measured in degrees clockwise from true north (0° = north, 90° = east, 180° = south, 270° = west). The initial bearing is the direction you start heading when leaving Point A. The final bearing is the direction you arrive at Point B from. For long distances on a curved Earth these differ because you follow a great-circle arc, not a straight compass heading."}},
+      {"@type":"Question","name":"What is the midpoint?","acceptedAnswer":{"@type":"Answer","text":"The midpoint is the geographic centre of the great-circle arc between two coordinates — the point that is equidistant from both along the shortest path on the Earth's surface. It is not the simple average of the latitudes and longitudes, which would give a slightly different result for longer distances."}},
+      {"@type":"Question","name":"What are nautical miles?","acceptedAnswer":{"@type":"Answer","text":"A nautical mile is defined as exactly 1,852 metres (1.852 km). It is used in maritime and aviation navigation because 1 nautical mile equals 1 arcminute of latitude — making chart reading and dead reckoning straightforward. 1 knot = 1 nautical mile per hour."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="coordinate-distance.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgH)" />
+          <circle cx="18" cy="18" r="10" stroke="#fff" stroke-width="2" fill="none" />
+          <path d="M18 8v20M8 18h20M11 11l14 14M25 11L11 25" stroke="#fff" stroke-width="1.4" opacity=".7" />
+          <defs>
+            <linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#3b82f6" />
+              <stop offset="1" stop-color="#2dd4bf" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <nav class="main-nav">
+        <a href="../../index.html" class="nav-link">Home</a>
+        <a href="../../tools.html" class="nav-link active">Tools</a>
+        <a href="../../blog.html" class="nav-link">Blog</a>
+        <a href="../../about.html" class="nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="main-wrap" x-data="coordinateDistanceApp()" x-init="init()">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+      <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+        <li><a href="../../index.html" style="color:#8888a8">Home</a></li>
+        <li>›</li>
+        <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li>
+        <li>›</li>
+        <li><a href="../../tools.html#gis" style="color:#8888a8">GIS</a></li>
+        <li>›</li>
+        <li style="color:#e8e8f0">Coordinate Distance</li>
+      </ol>
+    </nav>
+
+    <!-- Ad -->
+    <div class="ad-slot">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"
+        data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- Hero -->
+    <div class="tool-hero">
+      <div class="tool-badge">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="2" y1="12" x2="22" y2="12" />
+          <path d="M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20" />
+        </svg>
+        GIS · Navigation
+      </div>
+      <h1 class="tool-title"><span class="gradient-title">Coordinate Distance Calculator</span></h1>
+      <p class="tool-subtitle">Calculate the distance between two GPS coordinates. Get km, miles, nautical miles,
+        bearing, and midpoint — using Haversine or Vincenty formula.</p>
+    </div>
+
+    <!-- ── MODE TOGGLE ── -->
+    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+      <button class="tab" @click="mode='two'"
+        :style="mode==='two' ? 'background:rgba(59,130,246,.15);border-color:rgba(59,130,246,.4);color:var(--accent)' : ''"
+        >
+        Two Points
+      </button>
+      <button class="tab" @click="mode='multi'"
+        :style="mode==='multi' ? 'background:rgba(45,212,191,.12);border-color:rgba(45,212,191,.35);color:var(--teal)' : ''">
+        Route (Multi-point)
+      </button>
+    </div>
+
+    <!-- ══════════════ TWO-POINT MODE ══════════════ -->
+    <template x-if="mode==='two'">
+      <div>
+        <!-- Options card -->
+        <div class="card" style="margin-bottom:12px">
+          <div class="card-header">
+            <div class="card-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3" />
+                <path
+                  d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+              </svg></div>
+            <span class="card-title">Options</span>
+          </div>
+          <div class="card-body" style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;padding:14px 18px">
+            <div class="format-row">
+              <span class="format-label">Formula:</span>
+              <button class="fmt-chip" :class="{active:formula==='vincenty'}" @click="formula='vincenty'">Vincenty
+                (WGS84)</button>
+              <button class="fmt-chip" :class="{active:formula==='haversine'}" @click="formula='haversine'">Haversine
+                (sphere)</button>
+            </div>
+            <div class="format-row">
+              <span class="format-label">Input format:</span>
+              <button class="fmt-chip" :class="{active:inputFormat==='dd'}" @click="inputFormat='dd'">Decimal
+                (DD)</button>
+              <button class="fmt-chip" :class="{active:inputFormat==='dms'}" @click="inputFormat='dms'">DMS /
+                DDM</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Points card -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg></div>
+            <span class="card-title">Coordinates</span>
+            <div style="margin-left:auto;display:flex;gap:8px">
+              <button class="btn-secondary" style="padding:5px 12px;font-size:.76rem" @click="loadSample()">Sample
+                (London → Paris)</button>
+              <button class="btn-secondary"
+                style="padding:5px 12px;font-size:.76rem;color:#f87171;border-color:rgba(248,113,113,.2)"
+                @click="clearAll()">Clear</button>
+            </div>
+          </div>
+          <div class="card-body">
+
+            <div class="points-grid">
+              <!-- Point A -->
+              <div class="point-card">
+                <div class="point-label">
+                  <span class="point-dot dot-a">A</span>
+                  <span class="point-name" x-text="name1 || 'Point A'"></span>
+                  <span class="point-optional">start</span>
+                </div>
+                <input class="name-input" x-model="name1" placeholder="Label (optional)" />
+                <div class="field-row">
+                  <div class="field-wrap">
+                    <label class="field-label">Latitude</label>
+                    <input class="field-input" :class="{err:err1lat}" x-model="lat1"
+                      :placeholder="inputFormat==='dd' ? '51.5074' : '51°30\'26\" N'" @keydown.enter="calculate()" />
+                    <div class="field-err" x-show="err1lat" x-text="err1lat"></div>
+                  </div>
+                  <div class="field-wrap">
+                    <label class="field-label">Longitude</label>
+                    <input class="field-input" :class="{err:err1lon}" x-model="lon1"
+                      :placeholder="inputFormat==='dd' ? '-0.1278' : '0°07\'40\" W'" @keydown.enter="calculate()" />
+                    <div class="field-err" x-show="err1lon" x-text="err1lon"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Point B -->
+              <div class="point-card">
+                <div class="point-label">
+                  <span class="point-dot dot-b">B</span>
+                  <span class="point-name" x-text="name2 || 'Point B'"></span>
+                  <span class="point-optional">end</span>
+                </div>
+                <input class="name-input" x-model="name2" placeholder="Label (optional)" />
+                <div class="field-row">
+                  <div class="field-wrap">
+                    <label class="field-label">Latitude</label>
+                    <input class="field-input" :class="{err:err2lat}" x-model="lat2"
+                      :placeholder="inputFormat==='dd' ? '48.8566' : '48°51\'24\" N'" @keydown.enter="calculate()" />
+                    <div class="field-err" x-show="err2lat" x-text="err2lat"></div>
+                  </div>
+                  <div class="field-wrap">
+                    <label class="field-label">Longitude</label>
+                    <input class="field-input" :class="{err:err2lon}" x-model="lon2"
+                      :placeholder="inputFormat==='dd' ? '2.3522' : '2°21\'07\" E'" @keydown.enter="calculate()" />
+                    <div class="field-err" x-show="err2lon" x-text="err2lon"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Swap -->
+            <div class="swap-row">
+              <button class="swap-btn" @click="swapPoints()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4" />
+                </svg>
+                Swap A ↔ B
+              </button>
+            </div>
+
+            <!-- Format hint -->
+            <div style="font-size:.75rem;color:var(--text-faint);text-align:center;margin-top:-2px;margin-bottom:14px">
+              Accepts: <code>51.5074</code> · <code>51°30'26"N</code> · <code>51°30.4333'N</code> ·
+              <code>51.5074N</code>
+            </div>
+
+            <div class="action-row">
+              <button class="btn-primary" @click="calculate()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+                Calculate Distance
+              </button>
+              <template x-if="result">
+                <button class="btn-secondary" @click="copyResult()">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" />
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                  </svg>
+                  Copy result
+                </button>
+              </template>
+            </div>
+
+            <template x-if="calcError">
+              <div
+                style="margin-top:12px;padding:10px 14px;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);border-radius:var(--radius-sm);font-size:.82rem;color:#fca5a5"
+                x-text="calcError"></div>
+            </template>
+
+          </div>
+        </div>
+
+        <!-- ── RESULT ── -->
+        <template x-if="result">
+          <div>
+            <div class="result-card">
+              <!-- Main distance -->
+              <div class="result-main">
+                <span class="result-distance result-km" x-text="fmtKm(result.km)"></span>
+                <span class="result-unit">km</span>
+                <span style="font-size:.8rem;color:var(--text-faint);padding-bottom:5px"
+                  x-text="'(' + formula + ')'"></span>
+              </div>
+
+              <!-- All units -->
+              <div class="units-grid">
+                <div class="unit-chip">
+                  <div class="unit-label">Kilometres</div>
+                  <div class="unit-value" x-text="fmtKm(result.km)"></div>
+                </div>
+                <div class="unit-chip">
+                  <div class="unit-label">Miles</div>
+                  <div class="unit-value" x-text="fmtMi(result.km)"></div>
+                </div>
+                <div class="unit-chip">
+                  <div class="unit-label">Nautical miles</div>
+                  <div class="unit-value" x-text="fmtNm(result.km)"></div>
+                </div>
+                <div class="unit-chip">
+                  <div class="unit-label">Metres</div>
+                  <div class="unit-value" x-text="fmtM(result.km)"></div>
+                </div>
+                <div class="unit-chip">
+                  <div class="unit-label">Feet</div>
+                  <div class="unit-value" x-text="fmtFt(result.km)"></div>
+                </div>
+                <div class="unit-chip">
+                  <div class="unit-label">Yards</div>
+                  <div class="unit-value" x-text="fmtYd(result.km)"></div>
+                </div>
+              </div>
+
+              <!-- Bearing -->
+              <div class="bearing-row">
+                <div class="bearing-item">
+                  <div class="bearing-label">Initial bearing (A → B)</div>
+                  <div class="bearing-value">
+                    <span x-text="fmtBear(result.bearing)"></span>
+                    <span class="bearing-compass" x-text="result.compass"></span>
+                  </div>
+                </div>
+                <div class="bearing-item">
+                  <div class="bearing-label">Final bearing (arriving at B)</div>
+                  <div class="bearing-value">
+                    <span x-text="fmtBear(result.bearing2)"></span>
+                    <span class="bearing-compass" x-text="result.compass2"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Midpoint -->
+              <div class="midpoint-row">
+                <div class="midpoint-label">Midpoint</div>
+                <div class="midpoint-val">
+                  <span x-text="fmtLat(result.midLat)"></span>,&nbsp;<span x-text="fmtLon(result.midLon)"></span>
+                </div>
+                <button class="copy-tiny"
+                  @click="copyText(result.midLat.toFixed(6)+','+result.midLon.toFixed(6), 'midpoint')">Copy</button>
+              </div>
+            </div>
+          </div>
+        </template>
+
+      </div>
+    </template>
+
+    <!-- ══════════════ MULTI-POINT MODE ══════════════ -->
+    <template x-if="mode==='multi'">
+      <div>
+        <!-- Options -->
+        <div class="card" style="margin-bottom:12px">
+          <div class="card-header">
+            <div class="card-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3" />
+                <path
+                  d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+              </svg></div>
+            <span class="card-title">Route Options</span>
+          </div>
+          <div class="card-body" style="padding:14px 18px">
+            <div class="format-row">
+              <span class="format-label">Formula:</span>
+              <button class="fmt-chip" :class="{active:formula==='vincenty'}" @click="formula='vincenty'">Vincenty
+                (WGS84)</button>
+              <button class="fmt-chip" :class="{active:formula==='haversine'}" @click="formula='haversine'">Haversine
+                (sphere)</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+              </svg></div>
+            <span class="card-title">Route Points</span>
+            <div style="margin-left:auto;display:flex;gap:8px">
+              <button class="btn-secondary" style="padding:5px 12px;font-size:.76rem" @click="loadSampleRoute()">Sample
+                route</button>
+              <button class="btn-secondary"
+                style="padding:5px 12px;font-size:.76rem;color:#f87171;border-color:rgba(248,113,113,.2)"
+                @click="clearRoute()">Clear</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="multi-list" style="margin-bottom:12px">
+              <template x-for="(pt, i) in multiPoints" :key="i">
+                <div class="multi-item">
+                  <div class="multi-idx" x-text="i+1"></div>
+                  <input class="multi-input" x-model="pt.lat" placeholder="Latitude" @input="calcRoute()" />
+                  <input class="multi-input" x-model="pt.lon" placeholder="Longitude" @input="calcRoute()" />
+                  <button class="multi-remove" @click="removePoint(i)" :disabled="multiPoints.length<=2"
+                    title="Remove point">×</button>
+                </div>
+              </template>
+            </div>
+
+            <div class="action-row" style="margin-top:0;margin-bottom:16px">
+              <button class="btn-primary" @click="addPoint()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Add point
+              </button>
+              <button class="btn-secondary" @click="calcRoute()">Recalculate</button>
+            </div>
+
+            <!-- Legs -->
+            <template x-if="multiLegs.length > 0">
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <template x-for="(leg, i) in multiLegs" :key="i">
+                  <div class="multi-leg">
+                    <span class="leg-label" x-text="(i+1)+'. '+leg.from+' → '+leg.to"></span>
+                    <span class="leg-dist"
+                      x-text="leg.km !== null ? fmtKm(leg.km)+' km / '+fmtMi(leg.km)+' mi' : '—'"></span>
+                  </div>
+                </template>
+                <div class="total-row">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                  </svg>
+                  Total route distance:
+                  <strong style="font-family:var(--font-mono)"
+                    x-text="fmtKm(multiTotal)+' km  /  '+fmtMi(multiTotal)+' mi  /  '+fmtNm(multiTotal)+' nm'"></strong>
+                </div>
+              </div>
+            </template>
+
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <!-- Ad -->
+    <div class="ad-slot" style="margin-top:24px">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"
+        data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- ── DESCRIPTION ── -->
+    <div class="page-section">
+      <div class="section-head">
+        <h2 class="section-title">What This Tool Calculates</h2>
+        <p class="section-desc">Great-circle distance — the shortest path between two points on the Earth's surface.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📏</div>
+          <div class="feature-title">6 distance units</div>
+          <div class="feature-desc">Results in km, miles, nautical miles, metres, feet, and yards — all computed from
+            the same geodetic calculation.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧭</div>
+          <div class="feature-title">Bearing</div>
+          <div class="feature-desc">Initial bearing (direction you leave A heading to B) and final bearing (direction
+            you arrive at B), both with 16-point compass direction (N, NNE, NE…).</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📍</div>
+          <div class="feature-title">Midpoint</div>
+          <div class="feature-desc">The geographic centre of the great-circle arc between A and B — not a simple average
+            but the true spherical midpoint.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <div class="feature-title">Vincenty formula</div>
+          <div class="feature-desc">Uses the WGS84 ellipsoid model for sub-millimetre accuracy. Haversine (spherical
+            model) is also available. For most purposes both give virtually identical results.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🗺️</div>
+          <div class="feature-title">Multi-point route</div>
+          <div class="feature-desc">Switch to Route mode to add up to any number of waypoints. See each leg distance and
+            the total route distance.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔤</div>
+          <div class="feature-title">Any coordinate format</div>
+          <div class="feature-desc">Accepts decimal degrees (51.5074), DMS (51°30'26"N), DDM (51°30.4333'N), and decimal
+            with direction (51.5074N). Formats can be mixed between the two points.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ── HOW TO USE ── -->
+    <div class="page-section" style="margin-top:0">
+      <div class="section-head">
+        <h2 class="section-title">How to Use</h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div>
+            <div class="step-title">Enter coordinates</div>
+            <div class="step-desc">Type or paste latitude and longitude for both points. Accepts decimal degrees, DMS,
+              or DDM. You can optionally name each point. Click "Sample" to see an example (London → Paris).</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div>
+            <div class="step-title">Choose formula</div>
+            <div class="step-desc">Vincenty uses the WGS84 ellipsoid and is more accurate for long distances. Haversine
+              treats Earth as a sphere — simpler but within 0.5% of Vincenty for most practical distances.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div>
+            <div class="step-title">Read the results</div>
+            <div class="step-desc">Distance appears in km, miles, nautical miles, metres, feet, and yards. Initial and
+              final bearing show the direction of travel. Midpoint gives the geographic centre of the route.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <div>
+            <div class="step-title">Use Route mode</div>
+            <div class="step-desc">Switch to "Route" mode for multi-point trips. Add as many waypoints as you need —
+              each leg distance and the total are calculated automatically as you type.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ── FAQ ── -->
+    <div class="page-section" style="margin-top:0">
+      <div class="section-head">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" @click="toggleFaq($el)">What is the difference between Haversine and Vincenty?<span
+              class="faq-icon">+</span></button>
+          <div class="faq-a">
+            <p>Haversine assumes the Earth is a perfect sphere (radius 6371 km) and computes the great-circle distance.
+              It is fast and accurate to within 0.5% for most purposes. Vincenty uses the WGS84 ellipsoid (semi-major
+              axis 6378.137 km, flattening 1/298.257) which better represents Earth's actual shape — slightly flattened
+              at the poles. Vincenty is accurate to within 0.5 mm. For everyday use the difference is negligible. For
+              surveying, aviation, or precise long-distance navigation, use Vincenty.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" @click="toggleFaq($el)">What coordinate formats are accepted?<span
+              class="faq-icon">+</span></button>
+          <div class="faq-a">
+            <p>Three formats are supported: (1) <strong>Decimal Degrees (DD)</strong> — e.g. <code>51.5074</code> or
+              <code>-0.1278</code>; (2) <strong>Degrees Minutes Seconds (DMS)</strong> — e.g. <code>51°30'26"N</code> or
+              <code>51 30 26 N</code>; (3) <strong>Degrees Decimal Minutes (DDM)</strong> — e.g.
+              <code>51°30.4333'N</code>. You can also write <code>51.5074N</code> or <code>0.1278W</code>. Formats can
+              be mixed between the two points.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" @click="toggleFaq($el)">What is the bearing and why are there two values?<span
+              class="faq-icon">+</span></button>
+          <div class="faq-a">
+            <p>Bearing is the direction of travel measured in degrees clockwise from true north (0° = north, 90° =
+              east). The <strong>initial bearing</strong> is the direction you start heading when leaving Point A. The
+              <strong>final bearing</strong> is the direction you are travelling when you arrive at Point B. These
+              differ for any non-trivial distance because you follow a great-circle arc on a curved Earth — your heading
+              changes continuously along the route.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" @click="toggleFaq($el)">What are nautical miles and when are they used?<span
+              class="faq-icon">+</span></button>
+          <div class="faq-a">
+            <p>A nautical mile is exactly 1,852 metres (1.852 km). It is the standard unit in maritime and aviation
+              navigation because 1 nautical mile equals 1 arcminute of latitude — making chart reading and dead
+              reckoning intuitive. Speed in nautical miles per hour is called a knot. 1 nm = 1.15078 statute miles.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" @click="toggleFaq($el)">Why is the great-circle distance shorter than the map
+            distance?<span class="faq-icon">+</span></button>
+          <div class="faq-a">
+            <p>On a Mercator map (used by most web maps) straight lines are lines of constant bearing (rhumb lines), not
+              the shortest path. The shortest path between two points on a sphere curves toward the nearest pole — that
+              is the great-circle route. For a flight from London to Los Angeles, the great-circle route passes over
+              Greenland, which looks like a detour on a flat map but is actually shorter. The great-circle distance is
+              always ≤ the rhumb-line distance.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ── RELATED TOOLS ── -->
+    <div class="page-section" style="margin-top:0">
+      <div
+        style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px">
+        <h2 class="section-title">Related Tools</h2>
+        <a href="../../tools.html"
+          style="display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:var(--radius-sm);font-size:.82rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)">View
+          all →</a>
+      </div>
+      <div class="related-grid">
+        <a href="lat-long.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#3b82f6,#a78bfa)"><svg viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <path d="M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20" />
+            </svg></div>
+          <div class="related-name">Lat/Long Converter</div>
+          <div class="related-desc">Convert between DD, DMS, DDM, UTM, and Geohash formats.</div>
+          <span class="related-link">Use tool →</span>
+        </a>
+        <a href="projection-finder.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#2dd4bf,#3b82f6)"><svg viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20" />
+            </svg></div>
+          <div class="related-name">GIS Projection Finder</div>
+          <div class="related-desc">Look up any EPSG code — Proj4, WKT, and usage notes.</div>
+          <span class="related-link">Use tool →</span>
+        </a>
+        <a href="geojson-validator.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#22c55e,#3b82f6)"><svg viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12" />
+            </svg></div>
+          <div class="related-name">GeoJSON Validator</div>
+          <div class="related-desc">Validate GeoJSON against RFC 7946 with full path context.</div>
+          <span class="related-link">Use tool →</span>
+        </a>
+        <a href="csv-to-gis.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#3b82f6,#22c55e)"><svg viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+            </svg></div>
+          <div class="related-name">CSV → GIS Formats</div>
+          <div class="related-desc">Convert lat/lng CSV to GeoJSON, KML, GPX, WKT.</div>
+          <span class="related-link">Use tool →</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <a href="../../index.html" class="logo">
+          <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="9" fill="url(#lgF)" />
+            <circle cx="18" cy="18" r="10" stroke="#fff" stroke-width="2" fill="none" />
+            <path d="M18 8v20M8 18h20" stroke="#fff" stroke-width="1.4" opacity=".7" />
+            <defs>
+              <linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#3b82f6" />
+                <stop offset="1" stop-color="#2dd4bf" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <span class="logo-text">The Tool Empire</span>
+        </a>
+        <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Tools</div>
+        <div class="footer-links"><a href="../../tools.html#gis">GIS Tools</a><a href="../../tools.html">All Tools</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Company</div>
+        <div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a></div>
+      </div>
+      <div>
+        <div class="footer-heading">Legal</div>
+        <div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the
+        web</span></div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <script src="coordinate-distance.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>What a Phishing Attack Actually Looks Like From the Inside | The Tool Empire</title>
+  <meta name="description" content="Phishing isn't just suspicious emails anymore. Attackers have gotten very good at faking things you already trust — login pages, password reset emails, even coworker messages. Here's how it actually works and how to spot it."/>
+  <meta name="keywords" content="phishing attack, how phishing works, phishing email examples, spear phishing, smishing, vishing, phishing prevention, cyber security, credential theft"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/blog/phishing-attacks-explained.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="What a Phishing Attack Actually Looks Like From the Inside"/>
+  <meta property="og:description" content="Phishing isn't just suspicious emails anymore. Attackers have gotten very good at faking things you already trust. Here's exactly how it works and what to watch for."/>
+  <meta property="og:url" content="https://thetoolempire.com/blog/phishing-attacks-explained.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta property="article:published_time" content="2026-06-07"/>
+  <meta property="article:author" content="The Tool Empire"/>
+  <meta property="article:section" content="Cybersecurity"/>
+  <link rel="manifest" href="../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"BlogPosting","headline":"What a Phishing Attack Actually Looks Like From the Inside","description":"Phishing isn't just suspicious emails anymore. Attackers have gotten very good at faking things you already trust. Here's exactly how it works and what to watch for.","url":"https://thetoolempire.com/blog/phishing-attacks-explained.html","datePublished":"2026-06-07","dateModified":"2026-06-07","author":{"@type":"Organization","name":"The Tool Empire","url":"https://thetoolempire.com"},"publisher":{"@type":"Organization","name":"The Tool Empire","url":"https://thetoolempire.com"},"image":"https://thetoolempire.com/assets/og-image.png","articleSection":"Cybersecurity","keywords":["phishing","spear phishing","smishing","credential theft","cyber security","2FA bypass"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Blog","item":"https://thetoolempire.com/blog.html"},
+      {"@type":"ListItem","position":3,"name":"What a Phishing Attack Actually Looks Like From the Inside","item":"https://thetoolempire.com/blog/phishing-attacks-explained.html"}
+    ]}
+  ]}</script>
+
+  <style>
+    :root{--bg:#0f0f14;--bg-card:#1e1e28;--bg-surface:#18181f;--primary:#06b6d4;--secondary:#0891b2;--accent:#67e8f9;--text:#e8e8f0;--text-muted:#9999b8;--text-faint:#555570;--border:rgba(255,255,255,.08);--border-strong:rgba(255,255,255,.14);--radius:14px;--radius-sm:8px;--font:'Inter',system-ui,sans-serif;--font-mono:'Fira Code','Cascadia Code',monospace}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+    a{color:var(--primary);text-decoration:none}
+    a:hover{text-decoration:underline}
+    code{font-family:var(--font-mono);font-size:.85em;background:rgba(6,182,212,.1);color:#67e8f9;padding:2px 6px;border-radius:4px}
+    .site-header{background:rgba(15,15,20,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;padding:0 24px;height:58px;display:flex;align-items:center}
+    .header-inner{width:100%;max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+    .logo-icon{width:32px;height:32px;flex-shrink:0}
+    .logo-text{font-size:.97rem;font-weight:700;color:var(--text);letter-spacing:-.01em}
+    .main-nav{display:flex;gap:6px}
+    .nav-link{padding:5px 12px;border-radius:var(--radius-sm);font-size:.84rem;font-weight:500;color:var(--text-muted);text-decoration:none;transition:color .15s,background .15s}
+    .nav-link:hover,.nav-link.active{color:var(--text);background:rgba(255,255,255,.06)}
+    .progress-bar{position:fixed;top:58px;left:0;width:0%;height:3px;background:linear-gradient(90deg,var(--secondary),var(--primary));z-index:99;transition:width .1s}
+    .blog-layout{max-width:1140px;margin:0 auto;padding:32px 24px 80px;display:grid;grid-template-columns:1fr 240px;gap:40px;align-items:start}
+    @media(max-width:1024px){.blog-layout{grid-template-columns:1fr}.toc-sidebar{display:none}}
+    @media(max-width:640px){.blog-layout{padding:18px 14px 60px}}
+    .blog-header{margin-bottom:32px}
+    .blog-tag{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;background:rgba(6,182,212,.1);color:var(--primary);border-radius:20px;font-size:.73rem;font-weight:600;margin-bottom:14px}
+    .blog-title{font-size:clamp(1.7rem,4vw,2.4rem);font-weight:800;letter-spacing:-.025em;line-height:1.2;margin-bottom:14px}
+    .blog-meta{display:flex;flex-wrap:wrap;gap:14px;font-size:.8rem;color:var(--text-faint);margin-bottom:18px}
+    .blog-excerpt{font-size:1rem;color:var(--text-muted);line-height:1.65;padding:16px 20px;background:rgba(255,255,255,.03);border-left:3px solid var(--primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+    .blog-body h2{font-size:1.3rem;font-weight:800;letter-spacing:-.01em;margin:36px 0 12px;color:var(--text)}
+    .blog-body h3{font-size:1.05rem;font-weight:700;margin:26px 0 10px;color:var(--text)}
+    .blog-body p{margin-bottom:14px;color:var(--text-muted)}
+    .blog-body ul,.blog-body ol{margin:10px 0 16px 20px;color:var(--text-muted)}
+    .blog-body li{margin-bottom:7px;line-height:1.65}
+    .blog-body strong{color:var(--text);font-weight:600}
+    .blog-body table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.85rem}
+    .blog-body th{padding:9px 12px;text-align:left;color:var(--text-faint);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--border-strong);background:var(--bg-surface)}
+    .blog-body td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text-muted)}
+    .blog-body tr:hover td{background:rgba(255,255,255,.02)}
+    .callout{padding:14px 18px;border-radius:var(--radius-sm);margin:20px 0;border-left:3px solid}
+    .callout.danger{background:rgba(239,68,68,.07);border-color:#ef4444}.callout.danger .callout-title{color:#ef4444}
+    .callout.warn{background:rgba(234,179,8,.07);border-color:#eab308}.callout.warn .callout-title{color:#eab308}
+    .callout.tip{background:rgba(34,197,94,.07);border-color:#22c55e}.callout.tip .callout-title{color:#22c55e}
+    .callout.info{background:rgba(6,182,212,.07);border-color:#06b6d4}.callout.info .callout-title{color:#06b6d4}
+    .callout-title{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+    .callout p{margin:0;font-size:.87rem;color:var(--text-muted)}
+    /* Fake email example */
+    .fake-email{background:var(--bg-card);border:1px solid var(--border-strong);border-radius:var(--radius);overflow:hidden;margin:20px 0}
+    .fe-header{background:var(--bg-surface);padding:12px 16px;border-bottom:1px solid var(--border)}
+    .fe-field{display:flex;gap:8px;font-size:.8rem;margin-bottom:4px}
+    .fe-field:last-child{margin-bottom:0}
+    .fe-key{color:var(--text-faint);min-width:40px}
+    .fe-val{color:var(--text-muted)}
+    .fe-val .suspicious{color:#ef4444;font-weight:600}
+    .fe-body{padding:16px;font-size:.85rem;color:var(--text-muted);line-height:1.7}
+    .fe-body strong{color:var(--text)}
+    .fe-link{display:inline-block;background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);border-radius:4px;padding:3px 8px;font-family:var(--font-mono);font-size:.78rem;color:#67e8f9;margin:6px 0}
+    .fe-label{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:.68rem;font-weight:700}
+    .fe-label.red{background:rgba(239,68,68,.12);color:#ef4444;border:1px solid rgba(239,68,68,.2)}
+    .fe-label.yellow{background:rgba(234,179,8,.1);color:#eab308;border:1px solid rgba(234,179,8,.2)}
+    .ad-slot{background:rgba(255,255,255,.02);border:1px dashed rgba(255,255,255,.07);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;min-height:90px;font-size:.75rem;color:var(--text-faint);text-align:center;padding:12px;margin:28px 0}
+    .tool-spotlight{background:var(--bg-card);border:1px solid var(--border-strong);border-radius:var(--radius);padding:20px;margin:28px 0}
+    .spotlight-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:10px}
+    .spotlight-title{font-size:1rem;font-weight:800;color:var(--text);margin-bottom:6px}
+    .spotlight-desc{font-size:.85rem;color:var(--text-muted);margin-bottom:14px}
+    .spotlight-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:linear-gradient(135deg,var(--secondary),var(--primary));border-radius:var(--radius-sm);color:#fff;font-size:.85rem;font-weight:700;text-decoration:none;transition:opacity .15s}
+    .spotlight-btn:hover{opacity:.9;text-decoration:none}
+    .toc-sidebar{position:sticky;top:78px}
+    .toc-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+    .toc-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:12px}
+    .toc-list{list-style:none;display:flex;flex-direction:column;gap:4px}
+    .toc-list a{font-size:.8rem;color:var(--text-muted);padding:4px 8px;border-radius:5px;display:block;transition:all .15s;text-decoration:none}
+    .toc-list a:hover{color:var(--primary);background:rgba(6,182,212,.06)}
+    .author-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:32px;display:flex;align-items:flex-start;gap:14px}
+    .author-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--secondary),var(--primary));display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+    .author-name{font-size:.9rem;font-weight:700;color:var(--text)}
+    .author-bio{font-size:.8rem;color:var(--text-muted);line-height:1.5;margin-top:4px}
+    .related-section{margin-top:36px}
+    .related-title{font-size:1rem;font-weight:800;margin-bottom:16px;color:var(--text)}
+    .related-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media(max-width:520px){.related-grid{grid-template-columns:1fr}}
+    .related-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;text-decoration:none;transition:border-color .2s;display:flex;flex-direction:column;gap:5px}
+    .related-card:hover{border-color:var(--primary);text-decoration:none}
+    .related-tag{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint)}
+    .related-name{font-size:.85rem;font-weight:700;color:var(--text)}
+    .related-desc{font-size:.76rem;color:var(--text-muted)}
+    .site-footer{background:var(--bg-surface);border-top:1px solid var(--border);padding:40px 24px 24px;margin-top:40px}
+    .footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.8fr repeat(3,1fr);gap:32px;margin-bottom:32px}
+    @media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+    .footer-brand-text{font-size:.82rem;color:var(--text-faint);margin-top:10px;line-height:1.5}
+    .footer-heading{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:12px}
+    .footer-links{display:flex;flex-direction:column;gap:7px}
+    .footer-links a{font-size:.83rem;color:var(--text-muted);transition:color .15s}
+    .footer-links a:hover{color:var(--text)}
+    .footer-bottom{max-width:1200px;margin:0 auto;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.75rem;color:var(--text-faint)}
+  </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <path d="M18 8a6 6 0 0 0-6 6v3h-2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-2v-3a6 6 0 0 0-6-6z" fill="#fff" fill-opacity=".85"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#0891b2"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../tools.html" class="nav-link">Tools</a>
+      <a href="../blog.html" class="nav-link active">Blog</a>
+      <a href="../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="blog-layout">
+
+  <article>
+
+    <nav aria-label="Breadcrumb" style="margin-bottom:14px">
+      <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.78rem;color:#555570;flex-wrap:wrap">
+        <li><a href="../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+        <li><a href="../blog.html" style="color:#8888a8">Blog</a></li><li>›</li>
+        <li style="color:#e8e8f0">Cybersecurity</li>
+      </ol>
+    </nav>
+
+    <div class="blog-header">
+      <div class="blog-tag">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Cybersecurity
+      </div>
+      <h1 class="blog-title">What a Phishing Attack Actually Looks Like From the Inside</h1>
+      <div class="blog-meta">
+        <span>📅 June 7, 2026</span>
+        <span>⏱ 10 min read</span>
+        <span>🎣 Phishing · Security</span>
+      </div>
+      <div class="blog-excerpt">
+        Phishing isn't just a Nigerian prince asking for your bank details anymore. Today's attacks are precise, personalized, and terrifyingly convincing. They spoof companies you already use, pages that look exactly like the real thing, and even people in your own contacts. Here's what's actually happening and why smart people fall for it.
+      </div>
+    </div>
+
+    <div class="ad-slot">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+
+    <div class="blog-body">
+
+      <h2 id="what-phishing-is">What Phishing Actually Is</h2>
+      <p>Phishing is social engineering delivered digitally. The attacker impersonates something — a company, a person, a system notification — to trick you into doing one of three things: clicking a link to a fake login page, downloading malware, or transferring money or data directly.</p>
+      <p>The name comes from "fishing" — casting a wide net hoping someone bites. But modern phishing has evolved well beyond that. <strong>Spear phishing</strong> targets a specific person with a highly personalized message. <strong>Whaling</strong> targets executives. <strong>Business Email Compromise (BEC)</strong> impersonates a trusted colleague or vendor to authorize wire transfers.</p>
+      <p>According to the FBI's 2023 Internet Crime Report, phishing and related attacks caused over $2.7 billion in losses in a single year. It's consistently the most common initial access method in data breaches — not because people are stupid, but because the attacks have become very, very good.</p>
+
+      <h2 id="anatomy-of-attack">The Anatomy of a Modern Phishing Attack</h2>
+      <p>Here's a real-world scenario, step by step.</p>
+
+      <h3>Step 1: Reconnaissance</h3>
+      <p>Before sending a single email, attackers research the target. LinkedIn tells them where you work, your job title, and who your manager is. Your company's website shows their email format (<code>firstname.lastname@company.com</code>). Your Twitter mentions what tools and services you use. Public breach databases may already contain your old passwords.</p>
+      <p>For a spear phishing attack, the attacker now knows to impersonate your company's IT department, your CFO's name, or a service you use daily (Microsoft 365, DocuSign, PayPal).</p>
+
+      <h3>Step 2: Infrastructure setup</h3>
+      <p>The attacker registers a domain that looks similar to a legitimate one:</p>
+      <ul>
+        <li><code>microsoft-security.com</code> instead of <code>microsoft.com</code></li>
+        <li><code>paypa1.com</code> (number 1 instead of letter l)</li>
+        <li><code>account-google.com</code> (words swapped)</li>
+        <li><code>support.company-name.net</code> (your actual company name, different TLD)</li>
+      </ul>
+      <p>They then clone the exact login page of the service they're impersonating — pixel-perfect copies of Google, Microsoft, or your bank's login page are freely available in phishing kits. They add a valid TLS certificate (the padlock in your browser), which most people interpret as a sign the site is safe. It isn't. TLS only means the connection is encrypted — it says nothing about who owns the server.</p>
+
+      <h3>Step 3: Delivery</h3>
+      <p>The email arrives. It looks legitimate — correct logo, matching colors, plausible language. Here's what a real phishing email looks like (annotated):</p>
+
+      <div class="fake-email">
+        <div class="fe-header">
+          <div class="fe-field"><span class="fe-key">From:</span><span class="fe-val">Microsoft Security &lt;<span class="suspicious">security-noreply@microsoft-account.net</span>&gt; <span class="fe-label red">⚠ Wrong domain</span></span></div>
+          <div class="fe-field"><span class="fe-key">To:</span><span class="fe-val">you@company.com</span></div>
+          <div class="fe-field"><span class="fe-key">Subject:</span><span class="fe-val">[Action Required] Unusual sign-in activity on your Microsoft account <span class="fe-label yellow">⚠ Urgency tactic</span></span></div>
+        </div>
+        <div class="fe-body">
+          <p><strong>We detected a sign-in attempt from an unusual location.</strong></p>
+          <p>Location: Lagos, Nigeria &nbsp;|&nbsp; Device: Unknown Windows PC &nbsp;|&nbsp; Time: Today, 3:47 AM</p>
+          <p>If this wasn't you, your account may be compromised. Please verify your identity immediately to secure your account.</p>
+          <div style="margin:14px 0">
+            <span class="fe-link">https://microsoft-account.net/verify?token=a7f3k2...</span>
+            <span class="fe-label red" style="margin-left:8px">⚠ Fake domain</span>
+          </div>
+          <p style="font-size:.78rem;color:#555570">If you did sign in from Nigeria, you can safely ignore this message. This link expires in 24 hours.</p>
+        </div>
+      </div>
+
+      <p>Notice the tactics: urgency ("immediately"), fear (compromised account), a fake location to make you think someone else is logging in, and a 24-hour deadline. Even the fake domain looks plausible — <code>microsoft-account.net</code> sounds like it could be real.</p>
+
+      <h3>Step 4: Credential harvesting</h3>
+      <p>You click the link and land on a perfect copy of the Microsoft login page. You type your email and password. The page passes your credentials silently to the attacker's server, then redirects you to the real Microsoft website with a message like "Your account has been secured." You never realize anything happened.</p>
+      <p>Within minutes — sometimes seconds — the attacker is logging into your real account, exporting your emails, changing the recovery phone number, and setting up forwarding rules.</p>
+
+      <div class="callout danger">
+        <div class="callout-title">⚠️ The 2FA bypass most people don't know about</div>
+        <p>Two-factor authentication helps, but sophisticated phishing kits use real-time proxy attacks: when you type your password on the fake page, the kit simultaneously logs into the real site and forwards the 2FA prompt to you. You type the code, thinking you're authenticating the real site, but you've just handed the attacker an active session. This is called an Adversary-in-the-Middle (AiTM) attack. Hardware security keys (FIDO2) are the only 2FA method that blocks this — they're domain-bound and won't authenticate on a fake site.</p>
+      </div>
+
+      <h2 id="types">The Different Flavors of Phishing</h2>
+
+      <table>
+        <thead><tr><th>Type</th><th>Channel</th><th>Target</th><th>What makes it convincing</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Email phishing</strong></td><td>Email</td><td>Broad / anyone</td><td>Spoofed sender, logo, layout from trusted brands</td></tr>
+          <tr><td><strong>Spear phishing</strong></td><td>Email</td><td>Specific person</td><td>Uses your name, role, coworkers, recent events</td></tr>
+          <tr><td><strong>Whaling</strong></td><td>Email</td><td>C-suite executives</td><td>Impersonates board members, legal demands</td></tr>
+          <tr><td><strong>Smishing</strong></td><td>SMS</td><td>Mobile users</td><td>Looks like a delivery update, bank alert, tax refund</td></tr>
+          <tr><td><strong>Vishing</strong></td><td>Phone call</td><td>Anyone</td><td>Caller ID spoofed to show your bank's real number</td></tr>
+          <tr><td><strong>Clone phishing</strong></td><td>Email</td><td>Previous contact</td><td>Resends a real email you received but with a malicious link</td></tr>
+          <tr><td><strong>BEC</strong></td><td>Email</td><td>Finance/HR staff</td><td>Impersonates CEO or vendor for wire transfer</td></tr>
+          <tr><td><strong>QR phishing</strong></td><td>Email/Physical</td><td>Anyone</td><td>QR code bypasses email link scanners, leads to phishing page</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="spotting">How to Spot It Before You Click</h2>
+      <p>The tactics have gotten better, but there are still reliable tells. Train yourself to check these before acting on any unexpected email or message:</p>
+
+      <h3>Check the sender domain — not just the display name</h3>
+      <p>The "From" display name can say anything: "Microsoft Security", "Your Bank", even your boss's full name. What matters is the actual email address. Expand it and look at the domain after the @. Ask yourself: is this the actual domain this company uses? <code>paypal.com</code> or <code>paypa1.com</code>? <code>amazon.com</code> or <code>amazon-support.org</code>?</p>
+
+      <h3>Hover over links before clicking</h3>
+      <p>On desktop, hover your mouse over any link in an email and look at the URL that appears in your browser's status bar. Does it match where it claims to go? Long URLs, URL-shorteners, and domains that include a legitimate brand name as a subdomain (<code>google.com.attacker-domain.xyz</code>) are red flags.</p>
+
+      <h3>Question urgency and fear</h3>
+      <p>"Your account will be suspended in 24 hours." "Unusual activity detected." "Invoice overdue — immediate action required." Urgency and fear are the emotional levers phishing relies on. Legitimate companies rarely demand immediate action via email. When you feel pressure to act fast, that's a signal to slow down and verify independently.</p>
+
+      <h3>Verify out-of-band</h3>
+      <p>If you receive an unexpected email from your bank, Microsoft, or even a colleague asking you to do something sensitive — don't use the links in the email. Open a new tab and go directly to the website you know is real. Call the person directly using a phone number you already have, not one provided in the suspicious message.</p>
+
+      <div class="callout warn">
+        <div class="callout-title">⚠️ The padlock doesn't mean safe</div>
+        <p>A green padlock (or closed padlock icon) in your browser's address bar means the connection to the server is encrypted with TLS. It does NOT mean the website is legitimate or that the server is owned by who you think. Phishing sites routinely have valid TLS certificates — getting one is free (Let's Encrypt) and takes minutes. Always check the actual domain name, not just the padlock.</p>
+      </div>
+
+      <h2 id="why-people-fall">Why Smart People Still Fall For It</h2>
+      <p>Most people assume phishing only works on people who aren't paying attention. That's not true — and understanding why helps you stay protected.</p>
+
+      <h3>Cognitive load and context switching</h3>
+      <p>Phishing emails arrive when you're busy. You're processing dozens of emails, switching between tasks, managing interruptions. Your brain is in "scan and act" mode, not "critically evaluate" mode. Attackers know this and time their attacks accordingly — fake DocuSign requests at the end of a quarter, fake IT password resets on Monday mornings.</p>
+
+      <h3>The authority bias</h3>
+      <p>We're wired to comply with authority. An email that appears to come from your IT department, your bank's security team, or your CEO bypasses our natural skepticism. Spear phishing exploits this by using real names, correct job titles, and references to real projects or events.</p>
+
+      <h3>Context-appropriate requests</h3>
+      <p>Receiving an invoice for a service you actually use, a shipping notification for something you ordered, or a calendar invite for a meeting you have scheduled — these feel completely normal, even when they're fake. The best phishing attacks are indistinguishable from legitimate communication when you're not actively looking for red flags.</p>
+
+      <!-- Tool spotlight -->
+      <div class="tool-spotlight">
+        <div class="spotlight-label">🔒 Security Tools</div>
+        <div class="spotlight-title">Check Your Password Strength Right Now</div>
+        <div class="spotlight-desc">Even if you avoid phishing, weak or reused passwords leave you exposed. Our Password Strength Checker analyzes your password in real time — score, entropy, crack time for 5 attack types, and specific fixes. And if you need a new strong one, the Password Generator creates cryptographically secure passwords in one click.</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a href="../tools/coding/password-strength-checker.html" class="spotlight-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Check Password Strength
+          </a>
+          <a href="../tools/coding/password-generator.html" class="spotlight-btn" style="background:linear-gradient(135deg,#ea580c,#f97316)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Generate Secure Password
+          </a>
+        </div>
+      </div>
+
+      <h2 id="vpn-and-phishing">Does a VPN Protect You From Phishing?</h2>
+      <p>This is one of the most common misconceptions in consumer security. <strong>A VPN does not protect you from phishing.</strong></p>
+      <p>A VPN encrypts the traffic between your device and the VPN server and hides your real IP address and location. It does nothing to stop you from visiting a phishing page, and nothing to stop your credentials from being sent to an attacker's server if you type them on a fake site.</p>
+      <p>What VPNs actually protect against:</p>
+      <ul>
+        <li>Your ISP seeing your browsing history</li>
+        <li>Attackers on the same public Wi-Fi network intercepting unencrypted traffic</li>
+        <li>Websites tracking your real IP address and location</li>
+        <li>Government surveillance in certain jurisdictions</li>
+      </ul>
+      <p>What VPNs don't protect against:</p>
+      <ul>
+        <li>Phishing (you still visit the fake site)</li>
+        <li>Malware already on your device</li>
+        <li>Credential stuffing from breach databases</li>
+        <li>Social engineering attacks</li>
+        <li>The VPN provider itself seeing your traffic</li>
+      </ul>
+
+      <div class="callout info">
+        <div class="callout-title">💡 What actually helps against phishing</div>
+        <p>Hardware security keys (FIDO2/WebAuthn) are the single most effective technical defense — they bind authentication to the real domain, so they simply won't work on a phishing page. After that: password managers (they won't autofill on fake domains), browser-based phishing protection (Google Safe Browsing, Microsoft SmartScreen), and email security (SPF, DKIM, DMARC records on your domain).</p>
+      </div>
+
+      <h2 id="at-work">Phishing at Work — Why It's Different</h2>
+      <p>Workplace phishing is more targeted and more damaging. A successful attack on a corporate account can mean ransomware affecting hundreds of machines, a wire transfer fraud for hundreds of thousands of dollars, or theft of customer data triggering regulatory fines.</p>
+      <p>Common workplace scenarios:</p>
+      <ul>
+        <li><strong>Invoice fraud:</strong> Attacker compromises a supplier's email and updates the bank account on legitimate invoices. Your finance team pays an invoice they've received from a known vendor — directly to the attacker.</li>
+        <li><strong>CEO fraud:</strong> Attacker spoofs the CEO's email to the CFO: "I need a wire transfer of $85,000 processed urgently. Confidential — don't discuss on Slack." The urgency and authority combination works more often than you'd expect.</li>
+        <li><strong>IT helpdesk impersonation:</strong> "Your Microsoft 365 password expires tonight. Click here to reset." Employees reset their password on a fake login page, handing over credentials to the company's entire email archive.</li>
+        <li><strong>Callback phishing:</strong> Email says "Your subscription renews for $349.99 — call this number to cancel." The phone agent then social-engineers the victim into installing remote access software.</li>
+      </ul>
+
+      <h2 id="what-to-do">What to Do If You Think You've Been Phished</h2>
+      <p>Act quickly — the window before the attacker exploits access is often very short.</p>
+      <ol>
+        <li><strong>Change the compromised password immediately.</strong> Do this from a different device if possible.</li>
+        <li><strong>Revoke active sessions.</strong> Most services have a "sign out of all devices" option in account security settings.</li>
+        <li><strong>Check for unauthorized changes.</strong> Email forwarding rules, recovery email/phone changes, connected apps, authorized third-party access.</li>
+        <li><strong>Enable 2FA if it wasn't on.</strong> Especially a hardware key if the account supports it.</li>
+        <li><strong>Check your other accounts.</strong> If you reused the compromised password anywhere, change those too — immediately.</li>
+        <li><strong>Tell your organization's IT/security team</strong> if this happened at work. Time matters.</li>
+        <li><strong>Report the phishing email</strong> to the service being impersonated (forward to phishing@paypal.com, abuse@amazon.com, etc.) and to your email provider.</li>
+      </ol>
+
+      <div class="callout tip">
+        <div class="callout-title">✓ The one habit that changes everything</div>
+        <p>Use a password manager with autofill. Password managers match the domain before filling credentials — they won't autofill on <code>microsoft-account.net</code> because their entry is for <code>microsoft.com</code>. This one feature turns phishing from a major threat into a near-miss every single time. It's not foolproof (you could still manually type your password), but it eliminates the passive risk completely.</p>
+      </div>
+
+      <div class="ad-slot">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+      </div>
+
+    </div><!-- /blog-body -->
+
+    <div class="author-box">
+      <div class="author-avatar">🎣</div>
+      <div>
+        <div class="author-name">The Tool Empire</div>
+        <div class="author-bio">We build free browser-based tools and write practical security content that focuses on real threats rather than theoretical ones. Our goal is to make security knowledge accessible without the jargon.</div>
+      </div>
+    </div>
+
+    <div class="related-section">
+      <div class="related-title">Related Tools & Reading</div>
+      <div class="related-grid">
+        <a href="../tools/coding/password-strength-checker.html" class="related-card">
+          <div class="related-tag">🔒 Tool</div>
+          <div class="related-name">Password Strength Checker</div>
+          <div class="related-desc">Score, entropy, crack time, and improvement tips for any password.</div>
+        </a>
+        <a href="../tools/coding/password-generator.html" class="related-card">
+          <div class="related-tag">🔑 Tool</div>
+          <div class="related-name">Password Generator</div>
+          <div class="related-desc">Cryptographically secure random passwords — runs entirely in your browser.</div>
+        </a>
+        <a href="password-security-guide.html" class="related-card">
+          <div class="related-tag">📖 Security</div>
+          <div class="related-name">Your Password Is Probably Terrible</div>
+          <div class="related-desc">Why most passwords fail and what to do about it.</div>
+        </a>
+        <a href="robots-txt-explained.html" class="related-card">
+          <div class="related-tag">📖 SEO</div>
+          <div class="related-name">Robots.txt — What It Does and Doesn't Do</div>
+          <div class="related-desc">The myth that Disallow protects sensitive content.</div>
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="toc-sidebar">
+    <div class="toc-card">
+      <div class="toc-title">In this article</div>
+      <ul class="toc-list">
+        <li><a href="#what-phishing-is">What Phishing Actually Is</a></li>
+        <li><a href="#anatomy-of-attack">Anatomy of an Attack</a></li>
+        <li><a href="#types">Types of Phishing</a></li>
+        <li><a href="#spotting">How to Spot It</a></li>
+        <li><a href="#why-people-fall">Why Smart People Fall For It</a></li>
+        <li><a href="#vpn-and-phishing">Does a VPN Help?</a></li>
+        <li><a href="#at-work">Phishing at Work</a></li>
+        <li><a href="#what-to-do">What to Do If Phished</a></li>
+      </ul>
+    </div>
+  </aside>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <path d="M18 8a6 6 0 0 0-6 6v3h-2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-2v-3a6 6 0 0 0-6-6z" fill="#fff" fill-opacity=".85"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#0891b2"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../tools.html#security">Security Tools</a><a href="../tools.html#coding">Coding Tools</a><a href="../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../about.html">About</a><a href="../blog.html">Blog</a><a href="../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    const pct = (doc.scrollTop / (doc.scrollHeight - doc.clientHeight)) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
+  });
+</script>
+</body>
+</html>

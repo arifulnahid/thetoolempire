@@ -458,7 +458,48 @@ const BLOG_POSTS = [
     url: 'blog/youtube-copyright-fair-use.html',
   },
 
+  // ── IMAGE TOOLS ──────────────────────────────────────────
+  {
+    id: 'image-format-guide',
+    title: 'JPEG vs PNG vs WebP vs AVIF: Which Image Format Should You Actually Use in 2025?',
+    excerpt: 'File sizes compared, transparency explained, browser support, and a simple decision cheat sheet for every format — JPEG, PNG, WebP, AVIF, GIF, and SVG.',
+    category: 'Image Tools',
+    catColor: '#0d9488',
+    date: 'June 7, 2025',
+    dateISO: '2025-06-07',
+    readTime: '10 min read',
+    tags: ['Images', 'WebP', 'Web Performance', 'SEO'],
+    imgClass: 6,
+    url: 'blog/image-format-guide.html',
+  },
+  {
+    id: 'image-compression-guide',
+    title: 'Image Compression Guide: How Much Can You Compress Before Quality Suffers?',
+    excerpt: 'Quality vs file size — the numbers behind JPEG quality levels, what compression artifacts look like, and the settings that actually matter for web performance.',
+    category: 'Image Tools',
+    catColor: '#0d9488',
+    date: 'June 7, 2025',
+    dateISO: '2025-06-07',
+    readTime: '7 min read',
+    tags: ['Images', 'Compression', 'Web Performance'],
+    imgClass: 6,
+    url: 'blog/image-compression-guide.html',
+  },
+
   // ── PRODUCTIVITY ─────────────────────────────────────────────────
+  {
+    id: 'instagram-post-sizes-guide',
+    title: 'Why Your Instagram Posts Look Blurry — and the Exact Sizes That Fix It',
+    excerpt: 'Instagram silently recompresses and crops every photo you upload. Here are the exact pixel dimensions for every format and why getting them right matters more than you think.',
+    category: 'Design',
+    catColor: '#f093fb',
+    date: 'June 7, 2026',
+    dateISO: '2026-06-07',
+    readTime: '10 min read',
+    tags: ['Instagram', 'Social Media', 'Image Size', 'Design'],
+    imgClass: 7,
+    url: 'blog/instagram-post-sizes-guide.html',
+  },
   {
     id: 'browser-based-tools-future',
     title: 'Why Browser-Based Tools Are the Future of Productivity',

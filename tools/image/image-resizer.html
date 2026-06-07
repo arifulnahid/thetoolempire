@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Image Resizer — Resize Images Online Free, No Upload | The Tool Empire</title>
+  <meta name="description" content="Resize images online without uploading to any server. Set exact pixel dimensions, percentage scale, or pick a social media preset. Supports JPEG, PNG, WebP. 100% browser-based and private."/>
+  <meta name="keywords" content="image resizer, resize image online, resize image free, image resize tool, resize jpeg png webp, social media image resizer, no upload image resize, browser image resize"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/image/image-resizer.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Image Resizer — Resize Images Online Free, No Upload"/>
+  <meta property="og:description" content="Resize JPEG, PNG, and WebP images in your browser. Pixel dimensions, percentage, or social media presets. Your images never leave your device."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/image/image-resizer.html"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"Image Resizer","description":"Free browser-based image resizer. Resize JPEG, PNG, and WebP images by exact pixel dimensions, percentage, fit-within, or social media presets. Includes before/after drag slider. No upload required.","url":"https://thetoolempire.com/tools/image/image-resizer.html","applicationCategory":"MultimediaApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Exact pixel resize","Percentage scale","Fit-within dimensions","30+ social media presets","Aspect ratio lock","JPEG/PNG/WebP output","Quality slider","Before/after comparison slider","100% browser-based — no upload"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Image Tools","item":"https://thetoolempire.com/tools.html#image"},
+      {"@type":"ListItem","position":3,"name":"Image Resizer","item":"https://thetoolempire.com/tools/image/image-resizer.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Does this tool upload my images anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. All resizing happens entirely in your browser using the HTML5 Canvas API. Your images are read locally, processed in memory, and downloaded directly to your device. Nothing is sent to any server."}},
+      {"@type":"Question","name":"What is the difference between resize modes?","acceptedAnswer":{"@type":"Answer","text":"Exact Pixels sets the output to precisely the dimensions you enter. Percentage scales the image by a factor (50% = half size). Fit Within scales the image down so it fits inside a bounding box while keeping the original aspect ratio — useful for thumbnails or max-width constraints. Presets are common sizes for social media and web use."}},
+      {"@type":"Question","name":"What output format should I choose?","acceptedAnswer":{"@type":"Answer","text":"JPEG is best for photos and produces the smallest files. PNG is lossless and best for screenshots, logos, or images with transparency. WebP is the modern choice — smaller than JPEG at equal quality and supports transparency like PNG. Keep 'Auto' to preserve the original format."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="image-resizer.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <rect x="5" y="5" width="16" height="12" rx="2" stroke="#fff" stroke-width="1.8" fill="none"/>
+        <rect x="15" y="14" width="16" height="17" rx="2" fill="url(#lgH2)" stroke="#fff" stroke-width="1.8"/>
+        <defs>
+          <linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#818cf8"/></linearGradient>
+          <linearGradient id="lgH2" x1="15" y1="14" x2="31" y2="31" gradientUnits="userSpaceOnUse"><stop stop-color="#818cf8" stop-opacity=".7"/><stop offset="1" stop-color="#6366f1" stop-opacity=".3"/></linearGradient>
+        </defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="imageResizer()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Image</a></li><li>›</li>
+      <li style="color:#e8e8f0">Image Resizer</li>
+    </ol>
+  </nav>
+
+  <!-- Ad top -->
+  <div class="ad-slot" style="width:100%;margin-bottom:18px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18"/></svg>
+      Image Tool
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">Image Resizer</span></h1>
+    <p class="tool-subtitle">Resize JPEG, PNG, and WebP images by pixels, percentage, or social media preset — entirely in your browser, no upload required.</p>
+  </div>
+
+  <!-- Drop zone (no image loaded) -->
+  <template x-if="!srcUrl">
+    <div
+      class="drop-zone"
+      :class="{ dragging: isDragging }"
+      @dragover.prevent="isDragging=true"
+      @dragleave.prevent="isDragging=false"
+      @drop.prevent="onDrop($event)"
+      @click="$refs.fileInput.click()"
+    >
+      <input type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/bmp" x-ref="fileInput" @change="onFileChange($event)" style="display:none"/>
+      <svg class="drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <path d="M3 9h18M9 3v18"/>
+        <path d="M14 7h3M14 11h2"/>
+      </svg>
+      <div class="drop-title">Drop an image here or click to browse</div>
+      <div class="drop-sub">Your image is processed locally — nothing is uploaded to any server</div>
+      <div class="drop-formats">
+        <span class="format-badge">JPEG</span>
+        <span class="format-badge">PNG</span>
+        <span class="format-badge">WebP</span>
+        <span class="format-badge">GIF</span>
+        <span class="format-badge">BMP</span>
+      </div>
+    </div>
+  </template>
+
+  <!-- Main workspace -->
+  <template x-if="srcUrl">
+    <div>
+
+      <!-- Info strip -->
+      <div class="info-strip">
+        <div class="info-box">
+          <div class="info-val" x-text="origW + '×' + origH"></div>
+          <div class="info-lbl">Original Size</div>
+        </div>
+        <div class="info-box">
+          <div class="info-val" x-text="outW + '×' + outH"></div>
+          <div class="info-lbl">Output Size</div>
+        </div>
+        <div class="info-box">
+          <div class="info-val" x-text="formatBytes(origFileSize)"></div>
+          <div class="info-lbl">Original File</div>
+        </div>
+        <div class="info-box">
+          <div class="info-val" x-text="outputBlob ? formatBytes(outputBlob.size) : '—'"></div>
+          <div class="info-lbl">Output File</div>
+        </div>
+      </div>
+
+      <div class="tool-grid">
+
+        <!-- ── LEFT: Controls ── -->
+        <div style="display:flex;flex-direction:column;gap:12px">
+
+          <!-- Mode tabs -->
+          <div class="panel">
+            <div class="mode-tabs">
+              <button class="mode-tab" :class="{active:mode==='px'}"  @click="mode='px';  onModeChange()">Pixels</button>
+              <button class="mode-tab" :class="{active:mode==='pct'}" @click="mode='pct'; onModeChange()">%&nbsp;Scale</button>
+              <button class="mode-tab" :class="{active:mode==='fit'}" @click="mode='fit'; onModeChange()">Fit&nbsp;Within</button>
+              <button class="mode-tab" :class="{active:mode==='pre'}" @click="mode='pre'; onModeChange()">Presets</button>
+            </div>
+
+            <!-- Pixels mode -->
+            <div class="panel-body" x-show="mode==='px'">
+              <div class="dim-row">
+                <div class="field">
+                  <label class="field-label">Width (px)</label>
+                  <input type="number" class="field-input" x-model.number="pxW" @input="onWidthInput()" min="1" max="16000" placeholder="1920"/>
+                </div>
+                <span class="dim-sep" style="margin-top:18px">×</span>
+                <div class="field">
+                  <label class="field-label">Height (px)</label>
+                  <input type="number" class="field-input" x-model.number="pxH" @input="onHeightInput()" min="1" max="16000" placeholder="1080"/>
+                </div>
+              </div>
+              <button class="lock-btn" :class="{locked:lockAspect}" @click="lockAspect=!lockAspect">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <template x-if="lockAspect"><path d="M12 17v-5m0 0H7m5 0h5M5 11V7a7 7 0 0 1 14 0v4"/><rect x="3" y="11" width="18" height="10" rx="2"/></template>
+                  <template x-if="!lockAspect"><path d="M17 11V7A5 5 0 0 0 7 7v4"/><rect x="3" y="11" width="18" height="10" rx="2"/></template>
+                </svg>
+                <span x-text="lockAspect ? 'Aspect ratio locked' : 'Aspect ratio unlocked'"></span>
+              </button>
+            </div>
+
+            <!-- Percentage mode -->
+            <div class="panel-body" x-show="mode==='pct'">
+              <div class="field">
+                <label class="field-label" style="justify-content:space-between">
+                  Scale
+                  <strong style="color:var(--primary)" x-text="pct + '%'"></strong>
+                </label>
+                <div class="range-wrap">
+                  <input type="range" class="range-slider" min="1" max="200" x-model.number="pct" @input="onPctInput()"/>
+                  <div class="range-labels"><span>1%</span><span>50%</span><span>100%</span><span>200%</span></div>
+                </div>
+              </div>
+              <div class="field">
+                <input type="number" class="field-input" x-model.number="pct" @input="onPctInput()" min="1" max="200" placeholder="50" style="text-align:center;font-size:1.1rem;font-weight:700"/>
+              </div>
+              <div style="font-size:.78rem;color:var(--text-faint);text-align:center" x-text="'Output: ' + outW + ' × ' + outH + ' px'"></div>
+            </div>
+
+            <!-- Fit Within mode -->
+            <div class="panel-body" x-show="mode==='fit'">
+              <p style="font-size:.78rem;color:var(--text-muted)">Scale down to fit inside these bounds while keeping the original aspect ratio. Smaller images are not enlarged.</p>
+              <div class="dim-row">
+                <div class="field">
+                  <label class="field-label">Max Width</label>
+                  <input type="number" class="field-input" x-model.number="fitW" @input="onFitInput()" min="1" max="16000" placeholder="1920"/>
+                </div>
+                <span class="dim-sep" style="margin-top:18px">×</span>
+                <div class="field">
+                  <label class="field-label">Max Height</label>
+                  <input type="number" class="field-input" x-model.number="fitH" @input="onFitInput()" min="1" max="16000" placeholder="1080"/>
+                </div>
+              </div>
+              <div style="font-size:.78rem;color:var(--text-faint);text-align:center" x-text="'Output: ' + outW + ' × ' + outH + ' px'"></div>
+            </div>
+
+            <!-- Presets mode -->
+            <div class="panel-body" x-show="mode==='pre'" style="gap:8px;max-height:340px;overflow-y:auto">
+              <template x-for="group in presets" :key="group.label">
+                <div class="preset-group">
+                  <div class="preset-group-label" x-text="group.label"></div>
+                  <div class="preset-grid">
+                    <template x-for="p in group.items" :key="p.label">
+                      <button
+                        class="preset-btn"
+                        :class="{active: activePreset===p.label}"
+                        @click="applyPreset(p)"
+                      >
+                        <span x-text="p.label"></span>
+                        <span class="preset-dim" x-text="p.w + '×' + p.h"></span>
+                      </button>
+                    </template>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <!-- Output options -->
+          <div class="panel">
+            <div class="panel-header"><span class="panel-title">Output Options</span></div>
+            <div class="panel-body">
+              <div class="format-row">
+                <div class="field">
+                  <label class="field-label">Format</label>
+                  <select class="field-select" x-model="outputFormat" @change="updateOutput()">
+                    <option value="auto">Auto (original)</option>
+                    <option value="image/jpeg">JPEG</option>
+                    <option value="image/png">PNG</option>
+                    <option value="image/webp">WebP</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="field-label" style="justify-content:space-between">
+                    Quality
+                    <span style="color:var(--primary)" x-text="quality + '%'"></span>
+                  </label>
+                  <input type="range" class="range-slider" style="margin-top:10px" min="1" max="100" x-model.number="quality" @change="updateOutput()" :disabled="resolvedFormat==='image/png'"/>
+                  <div class="field-label" style="text-align:right;margin-top:2px" x-show="resolvedFormat==='image/png'">PNG is lossless</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Resize button -->
+          <button class="btn-primary" @click="doResize()" :disabled="processing">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span x-text="processing ? 'Resizing…' : 'Resize Image'"></span>
+          </button>
+
+          <template x-if="outputBlob">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <button class="btn-dl" @click="download()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download Resized Image
+              </button>
+              <div style="display:flex;justify-content:space-between;font-size:.75rem;color:var(--text-faint)">
+                <span x-text="outW + '×' + outH + 'px'"></span>
+                <span x-text="formatBytes(outputBlob.size)"></span>
+              </div>
+              <button class="btn-outline" @click="resetImage()" style="font-size:.78rem;padding:7px 12px">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-5"/></svg>
+                Load a different image
+              </button>
+            </div>
+          </template>
+
+        </div>
+
+        <!-- ── RIGHT: Preview & Slider ── -->
+        <div style="display:flex;flex-direction:column;gap:12px">
+
+          <!-- Status -->
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+            <span style="font-size:.83rem;font-weight:700;color:var(--text-muted)" x-text="fileName"></span>
+            <span
+              class="status-badge"
+              :class="outputBlob ? 'badge-ready' : processing ? 'badge-processing' : 'badge-idle'"
+              x-text="outputBlob ? 'Ready to download' : processing ? 'Processing…' : 'Waiting to resize'"
+            ></span>
+          </div>
+
+          <!-- Compare slider (after resize) -->
+          <template x-if="outputUrl">
+            <div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px">
+                <span style="font-size:.8rem;color:var(--text-muted);font-weight:600">Drag to compare — Original vs Resized</span>
+                <div style="display:flex;gap:12px;font-size:.75rem">
+                  <span style="color:var(--text-muted)">Original: <strong style="color:var(--text)" x-text="origW+'×'+origH"></strong></span>
+                  <span style="color:var(--text-muted)">Resized: <strong style="color:var(--primary)" x-text="outW+'×'+outH"></strong></span>
+                </div>
+              </div>
+
+              <div
+                class="compare-wrap"
+                x-ref="sliderWrap"
+                @mousedown.prevent="startDrag($event)"
+                @touchstart.prevent="startDrag($event)"
+                style="user-select:none"
+              >
+                <!-- Resized (right/base) -->
+                <img class="compare-base" :src="outputUrl" alt="Resized" draggable="false"/>
+                <!-- Original (left/clipped) -->
+                <div class="compare-overlay" :style="'clip-path:inset(0 '+(100-sliderPos)+'% 0 0)'">
+                  <img class="compare-img" :src="srcUrl" alt="Original" draggable="false"/>
+                </div>
+                <!-- Labels -->
+                <span class="compare-label compare-label-l">ORIGINAL</span>
+                <span class="compare-label compare-label-r">RESIZED</span>
+                <!-- Handle -->
+                <div class="compare-line" :style="'left:'+sliderPos+'%'">
+                  <div class="compare-handle">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l-6-6 6-6M15 6l6 6-6 6"/></svg>
+                  </div>
+                </div>
+              </div>
+              <input type="range" min="0" max="100" class="compare-range" x-model.number="sliderPos"/>
+            </div>
+          </template>
+
+          <!-- Original preview (before resize) -->
+          <template x-if="!outputUrl">
+            <div>
+              <div style="font-size:.8rem;color:var(--text-muted);font-weight:600;margin-bottom:8px">Original image</div>
+              <div class="compare-wrap" style="cursor:default">
+                <img class="compare-base" :src="srcUrl" alt="Original" draggable="false"/>
+                <span class="compare-label compare-label-l" style="background:rgba(99,102,241,.7)">ORIGINAL</span>
+              </div>
+            </div>
+          </template>
+
+        </div>
+      </div>
+
+    </div>
+  </template>
+
+  <!-- Ad mid -->
+  <div class="ad-slot" style="width:100%;margin-top:24px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- How to use -->
+  <div class="page-section">
+    <h2 class="section-title">How to Resize an Image</h2>
+    <p class="section-desc">Four resize modes for every use case — done in seconds.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-title">Drop or Select an Image</div>
+        <div class="step-desc">Drag your image onto the drop zone or click to open the file picker. Supports JPEG, PNG, WebP, GIF, and BMP.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-title">Choose a Resize Mode</div>
+        <div class="step-desc"><strong>Pixels</strong> — set exact width and height. <strong>% Scale</strong> — scale proportionally. <strong>Fit Within</strong> — scale to fit a bounding box. <strong>Presets</strong> — pick a social media or web size.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-title">Set Dimensions</div>
+        <div class="step-desc">Enter your target dimensions. Lock the aspect ratio to prevent distortion. In percentage mode, drag the slider or type a value.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-title">Choose Format &amp; Quality</div>
+        <div class="step-desc">Keep the original format or convert to JPEG, PNG, or WebP. Adjust quality for JPEG and WebP to balance file size and sharpness.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">5</div>
+        <div class="step-title">Click Resize Image</div>
+        <div class="step-desc">The tool renders your image at the new dimensions using the Canvas API and shows a before/after comparison slider.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">6</div>
+        <div class="step-title">Download</div>
+        <div class="step-desc">Click "Download Resized Image" to save the result. The file is named with "-resized" appended so it won't overwrite your original.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider"/>
+
+  <!-- How it works -->
+  <div class="page-section" style="margin-top:0">
+    <h2 class="section-title">How It Works — The Logic</h2>
+    <p class="section-desc">All processing runs in your browser using native Web APIs.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🖼️</div>
+        <div class="feature-title">Canvas API Resize</div>
+        <div class="feature-desc">Images are drawn onto an HTML5 Canvas element at the target dimensions using drawImage(). The canvas is then encoded to a Blob via toBlob().</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📐</div>
+        <div class="feature-title">Aspect Ratio Lock</div>
+        <div class="feature-desc">When locked, changing width auto-calculates height as: newH = newW × (origH ÷ origW), and vice versa. Keeps the image from stretching.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-title">Fit Within Algorithm</div>
+        <div class="feature-desc">Scale = min(maxW ÷ origW, maxH ÷ origH). If scale &gt; 1 the image is not enlarged. Output = origW × scale × origH × scale. Always keeps aspect ratio.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <div class="feature-title">Social Media Presets</div>
+        <div class="feature-desc">30+ presets for Instagram, Twitter/X, Facebook, LinkedIn, YouTube, and web use — all with the correct dimensions for each platform's guidelines.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-title">Bilinear Interpolation</div>
+        <div class="feature-desc">Browsers use high-quality bilinear or bicubic interpolation when drawing scaled images on Canvas — significantly sharper than nearest-neighbour.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">100% Private</div>
+        <div class="feature-desc">Your image never leaves your device. FileReader loads it into memory, Canvas processes it, and the result is offered as a download. No network calls.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider"/>
+
+  <!-- FAQ -->
+  <div class="page-section" style="margin-top:0">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <p class="section-desc">Common questions about image resizing.</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="$el.closest('.faq-item').classList.toggle('open')">Will resizing reduce image quality?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Scaling down (making an image smaller) generally preserves quality well — you're just reducing the number of pixels. Scaling up (making an image larger) will reduce sharpness because the browser must interpolate new pixels that didn't exist. There is no information to recover from a small image. For enlarging, use AI upscaling tools that can infer detail. This tool is best for scaling down and for exact social media dimensions.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="$el.closest('.faq-item').classList.toggle('open')">What's the difference between Fit Within and exact pixels?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p><strong>Exact Pixels</strong> sets the output to precisely the dimensions you enter, even if that means stretching or squishing the image (unless aspect ratio is locked, in which case it crops to fit). <strong>Fit Within</strong> scales the image proportionally so it fits inside a bounding box without cropping or distorting. A 3000×2000 image fitted within 1200×1200 will become 1200×800 (keeping the 3:2 ratio). Use Fit Within for thumbnails and max-width constraints; use Exact Pixels when you need a precise canvas size for social media.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="$el.closest('.faq-item').classList.toggle('open')">Why is my PNG output larger than JPEG at the same dimensions?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>PNG uses lossless compression, which means every pixel is stored exactly. JPEG uses lossy compression that discards subtle color information the eye barely notices. A 1920×1080 PNG of a photograph might be 2–5MB, while the same image as JPEG at quality 80 might be 200–400KB. PNG is best for images with text, sharp edges, transparency, or screenshots. JPEG is best for photographs. WebP gives you the smallest file size for both types at equivalent quality.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="$el.closest('.faq-item').classList.toggle('open')">What are the correct sizes for social media images?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Platform requirements change, but common 2025 guidelines: <strong>Instagram square post</strong> 1080×1080, <strong>Instagram portrait</strong> 1080×1350, <strong>Instagram Story</strong> 1080×1920, <strong>Twitter/X post</strong> 1600×900, <strong>Twitter/X header</strong> 1500×500, <strong>Facebook cover</strong> 1640×624, <strong>LinkedIn banner</strong> 1584×396, <strong>YouTube thumbnail</strong> 1280×720, <strong>OG/share image</strong> 1200×630. Always check each platform's current guidelines, as they update periodically.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="$el.closest('.faq-item').classList.toggle('open')">How does the comparison slider work?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>After resizing, both the original and the resized image are rendered in a stacked container. The original image has a clip-path applied that reveals only the left portion up to the handle position. The resized image is visible in the right portion. Dragging the handle updates the clip-path percentage in real time, giving you a smooth reveal of the changes. The range input below provides keyboard and fine-control access to the same value.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="$el.closest('.faq-item').classList.toggle('open')">Can I resize animated GIFs?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Not fully. The Canvas API only captures the first frame of an animated GIF. If you resize a GIF, the output will be a static image of frame 1, not an animated GIF. For animated GIF resizing, you need a server-side tool or a dedicated GIF processor. This tool will load the GIF's first frame and allow you to resize and save it as a JPEG, PNG, or WebP.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider"/>
+
+  <!-- Related tools -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="image-compressor.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="related-name">Image Compressor</div>
+        <div class="related-desc">Reduce file size with quality slider, format conversion, and before/after slider.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../design/color-picker.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f7971e,#ffd200)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="2.5"/><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.762-2.238 3-5 3h-2"/></svg></div>
+        <div class="related-name">Color Picker</div>
+        <div class="related-desc">Pick colors and get HEX, RGB, HSL values.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../coding/qr-code-maker.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#6C63FF,#4ECDC4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg></div>
+        <div class="related-name">QR Code Maker</div>
+        <div class="related-desc">Generate QR codes for URLs, WiFi, and more.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../social/yt-thumbnail-checker.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#cc0000,#ff4444)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <div class="related-name">YT Thumbnail Checker</div>
+        <div class="related-desc">Preview thumbnail safe zones and UI overlays.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <rect x="5" y="5" width="16" height="12" rx="2" stroke="#fff" stroke-width="1.8" fill="none"/>
+          <rect x="15" y="14" width="16" height="17" rx="2" stroke="#fff" stroke-width="1.8" fill="rgba(255,255,255,.15)"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#818cf8"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Image Tools</div><div class="footer-links"><a href="image-resizer.html">Image Resizer</a><a href="image-compressor.html">Image Compressor</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a><a href="../../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="image-resizer.js"></script>
+</body>
+</html>

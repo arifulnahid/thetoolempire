@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JPEG vs PNG vs WebP vs AVIF: Which Image Format Should You Actually Use in 2025?</title>
+  <meta name="description" content="A plain-English breakdown of every major image format — JPEG, PNG, WebP, AVIF, GIF, SVG. File sizes compared, transparency explained, browser support charts, and a simple cheat sheet for choosing the right format every time."/>
+  <meta name="keywords" content="jpeg vs png vs webp, image format comparison 2025, best image format for web, webp vs jpeg, avif format, png transparency, image format guide, convert image format"/>
+  <meta name="author" content="The Tool Empire"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/blog/image-format-guide.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="JPEG vs PNG vs WebP vs AVIF: Which Image Format Should You Use in 2025?"/>
+  <meta property="og:description" content="File sizes compared, transparency explained, browser support, and a simple decision guide for every format — JPEG, PNG, WebP, AVIF, GIF, SVG."/>
+  <meta property="og:url" content="https://thetoolempire.com/blog/image-format-guide.html"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"BlogPosting",
+      "headline":"JPEG vs PNG vs WebP vs AVIF: Which Image Format Should You Actually Use in 2025?",
+      "description":"A complete guide to image formats for the web — file sizes, transparency, browser support, and a decision cheat sheet for JPEG, PNG, WebP, AVIF, GIF, and SVG.",
+      "url":"https://thetoolempire.com/blog/image-format-guide.html",
+      "datePublished":"2025-06-07","dateModified":"2025-06-07",
+      "author":{"@type":"Organization","name":"The Tool Empire","url":"https://thetoolempire.com"},
+      "publisher":{"@type":"Organization","name":"The Tool Empire","logo":{"@type":"ImageObject","url":"https://thetoolempire.com/assets/favicon.svg"}},
+      "image":"https://thetoolempire.com/assets/og-image.png",
+      "mainEntityOfPage":{"@type":"WebPage","@id":"https://thetoolempire.com/blog/image-format-guide.html"},
+      "keywords":"JPEG PNG WebP AVIF image format comparison web performance",
+      "articleSection":"Image Tools"
+    },
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Blog","item":"https://thetoolempire.com/blog.html"},
+      {"@type":"ListItem","position":3,"name":"Image Format Guide","item":"https://thetoolempire.com/blog/image-format-guide.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Is WebP better than JPEG?","acceptedAnswer":{"@type":"Answer","text":"For web use, yes — WebP typically produces files 25–35% smaller than JPEG at equivalent visual quality, and it also supports transparency. All major browsers support WebP as of 2025. Use JPEG when you need universal compatibility (older email clients, platforms that don't preserve WebP, or when sharing with unknown recipients)."}},
+      {"@type":"Question","name":"Should I use AVIF or WebP?","acceptedAnswer":{"@type":"Answer","text":"AVIF achieves 40–50% smaller files than JPEG at the same quality, outperforming WebP. However, browser support is still incomplete (it's missing in some edge cases and has slower encoding). For 2025, WebP is the safe default for most web projects. Use AVIF when you can verify your audience's browser support or implement a proper fallback."}},
+      {"@type":"Question","name":"What is the best image format for SEO?","acceptedAnswer":{"@type":"Answer","text":"Page speed is a Google ranking factor, so smaller image files = better SEO. WebP provides the best balance of compression, quality, and browser support for SEO in 2025. Also use descriptive alt text, appropriate file names, and serve images at the correct display dimensions. AVIF is slightly better for pure compression but WebP's broad support makes it the practical winner."}}
+    ]}
+  ]}</script>
+
+  <style>
+    :root{--bg:#0f0f14;--bg-card:#1e1e28;--bg-surface:#18181f;--border:rgba(255,255,255,.08);--text:#e8e8f0;--text-muted:#a0a0bc;--text-faint:#555570;--primary:#0d9488;--secondary:#14b8a6;--radius-md:14px;--radius-sm:8px;--transition:.2s}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.7;font-size:1rem}
+    .site-header{position:sticky;top:0;z-index:100;background:rgba(15,15,20,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+    .header-inner{max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none}.logo-icon{width:32px;height:32px}.logo-text{font-weight:700;font-size:1.1rem;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .main-nav{display:flex;gap:6px}.nav-link{padding:6px 14px;border-radius:var(--radius-sm);font-size:.87rem;font-weight:500;color:var(--text-muted);text-decoration:none;transition:all var(--transition)}.nav-link:hover,.nav-link.active{color:var(--text);background:rgba(255,255,255,.06)}
+    #progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--secondary));width:0%;z-index:200;transition:width .1s linear}
+    .blog-wrap{max-width:1200px;margin:0 auto;padding:32px 24px;display:grid;grid-template-columns:1fr 280px;gap:40px;align-items:start}
+    @media(max-width:1023px){.blog-wrap{grid-template-columns:1fr}.toc-sidebar{display:none!important}}
+    .article-header{margin-bottom:36px}
+    .article-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(13,148,136,.1);color:var(--primary);border:1px solid rgba(13,148,136,.2);margin-bottom:18px}
+    .article-title{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:800;line-height:1.22;margin-bottom:18px;letter-spacing:-.02em}
+    .gradient-title{background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .article-meta{display:flex;align-items:center;flex-wrap:wrap;gap:14px;font-size:.82rem;color:var(--text-faint)}
+    .meta-item{display:flex;align-items:center;gap:5px}
+    .meta-sep{width:3px;height:3px;border-radius:50%;background:var(--border)}
+    .article-body h2{font-size:1.45rem;font-weight:700;margin:2.4rem 0 .9rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);color:var(--text)}
+    .article-body h3{font-size:1.12rem;font-weight:700;margin:1.8rem 0 .7rem;color:var(--text)}
+    .article-body p{margin-bottom:1.1rem;color:var(--text-muted)}
+    .article-body ul,.article-body ol{padding-left:1.6rem;margin-bottom:1.1rem;color:var(--text-muted)}
+    .article-body li{margin-bottom:.45rem}
+    .article-body strong{color:var(--text);font-weight:600}
+    .article-body code{background:rgba(13,148,136,.1);color:var(--secondary);padding:2px 7px;border-radius:5px;font-family:'Fira Code',monospace;font-size:.86em}
+    .article-body a{color:var(--primary);text-decoration:none;border-bottom:1px solid rgba(13,148,136,.3)}.article-body a:hover{border-color:var(--primary)}
+    .callout{border-radius:var(--radius-md);padding:16px 20px;margin:1.5rem 0;border-left:4px solid}
+    .callout-tip{background:rgba(52,211,153,.07);border-color:#34d399}.callout-tip .callout-head{color:#34d399}
+    .callout-info{background:rgba(13,148,136,.07);border-color:var(--primary)}.callout-info .callout-head{color:var(--primary)}
+    .callout-warn{background:rgba(251,191,36,.07);border-color:#fbbf24}.callout-warn .callout-head{color:#fbbf24}
+    .callout-head{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+    .callout p{margin:0;font-size:.9rem;color:var(--text-muted)}
+    .table-wrap{overflow-x:auto;margin:1.4rem 0;border-radius:var(--radius-md);border:1px solid var(--border)}
+    table{width:100%;border-collapse:collapse;font-size:.87rem}
+    th{background:rgba(255,255,255,.05);padding:10px 14px;text-align:left;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-faint);border-bottom:1px solid var(--border)}
+    td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text-muted)}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:rgba(255,255,255,.02)}
+    .td-yes{color:#6ee7b7;font-weight:600}.td-no{color:#fca5a5;font-weight:600}.td-part{color:#fcd34d;font-weight:600}
+    .format-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin:1.4rem 0}
+    .format-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:18px}
+    .format-card-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+    .format-tag{font-size:.72rem;font-weight:800;padding:3px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.06em}
+    .format-card p{font-size:.82rem;color:var(--text-muted);margin-bottom:8px}
+    .format-card ul{font-size:.82rem;color:var(--text-muted);padding-left:1.2rem}
+    .format-card li{margin-bottom:3px}
+    .cheat-box{background:var(--bg-card);border:2px solid rgba(13,148,136,.3);border-radius:var(--radius-md);padding:22px;margin:1.5rem 0}
+    .cheat-box h3{color:var(--primary);font-size:1rem;font-weight:700;margin-bottom:16px}
+    .cheat-row{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);font-size:.88rem}
+    .cheat-row:last-child{border-bottom:none;padding-bottom:0}
+    .cheat-fmt{font-weight:700;color:var(--text);min-width:52px}
+    .cheat-use{color:var(--text-muted)}
+    .tool-spotlight{background:linear-gradient(135deg,rgba(13,148,136,.12),rgba(20,184,166,.08));border:1px solid rgba(13,148,136,.25);border-radius:var(--radius-md);padding:24px;margin:2rem 0;text-align:center}
+    .spotlight-title{font-size:1.1rem;font-weight:700;margin-bottom:6px}
+    .spotlight-desc{font-size:.9rem;color:var(--text-muted);margin-bottom:16px}
+    .spotlight-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:var(--radius-sm);background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;font-weight:700;font-size:.9rem;text-decoration:none;transition:opacity var(--transition)}.spotlight-btn:hover{opacity:.88;border-bottom:none}
+    .toc-sidebar{position:sticky;top:90px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:20px}
+    .toc-title{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:14px}
+    .toc-list{list-style:none;display:flex;flex-direction:column;gap:4px}
+    .toc-list a{font-size:.83rem;color:var(--text-muted);text-decoration:none;padding:4px 8px;border-radius:var(--radius-sm);display:block;transition:all var(--transition);border-left:2px solid transparent}.toc-list a:hover{color:var(--text);background:rgba(255,255,255,.04);border-color:var(--primary)}
+    .author-box{display:flex;align-items:flex-start;gap:18px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:22px;margin-top:2.5rem}
+    .author-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.2rem;color:#fff;flex-shrink:0}
+    .author-name{font-weight:700;font-size:1rem;margin-bottom:4px}
+    .author-bio{font-size:.85rem;color:var(--text-muted);line-height:1.6}
+    .related-section{margin-top:2.5rem}
+    .related-title{font-size:1.1rem;font-weight:700;margin-bottom:16px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+    .related-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;text-decoration:none;transition:border-color var(--transition)}.related-card:hover{border-color:rgba(13,148,136,.4)}
+    .related-icon{width:36px;height:36px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;margin-bottom:10px}.related-icon svg{width:18px;height:18px;stroke:#fff}
+    .related-name{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:4px}
+    .related-desc{font-size:.8rem;color:var(--text-faint)}
+    .site-footer{background:var(--bg-card);border-top:1px solid var(--border);padding:48px 24px 24px;margin-top:64px}
+    .footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+    @media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+    .footer-brand-text{font-size:.85rem;color:var(--text-faint);margin-top:8px;line-height:1.6}
+    .footer-heading{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:12px}
+    .footer-links{display:flex;flex-direction:column;gap:8px}.footer-links a{font-size:.87rem;color:var(--text-muted);text-decoration:none;transition:color var(--transition)}.footer-links a:hover{color:var(--text)}
+    .footer-bottom{max-width:1200px;margin:32px auto 0;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.8rem;color:var(--text-faint)}
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<script>window.addEventListener('scroll',()=>{const d=document.documentElement;const p=(d.scrollTop||document.body.scrollTop)/(d.scrollHeight-d.clientHeight)*100;document.getElementById('progress-bar').style.width=p+'%';});</script>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <path d="M8 14h6l3-6 3 8 3-4 2 2h3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#0d9488"/><stop offset="1" stop-color="#14b8a6"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../tools.html" class="nav-link">Tools</a>
+      <a href="../blog.html" class="nav-link active">Blog</a>
+      <a href="../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="blog-wrap">
+  <article>
+
+    <div style="margin-bottom:24px">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+
+    <nav aria-label="Breadcrumb" style="margin-bottom:18px">
+      <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:var(--text-faint);flex-wrap:wrap">
+        <li><a href="../index.html" style="color:var(--text-faint)">Home</a></li><li>›</li>
+        <li><a href="../blog.html" style="color:var(--text-faint)">Blog</a></li><li>›</li>
+        <li style="color:var(--text-muted)">Image Format Guide</li>
+      </ol>
+    </nav>
+
+    <header class="article-header">
+      <div class="article-tag">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Image Tools
+      </div>
+      <h1 class="article-title">JPEG vs PNG vs WebP vs AVIF: <span class="gradient-title">Which Image Format Should You Actually Use in 2025?</span></h1>
+      <div class="article-meta">
+        <span class="meta-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          June 7, 2025
+        </span>
+        <span class="meta-sep"></span>
+        <span class="meta-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          10 min read
+        </span>
+        <span class="meta-sep"></span>
+        <span class="meta-item">The Tool Empire</span>
+      </div>
+    </header>
+
+    <div class="article-body">
+
+      <p>You take a screenshot, export a design, download a photo — and suddenly you're staring at a Save As dialog with six format options. JPEG? PNG? WebP? Your gut says "just pick JPEG" and move on. But that instinct is costing you megabytes, loading time, and in some cases — transparency that you needed.</p>
+
+      <p>This guide cuts through the noise. We'll cover every major image format used on the web today, explain exactly what each one is good at, and give you a simple decision rule you can actually remember.</p>
+
+      <h2 id="why-format-matters">Why Your Image Format Choice Matters More Than You Think</h2>
+
+      <p>A 2MB PNG and a 200KB JPEG can look identical on screen. But that 1.8MB difference affects:</p>
+      <ul>
+        <li><strong>Page load speed</strong> — images are typically the largest assets on a web page</li>
+        <li><strong>Core Web Vitals</strong> — Google's LCP (Largest Contentful Paint) is directly impacted by image load time</li>
+        <li><strong>Mobile data usage</strong> — on slow connections, large images abandon visitors before they load</li>
+        <li><strong>Storage costs</strong> — CDN bandwidth and storage fees scale with file size</li>
+        <li><strong>SEO</strong> — Google uses page speed as a ranking signal</li>
+      </ul>
+
+      <p>Choosing the right format from the start isn't a minor optimization — it's one of the highest-impact decisions you make when building for the web.</p>
+
+      <h2 id="jpeg">JPEG — The Reliable Old Standard</h2>
+
+      <p>Introduced in 1992, JPEG (Joint Photographic Experts Group) is the most widely supported image format in existence. It's on every camera, every operating system, every email client, and every web browser that has ever existed.</p>
+
+      <p><strong>How it works:</strong> JPEG uses lossy compression. It divides the image into 8×8 pixel blocks and discards color information that the human eye is least sensitive to — subtle variations in hue and saturation in dark areas, for example. The quality slider controls how aggressively this information is thrown away.</p>
+
+      <div class="format-cards">
+        <div class="format-card">
+          <div class="format-card-head">
+            <span class="format-tag" style="background:rgba(251,191,36,.15);color:#fbbf24">JPEG</span>
+          </div>
+          <p>Lossy compression — best for photographs and images with gradients.</p>
+          <ul>
+            <li>✅ Universal support — literally everywhere</li>
+            <li>✅ Excellent for photos</li>
+            <li>✅ Small file sizes at medium quality</li>
+            <li>❌ No transparency support</li>
+            <li>❌ Artifacts at low quality</li>
+            <li>❌ Each re-save degrades quality</li>
+          </ul>
+        </div>
+      </div>
+
+      <p><strong>When to use JPEG:</strong> Photographs, social media posts, hero images, product photos, any image where you don't need transparency and visual perfection isn't critical. Quality 75–85 is the sweet spot for web use — around 60–80% smaller than the same image at maximum quality with very little visible difference.</p>
+
+      <p><strong>When NOT to use JPEG:</strong> Screenshots, logos, icons, text-heavy images, or anything with a transparent background. JPEG renders sharp edges as blurry halos (ringing artifacts) and can't store alpha transparency at all.</p>
+
+      <h2 id="png">PNG — Lossless Clarity for Everything Else</h2>
+
+      <p>PNG (Portable Network Graphics) was created in 1996 as a patent-free alternative to GIF. Unlike JPEG, PNG uses lossless compression — every pixel is stored exactly as it appears. The result is perfect image quality at the cost of larger file sizes.</p>
+
+      <div class="format-cards">
+        <div class="format-card">
+          <div class="format-card-head">
+            <span class="format-tag" style="background:rgba(99,102,241,.15);color:#a5b4fc">PNG</span>
+          </div>
+          <p>Lossless — stores every pixel exactly. Essential when transparency is needed.</p>
+          <ul>
+            <li>✅ Full transparency (alpha channel)</li>
+            <li>✅ Lossless — no quality degradation</li>
+            <li>✅ Perfect for screenshots and text</li>
+            <li>✅ Re-save indefinitely without loss</li>
+            <li>❌ Large files for photos</li>
+            <li>❌ No animation (except APNG)</li>
+          </ul>
+        </div>
+      </div>
+
+      <p><strong>When to use PNG:</strong> Logos, icons, screenshots, UI elements, any image with transparency, images containing text, diagrams, and illustrations with flat colors. Also use PNG as your archival master — save originals as PNG, then export compressed versions for delivery.</p>
+
+      <p><strong>When NOT to use PNG:</strong> Photographs on web pages where file size matters. A landscape photo as PNG might be 3–8MB; the same image as JPEG at quality 80 might be 200–400KB. For photos, JPEG or WebP will always win on file size.</p>
+
+      <div class="callout callout-info">
+        <div class="callout-head">PNG-8 vs PNG-24</div>
+        <p><strong>PNG-8</strong> stores up to 256 colors and was once used for simple graphics. <strong>PNG-24</strong> stores full 16 million colors plus alpha transparency. Most modern tools export PNG-24 by default. For simple flat-color graphics, PNG-8 (or SVG) can be dramatically smaller.</p>
+      </div>
+
+      <!-- Mid article ad -->
+      <div style="margin:2rem 0">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+      </div>
+
+      <h2 id="webp">WebP — The Web's Best All-Rounder</h2>
+
+      <p>WebP was developed by Google and released in 2010, but it only became truly mainstream around 2020 when Safari added support. In 2025, browser support sits at 97%+ worldwide — making WebP the safe default for nearly all web projects.</p>
+
+      <p><strong>How it works:</strong> WebP supports <em>both</em> lossy and lossless compression, transparency, and animation. Its lossy mode uses the same prediction/transform coding as the VP8 video codec, which is why it consistently outperforms JPEG.</p>
+
+      <div class="format-cards">
+        <div class="format-card">
+          <div class="format-card-head">
+            <span class="format-tag" style="background:rgba(13,148,136,.15);color:#5eead4">WebP</span>
+          </div>
+          <p>Modern format with lossy and lossless modes. The best general-purpose web format.</p>
+          <ul>
+            <li>✅ 25–35% smaller than JPEG</li>
+            <li>✅ Transparency support</li>
+            <li>✅ Animation support</li>
+            <li>✅ 97%+ browser support (2025)</li>
+            <li>❌ Limited email client support</li>
+            <li>❌ Not all social platforms preserve it</li>
+          </ul>
+        </div>
+      </div>
+
+      <p><strong>Typical size savings:</strong> A 1MB JPEG photo converted to WebP at equivalent visual quality typically produces a 650–750KB file — a 25–35% reduction. For PNG-to-WebP, savings are even more dramatic for photographic content.</p>
+
+      <p><strong>When to use WebP:</strong> Images on your website, web app, blog posts, thumbnails, hero images, product photos — any image that will be viewed in a browser. WebP is now the correct default for web delivery.</p>
+
+      <p><strong>When to keep JPEG/PNG:</strong> When sharing via email, messaging apps (WhatsApp, iMessage), or platforms that might re-encode your image anyway (Instagram, Twitter). Always keep a JPEG or PNG copy for maximum compatibility.</p>
+
+      <div class="callout callout-tip">
+        <div class="callout-head">Serving WebP with a fallback</div>
+        <p>Use the HTML <code>&lt;picture&gt;</code> element to serve WebP with a JPEG fallback: <code>&lt;picture&gt;&lt;source srcset="image.webp" type="image/webp"&gt;&lt;img src="image.jpg" alt="..."&gt;&lt;/picture&gt;</code>. Modern browsers use WebP; browsers that don't support it fall back to JPEG automatically.</p>
+      </div>
+
+      <h2 id="avif">AVIF — The Future Format (With Caveats)</h2>
+
+      <p>AVIF (AV1 Image File Format) is based on the AV1 video codec developed by the Alliance for Open Media. It achieves significantly better compression than both JPEG and WebP — often 40–50% smaller than JPEG at the same quality.</p>
+
+      <div class="format-cards">
+        <div class="format-card">
+          <div class="format-card-head">
+            <span class="format-tag" style="background:rgba(139,92,246,.15);color:#a78bfa">AVIF</span>
+          </div>
+          <p>Next-generation format with superior compression. Growing support in 2025.</p>
+          <ul>
+            <li>✅ 40–50% smaller than JPEG</li>
+            <li>✅ Better than WebP at same quality</li>
+            <li>✅ Transparency and HDR support</li>
+            <li>⚠️ Encoding is slow on CPU</li>
+            <li>⚠️ Missing from some edge cases</li>
+            <li>❌ Not supported in older Safari</li>
+          </ul>
+        </div>
+      </div>
+
+      <p><strong>Browser support in 2025:</strong> Chrome 85+, Firefox 93+, Safari 16+, Edge 121+. That covers ~88% of users globally. The gap vs WebP's 97% is shrinking, but still meaningful if your audience includes older devices or Safari on older iOS.</p>
+
+      <p><strong>When to use AVIF:</strong> When you've verified your audience's browser support or can serve with a WebP/JPEG fallback via <code>&lt;picture&gt;</code>. Image-heavy sites (news, e-commerce, photography) see the biggest benefit from AVIF's compression.</p>
+
+      <h2 id="other-formats">GIF, SVG, and BMP — When Do These Fit?</h2>
+
+      <h3>GIF — Animation Only</h3>
+      <p>GIF is 37 years old and supports only 256 colors — terrible for photos, barely adequate for simple graphics. Its only remaining legitimate use is animated images, and even that is being replaced by WebP animations and short video (MP4/WebM). For static images, never use GIF. For simple animations, prefer WebP animated or a short video clip.</p>
+
+      <h3>SVG — The Scalable Choice for Graphics</h3>
+      <p>SVG (Scalable Vector Graphics) is not a raster format — it stores shapes, paths, and text as mathematical instructions, not pixels. SVGs scale to any resolution without quality loss, making them perfect for logos, icons, illustrations, and any graphic that needs to look sharp on retina/4K displays. File sizes can be remarkably small. If your image is a vector graphic rather than a photograph, SVG is almost always the right choice.</p>
+
+      <h3>BMP — Never for Web</h3>
+      <p>BMP (Bitmap) stores raw pixel data with no compression. A 1920×1080 BMP is around 6MB. There is no reason to use BMP for web delivery. It exists as an intermediate format in some Windows workflows. Always convert BMP to JPEG, PNG, or WebP before publishing.</p>
+
+      <!-- Tool CTA -->
+      <div class="tool-spotlight">
+        <div class="spotlight-title">Convert Images Between Formats Instantly</div>
+        <div class="spotlight-desc">Batch convert JPEG, PNG, WebP, GIF, and BMP — set quality, handle transparency, and download as ZIP. All in your browser, no upload.</div>
+        <a href="../tools/image/image-converter.html" class="spotlight-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3"/><path d="M9 11l3-3 3 3"/><line x1="12" y1="8" x2="12" y2="16"/></svg>
+          Open Image Converter
+        </a>
+      </div>
+
+      <h2 id="comparison">Full Format Comparison Table</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Format</th><th>Compression</th><th>Transparency</th><th>Animation</th><th>Browser Support</th><th>Best File Size</th><th>Email Safe</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>JPEG</strong></td><td>Lossy</td><td class="td-no">None</td><td class="td-no">No</td><td class="td-yes">100%</td><td>Photos</td><td class="td-yes">Yes</td></tr>
+            <tr><td><strong>PNG</strong></td><td>Lossless</td><td class="td-yes">Full alpha</td><td class="td-part">APNG</td><td class="td-yes">100%</td><td>Graphics/UI</td><td class="td-yes">Yes</td></tr>
+            <tr><td><strong>WebP</strong></td><td>Lossy + Lossless</td><td class="td-yes">Full alpha</td><td class="td-yes">Yes</td><td class="td-yes">97%</td><td>Photos + Graphics</td><td class="td-part">Limited</td></tr>
+            <tr><td><strong>AVIF</strong></td><td>Lossy + Lossless</td><td class="td-yes">Full alpha</td><td class="td-yes">Yes</td><td class="td-part">88%</td><td>Everything</td><td class="td-no">No</td></tr>
+            <tr><td><strong>GIF</strong></td><td>Lossless (256 col)</td><td class="td-part">Binary</td><td class="td-yes">Yes</td><td class="td-yes">100%</td><td>Simple animations</td><td class="td-yes">Yes</td></tr>
+            <tr><td><strong>SVG</strong></td><td>Vector</td><td class="td-yes">Yes</td><td class="td-yes">CSS/JS</td><td class="td-yes">99%</td><td>Icons/logos</td><td class="td-part">Limited</td></tr>
+            <tr><td><strong>BMP</strong></td><td>None</td><td class="td-part">Optional</td><td class="td-no">No</td><td class="td-yes">Most</td><td>Never</td><td class="td-no">No</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="cheat-sheet">The Simple Decision Rule</h2>
+
+      <div class="cheat-box">
+        <h3>Format Cheat Sheet — 2025</h3>
+        <div class="cheat-row"><span class="cheat-fmt">Photo</span><span class="cheat-use">→ WebP (or JPEG as fallback). Quality 75–85.</span></div>
+        <div class="cheat-row"><span class="cheat-fmt">Logo</span><span class="cheat-use">→ SVG if vector. PNG if raster. WebP is fine too.</span></div>
+        <div class="cheat-row"><span class="cheat-fmt">Screenshot</span><span class="cheat-use">→ PNG (lossless, preserves text sharpness). Or WebP lossless.</span></div>
+        <div class="cheat-row"><span class="cheat-fmt">Icon</span><span class="cheat-use">→ SVG (scalable). PNG as fallback for ICO formats.</span></div>
+        <div class="cheat-row"><span class="cheat-fmt">Transparent</span><span class="cheat-use">→ PNG or WebP. Never JPEG.</span></div>
+        <div class="cheat-row"><span class="cheat-fmt">Animation</span><span class="cheat-use">→ Short: MP4/WebM video. Simple: WebP animated. Avoid GIF.</span></div>
+        <div class="cheat-row"><span class="cheat-fmt">Email</span><span class="cheat-use">→ JPEG or PNG. WebP may show as broken in Outlook.</span></div>
+        <div class="cheat-row"><span class="cheat-fmt">Social</span><span class="cheat-use">→ JPEG (platforms re-encode anyway). 1200×630px for shares.</span></div>
+        <div class="cheat-row"><span class="cheat-fmt">Archive</span><span class="cheat-use">→ PNG or TIFF. Never save master files as JPEG repeatedly.</span></div>
+      </div>
+
+      <h2 id="seo">Image Formats and SEO — What Actually Matters</h2>
+
+      <p>Google's documentation is clear: <strong>page speed is a ranking signal</strong>, and images are usually the biggest drag on page load. The format decision directly affects your Core Web Vitals scores.</p>
+
+      <p><strong>What Google recommends:</strong></p>
+      <ul>
+        <li>Serve images in "next-gen formats" — specifically WebP and AVIF are mentioned in Lighthouse audits</li>
+        <li>Compress images appropriately for their display size</li>
+        <li>Use lazy loading for images below the fold</li>
+        <li>Specify width and height attributes to prevent layout shift (CLS)</li>
+        <li>Use descriptive alt text for accessibility and image search</li>
+      </ul>
+
+      <p>A practical improvement order: (1) Switch photos from PNG to JPEG or WebP first — this has the largest single impact. (2) Reduce quality to 75–80 for photos. (3) Serve WebP with JPEG fallback. (4) Implement lazy loading. (5) Use AVIF where you can verify support.</p>
+
+      <div class="callout callout-warn">
+        <div class="callout-head">Don't convert and re-convert</div>
+        <p>Every time you save a JPEG as a JPEG, you lose quality. Each generation of lossy compression adds more artifacts. Always keep your original in PNG or a RAW format and only export compressed versions as the final step. Never compress a compressed image unless you accept the quality loss.</p>
+      </div>
+
+      <h2 id="transparency">A Note on Transparency That Trips People Up</h2>
+
+      <p>Transparency in images is stored as an <strong>alpha channel</strong> — a fourth value alongside R, G, and B that says "how opaque is this pixel?" A value of 0 is fully transparent (invisible). A value of 255 is fully opaque.</p>
+
+      <p>JPEG has <strong>no alpha channel</strong>. When you convert a PNG with transparency to JPEG, the transparent areas need to be filled with something. Most tools fill with white. This is why transparent logos on dark backgrounds look broken when saved as JPEG — the "transparent" area becomes a white box.</p>
+
+      <p>WebP and PNG both support full alpha transparency. For images that need to float over backgrounds (logos, product cutouts, circle-cropped avatars), always use PNG or WebP.</p>
+
+    </div>
+
+    <div class="author-box">
+      <div class="author-avatar">T</div>
+      <div>
+        <div class="author-name">The Tool Empire</div>
+        <div class="author-bio">Free, browser-based tools for developers, designers, and content creators. Everything runs locally — no servers, no signups, no nonsense.</div>
+      </div>
+    </div>
+
+    <div class="related-section">
+      <div class="related-title">Related Tools &amp; Articles</div>
+      <div class="related-grid">
+        <a href="../tools/image/image-converter.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#0d9488,#14b8a6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3"/><path d="M9 11l3-3 3 3"/></svg></div>
+          <div class="related-name">Image Converter</div>
+          <div class="related-desc">Batch convert JPEG, PNG, WebP, GIF — download as ZIP.</div>
+        </a>
+        <a href="../tools/image/image-compressor.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+          <div class="related-name">Image Compressor</div>
+          <div class="related-desc">Reduce JPEG, PNG, and WebP file size with quality control.</div>
+        </a>
+        <a href="image-compression-guide.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="related-name">Image Compression Guide</div>
+          <div class="related-desc">How much can you compress before quality suffers?</div>
+        </a>
+        <a href="seo-meta-tags-guide.html" class="related-card">
+          <div class="related-icon" style="background:linear-gradient(135deg,#4facfe,#0050c8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+          <div class="related-name">SEO Meta Tags Guide 2025</div>
+          <div class="related-desc">OG image size, alt tags, and what affects rankings.</div>
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="toc-sidebar">
+    <div class="toc-title">On this page</div>
+    <ul class="toc-list">
+      <li><a href="#why-format-matters">Why Format Matters</a></li>
+      <li><a href="#jpeg">JPEG</a></li>
+      <li><a href="#png">PNG</a></li>
+      <li><a href="#webp">WebP</a></li>
+      <li><a href="#avif">AVIF</a></li>
+      <li><a href="#other-formats">GIF, SVG, BMP</a></li>
+      <li><a href="#comparison">Comparison Table</a></li>
+      <li><a href="#cheat-sheet">Decision Cheat Sheet</a></li>
+      <li><a href="#seo">Formats &amp; SEO</a></li>
+      <li><a href="#transparency">Transparency Explained</a></li>
+    </ul>
+    <div style="margin-top:20px">
+      <ins class="adsbygoogle" style="display:inline-block;width:240px;height:240px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+  </aside>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <path d="M8 14h6l3-6 3 8 3-4 2 2h3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#0d9488"/><stop offset="1" stop-color="#14b8a6"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Image Tools</div><div class="footer-links"><a href="../tools/image/image-converter.html">Image Converter</a><a href="../tools/image/image-compressor.html">Image Compressor</a><a href="../tools/image/image-resizer.html">Image Resizer</a></div></div>
+    <div><div class="footer-heading">Blog</div><div class="footer-links"><a href="image-compression-guide.html">Compression Guide</a><a href="url-encoding-guide.html">URL Encoding</a><a href="../blog.html">All Articles</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../sitemap.xml">Sitemap</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+</body>
+</html>

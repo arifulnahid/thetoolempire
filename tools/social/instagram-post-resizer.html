@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Instagram Post Resizer — Resize Images for Feed, Story & Reels Free | The Tool Empire</title>
+  <meta name="description" content="Resize any image to perfect Instagram dimensions in seconds. Supports Square (1080×1080), Portrait (1080×1350), Landscape (1080×566), Story/Reels (1080×1920), Profile, and IGTV Cover. Drag to reposition, zoom, and download — 100% browser-based, no upload required."/>
+  <meta name="keywords" content="instagram post resizer, instagram image size, resize image for instagram, instagram photo size, instagram story size, instagram reels size, instagram square photo, 1080x1080 resizer, instagram crop tool free"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/social/instagram-post-resizer.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Instagram Post Resizer — Resize Images for Feed, Story & Reels Free"/>
+  <meta property="og:description" content="Resize any image to the exact Instagram dimensions for Feed, Story, Reels, Profile, and IGTV. Drag to reposition, adjust zoom, pick background — download ready-to-post."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/social/instagram-post-resizer.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"Instagram Post Resizer","description":"Free browser-based tool to resize images to all Instagram post formats. Supports Square (1080×1080), Portrait (1080×1350), Landscape (1080×566), Story and Reels (1080×1920), Profile Photo (320×320), and IGTV Cover (420×654). Drag to reposition, zoom, set background fill colour, choose JPEG or PNG output. No upload, no server, no signup.","url":"https://thetoolempire.com/tools/social/instagram-post-resizer.html","applicationCategory":"SocialMediaApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["6 Instagram format presets","Drag-to-reposition image on canvas","Zoom slider with center-anchored zoom","Fill or Fit background mode","Custom background fill colour","JPEG / PNG output with quality control","Profile photo circle crop","IGTV cover preset","100% client-side — no upload required","One-click download with descriptive filename"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Social Tools","item":"https://thetoolempire.com/tools.html#social"},
+      {"@type":"ListItem","position":3,"name":"Instagram Post Resizer","item":"https://thetoolempire.com/tools/social/instagram-post-resizer.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is the correct image size for an Instagram post?","acceptedAnswer":{"@type":"Answer","text":"Instagram recommends 1080 pixels wide for all feed posts. The height depends on the format: Square is 1080×1080 (1:1 ratio), Portrait is 1080×1350 (4:5 ratio), and Landscape is 1080×566 (1.91:1 ratio). For Stories and Reels, the ideal size is 1080×1920 (9:16 ratio). Profile photos are displayed at 110×110 but stored at 320×320."}},
+      {"@type":"Question","name":"What happens if I upload an image that is a different size or ratio?","acceptedAnswer":{"@type":"Answer","text":"The tool automatically scales your image to fill or fit the chosen Instagram format. In Fill mode the image is zoomed until it covers the entire canvas — some edges may be cropped. In Fit mode the whole image fits inside the canvas and any remaining space is filled with your chosen background colour. You can then drag the image to reposition it and use the zoom slider to adjust framing exactly as you want before downloading."}},
+      {"@type":"Question","name":"Does the tool upload my image to a server?","acceptedAnswer":{"@type":"Answer","text":"No. Everything happens inside your browser using the HTML5 Canvas API. Your image never leaves your device. There is no server, no upload, and no account required. The download is generated directly in the browser as a JPEG or PNG file."}},
+      {"@type":"Question","name":"Why does Instagram crop my photo after I upload it?","acceptedAnswer":{"@type":"Answer","text":"Instagram enforces aspect ratio limits: feed posts must be between 1.91:1 (landscape) and 4:5 (portrait). If your image falls outside those bounds Instagram crops it automatically, often cutting off important parts. Resizing to the exact Instagram dimensions before uploading prevents any automatic cropping."}},
+      {"@type":"Question","name":"Can I use this tool for Instagram Reels covers?","acceptedAnswer":{"@type":"Answer","text":"Yes. Select the Story / Reels preset (1080×1920). Reels covers use the same 9:16 ratio as Stories. Upload your cover image, drag to frame the subject in the centre, and download. This is also the correct size for IGTV video thumbnails if you want the full-screen preview rather than the channel cover crop."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="instagram-post-resizer.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <rect x="7" y="9" width="22" height="18" rx="4" fill="#fff" fill-opacity=".9"/>
+        <polygon points="15,13 15,23 24,18" fill="#E1306C"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#833AB4"/><stop offset="1" stop-color="#E1306C"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="instagramResizerApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li><a href="../../tools.html#social-media" style="color:#8888a8">Social</a></li><li>›</li>
+      <li style="color:#e8e8f0">Instagram Post Resizer</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      Social Media · Instagram
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">Instagram Post Resizer</span></h1>
+    <p class="tool-subtitle">Resize any image to pixel-perfect Instagram dimensions — Feed Square, Portrait, Landscape, Story, Reels, Profile, and IGTV. Drag to reposition, zoom, and download. No upload, no server.</p>
+  </div>
+
+  <!-- ── Upload (shown only before image) ── -->
+  <template x-if="!image">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <span class="card-title">Upload Your Image</span>
+      </div>
+      <div
+        class="upload-zone"
+        :class="{'drag-over': isDragOver}"
+        @dragover.prevent="isDragOver=true"
+        @dragleave="isDragOver=false"
+        @drop.prevent="onDrop($event)"
+        @click="$refs.fileInput.click()"
+      >
+        <div class="upload-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <div class="upload-title">Drop your image here</div>
+        <div class="upload-sub">JPEG, PNG, WebP, GIF · Any size</div>
+        <label class="upload-btn" @click.stop="$refs.fileInput.click()">Choose File</label>
+        <input x-ref="fileInput" type="file" accept="image/*" style="display:none" @change="onFileInput($event)"/>
+      </div>
+    </div>
+  </template>
+
+  <!-- ── Editor (shown after image load) ── -->
+  <template x-if="image">
+    <div>
+      <!-- Change image strip -->
+      <div style="display:flex;align-items:center;justify-content:space-between;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 16px;margin-bottom:16px;flex-wrap:wrap;gap:8px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <img :src="image" style="width:32px;height:32px;object-fit:cover;border-radius:5px;border:1px solid var(--border)"/>
+          <span style="font-size:.83rem;color:var(--text-muted)" x-text="imageName || 'Uploaded image'"></span>
+        </div>
+        <button
+          style="padding:6px 14px;border-radius:var(--radius-sm);background:transparent;border:1px solid var(--border);color:var(--text-muted);font-size:.8rem;font-weight:600;cursor:pointer"
+          @click="image=null;_img=null;$nextTick(()=>drawEmpty())"
+        >Change image</button>
+      </div>
+
+      <div class="tool-panel">
+
+        <!-- ── Left: settings ── -->
+        <div class="panel-left">
+
+          <!-- Presets -->
+          <div class="settings-card">
+            <div class="settings-head">Format Preset</div>
+            <div class="settings-body">
+              <div class="preset-grid">
+                <template x-for="p in presets" :key="p.id">
+                  <button
+                    class="preset-btn"
+                    :class="{active: selectedPreset === p.id}"
+                    @click="pickPreset(p.id)"
+                  >
+                    <div class="preset-label" x-text="p.label"></div>
+                    <div class="preset-sub" x-text="p.sub"></div>
+                    <div class="preset-size" x-text="p.w + ' × ' + p.h + ' · ' + p.ratio"></div>
+                  </button>
+                </template>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fit mode -->
+          <div class="settings-card">
+            <div class="settings-head">Fit Mode</div>
+            <div class="settings-body">
+              <div class="mode-tabs">
+                <button class="mode-tab" :class="{active: bgMode==='fill'}" @click="pickBgMode('fill')">Fill</button>
+                <button class="mode-tab" :class="{active: bgMode==='fit'}"  @click="pickBgMode('fit')">Fit</button>
+              </div>
+              <p style="font-size:.75rem;color:var(--text-faint);margin-top:10px;line-height:1.5" x-text="bgMode==='fill' ? 'Image zooms to cover the full canvas — edges may be cropped. Drag to reposition.' : 'Entire image fits inside the canvas — background colour fills the gaps.'"></p>
+            </div>
+          </div>
+
+          <!-- Settings -->
+          <div class="settings-card">
+            <div class="settings-head">Output Settings</div>
+            <div class="settings-body">
+              <div class="setting-row">
+                <span class="setting-label">Background</span>
+                <input type="color" x-model="bgColor" @input="onBgColor()"/>
+              </div>
+              <div class="setting-row">
+                <span class="setting-label">Format</span>
+                <select class="setting-select" x-model="format">
+                  <option value="jpeg">JPEG</option>
+                  <option value="png">PNG</option>
+                </select>
+              </div>
+              <template x-if="format === 'jpeg'">
+                <div>
+                  <div class="setting-row" style="margin-bottom:6px">
+                    <span class="setting-label">Quality</span>
+                    <span class="quality-val" x-text="quality + '%'"></span>
+                  </div>
+                  <input type="range" min="50" max="100" step="1" x-model.number="quality"/>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <!-- Download -->
+          <button class="btn-download" @click="download()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Image
+          </button>
+
+        </div>
+
+        <!-- ── Right: canvas preview ── -->
+        <div class="panel-right">
+          <div class="canvas-wrap">
+            <div
+              class="canvas-inner"
+              :class="{'cursor-grab': !!image, 'cursor-grabbing': _dragging}"
+              @mousedown="mouseDown($event)"
+              @mousemove="mouseMove($event)"
+              @mouseup="mouseUp()"
+              @mouseleave="mouseUp()"
+              @touchstart.prevent="touchStart($event)"
+              @touchmove.prevent="touchMove($event)"
+              @touchend="touchEnd()"
+            >
+              <canvas x-ref="canvas"></canvas>
+              <div class="canvas-overlay-hint">Drag to reposition</div>
+            </div>
+          </div>
+
+          <!-- Zoom slider -->
+          <div class="zoom-bar">
+            <span class="zoom-label">Zoom</span>
+            <input type="range" min="50" max="300" step="1" x-model.number="zoomSlider" @input="onZoomSlider()"/>
+            <span class="zoom-val" x-text="zoomSlider + '%'"></span>
+          </div>
+
+          <!-- Size info -->
+          <div class="size-info">
+            <div class="size-info-item">
+              <div class="size-info-val" x-text="preset.w + ' × ' + preset.h"></div>
+              <div class="size-info-key">Pixels</div>
+            </div>
+            <div class="size-info-item">
+              <div class="size-info-val" x-text="preset.ratio"></div>
+              <div class="size-info-key">Ratio</div>
+            </div>
+            <div class="size-info-item">
+              <div class="size-info-val" x-text="preset.label"></div>
+              <div class="size-info-key">Format</div>
+            </div>
+            <div class="size-info-item">
+              <div class="size-info-val" x-text="format.toUpperCase()"></div>
+              <div class="size-info-key">Output</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </template>
+
+  <!-- Ad -->
+  <div class="ad-slot" style="margin-top:24px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- ── Instagram Format Size Reference ── -->
+  <div class="page-section" style="margin-top:20px">
+    <div class="section-head">
+      <h2 class="section-title">Instagram Post Size Reference</h2>
+      <p class="section-desc">Every format Instagram supports — and the exact pixel dimensions you need.</p>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="size-table">
+        <thead>
+          <tr>
+            <th>Format</th>
+            <th>Dimensions</th>
+            <th>Ratio</th>
+            <th>Use case</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Square Feed <span class="size-badge">Most used</span></td><td>1080 × 1080 px</td><td>1:1</td><td>Standard feed post, carousel slides, product shots</td></tr>
+          <tr><td>Portrait Feed <span class="size-badge">Best reach</span></td><td>1080 × 1350 px</td><td>4:5</td><td>Takes up more vertical feed space — more impressions per scroll</td></tr>
+          <tr><td>Landscape Feed</td><td>1080 × 566 px</td><td>1.91:1</td><td>Cinematic wide shots, panoramas, banner-style posts</td></tr>
+          <tr><td>Story <span class="size-badge">Reels cover</span></td><td>1080 × 1920 px</td><td>9:16</td><td>Instagram Stories, Reels cover image, IGTV preview</td></tr>
+          <tr><td>Profile Photo</td><td>320 × 320 px</td><td>1:1</td><td>Shown at 110×110, stored at 320×320. Circle crop preview included.</td></tr>
+          <tr><td>IGTV Cover</td><td>420 × 654 px</td><td>1:1.55</td><td>Channel cover shown on your profile IGTV tab</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── What This Tool Does ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">What This Tool Does</h2>
+      <p class="section-desc">Every Instagram format in one place — resize, reposition, and download without leaving your browser.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📐</div>
+        <div class="feature-title">6 Instagram presets</div>
+        <div class="feature-desc">Square, Portrait, Landscape, Story/Reels, Profile Photo, and IGTV Cover — all the formats Instagram supports, preset to the exact recommended pixel dimensions.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✋</div>
+        <div class="feature-title">Drag to reposition</div>
+        <div class="feature-desc">After loading your image, drag it directly on the canvas to frame your subject exactly where you want it. Works with mouse and touch on mobile.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-title">Zoom slider</div>
+        <div class="feature-desc">Zoom from 50% to 300% of the auto-fit zoom level. Zooming anchors to the canvas centre so your subject stays in frame as you adjust.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <div class="feature-title">Fill or Fit mode</div>
+        <div class="feature-desc">Fill scales your image to cover the entire canvas (like object-fit: cover). Fit shows the whole image with a coloured background filling the gaps — great for product shots.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚫</div>
+        <div class="feature-title">Background fill colour</div>
+        <div class="feature-desc">Pick any background colour for letterboxed images in Fit mode. White gives a clean product look; transparent is exported as PNG; black suits editorial photos.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">100% browser-based</div>
+        <div class="feature-desc">No upload, no server, no signup. Your image is processed entirely in your browser using the Canvas API and downloaded directly to your device.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── How to Use ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">How to Use This Tool</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div>
+          <div class="step-title">Upload your image</div>
+          <div class="step-desc">Click "Choose File" or drag and drop any image onto the upload zone. JPEG, PNG, WebP, and GIF are all supported. The file stays on your device — nothing is uploaded.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div>
+          <div class="step-title">Choose a format preset</div>
+          <div class="step-desc">Pick from the six Instagram presets on the left panel. Each button shows the pixel dimensions and aspect ratio. Switching presets instantly re-renders the canvas.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div>
+          <div class="step-title">Choose Fill or Fit mode</div>
+          <div class="step-desc">Fill covers the full canvas — ideal for photos. Fit shows the whole image with a background fill — ideal for logos or product images you don't want cropped.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div>
+          <div class="step-title">Drag and zoom to frame</div>
+          <div class="step-desc">Click and drag the preview to reposition your image. Use the Zoom slider to adjust how much of the image fills the canvas. Zoom anchors to the canvas centre.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">5</div>
+        <div>
+          <div class="step-title">Set output options</div>
+          <div class="step-desc">Choose JPEG (with adjustable quality from 50–100%) or PNG (lossless, supports transparency). Set the background colour for any letterboxed areas in Fit mode.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">6</div>
+        <div>
+          <div class="step-title">Download and post</div>
+          <div class="step-desc">Click Download Image. The file saves with a descriptive name (e.g. <code>photo-ig-portrait-1080x1350.jpg</code>) so you always know the format. Upload directly to Instagram.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── Logic Behind ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Logic Behind the Tool</h2>
+    </div>
+    <div class="logic-grid">
+      <div class="logic-card">
+        <div class="logic-title">HTML5 Canvas API</div>
+        <div class="logic-desc">The resized output is drawn on an off-screen <code>&lt;canvas&gt;</code> element at the full Instagram pixel dimensions (e.g. 1080×1080). The canvas is then exported via <code>toDataURL()</code> as JPEG or PNG and downloaded client-side — no server round-trip.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Fill vs Fit scaling</div>
+        <div class="logic-desc">Fill mode computes <code>Math.max(canvasW / imgW, canvasH / imgH)</code> to get the smallest scale that covers the canvas. Fit mode uses <code>Math.min()</code> to find the largest scale where the full image fits. Both centre the image by default.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Drag repositioning</div>
+        <div class="logic-desc">Mouse and touch coordinates are captured in canvas-space by scaling the client position by <code>canvas.width / rect.width</code>. The delta from mousedown to mousemove is added to the stored offset, then the canvas redraws on every frame — giving a smooth drag experience.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Centre-anchored zoom</div>
+        <div class="logic-desc">When the zoom slider changes, the new offset is computed as <code>centre - (centre - oldOffset) × newZoom / oldZoom</code>, keeping the canvas centre pixel fixed as an anchor point. This prevents the image jumping when you zoom.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Profile photo circle crop</div>
+        <div class="logic-desc">For the Profile Photo preset the canvas draws a circular clipping path using <code>ctx.arc()</code> before rendering the image. The resulting PNG has a transparent background outside the circle — matching exactly what Instagram renders for profile pictures.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Display vs export resolution</div>
+        <div class="logic-desc">The canvas element is set to full Instagram pixel dimensions internally (e.g. 1080×1920) but displayed at a smaller size via CSS <code>width: 100%</code>. This means the downloaded image is always full resolution regardless of your screen size.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FAQ ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is the best image size for an Instagram feed post?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>The recommended width for all Instagram feed posts is <strong>1080 pixels</strong>. For height, it depends on your aspect ratio: Square (1:1) is 1080×1080, Portrait (4:5) is 1080×1350, and Landscape (1.91:1) is 1080×566. Instagram will accept images as small as 320px wide, but they will appear blurry on modern screens. Always export at 1080px wide for the sharpest result.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Which Instagram format gets the most reach — portrait, square, or landscape?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Portrait (4:5, 1080×1350) consistently outperforms square and landscape in feed reach because it occupies more vertical screen space on mobile — meaning it takes up more of the user's feed before they scroll past it. The extra real estate translates to longer dwell time and more impressions per post. If you're choosing between formats purely for reach, portrait is the strongest option for feed posts.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Why does my image look blurry on Instagram after uploading?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Instagram recompresses images when you upload them, especially if the source file is below the recommended dimensions or is already heavily compressed. To minimize quality loss: upload at exactly 1080px wide, use JPEG with a quality of 80–95% (not 100% — oversized files can trigger more aggressive compression), and keep your file size under 8 MB. Avoid uploading images that have been previously recompressed multiple times.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What size should Instagram Story images be?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Instagram Stories should be <strong>1080×1920 pixels</strong> (9:16 ratio). This fills the entire phone screen with no letterboxing. The same dimensions apply to Reels cover images. Keep important content (faces, text, logos) in the centre 1080×1420 zone — Instagram overlays UI elements in the top and bottom ~250 pixels, including the username, progress bar, and reply bar.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Does this tool work on mobile?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Yes. The tool is fully responsive and supports touch drag to reposition. Tap and drag the preview to move the image, and use the zoom slider to adjust framing. Downloading works on iOS Safari and Android Chrome. Note that on some iOS versions the download may open in a new tab — long-press the image and tap "Save to Photos" as an alternative.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Can I use PNG with a transparent background?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Select PNG as the output format and set the background colour to any colour you want for Fit mode. If you're using Fill mode with no letterboxing, there are no background pixels to worry about. Note that Instagram does not support transparent images — if you upload a PNG with transparency, Instagram will replace the transparent areas with white. For logos on a coloured background, use Fit mode with your chosen fill colour and export as JPEG.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── Related Tools ── -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="../image/image-resizer.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#6366f1,#818cf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div>
+        <div class="related-name">Image Resizer</div>
+        <div class="related-desc">Resize to any custom pixel dimension with aspect ratio lock and before/after preview.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../image/image-crop.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#e11d48,#f43f5e)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg></div>
+        <div class="related-name">Image Crop Tool</div>
+        <div class="related-desc">Free-form or ratio-locked crop with drag handles, rule-of-thirds grid.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../image/image-compressor.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="related-name">Image Compressor</div>
+        <div class="related-desc">Compress JPEG, PNG, and WebP in-browser — reduce file size before posting.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="yt-thumbnail-downloader.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#cc0000,#ff4444)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        <div class="related-name">YT Thumbnail Downloader</div>
+        <div class="related-desc">Download YouTube thumbnails in all resolutions — HD, SD, and Max Res.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── Related Blog ── -->
+  <div class="page-section" style="margin-top:0">
+    <h2 class="section-title" style="margin-bottom:16px">Related Reading</h2>
+    <div class="blog-related-grid">
+      <a href="../../blog/instagram-post-sizes-guide.html" class="blog-card">
+        <div class="blog-tag-sm">📸 Instagram</div>
+        <div class="blog-title-sm">Why Your Instagram Posts Look Blurry — and the Exact Sizes That Fix It</div>
+        <div class="blog-link">Read →</div>
+      </a>
+      <a href="../../blog/image-format-guide.html" class="blog-card">
+        <div class="blog-tag-sm">🖼 Images</div>
+        <div class="blog-title-sm">JPEG vs PNG vs WebP — Which Format Should You Actually Use?</div>
+        <div class="blog-link">Read →</div>
+      </a>
+      <a href="../../blog/youtube-thumbnail-design.html" class="blog-card">
+        <div class="blog-tag-sm">▶ YouTube</div>
+        <div class="blog-title-sm">Why Your YouTube Thumbnail Is Losing You Clicks</div>
+        <div class="blog-link">Read →</div>
+      </a>
+      <a href="../../blog/youtube-growth-strategy.html" class="blog-card">
+        <div class="blog-tag-sm">📈 Growth</div>
+        <div class="blog-title-sm">What Actually Makes a YouTube Channel Grow in 2026</div>
+        <div class="blog-link">Read →</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <rect x="7" y="9" width="22" height="18" rx="4" fill="#fff" fill-opacity=".9"/>
+          <polygon points="15,13 15,23 24,18" fill="#E1306C"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#833AB4"/><stop offset="1" stop-color="#E1306C"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#social-media">Social Tools</a><a href="../../tools.html#image">Image Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a><a href="../../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="instagram-post-resizer.js"></script>
+</body>
+</html>

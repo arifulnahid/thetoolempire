@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>What Your Phone Photos Know About You (And How to Remove It) | The Tool Empire</title>
+  <meta name="description" content="Every photo your smartphone takes contains hidden EXIF data — including your exact GPS location, the time and date, and your device model. Here's what it reveals and how to remove it before sharing."/>
+  <meta name="keywords" content="photo metadata privacy, exif data privacy, remove gps from photo, photo location data, exif metadata explained, how to remove metadata from photo, smartphone photo privacy, exif viewer"/>
+  <meta name="author" content="The Tool Empire"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/blog/image-metadata-privacy-guide.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="What Your Phone Photos Know About You (And How to Remove It)"/>
+  <meta property="og:description" content="Every photo your smartphone takes contains hidden EXIF data — your exact GPS location, device model, and shooting details. Here's what it reveals and how to remove it."/>
+  <meta property="og:url" content="https://thetoolempire.com/blog/image-metadata-privacy-guide.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"BlogPosting","headline":"What Your Phone Photos Know About You (And How to Remove It)","description":"Every photo your smartphone takes contains hidden EXIF metadata — exact GPS location, device model, date/time, and camera settings. This guide explains what's inside, who can read it, and exactly how to remove it before sharing.","url":"https://thetoolempire.com/blog/image-metadata-privacy-guide.html","datePublished":"2026-06-07","dateModified":"2026-06-07","author":{"@type":"Organization","name":"The Tool Empire"},"publisher":{"@type":"Organization","name":"The Tool Empire","url":"https://thetoolempire.com"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://thetoolempire.com/blog/image-metadata-privacy-guide.html"}},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Blog","item":"https://thetoolempire.com/blog.html"},
+      {"@type":"ListItem","position":3,"name":"Photo Metadata Privacy Guide","item":"https://thetoolempire.com/blog/image-metadata-privacy-guide.html"}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="../assets/css/blog.css"/>
+  <style>
+    :root { --accent:#7c3aed; --accent-dim:rgba(124,58,237,.1); --accent-border:rgba(124,58,237,.22); }
+    .progress-bar { background:linear-gradient(135deg,#7c3aed,#4f46e5); }
+    a { color:var(--accent); }
+    .tag-pill { background:var(--accent-dim); color:var(--accent); }
+    .toc a:hover { color:var(--accent); }
+    blockquote { border-left-color:var(--accent); background:var(--accent-dim); }
+    .callout.tip  { border-color:rgba(34,197,94,.35);  background:rgba(34,197,94,.06); }
+    .callout.info { border-color:rgba(59,130,246,.35);  background:rgba(59,130,246,.06); }
+    .callout.warn { border-color:rgba(234,179,8,.35);   background:rgba(234,179,8,.06); }
+    .callout.danger{border-color:rgba(239,68,68,.35);   background:rgba(239,68,68,.06); }
+    .tool-spotlight { border:1px solid var(--accent-border); background:var(--accent-dim); border-radius:14px; padding:24px 28px; margin:32px 0; }
+    .tool-spotlight .sp-label { font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin-bottom:6px; }
+    .tool-spotlight h3 { font-size:1.2rem; font-weight:700; margin:0 0 8px; color:#f0f0f8; }
+    .tool-spotlight p { font-size:.9rem; color:#8888a8; margin:0 0 14px; }
+    .btn-spotlight { display:inline-block; padding:9px 20px; border-radius:8px; background:linear-gradient(135deg,#7c3aed,#4f46e5); color:#fff; font-weight:700; font-size:.88rem; text-decoration:none; }
+
+    /* EXIF data display */
+    .exif-sample { background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08); border-radius:10px; overflow:hidden; margin:20px 0; }
+    .exif-sample-title { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#666; padding:8px 14px; background:rgba(255,255,255,.03); border-bottom:1px solid rgba(255,255,255,.06); }
+    .exif-row { display:grid; grid-template-columns:180px 1fr; gap:8px; padding:7px 14px; border-bottom:1px solid rgba(255,255,255,.04); font-size:.82rem; }
+    .exif-row:last-child { border-bottom:none; }
+    .exif-key { color:#666; font-weight:600; }
+    .exif-val { color:#9999b8; font-family:monospace; font-size:.78rem; }
+    .exif-val.sensitive { color:#f87171; }
+    .exif-val.moderate  { color:#facc15; }
+    .exif-val.safe      { color:#4ade80; }
+    @media(max-width:520px){ .exif-row{grid-template-columns:1fr;} .exif-key{border-bottom:none} }
+
+    /* Risk levels */
+    .risk-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px; margin:18px 0; }
+    .risk-card { border-radius:10px; padding:16px; }
+    .risk-card.high   { background:rgba(239,68,68,.08);  border:1px solid rgba(239,68,68,.2); }
+    .risk-card.medium { background:rgba(250,204,21,.06); border:1px solid rgba(250,204,21,.2); }
+    .risk-card.low    { background:rgba(34,197,94,.06);  border:1px solid rgba(34,197,94,.2); }
+    .risk-label { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; margin-bottom:6px; }
+    .risk-card.high   .risk-label { color:#f87171; }
+    .risk-card.medium .risk-label { color:#facc15; }
+    .risk-card.low    .risk-label { color:#4ade80; }
+    .risk-field { font-size:.88rem; font-weight:700; color:#e0e0f0; margin-bottom:4px; }
+    .risk-why { font-size:.78rem; color:#777; line-height:1.4; }
+
+    /* Platform table */
+    .platform-table { width:100%; border-collapse:collapse; margin:18px 0; font-size:.84rem; }
+    .platform-table th { background:rgba(255,255,255,.05); color:#aaa; font-weight:700; padding:9px 12px; text-align:left; border-bottom:1px solid rgba(255,255,255,.1); }
+    .platform-table td { padding:9px 12px; border-bottom:1px solid rgba(255,255,255,.05); color:#888; }
+    .platform-table tr:last-child td { border-bottom:none; }
+    .badge-strips { background:rgba(34,197,94,.12); color:#4ade80; padding:2px 8px; border-radius:4px; font-size:.72rem; font-weight:700; }
+    .badge-keeps  { background:rgba(239,68,68,.12);  color:#f87171; padding:2px 8px; border-radius:4px; font-size:.72rem; font-weight:700; }
+  </style>
+</head>
+<body>
+
+<div class="reading-progress-bar"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <rect x="7" y="9" width="22" height="18" rx="4" fill="#fff" fill-opacity=".9"/>
+        <path d="M12 20l4-5 3 4 2-2 3 3" stroke="#7c3aed" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#7c3aed"/><stop offset="1" stop-color="#4f46e5"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../tools.html" class="nav-link">Tools</a>
+      <a href="../blog.html" class="nav-link active">Blog</a>
+      <a href="../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="blog-wrap">
+  <main class="blog-main">
+
+    <nav aria-label="Breadcrumb" style="margin-bottom:16px">
+      <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.78rem;color:#555570;flex-wrap:wrap;padding:0">
+        <li><a href="../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+        <li><a href="../blog.html" style="color:#8888a8">Blog</a></li><li>›</li>
+        <li style="color:#e8e8f0">Photo Metadata Privacy</li>
+      </ol>
+    </nav>
+
+    <div class="blog-header">
+      <div class="blog-tags" style="margin-bottom:12px">
+        <span class="tag-pill">Privacy</span>
+        <span class="tag-pill">Security</span>
+        <span class="tag-pill">Images</span>
+      </div>
+      <h1 class="blog-title">What Your Phone Photos Know About You (And How to Remove It)</h1>
+      <p class="blog-subtitle">Most people have no idea how much personal information is embedded in every photo their phone takes. The location of your home. The exact time you woke up. Which device you own. Here's what EXIF metadata is, what it reveals, and the exact steps to remove it.</p>
+      <div class="blog-meta">
+        <div class="author-mini">
+          <div class="author-avatar">T</div>
+          <div>
+            <div style="font-weight:600;font-size:.85rem">The Tool Empire</div>
+            <div style="font-size:.75rem;color:#555570">Privacy & Tools</div>
+          </div>
+        </div>
+        <div class="blog-meta-items">
+          <span>June 7, 2026</span><span>·</span>
+          <span>9 min read</span><span>·</span>
+          <span>Privacy</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+
+    <div class="blog-content">
+
+      <p>You take a photo of your new apartment, post it in a group chat, and think nothing of it. But inside that image file — invisible to the naked eye — is a block of data that includes the exact latitude and longitude of the room where you took it, rounded to the nearest few metres.</p>
+
+      <p>This data is called EXIF metadata, and it's embedded in almost every JPEG photo taken by a smartphone or digital camera. Understanding what it contains, who can read it, and how to remove it before sharing is one of the more practical privacy habits you can build.</p>
+
+      <h2 id="what-is-exif">What Is EXIF Metadata?</h2>
+
+      <p>EXIF stands for Exchangeable Image File Format. It's a standard, established in 1995, for embedding structured data inside JPEG and TIFF image files. The standard was designed primarily to let cameras record the technical conditions of a shot — aperture, shutter speed, ISO — so that photographers could review their settings after the fact.</p>
+
+      <p>Smartphones took that concept and expanded it considerably. Here's what a typical iPhone or Android photo EXIF block looks like:</p>
+
+      <div class="exif-sample">
+        <div class="exif-sample-title">Sample EXIF data from a typical smartphone photo</div>
+        <div class="exif-row"><span class="exif-key">GPS Latitude</span><span class="exif-val sensitive">51.5074° N (51° 30' 26.64" N)</span></div>
+        <div class="exif-row"><span class="exif-key">GPS Longitude</span><span class="exif-val sensitive">-0.1278° W (0° 7' 40.08" W)</span></div>
+        <div class="exif-row"><span class="exif-key">GPS Altitude</span><span class="exif-val sensitive">42.3 metres above sea level</span></div>
+        <div class="exif-row"><span class="exif-key">Date/Time Original</span><span class="exif-val moderate">2026:06:07 07:43:22</span></div>
+        <div class="exif-row"><span class="exif-key">Make</span><span class="exif-val moderate">Apple</span></div>
+        <div class="exif-row"><span class="exif-key">Model</span><span class="exif-val moderate">iPhone 16 Pro</span></div>
+        <div class="exif-row"><span class="exif-key">Software</span><span class="exif-val moderate">18.4.1</span></div>
+        <div class="exif-row"><span class="exif-key">Focal Length</span><span class="exif-val safe">6.86 mm (24mm equiv)</span></div>
+        <div class="exif-row"><span class="exif-key">Aperture (FNumber)</span><span class="exif-val safe">f/1.8</span></div>
+        <div class="exif-row"><span class="exif-key">Shutter Speed</span><span class="exif-val safe">1/120 s</span></div>
+        <div class="exif-row"><span class="exif-key">ISO</span><span class="exif-val safe">64</span></div>
+        <div class="exif-row"><span class="exif-key">Flash</span><span class="exif-val safe">Did not fire</span></div>
+      </div>
+
+      <p>The GPS coordinates in that sample are accurate to within about 3–5 metres of the actual camera position. If someone with the right tools opens your photo, they can paste those coordinates directly into Google Maps and see exactly where it was taken.</p>
+
+      <h2 id="who-can-read">Who Can Read Your EXIF Data?</h2>
+
+      <p>Reading EXIF data requires almost no technical skill. It's built into Windows (right-click → Properties → Details), macOS (Get Info → More Info), and every modern photo editing application. Online tools can parse it from an uploaded image in seconds. There's nothing to crack or decode — the data is stored in plain text inside the file.</p>
+
+      <p>If you share the original image file — through email, a file transfer, Telegram with "Send as file" selected, AirDrop, or a direct download link — the EXIF data travels with it. The recipient has full access to every field, including GPS, with zero effort.</p>
+
+      <h2 id="privacy-risk">The Privacy Risk Breakdown</h2>
+
+      <p>Not all EXIF fields carry the same risk. Here's a quick breakdown by severity:</p>
+
+      <div class="risk-grid">
+        <div class="risk-card high">
+          <div class="risk-label">⚠ High risk</div>
+          <div class="risk-field">GPS Latitude &amp; Longitude</div>
+          <div class="risk-why">Reveals exact location of where the photo was taken — often your home, workplace, or daily routine.</div>
+        </div>
+        <div class="risk-card high">
+          <div class="risk-label">⚠ High risk</div>
+          <div class="risk-field">GPS Altitude</div>
+          <div class="risk-why">Can indicate which floor of a building you're on, or confirm geographic region when combined with lat/lng.</div>
+        </div>
+        <div class="risk-card medium">
+          <div class="risk-label">⚡ Medium risk</div>
+          <div class="risk-field">Date &amp; Time Taken</div>
+          <div class="risk-why">Establishes your schedule and routine. Reveals when you wake up, when you travel, when you're home.</div>
+        </div>
+        <div class="risk-card medium">
+          <div class="risk-label">⚡ Medium risk</div>
+          <div class="risk-field">Device Make &amp; Model</div>
+          <div class="risk-why">Reveals the specific phone model you own, which can be useful for targeted phishing or social engineering.</div>
+        </div>
+        <div class="risk-card medium">
+          <div class="risk-label">⚡ Medium risk</div>
+          <div class="risk-field">Software Version</div>
+          <div class="risk-why">Reveals your OS version, which can indicate whether your device has known vulnerabilities.</div>
+        </div>
+        <div class="risk-card low">
+          <div class="risk-label">✓ Low risk</div>
+          <div class="risk-field">Aperture, Shutter, ISO</div>
+          <div class="risk-why">Camera technical settings. Useful for photographers but contains no identifying personal information.</div>
+        </div>
+      </div>
+
+      <h2 id="social-media">Do Social Platforms Remove EXIF Automatically?</h2>
+
+      <p>Yes — most do. But not all, and not always, and the ones that do still hold your original data on their servers even after stripping it from the public-facing version of the file.</p>
+
+      <table class="platform-table">
+        <thead><tr><th>Platform</th><th>Strips EXIF on upload?</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Instagram</td><td><span class="badge-strips">Strips all</span></td><td>EXIF removed from all images. GPS never exposed publicly.</td></tr>
+          <tr><td>Facebook</td><td><span class="badge-strips">Strips all</span></td><td>Removes EXIF from the downloadable version. Retains internally.</td></tr>
+          <tr><td>Twitter / X</td><td><span class="badge-strips">Strips all</span></td><td>EXIF stripped on upload since 2012.</td></tr>
+          <tr><td>WhatsApp</td><td><span class="badge-strips">Strips all</span></td><td>Strips metadata when sending as a photo. "Document" sends preserve EXIF.</td></tr>
+          <tr><td>Telegram</td><td><span class="badge-strips">Strips (photos)</span></td><td>Strips when sent as photo. <strong>Preserves EXIF when sent as "File".</strong></td></tr>
+          <tr><td>Signal</td><td><span class="badge-strips">Strips all</span></td><td>By design, strips metadata on all media sends.</td></tr>
+          <tr><td>Flickr</td><td><span class="badge-keeps">Keeps all</span></td><td>Preserves and displays EXIF as a feature for photographers.</td></tr>
+          <tr><td>Email (attachment)</td><td><span class="badge-keeps">Keeps all</span></td><td>EXIF fully preserved. No stripping.</td></tr>
+          <tr><td>AirDrop / file transfer</td><td><span class="badge-keeps">Keeps all</span></td><td>EXIF fully preserved. No stripping.</td></tr>
+          <tr><td>Google Drive (link)</td><td><span class="badge-keeps">Keeps all</span></td><td>Original file served — EXIF intact to anyone with the link.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout warn">
+        <strong>Telegram "Send as File" is a common mistake.</strong> When you press and hold the send button in Telegram and choose "Send as File," the file is sent without any processing — including all EXIF metadata. Most people don't realise this distinction exists.
+      </div>
+
+      <h2 id="real-world">Real-World Cases Where EXIF Data Caused Problems</h2>
+
+      <p>This isn't theoretical. There are documented cases where EXIF metadata was used to locate people who didn't intend to reveal their location:</p>
+
+      <ul style="margin:14px 0 14px 20px;display:flex;flex-direction:column;gap:10px">
+        <li style="color:#9999b8">A woman posted photos of her car for sale online without removing EXIF data. The GPS coordinates pointed to her home address. The buyer knew where she lived before they ever exchanged messages.</li>
+        <li style="color:#9999b8">Journalists and privacy researchers have repeatedly demonstrated that public figures who share unedited photos can be located through EXIF — even photos taken indoors, since GPS can lock via nearby Wi-Fi networks.</li>
+        <li style="color:#9999b8">Anonymous whistleblowers and activists have been identified through EXIF data embedded in documents and images they shared through channels they believed were secure.</li>
+      </ul>
+
+      <p>The issue isn't malicious hackers — it's that anyone who receives an image and knows what to look for has access to this data by default.</p>
+
+      <h2 id="how-to-remove">How to Remove EXIF Metadata</h2>
+
+      <p>There are several ways to remove EXIF metadata, depending on your situation:</p>
+
+      <p><strong>Method 1: Use a browser-based metadata editor.</strong> The easiest option for occasional use. Upload the image, click "Strip All Metadata," and download a clean version. Everything happens locally — nothing is sent to a server.</p>
+
+      <div class="tool-spotlight">
+        <div class="sp-label">Free Tool</div>
+        <h3>Image Metadata Editor</h3>
+        <p>View all EXIF tags in your image, edit author/copyright/GPS fields, or strip all metadata in one click. 100% browser-based — your image never leaves your device.</p>
+        <a href="../tools/image/image-metadata-editor.html" class="btn-spotlight">Remove metadata →</a>
+      </div>
+
+      <p><strong>Method 2: On iOS, use the built-in location removal.</strong> When sharing a photo through the iOS share sheet, tap "Options" at the top and turn off "Location." This strips the GPS from the shared version without modifying the original in your camera roll.</p>
+
+      <p><strong>Method 3: On Android.</strong> Android doesn't have a universal built-in metadata removal option (it varies by manufacturer and version). The most reliable approach is to screenshot the image (screenshots don't contain GPS EXIF), or use a dedicated app like Scrambled EXIF before sharing.</p>
+
+      <p><strong>Method 4: On Windows.</strong> Right-click the file → Properties → Details → "Remove Properties and Personal Information" → Select All → OK. This removes most EXIF fields including GPS, though the resulting file still contains some basic image data.</p>
+
+      <p><strong>Method 5: On macOS.</strong> Open in Preview, export as JPEG — Preview's export does not preserve EXIF. Or use the Terminal with ExifTool: <code>exiftool -all= filename.jpg</code>.</p>
+
+      <p><strong>Method 6: ExifTool (batch).</strong> For removing metadata from many files at once: <code>exiftool -all= *.jpg</code> strips all EXIF from every JPEG in the current directory. ExifTool is free, cross-platform, and the most powerful metadata editing tool available.</p>
+
+      <h2 id="when-to-care">When Should You Actually Care?</h2>
+
+      <p>For most everyday use, EXIF data is not a meaningful threat. If you're posting to Instagram, Facebook, or Twitter, those platforms strip the data before anyone else sees it. If you're sharing to a family group chat on WhatsApp, the metadata is stripped too.</p>
+
+      <p>The cases where you should actively remove metadata before sharing:</p>
+
+      <ul style="margin:14px 0 14px 20px;display:flex;flex-direction:column;gap:8px">
+        <li style="color:#9999b8"><strong style="color:#e0e0f0">Selling items online (Craigslist, Facebook Marketplace, eBay).</strong> Photos sent or posted may retain GPS pointing to your home.</li>
+        <li style="color:#9999b8"><strong style="color:#e0e0f0">Sending files via email or AirDrop.</strong> No platform strips metadata for you.</li>
+        <li style="color:#9999b8"><strong style="color:#e0e0f0">Sharing in Telegram as "File" or on Flickr.</strong> EXIF is preserved by design.</li>
+        <li style="color:#9999b8"><strong style="color:#e0e0f0">Publishing photos on your own website.</strong> Images served as static files retain all original EXIF unless you strip them during upload processing.</li>
+        <li style="color:#9999b8"><strong style="color:#e0e0f0">Any situation where you need anonymity.</strong> Photos of protests, sensitive locations, or anything where your identity or location should not be traceable.</li>
+      </ul>
+
+      <p>The habit is simple: before sending a photo outside of a metadata-stripping platform, take ten seconds to strip the EXIF. You only need to do it when you're sharing the raw file directly — and most of the time, you're not.</p>
+
+    </div>
+
+    <div class="ad-slot" style="margin-top:32px">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+
+    <div class="blog-related">
+      <h3 class="related-title">Related Posts</h3>
+      <div class="related-posts">
+        <a href="../blog/password-security-guide.html" class="related-post">
+          <div class="rp-tag">Security</div>
+          <div class="rp-title">Your Password Is Probably Terrible — Here's Why It Matters</div>
+        </a>
+        <a href="../blog/phishing-attacks-explained.html" class="related-post">
+          <div class="rp-tag">Security</div>
+          <div class="rp-title">What a Phishing Attack Actually Looks Like From the Inside</div>
+        </a>
+        <a href="../blog/image-format-guide.html" class="related-post">
+          <div class="rp-tag">Images</div>
+          <div class="rp-title">JPEG vs PNG vs WebP — Which Format Should You Actually Use?</div>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <aside class="blog-sidebar">
+    <div class="toc">
+      <div class="toc-title">In This Article</div>
+      <a href="#what-is-exif">What is EXIF metadata?</a>
+      <a href="#who-can-read">Who can read it?</a>
+      <a href="#privacy-risk">Privacy risk breakdown</a>
+      <a href="#social-media">Social media platforms</a>
+      <a href="#real-world">Real-world examples</a>
+      <a href="#how-to-remove">How to remove it</a>
+      <a href="#when-to-care">When to actually care</a>
+    </div>
+    <div class="sidebar-tool">
+      <div class="st-label">Free Tool</div>
+      <div class="st-name">Image Metadata Editor</div>
+      <div class="st-desc">View all EXIF tags, edit author and GPS fields, or strip all metadata from JPEG images.</div>
+      <a href="../tools/image/image-metadata-editor.html" class="st-btn">Try it free →</a>
+    </div>
+  </aside>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <rect x="7" y="9" width="22" height="18" rx="4" fill="#fff" fill-opacity=".9"/>
+          <path d="M12 20l4-5 3 4 2-2 3 3" stroke="#7c3aed" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#7c3aed"/><stop offset="1" stop-color="#4f46e5"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../tools.html#image">Image Tools</a><a href="../tools.html#security">Security Tools</a><a href="../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../about.html">About</a><a href="../blog.html">Blog</a><a href="../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<script>
+  const bar = document.getElementById('progressBar');
+  window.addEventListener('scroll', () => {
+    const s = document.documentElement;
+    bar.style.width = (s.scrollTop / (s.scrollHeight - s.clientHeight) * 100) + '%';
+  });
+</script>
+</body>
+</html>

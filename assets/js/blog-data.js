@@ -488,6 +488,19 @@ const BLOG_POSTS = [
 
   // ── PRODUCTIVITY ─────────────────────────────────────────────────
   {
+    id: 'image-metadata-privacy-guide',
+    title: 'What Your Phone Photos Know About You (And How to Remove It)',
+    excerpt: 'Every photo your smartphone takes contains hidden EXIF data — your exact GPS location, device model, and the time you took it. Here\'s what it reveals and how to remove it before sharing.',
+    category: 'Security',
+    catColor: '#06b6d4',
+    date: 'June 7, 2026',
+    dateISO: '2026-06-07',
+    readTime: '9 min read',
+    tags: ['Privacy', 'EXIF', 'Security', 'Images'],
+    imgClass: 5,
+    url: 'blog/image-metadata-privacy-guide.html',
+  },
+  {
     id: 'instagram-post-sizes-guide',
     title: 'Why Your Instagram Posts Look Blurry — and the Exact Sizes That Fix It',
     excerpt: 'Instagram silently recompresses and crops every photo you upload. Here are the exact pixel dimensions for every format and why getting them right matters more than you think.',

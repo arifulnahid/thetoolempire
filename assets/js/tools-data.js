@@ -347,6 +347,15 @@ const TOOLS_DATA = [
 
   // ── IMAGE TOOLS ────────────────────────────────────────────────
   {
+    id: 'image-metadata-editor',
+    title: 'Image Metadata Editor',
+    description: 'View, edit, and remove EXIF metadata from JPEG images. Edit author, copyright, GPS location, dates. Strip all metadata for privacy. No upload required.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 3H8l-2 4h12z"/><circle cx="12" cy="14" r="2.5"/></svg>',
+    color: 'linear-gradient(135deg,#7c3aed,#4f46e5)',
+    categories: ['image', 'security', 'utilities'],
+    url: 'tools/image/image-metadata-editor.html',
+  },
+  {
     id: 'image-compressor',
     title: 'Image Compressor',
     description: 'Compress JPEG, PNG, and WebP images in your browser. Adjust quality, resize dimensions, convert formats, and download — no upload to any server.',

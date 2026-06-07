@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>What Is a GeoTIFF and What's Actually Inside It | The Tool Empire</title>
+  <meta name="description" content="A plain-language explanation of GeoTIFF files — how the geotransform works, what EPSG codes mean, the difference between a COG and a regular TIFF, and how to read every piece of embedded metadata."/>
+  <meta name="keywords" content="geotiff explained, what is geotiff, geotiff metadata, geotransform, cog cloud optimised geotiff, geotiff epsg, tiff vs geotiff, raster gis"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/blog/geotiff-explained.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="What Is a GeoTIFF and What's Actually Inside It"/>
+  <meta property="og:description" content="Plain-language breakdown of GeoTIFF files — geotransform, EPSG codes, band types, COG structure, and all the metadata hiding in those TIFF tags."/>
+  <meta property="og:url" content="https://thetoolempire.com/blog/geotiff-explained.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"BlogPosting","headline":"What Is a GeoTIFF and What's Actually Inside It","description":"A plain-language explanation of GeoTIFF files — how the geotransform works, what EPSG codes mean, the difference between a COG and a regular TIFF, and how to read every piece of embedded metadata.","url":"https://thetoolempire.com/blog/geotiff-explained.html","datePublished":"2026-06-07","dateModified":"2026-06-07","author":{"@type":"Organization","name":"The Tool Empire"},"publisher":{"@type":"Organization","name":"The Tool Empire","url":"https://thetoolempire.com"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://thetoolempire.com/blog/geotiff-explained.html"}},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Blog","item":"https://thetoolempire.com/blog.html"},
+      {"@type":"ListItem","position":3,"name":"What Is a GeoTIFF and What's Actually Inside It","item":"https://thetoolempire.com/blog/geotiff-explained.html"}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="../assets/blog.css"/>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <circle cx="18" cy="18" r="10" stroke="#fff" stroke-width="2" fill="none"/>
+        <path d="M18 8v20M8 18h20M11 11l14 14M25 11L11 25" stroke="#fff" stroke-width="1.4" opacity=".7"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#f97316"/><stop offset="1" stop-color="#2dd4bf"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../tools.html" class="nav-link">Tools</a>
+      <a href="../blog.html" class="nav-link active">Blog</a>
+      <a href="../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="blog-wrap">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../blog.html" style="color:#8888a8">Blog</a></li><li>›</li>
+      <li style="color:#e8e8f0">What Is a GeoTIFF</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Header -->
+  <div class="blog-hero">
+    <div class="blog-meta">
+      <span class="blog-category">Raster GIS</span>
+      <span class="blog-date">June 7, 2026</span>
+      <span class="blog-read">10 min read</span>
+    </div>
+    <h1 class="blog-title">What Is a GeoTIFF and What's Actually Inside It</h1>
+    <p class="blog-lead">You have opened a .tif file. Maybe it shows satellite imagery, a DEM, or a land-cover classification. QGIS renders it correctly but you have no idea where the coordinates come from or what all those tags mean. This is the explainer nobody writes.</p>
+  </div>
+
+  <!-- Content -->
+  <article class="blog-content">
+
+    <!-- Section 1 -->
+    <h2>A TIFF file with geographic memory</h2>
+    <p>A regular TIFF is just a container for pixel data — rows and columns of numbers. A GeoTIFF is the same container with an extra suitcase of geographic metadata stuffed into it. That suitcase includes where the image is on Earth, what coordinate system it uses, how big each pixel is in real-world units, and often what software created it.</p>
+    <p>The geo metadata lives in special TIFF tags that are invisible to a regular image viewer. <code>ImageMagick convert</code> will render a GeoTIFF just fine, but it will not tell you the projection or bounding box. For that you need GDAL, QGIS, or a browser tool that reads those tags.</p>
+    <p>The GeoTIFF specification was first published in 1994 by Niles Ritter and Mike Ruth, standardized in 2019 as OGC standard 19-008r4. It is the dominant format for raster GIS data worldwide.</p>
+
+    <!-- CTA -->
+    <div class="cta-inline">
+      <div class="cta-icon">🛰</div>
+      <div class="cta-body">
+        <div class="cta-title">Read any GeoTIFF's metadata in seconds</div>
+        <div class="cta-desc">The GeoTIFF Inspector reads CRS, dimensions, bands, geotransform, and bounding box directly in your browser — no upload, no GDAL install needed.</div>
+        <a href="../tools/gis/geotiff-inspector.html" class="cta-btn">Open GeoTIFF Inspector →</a>
+      </div>
+    </div>
+
+    <!-- Section 2 -->
+    <h2>The three layers of metadata</h2>
+    <p>GeoTIFF metadata falls into three groups, each stored differently in the file:</p>
+    <ol>
+      <li><strong>Standard TIFF tags</strong> — image width, height, bits per sample, compression method, photometric interpretation. These are defined in the TIFF spec and present in every TIFF file.</li>
+      <li><strong>GeoTIFF geo keys</strong> — coordinate reference system, geotransform, model type. Stored in a custom tag called GeoKeyDirectory (tag ID 34736) and optionally GeoAsciiParams (34737) and GeoDoubleParams (34736).</li>
+      <li><strong>GDAL metadata</strong> — software name, creation date, no-data value, projection overrides, and freeform XML. Stored in tags like GDAL_METADATA, GDAL_NODATA, ImageDescription, and Software. These are unofficial but universally supported.</li>
+    </ol>
+    <p>When QGIS says it cannot find a projection, it means layer 2 is missing or the file uses a custom CRS that is not in the built-in EPSG database. The image can still be displayed, but it will not line up with other layers.</p>
+
+    <!-- Section 3 -->
+    <h2>The geotransform — six numbers that place every pixel on Earth</h2>
+    <p>The geotransform is the most important piece of geo metadata. It is a 6-element array — usually written as GT — that defines the affine relationship between pixel coordinates and geographic coordinates:</p>
+
+    <div class="code-block">
+<span class="cm">/* Map pixel (col, row) → geographic (X, Y) */</span>
+X = GT[0] + col × GT[1] + row × GT[2]
+Y = GT[3] + col × GT[4] + row × GT[5]
+
+<span class="cm">/* For a north-up, non-rotated image */</span>
+GT[0] = top-left X (longitude / easting)
+GT[1] = pixel width in X direction (positive, W→E)
+GT[2] = rotation coefficient (0 for north-up)
+GT[3] = top-left Y (latitude / northing)
+GT[4] = rotation coefficient (0 for north-up)
+GT[5] = pixel height in Y direction (negative, N→S)
+    </div>
+
+    <p>For a north-up image (the common case), GT[2] and GT[4] are zero. GT[5] is negative because rows increase downward while latitude increases upward. A 10-metre resolution DEM covering part of Europe might have:</p>
+    <div class="code-block">
+GT = [5.0, 0.0000899, 0, 53.0, 0, -0.0000899]
+<span class="cm">/* Origin at 5°E, 53°N. ~10m pixels in geographic degrees */</span>
+    </div>
+    <p>To find the bottom-right corner of a 5000×5000 image: X = 5.0 + 5000 × 0.0000899 = 5.4495, Y = 53.0 + 5000 × (−0.0000899) = 52.5505.</p>
+
+    <!-- Section 4 -->
+    <h2>The CRS — which Earth are we measuring?</h2>
+    <p>Coordinates alone are meaningless without knowing which coordinate reference system they use. The geotransform gives you numbers; the CRS tells you what those numbers represent.</p>
+    <p>GeoTIFF stores the CRS in the GeoKeyDirectory tag using keys defined in the GeoTIFF spec:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Key ID</th><th>Name</th><th>What it stores</th></tr></thead>
+        <tbody>
+          <tr><td>1024</td><td>GTModelTypeGeoKey</td><td>1=projected, 2=geographic, 3=geocentric</td></tr>
+          <tr><td>2048</td><td>GeographicTypeGeoKey</td><td>Geographic CRS EPSG code (e.g. 4326 for WGS 84)</td></tr>
+          <tr><td>3072</td><td>ProjectedCSTypeGeoKey</td><td>Projected CRS EPSG code (e.g. 32632 for UTM 32N)</td></tr>
+          <tr><td>2049</td><td>GeogCitationGeoKey</td><td>Human-readable CRS name string</td></tr>
+          <tr><td>3073</td><td>PCSCitationGeoKey</td><td>Human-readable projected CRS name</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>An EPSG code is a numeric identifier maintained by the IOGP (International Association of Oil &amp; Gas Producers). EPSG:4326 is WGS 84 geographic (the GPS standard). EPSG:3857 is Web Mercator (used by Google Maps and OpenStreetMap tiles). EPSG:32632 is WGS 84 / UTM zone 32N. There are over 9,000 EPSG codes covering every national grid, datum, and projection in common use.</p>
+    <p>The GeoAsciiParams tag stores a vertical bar-delimited string of CRS name components. It is the human-readable backup when the EPSG codes are absent or custom.</p>
+
+    <!-- Section 5 -->
+    <h2>Band types and data formats</h2>
+    <p>Unlike JPEG or PNG which store red/green/blue in one interleaved byte array, GeoTIFF stores multiple bands that can have completely different numeric types:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>SampleFormat</th><th>BitsPerSample</th><th>Typical use</th></tr></thead>
+        <tbody>
+          <tr><td>Unsigned integer</td><td>8</td><td>Natural colour imagery, land-use classification</td></tr>
+          <tr><td>Unsigned integer</td><td>16</td><td>Raw digital elevation model values (0–65535 m)</td></tr>
+          <tr><td>Signed integer</td><td>16</td><td>Elevation with negative values, −32768 to 32767</td></tr>
+          <tr><td>IEEE float</td><td>32</td><td>Processed DEM, temperature, precipitation, NDVI</td></tr>
+          <tr><td>IEEE float</td><td>64</td><td>High-precision scientific rasters</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>A 4-band Sentinel-2 image has bands 1–4 as uint16 (raw sensor counts 0–10000 representing surface reflectance × 10000). A SRTM DEM has a single band of int16. A GDAL-reprojected DEM often uses float32. The GDAL_NODATA tag tells GIS software which numeric value means "no measurement here" — common values are −9999, −32768, 0, or the float NaN equivalent.</p>
+
+    <!-- CTA -->
+    <div class="cta-inline">
+      <div class="cta-icon">🔍</div>
+      <div class="cta-body">
+        <div class="cta-title">Instantly check band types and no-data values</div>
+        <div class="cta-desc">Drop any GeoTIFF into the inspector — it shows band count, data type per band, no-data value, and compression without loading the pixel data.</div>
+        <a href="../tools/gis/geotiff-inspector.html" class="cta-btn">Open GeoTIFF Inspector →</a>
+      </div>
+    </div>
+
+    <!-- Section 6 -->
+    <h2>Compression methods — what each one costs you</h2>
+    <p>GeoTIFF supports multiple compression codecs, each with different trade-offs between file size, encoding speed, decoding speed, and lossy/lossless behaviour:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Compression</th><th>Lossy?</th><th>Best for</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>None</td><td>No</td><td>Processing pipelines, fastest read</td><td>Largest files — 3× to 10× bigger than LZW</td></tr>
+          <tr><td>LZW</td><td>No</td><td>General-purpose scientific data</td><td>Good for integer rasters, moderate ratio</td></tr>
+          <tr><td>Deflate/ZIP</td><td>No</td><td>Float rasters, DEMs</td><td>Better ratio than LZW for floating point data</td></tr>
+          <tr><td>ZSTD</td><td>No</td><td>Cloud storage, fast decode</td><td>Better ratio than Deflate, faster decode</td></tr>
+          <tr><td>JPEG</td><td>Yes</td><td>RGB imagery, photo-quality</td><td>Not suitable for DEMs or classified data — introduces artefacts at tile edges</td></tr>
+          <tr><td>WebP</td><td>Optional</td><td>COG imagery for web delivery</td><td>Smaller than JPEG at equivalent quality, lossy or lossless</td></tr>
+          <tr><td>PackBits</td><td>No</td><td>Older software compatibility</td><td>Minimal compression, fast decode</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Rule of thumb: use Deflate or ZSTD for DEMs and classification rasters, JPEG or WebP for natural colour imagery where small artefacts are acceptable. Never use JPEG for data products — it will corrupt your values in ways that are invisible to the eye but destructive for analysis.</p>
+
+    <!-- Section 7 -->
+    <h2>Tiled vs stripped layout</h2>
+    <p>A TIFF can store its pixel rows in one of two internal layouts:</p>
+    <ul>
+      <li><strong>Stripped</strong> — rows are grouped into horizontal strips of N rows each. Reading any single pixel requires loading the full strip. Fast for sequential row access, terrible for random spatial access.</li>
+      <li><strong>Tiled</strong> — the image is divided into rectangular tiles (256×256 or 512×512 are common). Reading a small area only requires loading the relevant tiles. Essential for large files and cloud storage.</li>
+    </ul>
+    <p>Always use tiled layout for files larger than a few hundred megabytes. GDAL's default is stripped; force tiling with <code>-co TILED=YES</code>. A tile size of 512 is a good default for most use cases. Smaller tiles mean more tiles to read for large areas; larger tiles waste bandwidth for small requests.</p>
+
+    <!-- Section 8 -->
+    <h2>Cloud Optimised GeoTIFF (COG) — the format built for streaming</h2>
+    <p>A COG is a GeoTIFF whose internal structure has been optimised for HTTP range requests. This lets a client read only the bytes it needs from a file hosted on S3, GCS, or any HTTP server — without downloading the whole file.</p>
+    <p>Three requirements make a GeoTIFF cloud-optimised:</p>
+    <ol>
+      <li><strong>Tiled layout</strong> — as described above. Without tiling, a single tile request still fetches a full strip.</li>
+      <li><strong>Internal overviews</strong> — reduced-resolution copies of the full image, stored as additional IFDs (Image File Directories) inside the same file. A zoom-level 8 web map request reads a small overview; a full-resolution analysis reads the base IFD. GDAL creates overviews with <code>gdaladdo -r average yourfile.tif 2 4 8 16</code>.</li>
+      <li><strong>IFD ordering</strong> — overviews come before the full-resolution data in the file, so a client can find them with a single range request to the file header instead of jumping around.</li>
+    </ol>
+    <p>COG is now the preferred format for publishing raster data on the web. AWS Open Data, Microsoft Planetary Computer, and Google Earth Engine all distribute data as COGs. Tools like rio-cogeo and GDAL's <code>/vsicurl/</code> virtual file system make it easy to read COGs remotely without downloading them.</p>
+
+    <!-- CTA -->
+    <div class="cta-inline">
+      <div class="cta-icon">☁️</div>
+      <div class="cta-body">
+        <div class="cta-title">Check if your GeoTIFF is COG-structured</div>
+        <div class="cta-desc">The GeoTIFF Inspector detects tiled layout, internal overview count, and flags COG structure — upload your file to check in seconds.</div>
+        <a href="../tools/gis/geotiff-inspector.html" class="cta-btn">Open GeoTIFF Inspector →</a>
+      </div>
+    </div>
+
+    <!-- Section 9 -->
+    <h2>BigTIFF — when your data outgrows 4 GB</h2>
+    <p>The classic TIFF format uses 32-bit offsets to locate data within the file, capping the maximum file size at 4 GB. BigTIFF uses 64-bit offsets, removing this limit. A single Sentinel-2 scene at full 10m resolution is already ~800 MB for one band; a full tile stack easily exceeds 4 GB.</p>
+    <p>BigTIFF files use magic bytes 43 instead of 42 at offset 2 in the file header (after the byte-order marker). GDAL creates BigTIFF automatically for large outputs, or explicitly with <code>-co BIGTIFF=YES</code>. Most modern GIS software reads BigTIFF transparently. Older software from before ~2008 may not.</p>
+
+    <!-- Section 10 -->
+    <h2>Reading GeoTIFF metadata without installing anything</h2>
+    <p>GDAL's <code>gdalinfo</code> is the canonical command-line tool for reading GeoTIFF metadata:</p>
+    <div class="code-block">
+gdalinfo yourfile.tif
+<span class="cm"># Shows: driver, size, CRS (in WKT), geotransform, bounding box,
+# band count, data type, no-data value, statistics, metadata</span>
+    </div>
+    <p>In Python, rasterio provides a cleaner API:</p>
+    <div class="code-block">
+<span class="kw">import</span> rasterio
+<span class="kw">with</span> rasterio.open(<span class="str">'yourfile.tif'</span>) <span class="kw">as</span> src:
+    <span class="kw">print</span>(src.crs)         <span class="cm"># CRS object with .epsg property</span>
+    <span class="kw">print</span>(src.transform)    <span class="cm"># Affine geotransform</span>
+    <span class="kw">print</span>(src.bounds)       <span class="cm"># BoundingBox(left, bottom, right, top)</span>
+    <span class="kw">print</span>(src.count)        <span class="cm"># Band count</span>
+    <span class="kw">print</span>(src.dtypes)       <span class="cm"># Data type per band</span>
+    <span class="kw">print</span>(src.nodata)       <span class="cm"># No-data value</span>
+    <span class="kw">print</span>(src.meta)         <span class="cm"># Full metadata dict</span>
+    </div>
+
+    <p>Or — if you do not want to install Python and GDAL — use the browser-based GeoTIFF Inspector below.</p>
+
+    <!-- Final CTA -->
+    <div class="cta-inline">
+      <div class="cta-icon">🛰</div>
+      <div class="cta-body">
+        <div class="cta-title">GeoTIFF Inspector — browser-based metadata reader</div>
+        <div class="cta-desc">Upload any GeoTIFF or BigTIFF and read CRS, EPSG code, Proj4, geotransform, bounding box, band types, compression, tile size, COG flag, and TIFF tags. 100% local — no file leaves your browser.</div>
+        <a href="../tools/gis/geotiff-inspector.html" class="cta-btn">Open GeoTIFF Inspector →</a>
+      </div>
+    </div>
+
+  </article>
+
+  <!-- Ad -->
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Related posts -->
+  <div class="related-posts">
+    <h3 class="related-heading">Related Reading</h3>
+    <div class="related-grid">
+      <a href="gis-projections-explained.html" class="related-card">
+        <div class="related-cat">GIS</div>
+        <div class="related-title">Every Map Is a Lie — How Coordinate Systems Actually Work</div>
+        <div class="related-link">Read →</div>
+      </a>
+      <a href="geojson-mistakes.html" class="related-card">
+        <div class="related-cat">GeoJSON</div>
+        <div class="related-title">The GeoJSON Mistakes Everyone Makes</div>
+        <div class="related-link">Read →</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <circle cx="18" cy="18" r="10" stroke="#fff" stroke-width="2" fill="none"/>
+          <path d="M18 8v20M8 18h20" stroke="#fff" stroke-width="1.4" opacity=".7"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#f97316"/><stop offset="1" stop-color="#2dd4bf"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../tools.html#gis">GIS Tools</a><a href="../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../about.html">About</a><a href="../blog.html">Blog</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+</body>
+</html>

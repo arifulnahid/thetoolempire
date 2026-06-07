@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GeoJSON Splitter — Split by Property, Type, or Count | The Tool Empire</title>
+  <meta name="description" content="Split a GeoJSON FeatureCollection into multiple files by property value, geometry type, or fixed feature count. Preview each chunk, download individually or all at once."/>
+  <meta name="keywords" content="geojson splitter, split geojson, geojson by property, geojson chunk, split feature collection, geojson filter tool"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/gis/geojson-splitter.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="GeoJSON Splitter — Split by Property, Type, or Count"/>
+  <meta property="og:description" content="Split a GeoJSON FeatureCollection into multiple files by property value, geometry type, or fixed feature count. Free, browser-based, no upload."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/gis/geojson-splitter.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"GeoJSON Splitter","description":"Split a GeoJSON FeatureCollection into multiple files. Three modes: split by property value (one file per unique value), split by geometry type (one file per Point/LineString/Polygon etc.), or split by feature count (fixed-size chunks). Preview each output chunk inline. Download individual chunks or all at once. Pretty or minified output. 100% browser-based, no upload required.","url":"https://thetoolempire.com/tools/gis/geojson-splitter.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Split by property value","Split by geometry type","Split by feature count (chunk)","Preview each output chunk inline","Download individual chunk as .geojson","Download all chunks sequentially","Pretty or minified output","File upload and drag-and-drop input","100% client-side processing"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"GIS Tools","item":"https://thetoolempire.com/tools.html#gis"},
+      {"@type":"ListItem","position":3,"name":"GeoJSON Splitter","item":"https://thetoolempire.com/tools/gis/geojson-splitter.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What does 'split by property' do?","acceptedAnswer":{"@type":"Answer","text":"It groups features by the unique values of a chosen property and produces one output FeatureCollection per unique value. For example, splitting by a 'country' property on a 10,000-feature dataset with 5 countries produces 5 files, each containing only features from that country. Features where the property is missing or null are grouped into a file labelled '(null)'."}},
+      {"@type":"Question","name":"What does 'split by geometry type' do?","acceptedAnswer":{"@type":"Answer","text":"It produces one output file per GeoJSON geometry type present in the collection — Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, GeometryCollection. Mixed-geometry FeatureCollections (common when converting from Shapefiles or KML) are the primary use case. Features with no geometry are grouped under 'Unknown'."}},
+      {"@type":"Question","name":"What does 'split by feature count' do?","acceptedAnswer":{"@type":"Answer","text":"It divides the features into sequential chunks of a fixed size. A 1,000-feature file split into chunks of 250 produces 4 files: Part 1 (features 1–250), Part 2 (251–500), Part 3 (501–750), Part 4 (751–1000). This is useful for APIs or tools that have a maximum feature count per request."}},
+      {"@type":"Question","name":"Can I download all chunks at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. Click 'Download all' in the output bar. Each chunk is downloaded as a separate .geojson file with a 120ms delay between downloads to avoid browser blocking. Filenames are derived from the split key value or part number — for example, country_France.geojson, country_Germany.geojson, or part_1.geojson."}},
+      {"@type":"Question","name":"What input formats are accepted?","acceptedAnswer":{"@type":"Answer","text":"The tool accepts GeoJSON FeatureCollections, individual Feature objects, and bare geometry objects. Bare geometries are wrapped in a Feature with empty properties before splitting. The file can be pasted as text, uploaded as a .geojson or .json file, or dragged and dropped onto the input area."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="geojson-splitter.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <circle cx="18" cy="18" r="10" stroke="#fff" stroke-width="2" fill="none"/>
+        <path d="M18 8v20M8 18h20M11 11l14 14M25 11L11 25" stroke="#fff" stroke-width="1.4" opacity=".7"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="geojsonSplitterApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li><a href="../../tools.html#gis" style="color:#8888a8">GIS</a></li><li>›</li>
+      <li style="color:#e8e8f0">GeoJSON Splitter</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+      GIS · GeoJSON
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">GeoJSON Splitter</span></h1>
+    <p class="tool-subtitle">Split a GeoJSON FeatureCollection into multiple files — by property value, geometry type, or fixed feature count. Preview, copy, or download each chunk.</p>
+  </div>
+
+  <!-- ── INPUT CARD ── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      </div>
+      <span class="card-title">Input GeoJSON</span>
+      <template x-if="features.length > 0">
+        <span style="font-size:.75rem;font-weight:700;color:#93c5fd;background:rgba(59,130,246,.1);padding:2px 10px;border-radius:10px" x-text="features.length + ' features loaded'"></span>
+      </template>
+      <div style="margin-left:auto;display:flex;gap:6px;flex-wrap:wrap">
+        <button class="btn-outline" style="padding:5px 12px;font-size:.76rem" @click="loadSample()">Load sample</button>
+        <button class="btn-outline" style="padding:5px 12px;font-size:.76rem" @click="clear()">Clear</button>
+        <label class="btn-outline" style="padding:5px 12px;font-size:.76rem;cursor:pointer">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Upload .geojson
+          <input type="file" accept=".geojson,.json" @change="handleFile($event)" style="display:none"/>
+        </label>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <!-- Textarea with drag-drop -->
+      <div
+        @dragover.prevent="$event.currentTarget.querySelector('.drop-label').textContent='Drop to load';$event.currentTarget.style.borderColor='var(--primary)'"
+        @dragleave="$event.currentTarget.querySelector('.drop-label').textContent='or drag & drop a .geojson file';$event.currentTarget.style.borderColor=''"
+        @drop.prevent="handleDrop($event)">
+        <textarea
+          class="in-editor"
+          x-model="inputText"
+          @input="parseInput()"
+          placeholder='Paste GeoJSON here, or upload / drag-and-drop a .geojson file…
+{"type":"FeatureCollection","features":[…]}'
+          spellcheck="false"></textarea>
+        <div class="drop-zone" style="pointer-events:none;padding:8px;margin-top:6px;border-style:dashed">
+          <span class="drop-label" style="font-size:.75rem;color:var(--text-faint)">or drag & drop a .geojson file</span>
+        </div>
+      </div>
+
+      <template x-if="parseError">
+        <div class="err-box" style="margin-top:10px">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span x-text="parseError"></span>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <!-- ── SPLIT OPTIONS CARD ── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3v18M18 3v18M3 6h18M3 18h18"/></svg>
+      </div>
+      <span class="card-title">Split Options</span>
+    </div>
+
+    <div class="card-body">
+      <!-- Mode tabs -->
+      <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint);margin-bottom:10px">Split mode</div>
+      <div class="mode-tabs">
+        <button class="mode-tab" :class="{active: mode==='property'}" @click="mode='property'">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><circle cx="16" cy="12" r="1"/></svg>
+          By Property Value
+        </button>
+        <button class="mode-tab" :class="{active: mode==='type'}" @click="mode='type'">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px"><polygon points="12 2 2 7 12 12 22 7 12 2"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          By Geometry Type
+        </button>
+        <button class="mode-tab" :class="{active: mode==='count'}" @click="mode='count'">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          By Feature Count
+        </button>
+      </div>
+
+      <!-- Property mode config -->
+      <template x-if="mode === 'property'">
+        <div>
+          <div class="prop-hint" style="margin-bottom:8px">One output file per unique value of the chosen property.</div>
+          <div class="prop-selector">
+            <span style="font-size:.82rem;color:var(--text-muted)">Split by property:</span>
+            <template x-if="propKeys.length > 0">
+              <select class="prop-select" x-model="splitKey">
+                <template x-for="k in propKeys" :key="k">
+                  <option :value="k" x-text="k"></option>
+                </template>
+              </select>
+            </template>
+            <template x-if="propKeys.length === 0">
+              <span class="prop-hint">Load a GeoJSON file first to see available properties.</span>
+            </template>
+          </div>
+        </div>
+      </template>
+
+      <!-- Geometry type mode config -->
+      <template x-if="mode === 'type'">
+        <div class="prop-hint">One output file per geometry type present: Point, LineString, Polygon, Multi*, etc.</div>
+      </template>
+
+      <!-- Count mode config -->
+      <template x-if="mode === 'count'">
+        <div>
+          <div class="prop-hint" style="margin-bottom:8px">Divide features into sequential chunks of a fixed size.</div>
+          <div class="count-row">
+            <span style="font-size:.82rem;color:var(--text-muted)">Features per chunk:</span>
+            <input type="number" class="count-input" x-model.number="chunkSize" min="1" max="100000" placeholder="100"/>
+            <template x-if="features.length > 0 && chunkSize > 0">
+              <span class="prop-hint" x-text="Math.ceil(features.length / chunkSize) + ' chunk(s) will be produced'"></span>
+            </template>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <div class="options-row">
+      <span class="opt-label">Output</span>
+      <label class="opt-check">
+        <input type="checkbox" x-model="prettyPrint"/>
+        Pretty-print JSON
+      </label>
+    </div>
+  </div>
+
+  <!-- ── SPLIT BUTTON ── -->
+  <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
+    <button class="btn-primary" @click="split()" style="padding:11px 28px;font-size:.95rem">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+      Split GeoJSON
+    </button>
+    <span style="font-size:.77rem;color:var(--text-faint)">All processing happens in your browser · no data sent to any server</span>
+  </div>
+
+  <!-- ── ERROR ── -->
+  <template x-if="splitError">
+    <div class="err-box" style="margin-bottom:14px">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span x-text="splitError"></span>
+    </div>
+  </template>
+
+  <!-- ── OUTPUT CARD ── -->
+  <template x-if="splitDone">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="card-title">Split Result</span>
+        <span style="font-size:.75rem;font-weight:700;color:var(--purple);background:rgba(167,139,250,.1);padding:2px 10px;border-radius:10px" x-text="chunks.length + ' chunk' + (chunks.length!==1?'s':'')"></span>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-val" x-text="chunks.length"></span>
+          <span class="stat-label">output files</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-val" x-text="features.length"></span>
+          <span class="stat-label">total features</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-val" x-text="mode === 'property' ? splitKey : mode === 'type' ? 'geometry' : chunkSize + ' per chunk'"></span>
+          <span class="stat-label">split by</span>
+        </div>
+      </div>
+
+      <!-- Download all bar -->
+      <div class="download-bar">
+        <button class="btn-green" style="padding:7px 14px;font-size:.8rem" @click="downloadAll()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download all (<span x-text="chunks.length"></span> files)
+        </button>
+        <span style="font-size:.74rem;color:var(--text-faint)">Each chunk downloaded as a separate .geojson file</span>
+      </div>
+
+      <!-- Chunk list -->
+      <div class="card-body">
+        <div class="chunks-list">
+          <template x-for="(chunk, idx) in chunks" :key="idx">
+            <div class="chunk" :class="{'chunk-collapsed': chunk.collapsed}">
+              <div class="chunk-header">
+                <span class="chunk-pill" x-text="chunk.label"></span>
+                <span class="chunk-count" x-text="chunk.features.length + ' feature' + (chunk.features.length!==1?'s':'')"></span>
+                <div class="chunk-actions">
+                  <button class="btn-outline" style="padding:4px 9px;font-size:.72rem" @click="copyChunk(chunk)">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    Copy
+                  </button>
+                  <button class="btn-purple" style="padding:4px 9px;font-size:.72rem" @click="downloadChunk(chunk)">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span x-text="chunk.filename + '.geojson'"></span>
+                  </button>
+                  <button class="btn-outline" style="padding:4px 8px;font-size:.72rem" @click="chunk.collapsed = !chunk.collapsed" x-text="chunk.collapsed ? '▼ Show' : '▲ Hide'"></button>
+                </div>
+              </div>
+              <div class="chunk-body">
+                <pre class="chunk-preview" x-text="chunkPreview(chunk)"></pre>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- Ad -->
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- ── DESCRIPTION ── -->
+  <div class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">What This Tool Does</h2>
+      <p class="section-desc">Three ways to divide a GeoJSON FeatureCollection into focused, smaller files.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">🏷️</div><div class="feature-title">Split by property</div><div class="feature-desc">Pick any property key — <code>country</code>, <code>category</code>, <code>type</code>, etc. — and get one FeatureCollection per unique value. Null/missing values go into a <code>(null)</code> file.</div></div>
+      <div class="feature-card"><div class="feature-icon">📐</div><div class="feature-title">Split by geometry type</div><div class="feature-desc">Separate Points from LineStrings from Polygons and all Multi-variants. Ideal for mixed FeatureCollections from KML, Shapefile, or API responses that combine multiple geometry types.</div></div>
+      <div class="feature-card"><div class="feature-icon">✂️</div><div class="feature-title">Split by feature count</div><div class="feature-desc">Set a chunk size (e.g. 500) and get sequential Part 1, Part 2 … files of equal size. The last chunk may be smaller. Useful for API pagination or tool memory limits.</div></div>
+      <div class="feature-card"><div class="feature-icon">👁️</div><div class="feature-title">Inline preview</div><div class="feature-desc">Every output chunk shows a 800-character JSON preview inline so you can verify content before downloading. Collapse chunks you don't need to reduce clutter.</div></div>
+      <div class="feature-card"><div class="feature-icon">📦</div><div class="feature-title">Download all at once</div><div class="feature-desc">Click "Download all" to trigger sequential downloads of every chunk as a separate .geojson file. Filenames are derived from the split value or part number.</div></div>
+      <div class="feature-card"><div class="feature-icon">🔒</div><div class="feature-title">100% client-side</div><div class="feature-desc">All parsing and splitting runs in your browser. No data leaves your device. Works with files of any size your browser can handle — typically hundreds of MB.</div></div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── HOW TO USE ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head"><h2 class="section-title">How to Use</h2></div>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-number">1</div><div><div class="step-title">Load your GeoJSON</div><div class="step-desc">Paste GeoJSON text into the input box, click Upload to open a .geojson or .json file, or drag-and-drop a file onto the input area. Click "Load sample" for a 10-city European dataset with country and type properties.</div></div></div>
+      <div class="step-card"><div class="step-number">2</div><div><div class="step-title">Choose a split mode</div><div class="step-desc">Select "By Property Value" and pick a property key from the dropdown. Or select "By Geometry Type" for automatic type detection. Or select "By Feature Count" and enter the number of features per chunk.</div></div></div>
+      <div class="step-card"><div class="step-number">3</div><div><div class="step-title">Click Split GeoJSON</div><div class="step-desc">The output section appears with one card per chunk. Each card shows the chunk label (e.g. "country=France"), feature count, and a JSON preview. Stats at the top show total output files and features.</div></div></div>
+      <div class="step-card"><div class="step-number">4</div><div><div class="step-title">Download</div><div class="step-desc">Click "Download all" to get every chunk as a separate .geojson file. Or use the individual Download button on each chunk card. Copy buttons copy the chunk JSON to clipboard. Collapse unused chunks with the ▲ button.</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── LOGIC BEHIND ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Logic Behind the Tool</h2>
+      <p class="section-desc">How each split mode works under the hood.</p>
+    </div>
+    <div class="logic-grid">
+      <div class="logic-card">
+        <div class="logic-title">Split by property</div>
+        <div class="logic-desc">Iterates all features once, reading <code>feature.properties[key]</code>. Values are coerced to strings and used as Map keys. Missing/null values map to the literal string <code>'(null)'</code>. The original feature objects are placed directly into the group arrays — no deep clone is performed since output chunks are immediately serialised.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Split by geometry type</div>
+        <div class="logic-desc">Reads <code>feature.geometry?.type</code>. If <code>geometry</code> is null or missing, the feature goes into the <code>'Unknown'</code> group. All seven standard GeoJSON geometry types are supported. The output filenames are lowercased geometry type names — e.g. <code>point.geojson</code>, <code>linestring.geojson</code>.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Split by feature count</div>
+        <div class="logic-desc">Uses <code>Array.slice(i, i + n)</code> to take sequential windows of the feature array. The last window is whatever remains, which may be smaller than <code>n</code>. Feature order within each chunk is preserved. No sorting or reordering is applied.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Input normalisation</div>
+        <div class="logic-desc">Any <code>FeatureCollection</code>, single <code>Feature</code>, or bare geometry is accepted. Bare geometries are wrapped in a Feature with empty properties. Property keys are scanned from all features on load to populate the property dropdown. A key that appears in only some features will still appear in the dropdown.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FAQ ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head"><h2 class="section-title">Frequently Asked Questions</h2></div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What does 'split by property' produce for features without that property?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Features where the split property is absent or set to <code>null</code> are grouped together into a file labelled <code>(null)</code>. The file is named with the literal string — for example, if splitting by <code>country</code>, you will get <code>country_(null).geojson</code>. This ensures no features are silently dropped from the output.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Can I split a file that has mixed geometry types — Points and Polygons together?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Yes. Use "Split by Geometry Type". This is the most common scenario when importing data from KML, older Shapefiles, or API responses. The tool will produce one file per geometry type present. For example, a file with 200 Points and 50 Polygons produces <code>point.geojson</code> (200 features) and <code>polygon.geojson</code> (50 features).</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Why would I split by feature count?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Some APIs and tools have a maximum number of features per request or file. For example, the Mapbox Datasets API has a 10,000-feature limit per tileset source. The Overture Maps API paginates results. If you have a 50,000-feature file and an API that accepts 5,000 at a time, split into chunks of 5,000 and upload each chunk separately.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Does downloading all chunks work in Safari?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Safari may block multiple sequential programmatic downloads triggered by a button click because they are not directly tied to a user gesture on each individual download. If Download all is blocked, use the individual Download button on each chunk card instead. Chrome and Firefox handle multiple sequential downloads reliably.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is the difference between this tool and GeoJSON Merger?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>GeoJSON Splitter takes one FeatureCollection and divides it into multiple smaller FeatureCollections. GeoJSON Merger takes multiple FeatureCollections and combines them into one. They are complementary — use Splitter to partition a large dataset for layer-based styling or API upload, and use Merger to combine separate tile layers into a single dataset for analysis.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── RELATED TOOLS ── -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="geojson-merger.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#3b82f6,#a78bfa)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12H2M22 12l-4-4M22 12l-4 4M2 12l4-4M2 12l4 4"/></svg></div>
+        <div class="related-name">GeoJSON Merger</div>
+        <div class="related-desc">Combine multiple GeoJSON files into one FeatureCollection.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="geojson-kml-converter.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#3b82f6,#06b6d4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3M12 8v8M9 11l3-3 3 3"/></svg></div>
+        <div class="related-name">GeoJSON ↔ KML Converter</div>
+        <div class="related-desc">Convert between GeoJSON and KML.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="csv-to-gis.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#3b82f6,#22c55e)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div class="related-name">CSV → GIS Formats</div>
+        <div class="related-desc">Convert CSV with lat/lng to GeoJSON, KML, GPX, WKT.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="lat-long.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#3b82f6,#a78bfa)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></div>
+        <div class="related-name">Lat Long Converter</div>
+        <div class="related-desc">Convert coordinates between DD, DMS, UTM, Geohash.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── RELATED BLOG ── -->
+  <div class="page-section" style="margin-top:0">
+    <h2 class="section-title" style="margin-bottom:16px">Related Reading</h2>
+    <div class="blog-related-grid">
+      <a href="../../blog/gis-file-formats.html" class="blog-card">
+        <div class="blog-tag-sm">🗺 GIS</div>
+        <div class="blog-title-sm">GeoJSON, KML, Shapefile, GeoTIFF — Which Format for Which Job</div>
+        <div class="blog-link">Read →</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <circle cx="18" cy="18" r="10" stroke="#fff" stroke-width="2" fill="none"/>
+          <path d="M18 8v20M8 18h20" stroke="#fff" stroke-width="1.4" opacity=".7"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#gis">GIS Tools</a><a href="../../tools.html#coding">Coding Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a><a href="../../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="geojson-splitter.js"></script>
+</body>
+</html>

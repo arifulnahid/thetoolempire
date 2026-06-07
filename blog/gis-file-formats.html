@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GeoJSON, KML, Shapefile, GeoTIFF — Which Format for Which Job | The Tool Empire Blog</title>
+  <meta name="description" content="A practical breakdown of the most common GIS file formats — GeoJSON, KML, Shapefile, GeoTIFF, GPX, CSV, and TopoJSON. When to use each, what tools support them, and what trips people up."/>
+  <meta name="keywords" content="gis file formats, geojson vs kml, shapefile format, geotiff, gps file formats, gpx format, gis data formats 2026"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/blog/gis-file-formats.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="GeoJSON, KML, Shapefile, GeoTIFF — Which Format for Which Job"/>
+  <meta property="og:description" content="A practical breakdown of GIS file formats. When to use GeoJSON vs KML vs Shapefile, what trips people up, and which tools read what."/>
+  <meta property="og:url" content="https://thetoolempire.com/blog/gis-file-formats.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"BlogPosting","headline":"GeoJSON, KML, Shapefile, GeoTIFF — Which Format for Which Job","description":"A practical breakdown of GIS file formats. When to use each, what tools support them, what gets lost in conversion, and the gotchas that trip people up.","url":"https://thetoolempire.com/blog/gis-file-formats.html","datePublished":"2026-06-07","dateModified":"2026-06-07","author":{"@type":"Organization","name":"The Tool Empire"},"publisher":{"@type":"Organization","name":"The Tool Empire","url":"https://thetoolempire.com"},"image":"https://thetoolempire.com/assets/og-image.png","mainEntityOfPage":"https://thetoolempire.com/blog/gis-file-formats.html"},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Blog","item":"https://thetoolempire.com/blog.html"},
+      {"@type":"ListItem","position":3,"name":"GIS File Formats","item":"https://thetoolempire.com/blog/gis-file-formats.html"}
+    ]}
+  ]}</script>
+
+  <style>
+    :root{--bg:#0f0f14;--bg-card:#1e1e28;--bg-surface:#18181f;--primary:#3b82f6;--secondary:#2563eb;--text:#e8e8f0;--text-muted:#9999b8;--text-faint:#555570;--border:rgba(255,255,255,.08);--radius:14px;--radius-sm:8px;--font:'Inter',system-ui,sans-serif;--font-mono:'Fira Code','Cascadia Code',monospace}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+    a{color:var(--primary);text-decoration:none}
+    a:hover{text-decoration:underline}
+    code{font-family:var(--font-mono);font-size:.84em;background:rgba(59,130,246,.1);color:#93c5fd;padding:2px 6px;border-radius:4px}
+    .site-header{background:rgba(15,15,20,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;padding:0 24px;height:58px;display:flex;align-items:center}
+    .header-inner{width:100%;max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+    .logo-icon{width:32px;height:32px;flex-shrink:0}
+    .logo-text{font-size:.97rem;font-weight:700;color:var(--text);letter-spacing:-.01em}
+    .main-nav{display:flex;gap:6px}
+    .nav-link{padding:5px 12px;border-radius:var(--radius-sm);font-size:.84rem;font-weight:500;color:var(--text-muted);text-decoration:none;transition:color .15s,background .15s}
+    .nav-link:hover,.nav-link.active{color:var(--text);background:rgba(255,255,255,.06)}
+    .blog-wrap{max-width:1100px;margin:0 auto;padding:32px 24px 80px;display:grid;grid-template-columns:1fr 260px;gap:48px;align-items:start}
+    @media(max-width:860px){.blog-wrap{grid-template-columns:1fr}}
+    .blog-sidebar{position:sticky;top:80px}
+    @media(max-width:860px){.blog-sidebar{display:none}}
+    #read-progress{position:fixed;top:58px;left:0;height:3px;background:var(--primary);z-index:200;transition:width .1s linear;width:0%}
+    .blog-hero{margin-bottom:32px}
+    .blog-tag{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;background:rgba(59,130,246,.1);color:var(--primary);border-radius:20px;font-size:.72rem;font-weight:700;margin-bottom:14px;text-transform:uppercase;letter-spacing:.06em}
+    .blog-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:900;letter-spacing:-.03em;line-height:1.15;margin-bottom:14px}
+    .blog-meta{display:flex;align-items:center;gap:14px;font-size:.8rem;color:var(--text-faint);flex-wrap:wrap}
+    .blog-meta span{display:flex;align-items:center;gap:4px}
+    .blog-body{font-size:1.01rem;line-height:1.8}
+    .blog-body h2{font-size:1.4rem;font-weight:800;letter-spacing:-.02em;margin:44px 0 14px;color:var(--text)}
+    .blog-body h3{font-size:1.08rem;font-weight:700;margin:28px 0 10px;color:var(--text)}
+    .blog-body p{margin-bottom:18px;color:var(--text-muted)}
+    .blog-body p strong{color:var(--text);font-weight:700}
+    .blog-body ul,.blog-body ol{margin:0 0 18px 22px;color:var(--text-muted)}
+    .blog-body li{margin-bottom:7px}
+    .blog-body li strong{color:var(--text)}
+    .blog-body blockquote{border-left:3px solid var(--primary);padding:12px 18px;margin:24px 0;background:rgba(59,130,246,.05);border-radius:0 8px 8px 0;font-style:italic;color:var(--text-muted)}
+    .tbl-wrap{overflow-x:auto;margin:20px 0}
+    table{width:100%;border-collapse:collapse;font-size:.88rem}
+    th{background:rgba(59,130,246,.08);color:#93c5fd;font-weight:700;padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+    td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text-muted);vertical-align:top}
+    td strong{color:var(--text)}
+    tr:hover td{background:rgba(255,255,255,.02)}
+    .callout{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.18);border-radius:var(--radius-sm);padding:16px 18px;margin:24px 0;font-size:.92rem}
+    .callout-title{font-weight:700;color:#60a5fa;margin-bottom:6px;font-size:.83rem;text-transform:uppercase;letter-spacing:.06em}
+    .callout p{margin:0;color:var(--text-muted)}
+    .callout p:not(:last-child){margin-bottom:8px}
+    .warn-callout{background:rgba(249,115,22,.07);border:1px solid rgba(249,115,22,.18);border-radius:var(--radius-sm);padding:16px 18px;margin:24px 0;font-size:.92rem}
+    .warn-callout .callout-title{color:#fb923c}
+    .warn-callout p{margin:0;color:var(--text-muted)}
+    .tool-cta{background:var(--bg-card);border:1px solid rgba(59,130,246,.2);border-radius:var(--radius);padding:20px 22px;margin:32px 0;display:flex;align-items:flex-start;gap:16px}
+    .tool-cta-icon{width:44px;height:44px;border-radius:10px;background:rgba(59,130,246,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .tool-cta-icon svg{width:20px;height:20px;color:var(--primary)}
+    .tool-cta-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--primary);margin-bottom:3px}
+    .tool-cta-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:4px}
+    .tool-cta-desc{font-size:.84rem;color:var(--text-muted);margin-bottom:10px}
+    .tool-cta-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius-sm);background:var(--primary);color:#fff;font-size:.83rem;font-weight:700;text-decoration:none;transition:background .15s}
+    .tool-cta-btn:hover{background:var(--secondary);text-decoration:none}
+    .fmt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:20px 0}
+    .fmt-card{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px}
+    .fmt-name{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:4px}
+    .fmt-ext{font-family:var(--font-mono);font-size:.75rem;color:#93c5fd;margin-bottom:6px}
+    .fmt-desc{font-size:.78rem;color:var(--text-faint);line-height:1.5}
+    .toc-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+    .toc-title{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-faint);margin-bottom:12px}
+    .toc-list{list-style:none;display:flex;flex-direction:column;gap:4px}
+    .toc-list a{font-size:.82rem;color:var(--text-muted);display:block;padding:4px 8px;border-radius:6px;transition:background .15s,color .15s}
+    .toc-list a:hover{background:rgba(59,130,246,.07);color:var(--primary);text-decoration:none}
+    .author-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-top:40px;display:flex;gap:14px;align-items:flex-start}
+    .author-avatar{width:44px;height:44px;border-radius:50%;background:rgba(59,130,246,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.2rem}
+    .author-name{font-size:.88rem;font-weight:700;color:var(--text)}
+    .author-desc{font-size:.8rem;color:var(--text-muted);margin-top:3px;line-height:1.5}
+    .ad-slot{background:rgba(255,255,255,.02);border:1px dashed rgba(255,255,255,.07);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;min-height:90px;font-size:.75rem;color:var(--text-faint);text-align:center;padding:12px;margin:24px 0}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px}
+    .related-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:6px;text-decoration:none;transition:border-color .15s}
+    .related-card:hover{border-color:var(--primary);text-decoration:none}
+    .related-tag{font-size:.7rem;font-weight:700;color:var(--primary)}
+    .related-name{font-size:.86rem;font-weight:600;color:var(--text);line-height:1.4}
+    .related-link{font-size:.74rem;color:var(--primary);font-weight:600;margin-top:auto}
+    .site-footer{border-top:1px solid var(--border);padding:40px 24px 28px;margin-top:60px}
+    .footer-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:28px}
+    @media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+    .footer-brand-text{font-size:.82rem;color:var(--text-faint);margin-top:8px;line-height:1.5}
+    .footer-heading{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:10px}
+    .footer-links{display:flex;flex-direction:column;gap:7px}
+    .footer-links a{font-size:.83rem;color:var(--text-muted)}
+    .footer-links a:hover{color:var(--text)}
+    .footer-bottom{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:var(--text-faint);flex-wrap:wrap;gap:8px;padding-top:16px;border-top:1px solid var(--border)}
+  </style>
+</head>
+<body>
+
+<div id="read-progress"></div>
+<script>window.addEventListener('scroll',()=>{const s=document.documentElement;document.getElementById('read-progress').style.width=(s.scrollTop/(s.scrollHeight-s.clientHeight))*100+'%'});</script>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <circle cx="18" cy="18" r="10" stroke="#fff" stroke-width="2" fill="none"/>
+        <path d="M18 8v20M8 18h20M11 11l14 14M25 11L11 25" stroke="#fff" stroke-width="1.4" opacity=".7"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#3b82f6"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../tools.html" class="nav-link">Tools</a>
+      <a href="../blog.html" class="nav-link active">Blog</a>
+      <a href="../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="blog-wrap">
+  <article>
+
+    <nav aria-label="Breadcrumb" style="margin-bottom:18px">
+      <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.78rem;color:#555570;flex-wrap:wrap">
+        <li><a href="../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+        <li><a href="../blog.html" style="color:#8888a8">Blog</a></li><li>›</li>
+        <li style="color:#e8e8f0">GIS File Formats</li>
+      </ol>
+    </nav>
+
+    <div class="blog-hero">
+      <div class="blog-tag">🗺 GIS · Data Formats</div>
+      <h1 class="blog-title">GeoJSON, KML, Shapefile, GeoTIFF — Which Format for Which Job</h1>
+      <div class="blog-meta">
+        <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>June 7, 2026</span>
+        <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>10 min read</span>
+        <span>GIS · Data</span>
+      </div>
+    </div>
+
+    <div class="ad-slot">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+
+    <div class="blog-body">
+
+      <p>Every GIS project starts with the same question and nobody wants to ask it out loud: <em>what format should this be in?</em> You download data from one source, try to load it in a tool, get an error, find out you need to convert it, convert it, lose half the attributes, and spend an hour figuring out why.</p>
+
+      <p>This happens because GIS has accumulated formats over 40 years of competing standards, different use cases, and tools that never fully agreed on conventions. The formats aren't interchangeable — they were designed for different things, and treating them as equivalent is where most of the friction comes from.</p>
+
+      <p>Here's what each major format is actually for and when to use it.</p>
+
+      <h2 id="formats-overview">The Main Formats at a Glance</h2>
+
+      <div class="fmt-grid">
+        <div class="fmt-card">
+          <div class="fmt-name">GeoJSON</div>
+          <div class="fmt-ext">.geojson / .json</div>
+          <div class="fmt-desc">Vector data as JSON. The web mapping standard. Human-readable, easy to parse, works in every browser and API.</div>
+        </div>
+        <div class="fmt-card">
+          <div class="fmt-name">KML / KMZ</div>
+          <div class="fmt-ext">.kml / .kmz</div>
+          <div class="fmt-desc">XML-based vector format. Native to Google Earth and Google Maps. Supports styles, icons, and camera views.</div>
+        </div>
+        <div class="fmt-card">
+          <div class="fmt-name">Shapefile</div>
+          <div class="fmt-ext">.shp + .dbf + .shx</div>
+          <div class="fmt-desc">The legacy desktop GIS standard from Esri. Multi-file format. Ubiquitous in government and enterprise data.</div>
+        </div>
+        <div class="fmt-card">
+          <div class="fmt-name">GeoTIFF</div>
+          <div class="fmt-ext">.tif / .tiff</div>
+          <div class="fmt-desc">Raster data (satellite imagery, elevation, land cover) embedded with spatial reference information.</div>
+        </div>
+        <div class="fmt-card">
+          <div class="fmt-name">GPX</div>
+          <div class="fmt-ext">.gpx</div>
+          <div class="fmt-desc">GPS Exchange Format. XML-based. For tracks, routes, and waypoints from GPS devices and fitness apps.</div>
+        </div>
+        <div class="fmt-card">
+          <div class="fmt-name">TopoJSON</div>
+          <div class="fmt-ext">.topojson / .json</div>
+          <div class="fmt-desc">A GeoJSON extension that encodes topology — shared boundaries are stored once. Significantly smaller files for complex polygon data.</div>
+        </div>
+        <div class="fmt-card">
+          <div class="fmt-name">GeoPackage</div>
+          <div class="fmt-ext">.gpkg</div>
+          <div class="fmt-desc">SQLite-based OGC standard. Single file that can hold multiple vector and raster layers. The modern Shapefile replacement.</div>
+        </div>
+        <div class="fmt-card">
+          <div class="fmt-name">CSV with coords</div>
+          <div class="fmt-ext">.csv</div>
+          <div class="fmt-desc">Tabular data with lat/lng columns. Universally readable. No geometry support beyond points unless you add WKT.</div>
+        </div>
+      </div>
+
+      <h2 id="geojson">GeoJSON — The Web Mapping Standard</h2>
+
+      <p>GeoJSON is what you want when you're building anything on the web. It's supported natively by Leaflet, Mapbox GL JS, OpenLayers, D3, Turf.js, deck.gl, and virtually every web mapping API. GitHub automatically renders GeoJSON files as maps when you view them in a repository. It's a proper JSON object — no binary, no secondary files, parse it with <code>JSON.parse()</code>.</p>
+
+      <p><strong>Use GeoJSON when:</strong></p>
+      <ul>
+        <li>Building a web map with Leaflet, Mapbox, or similar</li>
+        <li>Sending geographic data from/to a REST API</li>
+        <li>Working with small-to-medium vector datasets (points, lines, polygons)</li>
+        <li>You need human-readable, version-controllable geographic data</li>
+        <li>Storing data in MongoDB, PostGIS, or any modern database with GeoJSON support</li>
+      </ul>
+
+      <p><strong>The main gotcha:</strong> GeoJSON coordinates are <code>[longitude, latitude]</code> — not <code>[latitude, longitude]</code>. This trips up everyone at least once. The spec follows mathematical [x, y] convention where x is the east-west axis. If your points appear in the ocean when they should be on land, you have them backwards.</p>
+
+      <div class="warn-callout">
+        <div class="callout-title">⚠ Coordinate order trap</div>
+        <p>GeoJSON: <code>[longitude, latitude]</code> — e.g. <code>[-73.985, 40.748]</code> for New York City.</p>
+        <p>Most humans say "40.748°N, 73.985°W" — latitude first. GeoJSON puts them in the opposite order. Every web mapping library inherits this convention from GeoJSON, so once you internalize it, it becomes consistent everywhere.</p>
+      </div>
+
+      <p>GeoJSON's other limitation is size. It's text-based with no compression. A large polygon dataset — national boundaries, census tracts, landcover — can easily hit 50MB+ as GeoJSON. For those cases, look at TopoJSON or GeoPackage.</p>
+
+      <h2 id="kml">KML — Google's Format</h2>
+
+      <p>KML was created by Keyhole Inc. (acquired by Google in 2004) as the native format for Google Earth. It became an OGC standard in 2008. KML's main strength over GeoJSON is its rich styling support — you can embed colors, icon URLs, line widths, polygon fill patterns, and camera angles directly in the file. A KML file can be a complete self-contained presentation layer, not just raw geometry.</p>
+
+      <p><strong>Use KML when:</strong></p>
+      <ul>
+        <li>Sharing data that needs to be viewed in Google Earth</li>
+        <li>Importing data into Google Maps (My Maps feature)</li>
+        <li>You need styled features where appearance is part of the data</li>
+        <li>Sending data to non-technical users who'll open it by double-clicking</li>
+        <li>Working with legacy enterprise GIS that expects KML/KMZ</li>
+      </ul>
+
+      <p>KMZ is just a zipped KML file — same structure, compressed. Most tools that accept KML also accept KMZ. Use KMZ for large files or when packaging KML with icon images.</p>
+
+      <p><strong>What KML loses in conversion to GeoJSON:</strong> Style information (colors, icons, line widths), folder/layer hierarchy, camera/LookAt views, network links that load data dynamically, ground overlays, and timestamps. The geometry and flat text properties survive; everything visual does not.</p>
+
+      <!-- Tool CTA -->
+      <div class="tool-cta">
+        <div class="tool-cta-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3M12 8v8M9 11l3-3 3 3"/></svg>
+        </div>
+        <div>
+          <div class="tool-cta-label">Free Tool</div>
+          <div class="tool-cta-title">GeoJSON ↔ KML Converter</div>
+          <div class="tool-cta-desc">Convert GeoJSON to KML and KML to GeoJSON instantly in your browser. Supports all geometry types, properties, and ExtendedData. Upload a file or paste directly — no data leaves your device.</div>
+          <a href="../tools/gis/geojson-kml-converter.html" class="tool-cta-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3M12 8v8"/></svg>
+            Convert GeoJSON ↔ KML →
+          </a>
+        </div>
+      </div>
+
+      <h2 id="shapefile">Shapefile — The Legacy Standard</h2>
+
+      <p>Shapefile is Esri's format from the early 1990s. It's been the dominant desktop GIS format for three decades, which means virtually every government data portal, census bureau, and environmental agency still publishes data in Shapefile format. It's also the thing everyone loves to complain about.</p>
+
+      <p>A "Shapefile" is actually a minimum of three files that must stay together:</p>
+      <ul>
+        <li><code>.shp</code> — the geometry (coordinates)</li>
+        <li><code>.dbf</code> — the attributes (dBASE III format from 1983)</li>
+        <li><code>.shx</code> — the shape index</li>
+      </ul>
+
+      <p>Often accompanied by <code>.prj</code> (projection/CRS info), <code>.cpg</code> (character encoding), and others. Emailing or uploading a Shapefile and having the recipient unable to open it because they only got the <code>.shp</code> is a rite of passage in GIS work.</p>
+
+      <p><strong>Shapefile's limitations are well-documented:</strong></p>
+      <ul>
+        <li><strong>Column names truncated to 10 characters</strong> — <code>population_density</code> becomes <code>population</code> or worse</li>
+        <li><strong>No date/time type</strong> — dates are stored as strings</li>
+        <li><strong>File size limit of 2GB per .shp file</strong></li>
+        <li><strong>No NULL distinction</strong> — empty values are ambiguous</li>
+        <li><strong>No native support for multi-layer datasets</strong></li>
+        <li><strong>Encoding headaches</strong> — attribute encoding is often wrong or unspecified</li>
+      </ul>
+
+      <p><strong>Use Shapefile when:</strong> You're receiving data from a government source that only provides this format, or delivering data to a client/agency that requires it. Otherwise, convert it to something better (GeoPackage, GeoJSON, PostGIS) as early in your workflow as possible.</p>
+
+      <div class="callout">
+        <div class="callout-title">The modern replacement</div>
+        <p>GeoPackage (.gpkg) is the OGC standard replacement for Shapefile. It's a single SQLite file, supports multiple layers, has proper data types, handles large datasets, and is supported by QGIS, ArcGIS, GDAL, and most modern GIS tools. If you control both ends of the data exchange, use GeoPackage instead of Shapefile.</p>
+      </div>
+
+      <h2 id="geotiff">GeoTIFF — Raster Data with Spatial Coordinates</h2>
+
+      <p>Everything discussed so far is vector data — discrete geometries (points, lines, polygons). GeoTIFF is raster data — a grid of pixels where each pixel represents a value at a location. Satellite imagery, elevation models (DEMs), land cover classification, temperature grids, NDVI — these are all raster datasets.</p>
+
+      <p>GeoTIFF embeds CRS (coordinate reference system) information and georeferencing metadata directly in the TIFF file using TIFF tags. This means the file knows exactly where it is on Earth without a separate metadata file. It can store multiple bands (RGB, multispectral, hyperspectral) in a single file.</p>
+
+      <p><strong>Use GeoTIFF when:</strong></p>
+      <ul>
+        <li>Working with satellite imagery (Sentinel, Landsat, commercial providers)</li>
+        <li>Elevation data — DEMs (Digital Elevation Models)</li>
+        <li>Continuous field data — temperature, precipitation, population density grids</li>
+        <li>Results of spatial analysis that produce gridded output</li>
+      </ul>
+
+      <p><strong>Cloud Optimized GeoTIFF (COG)</strong> is a GeoTIFF organized so HTTP range requests can efficiently access just part of the file. This allows streaming access to large raster datasets stored on cloud storage without downloading the entire file — it's the standard for publishing satellite imagery in modern geospatial APIs.</p>
+
+      <h2 id="gpx">GPX — GPS Tracks and Routes</h2>
+
+      <p>GPX (GPS Exchange Format) is an XML schema designed specifically for GPS data. Every fitness tracker, hiking app, and GPS device exports GPX. It supports three data types: waypoints (single named points), routes (planned paths), and tracks (recorded movement with timestamps).</p>
+
+      <p>Tracks in GPX are time-stamped sequences of coordinates — this is what your running watch exports when you finish a run. The temporal dimension is baked into the format in a way that GeoJSON doesn't natively support.</p>
+
+      <p><strong>Use GPX when:</strong> You're working with GPS tracks from fitness apps (Garmin, Strava, AllTrails), transferring routes to/from a dedicated GPS device, or any workflow where you need timestamped movement data.</p>
+
+      <p>Converting GPX to GeoJSON loses the timestamps unless you specifically map them to GeoJSON properties. GDAL/OGR handles this conversion correctly; simple text-based converters often drop the time data.</p>
+
+      <h2 id="topojson">TopoJSON — Smaller Polygons Through Topology</h2>
+
+      <p>TopoJSON is a GeoJSON extension created by Mike Bostock (D3.js author) that encodes topology — adjacent polygons share boundary arcs rather than each polygon storing its own duplicate coordinates. The result is significantly smaller files for datasets with shared boundaries, like country borders, census tracts, or administrative divisions.</p>
+
+      <p>A GeoJSON world countries file might be 700KB. The same data as TopoJSON can be 90KB — roughly 87% smaller. For D3 visualizations loading data over the web, this matters. The trade-off is that TopoJSON isn't as universally supported as GeoJSON — Leaflet doesn't read it natively (you need a plugin), and many GIS tools don't understand it at all.</p>
+
+      <p><strong>Use TopoJSON when:</strong> Building D3.js data visualizations where file size affects load performance, specifically for datasets with many shared boundaries (choropleth maps, administrative boundaries, census data).</p>
+
+      <h2 id="csv">CSV — The Lowest Common Denominator</h2>
+
+      <p>A CSV with latitude and longitude columns is technically a spatial dataset. It's universally readable by every tool that exists. For point data — store locations, event positions, sensor readings — a CSV is often the right choice precisely because of its simplicity.</p>
+
+      <p>CSV with WKT (Well-Known Text) geometry columns extends this to lines and polygons: a column like <code>POLYGON((0 0, 1 0, 1 1, 0 1, 0 0))</code> encodes geometry in readable text. QGIS and many GIS tools can read CSV with WKT columns directly.</p>
+
+      <p><strong>The limit:</strong> No projection metadata, no attribute type information, no multi-layer support, and large files can be slow to parse. For point data under a few hundred thousand records, CSV is fine. Beyond that, use a proper spatial format.</p>
+
+      <h2 id="comparison">Format Comparison Table</h2>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Format</th><th>Type</th><th>Best for</th><th>Supported by</th><th>Single file?</th></tr></thead>
+          <tbody>
+            <tr><td><strong>GeoJSON</strong></td><td>Vector</td><td>Web APIs, Leaflet/Mapbox, version control</td><td>Leaflet, Mapbox, QGIS, PostGIS, GitHub, every browser</td><td>Yes</td></tr>
+            <tr><td><strong>KML/KMZ</strong></td><td>Vector</td><td>Google Earth, Google Maps, styled presentations</td><td>Google Earth, Google Maps, QGIS, ArcGIS</td><td>Yes</td></tr>
+            <tr><td><strong>Shapefile</strong></td><td>Vector</td><td>Government data exchange, legacy systems</td><td>QGIS, ArcGIS, GDAL, almost everything</td><td>No (3+ files)</td></tr>
+            <tr><td><strong>GeoPackage</strong></td><td>Vector + Raster</td><td>Multi-layer data exchange, Shapefile replacement</td><td>QGIS, ArcGIS, GDAL</td><td>Yes (SQLite)</td></tr>
+            <tr><td><strong>GeoTIFF</strong></td><td>Raster</td><td>Satellite imagery, elevation, gridded analysis</td><td>QGIS, ArcGIS, GDAL, rasterio, Google Earth Engine</td><td>Yes</td></tr>
+            <tr><td><strong>GPX</strong></td><td>Vector (GPS)</td><td>GPS tracks with timestamps, fitness data</td><td>Garmin devices, fitness apps, QGIS, GDAL</td><td>Yes</td></tr>
+            <tr><td><strong>TopoJSON</strong></td><td>Vector (topo)</td><td>D3.js maps, small-file choropleth data</td><td>D3.js, QGIS (plugin), limited</td><td>Yes</td></tr>
+            <tr><td><strong>CSV + coords</strong></td><td>Tabular/Points</td><td>Point data, universal compatibility</td><td>Everything</td><td>Yes</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="gdal">GDAL: The Universal Translator</h2>
+
+      <p>Nearly every GIS conversion tool is built on top of GDAL/OGR — the Geospatial Data Abstraction Library. QGIS uses it. ArcGIS uses it. The command-line tool <code>ogr2ogr</code> is the most powerful format converter available: it converts between 80+ vector formats, handles coordinate system transformations, filters by attribute, and clips by bounding box in a single command.</p>
+
+      <pre style="background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;font-family:var(--font-mono);font-size:.8rem;color:#e2e8f0;overflow:auto;margin:16px 0"># Convert Shapefile to GeoJSON
+ogr2ogr -f GeoJSON output.geojson input.shp
+
+# Convert KML to GeoJSON
+ogr2ogr -f GeoJSON output.geojson input.kml
+
+# Convert GeoJSON to GeoPackage
+ogr2ogr -f GPKG output.gpkg input.geojson
+
+# Reproject from WGS84 to Web Mercator
+ogr2ogr -f GeoJSON -t_srs EPSG:3857 output.geojson input.geojson</pre>
+
+      <p>For browser-based conversion without installing GDAL — paste the data, convert, and download — use the tool below.</p>
+
+      <!-- Tool CTA 2 -->
+      <div class="tool-cta">
+        <div class="tool-cta-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+        </div>
+        <div>
+          <div class="tool-cta-label">Free Tool</div>
+          <div class="tool-cta-title">Lat Long Converter</div>
+          <div class="tool-cta-desc">Convert coordinates between DD, DMS, DDM, UTM, and Geohash. Preview on an OpenStreetMap map, calculate distance and bearing between two points.</div>
+          <a href="../tools/gis/lat-long.html" class="tool-cta-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg>
+            Convert coordinates →
+          </a>
+        </div>
+      </div>
+
+      <h2 id="which-to-choose">The Decision Framework</h2>
+
+      <p>The right format depends on three questions:</p>
+
+      <ol>
+        <li><strong>Who receives the data?</strong> If it's a developer building a web map → GeoJSON. If it's a non-technical user who'll double-click it → KML. If it's a government agency's legacy system → Shapefile.</li>
+        <li><strong>What data type is it?</strong> Discrete features (points, lines, polygons) → vector formats. Continuous gridded values (elevation, imagery, analysis results) → GeoTIFF. GPS tracks with timestamps → GPX.</li>
+        <li><strong>What needs to survive the transfer?</strong> If visual styling matters, KML preserves it. If topology matters (shared boundaries, area calculations), GeoPackage or TopoJSON. If just geometry and attributes, GeoJSON or GeoPackage are both fine.</li>
+      </ol>
+
+      <p>The practical shortcut: <strong>GeoJSON for the web, GeoPackage for files, GeoTIFF for rasters, Shapefile only when forced to.</strong> That covers 90% of GIS workflows.</p>
+
+    </div>
+
+    <div class="author-box">
+      <div class="author-avatar">✍️</div>
+      <div>
+        <div class="author-name">The Tool Empire</div>
+        <div class="author-desc">We build browser-based tools for GIS, SEO, content, and development workflows. No installs, no signup — just tools that work.</div>
+      </div>
+    </div>
+
+    <div class="ad-slot">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+
+    <div style="margin-top:36px">
+      <div style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-faint);margin-bottom:14px">Keep reading</div>
+      <div class="related-grid">
+        <a href="../tools/gis/geojson-kml-converter.html" class="related-card">
+          <div class="related-tag">🛠 Tool</div>
+          <div class="related-name">GeoJSON ↔ KML Converter</div>
+          <div class="related-link">Use tool →</div>
+        </a>
+        <a href="../tools/gis/lat-long.html" class="related-card">
+          <div class="related-tag">🛠 Tool</div>
+          <div class="related-name">Lat Long Converter</div>
+          <div class="related-link">Use tool →</div>
+        </a>
+        <a href="xml-sitemap-seo.html" class="related-card">
+          <div class="related-tag">📖 Blog</div>
+          <div class="related-name">Your Sitemap Is Not Getting You Indexed</div>
+          <div class="related-link">Read →</div>
+        </a>
+        <a href="../tools/coding/json-formatter.html" class="related-card">
+          <div class="related-tag">🛠 Tool</div>
+          <div class="related-name">JSON Formatter</div>
+          <div class="related-link">Use tool →</div>
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="blog-sidebar">
+    <div class="toc-card">
+      <div class="toc-title">In this article</div>
+      <ul class="toc-list">
+        <li><a href="#formats-overview">Formats at a glance</a></li>
+        <li><a href="#geojson">GeoJSON</a></li>
+        <li><a href="#kml">KML / KMZ</a></li>
+        <li><a href="#shapefile">Shapefile</a></li>
+        <li><a href="#geotiff">GeoTIFF</a></li>
+        <li><a href="#gpx">GPX</a></li>
+        <li><a href="#topojson">TopoJSON</a></li>
+        <li><a href="#csv">CSV</a></li>
+        <li><a href="#comparison">Comparison table</a></li>
+        <li><a href="#gdal">GDAL / ogr2ogr</a></li>
+        <li><a href="#which-to-choose">Decision framework</a></li>
+      </ul>
+    </div>
+    <div style="margin-top:16px;background:var(--bg-card);border:1px solid rgba(59,130,246,.2);border-radius:var(--radius);padding:16px">
+      <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--primary);margin-bottom:8px">Free Tool</div>
+      <div style="font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:6px">GeoJSON ↔ KML Converter</div>
+      <div style="font-size:.78rem;color:var(--text-muted);margin-bottom:12px;line-height:1.5">Convert between formats instantly. All geometry types, properties preserved, download as .kml or .geojson.</div>
+      <a href="../tools/gis/geojson-kml-converter.html" style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--radius-sm);background:var(--primary);color:#fff;font-size:.8rem;font-weight:700;text-decoration:none" onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">Convert now →</a>
+    </div>
+  </aside>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <circle cx="18" cy="18" r="10" stroke="#fff" stroke-width="2" fill="none"/>
+          <path d="M18 8v20M8 18h20" stroke="#fff" stroke-width="1.4" opacity=".7"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#3b82f6"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../tools.html#gis">GIS Tools</a><a href="../tools.html#coding">Coding Tools</a><a href="../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../about.html">About</a><a href="../blog.html">Blog</a><a href="../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+</body>
+</html>

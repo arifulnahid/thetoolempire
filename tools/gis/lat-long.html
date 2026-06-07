@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lat Long Converter — DD, DMS, DDM, UTM, Geohash + Map & Distance | The Tool Empire</title>
+  <meta name="description" content="Convert latitude and longitude between Decimal Degrees, DMS, DDM, UTM, and Geohash. Preview coordinates on a map, calculate distance between two points with bearing. Free, instant, no signup."/>
+  <meta name="keywords" content="lat long converter, latitude longitude converter, dms to decimal, decimal degrees to dms, utm converter, geohash, coordinate converter, distance calculator, gis tool"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/gis/lat-long.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Lat Long Converter — DD, DMS, DDM, UTM, Geohash + Map & Distance"/>
+  <meta property="og:description" content="Convert coordinates between Decimal Degrees, DMS, DDM, UTM, and Geohash formats. Preview on a map, calculate distance between two points."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/gis/lat-long.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"Lat Long Converter","description":"Convert latitude and longitude coordinates between Decimal Degrees (DD), Degrees Minutes Seconds (DMS), Degrees Decimal Minutes (DDM), UTM, and Geohash. Preview any coordinate on an OpenStreetMap map. Calculate great-circle distance and bearing between two points using the Haversine formula.","url":"https://thetoolempire.com/tools/gis/lat-long.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["DD to DMS conversion","DMS to DD conversion","DDM (Degrees Decimal Minutes) support","UTM coordinate output","Geohash encoding","Map preview via OpenStreetMap","Haversine distance calculator","Great-circle bearing","Midpoint calculation","Direct links to Google Maps and OSM"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"GIS Tools","item":"https://thetoolempire.com/tools.html#gis"},
+      {"@type":"ListItem","position":3,"name":"Lat Long Converter","item":"https://thetoolempire.com/tools/gis/lat-long.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is the difference between DD, DMS, and DDM?","acceptedAnswer":{"@type":"Answer","text":"DD (Decimal Degrees) expresses latitude and longitude as a single decimal number, e.g. 40.7128, -74.0060. DMS (Degrees Minutes Seconds) breaks it into three parts: 40° 42' 46.08\" N, 74° 0' 21.6\" W. DDM (Degrees Decimal Minutes) uses degrees and decimal minutes: 40° 42.768' N, 74° 0.360' W. DD is used in most digital/web mapping systems. DMS is traditional navigation and many GPS units. DDM is common in aviation and marine charts."}},
+      {"@type":"Question","name":"What is UTM and when is it used?","acceptedAnswer":{"@type":"Answer","text":"UTM (Universal Transverse Mercator) is a metric coordinate system that divides the Earth into 60 zones, each 6° of longitude wide. Instead of angles, UTM gives you meters east and north from a reference point within each zone. It's widely used in surveying, military, and GIS applications because it minimizes distortion within each zone and makes distance calculation straightforward."}},
+      {"@type":"Question","name":"What is Geohash?","acceptedAnswer":{"@type":"Answer","text":"Geohash is a hierarchical spatial encoding that converts a latitude/longitude pair into a short alphanumeric string. The longer the string, the more precise the location. Geohashes are useful for proximity searches in databases and APIs — points with the same geohash prefix are geographically close to each other. The 8-character hash in this tool gives precision of about 19 meters."}},
+      {"@type":"Question","name":"How accurate is the distance calculation?","acceptedAnswer":{"@type":"Answer","text":"The distance calculator uses the Haversine formula on a spherical Earth model with a mean radius of 6,371.0088 km. This is accurate to within about 0.5% for most distances. For very long distances or precision surveying work, use the Vincenty formula on the WGS84 ellipsoid, which accounts for Earth's flattening and is accurate to within 0.5mm."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="lat-long.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <circle cx="18" cy="18" r="10" stroke="#fff" stroke-width="2" fill="none"/>
+        <path d="M18 8v20M8 18h20M11 11l14 14M25 11L11 25" stroke="#fff" stroke-width="1.4" opacity=".7"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#3b82f6"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="latLongApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li><a href="../../tools.html#gis" style="color:#8888a8">GIS</a></li><li>›</li>
+      <li style="color:#e8e8f0">Lat Long Tool</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+      GIS
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">Lat Long Converter & Tools</span></h1>
+    <p class="tool-subtitle">Convert coordinates between DD, DMS, DDM, UTM, and Geohash. Preview any location on a map. Calculate distance and bearing between two points.</p>
+  </div>
+
+  <!-- ── Section tabs ── -->
+  <div style="margin-bottom:20px;display:flex;gap:8px;flex-wrap:wrap">
+    <button class="mode-tab" :class="{active:section==='converter'}" @click="section='converter'" style="padding:8px 20px">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:5px"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3M12 8v8"/></svg>
+      Converter
+    </button>
+    <button class="mode-tab" :class="{active:section==='map'}" @click="section='map'" id="map-section" style="padding:8px 20px">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:5px"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/></svg>
+      Map Preview
+    </button>
+    <button class="mode-tab" :class="{active:section==='distance'}" @click="section='distance'" style="padding:8px 20px">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:5px"><line x1="5" y1="12" x2="19" y2="12"/><circle cx="5" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+      Distance
+    </button>
+  </div>
+
+  <!-- ══════════════════════════════════════════ CONVERTER ══ -->
+  <template x-if="section==='converter'">
+    <div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3M12 8v8"/></svg>
+          </div>
+          <span class="card-title">Coordinate Converter</span>
+          <div class="mode-tabs" style="margin:0 0 0 auto">
+            <button class="mode-tab" :class="{active:convMode==='dd'}"  @click="convMode='dd';resetConv()">DD</button>
+            <button class="mode-tab" :class="{active:convMode==='dms'}" @click="convMode='dms';resetConv()">DMS</button>
+            <button class="mode-tab" :class="{active:convMode==='ddm'}" @click="convMode='ddm';resetConv()">DDM</button>
+          </div>
+        </div>
+        <div class="card-body">
+
+          <!-- DD mode -->
+          <template x-if="convMode==='dd'">
+            <div>
+              <p style="font-size:.82rem;color:var(--text-faint);margin-bottom:14px">Enter decimal degrees. Use negative for South latitude or West longitude.</p>
+              <div class="coord-grid">
+                <div>
+                  <label class="field-label">Latitude (−90 to 90)</label>
+                  <input type="text" x-model="ddLat" @keydown.enter="convert()" placeholder="e.g. 40.7128 or -33.8688"/>
+                </div>
+                <div>
+                  <label class="field-label">Longitude (−180 to 180)</label>
+                  <input type="text" x-model="ddLng" @keydown.enter="convert()" placeholder="e.g. -74.0060 or 151.2093"/>
+                </div>
+              </div>
+            </div>
+          </template>
+
+          <!-- DMS mode -->
+          <template x-if="convMode==='dms'">
+            <div>
+              <p style="font-size:.82rem;color:var(--text-faint);margin-bottom:14px">Degrees Minutes Seconds — used in traditional navigation, GPS, and topographic maps.</p>
+              <div style="margin-bottom:14px">
+                <div class="coord-label">Latitude</div>
+                <div class="dms-row">
+                  <div>
+                    <label class="field-label">Degrees</label>
+                    <input type="number" x-model="dmsLatD" placeholder="0" min="0" max="90"/>
+                  </div>
+                  <div>
+                    <label class="field-label">Minutes</label>
+                    <input type="number" x-model="dmsLatM" placeholder="0" min="0" max="59"/>
+                  </div>
+                  <div>
+                    <label class="field-label">Seconds</label>
+                    <input type="number" x-model="dmsLatS" placeholder="0.0000" min="0" max="59.9999" step="0.0001"/>
+                  </div>
+                  <div>
+                    <label class="field-label">Dir</label>
+                    <select x-model="dmsLatDir" style="width:70px"><option>N</option><option>S</option></select>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="coord-label">Longitude</div>
+                <div class="dms-row">
+                  <div>
+                    <label class="field-label">Degrees</label>
+                    <input type="number" x-model="dmsLngD" placeholder="0" min="0" max="180"/>
+                  </div>
+                  <div>
+                    <label class="field-label">Minutes</label>
+                    <input type="number" x-model="dmsLngM" placeholder="0" min="0" max="59"/>
+                  </div>
+                  <div>
+                    <label class="field-label">Seconds</label>
+                    <input type="number" x-model="dmsLngS" placeholder="0.0000" min="0" max="59.9999" step="0.0001"/>
+                  </div>
+                  <div>
+                    <label class="field-label">Dir</label>
+                    <select x-model="dmsLngDir" style="width:70px"><option>E</option><option>W</option></select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+
+          <!-- DDM mode -->
+          <template x-if="convMode==='ddm'">
+            <div>
+              <p style="font-size:.82rem;color:var(--text-faint);margin-bottom:14px">Degrees Decimal Minutes — used in aviation (ICAO), marine charts, and many handheld GPS units.</p>
+              <div style="margin-bottom:14px">
+                <div class="coord-label">Latitude</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end">
+                  <div>
+                    <label class="field-label">Degrees</label>
+                    <input type="number" x-model="ddmLatD" placeholder="0" min="0" max="90"/>
+                  </div>
+                  <div>
+                    <label class="field-label">Decimal Minutes</label>
+                    <input type="number" x-model="ddmLatM" placeholder="0.000000" min="0" max="59.999999" step="0.000001"/>
+                  </div>
+                  <div>
+                    <label class="field-label">Dir</label>
+                    <select x-model="ddmLatDir" style="width:70px"><option>N</option><option>S</option></select>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="coord-label">Longitude</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end">
+                  <div>
+                    <label class="field-label">Degrees</label>
+                    <input type="number" x-model="ddmLngD" placeholder="0" min="0" max="180"/>
+                  </div>
+                  <div>
+                    <label class="field-label">Decimal Minutes</label>
+                    <input type="number" x-model="ddmLngM" placeholder="0.000000" min="0" max="59.999999" step="0.000001"/>
+                  </div>
+                  <div>
+                    <label class="field-label">Dir</label>
+                    <select x-model="ddmLngDir" style="width:70px"><option>E</option><option>W</option></select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+
+          <template x-if="convError">
+            <div class="err-msg" style="margin-top:12px">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span x-text="convError"></span>
+            </div>
+          </template>
+
+          <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+            <button class="btn-primary" @click="convert()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              Convert
+            </button>
+            <button class="btn-outline" @click="resetConv()">Clear</button>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <template x-if="result">
+          <div style="padding:0 18px 18px">
+            <div style="height:1px;background:var(--border);margin-bottom:16px"></div>
+            <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint);margin-bottom:12px">Conversion Results</div>
+
+            <div class="result-grid">
+              <!-- DD -->
+              <div class="result-card">
+                <div class="result-label">Decimal Degrees (DD)</div>
+                <div class="result-value big" x-text="result.ddFmt"></div>
+                <button class="btn-copy" @click="copy(result.ddFmt)">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  Copy
+                </button>
+              </div>
+
+              <!-- DMS -->
+              <div class="result-card">
+                <div class="result-label">Deg Min Sec (DMS)</div>
+                <div class="result-value" x-text="result.dmsFmt"></div>
+                <button class="btn-copy" @click="copy(result.dmsFmt)">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  Copy
+                </button>
+              </div>
+
+              <!-- DDM -->
+              <div class="result-card">
+                <div class="result-label">Deg Decimal Min (DDM)</div>
+                <div class="result-value" x-text="result.ddmFmt"></div>
+                <button class="btn-copy" @click="copy(result.ddmFmt)">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  Copy
+                </button>
+              </div>
+
+              <!-- UTM -->
+              <div class="result-card">
+                <div class="result-label">UTM</div>
+                <div class="result-value" x-text="result.utmFmt"></div>
+                <button class="btn-copy" @click="copy(result.utmFmt)">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  Copy
+                </button>
+              </div>
+
+              <!-- Geohash -->
+              <div class="result-card">
+                <div class="result-label">Geohash (precision 8)</div>
+                <div class="result-value" x-text="result.geohash"></div>
+                <button class="btn-copy" @click="copy(result.geohash)">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  Copy
+                </button>
+              </div>
+
+              <!-- Info -->
+              <div class="result-card">
+                <div class="result-label">Location info</div>
+                <div style="font-size:.8rem;color:var(--text-muted);line-height:1.7">
+                  <div>Lat: <strong x-text="result.lat.toFixed(7)"></strong></div>
+                  <div>Lng: <strong x-text="result.lng.toFixed(7)"></strong></div>
+                  <div x-text="result.quadrant"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action chips -->
+            <div class="info-chips" style="margin-top:14px">
+              <a :href="result.googleUrl" target="_blank" rel="noopener" class="info-chip" style="color:var(--accent);border-color:rgba(59,130,246,.25)">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/></svg>
+                Open in Google Maps
+              </a>
+              <a :href="result.osmUrl" target="_blank" rel="noopener" class="info-chip" style="color:var(--accent);border-color:rgba(59,130,246,.25)">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+                Open in OpenStreetMap
+              </a>
+              <button class="info-chip" @click="showOnMap(result.lat, result.lng)" style="cursor:pointer;border:1px solid rgba(59,130,246,.25);color:var(--accent);background:transparent">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Preview on map
+              </button>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+  </template>
+
+  <!-- ══════════════════════════════════════════ MAP PREVIEW ══ -->
+  <template x-if="section==='map'">
+    <div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/></svg>
+          </div>
+          <span class="card-title">Map Preview</span>
+        </div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr auto 80px auto;gap:10px;align-items:end;margin-bottom:14px;flex-wrap:wrap">
+            <div>
+              <label class="field-label">Latitude</label>
+              <input type="text" x-model="mapLat" @keydown.enter="loadMap()" placeholder="e.g. 48.8566"/>
+            </div>
+            <div>
+              <label class="field-label">Longitude</label>
+              <input type="text" x-model="mapLng" @keydown.enter="loadMap()" placeholder="e.g. 2.3522"/>
+            </div>
+            <div>
+              <label class="field-label">Zoom (1–19)</label>
+              <input type="number" x-model="mapZoom" min="1" max="19" style="width:80px"/>
+            </div>
+            <div></div>
+            <div style="display:flex;align-items:flex-end">
+              <button class="btn-primary" @click="loadMap()" style="width:100%">Show</button>
+            </div>
+          </div>
+          @media(max-width:680px){.map-input-row{grid-template-columns:1fr 1fr}}
+
+          <template x-if="mapError">
+            <div class="err-msg" style="margin-bottom:12px">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span x-text="mapError"></span>
+            </div>
+          </template>
+
+          <!-- Map frame -->
+          <div class="map-wrap">
+            <template x-if="mapSrc">
+              <iframe :src="mapSrc" title="Map preview" loading="lazy" referrerpolicy="no-referrer"></iframe>
+            </template>
+            <template x-if="!mapSrc">
+              <div class="map-no-coords">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+                Enter coordinates above and click Show
+              </div>
+            </template>
+          </div>
+
+          <!-- Map links -->
+          <template x-if="mapSrc">
+            <div class="info-chips" style="margin-top:12px">
+              <a :href="mapGoogleUrl" target="_blank" rel="noopener" class="info-chip" style="color:var(--accent);border-color:rgba(59,130,246,.25)">Open in Google Maps ↗</a>
+              <a :href="mapOsmUrl" target="_blank" rel="noopener" class="info-chip" style="color:var(--accent);border-color:rgba(59,130,246,.25)">Open in OpenStreetMap ↗</a>
+            </div>
+          </template>
+
+          <p style="font-size:.75rem;color:var(--text-faint);margin-top:12px">Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener" style="color:var(--text-faint)">OpenStreetMap</a> contributors.</p>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ══════════════════════════════════════════ DISTANCE ══ -->
+  <template x-if="section==='distance'">
+    <div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><circle cx="5" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+          </div>
+          <span class="card-title">Distance Calculator</span>
+          <span style="margin-left:auto;font-size:.74rem;color:var(--text-faint)">Haversine formula · great-circle distance</span>
+        </div>
+        <div class="card-body">
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <!-- Point A -->
+            <div class="dist-point">
+              <div class="dist-point-header">📍 Point A</div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <div>
+                  <label class="field-label">Latitude</label>
+                  <input type="text" x-model="distLat1" placeholder="e.g. 51.5074"/>
+                </div>
+                <div>
+                  <label class="field-label">Longitude</label>
+                  <input type="text" x-model="distLng1" placeholder="e.g. -0.1278"/>
+                </div>
+              </div>
+            </div>
+
+            <!-- Point B -->
+            <div class="dist-point">
+              <div class="dist-point-header" style="color:#a78bfa">📍 Point B</div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <div>
+                  <label class="field-label">Latitude</label>
+                  <input type="text" x-model="distLat2" placeholder="e.g. 48.8566"/>
+                </div>
+                <div>
+                  <label class="field-label">Longitude</label>
+                  <input type="text" x-model="distLng2" placeholder="e.g. 2.3522"/>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <template x-if="distError">
+            <div class="err-msg" style="margin-top:10px">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span x-text="distError"></span>
+            </div>
+          </template>
+
+          <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+            <button class="btn-primary" @click="calcDistance()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><circle cx="5" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+              Calculate Distance
+            </button>
+            <button class="btn-outline" @click="resetDist()">Clear</button>
+          </div>
+
+          <!-- Distance results -->
+          <template x-if="distResult">
+            <div style="margin-top:18px">
+              <div class="dist-result-box">
+                <div class="dist-value" x-text="distResult.km"></div>
+                <div class="dist-unit">kilometers (great-circle)</div>
+                <div class="dist-secondary">
+                  <span x-text="distResult.mi"></span> miles &nbsp;·&nbsp;
+                  <span x-text="distResult.nm"></span> nautical miles &nbsp;·&nbsp;
+                  <span x-text="Number(distResult.m).toLocaleString()"></span> m &nbsp;·&nbsp;
+                  <span x-text="Number(distResult.ft).toLocaleString()"></span> ft
+                </div>
+              </div>
+
+              <div class="result-grid" style="margin-top:12px">
+                <div class="result-card">
+                  <div class="result-label">Bearing (A → B)</div>
+                  <div class="result-value big" x-text="distResult.bearing + '°'"></div>
+                  <div style="font-size:.78rem;color:var(--text-muted)" x-text="distResult.bearingDir + ' direction'"></div>
+                </div>
+                <div class="result-card">
+                  <div class="result-label">Midpoint</div>
+                  <div class="result-value" x-text="distResult.midLat + ', ' + distResult.midLng"></div>
+                  <button class="btn-copy" style="margin-top:6px" @click="copy(distResult.midLat + ', ' + distResult.midLng)">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    Copy
+                  </button>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- Ad -->
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- ── DESCRIPTION ── -->
+  <div class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">What This Tool Does</h2>
+      <p class="section-desc">Everything you need to work with geographic coordinates — convert, visualize, and measure.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">🔄</div><div class="feature-title">All major formats</div><div class="feature-desc">Convert between Decimal Degrees (DD), Degrees Minutes Seconds (DMS), Degrees Decimal Minutes (DDM), UTM, and Geohash in one step.</div></div>
+      <div class="feature-card"><div class="feature-icon">🗺️</div><div class="feature-title">Map preview</div><div class="feature-desc">Visualize any coordinate on an embedded OpenStreetMap. Adjust zoom level. Open directly in Google Maps or OpenStreetMap with one click.</div></div>
+      <div class="feature-card"><div class="feature-icon">📏</div><div class="feature-title">Distance calculator</div><div class="feature-desc">Calculate great-circle distance between two coordinate pairs using the Haversine formula. Results in km, miles, nautical miles, meters, and feet.</div></div>
+      <div class="feature-card"><div class="feature-icon">🧭</div><div class="feature-title">Bearing & midpoint</div><div class="feature-desc">Get the initial compass bearing from Point A to Point B and the geographic midpoint — both shown alongside the distance result.</div></div>
+      <div class="feature-card"><div class="feature-icon">📋</div><div class="feature-title">One-click copy</div><div class="feature-desc">Copy any output format — DD, DMS, DDM, UTM, Geohash — to clipboard instantly with the copy button next to each result.</div></div>
+      <div class="feature-card"><div class="feature-icon">🔗</div><div class="feature-title">Direct map links</div><div class="feature-desc">Every conversion generates a Google Maps link and OpenStreetMap link for the exact coordinate, opening in a new tab.</div></div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── HOW TO USE ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head"><h2 class="section-title">How to Use This Tool</h2></div>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-number">1</div><div><div class="step-title">Choose your input format</div><div class="step-desc">Select DD (Decimal Degrees), DMS (Degrees Minutes Seconds), or DDM (Degrees Decimal Minutes) from the tabs in the Converter section — whichever matches your source data.</div></div></div>
+      <div class="step-card"><div class="step-number">2</div><div><div class="step-title">Enter coordinates</div><div class="step-desc">Type in your latitude and longitude values. For DD: use negative values for South/West. For DMS and DDM: use the direction dropdowns (N/S and E/W). Press Enter or click Convert.</div></div></div>
+      <div class="step-card"><div class="step-number">3</div><div><div class="step-title">Read all output formats</div><div class="step-desc">Results show DD, DMS, DDM, UTM, and Geohash simultaneously. Click any Copy button to copy that specific format to your clipboard.</div></div></div>
+      <div class="step-card"><div class="step-number">4</div><div><div class="step-title">Preview on map</div><div class="step-desc">Click "Preview on map" under the results, or switch to the Map Preview tab and enter coordinates manually. Adjust the zoom level and open in Google Maps or OSM.</div></div></div>
+      <div class="step-card"><div class="step-number">5</div><div><div class="step-title">Calculate distance</div><div class="step-desc">Switch to the Distance tab. Enter two coordinate pairs (in decimal degrees). Click Calculate Distance to get the great-circle distance, bearing, and midpoint.</div></div></div>
+      <div class="step-card"><div class="step-number">6</div><div><div class="step-title">Copy or share results</div><div class="step-desc">Use the copy buttons on any result card. Open either map service link to share the exact location. Bearing is shown as both degrees and compass direction (NNE, SW, etc.).</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── LOGIC BEHIND ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Logic Behind the Tool</h2>
+      <p class="section-desc">How the math works for each conversion and distance formula.</p>
+    </div>
+    <div class="logic-grid">
+      <div class="logic-card">
+        <div class="logic-title">DD ↔ DMS conversion</div>
+        <div class="logic-desc">To convert DD to DMS: degrees = floor(|DD|), minutes = floor((|DD| − degrees) × 60), seconds = ((|DD| − degrees) × 60 − minutes) × 60. Direction is N/E if positive, S/W if negative. Reverse applies the inverse: <code>DD = D + M/60 + S/3600</code>, then negate for S or W.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">UTM projection</div>
+        <div class="logic-desc">Universal Transverse Mercator divides Earth into 60 zones of 6° each. The tool computes approximate easting and northing using the WGS84 ellipsoid parameters (a = 6,378,137 m, f = 1/298.257). Northing adds 10,000,000 m for Southern Hemisphere coordinates to keep values positive.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Geohash encoding</div>
+        <div class="logic-desc">Geohash encodes coordinates by recursively bisecting the latitude/longitude bounding box and encoding 5 bits at a time into base-32 characters. Each additional character doubles the precision. At precision 8, the cell is approximately 38m × 19m. Adjacent cells share a common prefix, enabling efficient proximity queries.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Haversine distance</div>
+        <div class="logic-desc">The Haversine formula computes great-circle distance on a sphere: <code>a = sin²(Δlat/2) + cos(lat1)·cos(lat2)·sin²(Δlng/2)</code>; <code>d = 2R·atan2(√a, √(1−a))</code>. Using Earth's mean radius of 6,371.0088 km, this is accurate to within ~0.5% for any distance.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FAQ ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head"><h2 class="section-title">Frequently Asked Questions</h2></div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is the difference between DD, DMS, and DDM?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>DD (Decimal Degrees) is a single number like 40.7128. DMS (Degrees Minutes Seconds) breaks it into 40° 42' 46" N — the traditional navigation format. DDM (Degrees Decimal Minutes) is 40° 42.768' N, common in aviation and marine GPS. All three represent the same location. DD is preferred in web/software contexts. DMS is on paper maps and older GPS units. DDM is on ICAO aviation charts and marine chartplotters.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">How do I find my latitude and longitude?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>In Google Maps: right-click any point on the map and the coordinates appear at the top of the context menu in decimal degrees. On your phone: open Maps, tap and hold a location to drop a pin, then tap the pin — coordinates show at the bottom. On iPhone, the Compass app shows your current coordinates. For precise work, a dedicated GPS device or surveying app gives better accuracy than phone GPS.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Why does the distance calculation use a sphere model?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>The Haversine formula assumes Earth is a perfect sphere with a mean radius of 6,371 km. Earth is actually slightly flattened at the poles (an oblate spheroid), so Haversine has an error of up to about 0.5% for very long distances. For most applications — navigation, location-based searches, general GIS work — this is plenty accurate. For geodetic surveying that needs millimeter precision, use the Vincenty formula on the WGS84 ellipsoid.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What does the bearing number mean?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Bearing is the direction you would travel from Point A to reach Point B, measured clockwise from true North. 0° = North, 90° = East, 180° = South, 270° = West. The tool also shows the compass direction abbreviation (N, NNE, NE, ENE, etc.) by dividing the circle into 16 equal sectors of 22.5°. This is the initial bearing — for long distances on a curved Earth, the bearing changes along the route.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Can I use this tool for address lookup?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>No — this tool works with raw coordinates only. Address-to-coordinate conversion (geocoding) requires an external geocoding API such as Google Maps Geocoding API, OpenStreetMap Nominatim, or HERE Maps. These services look up an address string and return a lat/long pair. This tool takes lat/long as input and converts between coordinate formats — it does not query external APIs or perform address resolution.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── RELATED TOOLS ── -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="../seo/sitemap-generator.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f97316,#fbbf24)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 10h16M4 14h10"/></svg></div>
+        <div class="related-name">Sitemap Generator</div>
+        <div class="related-desc">Build a valid XML sitemap for any website.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../coding/url-encoder.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#3b82f6,#60a5fa)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+        <div class="related-name">URL Encoder / Decoder</div>
+        <div class="related-desc">Encode or decode URLs and query strings.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../math/unit-converter.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#d299c2,#fef9d7)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3M12 8v8M9 11l3-3 3 3"/></svg></div>
+        <div class="related-name">Unit Converter</div>
+        <div class="related-desc">Convert length, weight, temperature, speed, and more.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../seo/meta-tag-generator.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/></svg></div>
+        <div class="related-name">Meta Tag Generator</div>
+        <div class="related-desc">Generate SEO meta tags and Open Graph markup.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── RELATED BLOG ── -->
+  <div class="page-section" style="margin-top:0">
+    <h2 class="section-title" style="margin-bottom:16px">Related Reading</h2>
+    <div class="blog-related-grid">
+      <a href="../../blog/xml-sitemap-seo.html" class="blog-card">
+        <div class="blog-tag-sm">🗺 SEO</div>
+        <div class="blog-title-sm">Your Sitemap Is Not Getting You Indexed — Here's What Actually Does</div>
+        <div class="blog-link">Read →</div>
+      </a>
+      <a href="../../blog/url-encoding-guide.html" class="blog-card">
+        <div class="blog-tag-sm">🔗 Dev</div>
+        <div class="blog-title-sm">URL Encoding: Why %20 Exists and When to Use It</div>
+        <div class="blog-link">Read →</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <circle cx="18" cy="18" r="10" stroke="#fff" stroke-width="2" fill="none"/>
+          <path d="M18 8v20M8 18h20" stroke="#fff" stroke-width="1.4" opacity=".7"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#3b82f6"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#gis">GIS Tools</a><a href="../../tools.html#seo">SEO Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a><a href="../../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="lat-long.js"></script>
+</body>
+</html>

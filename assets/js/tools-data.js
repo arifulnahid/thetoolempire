@@ -304,6 +304,94 @@ const TOOLS_DATA = [
     url: 'tools/social/yt-timestamp.html',
   },
 
+  {
+    id: 'instagram-post-resizer',
+    title: 'Instagram Post Resizer',
+    description: 'Resize any image to perfect Instagram dimensions — Square, Portrait, Story, Reels, Profile, and IGTV. Drag to reposition, zoom, and download. No upload required.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>',
+    color: 'linear-gradient(135deg,#833AB4,#E1306C,#F77737)',
+    categories: ['social-media', 'image', 'Design', 'converter'],
+    url: 'tools/social/instagram-post-resizer.html',
+  },
+
+  // ── SEO TOOLS (extended) ──────────────────────────────────────
+  {
+    id: 'keyword-density',
+    title: 'Keyword Density Checker',
+    description: 'Analyze keyword density and word frequency in any text. Highlight occurrences, filter stop words, and check if your content is over-optimized.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M8 11h6M11 8v6"/></svg>',
+    color: 'linear-gradient(135deg,#10b981,#34d399)',
+    categories: ['SEO', 'Text', 'content'],
+    url: 'tools/seo/keyword-density.html',
+  },
+  {
+    id: 'readability-checker',
+    title: 'Readability Score Calculator',
+    description: 'Calculate Flesch Reading Ease, Flesch-Kincaid Grade Level, Gunning Fog, SMOG, and Coleman-Liau Index for any text. Includes reading time estimate.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
+    color: 'linear-gradient(135deg,#8b5cf6,#a78bfa)',
+    categories: ['SEO', 'Text', 'content'],
+    url: 'tools/seo/readability-checker.html',
+  },
+
+  // ── CODING TOOLS (extended) ────────────────────────────────────
+  {
+    id: 'url-encoder',
+    title: 'URL Encoder / Decoder',
+    description: 'Encode or decode URLs and query strings. Supports encodeURI, encodeURIComponent, form-data encoding, and a visual query string parameter parser.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+    color: 'linear-gradient(135deg,#3b82f6,#60a5fa)',
+    categories: ['Coding', 'web', 'utilities'],
+    url: 'tools/coding/url-encoder.html',
+  },
+
+  // ── IMAGE TOOLS ────────────────────────────────────────────────
+  {
+    id: 'image-metadata-editor',
+    title: 'Image Metadata Editor',
+    description: 'View, edit, and remove EXIF metadata from JPEG images. Edit author, copyright, GPS location, dates. Strip all metadata for privacy. No upload required.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 3H8l-2 4h12z"/><circle cx="12" cy="14" r="2.5"/></svg>',
+    color: 'linear-gradient(135deg,#7c3aed,#4f46e5)',
+    categories: ['image', 'security', 'utilities'],
+    url: 'tools/image/image-metadata-editor.html',
+  },
+  {
+    id: 'image-compressor',
+    title: 'Image Compressor',
+    description: 'Compress JPEG, PNG, and WebP images in your browser. Adjust quality, resize dimensions, convert formats, and download — no upload to any server.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>',
+    color: 'linear-gradient(135deg,#f59e0b,#fbbf24)',
+    categories: ['image', 'file', 'utilities', 'converter'],
+    url: 'tools/image/image-compressor.html',
+  },
+  {
+    id: 'image-converter',
+    title: 'Image Converter',
+    description: 'Convert JPEG, PNG, WebP, GIF, and BMP between formats in your browser. Batch convert up to 50 files, set quality, handle transparent-to-JPEG background, and download as ZIP.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3"/><path d="M9 11l3-3 3 3"/><line x1="12" y1="8" x2="12" y2="16"/></svg>',
+    color: 'linear-gradient(135deg,#0d9488,#14b8a6)',
+    categories: ['image', 'file', 'converter', 'utilities'],
+    url: 'tools/image/image-converter.html',
+  },
+  {
+    id: 'image-crop',
+    title: 'Image Crop Tool',
+    description: 'Crop images to circle, square, 16:9, 4:3, portrait, or free selection. Drag-and-resize crop box with rule-of-thirds grid, aspect ratio lock, and JPEG/PNG/WebP output. No upload required.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg>',
+    color: 'linear-gradient(135deg,#e11d48,#f43f5e)',
+    categories: ['image', 'file', 'utilities', 'Design'],
+    url: 'tools/image/image-crop.html',
+  },
+  {
+    id: 'image-resizer',
+    title: 'Image Resizer',
+    description: 'Resize JPEG, PNG, and WebP images by exact pixels, percentage, fit-within, or social media preset. Aspect ratio lock, format conversion, and before/after comparison slider.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18M15 3v6M3 15h6"/></svg>',
+    color: 'linear-gradient(135deg,#6366f1,#818cf8)',
+    categories: ['image', 'file', 'utilities', 'converter'],
+    url: 'tools/image/image-resizer.html',
+  },
+
   // ── DESIGN TOOLS ──────────────────────────────────────────────
   {
     id: 'qr-code-maker',

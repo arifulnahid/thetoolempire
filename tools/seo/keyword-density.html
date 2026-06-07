@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Keyword Density Checker — Free SEO Keyword Analysis Tool | The Tool Empire</title>
+  <meta name="description" content="Check keyword density of any text instantly. Analyze word frequency, find over-optimized keywords, get density percentages, and highlight keyword occurrences. Free browser-based SEO tool."/>
+  <meta name="keywords" content="keyword density checker, keyword density tool, SEO keyword analysis, keyword frequency checker, keyword density percentage, on-page SEO tool"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/seo/keyword-density.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Keyword Density Checker — Free SEO Keyword Analysis"/>
+  <meta property="og:description" content="Analyze keyword density, word frequency, and find over-optimized terms in any text. Free, runs entirely in your browser."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/seo/keyword-density.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"Keyword Density Checker","description":"Free browser-based keyword density checker. Analyzes word frequency, calculates keyword density percentages, identifies over-optimized terms, and highlights keyword occurrences in your text.","url":"https://thetoolempire.com/tools/seo/keyword-density.html","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Keyword density percentage","Word frequency analysis","Stop word filtering","Keyword occurrence highlighting","Top keywords table","Recommended density range","Single keyword density check","No data sent to server"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"SEO Tools","item":"https://thetoolempire.com/tools.html#seo"},
+      {"@type":"ListItem","position":3,"name":"Keyword Density Checker","item":"https://thetoolempire.com/tools/seo/keyword-density.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is keyword density?","acceptedAnswer":{"@type":"Answer","text":"Keyword density is the percentage of times a specific keyword appears in a text relative to the total word count. Formula: (keyword count ÷ total words) × 100. A density of 1–3% is generally considered optimal for SEO without risking keyword stuffing penalties."}},
+      {"@type":"Question","name":"What is the ideal keyword density for SEO?","acceptedAnswer":{"@type":"Answer","text":"Most SEO professionals recommend keeping keyword density between 1% and 3%. Below 0.5% may signal the topic isn't covered well. Above 3–4% risks appearing keyword-stuffed to Google. Natural writing that covers the topic thoroughly will typically land in the optimal range automatically."}},
+      {"@type":"Question","name":"Does keyword density still matter in 2025?","acceptedAnswer":{"@type":"Answer","text":"Yes, but differently than before. Google no longer counts raw keyword frequency as a primary ranking factor. Instead it looks for topical coverage and semantic relevance. Keyword density is still useful as a sanity check — to ensure you're mentioning your target topic enough and not over-stuffing it. Use LSI keywords and related terms alongside your primary keyword."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="keyword-density.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <path d="M8 12h20M8 18h14M8 24h10" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#10b981"/><stop offset="1" stop-color="#34d399"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="kwDensityApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">SEO</a></li><li>›</li>
+      <li style="color:#e8e8f0">Keyword Density Checker</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot" style="width:100%;margin-bottom:18px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      SEO Tool
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">Keyword Density Checker</span></h1>
+    <p class="tool-subtitle">Paste your content, check word frequency and keyword density percentages — find over-optimized terms before publishing.</p>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="stat-row" style="margin-bottom:16px">
+    <div class="stat-card">
+      <div class="stat-value" x-text="totalWords">0</div>
+      <div class="stat-label">Total Words</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" x-text="uniqueWords">0</div>
+      <div class="stat-label">Unique Words</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" x-text="sentences">0</div>
+      <div class="stat-label">Sentences</div>
+    </div>
+  </div>
+
+  <!-- Tool grid -->
+  <div class="tool-grid">
+
+    <!-- LEFT: Input -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+
+      <!-- Keyword check -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Target Keyword</span>
+          <div class="panel-actions">
+            <button class="btn-sm" @click="clearAll()">Clear All</button>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="field">
+            <label class="field-label">Keyword or phrase to check</label>
+            <input type="text" class="field-input" x-model="keyword" @input="analyze()" placeholder="e.g. keyword density checker"/>
+            <span class="field-hint">Leave blank to see frequency analysis of all words.</span>
+          </div>
+
+          <!-- Keyword density result -->
+          <template x-if="keyword.trim() && totalWords > 0">
+            <div>
+              <div class="density-meter">
+                <div class="meter-label">
+                  <span style="font-size:.8rem;color:var(--text-muted)">Density: <strong x-text="kwDensity + '%'"></strong></span>
+                  <span style="font-size:.8rem;color:var(--text-faint)">Count: <span x-text="kwCount"></span></span>
+                </div>
+                <div class="meter-bar">
+                  <div class="meter-fill" :style="meterStyle"></div>
+                </div>
+                <div class="density-status" :class="densityStatusClass" x-text="densityStatusText"></div>
+              </div>
+            </div>
+          </template>
+
+          <div class="field">
+            <label class="field-label">Options</label>
+            <div style="display:flex;gap:16px;flex-wrap:wrap">
+              <label style="display:flex;align-items:center;gap:6px;font-size:.83rem;color:var(--text-muted);cursor:pointer">
+                <input type="checkbox" x-model="filterStopWords" @change="analyze()" style="accent-color:var(--primary)"/>
+                Filter common stop words
+              </label>
+              <label style="display:flex;align-items:center;gap:6px;font-size:.83rem;color:var(--text-muted);cursor:pointer">
+                <input type="checkbox" x-model="caseInsensitive" @change="analyze()" style="accent-color:var(--primary)"/>
+                Case-insensitive
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text input -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Your Content</span>
+          <div class="panel-actions">
+            <button class="btn-sm" @click="loadSample()">Load sample</button>
+            <button class="btn-sm" @click="text=''; analyze()">Clear</button>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="field">
+            <textarea class="field-textarea" style="min-height:260px" x-model="text" @input="analyze()" placeholder="Paste your article, blog post, or page content here…"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: Results -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+
+      <!-- Keyword highlighting -->
+      <div class="panel" x-show="keyword.trim() && totalWords > 0">
+        <div class="panel-header">
+          <span class="panel-title">Keyword Highlights</span>
+          <span style="font-size:.72rem;color:var(--text-faint)" x-text="kwCount + ' occurrences'"></span>
+        </div>
+        <div class="panel-body" style="padding:14px">
+          <div class="highlight-text" x-html="highlightedText"></div>
+        </div>
+      </div>
+
+      <!-- Top keywords table -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Top Keywords by Frequency</span>
+          <span style="font-size:.72rem;color:var(--text-faint)">sorted by count</span>
+        </div>
+        <div class="panel-body" style="padding:0">
+          <template x-if="topKeywords.length === 0">
+            <p style="padding:20px;text-align:center;color:var(--text-faint);font-size:.85rem">Paste content on the left to see keyword analysis.</p>
+          </template>
+          <template x-if="topKeywords.length > 0">
+            <table class="kw-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Keyword</th>
+                  <th>Count</th>
+                  <th>Density</th>
+                  <th class="kw-bar-cell">Bar</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <template x-for="(kw, i) in topKeywords" :key="kw.word">
+                  <tr>
+                    <td style="color:var(--text-faint);font-size:.75rem" x-text="i+1"></td>
+                    <td style="font-weight:600" x-text="kw.word"></td>
+                    <td x-text="kw.count"></td>
+                    <td x-text="kw.density + '%'"></td>
+                    <td class="kw-bar-cell">
+                      <div class="kw-mini-bar">
+                        <div class="kw-mini-fill" :style="'width:' + Math.min(kw.density * 25, 100) + '%'"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="density-badge" :class="kw.density < 0.5 ? 'badge-low' : kw.density <= 3 ? 'badge-ok' : 'badge-high'" x-text="kw.density < 0.5 ? 'Low' : kw.density <= 3 ? 'Optimal' : 'High'"></span>
+                    </td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </template>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Ad -->
+  <div class="ad-slot" style="width:100%;margin-top:20px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- How it works -->
+  <div class="page-section">
+    <h2 class="section-title">How to Use the Keyword Density Checker</h2>
+    <p class="section-desc">Analyze your content's keyword usage in three steps.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-title">Paste Your Content</div>
+        <div class="step-desc">Copy your article, blog post, or web page content into the text area. The tool analyzes all text instantly as you type.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-title">Enter a Target Keyword</div>
+        <div class="step-desc">Type your primary keyword or phrase in the "Target Keyword" field. The tool shows its density percentage and count with a visual bar.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-title">Review the Density Table</div>
+        <div class="step-desc">The top keywords table shows all significant words with their frequency and density. Green = optimal (1–3%), yellow = low (&lt;0.5%), red = high (&gt;3%).</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div class="step-title">Check Keyword Highlights</div>
+        <div class="step-desc">The highlighted text panel shows exactly where your target keyword appears in your content, making it easy to spot clustering or gaps.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">5</div>
+        <div class="step-title">Adjust & Re-check</div>
+        <div class="step-desc">Edit your content, then paste it back in. Aim for 1–3% density for your primary keyword. Use LSI terms and related phrases for the rest.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">6</div>
+        <div class="step-title">Toggle Stop Words</div>
+        <div class="step-desc">Enable "Filter stop words" to hide common words like "the", "and", "is" from the frequency table and focus on meaningful keywords.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider"/>
+
+  <!-- Logic used -->
+  <div class="page-section" style="margin-top:0">
+    <h2 class="section-title">How Keyword Density Is Calculated</h2>
+    <p class="section-desc">The math behind this tool — transparent and straightforward.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Density Formula</div>
+        <div class="feature-desc">Density (%) = (keyword occurrences ÷ total words) × 100. Multi-word phrases count as one match when they appear consecutively.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔤</div>
+        <div class="feature-title">Word Tokenization</div>
+        <div class="feature-desc">Text is split by whitespace and punctuation. Hyphens within compound words are preserved. Numbers are counted as words unless filtered.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🚫</div>
+        <div class="feature-title">Stop Word Filter</div>
+        <div class="feature-desc">Over 150 common English stop words (the, and, is, to, a…) can be excluded from frequency analysis to surface meaningful keywords.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-title">Case Normalization</div>
+        <div class="feature-desc">Case-insensitive mode converts all text to lowercase before matching, so "SEO", "Seo", and "seo" count as one keyword.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <div class="feature-title">Sentence Detection</div>
+        <div class="feature-desc">Sentences are detected by looking for period, exclamation mark, or question mark followed by a space and uppercase letter.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">100% Private</div>
+        <div class="feature-desc">All analysis runs in your browser using JavaScript. Your content never leaves your device — no server, no API, no logging.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider"/>
+
+  <!-- FAQ -->
+  <div class="page-section" style="margin-top:0">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <p class="section-desc">Common questions about keyword density and SEO.</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="$el.closest('.faq-item').classList.toggle('open')">What is keyword density and why does it matter?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Keyword density is the percentage of times a specific word or phrase appears in your content relative to the total word count. It matters because it signals to search engines what your content is about. Too low and the topic may not be covered thoroughly; too high and it looks like keyword stuffing, which can trigger penalties. The sweet spot is 1–3% for primary keywords.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="$el.closest('.faq-item').classList.toggle('open')">What keyword density does Google recommend?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Google doesn't publish an official recommended density number. Their guidelines warn against keyword stuffing (repeating keywords excessively in an unnatural way) but don't specify a percentage threshold. Most experienced SEOs recommend staying between 1–3%. More importantly, write for human readers first — natural writing that thoroughly covers a topic tends to hit healthy density ranges automatically.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="$el.closest('.faq-item').classList.toggle('open')">Is keyword density the most important SEO factor?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>No. Keyword density is one small signal among hundreds. Backlinks, E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness), page experience, and topical depth matter far more. Use keyword density as a sanity check — not as a primary optimization target. Focus on writing comprehensive, accurate content that genuinely answers search intent.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="$el.closest('.faq-item').classList.toggle('open')">What are LSI keywords and should I include them?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>LSI (Latent Semantic Indexing) keywords are words and phrases semantically related to your primary keyword. For example, an article about "keyword density" might also include "word frequency", "SEO optimization", "content analysis", and "search ranking". Including these naturally improves topical coverage and helps Google understand the full context of your page without relying on repetition of the exact primary keyword.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="$el.closest('.faq-item').classList.toggle('open')">How do I fix keyword stuffing?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>If your keyword density is above 3–4%: replace some exact-match keywords with synonyms or related terms, remove unnecessary keyword repetitions, rewrite sections to add value rather than just repeating the keyword, and use pronouns naturally. Check whether the high density is concentrated in one section (which looks unnatural) or distributed naturally throughout the content.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="$el.closest('.faq-item').classList.toggle('open')">Should I check keyword density for every keyword on the page?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Focus primarily on your page's main target keyword. Check secondary keywords if they're explicitly important to your strategy. Don't try to maintain specific densities for dozens of keywords — that approach typically produces unnatural, poor-quality content. Write naturally, then use this tool to verify your primary keyword appears at a reasonable frequency.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider"/>
+
+  <!-- Related tools -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related SEO Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="readability-checker.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <div class="related-name">Readability Score</div>
+        <div class="related-desc">Calculate Flesch, Fog, SMOG and grade level for your content.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="meta-tag-generator.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f97316,#fb923c)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+        <div class="related-name">Meta Tag Generator</div>
+        <div class="related-desc">Generate SEO meta tags, OG tags, and Twitter Cards.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="og-tag-generator.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#4facfe,#00f2fe)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
+        <div class="related-name">OG Tag Generator</div>
+        <div class="related-desc">Create Open Graph tags for social sharing.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="robots-txt-generator.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div class="related-name">Robots.txt Generator</div>
+        <div class="related-desc">Build a robots.txt file for your site.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Related articles -->
+  <div class="page-section" style="margin-top:20px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Articles</h2>
+      <a href="../../blog.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="../../blog/keyword-density-guide.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#10b981,#34d399)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="related-name">Keyword Density in 2025: Why It Still Matters</div>
+        <div class="related-desc">When to count and when to stop counting keyword density.</div>
+        <span class="related-link">Read →</span>
+      </a>
+      <a href="../../blog/seo-meta-tags-guide.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#4facfe,#00f2fe)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="related-name">The Complete Guide to SEO Meta Tags in 2025</div>
+        <div class="related-desc">Title tags, descriptions, canonical URLs explained.</div>
+        <span class="related-link">Read →</span>
+      </a>
+      <a href="../../blog/readability-score-guide.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="related-name">Writing for Real People: How Readability Scores Work</div>
+        <div class="related-desc">Flesch, Fog, SMOG — which formula actually predicts reader engagement.</div>
+        <span class="related-link">Read →</span>
+      </a>
+      <a href="../../blog/word-count-guide.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#667eea,#764ba2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="related-name">Word Count Guide: How Long Should Your Content Be?</div>
+        <div class="related-desc">Ideal lengths for blog posts, pages, emails, and LinkedIn.</div>
+        <span class="related-link">Read →</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <path d="M8 12h20M8 18h14M8 24h10" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#10b981"/><stop offset="1" stop-color="#34d399"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#seo">SEO Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a><a href="../../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="keyword-density.js"></script>
+</body>
+</html>

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Image Metadata Editor — View & Edit EXIF Data Free | The Tool Empire</title>
+  <meta name="description" content="View, edit, and remove EXIF metadata from JPEG images in your browser. Edit author, copyright, GPS coordinates, description, camera info, and dates. Download with updated metadata or strip it all for privacy. No upload required."/>
+  <meta name="keywords" content="image metadata editor, exif editor online, edit exif data, remove exif data, photo metadata editor, exif viewer, jpeg metadata editor, remove gps from photo, exif metadata remover, image metadata viewer free"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/image/image-metadata-editor.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Image Metadata Editor — View & Edit EXIF Data Free"/>
+  <meta property="og:description" content="View and edit EXIF metadata in JPEG images — author, copyright, GPS, dates, and more. Download with updated data or strip all metadata for privacy. 100% browser-based."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/image/image-metadata-editor.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"Image Metadata Editor","description":"Free browser-based tool to view and edit EXIF metadata in JPEG images. Supports editing author, copyright, GPS coordinates, description, date/time, and user comments. Download with updated metadata or strip all metadata for privacy. No upload required.","url":"https://thetoolempire.com/tools/image/image-metadata-editor.html","applicationCategory":"PhotoApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["View all EXIF metadata tags","Edit author, copyright, description, GPS, dates","Read-only camera info display (make, model, lens, aperture, shutter, ISO)","GPS coordinate editor with Google Maps preview","Strip all metadata for privacy","JPEG metadata write-back using piexifjs","100% client-side — no upload to server","Download with updated or stripped metadata"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Image Tools","item":"https://thetoolempire.com/tools.html#image"},
+      {"@type":"ListItem","position":3,"name":"Image Metadata Editor","item":"https://thetoolempire.com/tools/image/image-metadata-editor.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is EXIF metadata in a photo?","acceptedAnswer":{"@type":"Answer","text":"EXIF (Exchangeable Image File Format) is a standard for embedding metadata inside image files — typically JPEGs. It records information at the moment the photo is taken: camera make and model, lens, aperture, shutter speed, ISO, date and time, and often GPS coordinates. It can also contain editable fields like author name, copyright notice, and description that are set by editing software."}},
+      {"@type":"Question","name":"Can I edit EXIF data without losing image quality?","acceptedAnswer":{"@type":"Answer","text":"Yes. EXIF metadata is stored separately from the image pixel data in a JPEG file. This tool uses piexifjs to modify only the metadata segment and re-inserts it without touching the image data. The pixel-level quality is preserved exactly — there is no re-encoding or compression applied to the image when metadata is edited."}},
+      {"@type":"Question","name":"Does this tool work with PNG, WebP, or other formats?","acceptedAnswer":{"@type":"Answer","text":"Metadata editing (reading and writing EXIF) is currently supported for JPEG files only. JPEG is the most common format for camera-produced images with EXIF data. PNG files can be loaded for viewing basic file info and for stripping metadata (by redrawing on canvas), but PNG does not use the EXIF standard and has no editable metadata fields in this tool."}},
+      {"@type":"Question","name":"How do I remove GPS location from a photo?","acceptedAnswer":{"@type":"Answer","text":"Upload the image, go to the GPS tab, and clear the Latitude and Longitude fields. Then click Save Metadata and Download — the output file will have no GPS data. Alternatively, use Strip All Metadata to remove all EXIF data from the file at once, which also removes the GPS coordinates along with all other metadata fields."}},
+      {"@type":"Question","name":"Is my image uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. Everything runs entirely in your browser. The image file is read using the browser's FileReader API, metadata is parsed and modified using piexifjs (a JavaScript library), and the result is downloaded directly from your browser. Your image never leaves your device."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="image-metadata-editor.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/piexifjs@1.0.6/piexif.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <rect x="7" y="9" width="22" height="18" rx="4" fill="#fff" fill-opacity=".9"/>
+        <path d="M12 20l4-5 3 4 2-2 3 3" stroke="#7c3aed" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#7c3aed"/><stop offset="1" stop-color="#4f46e5"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="imageMetadataApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li><a href="../../tools.html#image" style="color:#8888a8">Image</a></li><li>›</li>
+      <li style="color:#e8e8f0">Metadata Editor</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 3H8l-2 4h12z"/></svg>
+      Image Tools · EXIF
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">Image Metadata Editor</span></h1>
+    <p class="tool-subtitle">View, edit, and remove EXIF metadata from your JPEG images. Edit author, copyright, GPS location, dates, and more — or strip all metadata for privacy. 100% browser-based.</p>
+  </div>
+
+  <!-- ── Upload ── -->
+  <template x-if="!imageUrl">
+    <div
+      class="upload-zone"
+      :class="{'drag-over': isDragOver}"
+      @dragover.prevent="isDragOver=true"
+      @dragleave="isDragOver=false"
+      @drop.prevent="onDrop($event)"
+      @click="$refs.fileInput.click()"
+    >
+      <div class="upload-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 3H8l-2 4h12z"/><circle cx="12" cy="14" r="2.5"/></svg>
+      </div>
+      <div class="upload-title">Drop your image here</div>
+      <div class="upload-sub">JPEG, PNG, WebP — EXIF editing requires JPEG</div>
+      <label class="btn-upload" @click.stop="$refs.fileInput.click()">Choose Image</label>
+      <input x-ref="fileInput" type="file" accept="image/*" style="display:none" @change="onFileInput($event)"/>
+    </div>
+  </template>
+
+  <!-- ── Editor ── -->
+  <template x-if="imageUrl">
+    <div>
+      <div class="editor-wrap">
+
+        <!-- ── Left panel ── -->
+        <div class="panel-left">
+          <div class="file-card">
+            <img :src="imageUrl" class="file-preview" :alt="fileName"/>
+            <div class="file-info">
+              <div class="file-name" x-text="fileName"></div>
+              <div class="file-meta-row"><span class="fm-key">Dimensions</span><span class="fm-val" x-text="imgWidth && imgHeight ? imgWidth+'×'+imgHeight : '…'"></span></div>
+              <div class="file-meta-row"><span class="fm-key">File size</span><span class="fm-val" x-text="fileSizeFmt"></span></div>
+              <div class="file-meta-row"><span class="fm-key">Format</span><span class="fm-val" x-text="fileType || '—'"></span></div>
+              <div>
+                <span class="exif-badge" :class="hasExif ? 'has' : 'none'">
+                  <template x-if="hasExif"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></template>
+                  <span x-text="hasExif ? 'EXIF data found' : 'No EXIF data'"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn-save" @click="saveAndDownload()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Save Metadata &amp; Download
+          </button>
+          <button class="btn-strip" @click="stripAndDownload()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+            Strip All Metadata
+          </button>
+          <button class="btn-change" @click="imageUrl=null;file=null">Change Image</button>
+        </div>
+
+        <!-- ── Right panel: tabs ── -->
+        <div class="panel-right">
+
+          <!-- Non-JPEG notice -->
+          <template x-if="!isJpeg">
+            <div style="padding:16px">
+              <div class="notice">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <div>EXIF metadata editing requires a JPEG file. You can still use <strong>Strip All Metadata</strong> to remove embedded data from this image.</div>
+              </div>
+            </div>
+          </template>
+
+          <!-- Tabs (JPEG only) -->
+          <template x-if="isJpeg">
+            <div>
+              <div class="tab-bar">
+                <button class="tab-btn" :class="{active: activeTab==='basic'}"  @click="activeTab='basic'">Basic Info</button>
+                <button class="tab-btn" :class="{active: activeTab==='camera'}" @click="activeTab='camera'">Camera</button>
+                <button class="tab-btn" :class="{active: activeTab==='gps'}"    @click="activeTab='gps'">GPS</button>
+                <button class="tab-btn" :class="{active: activeTab==='all'}"    @click="activeTab='all'">All Tags</button>
+              </div>
+
+              <!-- ── Basic Info tab ── -->
+              <div class="tab-body" x-show="activeTab==='basic'">
+                <div class="field-group">
+                  <div class="group-label">Description &amp; Attribution</div>
+                  <div class="field-grid">
+                    <div class="field-row field-full">
+                      <label class="field-label">Image Description / Title</label>
+                      <textarea class="field-input" rows="2" x-model="edit.description" placeholder="Describe this image…"></textarea>
+                    </div>
+                    <div class="field-row">
+                      <label class="field-label">Artist / Author</label>
+                      <input type="text" class="field-input" x-model="edit.artist" placeholder="Your name"/>
+                    </div>
+                    <div class="field-row">
+                      <label class="field-label">Copyright</label>
+                      <input type="text" class="field-input" x-model="edit.copyright" placeholder="© 2026 Your Name"/>
+                    </div>
+                    <div class="field-row field-full">
+                      <label class="field-label">User Comment</label>
+                      <textarea class="field-input" rows="2" x-model="edit.userComment" placeholder="Additional notes…"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field-group">
+                  <div class="group-label">Software &amp; Camera</div>
+                  <div class="field-grid">
+                    <div class="field-row">
+                      <label class="field-label">Software</label>
+                      <input type="text" class="field-input" x-model="edit.software" placeholder="e.g. Lightroom 7.0"/>
+                    </div>
+                    <div class="field-row">
+                      <label class="field-label">Camera Make</label>
+                      <input type="text" class="field-input" x-model="edit.make" placeholder="e.g. Canon"/>
+                    </div>
+                    <div class="field-row">
+                      <label class="field-label">Camera Model</label>
+                      <input type="text" class="field-input" x-model="edit.model" placeholder="e.g. EOS R5"/>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field-group">
+                  <div class="group-label">Date &amp; Time</div>
+                  <div class="field-grid">
+                    <div class="field-row">
+                      <label class="field-label">File Date Modified</label>
+                      <input type="text" class="field-input" x-model="edit.dateTime" placeholder="YYYY:MM:DD HH:MM:SS"/>
+                    </div>
+                    <div class="field-row">
+                      <label class="field-label">Date Taken (Original)</label>
+                      <input type="text" class="field-input" x-model="edit.dateTimeOriginal" placeholder="YYYY:MM:DD HH:MM:SS"/>
+                    </div>
+                    <div class="field-row">
+                      <label class="field-label">Date Digitized</label>
+                      <input type="text" class="field-input" x-model="edit.dateTimeDigitized" placeholder="YYYY:MM:DD HH:MM:SS"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── Camera tab ── -->
+              <div class="tab-body" x-show="activeTab==='camera'">
+                <template x-if="!cam.make && !cam.model && !cam.focalLength && !cam.iso">
+                  <p style="font-size:.85rem;color:var(--text-faint);margin-bottom:16px">No camera metadata found in this image. Camera fields are read from EXIF and cannot be added manually here — they are recorded by the camera at the time of capture.</p>
+                </template>
+                <div class="cam-grid">
+                  <div class="cam-item"><div class="cam-key">Make</div><div class="cam-val" :class="{empty:!cam.make}" x-text="cam.make || '—'"></div></div>
+                  <div class="cam-item"><div class="cam-key">Model</div><div class="cam-val" :class="{empty:!cam.model}" x-text="cam.model || '—'"></div></div>
+                  <div class="cam-item"><div class="cam-key">Lens</div><div class="cam-val" :class="{empty:!cam.lens}" x-text="cam.lens || '—'"></div></div>
+                  <div class="cam-item"><div class="cam-key">Focal Length</div><div class="cam-val" :class="{empty:!cam.focalLength}" x-text="cam.focalLength || '—'"></div></div>
+                  <div class="cam-item"><div class="cam-key">Aperture</div><div class="cam-val" :class="{empty:!cam.aperture}" x-text="cam.aperture || '—'"></div></div>
+                  <div class="cam-item"><div class="cam-key">Shutter Speed</div><div class="cam-val" :class="{empty:!cam.shutter}" x-text="cam.shutter || '—'"></div></div>
+                  <div class="cam-item"><div class="cam-key">ISO</div><div class="cam-val" :class="{empty:!cam.iso}" x-text="cam.iso || '—'"></div></div>
+                  <div class="cam-item"><div class="cam-key">Flash</div><div class="cam-val" :class="{empty:!cam.flash}" x-text="cam.flash || '—'"></div></div>
+                  <div class="cam-item"><div class="cam-key">Metering</div><div class="cam-val" :class="{empty:!cam.meteringMode}" x-text="cam.meteringMode || '—'"></div></div>
+                  <div class="cam-item"><div class="cam-key">White Balance</div><div class="cam-val" :class="{empty:!cam.whiteBalance}" x-text="cam.whiteBalance || '—'"></div></div>
+                  <div class="cam-item"><div class="cam-key">Exposure Mode</div><div class="cam-val" :class="{empty:!cam.exposureMode}" x-text="cam.exposureMode || '—'"></div></div>
+                  <div class="cam-item"><div class="cam-key">Color Space</div><div class="cam-val" :class="{empty:!cam.colorSpace}" x-text="cam.colorSpace || '—'"></div></div>
+                  <div class="cam-item"><div class="cam-key">Pixel Width</div><div class="cam-val" :class="{empty:!cam.pixelX}" x-text="cam.pixelX || '—'"></div></div>
+                  <div class="cam-item"><div class="cam-key">Pixel Height</div><div class="cam-val" :class="{empty:!cam.pixelY}" x-text="cam.pixelY || '—'"></div></div>
+                </div>
+              </div>
+
+              <!-- ── GPS tab ── -->
+              <div class="tab-body" x-show="activeTab==='gps'">
+                <div class="field-group">
+                  <div class="group-label">GPS Coordinates</div>
+                  <div class="field-grid">
+                    <div class="field-row">
+                      <label class="field-label">Latitude (decimal degrees)</label>
+                      <div class="gps-row">
+                        <input type="number" class="field-input" x-model="edit.gpsLat" placeholder="e.g. 51.5074" step="0.0000001" min="0" max="90"/>
+                        <select class="gps-ref" x-model="edit.gpsLatRef"><option>N</option><option>S</option></select>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label class="field-label">Longitude (decimal degrees)</label>
+                      <div class="gps-row">
+                        <input type="number" class="field-input" x-model="edit.gpsLng" placeholder="e.g. -0.1278" step="0.0000001" min="0" max="180"/>
+                        <select class="gps-ref" x-model="edit.gpsLngRef"><option>E</option><option>W</option></select>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label class="field-label">Altitude (metres)</label>
+                      <input type="number" class="field-input" x-model="edit.gpsAlt" placeholder="e.g. 42.5" step="0.1"/>
+                    </div>
+                  </div>
+
+                  <template x-if="googleMapsUrl">
+                    <a :href="googleMapsUrl" target="_blank" rel="noopener" class="map-link">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                      View on Google Maps
+                    </a>
+                  </template>
+                  <template x-if="!googleMapsUrl">
+                    <p style="font-size:.8rem;color:var(--text-faint);margin-top:10px">Enter latitude and longitude to see a map preview link. Clear both fields to remove GPS from the image.</p>
+                  </template>
+                </div>
+
+                <div class="field-group" style="margin-top:20px">
+                  <div class="group-label">Privacy</div>
+                  <p style="font-size:.83rem;color:var(--text-muted);margin-bottom:12px">To remove the GPS location from this image, clear the Latitude and Longitude fields above then click <strong>Save Metadata &amp; Download</strong>. Or use <strong>Strip All Metadata</strong> to remove GPS along with all other EXIF data at once.</p>
+                </div>
+              </div>
+
+              <!-- ── All Tags tab ── -->
+              <div class="tab-body" x-show="activeTab==='all'" style="padding:0">
+                <template x-if="allTags.length === 0">
+                  <div class="tags-empty">No EXIF tags found in this image.</div>
+                </template>
+                <template x-if="allTags.length > 0">
+                  <div>
+                    <template x-for="section in [...new Set(allTags.map(t=>t.section))]" :key="section">
+                      <div class="tags-section">
+                        <div class="tags-section-title" x-text="section"></div>
+                        <template x-for="tag in allTags.filter(t=>t.section===section)" :key="tag.hex">
+                          <div class="tag-row">
+                            <span class="tag-name" x-text="tag.name"></span>
+                            <span class="tag-hex" x-text="tag.hex"></span>
+                            <span class="tag-value" x-text="tag.value"></span>
+                          </div>
+                        </template>
+                      </div>
+                    </template>
+                  </div>
+                </template>
+              </div>
+
+            </div>
+          </template>
+        </div><!-- /panel-right -->
+
+      </div><!-- /editor-wrap -->
+    </div>
+  </template>
+
+  <!-- Ad -->
+  <div class="ad-slot" style="margin-top:24px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- ── What This Tool Does ── -->
+  <div class="page-section" style="margin-top:20px">
+    <div class="section-head">
+      <h2 class="section-title">What This Tool Does</h2>
+      <p class="section-desc">Full EXIF metadata access — read, edit, and remove — entirely in your browser.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-title">View all EXIF tags</div>
+        <div class="feature-desc">The All Tags tab shows every EXIF tag stored in your image — Image IFD, EXIF IFD, and GPS IFD — with tag names, hex codes, and decoded values.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✏️</div>
+        <div class="feature-title">Edit key metadata fields</div>
+        <div class="feature-desc">Edit author, artist, copyright, description, software, camera make/model, date/time fields, and user comment. Changes are written directly into the EXIF without re-encoding the image.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📷</div>
+        <div class="feature-title">Camera info display</div>
+        <div class="feature-desc">The Camera tab shows a clean display of lens, focal length, aperture, shutter speed, ISO, flash, metering mode, and white balance — read from the EXIF IFD.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📍</div>
+        <div class="feature-title">GPS location editor</div>
+        <div class="feature-desc">View and edit GPS latitude, longitude, and altitude in decimal degrees. A Google Maps link previews the location. Clear the fields to remove GPS from the image entirely.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <div class="feature-title">Strip all metadata</div>
+        <div class="feature-desc">One click removes all EXIF data from the image — GPS, camera info, dates, author, everything. The image is re-drawn on a canvas and exported as a clean JPEG with no metadata.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">No upload — 100% private</div>
+        <div class="feature-desc">Your image is processed entirely inside your browser. Nothing is sent to a server. The EXIF library (piexifjs) runs locally, and the download is generated directly in your browser.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── How to Use ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">How to Use This Tool</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div>
+          <div class="step-title">Upload a JPEG image</div>
+          <div class="step-desc">Click "Choose Image" or drag and drop a JPEG file. The tool reads the file locally — nothing is uploaded anywhere. EXIF data is parsed immediately after the file loads.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div>
+          <div class="step-title">Review the metadata</div>
+          <div class="step-desc">Check the EXIF badge to confirm metadata was found. Browse the Basic Info, Camera, GPS, and All Tags tabs to see exactly what's stored in the image.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div>
+          <div class="step-title">Edit what you need</div>
+          <div class="step-desc">Update author, copyright, description, dates, or GPS coordinates in the Basic Info and GPS tabs. Camera fields are read-only — they're recorded by the hardware and can't be changed.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div>
+          <div class="step-title">Remove GPS for privacy</div>
+          <div class="step-desc">On the GPS tab, clear the Latitude and Longitude fields and click Save — the downloaded image will have no GPS data. Or use Strip All Metadata to remove everything at once.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">5</div>
+        <div>
+          <div class="step-title">Save Metadata &amp; Download</div>
+          <div class="step-desc">Click "Save Metadata &amp; Download" to get a JPEG with your edited EXIF. The image pixel data is unchanged — only the metadata segment is modified. No quality loss.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">6</div>
+        <div>
+          <div class="step-title">Or strip everything</div>
+          <div class="step-desc">Click "Strip All Metadata" to download a clean version with all EXIF removed. This is useful before sharing images online when you don't want any personal or location data exposed.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── Logic Behind ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Logic Behind the Tool</h2>
+    </div>
+    <div class="logic-grid">
+      <div class="logic-card">
+        <div class="logic-title">JPEG file structure &amp; APP1 marker</div>
+        <div class="logic-desc">JPEG files consist of segments identified by markers. The EXIF data lives in the <code>APP1</code> segment (marker <code>0xFFE1</code>), which follows the SOI (Start of Image) marker. The APP1 segment contains a TIFF-formatted block with multiple Image File Directories (IFDs). Editing metadata only requires replacing this segment — the image data in subsequent segments is untouched.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">piexifjs read &amp; write</div>
+        <div class="logic-desc">This tool uses <code>piexifjs</code>, a JavaScript port of piexif (Python). <code>piexif.load(dataUrl)</code> parses the APP1 segment into a JavaScript object with keys <code>"0th"</code>, <code>"Exif"</code>, <code>"GPS"</code>. After editing, <code>piexif.dump()</code> serialises the object back to bytes, and <code>piexif.insert()</code> splices them into the original JPEG data URL — preserving the full image payload.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">GPS rational encoding</div>
+        <div class="logic-desc">EXIF stores GPS coordinates as arrays of rational numbers (numerator/denominator pairs): degrees, minutes, seconds. The tool converts decimal degree input (e.g. <code>51.5074</code>) to DMS rationals on save, and back to decimal on load. Altitude is stored as a single rational with an Altitude Reference byte (0 = above sea level, 1 = below).</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Metadata strip via Canvas</div>
+        <div class="logic-desc">Stripping metadata works by drawing the image onto an HTML5 <code>&lt;canvas&gt;</code> and exporting via <code>canvas.toDataURL('image/jpeg', 0.95)</code>. The canvas has no concept of EXIF — its output is a plain JPEG with no metadata headers at all. This is slightly lossy (JPEG re-encode) but removes all embedded data cleanly.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FAQ ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What metadata does a smartphone photo contain?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Modern smartphones embed a significant amount of data in every photo: camera make and model, the exact date and time the photo was taken, GPS latitude and longitude (often precise to within a few metres), altitude, the software version used to process the image, and sometimes a unique device identifier. iPhone photos in particular often include detailed camera parameters — focal length (in 35mm equivalent), aperture, shutter speed, and ISO — as well as the lens model if you use a multi-camera device.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Does editing EXIF data change the image quality?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>No — for the "Save Metadata &amp; Download" function. EXIF data is stored separately from the pixel data in the JPEG file. piexifjs replaces only the APP1 metadata segment and leaves all the compressed image data segments completely untouched. The downloaded file is pixel-for-pixel identical to the original, just with updated metadata. The only exception is "Strip All Metadata", which re-draws the image on a canvas and re-encodes it as JPEG at 95% quality — this introduces a small amount of quality loss from the re-encoding step.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Why does the GPS tab show no data even though I took the photo on a phone?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Several things can strip GPS from a photo before you see it: iCloud and Google Photos can remove location data when you download photos through a browser. WhatsApp, Instagram, and most social platforms strip all EXIF (including GPS) when you download an image you shared or received. Some Android gallery apps remove GPS on export by default. If you downloaded the image from a web service, the GPS was likely already removed. Try opening the image directly from your camera roll or SD card without going through a social platform.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Can I bulk-edit metadata for multiple images at once?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>This tool currently processes one image at a time. For batch metadata editing across many files, tools like ExifTool (command line, free) or Adobe Bridge (desktop application) are better suited. ExifTool in particular can apply metadata changes to hundreds of files at once with a single command, making it the standard choice for photographers who need to batch-update copyright or author fields across a shoot.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Do social media platforms remove EXIF data when I upload?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Yes — almost universally. Instagram, Facebook, Twitter/X, TikTok, WhatsApp, and most other platforms strip all EXIF metadata when you upload an image. This is partly for privacy (to avoid broadcasting GPS locations) and partly to reduce file sizes at scale. The exception is some platforms like Flickr, which preserve EXIF data deliberately as a feature for photographers. If you share images directly (e.g. via email or a file link), the original EXIF is preserved — so stripping metadata before sharing is a good privacy habit.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── Related Tools ── -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="image-compressor.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="related-name">Image Compressor</div>
+        <div class="related-desc">Compress JPEG, PNG, and WebP images in-browser — reduce file size before sharing.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="image-resizer.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#6366f1,#818cf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div>
+        <div class="related-name">Image Resizer</div>
+        <div class="related-desc">Resize images to any pixel dimension with aspect-ratio lock and format conversion.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="image-crop.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#e11d48,#f43f5e)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg></div>
+        <div class="related-name">Image Crop Tool</div>
+        <div class="related-desc">Crop to any ratio — free selection, circle, 16:9, 4:3 — with drag handles.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../social/instagram-post-resizer.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#833AB4,#E1306C)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
+        <div class="related-name">Instagram Post Resizer</div>
+        <div class="related-desc">Resize images to perfect Instagram dimensions — Feed, Story, Reels, Profile.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── Related Blog ── -->
+  <div class="page-section" style="margin-top:0">
+    <h2 class="section-title" style="margin-bottom:16px">Related Reading</h2>
+    <div class="blog-related-grid">
+      <a href="../../blog/image-metadata-privacy-guide.html" class="blog-card">
+        <div class="blog-tag-sm">🔒 Privacy</div>
+        <div class="blog-title-sm">What Your Phone Photos Know About You (And How to Remove It)</div>
+        <div class="blog-link">Read →</div>
+      </a>
+      <a href="../../blog/image-format-guide.html" class="blog-card">
+        <div class="blog-tag-sm">🖼 Images</div>
+        <div class="blog-title-sm">JPEG vs PNG vs WebP — Which Format Should You Actually Use?</div>
+        <div class="blog-link">Read →</div>
+      </a>
+      <a href="../../blog/instagram-post-sizes-guide.html" class="blog-card">
+        <div class="blog-tag-sm">📸 Instagram</div>
+        <div class="blog-title-sm">Why Your Instagram Posts Look Blurry — and the Exact Sizes That Fix It</div>
+        <div class="blog-link">Read →</div>
+      </a>
+      <a href="../../blog/password-security-guide.html" class="blog-card">
+        <div class="blog-tag-sm">🔐 Security</div>
+        <div class="blog-title-sm">Your Password Is Probably Terrible — Here's Why It Matters</div>
+        <div class="blog-link">Read →</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <rect x="7" y="9" width="22" height="18" rx="4" fill="#fff" fill-opacity=".9"/>
+          <path d="M12 20l4-5 3 4 2-2 3 3" stroke="#7c3aed" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#7c3aed"/><stop offset="1" stop-color="#4f46e5"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#image">Image Tools</a><a href="../../tools.html#security">Security Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a><a href="../../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="image-metadata-editor.js"></script>
+</body>
+</html>

@@ -206,14 +206,14 @@
             <circle cx="32" cy="32" r="30" stroke="#e2e8f0" stroke-width="3"/>
             <path d="M20 32h24M32 20v24" stroke="#cbd5e1" stroke-width="3" stroke-linecap="round"/>
           </svg>
-          <p>No tools found for "<strong x-text="searchQuery"></strong>"</p>
+          <p>No tools found for "<strong x-text="searchQuery">All</strong>"</p>
           <button class="btn-outline" @click="searchQuery=''; activeCategory=''; filterTools()">Clear filters</button>
         </div>
       </template>
 
       <div class="tools-grid" role="list">
         <template x-for="tool in filteredTools" :key="tool.id">
-          <a :href="tool.url" class="tool-card" role="listitem" :aria-label="tool.title + ' — ' + tool.description">
+          <a href="tools.html" class="tool-card" role="listitem" :aria-label="tool.title + ' — ' + tool.description">
             <div class="tool-card-icon" :style="'background:' + tool.color" aria-hidden="true">
               <span x-html="tool.icon"></span>
             </div>

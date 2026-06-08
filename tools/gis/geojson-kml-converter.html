@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GeoJSON ↔ KML Converter — Free Online Tool | The Tool Empire</title>
+  <meta name="description" content="Convert GeoJSON to KML and KML to GeoJSON instantly in your browser. Supports Points, LineStrings, Polygons, MultiGeometry, and properties/ExtendedData. Free, no signup."/>
+  <meta name="keywords" content="geojson to kml, kml to geojson, geojson converter, kml converter, gis file converter, geojson kml online, convert kml geojson free"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/gis/geojson-kml-converter.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="GeoJSON ↔ KML Converter — Free Online Tool"/>
+  <meta property="og:description" content="Convert GeoJSON to KML and KML to GeoJSON instantly. Supports all geometry types, properties, and ExtendedData. Paste, upload, or drag-and-drop."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/gis/geojson-kml-converter.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"GeoJSON ↔ KML Converter","description":"Convert GeoJSON to KML and KML to GeoJSON in your browser. Supports FeatureCollection, Feature, Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, GeometryCollection. Preserves feature properties as KML ExtendedData and vice versa. Paste text, upload a file, or drag-and-drop. Download the result as .geojson or .kml.","url":"https://thetoolempire.com/tools/gis/geojson-kml-converter.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["GeoJSON to KML conversion","KML to GeoJSON conversion","All geometry types: Point, LineString, Polygon, Multi*, GeometryCollection","Properties preserved as KML ExtendedData","KML ExtendedData and SimpleData mapped to GeoJSON properties","File upload and drag-and-drop input","Download as .geojson or .kml","Feature count and geometry type stats","Sample data for quick testing"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"GIS Tools","item":"https://thetoolempire.com/tools.html#gis"},
+      {"@type":"ListItem","position":3,"name":"GeoJSON KML Converter","item":"https://thetoolempire.com/tools/gis/geojson-kml-converter.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is GeoJSON?","acceptedAnswer":{"@type":"Answer","text":"GeoJSON is a JSON-based format for encoding geographic data structures. It supports Points, LineStrings, Polygons, and their Multi- variants, wrapped in Feature and FeatureCollection objects. Each feature can carry arbitrary properties. GeoJSON is the standard format used by web mapping libraries like Leaflet and Mapbox, REST APIs, and modern GIS workflows."}},
+      {"@type":"Question","name":"What is KML?","acceptedAnswer":{"@type":"Answer","text":"KML (Keyhole Markup Language) is an XML-based format developed by Keyhole Inc. (later acquired by Google) for displaying geographic data in Google Earth and Google Maps. It organizes data as Placemarks with Point, LineString, and Polygon geometries, and supports styles, icons, camera angles, and overlays. KML uses ExtendedData for storing arbitrary key-value properties."}},
+      {"@type":"Question","name":"What geometry types are supported?","acceptedAnswer":{"@type":"Answer","text":"The converter supports: Point, LineString, Polygon (including holes via innerBoundaryIs), MultiPoint, MultiLineString, MultiPolygon, and GeometryCollection. Feature properties are preserved as KML ExtendedData elements when converting GeoJSON to KML, and ExtendedData/SimpleData elements are mapped back to GeoJSON properties when converting KML to GeoJSON."}},
+      {"@type":"Question","name":"What gets lost in conversion?","acceptedAnswer":{"@type":"Answer","text":"KML to GeoJSON loses: styling (colors, icons, line widths), camera/LookAt views, network links, ground overlays, time spans, and KML folders/hierarchy. GeoJSON to KML loses: complex nested property objects (non-string values are stringified), geometry coordinate Z-accuracy beyond what KML supports. Both directions preserve: geometry coordinates, feature names, descriptions, and flat key-value properties."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="geojson-kml-converter.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <circle cx="18" cy="18" r="10" stroke="#fff" stroke-width="2" fill="none"/>
+        <path d="M18 8v20M8 18h20M11 11l14 14M25 11L11 25" stroke="#fff" stroke-width="1.4" opacity=".7"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#3b82f6"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="geoConverterApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li><a href="../../tools.html#gis" style="color:#8888a8">GIS</a></li><li>›</li>
+      <li style="color:#e8e8f0">GeoJSON ↔ KML Converter</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+      GIS · File
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">GeoJSON ↔ KML Converter</span></h1>
+    <p class="tool-subtitle">Convert between GeoJSON and KML instantly in your browser. Supports all geometry types, feature properties, file upload, and drag-and-drop. No data leaves your device.</p>
+  </div>
+
+  <!-- ── CONVERTER CARD ── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3M12 8v8M9 11l3-3 3 3"/></svg>
+      </div>
+      <span class="card-title">Converter</span>
+
+      <!-- Direction toggle -->
+      <div class="dir-toggle" style="margin-left:auto">
+        <button class="dir-opt geojson" :class="{active:direction==='toKml'}"    @click="direction='toKml';clear()">GeoJSON → KML</button>
+        <button class="dir-opt kml"     :class="{active:direction==='toGeoJSON'}" @click="direction='toGeoJSON';clear()">KML → GeoJSON</button>
+      </div>
+    </div>
+
+    <div class="card-body">
+
+      <!-- Two-panel layout -->
+      <div class="conv-grid">
+
+        <!-- Input panel -->
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span class="fmt-badge" :class="direction==='toKml'?'fmt-geojson':'fmt-kml'" x-text="inputFmt"></span>
+              <span style="font-size:.75rem;color:var(--text-faint)">Input</span>
+            </div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+              <label style="display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid var(--border);font-size:.74rem;color:var(--text-muted);cursor:pointer;transition:border-color .15s" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Upload file
+                <input type="file" :accept="direction==='toKml'?'.geojson,.json':'.kml,.xml'" @change="handleFile($event)" style="display:none"/>
+              </label>
+              <button class="btn-outline" style="padding:5px 10px;font-size:.74rem" @click="loadSample()">Load sample</button>
+              <button class="btn-outline" style="padding:5px 10px;font-size:.74rem" @click="clear()">Clear</button>
+            </div>
+          </div>
+
+          <!-- Drop zone / textarea -->
+          <div class="editor-wrap"
+            @dragover.prevent="$event.currentTarget.querySelector('textarea').classList.add('dragover')"
+            @dragleave="$event.currentTarget.querySelector('textarea').classList.remove('dragover')"
+            @drop.prevent="handleDrop($event)">
+            <textarea
+              class="code-editor"
+              x-model="inputText"
+              :placeholder="inputPlaceholder"
+              spellcheck="false"
+              autocomplete="off"
+              style="min-height:260px"></textarea>
+          </div>
+          <p style="font-size:.73rem;color:var(--text-faint);margin-top:6px">Drag &amp; drop a file onto the text area, or paste your data directly.</p>
+        </div>
+
+        <!-- Arrow / convert button -->
+        <div class="conv-arrow">
+          <button class="btn-primary" @click="convert()" style="writing-mode:vertical-rl;padding:14px 10px;gap:8px;font-size:.82rem">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            Convert
+          </button>
+          <button class="btn-outline" @click="swap()" title="Swap direction" style="padding:8px 10px" title="Swap panels">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+          </button>
+        </div>
+
+        <!-- Output panel -->
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span class="fmt-badge" :class="direction==='toKml'?'fmt-kml':'fmt-geojson'" x-text="outputFmt"></span>
+              <span style="font-size:.75rem;color:var(--text-faint)">Output</span>
+            </div>
+            <div style="display:flex;gap:6px">
+              <button class="btn-outline" style="padding:5px 10px;font-size:.74rem" @click="copyOutput()" :disabled="!outputText" :style="outputText?'':'opacity:.4;cursor:not-allowed'">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy
+              </button>
+              <button class="btn-green" style="padding:5px 10px;font-size:.74rem" @click="download()" :disabled="!outputText" :style="outputText?'':'opacity:.4;cursor:not-allowed'">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </button>
+            </div>
+          </div>
+
+          <textarea
+            class="code-editor"
+            :value="outputText"
+            readonly
+            :placeholder="'Output will appear here after converting…'"
+            spellcheck="false"
+            style="min-height:260px;background:rgba(255,255,255,.02);cursor:default"></textarea>
+        </div>
+      </div>
+
+      <!-- Error -->
+      <template x-if="error">
+        <div class="err-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span x-text="error"></span>
+        </div>
+      </template>
+
+      <!-- Success stats -->
+      <template x-if="convertedOk">
+        <div class="ok-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>
+            Converted successfully —
+            <strong x-text="featureCount"></strong> feature<span x-show="featureCount!==1">s</span>
+            <template x-if="geometryTypes.length">
+              <span>
+                &nbsp;(<span x-text="geometryTypes.join(', ')"></span>)
+              </span>
+            </template>
+          </span>
+        </div>
+      </template>
+    </div>
+
+    <!-- Action bar -->
+    <div style="padding:12px 18px;border-top:1px solid var(--border);display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <button class="btn-primary" @click="convert()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3M12 8v8M9 11l3-3 3 3"/></svg>
+        Convert
+      </button>
+      <span style="font-size:.77rem;color:var(--text-faint)">
+        <span x-text="inputFmt"></span> →
+        <span x-text="outputFmt"></span>
+        · all processing happens in your browser · no data is sent to any server
+      </span>
+    </div>
+  </div>
+
+  <!-- Ad -->
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- ── DESCRIPTION ── -->
+  <div class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">What This Tool Does</h2>
+      <p class="section-desc">Bidirectional conversion between the two most common open geospatial file formats.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">🔄</div><div class="feature-title">Both directions</div><div class="feature-desc">GeoJSON → KML and KML → GeoJSON. Switch direction with one click. The swap button moves the output back to the input for chaining conversions.</div></div>
+      <div class="feature-card"><div class="feature-icon">📐</div><div class="feature-title">All geometry types</div><div class="feature-desc">Point, LineString, Polygon (with holes), MultiPoint, MultiLineString, MultiPolygon, and GeometryCollection. Nested inner boundaries (polygon holes) are preserved in both directions.</div></div>
+      <div class="feature-card"><div class="feature-icon">🏷️</div><div class="feature-title">Properties preserved</div><div class="feature-desc">GeoJSON properties are written as KML ExtendedData elements. KML ExtendedData and SimpleData are mapped back to GeoJSON properties. Names and descriptions carry through in both directions.</div></div>
+      <div class="feature-card"><div class="feature-icon">📁</div><div class="feature-title">File upload & drag-drop</div><div class="feature-desc">Paste text directly, click Upload to browse for a .geojson, .json, .kml, or .xml file, or drag-and-drop a file onto the input area. Output downloads as the correct file extension.</div></div>
+      <div class="feature-card"><div class="feature-icon">🔒</div><div class="feature-title">100% client-side</div><div class="feature-desc">All parsing and conversion runs in your browser using the built-in JSON and DOMParser APIs. No data is sent to any server. Works offline once the page is loaded.</div></div>
+      <div class="feature-card"><div class="feature-icon">📊</div><div class="feature-title">Feature stats</div><div class="feature-desc">After each conversion, a summary shows how many features were converted and which geometry types were found — useful for verifying that complex files converted as expected.</div></div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── HOW TO USE ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head"><h2 class="section-title">How to Use This Tool</h2></div>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-number">1</div><div><div class="step-title">Choose direction</div><div class="step-desc">Click "GeoJSON → KML" or "KML → GeoJSON" to set the conversion direction. The input and output panels update to show the expected format for each side.</div></div></div>
+      <div class="step-card"><div class="step-number">2</div><div><div class="step-title">Provide input</div><div class="step-desc">Paste your GeoJSON or KML text into the left panel, upload a file using the Upload button, or drag and drop a file directly onto the text area. Click "Load sample" to test with example data.</div></div></div>
+      <div class="step-card"><div class="step-number">3</div><div><div class="step-title">Convert</div><div class="step-desc">Click the Convert button (in the card header, the arrow between panels, or the action bar at the bottom). The result appears in the right panel with a feature count summary.</div></div></div>
+      <div class="step-card"><div class="step-number">4</div><div><div class="step-title">Copy or download</div><div class="step-desc">Click Copy to copy the output to clipboard. Click Download to save the file — it downloads as output.kml or output.geojson automatically with the correct MIME type.</div></div></div>
+      <div class="step-card"><div class="step-number">5</div><div><div class="step-title">Swap and chain</div><div class="step-desc">Click the swap icon between panels to move the output back to the input and flip the direction — useful if you need to round-trip convert or check that data survives both directions.</div></div></div>
+      <div class="step-card"><div class="step-number">6</div><div><div class="step-title">Use in your GIS</div><div class="step-desc">Load the .geojson file in Leaflet, Mapbox, QGIS, or any web mapping tool. Load the .kml in Google Earth, Google Maps (My Maps), or any KML-compatible GIS application.</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── LOGIC BEHIND ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Logic Behind the Tool</h2>
+      <p class="section-desc">How each format is parsed and mapped to the other.</p>
+    </div>
+    <div class="logic-grid">
+      <div class="logic-card">
+        <div class="logic-title">GeoJSON parsing</div>
+        <div class="logic-desc">Input is parsed with <code>JSON.parse()</code>. The tool accepts a <code>FeatureCollection</code>, a single <code>Feature</code>, or a bare geometry object. Each feature's <code>geometry</code> drives the KML element type, and <code>properties</code> are written as <code>&lt;ExtendedData&gt;</code> key-value pairs, with <code>name</code> and <code>description</code> hoisted to top-level KML elements.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">KML parsing</div>
+        <div class="logic-desc">Input is parsed with the browser's <code>DOMParser</code> in <code>text/xml</code> mode. Each <code>&lt;Placemark&gt;</code> becomes a GeoJSON Feature. Geometry is detected by querying child element names. <code>&lt;ExtendedData&gt;</code> and <code>&lt;SimpleData&gt;</code> elements are mapped to GeoJSON <code>properties</code>. Styles, folders, and network links are intentionally ignored.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Coordinate order</div>
+        <div class="logic-desc">GeoJSON uses <code>[longitude, latitude, altitude?]</code> order — the opposite of the common "lat, lng" convention. KML uses <code>longitude,latitude,altitude</code> (comma-separated, no spaces). The tool correctly maps between both without swapping values. Altitude defaults to 0 in KML output when the GeoJSON coordinate has only two elements.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">What's lost in conversion</div>
+        <div class="logic-desc">KML→GeoJSON loses: styles (colors, line widths, icons), folder hierarchy, camera/LookAt views, ground overlays, network links, and timestamps. GeoJSON→KML loses: nested object properties (serialized to strings), array property values. Geometry and flat key-value properties survive both directions intact.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FAQ ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head"><h2 class="section-title">Frequently Asked Questions</h2></div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is GeoJSON?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>GeoJSON is a JSON-based open standard for encoding geographic data. It supports Points, LineStrings, Polygons, and their Multi- variants, wrapped in Feature and FeatureCollection objects. Each feature carries a properties object with arbitrary key-value data. GeoJSON is the dominant format for web mapping APIs — it's used natively by Leaflet, Mapbox, Turf.js, GitHub map rendering, and countless REST APIs.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is KML and when do I use it?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>KML (Keyhole Markup Language) is an XML-based format developed by Keyhole Inc. (acquired by Google in 2004) and is the native format for Google Earth and Google Maps (My Maps). It's an OGC standard since 2008. Use KML when you need to import data into Google Earth, share layered map data with styling (colors, icons), or work with older GIS tools that don't support GeoJSON. For modern web APIs, GeoJSON is usually the better choice.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Why does GeoJSON use [longitude, latitude] instead of [latitude, longitude]?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>GeoJSON follows the mathematical convention of [x, y] = [easting, northing] = [longitude, latitude]. This is consistent with how coordinates work in most CRS (coordinate reference systems) where x is the horizontal axis. KML and many consumer applications use the more human-friendly [latitude, longitude] order. This inconsistency is a well-known "gotcha" in GIS — this tool handles the mapping correctly in both directions without any manual reordering.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Are polygon holes supported?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Yes. In GeoJSON, a Polygon with holes has multiple rings in its coordinates array — the first is the outer boundary, the rest are inner boundaries (holes). In KML, these map to <code>&lt;outerBoundaryIs&gt;</code> and one or more <code>&lt;innerBoundaryIs&gt;</code> elements. The converter correctly maps both directions, preserving any number of holes in polygons.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What GIS tools can open GeoJSON and KML files?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>GeoJSON: Leaflet, Mapbox GL JS, OpenLayers, QGIS, ArcGIS, GitHub (automatic map preview), geojson.io, VS Code with Geo Data Viewer extension. KML: Google Earth, Google Maps (My Maps import), QGIS, ArcGIS, Esri ArcMap, Global Mapper, OziExplorer, most Garmin/GPS device software. Both formats are supported by GDAL/OGR, which is the underlying converter library in most professional GIS tools.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── RELATED TOOLS ── -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="lat-long.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#3b82f6,#a78bfa)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></div>
+        <div class="related-name">Lat Long Converter</div>
+        <div class="related-desc">Convert coordinates between DD, DMS, DDM, UTM, Geohash.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../coding/json-formatter.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#0fd850,#f9f047)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h3a2 2 0 0 1 2 2v1a2 2 0 0 0 2 2 2 2 0 0 0-2 2v1a2 2 0 0 1-2 2H4M20 7h-3a2 2 0 0 0-2 2v1a2 2 0 0 1-2 2 2 2 0 0 1 2 2v1a2 2 0 0 0 2 2h3"/></svg></div>
+        <div class="related-name">JSON Formatter</div>
+        <div class="related-desc">Format, validate, and minify JSON with syntax highlighting.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../seo/sitemap-generator.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f97316,#fbbf24)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 10h16M4 14h10"/></svg></div>
+        <div class="related-name">Sitemap Generator</div>
+        <div class="related-desc">Build a valid XML sitemap for any website.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../coding/url-encoder.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#3b82f6,#60a5fa)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+        <div class="related-name">URL Encoder / Decoder</div>
+        <div class="related-desc">Encode or decode URLs and query strings.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── RELATED BLOG ── -->
+  <div class="page-section" style="margin-top:0">
+    <h2 class="section-title" style="margin-bottom:16px">Related Reading</h2>
+    <div class="blog-related-grid">
+      <a href="../../blog/gis-file-formats.html" class="blog-card">
+        <div class="blog-tag-sm">🗺 GIS</div>
+        <div class="blog-title-sm">GeoJSON, KML, Shapefile, GeoTIFF — Which Format for Which Job</div>
+        <div class="blog-link">Read →</div>
+      </a>
+      <a href="../../blog/xml-sitemap-seo.html" class="blog-card">
+        <div class="blog-tag-sm">🗺 SEO</div>
+        <div class="blog-title-sm">Your Sitemap Is Not Getting You Indexed — Here's What Actually Does</div>
+        <div class="blog-link">Read →</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <circle cx="18" cy="18" r="10" stroke="#fff" stroke-width="2" fill="none"/>
+          <path d="M18 8v20M8 18h20" stroke="#fff" stroke-width="1.4" opacity=".7"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#3b82f6"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#gis">GIS Tools</a><a href="../../tools.html#coding">Coding Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a><a href="../../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="geojson-kml-converter.js"></script>
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Every Map Is a Lie — How Coordinate Systems Actually Work | The Tool Empire Blog</title>
+  <meta name="description" content="Why your GIS data ends up in the ocean when you load it, what EPSG codes actually mean, and how to pick the right projection for distance, area, or web display."/>
+  <meta name="keywords" content="coordinate reference systems explained, epsg codes guide, gis projections, wgs84 vs web mercator, utm zones, datum shift, proj4 explained"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/blog/gis-projections-explained.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="Every Map Is a Lie — How Coordinate Systems Actually Work"/>
+  <meta property="og:description" content="Why your GIS data ends up in the ocean when you load it, what EPSG codes actually mean, and how to pick the right projection for distance, area, or web display."/>
+  <meta property="og:url" content="https://thetoolempire.com/blog/gis-projections-explained.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"BlogPosting",
+     "headline":"Every Map Is a Lie — How Coordinate Systems Actually Work",
+     "description":"Why your GIS data ends up in the ocean when you load it, what EPSG codes actually mean, and how to pick the right projection for distance, area, or web display.",
+     "url":"https://thetoolempire.com/blog/gis-projections-explained.html",
+     "datePublished":"2026-06-07","dateModified":"2026-06-07",
+     "author":{"@type":"Organization","name":"The Tool Empire"},
+     "publisher":{"@type":"Organization","name":"The Tool Empire","logo":{"@type":"ImageObject","url":"https://thetoolempire.com/assets/favicon.svg"}},
+     "image":"https://thetoolempire.com/assets/og-image.png",
+     "keywords":"coordinate reference systems, epsg codes, gis projections, wgs84, web mercator, utm, datum, proj4",
+     "articleSection":"GIS"},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Blog","item":"https://thetoolempire.com/blog.html"},
+      {"@type":"ListItem","position":3,"name":"Every Map Is a Lie","item":"https://thetoolempire.com/blog/gis-projections-explained.html"}
+    ]}
+  ]}</script>
+
+  <style>
+    :root{
+      --bg:#0f0f14;--bg-card:#1e1e28;--bg-surface:#18181f;
+      --primary:#3b82f6;--teal:#2dd4bf;--purple:#a78bfa;
+      --text:#e8e8f0;--text-muted:#9999b8;--text-faint:#555570;
+      --border:rgba(255,255,255,.08);
+      --radius:14px;--radius-sm:8px;
+      --font:'Inter',system-ui,sans-serif;--font-mono:'Fira Code','Cascadia Code',monospace;
+      --content-w:740px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+    a{color:var(--primary)}
+    a:hover{text-decoration:underline}
+    code{font-family:var(--font-mono);font-size:.83em;background:rgba(59,130,246,.1);color:#93c5fd;padding:2px 6px;border-radius:4px}
+    pre{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;overflow-x:auto;font-family:var(--font-mono);font-size:.82rem;line-height:1.6;color:#94a3b8;margin:24px 0}
+
+    .site-header{background:rgba(15,15,20,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 24px;height:58px;display:flex;align-items:center}
+    .header-inner{width:100%;max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+    .logo-icon{width:32px;height:32px}
+    .logo-text{font-size:.97rem;font-weight:700;color:var(--text)}
+    .main-nav{display:flex;gap:6px}
+    .nav-link{padding:5px 12px;border-radius:var(--radius-sm);font-size:.84rem;font-weight:500;color:var(--text-muted);text-decoration:none;transition:color .15s,background .15s}
+    .nav-link:hover,.nav-link.active{color:var(--text);background:rgba(255,255,255,.06)}
+
+    .blog-wrap{max-width:var(--content-w);margin:0 auto;padding:32px 24px 80px}
+    @media(max-width:600px){.blog-wrap{padding:20px 16px 60px}}
+
+    .progress-bar{position:fixed;top:58px;left:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--primary));width:0%;z-index:199;transition:width .1s linear}
+
+    .article-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+    .meta-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;background:rgba(45,212,191,.1);color:var(--teal);border-radius:12px;font-size:.72rem;font-weight:700}
+    .meta-info{font-size:.78rem;color:var(--text-faint)}
+
+    .article-title{font-size:clamp(1.7rem,4.5vw,2.4rem);font-weight:900;letter-spacing:-.02em;line-height:1.2;margin-bottom:16px}
+    .gradient-title{background:linear-gradient(135deg,var(--teal),var(--primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .article-lead{font-size:1.08rem;color:var(--text-muted);line-height:1.7;margin-bottom:32px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+
+    .ad-slot{background:rgba(255,255,255,.02);border:1px dashed rgba(255,255,255,.07);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;min-height:90px;font-size:.75rem;color:var(--text-faint);text-align:center;padding:12px;margin:32px 0}
+
+    .toc{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:36px}
+    .toc-title{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:12px}
+    .toc ol{padding-left:18px;display:flex;flex-direction:column;gap:6px}
+    .toc li{font-size:.88rem}
+    .toc a{color:var(--text-muted);text-decoration:none}
+    .toc a:hover{color:var(--text)}
+
+    h2{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;margin:48px 0 16px;color:var(--text)}
+    h3{font-size:1.1rem;font-weight:700;margin:32px 0 10px;color:var(--text)}
+    p{margin-bottom:18px;color:var(--text-muted)}
+    ul,ol{padding-left:22px;margin-bottom:18px;color:var(--text-muted)}
+    li{margin-bottom:6px;line-height:1.65}
+    strong{color:var(--text);font-weight:700}
+
+    .callout{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--teal);border-radius:var(--radius-sm);padding:16px 18px;margin:24px 0}
+    .callout p{margin-bottom:0;color:var(--text-muted);font-size:.9rem}
+    .callout strong{color:var(--teal)}
+
+    .warning{background:rgba(249,115,22,.06);border:1px solid rgba(249,115,22,.2);border-left:3px solid #f97316;border-radius:var(--radius-sm);padding:16px 18px;margin:24px 0}
+    .warning p{margin-bottom:0;color:#fdba74;font-size:.9rem}
+
+    .comparison-table{width:100%;border-collapse:collapse;font-size:.85rem;margin:24px 0;overflow:hidden;border-radius:var(--radius-sm)}
+    .comparison-table th{background:rgba(59,130,246,.08);color:#93c5fd;font-weight:700;padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+    .comparison-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text-muted);vertical-align:top}
+    .comparison-table tr:last-child td{border-bottom:none}
+    .comparison-table code{font-size:.8em}
+
+    .epsg-pill{display:inline-flex;align-items:center;padding:2px 8px;border-radius:6px;font-family:var(--font-mono);font-size:.8em;font-weight:700;background:rgba(45,212,191,.08);color:var(--teal)}
+
+    .cta-box{background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(45,212,191,.06));border:1px solid rgba(59,130,246,.2);border-radius:var(--radius);padding:24px;text-align:center;margin:36px 0}
+    .cta-box h3{font-size:1.05rem;font-weight:800;margin-bottom:6px;color:var(--text)}
+    .cta-box p{font-size:.88rem;color:var(--text-muted);margin-bottom:14px}
+    .cta-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:var(--radius-sm);background:var(--primary);color:#fff;font-weight:700;font-size:.88rem;text-decoration:none}
+    .cta-btn:hover{background:#2563eb;text-decoration:none}
+
+    .author-box{display:flex;align-items:flex-start;gap:14px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:48px}
+    .author-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--primary));display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+    .author-name{font-weight:700;font-size:.92rem;margin-bottom:2px}
+    .author-bio{font-size:.82rem;color:var(--text-muted);line-height:1.5}
+
+    .related-posts{margin-top:48px}
+    .related-title{font-size:1rem;font-weight:800;margin-bottom:16px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+    .related-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-decoration:none;display:flex;flex-direction:column;gap:6px;transition:border-color .15s}
+    .related-card:hover{border-color:var(--primary);text-decoration:none}
+    .related-tag{font-size:.7rem;font-weight:700;color:var(--primary)}
+    .related-name{font-size:.85rem;font-weight:600;color:var(--text);line-height:1.4}
+    .related-link{font-size:.75rem;color:var(--primary);font-weight:600;margin-top:auto}
+
+    .site-footer{border-top:1px solid var(--border);padding:40px 24px 28px;margin-top:60px}
+    .footer-inner{max-width:var(--content-w);margin:0 auto;display:flex;justify-content:space-between;align-items:center;font-size:.78rem;color:var(--text-faint);flex-wrap:wrap;gap:10px}
+    .footer-links-row{display:flex;gap:16px;flex-wrap:wrap}
+    .footer-links-row a{color:var(--text-faint)}
+    .footer-links-row a:hover{color:var(--text)}
+  </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+<script>
+  window.addEventListener('scroll',()=>{
+    const d=document.documentElement;
+    const pct=(d.scrollTop/(d.scrollHeight-d.clientHeight))*100;
+    document.getElementById('progress').style.width=pct+'%';
+  });
+</script>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <circle cx="18" cy="18" r="10" stroke="#fff" stroke-width="2" fill="none"/>
+        <path d="M18 8v20M8 18h20M11 11l14 14M25 11L11 25" stroke="#fff" stroke-width="1.4" opacity=".7"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#2dd4bf"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../tools.html" class="nav-link">Tools</a>
+      <a href="../blog.html" class="nav-link active">Blog</a>
+      <a href="../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="blog-wrap">
+
+  <nav aria-label="Breadcrumb" style="margin-bottom:20px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../blog.html" style="color:#8888a8">Blog</a></li><li>›</li>
+      <li style="color:#e8e8f0">Every Map Is a Lie</li>
+    </ol>
+  </nav>
+
+  <div class="article-meta">
+    <span class="meta-tag">🗺 GIS</span>
+    <span class="meta-info">June 7, 2026 · 12 min read</span>
+  </div>
+
+  <h1 class="article-title"><span class="gradient-title">Every Map Is a Lie</span> — How Coordinate Systems Actually Work</h1>
+
+  <p class="article-lead">You load a Shapefile into QGIS and it appears somewhere in the Gulf of Guinea. You calculate the area of a park and get a number 30% bigger than the official figure. You send someone a GeoJSON and their code puts every point in the wrong city. These are all projection problems — and they happen to everyone, constantly. This is the explanation that actually helps you stop guessing.</p>
+
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">In this article</div>
+    <ol>
+      <li><a href="#earth-not-flat">The Earth isn't flat — and it isn't round either</a></li>
+      <li><a href="#geographic-vs-projected">Geographic vs projected: the fundamental split</a></li>
+      <li><a href="#epsg">What EPSG codes actually are</a></li>
+      <li><a href="#four-three-two-six">EPSG:4326 — the one you use for everything</a></li>
+      <li><a href="#three-eight-five-seven">EPSG:3857 — why web maps use a broken projection</a></li>
+      <li><a href="#utm">UTM — the practical workhorse</a></li>
+      <li><a href="#national">National projections — why every country has its own</a></li>
+      <li><a href="#datum-shift">The datum shift problem</a></li>
+      <li><a href="#picking">How to pick a projection</a></li>
+      <li><a href="#proj4-wkt">Proj4 strings and WKT — what they mean</a></li>
+    </ol>
+  </div>
+
+  <h2 id="earth-not-flat">The Earth isn't flat — and it isn't round either</h2>
+
+  <p>The Earth is an oblate spheroid — flattened at the poles, bulging at the equator. But even that isn't quite right. The actual surface of the Earth (at mean sea level) is called the <strong>geoid</strong>, and it's an irregular lumpy shape driven by variations in the planet's gravitational field.</p>
+
+  <p>Because you can't do simple maths on a lumpy shape, geodesists define a smooth mathematical <strong>ellipsoid</strong> that best approximates it. The one most of the world uses today is <strong>GRS 80</strong> (Geodetic Reference System 1980), with a semi-major axis of 6,378,137 metres at the equator and a flattening ratio of 1/298.257. WGS 84 uses a nearly identical ellipsoid. Older datums — like Clarke 1866 (used by NAD27) and Airy 1830 (used by OSGB36) — used different ellipsoids, which is why coordinates from those systems don't match modern ones without a datum transformation.</p>
+
+  <div class="callout">
+    <p><strong>The key insight:</strong> coordinates are meaningless without knowing which ellipsoid and which datum they're referenced to. The numbers <code>51.5074, -0.1278</code> mean London — but only if you know they're in WGS 84. In OSGB36, those same numbers point somewhere completely different.</p>
+  </div>
+
+  <h2 id="geographic-vs-projected">Geographic vs projected: the fundamental split</h2>
+
+  <p>Every CRS (coordinate reference system) falls into one of two categories.</p>
+
+  <h3>Geographic CRS</h3>
+  <p>Defines positions on the 3D ellipsoid using angles. Coordinates are <strong>latitude and longitude in degrees</strong>. The Earth is three-dimensional, so technically a geographic CRS is not "flat" at all — it's a reference surface wrapped around a ball.</p>
+
+  <p>Key examples: <span class="epsg-pill">EPSG:4326</span> WGS 84, <span class="epsg-pill">EPSG:4269</span> NAD83, <span class="epsg-pill">EPSG:4258</span> ETRS89.</p>
+
+  <h3>Projected CRS</h3>
+  <p>Takes the ellipsoid and "projects" it onto a flat 2D plane using a mathematical formula. Coordinates are in <strong>linear units — metres or feet</strong> measured from an origin point. This makes distance and area calculations possible and straightforward, but every projection distorts something — shape, area, distance, or direction.</p>
+
+  <p>Key examples: <span class="epsg-pill">EPSG:3857</span> Web Mercator, <span class="epsg-pill">EPSG:32632</span> UTM zone 32N, <span class="epsg-pill">EPSG:27700</span> British National Grid.</p>
+
+  <div class="warning">
+    <p><strong>The most common mistake:</strong> performing distance or area calculations on coordinates in EPSG:4326. Degrees are not metres. The distance between two lat/lon points is not <code>sqrt((x2-x1)² + (y2-y1)²)</code>. You will get nonsense. Always reproject to a suitable projected CRS before measuring.</p>
+  </div>
+
+  <h2 id="epsg">What EPSG codes actually are</h2>
+
+  <p>EPSG stands for <em>European Petroleum Survey Group</em>, a now-defunct organisation that started maintaining a registry of geodetic parameters in the 1980s because oil companies drilling in the North Sea kept arguing about which datum their survey data was in. The registry is now maintained by the <strong>IOGP</strong> (International Association of Oil & Gas Producers), but the EPSG name stuck.</p>
+
+  <p>Every entry in the registry has a numeric ID. That's the EPSG code. When you see <code>EPSG:4326</code>, that's the registry entry for WGS 84 geographic CRS. When QGIS, PostGIS, GDAL, or any GIS tool asks you for a CRS, you give it an EPSG code (or a Proj4 string, or WKT — more on those below) and it knows exactly which ellipsoid, datum, and projection to use.</p>
+
+  <p>The full registry is at <strong>epsg.io</strong> and <strong>spatialreference.org</strong>. There are over 6,000 entries. You only need to know about 10 for most work.</p>
+
+  <h2 id="four-three-two-six">EPSG:4326 — the one you use for everything</h2>
+
+  <p><span class="epsg-pill">EPSG:4326</span> is WGS 84, the geographic CRS used by GPS satellites, Google Maps, GeoJSON, KML, most web APIs, and essentially all data you will ever receive from an external source. It's the de facto global standard and has been since GPS was civilianised.</p>
+
+  <p>Coordinates are in decimal degrees: <code>[longitude, latitude]</code> in GeoJSON (note the order — longitude first), or <code>(latitude, longitude)</code> in most other contexts. The coordinate order inconsistency is a notorious source of bugs — a point at <code>[51.5, -0.12]</code> (lat first) is in the North Sea; at <code>[-0.12, 51.5]</code> (lon first) it's London.</p>
+
+  <p>WGS 84 is a datum as well as a CRS. The datum is tied to a set of ground stations whose positions are known to sub-centimetre accuracy and updated regularly. For practical purposes (accuracy better than a metre), WGS 84 and NAD83 are interchangeable — they differ by less than 1 metre everywhere in North America.</p>
+
+  <div class="callout">
+    <p><strong>When to use it:</strong> storing data, exchanging data, APIs, GeoJSON files, GPS tracks, any time you need a universal format someone else can read without guessing.</p>
+  </div>
+
+  <h2 id="three-eight-five-seven">EPSG:3857 — why web maps use a broken projection</h2>
+
+  <p><span class="epsg-pill">EPSG:3857</span> is called "WGS 84 / Pseudo-Mercator" or Web Mercator. It's used by every web map tile service — Google Maps, OpenStreetMap, Bing, Mapbox, ESRI basemaps. You have looked at maps in this projection thousands of times.</p>
+
+  <p>The Mercator projection has one useful property: it is <strong>conformal</strong> — it preserves local shapes and angles. A bearing on the map equals a bearing on the ground, which is useful for navigation. The downside is severe area distortion at high latitudes. Greenland appears the same size as Africa on a Mercator map. Africa is 14× larger.</p>
+
+  <p>Web Mercator made things worse by treating the Earth as a <em>sphere</em> (same radius everywhere) instead of the correct oblate spheroid. This was done in 2005 by Google for computational simplicity and tile alignment. The error is small — under 0.7% — but it's technically incorrect, which is why the projection is called "Pseudo-Mercator" and why the US military explicitly refuses to use it.</p>
+
+  <p>The coordinates in EPSG:3857 are in metres, but they represent distances from the equator and prime meridian on this spherical Earth model, not the real Earth. The valid range is roughly ±20,037,508 metres in X and ±20,048,966 in Y (cutting off at about 85.06° latitude — beyond that the projection breaks down entirely).</p>
+
+  <div class="warning">
+    <p><strong>Never use EPSG:3857 for:</strong> area calculations, distance calculations, or storing data for any purpose other than tile rendering. EPSG:4326 for storage, EPSG:3857 for tile display. That's the rule.</p>
+  </div>
+
+  <h2 id="utm">UTM — the practical workhorse</h2>
+
+  <p>The <strong>Universal Transverse Mercator</strong> system divides the world into 60 vertical zones, each 6° of longitude wide. Within each zone, the projection is a Transverse Mercator with a scale factor of 0.9996, which keeps distortion under 0.1% across the entire zone width. It's arguably the best general-purpose projected CRS for most local and regional work.</p>
+
+  <p>Each zone has a <strong>central meridian</strong> — a vertical line running through the middle. Coordinates are in metres east (Easting) and north (Northing) from the zone's false origin. Northern hemisphere zones have a false origin at the equator and 500,000m west of the central meridian. Southern hemisphere zones add 10,000,000m to the northing to avoid negative values.</p>
+
+  <p>EPSG codes for UTM follow a pattern:</p>
+  <ul>
+    <li>Northern hemisphere: <code>326XX</code> where XX is the zone number (01–60)</li>
+    <li>Southern hemisphere: <code>327XX</code> where XX is the zone number</li>
+  </ul>
+
+  <p>So UTM zone 32 North (covering Germany and Italy) is EPSG:32632. Zone 10 North (covering the US Pacific coast) is EPSG:32610. Zone 55 South (covering eastern Australia) is EPSG:32755.</p>
+
+  <div class="callout">
+    <p><strong>Finding your UTM zone:</strong> take your longitude, add 180, divide by 6, round up. Example: London (0°) → (0+180)/6 = 30 → zone 30. New York (74°W) → (-74+180)/6 = 17.67 → round up = zone 18.</p>
+  </div>
+
+  <table class="comparison-table">
+    <thead><tr><th>Location</th><th>Approx. Longitude</th><th>UTM Zone</th><th>EPSG</th></tr></thead>
+    <tbody>
+      <tr><td>London</td><td>0°</td><td>30N</td><td><code>32630</code></td></tr>
+      <tr><td>Berlin / Rome</td><td>9–13°E</td><td>32N</td><td><code>32632</code></td></tr>
+      <tr><td>New York</td><td>74°W</td><td>18N</td><td><code>32618</code></td></tr>
+      <tr><td>Los Angeles</td><td>118°W</td><td>11N</td><td><code>32611</code></td></tr>
+      <tr><td>Tokyo</td><td>139°E</td><td>54N</td><td><code>32654</code></td></tr>
+      <tr><td>Sydney</td><td>151°E</td><td>55S</td><td><code>32755</code></td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="national">National projections — why every country has its own</h2>
+
+  <p>Most countries have a national projection optimised for their territory. Using the national projection keeps distortion minimal across the country and ensures compatibility with official datasets from that government. Here are the ones you'll encounter most often:</p>
+
+  <p><strong>British National Grid (<span class="epsg-pill">EPSG:27700</span>)</strong> — Transverse Mercator based on the Airy 1830 ellipsoid and OSGB36 datum. Coordinates called Eastings and Northings in metres, running from 0 in the southwest to ~700,000m east and ~1,300,000m north. Every UK government dataset uses this. When you download Environment Agency flood risk data, ONS census data, or Ordnance Survey OpenData, it will be in EPSG:27700.</p>
+
+  <p><strong>Lambert-93 (<span class="epsg-pill">EPSG:2154</span>)</strong> — France's national projection since 2001. Lambert Conformal Conic on GRS80. Two standard parallels at 44°N and 49°N optimise accuracy across continental France. Replaced the older Lambert Zone II Extended for official use.</p>
+
+  <p><strong>RD New (<span class="epsg-pill">EPSG:28992</span>)</strong> — Netherlands. An oblique stereographic projection on the Bessel 1841 ellipsoid, centred on Amersfoort. Unique in being oblique (tilted) rather than polar or equatorial. Used in all Dutch government open data including BAG (addresses) and AHN (elevation).</p>
+
+  <p><strong>SWEREF99 TM (<span class="epsg-pill">EPSG:3006</span>)</strong> — Sweden's national projection. A single Transverse Mercator zone covering the entire country, based on ETRS89. Simple and consistent for a country that's tall and narrow enough to fit in one zone.</p>
+
+  <p>The reason for national projections isn't just pride — global systems like UTM don't fit every country cleanly. Norway straddles multiple UTM zones. The UK's Airy ellipsoid fits British territory better than GRS80 (the BNG was designed before GRS80 existed). France is too wide east-west for a single UTM zone. A national Lambert Conformal Conic gives uniform accuracy across the whole country.</p>
+
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <h2 id="datum-shift">The datum shift problem</h2>
+
+  <p>This is where coordinates go to the Gulf of Guinea.</p>
+
+  <p>When you load a file without a defined CRS, QGIS usually assumes EPSG:4326 or the project's CRS. If the file was actually in OSGB36 (coordinates like <code>531000, 181000</code> — Eastings and Northings in metres), QGIS will interpret those as decimal degrees and put everything in the ocean near 0°N, 0°E. That's the Gulf of Guinea. It happens to almost everyone at least once.</p>
+
+  <p>But datum shifts happen even when both files have defined CRS. NAD27 and NAD83 use different ellipsoids. Converting between them requires a grid shift file (<code>.gsb</code>) that contains the interpolated horizontal offset at every point in North America. In some areas, the shift is 10 metres. In others it's 100 metres. If your CRS transformation doesn't include the grid shift (which requires PROJ datum files to be installed), you'll get a rough polynomial approximation that can be off by tens of metres.</p>
+
+  <p>The fix: always define the CRS of your data. If you receive data without a CRS, ask the provider. If you can't ask, look for clues in the coordinate magnitude — Eastings around 400,000–700,000 and Northings around 0–1,300,000 in metres are almost certainly British National Grid. Eastings around 155,000 and Northings around 463,000 are Dutch RD New. Coordinates like <code>500000, 5400000</code> are almost certainly UTM.</p>
+
+  <h2 id="picking">How to pick a projection</h2>
+
+  <p>There's no single right answer, but there are clear wrong answers.</p>
+
+  <table class="comparison-table">
+    <thead><tr><th>Use case</th><th>What you need</th><th>Good choices</th></tr></thead>
+    <tbody>
+      <tr><td>Storing / exchanging data</td><td>Universal, widely understood</td><td>EPSG:4326 (WGS 84)</td></tr>
+      <tr><td>Web map tiles</td><td>Matches tile basemaps</td><td>EPSG:3857 (Web Mercator)</td></tr>
+      <tr><td>Local distance / buffer</td><td>Accurate metric distances</td><td>Local UTM zone or national projection</td></tr>
+      <tr><td>National-scale area analysis</td><td>Equal-area or low-distortion</td><td>National projection, Albers Equal Area</td></tr>
+      <tr><td>Global thematic map (print)</td><td>Visually balanced, equal area</td><td>Mollweide, Robinson, Winkel Tripel</td></tr>
+      <tr><td>Polar regions</td><td>Centred on pole</td><td>EPSG:3031 (Antarctic), EPSG:3413 (Arctic)</td></tr>
+      <tr><td>UK data</td><td>Matches official datasets</td><td>EPSG:27700 (BNG)</td></tr>
+      <tr><td>French data</td><td>Matches IGN datasets</td><td>EPSG:2154 (Lambert-93)</td></tr>
+    </tbody>
+  </table>
+
+  <p>The golden rule: <strong>use the projection your data came in, for that data</strong>. Only reproject when you have a specific reason — combining datasets in different CRS, needing metric measurements, or displaying on a web map. Every reprojection introduces a tiny rounding error, and unnecessary reprojections compound that error.</p>
+
+  <h2 id="proj4-wkt">Proj4 strings and WKT — what they mean</h2>
+
+  <p>When you need to specify a CRS in software, you have three options: EPSG code, Proj4 string, or WKT.</p>
+
+  <p><strong>EPSG code</strong> — the simplest. Just a number. Works in anything that has a CRS lookup database. <code>4326</code>, <code>3857</code>, <code>27700</code>.</p>
+
+  <p><strong>Proj4 string</strong> — a compact parameterised definition understood by the PROJ library, which underpins GDAL, QGIS, pyproj, PostGIS, and virtually everything open-source. Example for UTM zone 32N:</p>
+  <pre>+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs</pre>
+
+  <p>The parameters: <code>+proj=utm</code> sets the projection algorithm, <code>+zone=32</code> the UTM zone, <code>+datum=WGS84</code> the datum, <code>+units=m</code> the output units. For British National Grid:</p>
+  <pre>+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +datum=OSGB36 +units=m +no_defs</pre>
+
+  <p><strong>WKT (Well-Known Text)</strong> — a verbose, structured format used in Shapefiles (<code>.prj</code> files), SQL databases (PostGIS stores CRS as WKT), and OGC standards. It's human-readable but not human-friendly:</p>
+  <pre>PROJCS["WGS 84 / UTM zone 32N",
+  GEOGCS["WGS 84",
+    DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563]],
+    PRIMEM["Greenwich",0],UNIT["degree",0.01745329...]],
+  PROJECTION["Transverse_Mercator"],
+  PARAMETER["central_meridian",9],
+  PARAMETER["scale_factor",0.9996],
+  PARAMETER["false_easting",500000],
+  UNIT["metre",1],AUTHORITY["EPSG","32632"]]</pre>
+
+  <p>In Python, you work with Proj4 via <code>pyproj.CRS.from_epsg(32632)</code> or <code>pyproj.CRS.from_proj4("+proj=utm ...")</code>. In PostGIS, <code>ST_Transform(geom, 4326)</code> reprojects to WGS 84. In GDAL on the command line: <code>ogr2ogr -t_srs EPSG:4326 output.geojson input.shp</code>.</p>
+
+  <div class="cta-box">
+    <h3>Need a Proj4 string or WKT right now?</h3>
+    <p>Search 30+ coordinate reference systems by EPSG code, name, country, or keyword. Copy Proj4 or WKT in one click.</p>
+    <a href="../tools/gis/projection-finder.html" class="cta-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Open GIS Projection Finder
+    </a>
+  </div>
+
+  <div class="author-box">
+    <div class="author-avatar">🌐</div>
+    <div>
+      <div class="author-name">The Tool Empire</div>
+      <div class="author-bio">Free browser-based tools for developers, analysts, and anyone who works with data. No signup, no installs. Built for the people who actually use this stuff every day.</div>
+    </div>
+  </div>
+
+  <div class="related-posts">
+    <div class="related-title">More from the blog</div>
+    <div class="related-grid">
+      <a href="gis-file-formats.html" class="related-card">
+        <div class="related-tag">🗺 GIS</div>
+        <div class="related-name">GeoJSON, KML, Shapefile, GeoTIFF — Which Format for Which Job</div>
+        <div class="related-link">Read →</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© 2026 The Tool Empire. All rights reserved.</span>
+    <div class="footer-links-row">
+      <a href="../index.html">Home</a>
+      <a href="../tools.html">Tools</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../privacy.html">Privacy</a>
+      <a href="../terms.html">Terms</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

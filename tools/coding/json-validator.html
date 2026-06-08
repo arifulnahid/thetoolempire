@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JSON Validator — Live Syntax Check, Type Inspector & Schema Validation | The Tool Empire</title>
+  <meta name="description" content="Validate JSON instantly in your browser. Live error detection with line and column numbers, type tree inspector, stats panel, and JSON Schema validation (draft-07 subset). Free, no signup."/>
+  <meta name="keywords" content="json validator online, json syntax checker, json schema validator, validate json free, json type inspector, json error finder, live json validation"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/coding/json-validator.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="JSON Validator — Live Syntax Check, Type Inspector & Schema Validation"/>
+  <meta property="og:description" content="Live JSON validation with error location, type tree, stats panel, and JSON Schema validation. Free and browser-based."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/coding/json-validator.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"JSON Validator","description":"Browser-based JSON validator with live syntax checking, exact error location (line and column), syntax-highlighted formatted output, type tree inspector, stats panel (keys, arrays, strings, numbers, booleans, nulls, depth), and JSON Schema validation (draft-07 subset: type, required, properties, additionalProperties, minLength, maxLength, pattern, minimum, maximum, enum, const, items, minItems, maxItems, uniqueItems, allOf, anyOf, not). Includes file upload and formatted JSON download.","url":"https://thetoolempire.com/tools/coding/json-validator.html","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Live syntax validation as you type","Exact error location (line and column numbers)","Syntax-highlighted formatted output","Type tree inspector for all values","Stats: key count, array count, type breakdown, max depth","JSON Schema validation (draft-07 subset)","Schema: type, required, properties, minLength, maxLength, pattern","Schema: minimum, maximum, enum, const, items, allOf, anyOf, not","File upload (.json)","Copy formatted JSON","Download as .json","100% client-side — no data sent to server"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Coding Tools","item":"https://thetoolempire.com/tools.html#coding"},
+      {"@type":"ListItem","position":3,"name":"JSON Validator","item":"https://thetoolempire.com/tools/coding/json-validator.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is the difference between JSON validation and JSON formatting?","acceptedAnswer":{"@type":"Answer","text":"Validation checks that the text is syntactically correct JSON — that every string is quoted, brackets are matched, commas are placed correctly, and no trailing commas appear. Formatting (beautifying) takes valid JSON and applies consistent indentation. This tool does both: it validates first, then shows the formatted output if the JSON is valid."}},
+      {"@type":"Question","name":"Why does my JSON fail — the error message is confusing?","acceptedAnswer":{"@type":"Answer","text":"JavaScript's JSON parser gives cryptic error messages like 'Unexpected token' at a character position. The most common causes are: trailing commas after the last item in an object or array (not allowed in JSON), single quotes instead of double quotes for strings, unquoted keys, comments (not allowed in JSON), or undefined/NaN/Infinity values. This validator shows the exact line and column of the error."}},
+      {"@type":"Question","name":"What is JSON Schema validation?","acceptedAnswer":{"@type":"Answer","text":"JSON Schema is a vocabulary for describing the structure and constraints of JSON data. You define a schema — for example, that a field must be a string with at least 3 characters, or that an object must have required keys — and the validator checks your data against those rules. This tool supports a useful subset of JSON Schema draft-07 including type, required, properties, minLength, maxLength, pattern, minimum, maximum, enum, const, items, minItems, maxItems, uniqueItems, allOf, anyOf, and not."}},
+      {"@type":"Question","name":"What is the type tree?","acceptedAnswer":{"@type":"Answer","text":"The type tree shows the data type of every value in your JSON — string, number, boolean, null, object (with key count), or array (with length). It is useful for quickly understanding the shape of a JSON response or data file without reading all the values. Nested objects and arrays are shown indented up to 4 levels deep."}},
+      {"@type":"Question","name":"Does this validator send my data to a server?","acceptedAnswer":{"@type":"Answer","text":"No. All validation, schema checking, and type inspection run entirely in your browser using JavaScript. Your JSON data never leaves your device. This makes it safe to use for API responses, configuration files, or any data you would rather not send to an external server."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="json-validator.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <circle cx="18" cy="18" r="9" stroke="#fff" stroke-width="2" fill="none" stroke-opacity=".9"/>
+        <polyline points="12,18 16,22 24,14" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#22c55e"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="jsonValidatorApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li><a href="../../tools.html#coding" style="color:#8888a8">Coding</a></li><li>›</li>
+      <li style="color:#e8e8f0">JSON Validator</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot" style="width:100%;margin-bottom:18px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+      Developer Tool
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">JSON Validator</span></h1>
+    <p class="tool-subtitle">Live syntax validation with exact error location, type tree inspector, stats panel, and JSON Schema checking. Everything runs in your browser.</p>
+  </div>
+
+  <!-- ── TOOLBAR ── -->
+  <div class="toolbar">
+    <div class="toolbar-group">
+      <button class="btn-tool btn-primary" @click="validate()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+        Validate
+      </button>
+    </div>
+    <div class="toolbar-divider"></div>
+    <div class="toolbar-group">
+      <button class="btn-tool btn-secondary" @click="loadValid()">Valid sample</button>
+      <button class="btn-tool btn-secondary" @click="loadInvalid()">Invalid sample</button>
+      <label class="btn-tool btn-secondary" style="cursor:pointer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Upload
+        <input type="file" accept=".json,application/json" @change="handleFile($event)" style="display:none"/>
+      </label>
+    </div>
+    <div class="toolbar-divider"></div>
+    <div class="toolbar-group">
+      <label style="display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--text-muted);cursor:pointer;user-select:none">
+        <input type="checkbox" x-model="liveMode" style="accent-color:var(--primary);width:14px;height:14px"/>
+        Live mode
+      </label>
+    </div>
+    <div class="toolbar-divider"></div>
+    <div class="toolbar-group">
+      <button class="btn-tool btn-danger" @click="clear()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+        Clear
+      </button>
+    </div>
+    <span class="status-pill" :class="statusClass" x-text="statusLabel"></span>
+  </div>
+
+  <!-- ── EDITOR LAYOUT ── -->
+  <div class="editor-layout">
+
+    <!-- Input -->
+    <div class="editor-pane" :class="inputPaneClass">
+      <div class="pane-header">
+        <div class="pane-title">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Input JSON
+        </div>
+        <div class="pane-actions">
+          <button class="pane-btn" @click="copyInput()">Copy</button>
+        </div>
+      </div>
+      <textarea
+        class="editor-textarea"
+        x-model="input"
+        @input="onInput()"
+        placeholder='Paste your JSON here, e.g. {"key": "value"}'
+        spellcheck="false"
+        autocomplete="off"
+        autocorrect="off"
+      ></textarea>
+    </div>
+
+    <!-- Output / formatted -->
+    <div class="editor-pane" :class="isValid === true ? 'valid-state' : isValid === false ? 'error-state' : ''">
+      <div class="pane-header">
+        <div class="pane-title">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+          Formatted output
+          <template x-if="isValid === true">
+            <span style="font-size:.7rem;background:rgba(34,197,94,.12);color:#86efac;padding:1px 7px;border-radius:6px;font-weight:700">✓ Valid</span>
+          </template>
+          <template x-if="isValid === false">
+            <span style="font-size:.7rem;background:rgba(248,113,113,.1);color:#fca5a5;padding:1px 7px;border-radius:6px;font-weight:700">✗ Invalid</span>
+          </template>
+        </div>
+        <div class="pane-actions">
+          <button class="pane-btn" @click="copyFormatted()" x-show="isValid === true">Copy</button>
+          <button class="pane-btn" @click="download()" x-show="isValid === true">Download</button>
+        </div>
+      </div>
+      <template x-if="isValid === true">
+        <pre class="output-pre" x-html="outputHtml"></pre>
+      </template>
+      <template x-if="isValid === false">
+        <div style="padding:16px">
+          <template x-for="issue in issues" :key="issue.msg">
+            <div class="issue-item i-error">
+              <div class="issue-icon">🔴</div>
+              <div class="issue-body">
+                <div class="issue-msg" x-text="issue.msg"></div>
+                <template x-if="issue.path">
+                  <div class="issue-path" x-text="issue.path"></div>
+                </template>
+                <template x-if="issue.detail">
+                  <div class="issue-detail" x-text="issue.detail"></div>
+                </template>
+              </div>
+            </div>
+          </template>
+        </div>
+      </template>
+      <template x-if="isValid === null">
+        <div class="output-pre" style="color:var(--text-faint);font-size:.82rem">Formatted output will appear here after validation.</div>
+      </template>
+    </div>
+  </div>
+
+  <!-- ── RESULTS SECTIONS ── -->
+  <template x-if="isValid !== null">
+    <div style="margin-top:12px">
+
+      <!-- Section tabs -->
+      <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap">
+        <button
+          @click="activeSection='issues'"
+          :style="activeSection==='issues' ? 'background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.3);color:#86efac' : ''"
+          style="padding:6px 14px;border-radius:999px;font-size:.78rem;font-weight:700;border:1px solid var(--border);color:var(--text-muted);background:var(--bg-card);cursor:pointer;transition:.15s">
+          Issues
+          <template x-if="errorCount > 0"><span style="margin-left:5px;background:rgba(239,68,68,.2);color:#fca5a5;padding:1px 6px;border-radius:6px;font-size:.7rem" x-text="errorCount"></span></template>
+        </button>
+        <button
+          @click="activeSection='tree'"
+          :style="activeSection==='tree' ? 'background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.3);color:#86efac' : ''"
+          style="padding:6px 14px;border-radius:999px;font-size:.78rem;font-weight:700;border:1px solid var(--border);color:var(--text-muted);background:var(--bg-card);cursor:pointer;transition:.15s">
+          Type Tree
+        </button>
+        <button
+          @click="activeSection='stats'"
+          :style="activeSection==='stats' ? 'background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.3);color:#86efac' : ''"
+          style="padding:6px 14px;border-radius:999px;font-size:.78rem;font-weight:700;border:1px solid var(--border);color:var(--text-muted);background:var(--bg-card);cursor:pointer;transition:.15s">
+          Stats
+        </button>
+        <button
+          @click="activeSection='schema'"
+          :style="activeSection==='schema' ? 'background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.3);color:#86efac' : ''"
+          style="padding:6px 14px;border-radius:999px;font-size:.78rem;font-weight:700;border:1px solid var(--border);color:var(--text-muted);background:var(--bg-card);cursor:pointer;transition:.15s">
+          JSON Schema
+          <template x-if="schemaResult && !schemaResult.ok"><span style="margin-left:5px;background:rgba(239,68,68,.2);color:#fca5a5;padding:1px 6px;border-radius:6px;font-size:.7rem" x-text="schemaResult.msgs.length"></span></template>
+        </button>
+      </div>
+
+      <!-- Issues section -->
+      <div x-show="activeSection==='issues'">
+        <template x-if="isValid === true">
+          <div class="valid-banner">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+            JSON is valid. No syntax errors found.
+          </div>
+        </template>
+        <template x-if="isValid === false">
+          <div class="issue-list">
+            <template x-for="issue in issues" :key="issue.msg">
+              <div class="issue-item i-error">
+                <div class="issue-icon">🔴</div>
+                <div class="issue-body">
+                  <div class="issue-msg" x-text="issue.msg"></div>
+                  <template x-if="issue.path"><div class="issue-path" x-text="issue.path"></div></template>
+                  <template x-if="issue.detail"><div class="issue-detail" x-text="issue.detail"></div></template>
+                </div>
+              </div>
+            </template>
+          </div>
+        </template>
+      </div>
+
+      <!-- Type tree section -->
+      <div x-show="activeSection==='tree'">
+        <template x-if="isValid === true && typeTreeHtml">
+          <div>
+            <div style="font-size:.78rem;color:var(--text-faint);margin-bottom:8px">Value types at each key. Objects show key count, arrays show length. Depth limited to 4 levels.</div>
+            <div class="type-tree" x-html="typeTreeHtml"></div>
+          </div>
+        </template>
+        <template x-if="isValid === false">
+          <div style="color:var(--text-faint);font-size:.84rem;padding:10px 0">Fix the syntax error first to see the type tree.</div>
+        </template>
+      </div>
+
+      <!-- Stats section -->
+      <div x-show="activeSection==='stats'">
+        <template x-if="stats && isValid === true">
+          <div class="stats-bar">
+            <div class="stat-item"><div class="stat-label">Object keys</div><div class="stat-value" x-text="stats.keys.toLocaleString()"></div></div>
+            <div class="stat-item"><div class="stat-label">Arrays</div><div class="stat-value" x-text="stats.arrays.toLocaleString()"></div></div>
+            <div class="stat-item"><div class="stat-label">Strings</div><div class="stat-value" x-text="stats.strings.toLocaleString()"></div></div>
+            <div class="stat-item"><div class="stat-label">Numbers</div><div class="stat-value" x-text="stats.numbers.toLocaleString()"></div></div>
+            <div class="stat-item"><div class="stat-label">Booleans</div><div class="stat-value" x-text="stats.booleans.toLocaleString()"></div></div>
+            <div class="stat-item"><div class="stat-label">Nulls</div><div class="stat-value" x-text="stats.nulls.toLocaleString()"></div></div>
+            <div class="stat-item"><div class="stat-label">Max depth</div><div class="stat-value" x-text="stats.depth"></div></div>
+          </div>
+        </template>
+        <template x-if="isValid === false">
+          <div style="color:var(--text-faint);font-size:.84rem;padding:10px 0">Fix the syntax error first to see stats.</div>
+        </template>
+      </div>
+
+      <!-- Schema section -->
+      <div x-show="activeSection==='schema'">
+        <div class="schema-wrap">
+          <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:6px">Paste a JSON Schema (draft-07 subset) to validate your data against it. Supports: <code>type</code>, <code>required</code>, <code>properties</code>, <code>minLength</code>, <code>maxLength</code>, <code>pattern</code>, <code>minimum</code>, <code>maximum</code>, <code>enum</code>, <code>const</code>, <code>items</code>, <code>minItems</code>, <code>maxItems</code>, <code>uniqueItems</code>, <code>allOf</code>, <code>anyOf</code>, <code>not</code>.</div>
+          <textarea
+            class="schema-textarea"
+            x-model="schemaText"
+            placeholder='{ "type": "object", "required": ["id", "name"], "properties": { "id": {"type": "number"}, "name": {"type": "string"} } }'
+            spellcheck="false"
+          ></textarea>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn-tool btn-primary" @click="validateSchema()" x-show="isValid === true">Validate against schema</button>
+            <button class="btn-tool btn-secondary" @click="loadSchemaExample()">Load example schema</button>
+            <button class="btn-tool btn-danger" @click="clearSchema()" x-show="schemaText.trim()">Clear schema</button>
+          </div>
+          <template x-if="isValid !== true && schemaText.trim()">
+            <div class="schema-result schema-info">Fix the JSON syntax error before running schema validation.</div>
+          </template>
+          <template x-if="schemaResult && schemaResult.ok">
+            <div class="schema-result schema-ok">✓ Data matches the schema — all constraints satisfied.</div>
+          </template>
+          <template x-if="schemaResult && !schemaResult.ok">
+            <div>
+              <div class="schema-result schema-fail" style="margin-bottom:8px">✗ Schema validation failed — <span x-text="schemaResult.msgs.length"></span> violation(s):</div>
+              <div class="issue-list">
+                <template x-for="msg in schemaResult.msgs" :key="msg">
+                  <div class="issue-item i-error">
+                    <div class="issue-icon">🔴</div>
+                    <div class="issue-body"><div class="issue-msg" x-text="msg"></div></div>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+
+    </div>
+  </template>
+
+  <!-- Ad -->
+  <div class="ad-slot" style="width:100%;margin-top:28px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- ── DESCRIPTION ── -->
+  <div class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">What This Tool Does</h2>
+      <p class="section-desc">Four tools in one: live syntax validator, formatted viewer, type inspector, and schema checker.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">✅</div><div class="feature-title">Live syntax validation</div><div class="feature-desc">Validates as you type in live mode. Detects invalid JSON instantly and shows the exact line and column of the error — no need to hunt through hundreds of lines manually.</div></div>
+      <div class="feature-card"><div class="feature-icon">🌳</div><div class="feature-title">Type tree inspector</div><div class="feature-desc">Shows the data type of every value — string, number, boolean, null, object, array — with key counts and array lengths. Indented up to 4 levels deep for nested structures.</div></div>
+      <div class="feature-card"><div class="feature-icon">📊</div><div class="feature-title">Stats panel</div><div class="feature-desc">Counts total object keys, arrays, strings, numbers, booleans, and nulls across the entire document. Shows maximum nesting depth. Useful for understanding large API responses.</div></div>
+      <div class="feature-card"><div class="feature-icon">📋</div><div class="feature-title">JSON Schema validation</div><div class="feature-desc">Paste a JSON Schema and validate your data against it. Supports type, required, properties, minLength, maxLength, pattern, minimum, maximum, enum, const, items, allOf, anyOf, not.</div></div>
+      <div class="feature-card"><div class="feature-icon">🎨</div><div class="feature-title">Syntax-highlighted output</div><div class="feature-desc">Valid JSON is formatted with 2-space indentation and syntax highlighting — keys, strings, numbers, booleans, and null each in a distinct colour.</div></div>
+      <div class="feature-card"><div class="feature-icon">🔒</div><div class="feature-title">100% client-side</div><div class="feature-desc">All validation, schema checking, and type inspection run in your browser. Your JSON data never leaves your device — safe for API responses and config files.</div></div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── HOW TO USE ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head"><h2 class="section-title">How to Use</h2></div>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-number">1</div><div><div class="step-title">Paste or upload JSON</div><div class="step-desc">Type or paste JSON into the editor, or click Upload to load a .json file. Live mode validates as you type. Use "Invalid sample" to see what an error report looks like.</div></div></div>
+      <div class="step-card"><div class="step-number">2</div><div><div class="step-title">Read the error</div><div class="step-desc">If validation fails, the error message shows exactly which line and column has the problem. Common fixes: replace single quotes with double quotes, remove trailing commas, quote unquoted keys.</div></div></div>
+      <div class="step-card"><div class="step-number">3</div><div><div class="step-title">Inspect the type tree</div><div class="step-desc">Switch to the Type Tree tab to see the data type of every field. Useful for confirming that a field you expect to be a number is not a string, or that required keys are present.</div></div></div>
+      <div class="step-card"><div class="step-number">4</div><div><div class="step-title">Validate against a schema</div><div class="step-desc">Open the JSON Schema tab, paste your schema, and click Validate. Schema violations list the exact path and rule that failed — ideal for API contract testing.</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FAQ ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head"><h2 class="section-title">Frequently Asked Questions</h2></div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is the difference between JSON validation and JSON formatting?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Validation checks that the text is syntactically correct JSON — that every string is quoted, brackets are matched, commas are placed correctly, and no trailing commas appear. Formatting (beautifying) takes valid JSON and applies consistent indentation and line breaks. This tool does both: it validates first, then shows formatted output if the JSON is valid.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Why is my JSON failing — the error message is confusing?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>JavaScript's JSON parser gives errors like "Unexpected token" at a character position. The most common causes are: <code>trailing commas</code> after the last item in an array or object (not allowed in JSON); <code>single quotes</code> instead of double quotes for strings and keys; <code>unquoted keys</code>; <code>comments</code> (JSON has no comment syntax); and values like <code>undefined</code>, <code>NaN</code>, or <code>Infinity</code> (not valid JSON). This validator shows the exact line and column to help you find the problem.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is JSON Schema validation?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>JSON Schema is a vocabulary for describing the structure and constraints of JSON data. You define rules — for example, that a field must be a string with at least 3 characters, or that an object must have certain required keys — and the validator checks your data against them. This tool supports a useful draft-07 subset: <code>type</code>, <code>required</code>, <code>properties</code>, <code>minLength</code>, <code>maxLength</code>, <code>pattern</code>, <code>minimum</code>, <code>maximum</code>, <code>enum</code>, <code>const</code>, <code>items</code>, <code>minItems</code>, <code>maxItems</code>, <code>uniqueItems</code>, <code>allOf</code>, <code>anyOf</code>, and <code>not</code>.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is the type tree?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>The type tree shows the data type of every value in your JSON — string, number, boolean, null, object (with key count), or array (with length). It is useful for quickly understanding the shape of an API response or data file without reading all the values. Nested objects and arrays are shown indented, up to 4 levels deep.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Is my JSON sent to a server?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>No. All processing — validation, schema checking, type inspection, syntax highlighting — runs entirely in your browser using JavaScript. Your JSON never leaves your device, making it safe to use for API responses, configuration files, tokens, or any data you would rather not send to an external service.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── RELATED TOOLS ── -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="json-formatter.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h3a2 2 0 0 1 2 2v1a2 2 0 0 0 2 2 2 2 0 0 0-2 2v1a2 2 0 0 1-2 2H4M20 7h-3a2 2 0 0 0-2 2v1a2 2 0 0 1-2 2 2 2 0 0 1 2 2v1a2 2 0 0 0 2 2h3"/></svg></div>
+        <div class="related-name">JSON Formatter</div>
+        <div class="related-desc">Format, minify, diff, and search JSON with syntax highlighting.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="../../tools/gis/geojson-validator.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#22c55e,#3b82f6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="related-name">GeoJSON Validator</div>
+        <div class="related-desc">Validates GeoJSON structure against RFC 7946 spec.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="regex.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#a78bfa,#3b82f6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <div class="related-name">Regex Tester</div>
+        <div class="related-desc">Test regular expressions with live match highlighting.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="base64.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f97316,#f59e0b)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="8 17 12 21 16 17"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"/></svg></div>
+        <div class="related-name">Base64 Encoder</div>
+        <div class="related-desc">Encode and decode Base64 strings and files.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <circle cx="18" cy="18" r="9" stroke="#fff" stroke-width="2" fill="none" stroke-opacity=".9"/>
+          <polyline points="12,18 16,22 24,14" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#22c55e"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#coding">Coding Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="json-validator.js"></script>
+</body>
+</html>

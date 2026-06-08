@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSV Coordinates → GIS Formats Converter — Free Online Tool | The Tool Empire</title>
+  <meta name="description" content="Convert CSV files with latitude/longitude columns to GeoJSON, KML, GPX, or WKT instantly in your browser. Auto-detects columns, handles any delimiter, preserves all properties. Free, no signup."/>
+  <meta name="keywords" content="csv to geojson, csv to kml, csv to gpx, csv coordinates converter, lat long csv converter, csv gis tool, csv spatial data"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/gis/csv-to-gis.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="CSV Coordinates → GIS Formats Converter"/>
+  <meta property="og:description" content="Convert CSV with lat/lng columns to GeoJSON, KML, GPX, or WKT. Auto-detects delimiter and coordinate columns. All properties preserved."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/gis/csv-to-gis.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"CSV Coordinates → GIS Formats Converter","description":"Convert CSV files with latitude and longitude columns to GeoJSON, KML, GPX, or WKT. Auto-detects column names and delimiters. All extra CSV columns are preserved as feature properties. Supports quoted fields, custom delimiters (comma, semicolon, tab, pipe), optional altitude column, and name column. Validates coordinate ranges and reports skipped rows.","url":"https://thetoolempire.com/tools/gis/csv-to-gis.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["CSV to GeoJSON","CSV to KML","CSV to GPX","CSV to WKT","Auto-detect lat/lng columns","Auto-detect delimiter (comma, semicolon, tab, pipe)","Quoted field support (RFC 4180)","All extra columns as feature properties","Elevation/altitude column support","Name column support","Row validation with skip count","File upload and drag-and-drop","Download as .geojson, .kml, .gpx, or .txt"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"GIS Tools","item":"https://thetoolempire.com/tools.html#gis"},
+      {"@type":"ListItem","position":3,"name":"CSV to GIS Converter","item":"https://thetoolempire.com/tools/gis/csv-to-gis.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What CSV formats are supported?","acceptedAnswer":{"@type":"Answer","text":"The tool supports comma-separated (.csv), semicolon-separated (.csv), tab-separated (.tsv), and pipe-separated (|) files. It auto-detects the delimiter from the first line. Quoted fields (RFC 4180 compliant) are fully supported — fields containing commas or newlines wrapped in double quotes are parsed correctly. Set 'Has header row' to off for files without column names."}},
+      {"@type":"Question","name":"What column names are auto-detected?","acceptedAnswer":{"@type":"Answer","text":"Latitude columns: lat, latitude, y, ylat, lat_dd, latdd. Longitude columns: lon, lng, long, longitude, x, xlon, lon_dd, londd. Name columns: name, title, label, place, location, id, placename. Altitude columns: alt, altitude, ele, elevation, elev, height, z. Detection is case-insensitive. If your column names differ, use the dropdowns to select the correct ones manually."}},
+      {"@type":"Question","name":"Are extra CSV columns preserved?","acceptedAnswer":{"@type":"Answer","text":"Yes. All columns other than the selected lat/lng columns are passed through as feature properties in GeoJSON and as ExtendedData in KML. In GPX output, only the name and elevation are included since GPX waypoints have no equivalent of arbitrary key-value attributes. WKT output includes a tab-separated name column."}},
+      {"@type":"Question","name":"What happens to rows with invalid coordinates?","acceptedAnswer":{"@type":"Answer","text":"Rows where the latitude or longitude values cannot be parsed as numbers, or where values are outside valid ranges (lat: -90 to 90, lng: -180 to 180), are skipped. The conversion result shows a count of successfully converted rows and skipped rows so you can identify data quality issues."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="csv-to-gis.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <circle cx="18" cy="18" r="10" stroke="#fff" stroke-width="2" fill="none"/>
+        <path d="M18 8v20M8 18h20M11 11l14 14M25 11L11 25" stroke="#fff" stroke-width="1.4" opacity=".7"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#3b82f6"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="csvToGisApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li><a href="../../tools.html#gis" style="color:#8888a8">GIS</a></li><li>›</li>
+      <li style="color:#e8e8f0">CSV → GIS Formats</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+      GIS · CSV
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">CSV Coordinates → GIS Formats</span></h1>
+    <p class="tool-subtitle">Paste any CSV with latitude and longitude columns and convert to GeoJSON, KML, GPX, or WKT. Auto-detects columns and delimiters. All properties preserved.</p>
+  </div>
+
+  <!-- ── INPUT CARD ── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </div>
+      <span class="card-title">CSV Input</span>
+      <div style="margin-left:auto;display:flex;gap:6px;flex-wrap:wrap">
+        <label style="display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid var(--border);font-size:.74rem;color:var(--text-muted);cursor:pointer" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Upload CSV
+          <input type="file" accept=".csv,.tsv,.txt" @change="handleFile($event)" style="display:none"/>
+        </label>
+        <button class="btn-outline" style="padding:5px 10px;font-size:.74rem" @click="loadSample()">Load sample</button>
+        <button class="btn-outline" style="padding:5px 10px;font-size:.74rem" @click="clear()">Clear</button>
+      </div>
+    </div>
+
+    <div class="card-body">
+
+      <!-- CSV textarea with drag-drop -->
+      <div @dragover.prevent @drop.prevent="handleDrop($event)" style="margin-bottom:14px">
+        <textarea
+          class="csv-editor"
+          x-model="csvText"
+          @input="onCsvChange()"
+          placeholder="Paste CSV here, or upload / drag-and-drop a file…
+Example:
+name,latitude,longitude,altitude
+Eiffel Tower,48.8584,2.2945,330
+Louvre Museum,48.8606,2.3376,34"
+          spellcheck="false"
+          autocomplete="off"></textarea>
+      </div>
+
+      <!-- Options row -->
+      <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:16px">
+        <!-- Delimiter -->
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <span style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint)">Delimiter</span>
+          <div class="delim-row">
+            <label class="delim-opt" :class="{active:delimiter==='auto'}"><input type="radio" x-model="delimiter" value="auto" @change="onCsvChange()"/> Auto-detect</label>
+            <label class="delim-opt" :class="{active:delimiter===','}"><input type="radio" x-model="delimiter" value="," @change="onCsvChange()"/> Comma</label>
+            <label class="delim-opt" :class="{active:delimiter===';'}"><input type="radio" x-model="delimiter" value=";" @change="onCsvChange()"/> Semicolon</label>
+            <label class="delim-opt" :class="{active:delimiter==='\\t'}"><input type="radio" x-model="delimiter" value="\t" @change="onCsvChange()"/> Tab</label>
+            <label class="delim-opt" :class="{active:delimiter==='|'}"><input type="radio" x-model="delimiter" value="|" @change="onCsvChange()"/> Pipe</label>
+          </div>
+        </div>
+        <!-- Header row toggle -->
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <span style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint)">Header row</span>
+          <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:.84rem;color:var(--text-muted)">
+            <input type="checkbox" x-model="hasHeader" @change="onCsvChange()" style="width:16px;height:16px;accent-color:var(--primary);cursor:pointer"/>
+            First row contains column names
+          </label>
+        </div>
+      </div>
+
+      <!-- Column mapping — shown only after parse -->
+      <template x-if="headers.length > 0">
+        <div>
+          <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint);margin-bottom:8px">Column Mapping</div>
+          <div class="col-mapper">
+            <div class="col-select-wrap">
+              <label class="col-label" style="color:#f87171">Latitude <span style="color:#f87171">*</span></label>
+              <select class="col-select" x-model="latCol">
+                <option value="">— select —</option>
+                <template x-for="h in headers" :key="h.value">
+                  <option :value="h.value" x-text="h.label"></option>
+                </template>
+              </select>
+            </div>
+            <div class="col-select-wrap">
+              <label class="col-label" style="color:#93c5fd">Longitude <span style="color:#f87171">*</span></label>
+              <select class="col-select" x-model="lngCol">
+                <option value="">— select —</option>
+                <template x-for="h in headers" :key="h.value">
+                  <option :value="h.value" x-text="h.label"></option>
+                </template>
+              </select>
+            </div>
+            <div class="col-select-wrap">
+              <label class="col-label">Name</label>
+              <select class="col-select" x-model="nameCol">
+                <option value="">— none —</option>
+                <template x-for="h in headers" :key="h.value">
+                  <option :value="h.value" x-text="h.label"></option>
+                </template>
+              </select>
+            </div>
+            <div class="col-select-wrap">
+              <label class="col-label">Altitude / Elevation</label>
+              <select class="col-select" x-model="altCol">
+                <option value="">— none —</option>
+                <template x-for="h in headers" :key="h.value">
+                  <option :value="h.value" x-text="h.label"></option>
+                </template>
+              </select>
+            </div>
+          </div>
+
+          <!-- Preview table -->
+          <template x-if="previewRows.length > 0">
+            <div>
+              <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-faint);margin-bottom:6px">Preview (first 5 rows)</div>
+              <div class="preview-wrap">
+                <table class="preview-tbl">
+                  <thead>
+                    <tr>
+                      <template x-for="h in headers" :key="h.value">
+                        <th x-text="h.label"></th>
+                      </template>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <template x-for="(row, ri) in previewRows" :key="ri">
+                      <tr>
+                        <template x-for="(cell, ci) in row" :key="ci">
+                          <td x-text="cell"></td>
+                        </template>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+              </div>
+              <p class="preview-hint">Showing up to 5 data rows · all rows are converted on export</p>
+            </div>
+          </template>
+        </div>
+      </template>
+
+    </div>
+  </div>
+
+  <!-- ── OUTPUT FORMAT + CONVERT ── -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+      </div>
+      <span class="card-title">Output Format</span>
+    </div>
+    <div class="card-body">
+
+      <div class="fmt-tabs">
+        <button class="fmt-tab" :class="{active:outputFmt==='geojson'}" @click="outputFmt='geojson'">
+          GeoJSON
+        </button>
+        <button class="fmt-tab" :class="{active:outputFmt==='kml'}" @click="outputFmt='kml'">
+          KML
+        </button>
+        <button class="fmt-tab" :class="{active:outputFmt==='gpx'}" @click="outputFmt='gpx'">
+          GPX
+        </button>
+        <button class="fmt-tab" :class="{active:outputFmt==='wkt'}" @click="outputFmt='wkt'">
+          WKT
+        </button>
+      </div>
+
+      <!-- Format hints -->
+      <template x-if="outputFmt==='geojson'">
+        <p style="font-size:.8rem;color:var(--text-faint);margin-bottom:12px">FeatureCollection of Point features. All extra columns preserved as properties. Use in Leaflet, Mapbox, QGIS, geojson.io.</p>
+      </template>
+      <template x-if="outputFmt==='kml'">
+        <p style="font-size:.8rem;color:var(--text-faint);margin-bottom:12px">KML Document with Point Placemarks. Extra columns become &lt;ExtendedData&gt;. Open in Google Earth, Google Maps (My Maps).</p>
+      </template>
+      <template x-if="outputFmt==='gpx'">
+        <p style="font-size:.8rem;color:var(--text-faint);margin-bottom:12px">GPX file with waypoints (&lt;wpt&gt;). Name and elevation columns included. Load on Garmin, Strava, AllTrails, or any GPS device.</p>
+      </template>
+      <template x-if="outputFmt==='wkt'">
+        <p style="font-size:.8rem;color:var(--text-faint);margin-bottom:12px">Well-Known Text geometry — one POINT per line, tab-separated with name. Paste into QGIS, PostGIS, or any WKT-aware tool.</p>
+      </template>
+
+      <!-- Convert button -->
+      <button class="btn-primary" @click="convert()" style="margin-bottom:14px">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+        Convert to <span x-text="outputFmtLabel"></span>
+      </button>
+
+      <!-- Error -->
+      <template x-if="error">
+        <div class="err-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span x-text="error"></span>
+        </div>
+      </template>
+
+      <!-- Success + output -->
+      <template x-if="convertedOk">
+        <div>
+          <div class="ok-box" style="margin-bottom:10px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>
+              <strong x-text="rowCount"></strong> point<span x-show="rowCount!==1">s</span> converted to <strong x-text="outputFmtLabel"></strong>
+              <template x-if="skippedCount>0">
+                <span style="color:#fdba74"> · <span x-text="skippedCount"></span> row<span x-show="skippedCount!==1">s</span> skipped (invalid coords)</span>
+              </template>
+            </span>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:6px">
+            <span style="font-size:.75rem;color:var(--text-faint)" x-text="outputFmtLabel + ' output'"></span>
+            <div style="display:flex;gap:6px">
+              <button class="btn-outline" style="padding:5px 10px;font-size:.74rem" @click="copyOutput()">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy
+              </button>
+              <button class="btn-green" style="padding:5px 10px;font-size:.74rem" @click="download()">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </button>
+            </div>
+          </div>
+          <textarea class="out-editor" :value="outputText" readonly spellcheck="false"></textarea>
+        </div>
+      </template>
+
+    </div>
+  </div>
+
+  <!-- Ad -->
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- ── DESCRIPTION ── -->
+  <div class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">What This Tool Does</h2>
+      <p class="section-desc">Turn any spreadsheet or database export with coordinate columns into a proper GIS file — ready for web maps, Google Earth, GPS devices, or spatial databases.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">🎯</div><div class="feature-title">Auto-detects columns</div><div class="feature-desc">Recognises common latitude and longitude column names (lat, latitude, y, lon, lng, longitude, x) and maps them automatically. Override with dropdowns if your names differ.</div></div>
+      <div class="feature-card"><div class="feature-icon">📐</div><div class="feature-title">4 output formats</div><div class="feature-desc">GeoJSON for web mapping, KML for Google Earth, GPX for GPS devices, WKT for PostGIS and QGIS. Switch between them and re-download without re-entering data.</div></div>
+      <div class="feature-card"><div class="feature-icon">🏷️</div><div class="feature-title">All properties preserved</div><div class="feature-desc">Every extra CSV column travels through to the output. GeoJSON gets them as feature properties. KML as ExtendedData. GPX as the waypoint name. Nothing is dropped silently.</div></div>
+      <div class="feature-card"><div class="feature-icon">🔧</div><div class="feature-title">Any delimiter</div><div class="feature-desc">Auto-detects comma, semicolon, tab, and pipe separators from the first line. Override manually if needed. Quoted fields with embedded commas are parsed correctly per RFC 4180.</div></div>
+      <div class="feature-card"><div class="feature-icon">✅</div><div class="feature-title">Row validation</div><div class="feature-desc">Each row is validated — coordinates must be numeric and within valid WGS84 ranges (lat: −90 to 90, lng: −180 to 180). Invalid rows are skipped and counted so you can fix source data issues.</div></div>
+      <div class="feature-card"><div class="feature-icon">🔒</div><div class="feature-title">100% client-side</div><div class="feature-desc">All parsing and conversion runs in your browser. No data is uploaded. Your coordinates, names, and attributes never leave your device.</div></div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── HOW TO USE ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head"><h2 class="section-title">How to Use</h2></div>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-number">1</div><div><div class="step-title">Paste or upload your CSV</div><div class="step-desc">Paste CSV text into the input area, upload a .csv or .tsv file, or drag-and-drop a file. Click "Load sample" to see a Paris landmarks example with name, lat, lng, altitude, and category columns.</div></div></div>
+      <div class="step-card"><div class="step-number">2</div><div><div class="step-title">Check column mapping</div><div class="step-desc">The tool auto-detects latitude, longitude, name, and altitude columns by name. A preview table shows the first 5 rows. Adjust the dropdowns if the wrong columns were selected.</div></div></step-card>
+      <div class="step-card"><div class="step-number">3</div><div><div class="step-title">Choose output format</div><div class="step-desc">Select GeoJSON (web maps), KML (Google Earth), GPX (GPS devices), or WKT (spatial databases). Each tab shows a hint about where to use the format.</div></div></div>
+      <div class="step-card"><div class="step-number">4</div><div><div class="step-title">Convert</div><div class="step-desc">Click "Convert to [Format]". The result appears in the output box with a count of converted points and any skipped rows.</div></div></div>
+      <div class="step-card"><div class="step-number">5</div><div><div class="step-title">Download or copy</div><div class="step-desc">Click Download to save the file with the correct extension and MIME type, or Copy to paste into another tool. Switch output formats and download again without re-entering data.</div></div></div>
+      <div class="step-card"><div class="step-number">6</div><div><div class="step-title">Use in your GIS tool</div><div class="step-desc">Load .geojson in Leaflet, Mapbox, QGIS, or geojson.io. Open .kml in Google Earth or My Maps. Load .gpx on a Garmin or in Strava. Import WKT into PostGIS with ST_GeomFromText().</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── LOGIC BEHIND ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Logic Behind the Tool</h2>
+      <p class="section-desc">How CSV rows become valid GIS features.</p>
+    </div>
+    <div class="logic-grid">
+      <div class="logic-card">
+        <div class="logic-title">CSV parsing</div>
+        <div class="logic-desc">A custom RFC 4180-compliant parser handles quoted fields containing the delimiter character or embedded newlines. The delimiter is auto-detected by counting occurrences of <code>,</code> <code>;</code> <code>\t</code> <code>|</code> in the first line and picking the most frequent. Rows are split, trimmed, and mapped by column index.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Coordinate validation</div>
+        <div class="logic-desc">Each row's lat/lng fields are parsed with <code>parseFloat()</code>. Rows are skipped if the result is <code>NaN</code>, or if latitude is outside [−90, 90] or longitude is outside [−180, 180]. The skipped row count is reported after conversion so you can investigate source data issues.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Property handling</div>
+        <div class="logic-desc">All columns except the selected lat/lng columns are collected into a properties object. Column header names become property keys. In GeoJSON these become the feature's <code>properties</code> object. In KML they become <code>&lt;Data&gt;</code> elements inside <code>&lt;ExtendedData&gt;</code>. In GPX only the name and elevation columns are used; GPX waypoints have no key-value extension mechanism in the base schema.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">WKT output</div>
+        <div class="logic-desc">When altitude is present the geometry is written as <code>POINT Z (lon lat alt)</code>; otherwise as <code>POINT (lon lat)</code>. Each line is tab-separated with the name column. This format is accepted by QGIS "Add Delimited Text Layer", PostGIS <code>ST_GeomFromText()</code>, and most spatial database import tools without any additional configuration.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FAQ ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head"><h2 class="section-title">Frequently Asked Questions</h2></div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">My file uses semicolons — will it work?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Yes. The tool auto-detects the delimiter by counting the occurrences of comma, semicolon, tab, and pipe in the first line. If your file consistently uses semicolons, it will be detected automatically. You can also select "Semicolon" manually in the Delimiter options to override auto-detection. This is common in European locales where commas are used as decimal separators instead.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">My CSV has no header row — how do I use it?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Uncheck "First row contains column names". The tool will label columns as "Column 1", "Column 2", etc. in the column mapping dropdowns and preview table. Select which numbered column contains latitude and longitude. Note that auto-detection of lat/lng columns requires recognisable column names, so you'll always need to select them manually when there's no header row.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">How large a CSV can I convert?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>There's no hard limit — the tool processes data in memory in the browser. In practice, files up to a few MB and tens of thousands of rows convert instantly. Very large files (100k+ rows, 10MB+) may cause a brief pause during parsing. For massive datasets, consider splitting the file or using a server-side tool like GDAL's ogr2ogr or Python's geopandas.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Why are some rows skipped?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Rows are skipped when the latitude or longitude value cannot be parsed as a number (e.g. empty cell, text, "N/A") or when the numeric value is outside the valid WGS84 range (latitude must be −90 to 90, longitude must be −180 to 180). Common causes include: accidentally selecting the wrong column, rows with header-like text mid-file, rows where coordinates use degree symbols or cardinal letters (e.g. "48.85°N" instead of "48.85").</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Can I load the GeoJSON output directly into Leaflet?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Yes. Copy the output and in your JavaScript: <code>const data = /* paste JSON here */;</code> then <code>L.geoJSON(data, { onEachFeature: (f, layer) => layer.bindPopup(f.properties.name) }).addTo(map);</code>. Each CSV row becomes a Point marker. All your extra CSV columns are available as <code>feature.properties</code> for popups, styling, or filtering.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── RELATED TOOLS ── -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="geojson-kml-converter.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#3b82f6,#06b6d4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3M12 8v8M9 11l3-3 3 3"/></svg></div>
+        <div class="related-name">GeoJSON ↔ KML Converter</div>
+        <div class="related-desc">Convert between GeoJSON and KML. All geometry types.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="gpx-geojson-converter.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f97316,#3b82f6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="related-name">GPX ↔ GeoJSON Converter</div>
+        <div class="related-desc">Convert GPS tracks to GeoJSON with timestamps.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="gpx-kml-converter.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f97316,#22c55e)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="related-name">GPX ↔ KML Converter</div>
+        <div class="related-desc">Convert GPX tracks and waypoints to KML.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="lat-long.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#3b82f6,#a78bfa)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></div>
+        <div class="related-name">Lat Long Converter</div>
+        <div class="related-desc">Convert coordinates between DD, DMS, DDM, UTM, Geohash.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── RELATED BLOG ── -->
+  <div class="page-section" style="margin-top:0">
+    <h2 class="section-title" style="margin-bottom:16px">Related Reading</h2>
+    <div class="blog-related-grid">
+      <a href="../../blog/gis-file-formats.html" class="blog-card">
+        <div class="blog-tag-sm">🗺 GIS</div>
+        <div class="blog-title-sm">GeoJSON, KML, Shapefile, GeoTIFF — Which Format for Which Job</div>
+        <div class="blog-link">Read →</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <circle cx="18" cy="18" r="10" stroke="#fff" stroke-width="2" fill="none"/>
+          <path d="M18 8v20M8 18h20" stroke="#fff" stroke-width="1.4" opacity=".7"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#3b82f6"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#gis">GIS Tools</a><a href="../../tools.html#coding">Coding Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a><a href="../../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="csv-to-gis.js"></script>
+</body>
+</html>

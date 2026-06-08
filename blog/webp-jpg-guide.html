@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WebP Images Won't Open in Half Your Apps — Here's Why and How to Fix It | The Tool Empire Blog</title>
+  <meta name="description" content="WebP is technically better than JPEG in almost every way. So why does it break in so many apps? This guide explains WebP's support gaps, when converting to JPEG actually makes sense, and what quality setting to use."/>
+  <meta name="keywords" content="webp vs jpeg, webp not opening, convert webp to jpg, webp support, webp format explained, why cant i open webp, webp jpeg quality comparison"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/blog/webp-jpg-guide.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="WebP Images Won't Open in Half Your Apps — Here's Why and How to Fix It"/>
+  <meta property="og:description" content="WebP is technically better than JPEG — so why does it break so often? This guide covers WebP support gaps, conversion quality settings, and when JPEG is still the right call."/>
+  <meta property="og:url" content="https://thetoolempire.com/blog/webp-jpg-guide.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"BlogPosting","headline":"WebP Images Won't Open in Half Your Apps — Here's Why and How to Fix It","description":"WebP is technically better than JPEG in almost every way. So why does it break in so many apps? This guide explains WebP's support gaps, when converting to JPEG makes sense, and what quality setting to use.","url":"https://thetoolempire.com/blog/webp-jpg-guide.html","datePublished":"2026-06-08","dateModified":"2026-06-08","author":{"@type":"Organization","name":"The Tool Empire"},"publisher":{"@type":"Organization","name":"The Tool Empire","logo":{"@type":"ImageObject","url":"https://thetoolempire.com/assets/favicon.svg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://thetoolempire.com/blog/webp-jpg-guide.html"},"keywords":["webp","jpeg","image formats","conversion","web performance"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Blog","item":"https://thetoolempire.com/blog.html"},
+      {"@type":"ListItem","position":3,"name":"WebP vs JPG Guide","item":"https://thetoolempire.com/blog/webp-jpg-guide.html"}
+    ]}
+  ]}</script>
+
+  <style>
+    :root {
+      --accent: #10b981;
+      --accent-light: rgba(16,185,129,.12);
+      --bg: #0f0f14; --bg-card: #1e1e28; --bg-surface: #18181f;
+      --text: #e8e8f0; --text-muted: #a0a0b8; --text-faint: #636380;
+      --border: rgba(255,255,255,.07); --border-medium: rgba(255,255,255,.12);
+      --radius: 14px; --radius-sm: 8px;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.7; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { background: rgba(255,255,255,.07); border-radius: 4px; padding: 1px 5px; font-size: .88em; font-family: 'JetBrains Mono','Fira Code',monospace; color: #6ee7b7; }
+    strong { font-weight: 700; color: #fff; }
+
+    .site-header { background: rgba(15,15,20,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    .header-inner { max-width: 1140px; margin: 0 auto; padding: 0 20px; height: 62px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+    .logo-icon { width: 32px; height: 32px; flex-shrink: 0; }
+    .logo-text { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+    .main-nav { display: flex; align-items: center; gap: 4px; }
+    .nav-link { padding: 6px 12px; border-radius: var(--radius-sm); font-size: .88rem; font-weight: 500; color: var(--text-muted); transition: color .15s, background .15s; }
+    .nav-link:hover, .nav-link.active { color: var(--text); background: rgba(255,255,255,.06); text-decoration: none; }
+
+    .blog-wrap { max-width: 780px; margin: 0 auto; padding: 48px 20px 80px; }
+    .blog-cat { display: inline-block; padding: 5px 12px; border-radius: 20px; background: var(--accent-light); color: var(--accent); font-size: .73rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 16px; }
+    .blog-title { font-size: clamp(1.6rem,4vw,2.4rem); font-weight: 800; line-height: 1.25; margin-bottom: 16px; color: #fff; }
+    .blog-meta { font-size: .83rem; color: var(--text-faint); display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 40px; }
+
+    .toc { background: var(--bg-card); border-left: 3px solid var(--accent); border-radius: var(--radius-sm); padding: 20px 24px; margin-bottom: 40px; }
+    .toc-title { font-size: .85rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-faint); margin-bottom: 12px; }
+    .toc ol { padding-left: 20px; }
+    .toc li { margin: 5px 0; font-size: .9rem; }
+    .toc a { color: var(--text-muted); }
+    .toc a:hover { color: var(--accent); }
+
+    .blog-body h2 { font-size: 1.45rem; font-weight: 700; color: #fff; margin: 44px 0 16px; padding-top: 8px; border-top: 1px solid var(--border); }
+    .blog-body h3 { font-size: 1.1rem; font-weight: 700; color: #dde; margin: 28px 0 12px; }
+    .blog-body p { margin-bottom: 18px; color: #c8c8dd; font-size: .97rem; }
+    .blog-body ul, .blog-body ol { margin: 0 0 18px 22px; }
+    .blog-body li { margin-bottom: 6px; color: #c8c8dd; font-size: .97rem; }
+    .blog-body .note { background: var(--bg-card); border-left: 3px solid var(--accent); border-radius: var(--radius-sm); padding: 14px 18px; margin: 24px 0; color: #c8c8dd; font-size: .92rem; }
+    .blog-body .note strong { color: var(--accent); }
+
+    /* Support table */
+    .support-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: .87rem; border-radius: var(--radius); overflow: hidden; }
+    .support-table th { background: rgba(16,185,129,.14); color: var(--accent); font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; padding: 10px 14px; text-align: left; }
+    .support-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: #c8c8dd; vertical-align: middle; }
+    .support-table tr:last-child td { border-bottom: none; }
+    .support-table tr:nth-child(even) td { background: rgba(255,255,255,.02); }
+    .support-table td:first-child { font-weight: 600; color: var(--text); }
+    .badge-yes  { display:inline-block;background:rgba(74,222,128,.12);color:#4ade80;border-radius:5px;font-size:.72rem;font-weight:700;padding:2px 8px; }
+    .badge-no   { display:inline-block;background:rgba(248,113,113,.12);color:#f87171;border-radius:5px;font-size:.72rem;font-weight:700;padding:2px 8px; }
+    .badge-part { display:inline-block;background:rgba(250,204,21,.12);color:#facc15;border-radius:5px;font-size:.72rem;font-weight:700;padding:2px 8px; }
+
+    /* Quality guide */
+    .quality-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(200px,1fr)); gap: 10px; margin: 20px 0 28px; }
+    .quality-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px 16px; }
+    .quality-val { font-size: 1.5rem; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+    .quality-name { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+    .quality-desc { font-size: .78rem; color: var(--text-faint); line-height: 1.5; }
+
+    /* Stat row */
+    .stat-row { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 12px; margin: 24px 0 32px; }
+    .stat-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px 18px; text-align: center; }
+    .stat-val { font-size: 1.55rem; font-weight: 800; color: var(--accent); line-height: 1.1; margin-bottom: 4px; }
+    .stat-lbl { font-size: .73rem; color: var(--text-faint); }
+
+    .ad-slot { background: var(--bg-surface); border: 1px dashed var(--border-medium); border-radius: var(--radius-sm); min-height: 90px; display: flex; align-items: center; justify-content: center; margin: 28px 0; color: var(--text-faint); font-size: .78rem; }
+
+    .related-tools { display: grid; grid-template-columns: repeat(auto-fill,minmax(230px,1fr)); gap: 12px; margin-top: 20px; }
+    .rt-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px 18px; transition: border-color .15s; }
+    .rt-card:hover { border-color: var(--accent); text-decoration: none; }
+    .rt-name { font-size: .92rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .rt-desc { font-size: .8rem; color: var(--text-faint); }
+    .rt-link { font-size: .78rem; color: var(--accent); font-weight: 600; margin-top: 8px; display: inline-block; }
+
+    .site-footer { background: var(--bg-card); border-top: 1px solid var(--border); padding: 44px 20px 28px; }
+    .footer-grid { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: 2fr repeat(3,1fr); gap: 32px; margin-bottom: 36px; }
+    @media (max-width:700px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    .footer-brand-text { font-size: .82rem; color: var(--text-faint); margin-top: 10px; }
+    .footer-heading { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--text-faint); margin-bottom: 12px; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { font-size: .85rem; color: var(--text-muted); }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom { max-width: 1140px; margin: 0 auto; padding-top: 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: .78rem; color: var(--text-faint); flex-wrap: wrap; gap: 8px; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgBH)"/>
+        <rect x="7" y="9" width="22" height="18" rx="4" fill="#fff" fill-opacity=".9"/>
+        <text x="10" y="22" font-size="9" font-weight="800" fill="#10b981" font-family="monospace">W→J</text>
+        <defs><linearGradient id="lgBH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#10b981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../tools.html" class="nav-link">Tools</a>
+      <a href="../blog.html" class="nav-link active">Blog</a>
+      <a href="../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="blog-wrap">
+
+  <nav aria-label="Breadcrumb" style="margin-bottom:24px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../blog.html" style="color:#8888a8">Blog</a></li><li>›</li>
+      <li style="color:#e8e8f0">WebP vs JPG Guide</li>
+    </ol>
+  </nav>
+
+  <div class="blog-cat">Images</div>
+  <h1 class="blog-title">WebP Images Won't Open in Half Your Apps — Here's Why and How to Fix It</h1>
+  <div class="blog-meta">
+    <span>📅 June 2026</span>
+    <span>⏱ 8 min read</span>
+    <span>🏷 Images, WebP, JPEG, Formats</span>
+  </div>
+
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Table of Contents</div>
+    <ol>
+      <li><a href="#what-is-webp">What exactly is WebP?</a></li>
+      <li><a href="#why-better">Why WebP is technically better than JPEG</a></li>
+      <li><a href="#support-gaps">Where WebP still breaks</a></li>
+      <li><a href="#when-convert">When you actually need to convert</a></li>
+      <li><a href="#quality">Choosing the right JPEG quality</a></li>
+      <li><a href="#transparency">Handling transparent WebP files</a></li>
+      <li><a href="#size-tradeoff">The size tradeoff: WebP → JPG often gets bigger</a></li>
+      <li><a href="#quick-guide">Quick decision guide</a></li>
+    </ol>
+  </div>
+
+  <div class="blog-body">
+
+    <p>You saved an image from a website, got it from a colleague, or exported from a tool — and now it won't open. Or it opens in Chrome but not in your email client. Or you uploaded it to a platform and got a format error. The file extension is <code>.webp</code>, and it's causing problems everywhere.</p>
+    <p>This happens because WebP is a web-first format designed for browser performance, not universal compatibility. It's genuinely better than JPEG for web use — but outside the browser, support is patchy enough to cause real workflow problems.</p>
+
+    <h2 id="what-is-webp">What exactly is WebP?</h2>
+    <p>WebP is an image format developed by Google, released in 2010, and based on the VP8 video codec. The core idea was straightforward: take a modern video compression algorithm and apply it to still images. Video codecs had become extremely good at compressing complex visual content with minimal visible quality loss — applying that technology to photos and graphics should produce much smaller files than JPEG or PNG.</p>
+    <p>It worked. WebP's compression engine considers a wider area of surrounding pixels when encoding each block, uses more sophisticated prediction modes, and handles gradients more cleanly than JPEG's block-based discrete cosine transform. The result is that a WebP file can be 25–35% smaller than a comparable JPEG at equivalent visual quality.</p>
+    <p>WebP also solved the format fragmentation problem that existed between JPEG (no transparency) and PNG (transparency but large file sizes). A single WebP file can be either lossy or lossless, and supports a full alpha channel for transparency — making it potentially a replacement for both formats in web contexts.</p>
+
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-val">~30%</div><div class="stat-lbl">smaller than equivalent JPEG on average</div></div>
+      <div class="stat-box"><div class="stat-val">2010</div><div class="stat-lbl">Released by Google — 16 years in the wild</div></div>
+      <div class="stat-box"><div class="stat-val">97%</div><div class="stat-lbl">of browsers now support WebP natively</div></div>
+    </div>
+
+    <h2 id="why-better">Why WebP is technically better than JPEG</h2>
+    <p>The comparison isn't close on the technical metrics. WebP consistently outperforms JPEG in every measurable way for web-delivered images:</p>
+    <ul>
+      <li><strong>Smaller files at equal quality.</strong> Google's own research across a large corpus of web images found WebP was 25–34% smaller than JPEG at equivalent SSIM scores.</li>
+      <li><strong>Cleaner gradients and smooth areas.</strong> JPEG's DCT block processing creates visible "ringing" artefacts around sharp edges and banding in gradients. WebP's block sizes are more flexible and its prediction modes handle these regions better.</li>
+      <li><strong>Transparency support.</strong> JPEG cannot store transparency at all. WebP supports a full 8-bit alpha channel in lossy mode and full lossless transparency.</li>
+      <li><strong>Animation support.</strong> WebP can store animation sequences, like GIF but with far better compression and colour fidelity.</li>
+      <li><strong>Metadata support.</strong> WebP supports EXIF and XMP metadata, same as JPEG.</li>
+    </ul>
+    <p>For a webpage that needs to load quickly on mobile, WebP is the obvious choice. Google has promoted it aggressively through PageSpeed Insights and Core Web Vitals scoring — serving WebP instead of JPEG directly improves Largest Contentful Paint times, which affects search rankings.</p>
+
+    <h2 id="support-gaps">Where WebP still breaks</h2>
+    <p>Browser support for WebP is now essentially universal — Chrome, Firefox, Safari, Edge, and all mobile browsers have supported it for years. The problem is everywhere else.</p>
+
+    <table class="support-table">
+      <thead>
+        <tr><th>Context</th><th>WebP Support</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Modern web browsers</td><td><span class="badge-yes">Yes</span></td><td>Chrome, Firefox, Safari, Edge — all supported since 2020</td></tr>
+        <tr><td>Gmail (web)</td><td><span class="badge-yes">Yes</span></td><td>Displays inline WebP attachments</td></tr>
+        <tr><td>Outlook (desktop)</td><td><span class="badge-no">No</span></td><td>Shows broken image icon for inline WebP</td></tr>
+        <tr><td>Apple Mail</td><td><span class="badge-part">Partial</span></td><td>macOS 12+ and iOS 14+ render WebP; older versions don't</td></tr>
+        <tr><td>WhatsApp</td><td><span class="badge-no">No</span></td><td>Cannot send or display WebP images</td></tr>
+        <tr><td>Telegram</td><td><span class="badge-part">Partial</span></td><td>Stickers use WebP; regular images require JPEG/PNG</td></tr>
+        <tr><td>Instagram (upload)</td><td><span class="badge-no">No</span></td><td>Rejects WebP uploads — requires JPEG or PNG</td></tr>
+        <tr><td>Twitter / X</td><td><span class="badge-no">No</span></td><td>Serves WebP to browsers but rejects WebP uploads</td></tr>
+        <tr><td>Facebook</td><td><span class="badge-part">Partial</span></td><td>Displays but doesn't accept uploads</td></tr>
+        <tr><td>Adobe Photoshop</td><td><span class="badge-yes">Yes</span></td><td>Supported since version 23.2 (2022)</td></tr>
+        <tr><td>Adobe Lightroom</td><td><span class="badge-no">No</span></td><td>Cannot import WebP files as of 2026</td></tr>
+        <tr><td>Affinity Photo</td><td><span class="badge-yes">Yes</span></td><td>Full import and export support</td></tr>
+        <tr><td>GIMP</td><td><span class="badge-yes">Yes</span></td><td>Full support since GIMP 2.10</td></tr>
+        <tr><td>Windows Photos</td><td><span class="badge-yes">Yes</span></td><td>Supported on Windows 10/11 with the WebP codec installed</td></tr>
+        <tr><td>macOS Preview</td><td><span class="badge-yes">Yes</span></td><td>Supported since macOS 12 Monterey</td></tr>
+        <tr><td>Microsoft Word / PowerPoint</td><td><span class="badge-no">No</span></td><td>Cannot embed WebP images directly</td></tr>
+        <tr><td>Google Slides / Docs</td><td><span class="badge-yes">Yes</span></td><td>Supports WebP since 2022</td></tr>
+        <tr><td>Canva</td><td><span class="badge-part">Partial</span></td><td>Can display but not reliably upload WebP</td></tr>
+        <tr><td>Print / RIP workflows</td><td><span class="badge-no">No</span></td><td>RIP software expects JPEG, TIFF, or PDF</td></tr>
+      </tbody>
+    </table>
+
+    <p>The pattern is clear: the web ecosystem has largely moved to WebP, but the broader software world — email, messaging, Office tools, social media uploads, print workflows — still treats JPEG as the universal standard.</p>
+
+    <h2 id="when-convert">When you actually need to convert</h2>
+    <p>Don't convert WebP to JPEG reflexively. WebP is a better format for web use, and if your images are only ever displayed in a browser, there's no reason to convert. But here are the scenarios where converting is the right move:</p>
+    <ul>
+      <li><strong>Email attachments.</strong> If the recipient uses Outlook, the WebP will show as a broken image. Convert to JPEG before attaching to any email.</li>
+      <li><strong>Social media uploads.</strong> Instagram, Twitter/X, and most other platforms don't accept WebP uploads. You need JPEG or PNG.</li>
+      <li><strong>WhatsApp and messaging apps.</strong> Most messaging platforms require JPEG or PNG for photo sharing.</li>
+      <li><strong>Microsoft Office.</strong> Word, PowerPoint, and Excel don't support WebP for embedded images. Convert to JPEG or PNG first.</li>
+      <li><strong>Adobe Lightroom.</strong> If you're using Lightroom as part of a photo editing workflow, you cannot import WebP. Convert to JPEG or TIFF first.</li>
+      <li><strong>Print production.</strong> RIP software and print workflows expect JPEG, TIFF, or PDF. WebP has no place in a print pipeline.</li>
+      <li><strong>Sharing with someone who can't open the file.</strong> If you don't know the recipient's setup, JPEG is always the safe choice.</li>
+    </ul>
+    <p>You generally do <em>not</em> need to convert for: displaying on a website, using in a modern design tool (Figma, Sketch, Affinity Photo, Photoshop), using in Google Workspace, or when the image will stay within a web-only workflow.</p>
+
+    <div class="ad-slot">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+
+    <h2 id="quality">Choosing the right JPEG quality</h2>
+    <p>JPEG quality is a scale from 1 (maximum compression, worst quality) to 100 (minimum compression, best quality). The number doesn't map linearly to file size — the relationship is more like a curve where the largest gains come from dropping from 100 to 85, and diminishing returns set in below 70.</p>
+
+    <div class="quality-grid">
+      <div class="quality-card">
+        <div class="quality-val" style="color:#f87171">50–65</div>
+        <div class="quality-name" style="color:#f87171">Low</div>
+        <div class="quality-desc">Visible artefacts on close inspection. Acceptable for tiny thumbnails or when file size is the only concern.</div>
+      </div>
+      <div class="quality-card">
+        <div class="quality-val" style="color:#facc15">70–80</div>
+        <div class="quality-name" style="color:#facc15">Good</div>
+        <div class="quality-desc">Visually clean for most images at normal viewing sizes. Small file size. Good for social media, email, web thumbnails.</div>
+      </div>
+      <div class="quality-card">
+        <div class="quality-val" style="color:#4ade80">85–92</div>
+        <div class="quality-name" style="color:#4ade80">High ★</div>
+        <div class="quality-desc">Near-original quality. Recommended default for most uses. Quality 92 is the standard for professional web delivery.</div>
+      </div>
+      <div class="quality-card">
+        <div class="quality-val" style="color:#a3e635">95–100</div>
+        <div class="quality-name" style="color:#a3e635">Maximum</div>
+        <div class="quality-desc">Visually identical to lossless. Large files. Use for archiving, print prep, or when the image will be re-edited later.</div>
+      </div>
+    </div>
+
+    <p>The number <strong>92</strong> appears frequently as a default for good reason. It sits at the knee of the quality/size curve — you're preserving essentially all perceptible detail while avoiding the large file sizes of 95+. Most image editors, including Photoshop and Lightroom, use 80–92 as their default JPEG export quality.</p>
+    <p>A practical approach: start at quality 85 and look at the result at the actual display size your image will be used at. If it looks good (which it almost always does for photos), that's your setting. Only increase to 92–95 if you see visible artefacts, or if the image will be re-edited after conversion.</p>
+
+    <div class="note">
+      <strong>Note on quality 100:</strong> JPEG quality 100 is <em>not</em> lossless — it's just the least-compressed lossy setting. If you need truly lossless output, save as PNG instead.
+    </div>
+
+    <h2 id="transparency">Handling transparent WebP files</h2>
+    <p>Some WebP files contain transparency — a logo with a transparent background, a graphic with soft-edge transparency, an image with a partially transparent shadow. When you convert these to JPEG, there's a problem: JPEG has no alpha channel and cannot store transparency at all.</p>
+    <p>Every conversion tool has to make a decision about what to do with transparent pixels. The most common default is to fill them with white. But "correct" depends entirely on how the image will be used:</p>
+    <ul>
+      <li><strong>White background</strong> — correct if the image will sit on a white page (Word documents, most email clients, printed materials)</li>
+      <li><strong>Black background</strong> — correct for images used on dark surfaces, dark-mode interfaces, or video</li>
+      <li><strong>Custom colour</strong> — necessary when the image needs to match a specific page or slide background</li>
+    </ul>
+    <p>If you have a logo that's designed to sit on a blue (#1e3a8a) background and you fill the transparent areas with white, the JPEG will look broken when placed on that blue surface — you'll see a white rectangle around the logo instead of a clean overlay.</p>
+    <p>If your image has soft-edge transparency (like a drop shadow with gradual feathering), be aware that no background fill will look as clean as the original WebP transparency. The feathered edge that smoothly blends into the page background in the WebP will become a hard transition in the JPEG. For these cases, consider whether PNG might be a better output format — PNG preserves the alpha channel and is nearly as universally supported as JPEG.</p>
+
+    <h2 id="size-tradeoff">The size tradeoff: WebP → JPG often gets bigger</h2>
+    <p>This surprises people. You download a 45 KB WebP file, convert it to JPEG at quality 92, and the JPEG comes out at 68 KB. That feels wrong — you ran a conversion and the file got bigger.</p>
+    <p>It's not a bug. It's the expected result. WebP was designed to be more efficient than JPEG, and the WebP encoder may have been tuned aggressively for the web. When you re-encode that content as JPEG, you're using a less efficient codec, so the file is larger at equivalent quality.</p>
+    <p>The scale of the difference depends on the image content and the original WebP quality setting:</p>
+    <ul>
+      <li>A WebP at 70% quality converted to JPEG at 92% quality will produce a larger JPEG — but you also raised the quality level, so some of that size increase is intentional.</li>
+      <li>A WebP at 90% quality converted to JPEG at 90% quality will typically be 20–40% larger as a JPEG — that's purely the codec efficiency difference.</li>
+      <li>Images with lots of smooth gradients or flat areas (sky, solid backgrounds) will see a bigger size penalty in JPEG conversion. JPEG handles these poorly compared to WebP.</li>
+    </ul>
+    <p>If file size is the primary concern and you're outputting for web use, reconsider whether you need to convert at all. If you're converting for compatibility reasons (email, social media, Office), accept the size increase — the compatibility benefit outweighs the size cost.</p>
+
+    <h2 id="quick-guide">Quick decision guide</h2>
+    <ul>
+      <li><strong>Image on a webpage?</strong> → Keep as WebP. No conversion needed.</li>
+      <li><strong>Email attachment?</strong> → Convert to JPEG at quality 85–92.</li>
+      <li><strong>Uploading to Instagram/Twitter?</strong> → Convert to JPEG. Use quality 90+ to survive their re-compression.</li>
+      <li><strong>Embedding in Word or PowerPoint?</strong> → Convert to JPEG or PNG.</li>
+      <li><strong>Editing in Lightroom?</strong> → Convert to JPEG or TIFF.</li>
+      <li><strong>Has a transparent background you need to keep?</strong> → Convert to PNG instead of JPEG.</li>
+      <li><strong>Going to print?</strong> → Convert to JPEG at quality 95+ or TIFF.</li>
+      <li><strong>Sending via WhatsApp?</strong> → Convert to JPEG. Quality 80 is fine — WhatsApp re-compresses anyway.</li>
+      <li><strong>Archive copy of a photo?</strong> → Keep the highest-quality version you have. Convert to JPEG at 95+ if you need a universal format.</li>
+    </ul>
+
+  </div>
+
+  <!-- CTA -->
+  <div style="background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(5,150,105,.05));border:1px solid rgba(16,185,129,.25);border-radius:14px;padding:26px 28px;margin:40px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+    <div>
+      <div style="font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#10b981;margin-bottom:6px">Free Tool</div>
+      <div style="font-size:1.08rem;font-weight:700;color:#fff;margin-bottom:5px">Convert WebP to JPG right now</div>
+      <div style="font-size:.88rem;color:#a0a0b8">Adjustable quality, background fill for transparency, batch convert, ZIP download — all in your browser.</div>
+    </div>
+    <a href="../tools/image/webp-to-jpg.html" style="flex-shrink:0;display:inline-block;padding:11px 22px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;border-radius:8px;font-size:.9rem;font-weight:700;text-decoration:none;white-space:nowrap">Open tool →</a>
+  </div>
+
+  <!-- Related tools -->
+  <div style="margin-top:36px">
+    <h2 style="font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:16px">Related Tools</h2>
+    <div class="related-tools">
+      <a href="../tools/image/webp-to-jpg.html" class="rt-card" style="text-decoration:none">
+        <div class="rt-name">WebP to JPG Converter</div>
+        <div class="rt-desc">Batch convert WebP to JPEG with quality control and ZIP download.</div>
+        <div class="rt-link">Use tool →</div>
+      </a>
+      <a href="../tools/image/svg-to-png.html" class="rt-card" style="text-decoration:none">
+        <div class="rt-name">SVG to PNG Converter</div>
+        <div class="rt-desc">Export SVG to PNG at 1×–4× retina scale with transparent background.</div>
+        <div class="rt-link">Use tool →</div>
+      </a>
+      <a href="../tools/image/compare-two-images.html" class="rt-card" style="text-decoration:none">
+        <div class="rt-name">Compare Two Images</div>
+        <div class="rt-desc">Slider, side-by-side, overlay, and pixel diff comparison modes.</div>
+        <div class="rt-link">Use tool →</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Related posts -->
+  <div style="margin-top:40px;padding-top:32px;border-top:1px solid rgba(255,255,255,.07)">
+    <h2 style="font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:16px">More Reading</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px">
+      <a href="svg-png-guide.html" style="background:#1e1e28;border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:16px 18px;text-decoration:none;transition:border-color .15s" onmouseover="this.style.borderColor='#10b981'" onmouseout="this.style.borderColor='rgba(255,255,255,.07)'">
+        <div style="font-size:.72rem;color:#a0a0b8;margin-bottom:6px">🖼 Images</div>
+        <div style="font-size:.9rem;font-weight:600;color:#e8e8f0;line-height:1.4">SVG vs PNG — When to Use Each Format</div>
+        <div style="font-size:.78rem;color:#10b981;margin-top:8px;font-weight:600">Read →</div>
+      </a>
+      <a href="image-metadata-privacy-guide.html" style="background:#1e1e28;border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:16px 18px;text-decoration:none;transition:border-color .15s" onmouseover="this.style.borderColor='#10b981'" onmouseout="this.style.borderColor='rgba(255,255,255,.07)'">
+        <div style="font-size:.72rem;color:#a0a0b8;margin-bottom:6px">🔒 Privacy</div>
+        <div style="font-size:.9rem;font-weight:600;color:#e8e8f0;line-height:1.4">What Your Phone Photos Know About You</div>
+        <div style="font-size:.78rem;color:#10b981;margin-top:8px;font-weight:600">Read →</div>
+      </a>
+      <a href="image-comparison-guide.html" style="background:#1e1e28;border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:16px 18px;text-decoration:none;transition:border-color .15s" onmouseover="this.style.borderColor='#10b981'" onmouseout="this.style.borderColor='rgba(255,255,255,.07)'">
+        <div style="font-size:.72rem;color:#a0a0b8;margin-bottom:6px">🔍 Design</div>
+        <div style="font-size:.9rem;font-weight:600;color:#e8e8f0;line-height:1.4">How to Actually Compare Two Images Without Missing the Differences</div>
+        <div style="font-size:.78rem;color:#10b981;margin-top:8px;font-weight:600">Read →</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgBF)"/>
+          <rect x="7" y="9" width="22" height="18" rx="4" fill="#fff" fill-opacity=".9"/>
+          <text x="10" y="22" font-size="9" font-weight="800" fill="#10b981" font-family="monospace">W→J</text>
+          <defs><linearGradient id="lgBF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#10b981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../tools.html#image">Image Tools</a><a href="../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../about.html">About</a><a href="../blog.html">Blog</a><a href="../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+</body>
+</html>

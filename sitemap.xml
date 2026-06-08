@@ -4,19 +4,19 @@
   <!-- ── CORE PAGES ────────────────────────────────────── -->
   <url>
     <loc>https://thetoolempire.com/</loc>
-    <lastmod>2026-06-07</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://thetoolempire.com/tools.html</loc>
-    <lastmod>2026-06-07</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://thetoolempire.com/blog.html</loc>
-    <lastmod>2026-06-07</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -324,6 +324,30 @@
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/image/image-metadata-editor.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/image/svg-to-png.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/image/compare-two-images.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/image/webp-to-jpg.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
 
   <!-- ── SOCIAL / YOUTUBE TOOLS ────────────────────────── -->
   <url>
@@ -347,6 +371,12 @@
   <url>
     <loc>https://thetoolempire.com/tools/social/yt-timestamp.html</loc>
     <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/social/instagram-post-resizer.html</loc>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -557,6 +587,14 @@
     <priority>0.75</priority>
   </url>
   <url>
+    <loc>https://thetoolempire.com/blog/instagram-post-sizes-guide.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/blog/image-metadata-privacy-guide.html</loc>
+    <lastmod>2026-06-08</lastmod>
     <loc>https://thetoolempire.com/tools/seo/sitemap-generator.html</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
@@ -629,18 +667,24 @@
     <priority>0.75</priority>
   </url>
   <url>
+    <loc>https://thetoolempire.com/blog/svg-png-guide.html</loc>
+    <lastmod>2026-06-08</lastmod>
     <loc>https://thetoolempire.com/blog/gis-projections-explained.html</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
+    <loc>https://thetoolempire.com/blog/image-comparison-guide.html</loc>
+    <lastmod>2026-06-08</lastmod>
     <loc>https://thetoolempire.com/blog/gis-file-formats.html</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
+    <loc>https://thetoolempire.com/blog/webp-jpg-guide.html</loc>
+    <lastmod>2026-06-08</lastmod>
     <loc>https://thetoolempire.com/blog/xml-sitemap-seo.html</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>

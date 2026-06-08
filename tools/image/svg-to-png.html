@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SVG to PNG Converter — Free Batch Conversion with Custom Size | The Tool Empire</title>
+  <meta name="description" content="Convert SVG files to PNG images instantly in your browser. Set custom width, height or scale multiplier (1×–4×), choose transparent or solid background, batch convert multiple files and download as ZIP. No upload, no server."/>
+  <meta name="keywords" content="svg to png converter, convert svg to png, svg to png online free, svg to png batch, svg to png transparent background, svg png 2x 3x retina, export svg as png"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/image/svg-to-png.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="SVG to PNG Converter — Free Batch Conversion with Custom Size"/>
+  <meta property="og:description" content="Convert SVG to PNG in your browser. Custom dimensions, 1×–4× scale for retina, transparent or solid background, batch convert and download as ZIP."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/image/svg-to-png.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"SVG to PNG Converter","description":"Free browser-based tool to convert SVG vector files to PNG images. Supports custom output dimensions, 1×–4× scale multipliers for retina displays, transparent or solid background fill, batch conversion of multiple files, and ZIP download. Accepts file upload or direct SVG code paste. No upload to server required.","url":"https://thetoolempire.com/tools/image/svg-to-png.html","applicationCategory":"DesignApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Convert SVG to PNG in browser","Custom width and height output","Scale multiplier: 1× 1.5× 2× 3× 4×","Transparent or solid background","Paste SVG code directly","Batch convert multiple SVG files","Download all as ZIP","No upload — 100% client-side"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Image Tools","item":"https://thetoolempire.com/tools.html#image"},
+      {"@type":"ListItem","position":3,"name":"SVG to PNG Converter","item":"https://thetoolempire.com/tools/image/svg-to-png.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"How do I convert an SVG file to PNG?","acceptedAnswer":{"@type":"Answer","text":"Upload your SVG file using the upload zone or by dragging and dropping it onto the page. Choose your output settings — scale multiplier or custom pixel dimensions, and background color. Click 'Convert & Download PNG' to get your PNG file. Everything runs in your browser — no file is uploaded to any server."}},
+      {"@type":"Question","name":"What scale should I use for retina / high-DPI displays?","acceptedAnswer":{"@type":"Answer","text":"For standard displays, use 1×. For retina (2×) displays such as iPhone and modern MacBooks, use 2×. For very high-density displays (3×), use 3×. If your SVG is designed at 24×24 pixels (a typical icon size) and you export at 2×, you get a 48×48 PNG — which will render sharply on retina screens when displayed at the CSS 24×24 size."}},
+      {"@type":"Question","name":"Can I convert an SVG to PNG with a transparent background?","acceptedAnswer":{"@type":"Answer","text":"Yes. Select 'Transparent' in the Background setting (the default). The exported PNG will have a fully transparent background, preserving any transparency in the original SVG. If you need a solid background, select 'Color' and pick the fill colour."}},
+      {"@type":"Question","name":"Does the conversion work with SVGs that contain text or custom fonts?","acceptedAnswer":{"@type":"Answer","text":"SVGs with inline text using system fonts (sans-serif, serif, monospace) will convert correctly because those fonts are available in the browser. SVGs that reference custom web fonts via @font-face with external URLs may not render correctly, since the browser may not load those fonts during the canvas render. For best results, convert text to paths in your vector editor before exporting the SVG, or use system fonts."}},
+      {"@type":"Question","name":"Can I batch convert multiple SVG files at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. Drag and drop multiple SVG files onto the upload zone at once, or use the file picker to select multiple files. Each file appears in the file list. Click 'Convert All & Download ZIP' to convert all files with the current settings and download them in a single ZIP archive. Individual files can also be converted and downloaded separately."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="svg-to-png.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <rect x="7" y="9" width="22" height="18" rx="4" fill="#fff" fill-opacity=".9"/>
+        <path d="M11 24 L14 16 L18 21 L21 17 L25 24Z" fill="#f97316" opacity=".9"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#f97316"/><stop offset="1" stop-color="#ea580c"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="svgToPngApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li><a href="../../tools.html#image" style="color:#8888a8">Image</a></li><li>›</li>
+      <li style="color:#e8e8f0">SVG to PNG</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Image Tools · Converter
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">SVG to PNG Converter</span></h1>
+    <p class="tool-subtitle">Convert SVG vector files to PNG images — custom size, retina scale (1× – 4×), transparent or solid background. Batch convert and download as ZIP. No upload, no server.</p>
+  </div>
+
+  <!-- ── Upload state ── -->
+  <template x-if="files.length === 0">
+    <div>
+      <div
+        class="upload-zone"
+        :class="{'drag-over': isDragOver}"
+        @dragover.prevent="isDragOver=true"
+        @dragleave="isDragOver=false"
+        @drop.prevent="onDrop($event)"
+        @click="$refs.fileInput.click()"
+      >
+        <div class="upload-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l4-4 4 4M12 8v8"/></svg>
+        </div>
+        <div class="upload-title">Drop SVG files here</div>
+        <div class="upload-sub">Drop one or multiple .svg files — or paste SVG code below</div>
+        <div class="upload-actions">
+          <label class="btn-upload" @click.stop="$refs.fileInput.click()">Choose SVG Files</label>
+          <button class="btn-outline-sm" @click.stop="showCodePanel = !showCodePanel">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Paste SVG Code
+          </button>
+        </div>
+        <input x-ref="fileInput" type="file" accept=".svg,image/svg+xml" multiple style="display:none" @change="onFileInput($event)"/>
+      </div>
+
+      <!-- Paste code panel -->
+      <template x-if="showCodePanel">
+        <div class="code-panel">
+          <div class="code-panel-title">Paste SVG markup</div>
+          <textarea x-model="pastedCode" placeholder="<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 24 24&quot;>…</svg>" spellcheck="false"></textarea>
+          <div class="code-panel-row">
+            <input type="text" class="code-name-input" x-model="pastedName" placeholder="filename.svg"/>
+            <button class="btn-upload" @click="addFromCode()" style="white-space:nowrap">Add SVG</button>
+            <button class="btn-outline-sm" @click="showCodePanel=false">Cancel</button>
+          </div>
+        </div>
+      </template>
+    </div>
+  </template>
+
+  <!-- ── Editor state ── -->
+  <template x-if="files.length > 0">
+    <div>
+      <!-- Add more / paste code strip -->
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+        <button class="btn-outline-sm" @click="$refs.fileInput2.click()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add More SVGs
+        </button>
+        <button class="btn-outline-sm" @click="showCodePanel = !showCodePanel">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Paste Code
+        </button>
+        <input x-ref="fileInput2" type="file" accept=".svg,image/svg+xml" multiple style="display:none" @change="onFileInput($event)"/>
+      </div>
+
+      <!-- Paste code panel (inline) -->
+      <template x-if="showCodePanel">
+        <div class="code-panel" style="margin-bottom:14px">
+          <div class="code-panel-title">Paste SVG markup</div>
+          <textarea x-model="pastedCode" placeholder="<svg …>…</svg>" spellcheck="false"></textarea>
+          <div class="code-panel-row">
+            <input type="text" class="code-name-input" x-model="pastedName" placeholder="filename.svg"/>
+            <button class="btn-upload" @click="addFromCode()" style="white-space:nowrap">Add</button>
+            <button class="btn-outline-sm" @click="showCodePanel=false">Cancel</button>
+          </div>
+        </div>
+      </template>
+
+      <div class="editor-grid">
+
+        <!-- ── Left: file list + preview ── -->
+        <div>
+          <!-- File list -->
+          <div class="file-list-header">
+            <span class="file-list-title" x-text="files.length + ' file' + (files.length !== 1 ? 's' : '')"></span>
+            <button class="btn-clear" @click="clearAll()">Clear all</button>
+          </div>
+          <div class="file-list">
+            <template x-for="f in files" :key="f.id">
+              <div class="file-card" :class="{active: activeId === f.id}" @click="activeId = f.id">
+                <div class="fc-thumb">
+                  <img :src="svgPreviewUrl(f.svgCode)" :alt="f.name" loading="lazy"/>
+                </div>
+                <div class="fc-info">
+                  <div class="fc-name" x-text="f.name"></div>
+                  <div class="fc-dims" x-text="f.naturalW + ' × ' + f.naturalH + ' px'"></div>
+                </div>
+                <span class="fc-status" :class="f.pngUrl ? 'done' : f.error ? 'error' : 'pending'" x-text="f.pngUrl ? '✓ PNG' : f.error ? 'Error' : 'Ready'"></span>
+                <button class="fc-remove" @click.stop="removeFile(f.id)" title="Remove">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
+            </template>
+          </div>
+
+          <!-- Preview panel -->
+          <template x-if="activeFile">
+            <div class="preview-panel">
+              <div class="preview-header">
+                <span>Preview</span>
+                <div class="preview-tabs">
+                  <button class="preview-tab active">SVG</button>
+                </div>
+              </div>
+              <div class="preview-body" :style="bgMode === 'color' ? 'background:' + bgColor : ''">
+                <img :src="svgPreviewUrl(activeFile.svgCode)" :alt="activeFile.name" style="max-width:100%;max-height:280px;object-fit:contain"/>
+              </div>
+              <div class="preview-dims">
+                <div>Source: <span x-text="activeFile.naturalW + ' × ' + activeFile.naturalH + ' px'"></span></div>
+                <div>Output: <span x-text="outputW + ' × ' + outputH + ' px'"></span></div>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <!-- ── Right: settings ── -->
+        <div class="settings-panel">
+
+          <!-- Scale mode -->
+          <div class="settings-card">
+            <div class="settings-head">Output Size</div>
+            <div class="settings-body">
+              <div class="mode-tabs" style="margin-bottom:14px">
+                <button class="mode-tab" :class="{active: scaleMode==='multiplier'}" @click="scaleMode='multiplier'">Scale ×</button>
+                <button class="mode-tab" :class="{active: scaleMode==='custom'}"     @click="scaleMode='custom'">Custom px</button>
+              </div>
+
+              <!-- Multiplier mode -->
+              <template x-if="scaleMode === 'multiplier'">
+                <div>
+                  <div class="scale-tabs">
+                    <button class="scale-tab" :class="{active: scale===1}"   @click="scale=1">1×</button>
+                    <button class="scale-tab" :class="{active: scale===1.5}" @click="scale=1.5">1.5×</button>
+                    <button class="scale-tab" :class="{active: scale===2}"   @click="scale=2">2×</button>
+                    <button class="scale-tab" :class="{active: scale===3}"   @click="scale=3">3×</button>
+                    <button class="scale-tab" :class="{active: scale===4}"   @click="scale=4">4×</button>
+                  </div>
+                  <p style="font-size:.73rem;color:var(--text-faint);margin-top:8px">2× recommended for retina/HiDPI displays</p>
+                </div>
+              </template>
+
+              <!-- Custom mode -->
+              <template x-if="scaleMode === 'custom'">
+                <div>
+                  <div class="dims-row">
+                    <input type="number" class="dim-input" x-model="customW" @input="onCustomW()" placeholder="Width" min="1"/>
+                    <span class="dim-sep">×</span>
+                    <input type="number" class="dim-input" x-model="customH" @input="onCustomH()" placeholder="Height" min="1"/>
+                    <button class="lock-btn" :class="{locked: lockRatio}" @click="lockRatio=!lockRatio" :title="lockRatio ? 'Unlock ratio' : 'Lock ratio'">
+                      <template x-if="lockRatio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></template>
+                      <template x-if="!lockRatio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg></template>
+                    </button>
+                  </div>
+                  <p style="font-size:.73rem;color:var(--text-faint);margin-top:8px">Leave blank to use SVG's natural size</p>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <!-- Background -->
+          <div class="settings-card">
+            <div class="settings-head">Background</div>
+            <div class="settings-body">
+              <div class="mode-tabs" style="margin-bottom:10px">
+                <button class="mode-tab" :class="{active: bgMode==='transparent'}" @click="bgMode='transparent'">Transparent</button>
+                <button class="mode-tab" :class="{active: bgMode==='color'}"       @click="bgMode='color'">Color</button>
+              </div>
+              <template x-if="bgMode === 'color'">
+                <div class="setting-row" style="margin-bottom:0">
+                  <span class="setting-label">Fill color</span>
+                  <input type="color" x-model="bgColor"/>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <!-- Output info -->
+          <div class="output-info" x-show="activeFile">
+            PNG output: <strong x-text="outputW + ' × ' + outputH + ' px'"></strong>
+          </div>
+
+          <!-- Convert active -->
+          <button class="btn-convert" @click="convertAndDownloadActive()" :disabled="!activeFile">
+            <template x-if="activeFile && activeFile.converting"><div class="spinner"></div></template>
+            <template x-if="!activeFile || !activeFile.converting">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </template>
+            <span x-text="activeFile && activeFile.converting ? 'Converting…' : 'Convert & Download PNG'"></span>
+          </button>
+
+          <!-- Batch actions -->
+          <button class="btn-secondary" @click="convertAll()" :disabled="allConverting || files.length < 2">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            <span x-text="allConverting ? 'Converting all…' : 'Convert All (' + files.length + ' files)'"></span>
+          </button>
+
+          <button class="btn-zip" @click="downloadAllZip()" :disabled="allConverting || files.length < 1">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download All as ZIP
+            <span x-show="convertedCount > 0" x-text="'(' + convertedCount + '/' + files.length + ')'" style="opacity:.7;font-weight:400"></span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- Ad -->
+  <div class="ad-slot" style="margin-top:24px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- ── Features ── -->
+  <div class="page-section" style="margin-top:20px">
+    <div class="section-head">
+      <h2 class="section-title">What This Tool Does</h2>
+      <p class="section-desc">SVG vector to PNG raster — with full control over size, scale, and background.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📐</div>
+        <div class="feature-title">Scale multiplier (1× – 4×)</div>
+        <div class="feature-desc">Pick 1×, 1.5×, 2×, 3×, or 4× to scale from the SVG's natural dimensions. Use 2× for retina screens — a 24px icon exports as a crisp 48px PNG at exactly double density.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📏</div>
+        <div class="feature-title">Custom pixel dimensions</div>
+        <div class="feature-desc">Enter exact width and height in pixels. Aspect-ratio lock keeps proportions correct when you only change one dimension. Leave blank to use the SVG's natural size.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <div class="feature-title">Transparent or solid background</div>
+        <div class="feature-desc">Export with a fully transparent background (preserving SVG transparency) or fill the background with any solid color — useful for platforms that don't support PNG transparency.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <div class="feature-title">Batch convert to ZIP</div>
+        <div class="feature-desc">Upload multiple SVG files at once, apply the same settings to all, and download every converted PNG in a single ZIP archive. No repetitive clicking.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💻</div>
+        <div class="feature-title">Paste SVG code directly</div>
+        <div class="feature-desc">No file needed — paste raw SVG markup directly into the code panel. Useful for SVGs copied from design tools, icon libraries, or inline SVG code in HTML.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">100% browser-based</div>
+        <div class="feature-desc">All conversion happens locally in your browser using the HTML5 Canvas API. No files are sent to a server. Your SVGs stay on your device.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── How to Use ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">How to Use This Tool</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div>
+          <div class="step-title">Upload SVG files</div>
+          <div class="step-desc">Drag and drop one or more <code>.svg</code> files onto the upload zone, or click "Choose SVG Files" to browse. You can also paste SVG markup directly using the "Paste SVG Code" button.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div>
+          <div class="step-title">Choose output size</div>
+          <div class="step-desc">In Scale mode, pick a multiplier: 1× outputs at the SVG's natural size, 2× doubles it for retina displays, up to 4× for very high-DPI use. In Custom mode, type exact pixel dimensions.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div>
+          <div class="step-title">Set background</div>
+          <div class="step-desc">Choose Transparent to keep the PNG background clear, or Color to fill it with any solid colour. The preview updates immediately so you can see how the result will look.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div>
+          <div class="step-title">Convert and download</div>
+          <div class="step-desc">Click "Convert &amp; Download PNG" for the selected file. For multiple files, use "Convert All" then "Download All as ZIP" to get every PNG in one archive.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── Logic Behind ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Logic Behind the Tool</h2>
+    </div>
+    <div class="logic-grid">
+      <div class="logic-card">
+        <div class="logic-title">SVG → Blob URL → Image element</div>
+        <div class="logic-desc">The SVG string is serialised into a <code>Blob</code> with MIME type <code>image/svg+xml</code>. A temporary object URL is created with <code>URL.createObjectURL()</code> and assigned to an <code>&lt;img&gt;</code> element. The browser renders the SVG as a raster image at the requested dimensions.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Canvas export</div>
+        <div class="logic-desc">Once the image loads, it is drawn onto an off-screen <code>&lt;canvas&gt;</code> sized to the target pixel dimensions using <code>ctx.drawImage(img, 0, 0, w, h)</code>. The canvas is then exported with <code>canvas.toDataURL('image/png')</code> — a lossless PNG with full alpha channel support.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Dimension injection</div>
+        <div class="logic-desc">Before rendering, the tool injects explicit <code>width</code> and <code>height</code> attributes on the root <code>&lt;svg&gt;</code> element. Without explicit dimensions, browsers render SVGs at a default size that may not match the target canvas dimensions, producing a blurry scaled result.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Dimension detection</div>
+        <div class="logic-desc">The tool parses the SVG's <code>viewBox</code> attribute first (most reliable source of intrinsic dimensions), then falls back to <code>width</code>/<code>height</code> attributes, ignoring percentage values. This covers the full range of SVG authoring conventions across design tools.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">ZIP packaging</div>
+        <div class="logic-desc">For batch downloads, <code>JSZip</code> assembles the converted PNGs into a ZIP archive in memory. Each file's data URL is decoded from Base64 and added to the ZIP. <code>zip.generateAsync({type:'blob'})</code> produces the final binary, then a temporary object URL triggers the browser download.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Transparent background</div>
+        <div class="logic-desc">In Transparent mode the canvas context is <em>not</em> filled before drawing — the canvas default is fully transparent. <code>toDataURL('image/png')</code> preserves the alpha channel, so any transparent regions in the SVG become transparent in the PNG output.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FAQ ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">My SVG looks blurry after conversion — how do I fix it?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Blurriness in the converted PNG usually means the output dimensions are too small for the intended display size. Use the 2× or 3× scale setting to export at a higher resolution. For example, if your SVG is 32×32 and you're displaying it at 32 CSS pixels on a retina screen, export at 2× (64×64) so it has enough pixels to stay sharp. If you need a specific size, use the Custom mode and enter the exact pixel dimensions directly.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">The SVG converts but some elements are missing or wrong — why?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>This typically happens with SVGs that reference external resources: custom fonts via <code>@font-face</code> with external URLs, external images via <code>&lt;image&gt;</code> with remote src, or CSS stylesheets loaded from external links. Browser security (CORS) prevents loading these during canvas rendering. To fix: embed fonts as Base64 data URIs in the SVG, use inline <code>&lt;style&gt;</code> instead of external stylesheets, and convert text to outlines/paths in your vector editor before exporting.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What's the difference between SVG and PNG?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>SVG is a vector format — it stores shapes as mathematical descriptions (paths, curves, circles), so it scales to any size without quality loss. PNG is a raster format — it stores a fixed grid of pixels, which become blurry if scaled up beyond its resolution. Use SVG when you need an image to display at many different sizes (icons, logos, UI elements). Use PNG when you need a fixed-resolution image for contexts that don't support SVG — email clients, certain image editors, some older platforms, or when you need a specific pixel size for a design specification.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Can I convert SVG to PNG with transparency preserved?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Yes. Select "Transparent" in the Background setting (it's the default). The exported PNG will have a fully transparent background. Any transparency already in the SVG is also preserved. PNG is one of the few raster formats that fully supports an alpha channel, so it's the correct format for logos and icons that need to sit on various background colors.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What SVG features are supported?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>The tool supports all standard SVG features that browsers can render natively: paths, shapes, text (with system fonts), gradients, patterns, filters, clipping paths, masks, symbols, use references, and inline styles. Features that require external resources — external fonts, external images, external CSS — may not render correctly due to browser security restrictions. Animated SVGs (SMIL or CSS animations) will be converted as a static frame, not as an animated PNG (PNG doesn't support animation).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── Related Tools ── -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="image-converter.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#0d9488,#14b8a6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3"/><path d="M9 11l3-3 3 3"/><line x1="12" y1="8" x2="12" y2="16"/></svg></div>
+        <div class="related-name">Image Converter</div>
+        <div class="related-desc">Convert JPEG, PNG, WebP, GIF and BMP between formats — batch up to 50 files.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="image-compressor.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="related-name">Image Compressor</div>
+        <div class="related-desc">Compress JPEG, PNG, and WebP in-browser to reduce file size before sharing.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="image-resizer.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#6366f1,#818cf8)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div>
+        <div class="related-name">Image Resizer</div>
+        <div class="related-desc">Resize PNG/JPEG to any pixel dimension with aspect ratio lock and presets.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="image-metadata-editor.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#7c3aed,#4f46e5)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 3H8l-2 4h12z"/></svg></div>
+        <div class="related-name">Image Metadata Editor</div>
+        <div class="related-desc">View and edit EXIF metadata — author, GPS, copyright — or strip it all.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── Related Blog ── -->
+  <div class="page-section" style="margin-top:0">
+    <h2 class="section-title" style="margin-bottom:16px">Related Reading</h2>
+    <div class="blog-related-grid">
+      <a href="../../blog/svg-png-guide.html" class="blog-card">
+        <div class="blog-tag-sm">🎨 Design</div>
+        <div class="blog-title-sm">SVG vs PNG — When to Use Each Format and Why the Difference Actually Matters</div>
+        <div class="blog-link">Read →</div>
+      </a>
+      <a href="../../blog/image-format-guide.html" class="blog-card">
+        <div class="blog-tag-sm">🖼 Images</div>
+        <div class="blog-title-sm">JPEG vs PNG vs WebP — Which Format Should You Actually Use?</div>
+        <div class="blog-link">Read →</div>
+      </a>
+      <a href="../../blog/image-metadata-privacy-guide.html" class="blog-card">
+        <div class="blog-tag-sm">🔒 Privacy</div>
+        <div class="blog-title-sm">What Your Phone Photos Know About You (And How to Remove It)</div>
+        <div class="blog-link">Read →</div>
+      </a>
+      <a href="../../blog/instagram-post-sizes-guide.html" class="blog-card">
+        <div class="blog-tag-sm">📸 Instagram</div>
+        <div class="blog-title-sm">Why Your Instagram Posts Look Blurry — and the Exact Sizes That Fix It</div>
+        <div class="blog-link">Read →</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <rect x="7" y="9" width="22" height="18" rx="4" fill="#fff" fill-opacity=".9"/>
+          <path d="M11 24 L14 16 L18 21 L21 17 L25 24Z" fill="#f97316" opacity=".9"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#f97316"/><stop offset="1" stop-color="#ea580c"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#image">Image Tools</a><a href="../../tools.html#Design">Design Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a><a href="../../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="svg-to-png.js"></script>
+</body>
+</html>

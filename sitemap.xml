@@ -22,7 +22,7 @@
   </url>
   <url>
     <loc>https://thetoolempire.com/about.html</loc>
-    <lastmod>2026-06-07</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -104,7 +104,7 @@
   </url>
   <url>
     <loc>https://thetoolempire.com/tools/math/xy-graph.html</loc>
-    <lastmod>2026-06-07</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -338,6 +338,12 @@
   </url>
   <url>
     <loc>https://thetoolempire.com/tools/image/compare-two-images.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/image/heic-to-jpg.html</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -595,6 +601,10 @@
   <url>
     <loc>https://thetoolempire.com/blog/image-metadata-privacy-guide.html</loc>
     <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://thetoolempire.com/tools/seo/sitemap-generator.html</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
@@ -669,6 +679,10 @@
   <url>
     <loc>https://thetoolempire.com/blog/svg-png-guide.html</loc>
     <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://thetoolempire.com/blog/gis-projections-explained.html</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
@@ -677,6 +691,10 @@
   <url>
     <loc>https://thetoolempire.com/blog/image-comparison-guide.html</loc>
     <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://thetoolempire.com/blog/gis-file-formats.html</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
@@ -685,6 +703,10 @@
   <url>
     <loc>https://thetoolempire.com/blog/webp-jpg-guide.html</loc>
     <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://thetoolempire.com/blog/xml-sitemap-seo.html</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>

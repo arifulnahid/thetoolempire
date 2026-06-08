@@ -95,11 +95,11 @@ const TOOLS_DATA = [
   },
   {
     id: 'xy-graph',
-    title: 'XY Graph & Coordinate Plotter',
-    description: 'Plot (x,y) coordinates as scatter, line, or bar charts. Multiple series, trendlines with R², hover tooltips, CSV import, and PNG export.',
-    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 9l-5 5-4-4-4 4"/></svg>',
-    color: 'linear-gradient(135deg,#3b82f6,#a78bfa)',
-    categories: ['Math'],
+    title: 'XY Coordinate Graph',
+    description: 'Interactive coordinate plane with + and − axes. Click to place points or type (x,y) manually. Select two points to see ΔX, ΔY, distance, slope, angle and midpoint.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M12 3v18"/><circle cx="7" cy="8" r="1.5" fill="currentColor"/><circle cx="17" cy="15" r="1.5" fill="currentColor"/></svg>',
+    color: 'linear-gradient(135deg,#6366f1,#4f46e5)',
+    categories: ['Math', 'utilities'],
     url: 'tools/math/xy-graph.html',
   },
 
@@ -466,6 +466,15 @@ const TOOLS_DATA = [
   },
 
   // ── IMAGE TOOLS ────────────────────────────────────────────────
+  {
+    id: 'heic-to-jpg',
+    title: 'HEIC to JPG Converter',
+    description: 'Convert iPhone HEIC and HEIF photos to JPEG in your browser. Batch convert, adjust quality 1–100, download as ZIP. No upload — files never leave your device.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/><path d="M15 6h.01"/></svg>',
+    color: 'linear-gradient(135deg,#f43f5e,#e11d48)',
+    categories: ['image', 'converter', 'utilities'],
+    url: 'tools/image/heic-to-jpg.html',
+  },
   {
     id: 'webp-to-jpg',
     title: 'WebP to JPG Converter',

@@ -343,6 +343,42 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://thetoolempire.com/tools/pdf/pdf-metadata.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/pdf/pdf-password.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/pdf/delete-pdf-pages.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/pdf/pdf-compressor.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/pdf/image-to-pdf.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/image/pdf-to-image.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://thetoolempire.com/tools/image/heic-to-jpg.html</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>

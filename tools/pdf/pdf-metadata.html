@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PDF Metadata Editor — View &amp; Edit PDF Properties Free Online | The Tool Empire</title>
+  <meta name="description" content="View and edit PDF metadata — title, author, subject, keywords, creator, producer, and dates — directly in your browser. No upload, 100% private."/>
+  <meta name="keywords" content="pdf metadata editor, edit pdf properties, pdf title editor, pdf author editor, view pdf metadata, change pdf metadata online, pdf info editor"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/pdf/pdf-metadata.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="PDF Metadata Editor — View &amp; Edit PDF Properties Free"/>
+  <meta property="og:description" content="Edit PDF title, author, subject, keywords, creator, producer and dates in your browser. Files never leave your device."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/pdf/pdf-metadata.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"PDF Metadata Editor","description":"Free browser-based tool to view and edit PDF document properties — title, author, subject, keywords, creator, producer, creation date, and modification date. Uses pdf-lib for lossless editing. PDF content, fonts, and images are untouched. 100% client-side.","url":"https://thetoolempire.com/tools/pdf/pdf-metadata.html","applicationCategory":"DesignApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["View all PDF metadata fields","Edit title, author, subject, keywords","Edit creator and producer fields","Set or clear creation and modification dates","Lossless — page content unchanged","100% client-side — no upload required"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"PDF Tools","item":"https://thetoolempire.com/tools.html#pdf"},
+      {"@type":"ListItem","position":3,"name":"PDF Metadata Editor","item":"https://thetoolempire.com/tools/pdf/pdf-metadata.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is PDF metadata?","acceptedAnswer":{"@type":"Answer","text":"PDF metadata is information stored inside the PDF file that describes the document — such as the title, author, subject, keywords, the application that created it (creator), the application that generated the final PDF (producer), and the creation and modification dates. This information is used by search engines, document management systems, and PDF readers."}},
+      {"@type":"Question","name":"Will editing metadata change the PDF content?","acceptedAnswer":{"@type":"Answer","text":"No. This tool only changes the metadata stored in the PDF's document information dictionary. All pages, text, images, fonts, and hyperlinks are completely untouched."}},
+      {"@type":"Question","name":"Is my PDF uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. Everything runs inside your browser using pdf-lib. Your file never leaves your device."}},
+      {"@type":"Question","name":"What is the difference between Creator and Producer?","acceptedAnswer":{"@type":"Answer","text":"Creator is the application that originally created the document (e.g., Microsoft Word, Adobe InDesign). Producer is the application that generated or converted it to PDF (e.g., Adobe Distiller, macOS Print to PDF). Both are optional and can be set to any value."}},
+      {"@type":"Question","name":"Can I edit metadata on a password-protected PDF?","acceptedAnswer":{"@type":"Answer","text":"If the PDF has a user (open) password you will need to remove it first using our PDF Password Remover tool. If the PDF only has an owner password (permissions), the metadata editor can still load and edit it."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="pdf-metadata.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgMeta)"/>
+        <rect x="7" y="5" width="14" height="18" rx="2" fill="#fff" fill-opacity=".85"/>
+        <path d="M10 10h8M10 13h8M10 16h5" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round"/>
+        <rect x="16" y="14" width="11" height="14" rx="2" fill="#fff" fill-opacity=".95"/>
+        <path d="M19 18h5M19 21h3" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round"/>
+        <defs><linearGradient id="lgMeta" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#4f46e5"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="pdfMetadataApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li><a href="../../tools.html#pdf" style="color:#8888a8">PDF</a></li><li>›</li>
+      <li style="color:#e8e8f0">PDF Metadata Editor</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      PDF Tools · Metadata
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">PDF Metadata Editor</span></h1>
+    <p class="tool-subtitle">View and edit the title, author, subject, keywords, dates and more stored inside your PDF — without touching the content.</p>
+  </div>
+
+  <!-- Error banner -->
+  <div class="error-banner" x-show="error" x-text="error"></div>
+
+  <!-- ════════ UPLOAD ════════ -->
+  <template x-if="stage === 'upload'">
+    <div
+      class="upload-zone"
+      :class="{'drag-over': isDragOver}"
+      @dragover.prevent="isDragOver = true"
+      @dragleave="isDragOver = false"
+      @drop.prevent="onDrop($event)"
+      @click="$refs.fileInput.click()"
+    >
+      <div class="upload-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <div class="upload-title">Drop a PDF to view its metadata</div>
+      <div class="upload-sub">Reads all document properties — edit any field and save.</div>
+      <div><label class="btn-upload" @click.stop="$refs.fileInput.click()">Choose PDF</label></div>
+      <p class="upload-note">Your file never leaves your browser — all processing is 100% local.</p>
+      <input x-ref="fileInput" type="file" accept=".pdf,application/pdf" style="display:none" @change="onFileInput($event)"/>
+    </div>
+  </template>
+
+  <!-- ════════ EDITOR ════════ -->
+  <template x-if="stage === 'editor'">
+    <div>
+
+      <!-- PDF chip -->
+      <div class="pdf-chip">
+        <div class="pdf-chip-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="pdf-chip-info">
+          <div class="pdf-chip-name" x-text="pdfName"></div>
+          <div class="pdf-chip-meta" x-text="formatSize(pdfSize)"></div>
+        </div>
+        <button class="btn-change-file" @click="reset()">Change</button>
+        <input x-ref="fileInput2" type="file" accept=".pdf,application/pdf" style="display:none" @change="onFileInput($event)"/>
+      </div>
+
+      <!-- Info bar -->
+      <div class="info-bar">
+        <div class="info-pill">Pages: <strong x-text="pageCount"></strong></div>
+        <div class="info-pill">PDF version: <strong x-text="pdfVersion"></strong></div>
+        <div class="info-pill">File size: <strong x-text="formatSize(pdfSize)"></strong></div>
+      </div>
+
+      <!-- Metadata form -->
+      <div class="form-card">
+        <div class="form-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Document Properties
+        </div>
+
+        <!-- Title -->
+        <div class="field">
+          <div class="field-label">
+            <span>Title</span>
+            <span class="field-current" x-show="orig.title" x-text="'Current: ' + orig.title"></span>
+          </div>
+          <input class="field-input" type="text" x-model="title" placeholder="Document title" autocomplete="off"/>
+        </div>
+
+        <!-- Author -->
+        <div class="field">
+          <div class="field-label">
+            <span>Author</span>
+            <span class="field-current" x-show="orig.author" x-text="'Current: ' + orig.author"></span>
+          </div>
+          <input class="field-input" type="text" x-model="author" placeholder="Author name" autocomplete="off"/>
+        </div>
+
+        <!-- Subject -->
+        <div class="field">
+          <div class="field-label">
+            <span>Subject</span>
+            <span class="field-current" x-show="orig.subject" x-text="'Current: ' + orig.subject"></span>
+          </div>
+          <input class="field-input" type="text" x-model="subject" placeholder="Brief description of the document" autocomplete="off"/>
+        </div>
+
+        <!-- Keywords -->
+        <div class="field">
+          <div class="field-label">
+            <span>Keywords</span>
+            <span class="field-current" x-show="orig.keywords" x-text="'Current: ' + orig.keywords"></span>
+          </div>
+          <input class="field-input" type="text" x-model="keywords" placeholder="comma separated keywords" autocomplete="off"/>
+          <div class="field-hint">Used by search engines and document management systems.</div>
+        </div>
+
+        <hr class="field-divider"/>
+
+        <!-- Creator / Producer -->
+        <div class="field-row">
+          <div class="field">
+            <div class="field-label">
+              <span>Creator</span>
+            </div>
+            <input class="field-input" type="text" x-model="creator" placeholder="e.g. Microsoft Word" autocomplete="off"/>
+            <div class="field-hint">App that created the original document.</div>
+          </div>
+          <div class="field">
+            <div class="field-label">
+              <span>Producer</span>
+            </div>
+            <input class="field-input" type="text" x-model="producer" placeholder="e.g. Adobe Distiller" autocomplete="off"/>
+            <div class="field-hint">App that generated or converted the PDF.</div>
+          </div>
+        </div>
+
+        <hr class="field-divider"/>
+
+        <!-- Dates -->
+        <div class="field-row">
+          <div class="field">
+            <div class="field-label">
+              <span>Creation Date</span>
+            </div>
+            <input class="field-input" type="datetime-local" x-model="createdAt"/>
+          </div>
+          <div class="field">
+            <div class="field-label">
+              <span>Modification Date</span>
+            </div>
+            <input class="field-input" type="datetime-local" x-model="modifiedAt"/>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="action-row">
+          <button class="btn-save" @click="save()" :disabled="processing">
+            <template x-if="processing"><span class="spinner"></span></template>
+            <template x-if="!processing">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            </template>
+            <span x-text="processing ? 'Saving…' : 'Save &amp; Download PDF'"></span>
+          </button>
+          <button class="btn-clear-all" @click="clearAll()" :disabled="processing">Clear All Fields</button>
+        </div>
+
+      </div>
+    </div>
+  </template>
+
+  <!-- ════════ DONE ════════ -->
+  <template x-if="stage === 'done'">
+    <div>
+      <div class="success-card">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="success-title">Metadata saved and downloaded</div>
+        <div class="success-sub">
+          Output: <strong x-text="formatSize(resultSize)"></strong>
+          &nbsp;·&nbsp; <strong x-text="pageCount"></strong> pages unchanged
+        </div>
+        <button class="btn-download" @click="downloadAgain()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Again
+        </button>
+        <button class="btn-again" @click="editAgain()">← Edit more fields</button>
+        <div style="text-align:center;margin-top:10px">
+          <button @click="reset()" style="background:none;border:none;font-size:.8rem;color:var(--text-faint);cursor:pointer">Open a different PDF</button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <hr class="section-divider"/>
+
+  <!-- Features -->
+  <div class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">PDF Metadata Editor</h2>
+      <p class="section-desc">Edit every document property stored inside your PDF — instantly, without re-rendering a single page.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <div class="feature-title">View Current Values</div>
+        <div class="feature-desc">Every field is pre-filled with the PDF's existing metadata so you can see exactly what's stored before making changes.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✏️</div>
+        <div class="feature-title">Edit All Fields</div>
+        <div class="feature-desc">Title, Author, Subject, Keywords, Creator, Producer, Creation Date, Modification Date — all editable.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🗑️</div>
+        <div class="feature-title">Clear Any Field</div>
+        <div class="feature-desc">Leave a field blank and save to remove that metadata entry from the PDF entirely — useful for privacy scrubbing.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">Lossless Editing</div>
+        <div class="feature-desc">pdf-lib edits only the document information dictionary. Pages, fonts, images, hyperlinks, and vector graphics are completely untouched.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <div class="feature-title">Date Picker</div>
+        <div class="feature-desc">Creation and Modification dates use a native datetime picker — no manual formatting required.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <div class="feature-title">100% Private</div>
+        <div class="feature-desc">All processing happens inside your browser. No file is ever uploaded. Nothing is stored or logged.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider"/>
+
+  <!-- How to use -->
+  <div class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">How to Use</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div>
+          <div class="step-title">Upload your PDF</div>
+          <div class="step-desc">Drag the PDF onto the upload zone or click Choose PDF. The tool instantly reads all metadata fields.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div>
+          <div class="step-title">Review the current values</div>
+          <div class="step-desc">Each field shows the existing value pulled from the PDF. The small grey hint above each field shows the original value so you can compare.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div>
+          <div class="step-title">Edit what you need</div>
+          <div class="step-desc">Change any field. Leave a field blank to remove that metadata from the PDF. Use Clear All Fields to wipe all metadata at once.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div>
+          <div class="step-title">Save &amp; Download</div>
+          <div class="step-desc">Click Save &amp; Download PDF. The file is saved as <code>filename_metadata.pdf</code> and downloaded immediately. Pages are untouched.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider"/>
+
+  <!-- FAQ -->
+  <div class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What metadata fields does a PDF store?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>The PDF standard defines a document information dictionary with these fields: <strong>Title</strong> (document name), <strong>Author</strong> (person who wrote it), <strong>Subject</strong> (topic or description), <strong>Keywords</strong> (search terms), <strong>Creator</strong> (application that originally created the document), <strong>Producer</strong> (application that generated the PDF file), <strong>CreationDate</strong>, and <strong>ModDate</strong>. All are optional — a PDF can have none, some, or all of them filled.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Why would I want to edit PDF metadata?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Common reasons include: fixing incorrect title or author before publishing; removing personally identifying information (author name, creator app) before sharing externally; adding keywords to improve indexing in document management systems; correcting wrong creation or modification dates; and removing auto-generated producer strings like "Acrobat 9.0" from older files.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Will this change the PDF content or file size?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Page content is untouched. File size may change very slightly (a few bytes) because pdf-lib rewrites the cross-reference table when saving, but pages, images, fonts, and embedded files are identical.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is XMP metadata and does this tool handle it?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>PDFs can store metadata in two places: the classic document information dictionary (what this tool edits) and an XMP stream (an XML format embedded in the PDF). pdf-lib edits the information dictionary. If the PDF also contains XMP metadata, that block is left as-is. Most consumer PDF readers display the information dictionary values, so for typical use cases this tool is sufficient.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Can I edit a password-protected PDF?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>If the PDF has an owner password only (which sets permissions but does not prevent opening), this tool can load and edit it. If the PDF has a user (open) password, you will need to remove the password first using the <a href="pdf-password.html" style="color:#818cf8">PDF Password Remover</a>, then edit the metadata.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider"/>
+
+  <!-- Related tools -->
+  <div class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">More PDF Tools</h2>
+    </div>
+    <div class="related-grid">
+      <a href="pdf-password.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div class="related-name">PDF Password</div>
+        <div class="related-desc">Add or remove a password from a PDF.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="delete-pdf-pages.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#a855f7,#9333ea)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="12" height="18" rx="2"/><path d="M8 2v4h8"/><line x1="10" y1="12" x2="14" y2="16"/><line x1="14" y1="12" x2="10" y2="16"/></svg></div>
+        <div class="related-name">Delete PDF Pages</div>
+        <div class="related-desc">Remove specific pages from a PDF visually.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="pdf-compressor.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#14b8a6,#0d9488)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg></div>
+        <div class="related-name">PDF Compressor</div>
+        <div class="related-desc">Reduce PDF file size with quality presets.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="pdf-to-image.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f97316,#ea580c)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="12" height="18" rx="2"/><path d="M8 2v4h8"/></svg></div>
+        <div class="related-name">PDF to Image</div>
+        <div class="related-desc">Export PDF pages as PNG or JPEG images.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+    </div>
+  </div>
+
+</div><!-- /main-wrap -->
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgFMeta)"/>
+          <rect x="7" y="5" width="14" height="18" rx="2" fill="#fff" fill-opacity=".85"/>
+          <path d="M10 10h8M10 13h8M10 16h5" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round"/>
+          <rect x="16" y="14" width="11" height="14" rx="2" fill="#fff" fill-opacity=".95"/>
+          <path d="M19 18h5M19 21h3" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round"/>
+          <defs><linearGradient id="lgFMeta" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#4f46e5"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#pdf">PDF Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a><a href="../../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="pdf-metadata.js"></script>
+</body>
+</html>

@@ -465,7 +465,63 @@ const TOOLS_DATA = [
     url: 'tools/coding/url-encoder.html',
   },
 
+  // ── PDF TOOLS ──────────────────────────────────────────────────
+  {
+    id: 'pdf-metadata',
+    title: 'PDF Metadata Editor',
+    description: 'View and edit PDF document properties — title, author, subject, keywords, creator, producer, and dates. Lossless: page content untouched. No upload, 100% private.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
+    color: 'linear-gradient(135deg,#6366f1,#4f46e5)',
+    categories: ['PDF', 'utilities'],
+    url: 'tools/pdf/pdf-metadata.html',
+  },
+  {
+    id: 'pdf-password',
+    title: 'PDF Password Protector & Remover',
+    description: 'Add a password to lock a PDF or remove an existing password. Set permissions for printing, copying, and editing. Text and vectors preserved — no rasterization. 100% client-side, no upload.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+    color: 'linear-gradient(135deg,#f59e0b,#d97706)',
+    categories: ['PDF', 'utilities'],
+    url: 'tools/pdf/pdf-password.html',
+  },
+  {
+    id: 'delete-pdf-pages',
+    title: 'Delete Pages from PDF',
+    description: 'Click page thumbnails to mark them for deletion, then download the edited PDF instantly. Text stays selectable — no rasterization. Odd/even quick-select included. No upload, 100% private.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="12" height="18" rx="2"/><path d="M8 2v4h8"/><line x1="10" y1="12" x2="14" y2="16"/><line x1="14" y1="12" x2="10" y2="16"/></svg>',
+    color: 'linear-gradient(135deg,#a855f7,#9333ea)',
+    categories: ['PDF', 'utilities'],
+    url: 'tools/pdf/delete-pdf-pages.html',
+  },
+  {
+    id: 'pdf-compressor',
+    title: 'PDF Compressor',
+    description: 'Reduce PDF file size in your browser. Choose from 4 quality presets — Low, Medium, High, Maximum. See before and after sizes with savings percentage. No upload, 100% private.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>',
+    color: 'linear-gradient(135deg,#14b8a6,#0d9488)',
+    categories: ['PDF', 'utilities'],
+    url: 'tools/pdf/pdf-compressor.html',
+  },
+  {
+    id: 'image-to-pdf',
+    title: 'Image to PDF Converter',
+    description: 'Combine JPG, PNG, WebP and GIF images into a multi-page PDF in your browser. Reorder pages, set page size, orientation, margin and image fit. No upload — 100% private.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>',
+    color: 'linear-gradient(135deg,#3b82f6,#2563eb)',
+    categories: ['PDF', 'image', 'converter'],
+    url: 'tools/pdf/image-to-pdf.html',
+  },
+
   // ── IMAGE TOOLS ────────────────────────────────────────────────
+  {
+    id: 'pdf-to-image',
+    title: 'PDF to Image Converter',
+    description: 'Convert PDF pages to PNG or JPEG in your browser. Choose resolution up to 288 DPI, select specific pages, and download all as ZIP. No upload — 100% private.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="12" height="18" rx="2"/><path d="M8 2v4h8"/><path d="M8 10h6M8 14h4"/></svg>',
+    color: 'linear-gradient(135deg,#f97316,#ea580c)',
+    categories: ['PDF', 'image', 'converter', 'utilities'],
+    url: 'tools/image/pdf-to-image.html',
+  },
   {
     id: 'heic-to-jpg',
     title: 'HEIC to JPG Converter',
@@ -555,7 +611,7 @@ const TOOLS_DATA = [
     description: 'Generate QR codes for URLs, text, email, WiFi, and more. Download with a custom branded card.',
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="5" y="5" width="3" height="3" fill="currentColor" stroke="none"/><rect x="16" y="5" width="3" height="3" fill="currentColor" stroke="none"/><rect x="5" y="16" width="3" height="3" fill="currentColor" stroke="none"/><path d="M14 14h2v2h-2zM18 14h2v2h-2zM14 18h2v2h-2zM18 18h2v2h-2z"/></svg>',
     color: 'linear-gradient(135deg,#6C63FF,#4ECDC4)',
-    categories: ['Design', 'Coding', 'SEO'],
+    categories: ['Utilities', 'Design', 'Coding', 'SEO'],
     url: 'tools/coding/qr-code-maker.html',
   },
 ];

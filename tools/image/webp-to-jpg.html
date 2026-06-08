@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WebP to JPG Converter — Free Batch Conversion with Quality Control | The Tool Empire</title>
+  <meta name="description" content="Convert WebP images to JPEG in your browser. Adjust JPEG quality (1–100), set background color for transparent WebPs, batch convert multiple files and download as ZIP. No upload, no server."/>
+  <meta name="keywords" content="webp to jpg converter, convert webp to jpeg, webp to jpg online free, webp to jpeg batch, webp converter, webp image converter, save webp as jpg"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/image/webp-to-jpg.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="WebP to JPG Converter — Free Batch Conversion with Quality Control"/>
+  <meta property="og:description" content="Convert WebP to JPEG in your browser. Adjustable quality, transparent background fill, batch convert and download as ZIP. No upload required."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/image/webp-to-jpg.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"WebP to JPG Converter","description":"Free browser-based tool to convert WebP images to JPEG. Supports adjustable quality (1–100), white or custom background color for transparent WebP files, batch conversion, and ZIP download. No files uploaded to server — 100% client-side.","url":"https://thetoolempire.com/tools/image/webp-to-jpg.html","applicationCategory":"DesignApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Convert WebP to JPEG in browser","Adjustable JPEG quality 1–100","Custom background color for transparent WebPs","Batch convert multiple files","Download all as ZIP","File size comparison — original vs output","100% client-side — no upload"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Image Tools","item":"https://thetoolempire.com/tools.html#image"},
+      {"@type":"ListItem","position":3,"name":"WebP to JPG Converter","item":"https://thetoolempire.com/tools/image/webp-to-jpg.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"How do I convert WebP to JPG?","acceptedAnswer":{"@type":"Answer","text":"Upload your WebP file by dragging it onto the upload zone or clicking 'Choose Files'. Adjust the JPEG quality slider (92 is the recommended default). Click 'Convert & Download JPG' to download the converted file. Everything happens in your browser — no file is sent to any server."}},
+      {"@type":"Question","name":"What JPEG quality setting should I use?","acceptedAnswer":{"@type":"Answer","text":"Quality 92 is a good default that preserves near-original visual quality at a reasonable file size. For images that will be displayed at small sizes (thumbnails, social media previews), quality 75–80 is often sufficient and produces noticeably smaller files. For archival or print use where maximum quality matters, use 95–100. Quality below 70 produces visible JPEG artefacts."}},
+      {"@type":"Question","name":"My WebP has a transparent background — what happens when I convert it to JPG?","acceptedAnswer":{"@type":"Answer","text":"JPEG does not support transparency. Any transparent area in the WebP will be filled with a solid colour during conversion. The default fill is white. You can change this to any colour using the Background Colour setting — useful if your image will be placed on a dark background."}},
+      {"@type":"Question","name":"Will the converted JPG be the same size as the WebP?","acceptedAnswer":{"@type":"Answer","text":"Not necessarily. WebP is generally more efficient than JPEG — a WebP file is often 25–35% smaller than an equivalent JPEG at the same quality. Converting WebP to JPG at high quality settings may actually produce a larger file. The tool shows you a size comparison after each conversion so you can see exactly how your output compares."}},
+      {"@type":"Question","name":"Can I batch convert multiple WebP files at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. Drag and drop multiple WebP files onto the upload zone or use the file picker to select several files at once. Each appears in the file list. Convert them all with the same quality setting and click 'Download All as ZIP' to get every JPEG in one archive."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="webp-to-jpg.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <rect x="7" y="9" width="22" height="18" rx="4" fill="#fff" fill-opacity=".9"/>
+        <text x="10" y="22" font-size="9" font-weight="800" fill="#10b981" font-family="monospace">W→J</text>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#10b981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="webpToJpgApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li><a href="../../tools.html#image" style="color:#8888a8">Image</a></li><li>›</li>
+      <li style="color:#e8e8f0">WebP to JPG</li>
+    </ol>
+  </nav>
+
+  <!-- Ad -->
+  <div class="ad-slot">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l6 6 6-6"/></svg>
+      Image Tools · Converter
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">WebP to JPG Converter</span></h1>
+    <p class="tool-subtitle">Convert WebP images to JPEG instantly in your browser. Adjust quality, fill transparent backgrounds, batch convert and download as ZIP. No upload, no server, no limit.</p>
+  </div>
+
+  <!-- ── Upload state ── -->
+  <template x-if="files.length === 0">
+    <div
+      class="upload-zone"
+      :class="{'drag-over': isDragOver}"
+      @dragover.prevent="isDragOver=true"
+      @dragleave="isDragOver=false"
+      @drop.prevent="onDrop($event)"
+      @click="$refs.fileInput.click()"
+    >
+      <div class="upload-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      </div>
+      <div class="upload-title">Drop WebP files here</div>
+      <div class="upload-sub">Drag one or more .webp files — or click to browse. PNG, JPEG also accepted.</div>
+      <div class="upload-actions">
+        <label class="btn-upload" @click.stop="$refs.fileInput.click()">Choose Files</label>
+      </div>
+      <input x-ref="fileInput" type="file" accept="image/webp,image/*" multiple style="display:none" @change="onFileInput($event)"/>
+    </div>
+  </template>
+
+  <!-- ── Editor state ── -->
+  <template x-if="files.length > 0">
+    <div>
+      <!-- Add more strip -->
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+        <button class="btn-outline-sm" @click="$refs.fileInput2.click()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add More Files
+        </button>
+        <input x-ref="fileInput2" type="file" accept="image/webp,image/*" multiple style="display:none" @change="onFileInput($event)"/>
+      </div>
+
+      <div class="editor-grid">
+
+        <!-- ── Left: file list + preview ── -->
+        <div>
+          <div class="file-list-header">
+            <span class="file-list-title" x-text="files.length + ' file' + (files.length !== 1 ? 's' : '')"></span>
+            <button class="btn-clear" @click="clearAll()">Clear all</button>
+          </div>
+
+          <div class="file-list">
+            <template x-for="f in files" :key="f.id">
+              <div class="file-card" :class="{active: activeId === f.id}" @click="activeId = f.id">
+                <div class="fc-thumb">
+                  <img :src="f.src" :alt="f.name" loading="lazy"/>
+                </div>
+                <div class="fc-info">
+                  <div class="fc-name" x-text="f.name"></div>
+                  <div class="fc-dims" x-text="f.w + ' × ' + f.h + ' px'"></div>
+                </div>
+
+                <!-- Size comparison -->
+                <div class="fc-sizes" x-show="f.jpgUrl">
+                  <span class="fc-size-orig" x-text="formatSize(f.size)"></span>
+                  <span class="fc-size-new" :style="'color:' + (savingsPositive(f) ? '#4ade80' : '#f87171')" x-text="formatSize(f.jpgSize)"></span>
+                  <span class="fc-savings" :class="savingsPositive(f) ? 'positive' : 'negative'" x-text="savingsText(f)"></span>
+                </div>
+
+                <!-- Status badge -->
+                <span class="fc-status"
+                  :class="f.jpgUrl ? (qualityStale(f) ? 'stale' : 'done') : 'pending'"
+                  x-text="f.jpgUrl ? (qualityStale(f) ? '↻ Stale' : '✓ JPG') : 'Ready'"
+                ></span>
+
+                <button class="fc-remove" @click.stop="removeFile(f.id)" title="Remove">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
+            </template>
+          </div>
+
+          <!-- Preview -->
+          <template x-if="activeFile">
+            <div class="preview-panel">
+              <div class="preview-header">
+                <span x-text="activeFile.name"></span>
+                <span x-text="formatSize(activeFile.size) + '  ·  ' + activeFile.w + '×' + activeFile.h"></span>
+              </div>
+              <div class="preview-body">
+                <img :src="activeFile.src" :alt="activeFile.name"/>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <!-- ── Right: settings ── -->
+        <div class="settings-panel">
+
+          <!-- Quality -->
+          <div class="settings-card">
+            <div class="settings-head">JPEG Quality</div>
+            <div class="settings-body">
+              <div class="quality-row">
+                <span class="quality-val" x-text="quality" :style="'color:' + qualityColor()"></span>
+                <span class="quality-label-badge" x-text="qualityLabel()" :style="'color:' + qualityColor() + ';background:' + qualityColor() + '20'"></span>
+              </div>
+              <input type="range" class="quality-range" x-model="quality" min="1" max="100" step="1"/>
+              <div class="quality-hints">
+                <span>1 — Smallest</span>
+                <span>50 — Medium</span>
+                <span>92 — Default</span>
+                <span>100 — Best</span>
+              </div>
+              <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:5px">
+                <button class="btn-outline-sm" style="font-size:.72rem;padding:4px 10px" @click="quality=65">65</button>
+                <button class="btn-outline-sm" style="font-size:.72rem;padding:4px 10px" @click="quality=75">75</button>
+                <button class="btn-outline-sm" style="font-size:.72rem;padding:4px 10px" @click="quality=85">85</button>
+                <button class="btn-outline-sm" style="font-size:.72rem;padding:4px 10px" @click="quality=92">92 ★</button>
+                <button class="btn-outline-sm" style="font-size:.72rem;padding:4px 10px" @click="quality=100">100</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Background -->
+          <div class="settings-card">
+            <div class="settings-head">Background Color</div>
+            <div class="settings-body">
+              <div class="setting-row">
+                <span class="setting-label">Fill color for transparent areas</span>
+                <input type="color" x-model="bgColor" style="width:38px;height:32px;padding:2px;border-radius:6px;border:1px solid var(--border-medium);cursor:pointer;background:none"/>
+              </div>
+              <div style="display:flex;gap:6px;margin-top:6px">
+                <button class="btn-outline-sm" style="font-size:.72rem;padding:4px 10px;gap:5px" @click="bgColor='#ffffff'"><span style="width:10px;height:10px;border-radius:50%;background:#fff;display:inline-block;border:1px solid #aaa"></span>White</button>
+                <button class="btn-outline-sm" style="font-size:.72rem;padding:4px 10px;gap:5px" @click="bgColor='#000000'"><span style="width:10px;height:10px;border-radius:50%;background:#000;display:inline-block;border:1px solid #555"></span>Black</button>
+                <button class="btn-outline-sm" style="font-size:.72rem;padding:4px 10px;gap:5px" @click="bgColor='#f0f0f0'"><span style="width:10px;height:10px;border-radius:50%;background:#f0f0f0;display:inline-block;border:1px solid #aaa"></span>Light grey</button>
+              </div>
+              <p style="font-size:.72rem;color:var(--text-faint);margin-top:8px">JPEG has no transparency — this color fills any transparent pixels from the original WebP.</p>
+            </div>
+          </div>
+
+          <!-- Stale warning -->
+          <template x-if="files.some(f => qualityStale(f))">
+            <div class="stale-warn">Quality changed — re-convert to update results.</div>
+          </template>
+
+          <!-- Output size info -->
+          <template x-if="activeFile && activeFile.jpgUrl">
+            <div class="output-info">
+              <strong x-text="activeFile.name.replace(/\.[^.]+$/, '') + '.jpg'"></strong><br/>
+              WebP: <strong x-text="formatSize(activeFile.size)"></strong>
+              → JPG: <strong x-text="formatSize(activeFile.jpgSize)"></strong>
+              <span x-show="savingsText(activeFile)" x-text="'(' + savingsText(activeFile) + ')'" :style="'color:' + (savingsPositive(activeFile) ? '#4ade80' : '#f87171')"></span>
+            </div>
+          </template>
+
+          <!-- Convert single -->
+          <button class="btn-convert" @click="convertAndDownload(activeFile)" :disabled="!activeFile">
+            <template x-if="activeFile && activeFile.converting"><div class="spinner"></div></template>
+            <template x-if="!activeFile || !activeFile.converting">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </template>
+            <span x-text="activeFile && activeFile.converting ? 'Converting…' : 'Convert & Download JPG'"></span>
+          </button>
+
+          <!-- Convert all -->
+          <button class="btn-secondary" @click="convertAll()" :disabled="allConverting || files.length < 2">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            <span x-text="allConverting ? 'Converting…' : 'Convert All (' + files.length + ' files)'"></span>
+          </button>
+
+          <!-- ZIP -->
+          <button class="btn-zip" @click="downloadAllZip()" :disabled="allConverting">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download All as ZIP
+            <span x-show="convertedCount > 0 && !allConverting" x-text="'(' + convertedCount + '/' + files.length + ')'" style="opacity:.65;font-weight:400"></span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- Ad -->
+  <div class="ad-slot" style="margin-top:24px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- ── Features ── -->
+  <div class="page-section" style="margin-top:20px">
+    <div class="section-head">
+      <h2 class="section-title">What This Tool Does</h2>
+      <p class="section-desc">WebP to JPEG conversion with real quality control — not just a format rename.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎚️</div>
+        <div class="feature-title">Adjustable JPEG quality (1–100)</div>
+        <div class="feature-desc">Drag the quality slider to balance file size against visual quality. Presets at 65, 75, 85, and 92 cover the most common use cases. Quality 92 is the recommended default — near-original quality at significantly reduced file size.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <div class="feature-title">Background fill for transparency</div>
+        <div class="feature-desc">JPEG doesn't support transparency. Any transparent pixels in the WebP are filled with a solid colour during conversion. Default is white, but you can switch to black, light grey, or any custom colour — essential for images that will sit on coloured backgrounds.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">File size comparison</div>
+        <div class="feature-desc">After each conversion the tool shows the original WebP size alongside the JPEG output size, with a percentage difference. WebP is often smaller than JPEG at equivalent quality — this lets you see exactly what you're trading off when you convert.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <div class="feature-title">Batch convert to ZIP</div>
+        <div class="feature-desc">Upload multiple WebP files at once, apply the same settings, and download all converted JPEGs in a single ZIP archive. Individual files can also be converted and downloaded one at a time.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚠️</div>
+        <div class="feature-title">Stale result indicator</div>
+        <div class="feature-desc">If you convert a file and then change the quality slider, the tool marks the old result as "Stale" so you know it was converted at a different setting. One click re-converts with the current settings.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">100% browser-based</div>
+        <div class="feature-desc">All conversion happens locally using the HTML5 Canvas API. No file is ever sent to a server. Works offline after the page loads. Supports WebP, PNG, GIF, AVIF, and any other browser-displayable format as input.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── How to Use ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">How to Use This Tool</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div>
+          <div class="step-title">Upload your WebP files</div>
+          <div class="step-desc">Drag and drop one or more <code>.webp</code> files onto the upload zone, or click "Choose Files" to browse. Multiple files are supported — they all appear in the file list on the left.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div>
+          <div class="step-title">Set quality and background</div>
+          <div class="step-desc">Adjust the JPEG quality slider. 92 is the recommended starting point. If your WebP has transparency, choose a background fill colour — white is the default. Use the preset buttons for common quality values.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div>
+          <div class="step-title">Convert and check the size</div>
+          <div class="step-desc">Click "Convert &amp; Download JPG" for the selected file. The file list updates to show the JPEG size alongside the original WebP size and the percentage difference. Adjust quality if needed and re-convert.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div>
+          <div class="step-title">Batch download as ZIP</div>
+          <div class="step-desc">For multiple files, click "Download All as ZIP". The tool converts any unconverted files first, then packages all JPEGs into a single ZIP file for download.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── Logic ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Logic Behind the Tool</h2>
+    </div>
+    <div class="logic-grid">
+      <div class="logic-card">
+        <div class="logic-title">FileReader → Image → Canvas</div>
+        <div class="logic-desc">Each file is read into memory as a Base64 data URL using the <code>FileReader</code> API. This data URL is assigned to an <code>HTMLImageElement</code> which decodes the WebP (browsers have had built-in WebP support since 2020). Once decoded, the image is drawn onto an off-screen <code>&lt;canvas&gt;</code> element sized to the original pixel dimensions.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">JPEG export via toDataURL</div>
+        <div class="logic-desc"><code>canvas.toDataURL('image/jpeg', quality)</code> encodes the canvas contents as a JPEG. The second argument is a quality value between 0 and 1, which maps directly to JPEG quantisation tables — higher values preserve more detail and produce larger files. The result is a Base64 data URL that can be downloaded directly.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Transparency handling</div>
+        <div class="logic-desc">Before drawing the image, the canvas context is filled with the chosen background colour using <code>ctx.fillStyle = bgColor; ctx.fillRect(...)</code>. This composite approach ensures that any transparent pixels in the source WebP are replaced with the fill colour, since JPEG has no alpha channel and would otherwise render them as black.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">File size estimation</div>
+        <div class="logic-desc">The exact JPEG file size is estimated from the Base64 data URL length: <code>Math.round(base64.length × 3/4)</code>. Base64 encodes every 3 bytes as 4 characters, so dividing by 4/3 gives the binary size. This estimate is accurate to within a few percent — the difference accounts for padding characters.</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">Non-reactive image cache</div>
+        <div class="logic-desc">Decoded <code>HTMLImageElement</code> objects are stored in a plain JavaScript object outside Alpine.js's reactive data proxy. This prevents Alpine from wrapping large binary objects in its reactivity system, which would be slow and unnecessary — Alpine only needs to track the lightweight metadata (size, name, dimensions).</div>
+      </div>
+      <div class="logic-card">
+        <div class="logic-title">ZIP packaging with JSZip</div>
+        <div class="logic-desc">Batch downloads use the <code>JSZip</code> library. Each converted JPEG's Base64 data is extracted from the data URL and added to the archive with <code>zip.file(name, base64, {base64: true})</code>. Duplicate filenames are automatically deduplicated by appending a counter. <code>generateAsync({type: 'blob'})</code> produces the final ZIP for download.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FAQ ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Why is my converted JPG bigger than the original WebP?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>This is expected. WebP is a more efficient format than JPEG — it typically achieves the same visual quality at 25–35% smaller file size. When you convert WebP to JPEG at high quality settings, the less efficient JPEG encoding produces a larger output. If file size matters, try reducing the quality slider to 75–80. The visual difference at that range is usually imperceptible on screen, but the file size can be significantly smaller. If you need the smallest possible file, consider whether you actually need to convert — WebP is supported in all modern browsers and most modern image tools.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What's the difference between quality 92 and quality 85?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>At quality 92 vs 85, the visual difference is minimal to invisible at normal viewing distances for most images. The file size difference can be 20–40%. For images with fine detail (sharp text, high-frequency textures like grass or fabric), quality 92 preserves slightly more crispness. For images with large flat areas (sky, solid backgrounds, blurred backgrounds), quality 80 looks essentially identical to 92. If you're unsure, start at 85, check the result, then adjust. For print or archival use, use 92–95.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Can I convert animated WebP files to JPG?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>The tool will convert animated WebP files, but only the first frame is captured as a static JPEG. The animation data is not carried over — JPEG is a still image format and has no animation support. If you need to convert animated WebP, you would need to extract individual frames first. For a static snapshot of the first frame, this tool works correctly.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Why do I need to convert WebP to JPG at all — isn't WebP better?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>WebP is technically superior in most ways — better compression, supports transparency, supports animation. But JPEG is the universal format: every email client, messaging app, social media platform, image editor, and document program supports JPEG without any issues. Common reasons to convert: you want to attach an image to an email and the recipient's client shows a broken image icon; you're uploading to an older platform that doesn't accept WebP; you're using software that doesn't open WebP; you're preparing images for print (most RIPs expect JPEG or TIFF). If your workflow is entirely web-based, you often don't need to convert at all.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Does quality 100 give me a lossless JPEG?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>No. JPEG quality 100 means "minimum compression" but it is still a lossy format. Even at quality 100, the JPEG encoding process applies a discrete cosine transform and quantisation that discards some pixel information. The result is visually very close to the original, but not mathematically identical. If you need lossless output, save as PNG instead of JPEG — PNG is truly lossless and supports transparency.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── Related Tools ── -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted)" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="svg-to-png.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f97316,#ea580c)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l4-4 4 4M12 8v8"/></svg></div>
+        <div class="related-name">SVG to PNG Converter</div>
+        <div class="related-desc">Convert SVG vector files to PNG at 1×–4× retina scale.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="compare-two-images.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#06b6d4,#0891b2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="18" rx="2"/><rect x="13" y="3" width="8" height="18" rx="2"/></svg></div>
+        <div class="related-name">Compare Two Images</div>
+        <div class="related-desc">Slider, side-by-side, overlay, and pixel diff comparison.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="image-metadata-editor.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#7c3aed,#4f46e5)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 3H8l-2 4h12z"/></svg></div>
+        <div class="related-name">Image Metadata Editor</div>
+        <div class="related-desc">View and strip EXIF metadata from JPEG images.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="image-compressor.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="related-name">Image Compressor</div>
+        <div class="related-desc">Compress JPEG, PNG, and WebP to reduce file size.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── Related Blog ── -->
+  <div class="page-section" style="margin-top:0">
+    <h2 class="section-title" style="margin-bottom:16px">Related Reading</h2>
+    <div class="blog-related-grid">
+      <a href="../../blog/webp-jpg-guide.html" class="blog-card">
+        <div class="blog-tag-sm">🖼 Images</div>
+        <div class="blog-title-sm">WebP Images Won't Open in Half Your Apps — Here's Why and How to Fix It</div>
+        <div class="blog-link">Read →</div>
+      </a>
+      <a href="../../blog/svg-png-guide.html" class="blog-card">
+        <div class="blog-tag-sm">🎨 Design</div>
+        <div class="blog-title-sm">SVG vs PNG — When to Use Each Format and Why the Difference Matters</div>
+        <div class="blog-link">Read →</div>
+      </a>
+      <a href="../../blog/image-metadata-privacy-guide.html" class="blog-card">
+        <div class="blog-tag-sm">🔒 Privacy</div>
+        <div class="blog-title-sm">What Your Phone Photos Know About You (And How to Remove It)</div>
+        <div class="blog-link">Read →</div>
+      </a>
+      <a href="../../blog/image-comparison-guide.html" class="blog-card">
+        <div class="blog-tag-sm">🔍 Design</div>
+        <div class="blog-title-sm">Before and After — How to Actually Compare Two Images Without Missing the Differences</div>
+        <div class="blog-link">Read →</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <rect x="7" y="9" width="22" height="18" rx="4" fill="#fff" fill-opacity=".9"/>
+          <text x="10" y="22" font-size="9" font-weight="800" fill="#10b981" font-family="monospace">W→J</text>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#10b981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#image">Image Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a><a href="../../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="webp-to-jpg.js"></script>
+</body>
+</html>

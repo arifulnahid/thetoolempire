@@ -347,6 +347,33 @@ const TOOLS_DATA = [
 
   // ── IMAGE TOOLS ────────────────────────────────────────────────
   {
+    id: 'webp-to-jpg',
+    title: 'WebP to JPG Converter',
+    description: 'Convert WebP images to JPEG in your browser. Adjustable quality (1–100), background color fill for transparent WebPs, batch convert and download as ZIP. No upload required.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>',
+    color: 'linear-gradient(135deg,#10b981,#059669)',
+    categories: ['image', 'converter', 'utilities'],
+    url: 'tools/image/webp-to-jpg.html',
+  },
+  {
+    id: 'compare-two-images',
+    title: 'Compare Two Images',
+    description: 'Compare two images side-by-side, with a drag slider, overlay fade, or pixel-level diff heatmap. See exactly what changed. Free and browser-based — no upload required.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="18" rx="2"/><rect x="13" y="3" width="8" height="18" rx="2"/></svg>',
+    color: 'linear-gradient(135deg,#06b6d4,#0891b2)',
+    categories: ['image', 'Design', 'utilities'],
+    url: 'tools/image/compare-two-images.html',
+  },
+  {
+    id: 'svg-to-png',
+    title: 'SVG to PNG Converter',
+    description: 'Convert SVG vector files to PNG images in your browser. Custom dimensions, 1×–4× scale for retina displays, transparent or solid background, batch convert and download as ZIP. No upload required.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l4-4 4 4M12 8v8"/></svg>',
+    color: 'linear-gradient(135deg,#f97316,#ea580c)',
+    categories: ['image', 'Design', 'converter', 'utilities'],
+    url: 'tools/image/svg-to-png.html',
+  },
+  {
     id: 'image-metadata-editor',
     title: 'Image Metadata Editor',
     description: 'View, edit, and remove EXIF metadata from JPEG images. Edit author, copyright, GPS location, dates. Strip all metadata for privacy. No upload required.',

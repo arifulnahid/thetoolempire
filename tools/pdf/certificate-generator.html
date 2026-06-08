@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certificate PDF Generator — Free Online Certificate Maker | The Tool Empire</title>
+  <meta name="description" content="Create professional certificates online and download as PDF or PNG. Six templates, custom colors, fonts and fields. No upload, no account — runs entirely in your browser." />
+  <link rel="canonical" href="https://thetoolempire.com/tools/pdf/certificate-generator.html" />
+  <link rel="manifest" href="../../manifest.json" />
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-CNN44ER8MF');
+  </script>
+
+  <!-- AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <link rel="stylesheet" href="certificate-generator.css" />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Certificate PDF Generator",
+      "url": "https://thetoolempire.com/tools/pdf/certificate-generator.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "Free browser-based certificate maker. Choose from six templates, customize colors, fonts and text, then download a print-ready PDF or PNG. No upload required.",
+      "featureList": [
+        "Six certificate templates",
+        "Custom primary color",
+        "Four font styles",
+        "Landscape and portrait orientation",
+        "Download as PDF (A4)",
+        "Download as PNG (2× resolution)",
+        "Live canvas preview",
+        "100% client-side — no data uploaded"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home",      "item": "https://thetoolempire.com/" },
+        { "@type": "ListItem", "position": 2, "name": "PDF Tools", "item": "https://thetoolempire.com/#pdf" },
+        { "@type": "ListItem", "position": 3, "name": "Certificate PDF Generator" }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does the certificate generator upload anything to a server?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Everything runs inside your browser using the HTML5 Canvas API and jsPDF. No text, images, or data ever leave your device." }
+        },
+        {
+          "@type": "Question",
+          "name": "What PDF size does it produce?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The downloaded PDF is A4 — either 297×210 mm (landscape) or 210×297 mm (portrait). The certificate image is rendered at twice the screen resolution before embedding, so it prints crisply." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I print the certificate directly from the browser?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Download the PDF and open it in any PDF viewer, then print. For best results set your printer to the same orientation (landscape or portrait) as the certificate." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a limit to how many certificates I can make?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No limit. The tool is free and runs offline in your browser, so you can generate as many certificates as you need without any account or subscription." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I add a logo or image to the certificate?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The current version uses canvas-drawn decorative elements only. Logo upload is not yet supported, but you can open the downloaded PDF in any editor (Adobe Acrobat, LibreOffice Draw, etc.) to add additional graphics." }
+        }
+      ]
+    }
+  ]
+  </script>
+</head>
+<body x-data="certificateGeneratorApp()" x-init="init()">
+
+  <div class="page-wrap">
+
+    <!-- breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../index.html#pdf">PDF Tools</a>
+      <span>›</span>
+      <span>Certificate PDF Generator</span>
+    </nav>
+
+    <!-- header -->
+    <header class="tool-header">
+      <div class="tool-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+          <polyline points="9 11 12 14 15 11" stroke-width="1.4"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Certificate PDF Generator</h1>
+        <p>Design a professional certificate and download it as a print-ready PDF — all in your browser, no account needed.</p>
+      </div>
+    </header>
+
+    <!-- ad top -->
+    <div class="ad-wrap" style="margin-bottom:1.25rem;">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- ── main tool ── -->
+    <div class="tool-main">
+
+      <!-- left: controls -->
+      <aside>
+        <!-- template picker -->
+        <div class="card" style="margin-bottom:1rem;">
+          <div class="card-title">Template</div>
+          <div class="tpl-grid">
+            <template x-for="tpl in templates" :key="tpl.id">
+              <div
+                class="tpl-thumb"
+                :class="{ selected: template === tpl.id }"
+                @click="template = tpl.id"
+              >
+                <canvas :id="'thumb-' + tpl.id"></canvas>
+                <div class="tpl-label" x-text="tpl.label"></div>
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <!-- orientation -->
+        <div class="card" style="margin-bottom:1rem;">
+          <div class="card-title">Orientation</div>
+          <div class="orient-row">
+            <div class="orient-chip" :class="{ active: orientation === 'landscape' }" @click="orientation = 'landscape'">
+              ⬛ Landscape
+            </div>
+            <div class="orient-chip" :class="{ active: orientation === 'portrait' }" @click="orientation = 'portrait'">
+              ▮ Portrait
+            </div>
+          </div>
+
+          <!-- color -->
+          <div class="card-title" style="margin-top:.5rem;">Accent Color</div>
+          <div class="color-row">
+            <template x-for="c in palette" :key="c">
+              <div
+                class="color-chip"
+                :class="{ selected: color === c }"
+                :style="{ background: c }"
+                @click="color = c"
+              ></div>
+            </template>
+          </div>
+
+          <!-- font -->
+          <div class="card-title" style="margin-top:.5rem;">Font Style</div>
+          <div class="font-row">
+            <template x-for="f in fonts" :key="f.id">
+              <div
+                class="font-chip"
+                :class="{ active: fontId === f.id }"
+                :style="{ fontFamily: f.family }"
+                @click="fontId = f.id"
+                x-text="f.label"
+              ></div>
+            </template>
+          </div>
+        </div>
+
+        <!-- certificate fields -->
+        <div class="card" style="margin-bottom:1rem;">
+          <div class="card-title">Certificate Fields</div>
+
+          <div class="field-group">
+            <label>Recipient Name</label>
+            <input class="field-input" type="text" x-model="recipient" placeholder="Jane Doe" />
+          </div>
+
+          <div class="field-group">
+            <label>Certificate Title</label>
+            <input class="field-input" type="text" x-model="title" placeholder="Certificate of Achievement" />
+          </div>
+
+          <div class="field-group">
+            <label>Subtitle / Course Name <span style="color:var(--text-faint)">(optional)</span></label>
+            <input class="field-input" type="text" x-model="subtitle" placeholder="Advanced Web Development" />
+          </div>
+
+          <div class="field-group">
+            <label>Description <span style="color:var(--text-faint)">(optional)</span></label>
+            <textarea class="field-input" x-model="description" placeholder="For outstanding performance and dedication..."></textarea>
+          </div>
+
+          <div class="field-group">
+            <label>Issuer / Organization</label>
+            <input class="field-input" type="text" x-model="issuer" placeholder="The Tool Empire Academy" />
+          </div>
+
+          <div class="field-group">
+            <label>Date</label>
+            <input class="field-input" type="text" x-model="date" placeholder="June 8, 2026" />
+          </div>
+        </div>
+
+        <!-- actions -->
+        <div class="card">
+          <button class="btn-download" @click="downloadPdf()">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download PDF
+          </button>
+          <button class="btn-secondary" @click="downloadPng()">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Download PNG
+          </button>
+        </div>
+      </aside>
+
+      <!-- right: preview -->
+      <div class="preview-panel">
+        <div class="preview-card">
+          <div class="card-title">Live Preview</div>
+          <div class="preview-wrap">
+            <canvas id="previewCanvas" x-ref="previewCanvas"></canvas>
+            <div class="preview-hint">Updates as you type</div>
+          </div>
+        </div>
+
+        <!-- ad sidebar -->
+        <div class="ad-wrap" style="min-height:250px;">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+      </div>
+    </div><!-- /tool-main -->
+
+    <!-- ── sections ── -->
+    <div class="sections">
+
+      <!-- description -->
+      <section>
+        <h2 class="section-title">What This Tool Does</h2>
+        <div class="prose">
+          <p>The Certificate PDF Generator lets you create polished, print-ready certificates entirely in your browser. There is no server involved — the canvas rendering, text layout, and PDF packaging all happen locally using the HTML5 Canvas API and jsPDF.</p>
+          <p>Six distinct templates cover the most common use cases: a traditional parchment <strong>Classic</strong>, a clean corporate <strong>Modern</strong>, a dark-luxury <strong>Elegant</strong>, a vivid high-contrast <strong>Bold</strong>, a typographic <strong>Minimal</strong>, and a formal <strong>Academic</strong> layout with a seal graphic. Each template adapts to whichever accent color and font style you select.</p>
+          <p>The downloaded PDF is A4 at full print resolution. The PNG export renders at 2× canvas size, giving you a high-density image suitable for digital display or further editing in any graphics application.</p>
+        </div>
+      </section>
+
+      <!-- how to use -->
+      <section>
+        <h2 class="section-title">How to Make Your Certificate</h2>
+        <div class="steps">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text"><strong>Pick a template.</strong> Click any thumbnail in the Template panel. The preview updates immediately.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text"><strong>Choose orientation and style.</strong> Toggle Landscape or Portrait, select an accent color from the swatches, and pick a font style (Serif, Sans-serif, Monospace, or Cursive).</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text"><strong>Fill in the fields.</strong> Enter the recipient's name, certificate title, optional subtitle or course name, a short description, issuer name, and date. The canvas redraws as you type.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-text"><strong>Download.</strong> Click <em>Download PDF</em> for a print-ready A4 PDF, or <em>Download PNG</em> if you need a high-resolution image file.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">5</div>
+            <div class="step-text"><strong>Print or share.</strong> Open the PDF in any viewer and print. For digital distribution simply attach the PDF or PNG to an email or learning platform.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <h2 class="section-title">Common Questions</h2>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <div class="faq-q" @click="toggleFaq($el)">
+              Does this tool upload anything to a server?
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+            <div class="faq-a">No. The certificate is drawn on an HTML5 Canvas element that lives entirely in your browser tab. jsPDF packages the canvas image into a PDF file on your device. Nothing is sent to any server — your recipient's name and any personal details stay completely private.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" @click="toggleFaq($el)">
+              What paper size and resolution does the PDF use?
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+            <div class="faq-a">The PDF is A4 — 297 × 210 mm in landscape or 210 × 297 mm in portrait. Before embedding, the certificate is rendered on an offscreen canvas at twice the display resolution, so printed output is sharp and clear even on high-DPI printers.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" @click="toggleFaq($el)">
+              Can I generate certificates in bulk for multiple recipients?
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+            <div class="faq-a">The tool is designed for one certificate at a time. For bulk generation, you would change the recipient name field and click Download PDF for each person. Automated batch processing from a spreadsheet is not currently supported but may be added in a future update.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" @click="toggleFaq($el)">
+              Is there a limit on how many I can create?
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+            <div class="faq-a">There is no limit. The tool is free, runs locally in your browser, and requires no account or login. You can generate as many certificates as you need.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" @click="toggleFaq($el)">
+              Can I add my own logo or signature image?
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+            <div class="faq-a">Custom image upload is not supported in this version. All decorative elements are drawn programmatically on the canvas. If you need to add a logo, download the PDF or PNG and edit it in Adobe Acrobat, Canva, LibreOffice Draw, or any image editor before sending.</div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- related -->
+      <section>
+        <h2 class="section-title">Related Tools</h2>
+        <div class="related-grid">
+          <a href="image-to-pdf.html" class="related-card">
+            <div class="related-card-title">Image to PDF</div>
+            <div class="related-card-desc">Combine multiple images into a single PDF document.</div>
+          </a>
+          <a href="pdf-metadata.html" class="related-card">
+            <div class="related-card-title">PDF Metadata Editor</div>
+            <div class="related-card-desc">View and edit title, author, subject of any PDF file.</div>
+          </a>
+          <a href="pdf-compressor.html" class="related-card">
+            <div class="related-card-title">PDF Compressor</div>
+            <div class="related-card-desc">Reduce PDF file size while keeping acceptable quality.</div>
+          </a>
+          <a href="pdf-to-image.html" class="related-card">
+            <div class="related-card-title">PDF to Image</div>
+            <div class="related-card-desc">Convert PDF pages to PNG or JPEG at up to 288 DPI.</div>
+          </a>
+        </div>
+      </section>
+
+    </div><!-- /sections -->
+
+    <!-- ad bottom -->
+    <div class="ad-wrap" style="margin-top:2rem;">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+  </div><!-- /page-wrap -->
+
+  <div id="toast"></div>
+
+  <script src="certificate-generator.js"></script>
+</body>
+</html>

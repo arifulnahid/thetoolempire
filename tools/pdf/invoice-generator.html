@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice PDF Generator — Free Online Invoice Maker | The Tool Empire</title>
+  <meta name="description" content="Create professional invoices and download as PDF in seconds. Add line items, tax, discount, notes and payment terms. Free, no account, runs entirely in your browser." />
+  <link rel="canonical" href="https://thetoolempire.com/tools/pdf/invoice-generator.html" />
+  <link rel="manifest" href="../../manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
+  <link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+  <meta name="theme-color" content="#6C63FF" />
+
+  <meta property="og:title" content="Invoice PDF Generator — The Tool Empire" />
+  <meta property="og:description" content="Free browser-based invoice maker. No signup. Download PDF or PNG instantly." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://thetoolempire.com/tools/pdf/invoice-generator.html" />
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="../../assets/css/main.css" />
+  <link rel="stylesheet" href="invoice-generator.css" />
+
+  <script type="application/ld+json">
+  [
+    {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Invoice PDF Generator","url":"https://thetoolempire.com/tools/pdf/invoice-generator.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free browser-based invoice maker. Fill in sender, client, line items, tax and discount, then download a print-ready PDF or PNG."},
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},{"@type":"ListItem","position":2,"name":"PDF Tools","item":"https://thetoolempire.com/#pdf"},{"@type":"ListItem","position":3,"name":"Invoice PDF Generator"}]},
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does this invoice tool upload my data to a server?","acceptedAnswer":{"@type":"Answer","text":"No. Everything is processed in your browser using the HTML5 Canvas API and jsPDF."}},{"@type":"Question","name":"What paper sizes are supported?","acceptedAnswer":{"@type":"Answer","text":"A4, US Letter, A5, Legal, B5, and Half Letter."}},{"@type":"Question","name":"Can I upload a logo?","acceptedAnswer":{"@type":"Answer","text":"Yes. Click Upload Logo in the Style section to add a PNG, JPG, or SVG."}},{"@type":"Question","name":"How is tax calculated?","acceptedAnswer":{"@type":"Answer","text":"Discount is applied first, then tax is calculated on the discounted subtotal."}},{"@type":"Question","name":"Is there a limit on line items?","acceptedAnswer":{"@type":"Answer","text":"No limit."}}]}
+  ]
+  </script>
+</head>
+<body x-data="invoiceGeneratorApp()" x-init="init()">
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../../index.html" class="logo" aria-label="The Tool Empire Home">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="40" height="40" rx="10" fill="url(#logoGrad)" />
+        <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round" />
+        <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2" />
+        <defs>
+          <linearGradient id="logoGrad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#6C63FF" />
+            <stop offset="1" stop-color="#4ECDC4" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../contact.html" class="nav-link">Contact</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+    <button class="menu-toggle" @click="mobileMenuOpen = !mobileMenuOpen" :aria-expanded="mobileMenuOpen" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="mobile-nav" :class="{ open: mobileMenuOpen }" aria-label="Mobile navigation">
+    <a href="../../index.html" class="nav-link" @click="mobileMenuOpen = false">Home</a>
+    <a href="../../tools.html" class="nav-link" @click="mobileMenuOpen = false">Tools</a>
+    <a href="../../blog.html" class="nav-link" @click="mobileMenuOpen = false">Blog</a>
+    <a href="../../contact.html" class="nav-link" @click="mobileMenuOpen = false">Contact</a>
+    <a href="../../about.html" class="nav-link" @click="mobileMenuOpen = false">About</a>
+  </nav>
+</header>
+
+<div class="page-wrap">
+
+  <!-- breadcrumb -->
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../../index.html">Home</a><span>›</span>
+    <a href="../../index.html#pdf">PDF Tools</a><span>›</span>
+    <span>Invoice PDF Generator</span>
+  </nav>
+
+  <!-- page header -->
+  <header class="tool-header">
+    <div class="tool-icon">
+      <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+        <line x1="10" y1="9"  x2="8" y2="9"/>
+      </svg>
+    </div>
+    <div>
+      <h1>Invoice PDF Generator</h1>
+      <p>Fill in details, upload a logo, pick your paper size — download a print-ready PDF instantly.</p>
+    </div>
+  </header>
+
+  <!-- ad top -->
+  <div class="ad-wrap" style="margin-bottom:1.25rem;">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="tool-main">
+
+    <!-- ═══ LEFT: form ═══ -->
+    <div class="form-panel">
+
+      <!-- action bar -->
+      <div class="action-bar">
+        <button class="btn-sm" @click="loadSample()">
+          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9S3 16.97 3 12 7.03 3 12 3s9 4.03 9 9z"/></svg>
+          Load Sample
+        </button>
+        <button class="btn-sm" @click="clearAll()">
+          <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+          Clear All
+        </button>
+      </div>
+
+      <!-- ── 1. Style & Format ── -->
+      <div class="acc-section open" id="sec-style">
+        <div class="acc-head" @click="$el.closest('.acc-section').classList.toggle('open')">
+          <div class="acc-head-left">
+            <div class="acc-head-icon">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="13.5" r="2.5"/><circle cx="8.5" cy="13.5" r="2.5"/></svg>
+            </div>
+            <div>
+              <div class="acc-head-title">Style &amp; Format</div>
+              <div class="acc-head-sub" x-text="(paperSizes.find(p=>p.id===paperSizeId)?.label||'A4') + ' · ' + currencyCode"></div>
+            </div>
+          </div>
+          <div class="acc-chevron"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></div>
+        </div>
+        <div class="acc-body">
+
+          <!-- logo upload -->
+          <div class="field" style="margin-bottom:.9rem;">
+            <label>Company Logo <span class="opt">(PNG, JPG, SVG)</span></label>
+            <div class="logo-upload-row">
+              <template x-if="!logoImg">
+                <label class="logo-upload-btn" for="logoInput">
+                  <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  Upload Logo
+                </label>
+              </template>
+              <template x-if="logoImg">
+                <div class="logo-preview-wrap">
+                  <span class="logo-preview-name">
+                    <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" style="width:14px;height:14px;stroke:var(--primary);fill:none;flex-shrink:0;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    Logo uploaded
+                  </span>
+                  <button class="logo-remove-btn" @click="removeLogo()">
+                    <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    Remove
+                  </button>
+                </div>
+              </template>
+              <input type="file" id="logoInput" accept="image/*" style="display:none;" @change="handleLogoUpload($event)" />
+            </div>
+          </div>
+
+          <hr class="sec-divider" />
+
+          <!-- paper size — 3-col × 2-row grid -->
+          <div class="field" style="margin-bottom:.9rem;">
+            <label>Paper Size</label>
+            <div class="size-grid">
+              <template x-for="ps in paperSizes" :key="ps.id">
+                <div class="size-card" :class="{ on: paperSizeId === ps.id }" @click="paperSizeId = ps.id">
+                  <div class="size-card-icon" :style="'height:' + Math.round(28 * ps.ratio) + 'px'"></div>
+                  <div class="size-card-label" x-text="ps.label"></div>
+                  <div class="size-card-dim"   x-text="ps.dim"></div>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <hr class="sec-divider" />
+
+          <!-- accent color -->
+          <div class="field" style="margin-bottom:.75rem;">
+            <label>Accent Color</label>
+            <div class="swatch-row">
+              <template x-for="c in accentColors" :key="c">
+                <div class="swatch" :class="{ on: accentColor === c }" :style="{ background: c }" @click="accentColor = c"></div>
+              </template>
+            </div>
+          </div>
+
+          <hr class="sec-divider" />
+
+          <!-- currency -->
+          <div class="field" style="margin-bottom:0;">
+            <label>Currency</label>
+            <div class="chip-group">
+              <template x-for="cur in currencies" :key="cur.code">
+                <div class="chip" :class="{ on: currencyCode === cur.code }" @click="currencyCode = cur.code" x-text="cur.code"></div>
+              </template>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── 2. From ── -->
+      <div class="acc-section open" id="sec-from">
+        <div class="acc-head" @click="$el.closest('.acc-section').classList.toggle('open')">
+          <div class="acc-head-left">
+            <div class="acc-head-icon">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div>
+              <div class="acc-head-title">From — Your Details</div>
+              <div class="acc-head-sub" x-text="fromName || 'Your company name'"></div>
+            </div>
+          </div>
+          <div class="acc-chevron"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></div>
+        </div>
+        <div class="acc-body">
+          <div class="field">
+            <label>Company / Your Name</label>
+            <input class="fi" type="text" x-model="fromName" placeholder="Acme Studio" />
+          </div>
+          <div class="field">
+            <label>Header Display Name <span class="opt">(shown in invoice header if no logo)</span></label>
+            <input class="fi" type="text" x-model="logoText" placeholder="Acme Studio" />
+          </div>
+          <div class="field">
+            <label>Address</label>
+            <textarea class="fi" x-model="fromAddress" placeholder="123 Main St&#10;New York, NY 10001" rows="3"></textarea>
+          </div>
+          <div class="grid-2">
+            <div class="field" style="margin-bottom:0;">
+              <label>Email</label>
+              <input class="fi" type="email" x-model="fromEmail" placeholder="you@company.com" />
+            </div>
+            <div class="field" style="margin-bottom:0;">
+              <label>Phone</label>
+              <input class="fi" type="tel" x-model="fromPhone" placeholder="+1 555 000 0000" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 3. Bill To ── -->
+      <div class="acc-section open" id="sec-to">
+        <div class="acc-head" @click="$el.closest('.acc-section').classList.toggle('open')">
+          <div class="acc-head-left">
+            <div class="acc-head-icon">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            </div>
+            <div>
+              <div class="acc-head-title">Bill To — Client</div>
+              <div class="acc-head-sub" x-text="toName || 'Client name'"></div>
+            </div>
+          </div>
+          <div class="acc-chevron"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></div>
+        </div>
+        <div class="acc-body">
+          <div class="field">
+            <label>Client Name / Company</label>
+            <input class="fi" type="text" x-model="toName" placeholder="GlobalTech Corp" />
+          </div>
+          <div class="field">
+            <label>Address</label>
+            <textarea class="fi" x-model="toAddress" placeholder="456 Business Blvd&#10;San Francisco, CA 94105" rows="3"></textarea>
+          </div>
+          <div class="grid-2">
+            <div class="field" style="margin-bottom:0;">
+              <label>Email</label>
+              <input class="fi" type="email" x-model="toEmail" placeholder="ap@client.com" />
+            </div>
+            <div class="field" style="margin-bottom:0;">
+              <label>Phone</label>
+              <input class="fi" type="tel" x-model="toPhone" placeholder="+1 555 000 0000" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 4. Invoice Details ── -->
+      <div class="acc-section open" id="sec-meta">
+        <div class="acc-head" @click="$el.closest('.acc-section').classList.toggle('open')">
+          <div class="acc-head-left">
+            <div class="acc-head-icon">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div>
+              <div class="acc-head-title">Invoice Details</div>
+              <div class="acc-head-sub" x-text="'#' + (invoiceNum || '0001') + (dueDate ? ' · Due ' + dueDate : '')"></div>
+            </div>
+          </div>
+          <div class="acc-chevron"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></div>
+        </div>
+        <div class="acc-body">
+          <div class="grid-2">
+            <div class="field">
+              <label>Invoice #</label>
+              <input class="fi" type="text" x-model="invoiceNum" placeholder="0001" />
+            </div>
+            <div class="field">
+              <label>PO Number <span class="opt">(optional)</span></label>
+              <input class="fi" type="text" x-model="poNumber" placeholder="PO-12345" />
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="field" style="margin-bottom:0;">
+              <label>Invoice Date</label>
+              <input class="fi" type="text" x-model="invoiceDate" placeholder="June 8, 2026" />
+            </div>
+            <div class="field" style="margin-bottom:0;">
+              <label>Due Date</label>
+              <input class="fi" type="text" x-model="dueDate" placeholder="July 8, 2026" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 5. Line Items ── -->
+      <div class="acc-section open" id="sec-items">
+        <div class="acc-head" @click="$el.closest('.acc-section').classList.toggle('open')">
+          <div class="acc-head-left">
+            <div class="acc-head-icon">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            </div>
+            <div>
+              <div class="acc-head-title">Line Items</div>
+              <div class="acc-head-sub" x-text="items.length + ' item' + (items.length !== 1 ? 's' : '') + ' · ' + fmtMoney(total)"></div>
+            </div>
+          </div>
+          <div class="acc-chevron"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></div>
+        </div>
+        <div class="acc-body">
+
+          <div class="items-hdr">
+            <span>Description</span>
+            <span class="c">Qty</span>
+            <span class="r">Rate</span>
+            <span class="r">Amt</span>
+            <span></span>
+          </div>
+
+          <template x-for="item in items" :key="item.id">
+            <div class="item-row">
+              <input class="fi" type="text"   x-model="item.desc" placeholder="Description" />
+              <input class="fi c" type="number" x-model="item.qty"  min="0" step="0.5"  placeholder="1" />
+              <input class="fi r" type="number" x-model="item.rate" min="0" step="0.01" placeholder="0.00" />
+              <div class="item-amt" x-text="itemAmount(item)"></div>
+              <button class="del-btn" @click="removeItem(item.id)" title="Remove">
+                <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+              </button>
+            </div>
+          </template>
+
+          <button class="add-row-btn" @click="addItem()">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Item
+          </button>
+
+          <hr class="sec-divider" style="margin-top:1rem;" />
+
+          <div class="grid-2" style="margin-top:.8rem;">
+            <div class="field" style="margin-bottom:0;">
+              <label>Discount (%)</label>
+              <input class="fi" type="number" x-model="discountRate" min="0" max="100" step="0.5" placeholder="0" />
+            </div>
+            <div class="field" style="margin-bottom:0;">
+              <label>Tax Rate (%)</label>
+              <input class="fi" type="number" x-model="taxRate" min="0" step="0.5" placeholder="0" />
+            </div>
+          </div>
+
+          <div class="totals-box">
+            <div class="tot-row">
+              <span>Subtotal</span>
+              <span class="v" x-text="fmtMoney(subtotal)"></span>
+            </div>
+            <template x-if="parseFloat(discountRate) > 0">
+              <div class="tot-row">
+                <span x-text="'Discount (' + discountRate + '%)'"></span>
+                <span class="v" x-text="'− ' + fmtMoney(discountAmt)"></span>
+              </div>
+            </template>
+            <template x-if="parseFloat(taxRate) > 0">
+              <div class="tot-row">
+                <span x-text="'Tax (' + taxRate + '%)'"></span>
+                <span class="v" x-text="fmtMoney(taxAmt)"></span>
+              </div>
+            </template>
+            <div class="tot-row grand">
+              <span>Total Due</span>
+              <span class="v" x-text="fmtMoney(total)"></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── 6. Notes & Terms ── -->
+      <div class="acc-section" id="sec-notes">
+        <div class="acc-head" @click="$el.closest('.acc-section').classList.toggle('open')">
+          <div class="acc-head-left">
+            <div class="acc-head-icon">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div>
+              <div class="acc-head-title">Notes &amp; Terms</div>
+              <div class="acc-head-sub">Payment terms, thank-you note</div>
+            </div>
+          </div>
+          <div class="acc-chevron"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></div>
+        </div>
+        <div class="acc-body">
+          <div class="field">
+            <label>Notes <span class="opt">(optional)</span></label>
+            <textarea class="fi" x-model="notes" placeholder="Thank you for your business!" rows="3"></textarea>
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <label>Payment Terms</label>
+            <textarea class="fi" x-model="terms" placeholder="Payment due within 30 days." rows="2"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Download ── -->
+      <div class="dl-stack">
+        <button class="btn-dl btn-dl-primary" @click="downloadPdf()">
+          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PDF
+          <span style="opacity:.7;font-size:.78rem;font-weight:400;" x-text="'(' + (paperSizes.find(p=>p.id===paperSizeId)?.label||'A4') + ')'"></span>
+        </button>
+        <button class="btn-dl btn-dl-ghost" @click="downloadPng()">
+          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Download PNG
+        </button>
+      </div>
+
+    </div><!-- /form-panel -->
+
+    <!-- ═══ RIGHT: preview ═══ -->
+    <div class="preview-panel">
+      <div class="preview-card">
+        <div class="preview-topbar">
+          <span class="preview-topbar-label">Live Preview</span>
+          <span class="preview-size-badge" x-text="(paperSizes.find(p=>p.id===paperSizeId)?.label||'A4') + ' · ' + (paperSizes.find(p=>p.id===paperSizeId)?.dim||'')"></span>
+        </div>
+        <div class="preview-bg">
+          <canvas id="previewCanvas" x-ref="previewCanvas"></canvas>
+        </div>
+      </div>
+
+      <div class="ad-wrap" style="min-height:250px;">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+    </div>
+
+  </div><!-- /tool-main -->
+
+  <!-- ── info sections ── -->
+  <div class="sections">
+
+    <section>
+      <h2 class="section-title">What This Tool Does</h2>
+      <div class="prose">
+        <p>The Invoice PDF Generator creates professional invoices entirely in your browser. Fill in your company details, upload a logo, add client information and line items — the live canvas preview updates as you type. Choose from 6 paper sizes (A4, Letter, A5, Legal, B5, Half Letter), pick an accent color, and select your currency. Download a print-ready PDF or high-resolution PNG instantly.</p>
+        <p>No data leaves your device. All processing uses the HTML5 Canvas API and jsPDF locally. Eight currencies including USD, EUR, GBP, INR, and BDT are supported.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">How to Create Your Invoice</h2>
+      <div class="steps">
+        <div class="step-item"><div class="step-num">1</div><div class="step-text"><strong>Set style.</strong> Upload your logo (or type a display name), pick paper size, accent color, and currency.</div></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-text"><strong>Enter your details.</strong> Fill in your company name, address, email, and phone in the From section.</div></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-text"><strong>Add client details.</strong> Fill in the Bill To section with your client's name, address, and contact information.</div></div>
+        <div class="step-item"><div class="step-num">4</div><div class="step-text"><strong>Set invoice metadata.</strong> Enter the invoice number, optional PO number, invoice date, and due date.</div></div>
+        <div class="step-item"><div class="step-num">5</div><div class="step-text"><strong>Add line items.</strong> Click Add Item for each service or product. Enter a description, quantity, and rate.</div></div>
+        <div class="step-item"><div class="step-num">6</div><div class="step-text"><strong>Set tax and discount.</strong> Enter discount and tax percentages — totals update live.</div></div>
+        <div class="step-item"><div class="step-num">7</div><div class="step-text"><strong>Download.</strong> Click Download PDF for a print-ready document or Download PNG for a high-resolution image.</div></div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" @click="toggleFaq($el)">Does the tool send my data to a server?<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          <div class="faq-a">No. All rendering happens on an HTML5 Canvas in your browser. jsPDF packages the result locally. Your data never leaves your device.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" @click="toggleFaq($el)">What paper sizes are supported?<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          <div class="faq-a">A4 (210×297mm), US Letter (8.5×11in), A5 (148×210mm), Legal (8.5×14in), B5 (176×250mm), and Half Letter (5.5×8.5in). Select before downloading — the preview and PDF both update.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" @click="toggleFaq($el)">Can I add my company logo?<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          <div class="faq-a">Yes. Click Upload Logo in the Style section to add a PNG, JPG, or SVG. It appears in the invoice header alongside the INVOICE label, scaled to fit neatly.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" @click="toggleFaq($el)">How is tax calculated — before or after discount?<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          <div class="faq-a">Discount is applied to the subtotal first, then tax is calculated on the discounted amount. Each figure is shown on its own labeled row.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" @click="toggleFaq($el)">Is there a limit on line items?<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          <div class="faq-a">No limit. Items stack vertically — keep readability in mind if you add many rows.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Related Tools</h2>
+      <div class="related-grid">
+        <a href="certificate-generator.html" class="related-card">
+          <div class="related-card-title">Certificate Generator</div>
+          <div class="related-card-desc">Create achievement certificates and download as PDF or PNG.</div>
+        </a>
+        <a href="pdf-metadata.html" class="related-card">
+          <div class="related-card-title">PDF Metadata Editor</div>
+          <div class="related-card-desc">View and edit title, author, subject of any PDF file.</div>
+        </a>
+        <a href="image-to-pdf.html" class="related-card">
+          <div class="related-card-title">Image to PDF</div>
+          <div class="related-card-desc">Combine multiple images into a single PDF document.</div>
+        </a>
+        <a href="pdf-compressor.html" class="related-card">
+          <div class="related-card-title">PDF Compressor</div>
+          <div class="related-card-desc">Reduce PDF file size while keeping acceptable quality.</div>
+        </a>
+      </div>
+    </section>
+
+  </div><!-- /sections -->
+
+  <div class="ad-wrap" style="margin-top:2rem;">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo" aria-label="The Tool Empire">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="40" height="40" rx="10" fill="url(#logoGrad2)" />
+          <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round" />
+          <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2" />
+          <defs>
+            <linearGradient id="logoGrad2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#6C63FF" />
+              <stop offset="1" stop-color="#4ECDC4" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free tools, no limits.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=Text">Text Tools</a>
+        <a href="../../tools.html?cat=Math">Math &amp; Calculators</a>
+        <a href="../../tools.html?cat=Color">Color Tools</a>
+        <a href="../../tools.html?cat=Coding">Coding Tools</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+        <a href="../../about.html">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../terms.html">Terms of Use</a>
+        <a href="../../sitemap.xml">Sitemap</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>&copy; <span x-text="new Date().getFullYear()"></span> The Tool Empire. All rights reserved.</p>
+      <p>All tools run locally in your browser. We never store your data.</p>
+    </div>
+  </div>
+</footer>
+
+<div id="toast"></div>
+<script src="invoice-generator.js"></script>
+</body>
+</html>

@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="The Tool Empire — Free online tools for text, math, color, coding, SEO, and more. No signup, no server — runs entirely in your browser." />
-  <meta name="keywords" content="free online tools, text tools, calculator, color picker, json formatter, seo tools, coding tools, web tools" />
+  <meta name="description"
+    content="The Tool Empire — Free online tools for text, math, color, coding, SEO, and more. No signup, no server — runs entirely in your browser." />
+  <meta name="keywords"
+    content="free online tools, text tools, calculator, color picker, json formatter, seo tools, coding tools, web tools" />
   <meta name="author" content="The Tool Empire" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://thetoolempire.com/" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="The Tool Empire — Free Browser-Based Tools" />
-  <meta property="og:description" content="Hundreds of free online tools for developers, designers, writers, and students. Fast, private, no login required." />
+  <meta property="og:description"
+    content="Hundreds of free online tools for developers, designers, writers, and students. Fast, private, no login required." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://thetoolempire.com/" />
   <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png" />
@@ -56,7 +60,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-CNN44ER8MF');
   </script>
@@ -101,7 +105,10 @@
     "sameAs": []
   }
   </script>
+  <script defer data-url="https://devhunt.org/tool/the-tool-empire"
+    src="https://cdn.jsdelivr.net/gh/sidiDev/devhunt-banner/indexV0.js"></script>
 </head>
+
 <body x-data="toolsApp()" x-init="init()">
 
   <!-- ===== HEADER ===== -->
@@ -109,13 +116,13 @@
     <div class="container header-inner">
       <a href="/" class="logo" aria-label="The Tool Empire Home">
         <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="40" height="40" rx="10" fill="url(#logoGrad)"/>
-          <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/>
+          <rect width="40" height="40" rx="10" fill="url(#logoGrad)" />
+          <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round" />
+          <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2" />
           <defs>
             <linearGradient id="logoGrad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#6C63FF"/>
-              <stop offset="1" stop-color="#4ECDC4"/>
+              <stop stop-color="#6C63FF" />
+              <stop offset="1" stop-color="#4ECDC4" />
             </linearGradient>
           </defs>
         </svg>
@@ -130,7 +137,8 @@
         <a href="about.html" class="nav-link">About</a>
       </nav>
 
-      <button class="menu-toggle" @click="mobileMenuOpen = !mobileMenuOpen" :aria-expanded="mobileMenuOpen" aria-label="Toggle menu">
+      <button class="menu-toggle" @click="mobileMenuOpen = !mobileMenuOpen" :aria-expanded="mobileMenuOpen"
+        aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -150,42 +158,33 @@
     <div class="container hero-inner">
       <div class="hero-badge">100% Free &amp; Browser-Based</div>
       <h1 id="hero-heading" class="hero-title">Your Empire of <span class="gradient-text">Free Online Tools</span></h1>
-      <p class="hero-subtitle">Powerful tools for developers, designers, writers &amp; students. No login. No server. Runs entirely in your browser.</p>
+      <p class="hero-subtitle">Powerful tools for developers, designers, writers &amp; students. No login. No server.
+        Runs entirely in your browser.</p>
 
       <!-- Search -->
       <div class="search-wrapper" role="search">
         <label for="tool-search" class="sr-only">Search tools</label>
-        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          aria-hidden="true">
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.35-4.35" />
         </svg>
-        <input
-          id="tool-search"
-          type="search"
-          class="search-input"
-          placeholder="Search 100+ tools… e.g. JSON, calculator, color"
-          x-model="searchQuery"
-          @input="filterTools()"
-          autocomplete="off"
-        />
+        <input id="tool-search" type="search" class="search-input"
+          placeholder="Search 100+ tools… e.g. JSON, calculator, color" x-model="searchQuery" @input="filterTools()"
+          autocomplete="off" />
         <template x-if="searchQuery">
-          <button class="search-clear" @click="searchQuery = ''; filterTools()" aria-label="Clear search">&times;</button>
+          <button class="search-clear" @click="searchQuery = ''; filterTools()"
+            aria-label="Clear search">&times;</button>
         </template>
       </div>
 
       <!-- Category Pills -->
       <div class="category-pills" role="navigation" aria-label="Filter by category">
-        <button
-          class="pill"
-          :class="{ active: activeCategory === '' }"
-          @click="activeCategory = ''; filterTools()"
-        >All</button>
+        <button class="pill" :class="{ active: activeCategory === '' }"
+          @click="activeCategory = ''; filterTools()">All</button>
         <template x-for="cat in categories" :key="cat.slug">
-          <button
-            class="pill"
-            :class="{ active: activeCategory === cat.slug }"
-            @click="activeCategory = cat.slug; filterTools()"
-            x-text="cat.label"
-          ></button>
+          <button class="pill" :class="{ active: activeCategory === cat.slug }"
+            @click="activeCategory = cat.slug; filterTools()" x-text="cat.label"></button>
         </template>
       </div>
     </div>
@@ -195,7 +194,8 @@
   <main id="tools" class="tools-section">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title" x-text="activeCategory ? categories.find(c=>c.slug===activeCategory)?.label + ' Tools' : 'All Tools'"></h2>
+        <h2 class="section-title"
+          x-text="activeCategory ? categories.find(c=>c.slug===activeCategory)?.label + ' Tools' : 'All Tools'"></h2>
         <p class="section-count"><span x-text="filteredTools.length"></span> tools found</p>
       </div>
 
@@ -203,8 +203,8 @@
       <template x-if="filteredTools.length === 0">
         <div class="no-results" role="alert">
           <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="32" cy="32" r="30" stroke="#e2e8f0" stroke-width="3"/>
-            <path d="M20 32h24M32 20v24" stroke="#cbd5e1" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="32" cy="32" r="30" stroke="#e2e8f0" stroke-width="3" />
+            <path d="M20 32h24M32 20v24" stroke="#cbd5e1" stroke-width="3" stroke-linecap="round" />
           </svg>
           <p>No tools found for "<strong x-text="searchQuery">All</strong>"</p>
           <button class="btn-outline" @click="searchQuery=''; activeCategory=''; filterTools()">Clear filters</button>
@@ -227,7 +227,9 @@
               </div>
             </div>
             <div class="tool-card-arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
             </div>
           </a>
         </template>
@@ -237,55 +239,122 @@
 
   <!-- ===== AD SLOT (Leaderboard) ===== -->
   <div class="ad-container ad-leaderboard" aria-label="Advertisement">
-    <ins class="adsbygoogle"
-      style="display:block"
-      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-      data-ad-slot="XXXXXXXXXX"
-      data-ad-format="auto"
-      data-full-width-responsive="true"></ins>
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"
+      data-ad-format="auto" data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
 
-  <!-- ===== FEATURES STRIP ===== -->
-  <section class="features-strip" aria-labelledby="features-heading">
-    <div class="container">
-      <h2 id="features-heading" class="sr-only">Why use The Tool Empire</h2>
-      <div class="features-grid">
-        <div class="feature-item">
-          <div class="feature-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+  <!-- ===== WHY SECTION ===== -->
+  <section class="why-section" aria-labelledby="why-heading">
+    <div class="container why-inner">
+      <div class="why-header">
+        <div class="why-eyebrow">Why The Tool Empire</div>
+        <h2 id="why-heading" class="why-title">Built different, by design</h2>
+        <p class="why-subtitle">We set one rule when we started: every tool must work completely in your browser, with
+          no server, no account, and no cost. That constraint shaped everything.</p>
+      </div>
+      <div class="why-grid">
+
+        <div class="why-card why-card--primary">
+          <div class="why-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
           </div>
-          <div>
-            <strong>100% Private</strong>
-            <span>Everything runs in your browser. Zero data sent to servers.</span>
-          </div>
+          <h3 class="why-card-title">Zero data leaves your device</h3>
+          <p class="why-card-desc">Your JSON, text, images, financial figures — everything you paste or type is
+            processed locally. We never see it, store it, or send it anywhere.</p>
+          <div class="why-card-badge">100% Private</div>
         </div>
-        <div class="feature-item">
-          <div class="feature-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+
+        <div class="why-card">
+          <div class="why-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 6v6l4 2" />
+            </svg>
           </div>
-          <div>
-            <strong>Instant Results</strong>
-            <span>No loading spinners. Results appear as you type.</span>
-          </div>
+          <h3 class="why-card-title">Results as you type</h3>
+          <p class="why-card-desc">No submit button, no spinner. Because everything runs in the browser, output updates
+            the moment you change a value.</p>
         </div>
-        <div class="feature-item">
-          <div class="feature-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+
+        <div class="why-card">
+          <div class="why-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path
+                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            </svg>
           </div>
-          <div>
-            <strong>Always Free</strong>
-            <span>No subscription. No credit card. Forever free.</span>
-          </div>
+          <h3 class="why-card-title">Free. No catch, no tier</h3>
+          <p class="why-card-desc">No freemium limit, no pro plan, no credit card form at the end. Every tool is fully
+            unlocked for everyone, forever.</p>
         </div>
-        <div class="feature-item">
-          <div class="feature-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+
+        <div class="why-card">
+          <div class="why-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <path d="M8 21h8M12 17v4" />
+            </svg>
           </div>
-          <div>
-            <strong>Works Everywhere</strong>
-            <span>Mobile, tablet, desktop — fully responsive design.</span>
+          <h3 class="why-card-title">Any device, any screen</h3>
+          <p class="why-card-desc">Whether you're on a phone during a commute or a wide monitor at a desk, every tool
+            adapts to fit. Touch-friendly, keyboard-accessible.</p>
+        </div>
+
+        <div class="why-card">
+          <div class="why-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 12h18M3 6h18M3 18h18" />
+              <circle cx="19" cy="6" r="3" fill="currentColor" fill-opacity=".15" />
+              <circle cx="5" cy="18" r="3" fill="currentColor" fill-opacity=".15" />
+            </svg>
           </div>
+          <h3 class="why-card-title">No login, no noise</h3>
+          <p class="why-card-desc">Open a tool, use it, close it. No account wall, no email confirmation, no cookie
+            consent beyond the bare minimum. Just the tool.</p>
+        </div>
+
+        <div class="why-card">
+          <div class="why-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path
+                d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+            </svg>
+          </div>
+          <h3 class="why-card-title">New tools every week</h3>
+          <p class="why-card-desc">We ship new tools constantly based on user suggestions. Got a workflow that needs a
+            tool? Tell us and we'll likely build it.</p>
+        </div>
+
+      </div>
+
+      <div class="why-stats" aria-label="Site statistics">
+        <div class="why-stat">
+          <span class="why-stat-value">100+</span>
+          <span class="why-stat-label">Free Tools</span>
+        </div>
+        <div class="why-stat-divider"></div>
+        <div class="why-stat">
+          <span class="why-stat-value">0</span>
+          <span class="why-stat-label">Data Collected</span>
+        </div>
+        <div class="why-stat-divider"></div>
+        <div class="why-stat">
+          <span class="why-stat-value">9</span>
+          <span class="why-stat-label">Categories</span>
+        </div>
+        <div class="why-stat-divider"></div>
+        <div class="why-stat">
+          <span class="why-stat-value">∞</span>
+          <span class="why-stat-label">Usage Limit</span>
         </div>
       </div>
     </div>
@@ -301,7 +370,8 @@
       <div class="blog-grid" role="list">
 
         <article class="blog-card" role="listitem">
-          <a href="blog/best-free-json-tools.html" class="blog-card-link" aria-label="Read: Best Free JSON Tools for Developers in 2025">
+          <a href="blog/best-free-json-tools.html" class="blog-card-link"
+            aria-label="Read: Best Free JSON Tools for Developers in 2025">
             <div class="blog-card-img" aria-hidden="true">
               <div class="blog-img-placeholder blog-img-1"></div>
             </div>
@@ -311,13 +381,15 @@
                 <time datetime="2025-05-20">May 20, 2025</time>
               </div>
               <h3 class="blog-card-title">Best Free JSON Tools for Developers in 2025</h3>
-              <p class="blog-card-excerpt">Format, validate, and diff JSON instantly without installing anything. Here are the tools developers swear by.</p>
+              <p class="blog-card-excerpt">Format, validate, and diff JSON instantly without installing anything. Here
+                are the tools developers swear by.</p>
             </div>
           </a>
         </article>
 
         <article class="blog-card" role="listitem">
-          <a href="blog/color-theory-web-design.html" class="blog-card-link" aria-label="Read: Color Theory Basics Every Web Designer Should Know">
+          <a href="blog/color-theory-web-design.html" class="blog-card-link"
+            aria-label="Read: Color Theory Basics Every Web Designer Should Know">
             <div class="blog-card-img" aria-hidden="true">
               <div class="blog-img-placeholder blog-img-2"></div>
             </div>
@@ -327,13 +399,15 @@
                 <time datetime="2025-05-10">May 10, 2025</time>
               </div>
               <h3 class="blog-card-title">Color Theory Basics Every Web Designer Should Know</h3>
-              <p class="blog-card-excerpt">Choosing colors that work together is science. Learn contrast ratios, palettes, and accessibility in one guide.</p>
+              <p class="blog-card-excerpt">Choosing colors that work together is science. Learn contrast ratios,
+                palettes, and accessibility in one guide.</p>
             </div>
           </a>
         </article>
 
         <article class="blog-card" role="listitem">
-          <a href="blog/seo-meta-tags-guide.html" class="blog-card-link" aria-label="Read: The Complete Guide to SEO Meta Tags in 2025">
+          <a href="blog/seo-meta-tags-guide.html" class="blog-card-link"
+            aria-label="Read: The Complete Guide to SEO Meta Tags in 2025">
             <div class="blog-card-img" aria-hidden="true">
               <div class="blog-img-placeholder blog-img-3"></div>
             </div>
@@ -343,13 +417,15 @@
                 <time datetime="2025-04-28">April 28, 2025</time>
               </div>
               <h3 class="blog-card-title">The Complete Guide to SEO Meta Tags in 2025</h3>
-              <p class="blog-card-excerpt">Title tags, descriptions, Open Graph, canonical URLs — everything you need to rank higher and click more.</p>
+              <p class="blog-card-excerpt">Title tags, descriptions, Open Graph, canonical URLs — everything you need to
+                rank higher and click more.</p>
             </div>
           </a>
         </article>
 
         <article class="blog-card" role="listitem">
-          <a href="blog/text-manipulation-tricks.html" class="blog-card-link" aria-label="Read: 10 Text Manipulation Tricks That Save Hours">
+          <a href="blog/text-manipulation-tricks.html" class="blog-card-link"
+            aria-label="Read: 10 Text Manipulation Tricks That Save Hours">
             <div class="blog-card-img" aria-hidden="true">
               <div class="blog-img-placeholder blog-img-4"></div>
             </div>
@@ -359,7 +435,8 @@
                 <time datetime="2025-04-15">April 15, 2025</time>
               </div>
               <h3 class="blog-card-title">10 Text Manipulation Tricks That Save Hours of Work</h3>
-              <p class="blog-card-excerpt">Case conversion, find & replace, word count, diff — master these and never waste time on text tasks again.</p>
+              <p class="blog-card-excerpt">Case conversion, find & replace, word count, diff — master these and never
+                waste time on text tasks again.</p>
             </div>
           </a>
         </article>
@@ -370,10 +447,8 @@
 
   <!-- ===== AD SLOT (Rectangle) ===== -->
   <div class="ad-container ad-rectangle" aria-label="Advertisement">
-    <ins class="adsbygoogle"
-      style="display:inline-block;width:336px;height:280px"
-      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-      data-ad-slot="XXXXXXXXXX"></ins>
+    <ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px"
+      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
 
@@ -389,19 +464,46 @@
     </div>
   </section>
 
+  <!-- ===== FEATURED ON ===== -->
+  <section class="featured-on" aria-label="Featured on">
+    <div class="container featured-on-inner">
+      <span class="featured-on-label">As featured on</span>
+      <a href="https://www.producthunt.com/products/the-tool-empire?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-the-tool-empire"
+        target="_blank" rel="noopener noreferrer"><img
+          alt="The Tool Empire - Your Empire of Free Online Tools | Product Hunt" width="250" height="54"
+          src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1166806&amp;theme=dark&amp;t=1780939251352"></a>
+      <div class="featured-on-logos">
+        <a class="featured-on-logo" href="https://wired.business" target="_blank" rel="noopener"
+          aria-label="Featured on Wired Business">
+          <img src="https://wired.business/badge0-dark.svg" alt="Wired Business" width="200" height="54"
+            loading="lazy" />
+        </a>
+        <a class="featured-on-logo" href="https://twelve.tools" target="_blank" rel="noopener"
+          aria-label="Featured on Twelve Tools">
+          <img src="https://twelve.tools/badge0-dark.svg" alt="Twelve Tools" width="200" height="54" loading="lazy" />
+        </a>
+        <a href="https://frogdr.com/thetoolempire.com?utm_source=thetoolempire.com" target="_blank"><img
+            src="https://frogdr.com/thetoolempire.com/badge-dark.svg"
+            alt="Monitor&#0032;your&#0032;Domain&#0032;Rating&#0032;with&#0032;FrogDR" width="250" height="54"></a>
+        <a href="https://tooldirs.com" target="_blank"><img src="https://tooldirs.com/badge/badge_dark.svg"
+            alt="Featured on ToolDirs" width="200" height="54" /></a>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== FOOTER ===== -->
   <footer class="site-footer" role="contentinfo">
     <div class="container footer-inner">
       <div class="footer-brand">
         <a href="/" class="logo" aria-label="The Tool Empire">
           <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect width="40" height="40" rx="10" fill="url(#logoGrad2)"/>
-            <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-            <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/>
+            <rect width="40" height="40" rx="10" fill="url(#logoGrad2)" />
+            <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round" />
+            <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2" />
             <defs>
               <linearGradient id="logoGrad2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#6C63FF"/>
-                <stop offset="1" stop-color="#4ECDC4"/>
+                <stop stop-color="#6C63FF" />
+                <stop offset="1" stop-color="#4ECDC4" />
               </linearGradient>
             </defs>
           </svg>
@@ -444,4 +546,5 @@
   <script src="assets/js/tools-data.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
+
 </html>

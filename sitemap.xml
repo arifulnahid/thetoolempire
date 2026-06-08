@@ -343,6 +343,18 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://thetoolempire.com/tools/pdf/invoice-generator.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/pdf/certificate-generator.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://thetoolempire.com/tools/pdf/pdf-metadata.html</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>

@@ -1,9 +1,10 @@
 /* PDF Password — Protect & Remove
-   pdf-lib handles both encryption and decryption natively.
+   Protect: PDF.js renders pages → jsPDF rebuilds with RC4 encryption.
+   Remove:  pdf-lib loads with password → saves without (native decrypt).
    _pdfBytes lives outside Alpine's reactive proxy. */
 
-let _pdfBytes   = null;   /* ArrayBuffer of the loaded PDF */
-let _resultBlob = null;   /* Blob for pending download     */
+let _pdfBytes   = null;
+let _resultBlob = null;
 
 function pdfPasswordApp() {
   return {
@@ -29,14 +30,17 @@ function pdfPasswordApp() {
     currentShow: false,
 
     /* result */
-    resultSize:  0,
-    error:       '',
-    processing:  false,
+    resultSize:   0,
+    error:        '',
+    processing:   false,
+    progressPage: 0,
+    progressTotal:0,
 
     /* ── init ─────────────────────────────── */
     init() {
-      if (typeof PDFLib === 'undefined') {
-        this.error = 'pdf-lib failed to load — please refresh.';
+      if (typeof pdfjsLib !== 'undefined') {
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+          'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
       }
     },
 
@@ -117,23 +121,58 @@ function pdfPasswordApp() {
     /* ── PROTECT ──────────────────────────── */
     async protect() {
       if (!this.canProtect) return;
-      this.processing = true;
-      this.error      = '';
+      this.processing    = true;
+      this.error         = '';
+      this.progressPage  = 0;
+      this.progressTotal = 0;
+
       try {
-        const doc = await PDFLib.PDFDocument.load(_pdfBytes);
-        const bytes = await doc.save({
-          userPassword:  this.userPw,
-          ownerPassword: this.ownerPw.trim() || this.userPw,
-          permissions: {
-            printing:             this.allowPrint ? 'highResolution' : 'none',
-            modifying:            this.allowEdit,
-            copying:              this.allowCopy,
-            annotating:           true,
-            fillingForms:         true,
-            contentAccessibility: true,
-            documentAssembly:     false,
+        if (typeof pdfjsLib === 'undefined' || typeof window.jspdf === 'undefined') {
+          throw new Error('Required libraries failed to load — please refresh.');
+        }
+
+        const pdfDoc = await pdfjsLib.getDocument({ data: _pdfBytes.slice(0) }).promise;
+        const n      = pdfDoc.numPages;
+        this.progressTotal = n;
+
+        /* Get first page size to initialise jsPDF */
+        const firstPage = await pdfDoc.getPage(1);
+        const vp1       = firstPage.getViewport({ scale: 1 });
+
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({
+          unit:   'pt',
+          format: [vp1.width, vp1.height],
+          encryption: {
+            userPassword:    this.userPw,
+            ownerPassword:   this.ownerPw.trim() || this.userPw,
+            userPermissions: [
+              ...(this.allowPrint ? ['print']  : []),
+              ...(this.allowCopy  ? ['copy']   : []),
+              ...(this.allowEdit  ? ['modify'] : []),
+              'annot-forms',
+            ],
           },
         });
+
+        for (let i = 1; i <= n; i++) {
+          this.progressPage = i;
+
+          const page    = await pdfDoc.getPage(i);
+          const vpNat   = page.getViewport({ scale: 1 });
+          const vpRend  = page.getViewport({ scale: 2 });
+
+          const canvas    = document.createElement('canvas');
+          canvas.width    = vpRend.width;
+          canvas.height   = vpRend.height;
+          await page.render({ canvasContext: canvas.getContext('2d'), viewport: vpRend }).promise;
+          const imgData   = canvas.toDataURL('image/jpeg', 0.92);
+
+          if (i > 1) doc.addPage([vpNat.width, vpNat.height]);
+          doc.addImage(imgData, 'JPEG', 0, 0, vpNat.width, vpNat.height, '', 'FAST');
+        }
+
+        const bytes     = doc.output('arraybuffer');
         this.resultSize = bytes.byteLength;
         _resultBlob     = new Blob([bytes], { type: 'application/pdf' });
         this.stage      = 'done';
@@ -141,6 +180,7 @@ function pdfPasswordApp() {
       } catch (err) {
         this.error = err.message || 'Failed to encrypt PDF.';
       }
+
       this.processing = false;
     },
 

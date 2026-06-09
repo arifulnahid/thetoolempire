@@ -112,6 +112,17 @@ const TOOLS_DATA = [
     url: 'tools/math/xy-graph.html',
   },
 
+  // ── CHARTS & VISUALIZATION ────────────────────────────────────
+  {
+    id: 'chart-generator',
+    title: 'Chart Generator',
+    description: 'Create bar, line, pie, area, radar, doughnut, polar and scatter charts online. Add multiple datasets, customize colors with palette presets, and download as PNG, JPEG, SVG, or PDF.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/><polyline points="5,8 12,4 19,2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    color: 'linear-gradient(135deg,#8b5cf6,#7c3aed)',
+    categories: ['Design', 'Data', 'utilities'],
+    url: 'tools/design/chart-generator.html',
+  },
+
   // ── COLOR TOOLS ────────────────────────────────────────────────
   {
     id: 'color-picker',

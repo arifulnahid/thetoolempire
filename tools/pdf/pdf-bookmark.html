@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>PDF Bookmark Tool — Add & Edit PDF Bookmarks Online | The Tool Empire</title>
+<meta name="description" content="Add, edit, and reorder bookmarks (outlines) in any PDF file — free, online, no upload to server. Create multi-level chapter navigation with page numbers instantly."/>
+<meta name="keywords" content="pdf bookmark,add bookmarks to pdf,pdf outline,pdf table of contents,pdf navigation,edit pdf bookmarks,pdf bookmark tool online"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/pdf/pdf-bookmark.html"/>
+<link rel="manifest" href="../../manifest.json"/>
+<link rel="stylesheet" href="pdf-bookmark.css"/>
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"SoftwareApplication",
+      "name":"PDF Bookmark Tool",
+      "url":"https://thetoolempire.com/tools/pdf/pdf-bookmark.html",
+      "description":"Add, edit, and reorder multi-level bookmarks (outlines) in any PDF file directly in your browser. No upload to server required.",
+      "applicationCategory":"UtilitiesApplication",
+      "operatingSystem":"Web Browser",
+      "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+        {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+        {"@type":"ListItem","position":3,"name":"PDF Bookmark Tool","item":"https://thetoolempire.com/tools/pdf/pdf-bookmark.html"}
+      ]
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"What are PDF bookmarks?","acceptedAnswer":{"@type":"Answer","text":"PDF bookmarks (also called outlines) are a navigation panel that appears in PDF readers like Adobe Acrobat and browser PDF viewers. They let readers jump directly to chapters or sections by clicking the bookmark title."}},
+        {"@type":"Question","name":"Is my PDF uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. All processing runs entirely in your browser using JavaScript and the pdf-lib library. Your PDF never leaves your device."}},
+        {"@type":"Question","name":"Can I create multi-level bookmarks?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use the indent controls (← →) next to each bookmark row to set up to 4 nesting levels — ideal for chapters, sections, and sub-sections."}},
+        {"@type":"Question","name":"Will existing bookmarks be overwritten?","acceptedAnswer":{"@type":"Answer","text":"Yes. The tool replaces the entire bookmark outline with your new list. If the PDF already has bookmarks, they are imported into the editor automatically so you can keep, edit, or extend them."}},
+        {"@type":"Question","name":"What PDF readers show bookmarks?","acceptedAnswer":{"@type":"Answer","text":"Adobe Acrobat, Adobe Reader, macOS Preview, Chrome PDF viewer, Firefox PDF viewer, Foxit, and virtually all other modern PDF readers display the bookmark panel. Some mobile readers may require you to toggle it manually."}}
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body x-data="pdfBookmarkApp()" x-cloak>
+
+<!-- ── HEADER ── -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <defs>
+          <linearGradient id="logoGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#f59e0b"/>
+            <stop offset="100%" stop-color="#10b981"/>
+          </linearGradient>
+        </defs>
+        <rect width="36" height="36" rx="10" fill="url(#logoGrad)"/>
+        <path d="M10 12h16M10 18h10M10 24h13" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../contact.html" class="nav-link">Contact</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="main-wrap">
+
+  <!-- HERO -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      PDF Tool
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">PDF Bookmark Tool</span></h1>
+    <p class="tool-subtitle">Add multi-level bookmarks (outlines) to any PDF — title, page, nesting depth. Download instantly, private and free.</p>
+  </div>
+
+  <!-- AD TOP -->
+  <div class="ad-slot" style="margin-bottom:20px">
+    <ins class="adsbygoogle" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
+
+  <!-- UPLOAD -->
+  <template x-if="!file">
+    <div class="upload-zone"
+         :class="{drag:dragging}"
+         @dragover.prevent="dragging=true"
+         @dragleave="dragging=false"
+         @drop.prevent="handleDrop($event)">
+      <input type="file" accept=".pdf,application/pdf" @change="handleFile($event)" title="Upload PDF"/>
+      <div class="upload-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      </div>
+      <div class="upload-title">Drop a PDF here</div>
+      <div class="upload-hint">or <em>click to browse</em> — PDF only</div>
+    </div>
+  </template>
+
+  <template x-if="file">
+    <div>
+      <!-- file chip -->
+      <div class="file-chip">
+        <div class="file-chip-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <span class="file-chip-name" x-text="fileName"></span>
+        <span class="file-chip-size" x-text="fileSize + (totalPages ? ' · ' + totalPages + ' pages' : '')"></span>
+        <button class="file-chip-remove" @click="removeFile()" title="Remove">✕</button>
+      </div>
+
+      <!-- main grid -->
+      <div class="tool-grid">
+
+        <!-- LEFT: bookmark editor -->
+        <div>
+          <div class="panel">
+            <div class="panel-head">
+              <span class="panel-title">Bookmarks</span>
+              <span style="font-size:.75rem;color:var(--text-faint)" x-text="bookmarks.length + ' items'"></span>
+            </div>
+            <div class="panel-body">
+
+              <!-- toolbar -->
+              <div class="bm-toolbar">
+                <button class="tb-btn tb-primary" @click="generate()" :disabled="processing">
+                  <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span x-text="processing ? 'Processing…' : 'Download PDF'"></span>
+                </button>
+                <button class="tb-btn tb-ghost" @click="loadSample()" x-show="!bookmarks.length">
+                  <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  Sample
+                </button>
+                <button class="tb-btn tb-ghost" @click="clearBookmarks()" x-show="bookmarks.length > 0">
+                  <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+                  Clear All
+                </button>
+              </div>
+
+              <!-- progress -->
+              <div class="progress-wrap" x-show="processing">
+                <div class="progress-label">Generating PDF…</div>
+                <div class="progress-bar"><div class="progress-fill" :style="'width:'+progress+'%'"></div></div>
+              </div>
+
+              <!-- header row labels -->
+              <div x-show="bookmarks.length > 0" style="display:grid;grid-template-columns:14px 44px 1fr 68px 22px;gap:6px;padding:0 4px 4px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-faint);align-items:center">
+                <span></span>
+                <span>Indent</span>
+                <span>Title</span>
+                <span style="text-align:center">Page</span>
+                <span></span>
+              </div>
+
+              <!-- bookmark list -->
+              <div class="bm-tree">
+                <template x-if="bookmarks.length === 0">
+                  <div class="empty-state">
+                    <div class="empty-state-icon">🔖</div>
+                    <p>No bookmarks yet.<br>Click "Add Bookmark" below to start.</p>
+                  </div>
+                </template>
+                <template x-for="(bm, idx) in bookmarks" :key="bm.id">
+                  <div class="bm-item"
+                       :class="{'drag-over': bm._dragOver}"
+                       :style="'margin-left:' + (bm.level * 20) + 'px'"
+                       draggable="true"
+                       @dragstart="onDragStart(bm.id)"
+                       @dragover.prevent="onDragOver($event, bm.id)"
+                       @drop.prevent="onDrop($event, bm.id)"
+                       @dragend="onDragEnd()">
+                    <!-- drag handle -->
+                    <span class="bm-drag-handle" title="Drag to reorder">
+                      <svg viewBox="0 0 24 24"><circle cx="9" cy="5" r="1" fill="currentColor"/><circle cx="15" cy="5" r="1" fill="currentColor"/><circle cx="9" cy="12" r="1" fill="currentColor"/><circle cx="15" cy="12" r="1" fill="currentColor"/><circle cx="9" cy="19" r="1" fill="currentColor"/><circle cx="15" cy="19" r="1" fill="currentColor"/></svg>
+                    </span>
+                    <!-- indent controls -->
+                    <div class="bm-level-btns">
+                      <button class="bm-level-btn" @click="indentLess(bm)" :disabled="bm.level === 0" title="Outdent">←</button>
+                      <button class="bm-level-btn" @click="indentMore(bm)" :disabled="bm.level >= 3" title="Indent">→</button>
+                    </div>
+                    <!-- title -->
+                    <input class="bm-title-input" type="text" x-model="bm.title" placeholder="Bookmark title…"/>
+                    <!-- page -->
+                    <input class="bm-page-input" type="number" x-model.number="bm.page" min="1" :max="totalPages || 9999" placeholder="Pg"/>
+                    <!-- remove -->
+                    <button class="bm-remove-btn" @click="removeBookmark(bm.id)" title="Remove">✕</button>
+                  </div>
+                </template>
+              </div>
+
+              <!-- add buttons -->
+              <div class="add-row">
+                <button class="add-btn" @click="addBookmark(0)">
+                  <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  Add Bookmark
+                </button>
+                <button class="add-btn" @click="addBookmark(1)" x-show="bookmarks.length > 0">
+                  <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  Add Sub-Bookmark
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: preview + info -->
+        <div style="display:flex;flex-direction:column;gap:14px">
+
+          <!-- page info -->
+          <div class="panel">
+            <div class="panel-head"><span class="panel-title">File Info</span></div>
+            <div class="panel-body" style="padding:10px 16px">
+              <div class="info-row"><span class="info-label">File</span><span class="info-val" style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:inherit;font-size:.8rem" x-text="fileName"></span></div>
+              <div class="info-row"><span class="info-label">Size</span><span class="info-val" x-text="fileSize"></span></div>
+              <div class="info-row"><span class="info-label">Pages</span><span class="info-val" x-text="totalPages || '—'"></span></div>
+              <div class="info-row"><span class="info-label">Bookmarks</span><span class="info-val" x-text="bookmarks.length"></span></div>
+            </div>
+          </div>
+
+          <!-- bookmark preview (TOC style) -->
+          <div class="panel">
+            <div class="panel-head"><span class="panel-title">Preview</span></div>
+            <div class="panel-body" style="padding:10px 16px">
+              <template x-if="previewSorted.length === 0">
+                <div class="preview-empty">Bookmarks will appear here sorted by page number.</div>
+              </template>
+              <div class="preview-scroll">
+                <template x-for="bm in previewSorted" :key="bm.id">
+                  <div class="preview-entry" :style="'padding-left:' + (bm.level * 14) + 'px'">
+                    <span class="preview-title" x-text="bm.title || '(untitled)'"></span>
+                    <span class="preview-dots"></span>
+                    <span class="preview-page" x-text="bm.page"></span>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div><!-- /tool-grid -->
+    </div>
+  </template>
+
+  <!-- AD MID -->
+  <div class="ad-slot" style="margin:28px 0">
+    <ins class="adsbygoogle" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- HOW TO USE -->
+  <section class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">How to Use</h2>
+      <p class="section-desc">Add a navigable bookmark panel to any PDF in under a minute.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-number">1</div><div class="step-title">Upload Your PDF</div><div class="step-desc">Drop a PDF file onto the upload zone or click to browse. The page count is read instantly — nothing is sent to any server.</div></div>
+      <div class="step-card"><div class="step-number">2</div><div class="step-title">Add Bookmarks</div><div class="step-desc">Click "Add Bookmark" to insert a row. Type the chapter or section title and the page number where it starts.</div></div>
+      <div class="step-card"><div class="step-number">3</div><div class="step-title">Set Indent Level</div><div class="step-desc">Use the ← → indent buttons to nest bookmarks. Level 0 = chapter, Level 1 = section, Level 2 = sub-section, up to 3 levels deep.</div></div>
+      <div class="step-card"><div class="step-number">4</div><div class="step-title">Reorder by Dragging</div><div class="step-desc">Drag any bookmark row up or down to reposition it in the list. The preview panel shows a sorted table-of-contents view.</div></div>
+      <div class="step-card"><div class="step-number">5</div><div class="step-title">Download PDF</div><div class="step-desc">Click "Download PDF". The new bookmarks are embedded into your file and the tagged PDF downloads immediately.</div></div>
+      <div class="step-card"><div class="step-number">6</div><div class="step-title">Open in Any Viewer</div><div class="step-desc">Open the downloaded PDF in Acrobat, Preview, Chrome, or any other PDF reader. The bookmark panel will appear on the left side.</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- FEATURES -->
+  <section class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">Features</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">🔖</div><div class="feature-title">Multi-Level Bookmarks</div><div class="feature-desc">Create up to 4 nesting levels — chapters, sections, sub-sections, and sub-sub-sections — with simple indent controls.</div></div>
+      <div class="feature-card"><div class="feature-icon">📄</div><div class="feature-title">Works on Any PDF</div><div class="feature-desc">Supports regular, scanned, and password-protected PDFs. Existing bookmarks are automatically imported into the editor.</div></div>
+      <div class="feature-card"><div class="feature-icon">🔒</div><div class="feature-title">100% Private</div><div class="feature-desc">Powered by pdf-lib running entirely in your browser. Your PDF never leaves your device or is uploaded to any server.</div></div>
+      <div class="feature-card"><div class="feature-icon">👁</div><div class="feature-title">Live TOC Preview</div><div class="feature-desc">A real-time table-of-contents preview panel shows your bookmarks sorted by page number as you edit.</div></div>
+      <div class="feature-card"><div class="feature-icon">↕</div><div class="feature-title">Drag to Reorder</div><div class="feature-desc">Drag any bookmark row up or down to change the order. The outline tree updates instantly in the preview.</div></div>
+      <div class="feature-card"><div class="feature-icon">📥</div><div class="feature-title">Import Existing</div><div class="feature-desc">If the PDF already has a bookmark outline, existing bookmarks are loaded into the editor automatically for editing.</div></div>
+      <div class="feature-card"><div class="feature-icon">⚡</div><div class="feature-title">Instant Download</div><div class="feature-desc">PDF generation is done entirely in-browser with pdf-lib. No waiting for server round-trips — output downloads in seconds.</div></div>
+      <div class="feature-card"><div class="feature-icon">🧭</div><div class="feature-title">Opens Bookmark Panel</div><div class="feature-desc">The output PDF sets <code>PageMode: UseOutlines</code> so the bookmark panel opens automatically on load in Acrobat and compatible readers.</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- FAQ -->
+  <section class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">FAQ</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What are PDF bookmarks and why do I need them?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>PDF bookmarks (also called outlines or a table of contents) are the navigation panel visible on the left side of PDF readers like Acrobat, Preview, and Chrome. They let readers jump to any chapter or section instantly by clicking a title, instead of scrolling through hundreds of pages. They are essential for long documents like reports, ebooks, manuals, and academic papers.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Is my PDF uploaded anywhere?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>No. The tool uses <code>pdf-lib</code>, a JavaScript library that runs entirely in your browser. Your PDF is read from disk into browser memory, processed locally, and the output is saved back to disk. No data ever leaves your device.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Will the tool overwrite existing bookmarks?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Yes — the entire outline tree is replaced with whatever is in the editor. If the PDF already has bookmarks, they are imported into the editor when you upload the file, so you can review, edit, or extend them before downloading.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">How many nesting levels are supported?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Up to 4 levels (0–3). Level 0 is a top-level chapter, level 1 is a section under a chapter, level 2 is a sub-section, and level 3 is a sub-sub-section. Use the ← → indent buttons next to each bookmark row.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Which PDF readers show bookmarks?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Adobe Acrobat and Adobe Reader, macOS Preview, Chrome's built-in PDF viewer, Firefox PDF viewer, Foxit Reader, PDF-XChange, Okular, and virtually all modern PDF readers display the bookmark/outline panel. On mobile, apps like PDF Expert, LiquidText, and Good Reader support bookmarks. Some readers may require you to manually open the panel via a menu or sidebar button.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- RELATED -->
+  <section class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">Related Tools</h2>
+    </div>
+    <div class="related-grid">
+      <a class="related-card" href="invoice-generator.html">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div class="related-name">Invoice Generator</div>
+        <div class="related-desc">Create professional PDF invoices with custom branding and line items.</div>
+        <div class="related-link">Open tool →</div>
+      </a>
+      <a class="related-card" href="pdf-metadata.html">
+        <div class="related-icon" style="background:linear-gradient(135deg,#6C63FF,#4ECDC4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <div class="related-name">PDF Metadata Editor</div>
+        <div class="related-desc">Edit title, author, subject, keywords, and other PDF document properties.</div>
+        <div class="related-link">Open tool →</div>
+      </a>
+      <a class="related-card" href="delete-pdf-pages.html">
+        <div class="related-icon" style="background:linear-gradient(135deg,#ef4444,#f97316)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></div>
+        <div class="related-name">Delete PDF Pages</div>
+        <div class="related-desc">Remove unwanted pages from any PDF file in your browser.</div>
+        <div class="related-link">Open tool →</div>
+      </a>
+      <a class="related-card" href="image-to-pdf.html">
+        <div class="related-icon" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="related-name">Image to PDF</div>
+        <div class="related-desc">Convert JPG, PNG, and WebP images to a single PDF document.</div>
+        <div class="related-link">Open tool →</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- AD BOTTOM -->
+  <div class="ad-slot" style="margin-top:36px">
+    <ins class="adsbygoogle" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <defs><linearGradient id="fLogoGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#10b981"/></linearGradient></defs>
+          <rect width="36" height="36" rx="10" fill="url(#fLogoGrad)"/>
+          <path d="M10 12h16M10 18h10M10 24h13" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free browser-based tools for developers, writers, and everyday productivity.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-heading">Tools</div>
+      <div class="footer-links">
+        <a href="../../tools.html">All Tools</a>
+        <a href="invoice-generator.html">Invoice Generator</a>
+        <a href="pdf-metadata.html">PDF Metadata Editor</a>
+        <a href="delete-pdf-pages.html">Delete PDF Pages</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-heading">Company</div>
+      <div class="footer-links">
+        <a href="../../about.html">About</a>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-heading">Legal</div>
+      <div class="footer-links">
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2025 The Tool Empire. All rights reserved.</span>
+    <span>Made with ❤️ for the web</span>
+  </div>
+</footer>
+
+<div id="toast" class="toast"></div>
+
+<script src="pdf-bookmark.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</body>
+</html>

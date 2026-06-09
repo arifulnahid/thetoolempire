@@ -57,6 +57,8 @@ function diffApp() {
     mode: 'split',     // 'split' | 'unified'
     ignoreCase: false,
     ignoreWhitespace: false,
+    expandA: true,
+    expandB: true,
     reportOpen: false,
     reportSelected: '',
     reportSent: false,

@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="Free online certificate generator. Create professional certificates of completion, achievement, or appreciation. Download as PDF, PNG, or JPG instantly — no signup required." />
-  <meta name="keywords" content="certificate generator, certificate of completion, certificate maker, free certificate template, PDF certificate" />
+  <meta name="description"
+    content="Free online certificate generator. Create professional certificates of completion, achievement, or appreciation. Download as PDF, PNG, or JPG instantly — no signup required." />
+  <meta name="keywords"
+    content="certificate generator, certificate of completion, certificate maker, free certificate template, PDF certificate" />
   <meta name="author" content="The Tool Empire" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://thetoolempire.com/tools/pdf/certificate-generator.html" />
 
   <meta property="og:title" content="Certificate Generator — Free PDF Certificate Maker" />
-  <meta property="og:description" content="Design and download professional certificates in seconds. 9 templates, custom colors, borders, and logo support. Free, no signup." />
+  <meta property="og:description"
+    content="Design and download professional certificates in seconds. 9 templates, custom colors, borders, and logo support. Free, no signup." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://thetoolempire.com/tools/pdf/certificate-generator.html" />
   <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png" />
   <meta property="og:site_name" content="The Tool Empire" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Certificate Generator — Free PDF Certificate Maker" />
-  <meta name="twitter:description" content="Create professional certificates in seconds. Download as PDF, PNG, or JPG." />
+  <meta name="twitter:description"
+    content="Create professional certificates in seconds. Download as PDF, PNG, or JPG." />
 
   <title>Certificate Generator — Free PDF Certificate Maker | The Tool Empire</title>
 
@@ -128,8 +133,8 @@
         <a href="../../about.html" class="nav-link">About</a>
       </nav>
 
-      <button class="menu-toggle" @click="mobileMenuOpen = !mobileMenuOpen"
-        :aria-expanded="mobileMenuOpen" aria-label="Toggle menu">
+      <button class="menu-toggle" @click="mobileMenuOpen = !mobileMenuOpen" :aria-expanded="mobileMenuOpen"
+        aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -176,8 +181,8 @@
 
     <!-- Ad slot top -->
     <div class="ad-wrap" aria-label="Advertisement">
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-        data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"
+        data-ad-format="auto" data-full-width-responsive="true"></ins>
       <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
@@ -192,8 +197,7 @@
           <div class="card-title">Template</div>
           <div class="tpl-grid">
             <template x-for="t in templates" :key="t.id">
-              <div class="tpl-thumb" :class="{ selected: template === t.id }"
-                @click="template = t.id" :title="t.label"
+              <div class="tpl-thumb" :class="{ selected: template === t.id }" @click="template = t.id" :title="t.label"
                 role="button" :aria-pressed="template === t.id">
                 <canvas :id="'thumb-' + t.id" width="160" height="100"></canvas>
                 <div class="tpl-label" x-text="t.label"></div>
@@ -222,8 +226,8 @@
             <label>Border</label>
             <div class="chip-row chip-row--border">
               <template x-for="b in borders" :key="b.id">
-                <button class="chip" :class="{ active: border === b.id }"
-                  @click="border = b.id" x-text="b.label"></button>
+                <button class="chip" :class="{ active: border === b.id }" @click="border = b.id"
+                  x-text="b.label"></button>
               </template>
             </div>
           </div>
@@ -232,17 +236,16 @@
           <div class="field-group">
             <label>Accent Colour</label>
             <div class="color-row">
-              <template x-for="c in ['#8b5cf6','#3b82f6','#ef4444','#f59e0b','#10b981','#f97316','#ec4899','#14b8a6']" :key="c">
-                <div class="color-chip" :style="'background:' + c"
-                  :class="{ selected: color === c }"
-                  @click="color = c" :title="c"></div>
+              <template x-for="c in ['#8b5cf6','#3b82f6','#ef4444','#f59e0b','#10b981','#f97316','#ec4899','#14b8a6']"
+                :key="c">
+                <div class="color-chip" :style="'background:' + c" :class="{ selected: color === c }" @click="color = c"
+                  :title="c"></div>
               </template>
             </div>
             <div class="custom-color-row">
               <label for="accentCustom">Custom</label>
               <div class="color-input-wrap">
-                <input type="color" id="accentCustom" :value="color"
-                  @input="color = $event.target.value" />
+                <input type="color" id="accentCustom" :value="color" @input="color = $event.target.value" />
               </div>
               <span style="font-size:.78rem;color:var(--text-muted)" x-text="color"></span>
             </div>
@@ -253,8 +256,8 @@
             <label>Font Size</label>
             <div class="chip-row chip-row--scale">
               <template x-for="s in fontScales" :key="s.id">
-                <button class="chip" :class="{ active: fontScale === s.id }"
-                  @click="fontScale = s.id" x-text="s.label"></button>
+                <button class="chip" :class="{ active: fontScale === s.id }" @click="fontScale = s.id"
+                  x-text="s.label"></button>
               </template>
             </div>
           </div>
@@ -264,8 +267,8 @@
             <label>Font Style</label>
             <div class="chip-row" style="margin-bottom:0">
               <template x-for="f in fonts" :key="f.id">
-                <button class="chip" :class="{ active: fontId === f.id }"
-                  @click="fontId = f.id" x-text="f.label"></button>
+                <button class="chip" :class="{ active: fontId === f.id }" @click="fontId = f.id"
+                  x-text="f.label"></button>
               </template>
             </div>
           </div>
@@ -279,14 +282,15 @@
           <div class="logo-list" x-show="logoCount > 0">
             <template x-for="(name, idx) in logoNames" :key="idx">
               <div class="logo-item">
-                <svg style="width:14px;height:14px;stroke:var(--primary);fill:none;flex-shrink:0"
-                  viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <svg style="width:14px;height:14px;stroke:var(--primary);fill:none;flex-shrink:0" viewBox="0 0 24 24"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <rect x="3" y="3" width="18" height="18" rx="2" />
                   <circle cx="8.5" cy="8.5" r="1.5" />
                   <path d="m21 15-5-5L5 21" />
                 </svg>
                 <span class="logo-item-name" x-text="name"></span>
-                <button class="btn-remove-logo" @click="removeLogo(idx)" title="Remove" aria-label="Remove logo">&times;</button>
+                <button class="btn-remove-logo" @click="removeLogo(idx)" title="Remove"
+                  aria-label="Remove logo">&times;</button>
               </div>
             </template>
           </div>
@@ -294,8 +298,10 @@
           <!-- Upload zone (hidden when 3 logos loaded) -->
           <div x-show="logoCount < 3">
             <label class="logo-upload-zone" for="logoFileInput">
-              <svg style="width:17px;height:17px;stroke:currentColor;fill:none;display:inline-block;vertical-align:middle;margin-right:.35rem"
-                viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg
+                style="width:17px;height:17px;stroke:currentColor;fill:none;display:inline-block;vertical-align:middle;margin-right:.35rem"
+                viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
               </svg>
               <span x-text="logoCount === 0 ? 'Click to upload PNG / JPG / SVG' : 'Add another logo'"></span>
@@ -324,8 +330,7 @@
 
           <div class="field-group">
             <label for="f-recipient">Recipient Name</label>
-            <input id="f-recipient" class="field-input" type="text" x-model="recipient"
-              placeholder="John Smith" />
+            <input id="f-recipient" class="field-input" type="text" x-model="recipient" placeholder="John Smith" />
           </div>
 
           <div class="field-group">
@@ -344,8 +349,7 @@
           <div class="two-col-fields">
             <div class="field-group">
               <label for="f-issuer">Signatory 1 — Name</label>
-              <input id="f-issuer" class="field-input" type="text" x-model="issuer"
-                placeholder="Dr. Jane Doe" />
+              <input id="f-issuer" class="field-input" type="text" x-model="issuer" placeholder="Dr. Jane Doe" />
             </div>
             <div class="field-group">
               <label for="f-issuerTitle">Signatory 1 — Designation</label>
@@ -370,8 +374,7 @@
 
           <div class="field-group" style="margin-bottom:0">
             <label for="f-date">Issue Date</label>
-            <input id="f-date" class="field-input" type="text" x-model="date"
-              placeholder="June 9, 2026" />
+            <input id="f-date" class="field-input" type="text" x-model="date" placeholder="June 9, 2026" />
           </div>
         </div>
 
@@ -380,7 +383,8 @@
           <div class="card-title">Download</div>
           <div class="dl-grid">
             <button class="btn-dl btn-dl-pdf" @click="downloadPdf()" title="Download as PDF">
-              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                 <polyline points="14,2 14,8 20,8" />
                 <line x1="12" y1="18" x2="12" y2="12" />
@@ -389,7 +393,8 @@
               PDF
             </button>
             <button class="btn-dl btn-dl-png" @click="downloadPng()" title="Download as PNG">
-              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
                 <rect x="3" y="3" width="18" height="18" rx="2" />
                 <circle cx="8.5" cy="8.5" r="1.5" />
                 <polyline points="21,15 16,10 5,21" />
@@ -397,7 +402,8 @@
               PNG
             </button>
             <button class="btn-dl btn-dl-jpg" @click="downloadJpg()" title="Download as JPG">
-              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
                 <rect x="3" y="3" width="18" height="18" rx="2" />
                 <circle cx="8.5" cy="8.5" r="1.5" />
                 <polyline points="21,15 16,10 5,21" />
@@ -408,8 +414,8 @@
           <div class="report-link">
             <a href="https://github.com/arifulnahid/thetoolempire/issues/new?title=Certificate+Generator+Bug&labels=bug"
               target="_blank" rel="noopener noreferrer">
-              <svg style="width:13px;height:13px;stroke:currentColor;fill:none"
-                viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg style="width:13px;height:13px;stroke:currentColor;fill:none" viewBox="0 0 24 24" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" />
                 <line x1="12" y1="8" x2="12" y2="12" />
                 <line x1="12" y1="16" x2="12.01" y2="16" />
@@ -453,7 +459,8 @@
             date, and issuer — and get a polished result ready to print or share digitally.</p>
           <p>Choose from <strong>9 unique templates</strong> covering styles from classic and academic to modern and
             corporate. Personalise the <strong>accent colour</strong>, border style, font, and add your own
-            <strong>organisation logo</strong>. All processing happens entirely in your browser.</p>
+            <strong>organisation logo</strong>. All processing happens entirely in your browser.
+          </p>
         </div>
       </section>
 
@@ -462,23 +469,28 @@
         <div class="steps">
           <div class="step-item">
             <div class="step-num">1</div>
-            <div class="step-text"><strong>Pick a template</strong> — click any of the 9 thumbnails to preview it instantly on the canvas.</div>
+            <div class="step-text"><strong>Pick a template</strong> — click any of the 9 thumbnails to preview it
+              instantly on the canvas.</div>
           </div>
           <div class="step-item">
             <div class="step-num">2</div>
-            <div class="step-text"><strong>Choose a style</strong> — set orientation, border type, accent colour, and font.</div>
+            <div class="step-text"><strong>Choose a style</strong> — set orientation, border type, accent colour, and
+              font.</div>
           </div>
           <div class="step-item">
             <div class="step-num">3</div>
-            <div class="step-text"><strong>Upload a logo (optional)</strong> — click the logo zone to add your organisation's image to the certificate.</div>
+            <div class="step-text"><strong>Upload a logo (optional)</strong> — click the logo zone to add your
+              organisation's image to the certificate.</div>
           </div>
           <div class="step-item">
             <div class="step-num">4</div>
-            <div class="step-text"><strong>Fill in the details</strong> — enter the recipient name, course or achievement, issuer, and date.</div>
+            <div class="step-text"><strong>Fill in the details</strong> — enter the recipient name, course or
+              achievement, issuer, and date.</div>
           </div>
           <div class="step-item">
             <div class="step-num">5</div>
-            <div class="step-text"><strong>Download</strong> — PDF for print, PNG for transparency, or JPG for a compact image.</div>
+            <div class="step-text"><strong>Download</strong> — PDF for print, PNG for transparency, or JPG for a compact
+              image.</div>
           </div>
         </div>
       </section>
@@ -489,8 +501,10 @@
           <div class="faq-item">
             <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
               Is this certificate generator completely free?
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
               </svg>
             </div>
             <div class="faq-a">Yes — 100% free, with no watermarks, no download limits, and no account required.</div>
@@ -498,38 +512,50 @@
           <div class="faq-item">
             <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
               What download formats are available?
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
               </svg>
             </div>
-            <div class="faq-a">PDF (A4, print-ready), PNG (transparent background, lossless), and JPG (white background, smaller file size).</div>
+            <div class="faq-a">PDF (A4, print-ready), PNG (transparent background, lossless), and JPG (white background,
+              smaller file size).</div>
           </div>
           <div class="faq-item">
             <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
               Can I add my organisation's logo?
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
               </svg>
             </div>
-            <div class="faq-a">Yes. Click the logo upload zone and choose any PNG, JPG, or SVG. It appears centered at the top of the certificate.</div>
+            <div class="faq-a">Yes. Click the logo upload zone and choose any PNG, JPG, or SVG. It appears centered at
+              the top of the certificate.</div>
           </div>
           <div class="faq-item">
             <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
               Does portrait orientation scale fonts correctly?
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
               </svg>
             </div>
-            <div class="faq-a">Yes. Font sizes are based on the shorter page dimension, so switching between landscape and portrait keeps text proportionally the same size.</div>
+            <div class="faq-a">Yes. Font sizes are based on the shorter page dimension, so switching between landscape
+              and portrait keeps text proportionally the same size.</div>
           </div>
           <div class="faq-item">
             <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
               Is my data sent to any server?
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
               </svg>
             </div>
-            <div class="faq-a">No. Everything runs entirely in your browser using the Canvas API. Nothing you type or upload ever leaves your device.</div>
+            <div class="faq-a">No. Everything runs entirely in your browser using the Canvas API. Nothing you type or
+              upload ever leaves your device.</div>
           </div>
         </div>
       </section>
@@ -620,4 +646,5 @@
 
   <script src="certificate-generator.js"></script>
 </body>
+
 </html>

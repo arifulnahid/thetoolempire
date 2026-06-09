@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Contact The Tool Empire — report a bug, suggest a new tool, or send us a message. We read every submission." />
+  <meta name="description"
+    content="Contact The Tool Empire — report a bug, suggest a new tool, or send us a message. We read every submission." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://thetoolempire.com/contact.html" />
   <meta property="og:title" content="Contact — The Tool Empire" />
@@ -22,86 +24,379 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date()); gtag('config', 'G-CNN44ER8MF');
   </script>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --primary: #6C63FF; --primary-dark: #5548e0; --secondary: #4ECDC4;
-      --bg: #0f0f14; --bg-surface: #18181f; --bg-card: #1e1e28;
-      --border: rgba(255,255,255,.08); --border-focus: rgba(108,99,255,.5);
-      --text: #e8e8f0; --text-muted: #8888a8; --text-faint: #555570;
-      --radius-sm: 8px; --radius-md: 14px; --radius-lg: 20px;
-      --transition: .2s cubic-bezier(.4,0,.2,1); --max-w: 1280px;
-      --error: #f87171; --success: #4ade80;
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-    a { color: var(--primary); text-decoration: none; transition: color var(--transition); }
-    a:hover { color: var(--secondary); }
-    button { cursor: pointer; font: inherit; border: none; background: none; }
-    svg { display: block; }
 
-    .container { width: 100%; max-width: var(--max-w); margin-inline: auto; padding-inline: clamp(16px, 4vw, 48px); }
+    :root {
+      --primary: #6C63FF;
+      --primary-dark: #5548e0;
+      --secondary: #4ECDC4;
+      --bg: #0f0f14;
+      --bg-surface: #18181f;
+      --bg-card: #1e1e28;
+      --border: rgba(255, 255, 255, .08);
+      --border-focus: rgba(108, 99, 255, .5);
+      --text: #e8e8f0;
+      --text-muted: #8888a8;
+      --text-faint: #555570;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --transition: .2s cubic-bezier(.4, 0, .2, 1);
+      --max-w: 1280px;
+      --error: #f87171;
+      --success: #4ade80;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+
+    a:hover {
+      color: var(--secondary);
+    }
+
+    button {
+      cursor: pointer;
+      font: inherit;
+      border: none;
+      background: none;
+    }
+
+    svg {
+      display: block;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin-inline: auto;
+      padding-inline: clamp(16px, 4vw, 48px);
+    }
 
     /* HEADER */
-    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(15,15,20,.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); transition: box-shadow var(--transition); }
-    .site-header.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,.4); }
-    .header-inner { display: flex; align-items: center; gap: 24px; height: 64px; }
-    .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-    .logo-icon { width: 36px; height: 36px; border-radius: 9px; }
-    .logo-text { font-size: 1.1rem; font-weight: 700; letter-spacing: -.02em; background: linear-gradient(135deg, #fff 40%, var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .main-nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
-    .nav-link { padding: 6px 14px; border-radius: var(--radius-sm); font-size: .9rem; font-weight: 500; color: var(--text-muted); transition: color var(--transition), background var(--transition); }
-    .nav-link:hover, .nav-link.active { color: var(--text); background: rgba(255,255,255,.06); }
-    .menu-toggle { display: none; flex-direction: column; gap: 5px; margin-left: auto; padding: 8px; border-radius: var(--radius-sm); }
-    .menu-toggle span { display: block; width: 22px; height: 2px; background: var(--text-muted); border-radius: 2px; }
-    .mobile-nav { display: none; flex-direction: column; padding: 12px 16px 16px; border-top: 1px solid var(--border); background: var(--bg-surface); gap: 2px; }
-    .mobile-nav.open { display: flex; }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 15, 20, .85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow var(--transition);
+    }
+
+    .site-header.scrolled {
+      box-shadow: 0 4px 32px rgba(0, 0, 0, .4);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      height: 64px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+    }
+
+    .logo-text {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      background: linear-gradient(135deg, #fff 40%, var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: auto;
+    }
+
+    .nav-link {
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: .9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color var(--transition), background var(--transition);
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--text);
+      background: rgba(255, 255, 255, .06);
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      margin-left: auto;
+      padding: 8px;
+      border-radius: var(--radius-sm);
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-muted);
+      border-radius: 2px;
+    }
+
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      padding: 12px 16px 16px;
+      border-top: 1px solid var(--border);
+      background: var(--bg-surface);
+      gap: 2px;
+    }
+
+    .mobile-nav.open {
+      display: flex;
+    }
 
     /* HERO */
-    .page-hero { padding: clamp(48px, 7vw, 88px) 0 clamp(40px, 5vw, 64px); text-align: center; background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(108,99,255,.18) 0%, transparent 70%); }
-    .page-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(108,99,255,.15); border: 1px solid rgba(108,99,255,.3); color: #a39dff; font-size: .75rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; margin-bottom: 20px; }
-    .page-hero h1 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; letter-spacing: -.04em; margin-bottom: 16px; }
-    .gradient-text { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .page-hero p { font-size: .97rem; color: var(--text-muted); max-width: 520px; margin-inline: auto; }
+    .page-hero {
+      padding: clamp(48px, 7vw, 88px) 0 clamp(40px, 5vw, 64px);
+      text-align: center;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(108, 99, 255, .18) 0%, transparent 70%);
+    }
+
+    .page-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(108, 99, 255, .15);
+      border: 1px solid rgba(108, 99, 255, .3);
+      color: #a39dff;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -.04em;
+      margin-bottom: 16px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-hero p {
+      font-size: .97rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-inline: auto;
+    }
 
     /* LAYOUT */
-    .contact-layout { display: grid; grid-template-columns: 340px 1fr; gap: 40px; padding: clamp(40px, 5vw, 72px) 0; align-items: start; max-width: 1000px; margin-inline: auto; }
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 40px;
+      padding: clamp(40px, 5vw, 72px) 0;
+      align-items: start;
+      max-width: 1000px;
+      margin-inline: auto;
+    }
 
     /* SIDEBAR */
-    .contact-sidebar { display: flex; flex-direction: column; gap: 16px; }
+    .contact-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
 
-    .info-card { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 24px; }
-    .info-card-title { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-faint); margin-bottom: 16px; }
+    .info-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
 
-    .info-item { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); }
-    .info-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .info-item-icon { width: 36px; height: 36px; border-radius: var(--radius-sm); background: rgba(108,99,255,.12); border: 1px solid rgba(108,99,255,.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .info-item-icon svg { width: 17px; height: 17px; color: var(--primary); }
-    .info-item-label { font-size: .72rem; color: var(--text-faint); margin-bottom: 2px; text-transform: uppercase; letter-spacing: .05em; }
-    .info-item-value { font-size: .88rem; color: var(--text); }
-    .info-item-value a { color: var(--primary); }
+    .info-card-title {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-faint);
+      margin-bottom: 16px;
+    }
 
-    .topic-card { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 24px; }
-    .topic-card h3 { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-faint); margin-bottom: 14px; }
-    .topic-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .topic-list li { display: flex; align-items: center; gap: 10px; font-size: .85rem; color: var(--text-muted); }
-    .topic-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .info-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .info-item-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: rgba(108, 99, 255, .12);
+      border: 1px solid rgba(108, 99, 255, .2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .info-item-icon svg {
+      width: 17px;
+      height: 17px;
+      color: var(--primary);
+    }
+
+    .info-item-label {
+      font-size: .72rem;
+      color: var(--text-faint);
+      margin-bottom: 2px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .info-item-value {
+      font-size: .88rem;
+      color: var(--text);
+    }
+
+    .info-item-value a {
+      color: var(--primary);
+    }
+
+    .topic-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+
+    .topic-card h3 {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-faint);
+      margin-bottom: 14px;
+    }
+
+    .topic-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .topic-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .85rem;
+      color: var(--text-muted);
+    }
+
+    .topic-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
 
     /* FORM */
-    .contact-form-wrap { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: clamp(24px, 4vw, 40px); }
+    .contact-form-wrap {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: clamp(24px, 4vw, 40px);
+    }
 
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
 
-    .field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 20px; }
-    .field:last-child { margin-bottom: 0; }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 20px;
+    }
 
-    label { font-size: .82rem; font-weight: 600; color: var(--text); }
-    label .req { color: var(--primary); margin-left: 2px; }
+    .field:last-child {
+      margin-bottom: 0;
+    }
 
-    .input, .select, .textarea {
+    label {
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    label .req {
+      color: var(--primary);
+      margin-left: 2px;
+    }
+
+    .input,
+    .select,
+    .textarea {
       background: var(--bg-surface);
       border: 1.5px solid var(--border);
       border-radius: var(--radius-sm);
@@ -114,86 +409,352 @@
       outline: none;
       -webkit-appearance: none;
     }
-    .input::placeholder, .textarea::placeholder { color: var(--text-faint); }
-    .input:focus, .select:focus, .textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(108,99,255,.18); }
-    .input.error, .select.error, .textarea.error { border-color: var(--error); box-shadow: 0 0 0 3px rgba(248,113,113,.15); }
 
-    .select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238888a8' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 18px; padding-right: 40px; }
-    .select option { background: #1e1e28; }
+    .input::placeholder,
+    .textarea::placeholder {
+      color: var(--text-faint);
+    }
 
-    .textarea { resize: vertical; min-height: 140px; line-height: 1.6; }
+    .input:focus,
+    .select:focus,
+    .textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(108, 99, 255, .18);
+    }
 
-    .field-hint { font-size: .75rem; color: var(--text-faint); }
-    .field-error { font-size: .75rem; color: var(--error); display: none; }
-    .field-error.visible { display: block; }
+    .input.error,
+    .select.error,
+    .textarea.error {
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px rgba(248, 113, 113, .15);
+    }
 
-    .char-counter { font-size: .72rem; color: var(--text-faint); text-align: right; }
-    .char-counter.warn { color: #fde68a; }
-    .char-counter.over { color: var(--error); }
+    .select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238888a8' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 18px;
+      padding-right: 40px;
+    }
+
+    .select option {
+      background: #1e1e28;
+    }
+
+    .textarea {
+      resize: vertical;
+      min-height: 140px;
+      line-height: 1.6;
+    }
+
+    .field-hint {
+      font-size: .75rem;
+      color: var(--text-faint);
+    }
+
+    .field-error {
+      font-size: .75rem;
+      color: var(--error);
+      display: none;
+    }
+
+    .field-error.visible {
+      display: block;
+    }
+
+    .char-counter {
+      font-size: .72rem;
+      color: var(--text-faint);
+      text-align: right;
+    }
+
+    .char-counter.warn {
+      color: #fde68a;
+    }
+
+    .char-counter.over {
+      color: var(--error);
+    }
 
     /* Checkbox */
-    .checkbox-field { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 24px; }
-    .checkbox-field input[type="checkbox"] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; accent-color: var(--primary); }
-    .checkbox-field label { font-size: .83rem; color: var(--text-muted); font-weight: 400; cursor: pointer; }
-    .checkbox-field label a { color: var(--primary); }
+    .checkbox-field {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .checkbox-field input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      accent-color: var(--primary);
+    }
+
+    .checkbox-field label {
+      font-size: .83rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      cursor: pointer;
+    }
+
+    .checkbox-field label a {
+      color: var(--primary);
+    }
 
     /* Submit */
-    .btn-submit { width: 100%; padding: 14px; background: var(--primary); color: #fff; border-radius: var(--radius-sm); font-size: 1rem; font-weight: 600; letter-spacing: -.01em; transition: all var(--transition); display: flex; align-items: center; justify-content: center; gap: 10px; }
-    .btn-submit:hover:not(:disabled) { background: var(--primary-dark); box-shadow: 0 6px 24px rgba(108,99,255,.4); transform: translateY(-1px); }
-    .btn-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; }
-    .btn-submit svg { width: 18px; height: 18px; }
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+      transition: all var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      background: var(--primary-dark);
+      box-shadow: 0 6px 24px rgba(108, 99, 255, .4);
+      transform: translateY(-1px);
+    }
+
+    .btn-submit:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-submit svg {
+      width: 18px;
+      height: 18px;
+    }
 
     /* Success state */
-    .success-state { display: none; text-align: center; padding: 48px 24px; }
-    .success-state.visible { display: block; }
-    .success-icon { width: 72px; height: 72px; background: rgba(74,222,128,.12); border: 2px solid rgba(74,222,128,.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-inline: auto; margin-bottom: 24px; }
-    .success-icon svg { width: 36px; height: 36px; color: var(--success); }
-    .success-state h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 10px; }
-    .success-state p { color: var(--text-muted); font-size: .93rem; margin-bottom: 24px; }
-    .btn-reset { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border: 1.5px solid var(--border); color: var(--text-muted); border-radius: var(--radius-sm); font-size: .88rem; font-weight: 500; transition: all var(--transition); }
-    .btn-reset:hover { border-color: var(--primary); color: var(--primary); background: rgba(108,99,255,.08); }
+    .success-state {
+      display: none;
+      text-align: center;
+      padding: 48px 24px;
+    }
+
+    .success-state.visible {
+      display: block;
+    }
+
+    .success-icon {
+      width: 72px;
+      height: 72px;
+      background: rgba(74, 222, 128, .12);
+      border: 2px solid rgba(74, 222, 128, .25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-inline: auto;
+      margin-bottom: 24px;
+    }
+
+    .success-icon svg {
+      width: 36px;
+      height: 36px;
+      color: var(--success);
+    }
+
+    .success-state h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .success-state p {
+      color: var(--text-muted);
+      font-size: .93rem;
+      margin-bottom: 24px;
+    }
+
+    .btn-reset {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border: 1.5px solid var(--border);
+      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      font-size: .88rem;
+      font-weight: 500;
+      transition: all var(--transition);
+    }
+
+    .btn-reset:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(108, 99, 255, .08);
+    }
 
     /* FOOTER */
-    .site-footer { background: var(--bg-surface); border-top: 1px solid var(--border); }
-    .footer-inner { display: grid; grid-template-columns: 1fr auto; gap: 48px; padding-block: clamp(40px, 5vw, 64px); align-items: start; }
-    .footer-brand { max-width: 260px; }
-    .footer-tagline { margin-top: 10px; font-size: .83rem; color: var(--text-faint); }
-    .footer-nav { display: flex; gap: 48px; flex-wrap: wrap; }
-    .footer-col { display: flex; flex-direction: column; gap: 10px; }
-    .footer-col h4 { font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--text-faint); margin-bottom: 4px; }
-    .footer-col a { font-size: .85rem; color: var(--text-muted); transition: color var(--transition); }
-    .footer-col a:hover { color: var(--text); }
-    .footer-bottom { border-top: 1px solid var(--border); padding-block: 20px; }
-    .footer-bottom .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-    .footer-bottom p { font-size: .78rem; color: var(--text-faint); }
+    .site-footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      padding-block: clamp(40px, 5vw, 64px);
+      align-items: start;
+    }
+
+    .footer-brand {
+      max-width: 260px;
+    }
+
+    .footer-tagline {
+      margin-top: 10px;
+      font-size: .83rem;
+      color: var(--text-faint);
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col h4 {
+      font-size: .78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-faint);
+      margin-bottom: 4px;
+    }
+
+    .footer-col a {
+      font-size: .85rem;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+
+    .footer-col a:hover {
+      color: var(--text);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-block: 20px;
+    }
+
+    .footer-bottom .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .footer-bottom p {
+      font-size: .78rem;
+      color: var(--text-faint);
+    }
 
     /* Spinner */
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
-    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 3px; }
-    :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 4px; }
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, .3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, .12);
+      border-radius: 3px;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
 
     @media (max-width: 768px) {
-      .main-nav { display: none; } .menu-toggle { display: flex; }
-      .contact-layout { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-      .footer-inner { grid-template-columns: 1fr; } .footer-bottom .container { flex-direction: column; text-align: center; }
+      .main-nav {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom .container {
+        flex-direction: column;
+        text-align: center;
+      }
     }
   </style>
 </head>
-<body
-  x-data="contactApp()"
-  x-init="
+
+<body x-data="contactApp()" x-init="
     window.addEventListener('scroll', () => { document.querySelector('.site-header').classList.toggle('scrolled', window.scrollY > 10); });
     window.addEventListener('resize', () => { if(window.innerWidth > 768) mobileMenuOpen = false; });
-  "
->
+  ">
 
   <header class="site-header">
     <div class="container header-inner">
       <a href="/" class="logo">
-        <svg class="logo-icon" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#lg1)"/><path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/><defs><linearGradient id="lg1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs></svg>
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#lg1)" />
+          <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round" />
+          <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2" />
+          <defs>
+            <linearGradient id="lg1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#6C63FF" />
+              <stop offset="1" stop-color="#4ECDC4" />
+            </linearGradient>
+          </defs>
+        </svg>
         <span class="logo-text">The Tool Empire</span>
       </a>
       <nav class="main-nav">
@@ -203,7 +764,8 @@
         <a href="contact.html" class="nav-link active">Contact</a>
         <a href="about.html" class="nav-link">About</a>
       </nav>
-      <button class="menu-toggle" @click="mobileMenuOpen = !mobileMenuOpen" :aria-expanded="mobileMenuOpen" aria-label="Toggle menu">
+      <button class="menu-toggle" @click="mobileMenuOpen = !mobileMenuOpen" :aria-expanded="mobileMenuOpen"
+        aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -238,17 +800,24 @@
 
             <div class="info-item">
               <div class="info-item-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
               </div>
               <div>
                 <div class="info-item-label">Email</div>
-                <div class="info-item-value"><a href="mailto:contact@thetoolempire.com">contact@thetoolempire.com</a></div>
+                <div class="info-item-value"><a href="mailto:contact@thetoolempire.com">contact@thetoolempire.com</a>
+                </div>
               </div>
             </div>
 
             <div class="info-item">
               <div class="info-item-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 6v6l4 2" />
+                </svg>
               </div>
               <div>
                 <div class="info-item-label">Response Time</div>
@@ -258,7 +827,11 @@
 
             <div class="info-item">
               <div class="info-item-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <path
+                    d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>
               </div>
               <div>
                 <div class="info-item-label">Website</div>
@@ -286,66 +859,44 @@
           <!-- Success state -->
           <div class="success-state" :class="{ visible: submitted }" aria-live="polite">
             <div class="success-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
             </div>
             <h2>Message Sent!</h2>
             <p>Thanks for reaching out. We'll get back to you within 48 hours.</p>
             <button class="btn-reset" @click="resetForm()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="width:16px;height:16px;">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                <path d="M3 3v5h5" />
+              </svg>
               Send Another Message
             </button>
           </div>
 
           <!-- Form -->
-          <form
-            x-show="!submitted"
-            @submit.prevent="submitForm()"
-            novalidate
-            aria-label="Contact form"
-          >
+          <form x-show="!submitted" @submit.prevent="submitForm()" novalidate aria-label="Contact form">
             <div class="form-row">
               <div class="field">
                 <label for="name">Name <span class="req" aria-label="required">*</span></label>
-                <input
-                  id="name"
-                  type="text"
-                  class="input"
-                  :class="{ error: errors.name }"
-                  placeholder="Your name"
-                  x-model="form.name"
-                  @blur="validateField('name')"
-                  autocomplete="name"
-                  required
-                />
+                <input id="name" type="text" class="input" :class="{ error: errors.name }" placeholder="Your name"
+                  x-model="form.name" @blur="validateField('name')" autocomplete="name" required />
                 <span class="field-error" :class="{ visible: errors.name }" role="alert" x-text="errors.name"></span>
               </div>
               <div class="field">
                 <label for="email">Email <span class="req" aria-label="required">*</span></label>
-                <input
-                  id="email"
-                  type="email"
-                  class="input"
-                  :class="{ error: errors.email }"
-                  placeholder="you@example.com"
-                  x-model="form.email"
-                  @blur="validateField('email')"
-                  autocomplete="email"
-                  required
-                />
+                <input id="email" type="email" class="input" :class="{ error: errors.email }"
+                  placeholder="you@example.com" x-model="form.email" @blur="validateField('email')" autocomplete="email"
+                  required />
                 <span class="field-error" :class="{ visible: errors.email }" role="alert" x-text="errors.email"></span>
               </div>
             </div>
 
             <div class="field">
               <label for="topic">Topic <span class="req" aria-label="required">*</span></label>
-              <select
-                id="topic"
-                class="select"
-                :class="{ error: errors.topic }"
-                x-model="form.topic"
-                @change="validateField('topic')"
-                required
-              >
+              <select id="topic" class="select" :class="{ error: errors.topic }" x-model="form.topic"
+                @change="validateField('topic')" required>
                 <option value="">Select a topic…</option>
                 <option value="suggest">Suggest a New Tool</option>
                 <option value="bug">Report a Bug</option>
@@ -358,57 +909,43 @@
 
             <div class="field">
               <label for="subject">Subject <span class="req" aria-label="required">*</span></label>
-              <input
-                id="subject"
-                type="text"
-                class="input"
-                :class="{ error: errors.subject }"
-                placeholder="Brief subject line"
-                x-model="form.subject"
-                @blur="validateField('subject')"
-                maxlength="120"
-                required
-              />
-              <span class="field-error" :class="{ visible: errors.subject }" role="alert" x-text="errors.subject"></span>
+              <input id="subject" type="text" class="input" :class="{ error: errors.subject }"
+                placeholder="Brief subject line" x-model="form.subject" @blur="validateField('subject')" maxlength="120"
+                required />
+              <span class="field-error" :class="{ visible: errors.subject }" role="alert"
+                x-text="errors.subject"></span>
             </div>
 
             <div class="field">
               <div style="display:flex; justify-content: space-between; align-items: center;">
                 <label for="message">Message <span class="req" aria-label="required">*</span></label>
-                <span class="char-counter" :class="{ warn: form.message.length > 900, over: form.message.length > 1000 }">
+                <span class="char-counter"
+                  :class="{ warn: form.message.length > 900, over: form.message.length > 1000 }">
                   <span x-text="form.message.length"></span>/1000
                 </span>
               </div>
-              <textarea
-                id="message"
-                class="textarea"
-                :class="{ error: errors.message }"
-                placeholder="Tell us more…"
-                x-model="form.message"
-                @blur="validateField('message')"
-                maxlength="1000"
-                required
-              ></textarea>
-              <span class="field-error" :class="{ visible: errors.message }" role="alert" x-text="errors.message"></span>
+              <textarea id="message" class="textarea" :class="{ error: errors.message }" placeholder="Tell us more…"
+                x-model="form.message" @blur="validateField('message')" maxlength="1000" required></textarea>
+              <span class="field-error" :class="{ visible: errors.message }" role="alert"
+                x-text="errors.message"></span>
             </div>
 
             <div class="checkbox-field">
-              <input
-                type="checkbox"
-                id="agree"
-                x-model="form.agree"
-                @change="validateField('agree')"
-              />
+              <input type="checkbox" id="agree" x-model="form.agree" @change="validateField('agree')" />
               <label for="agree">
-                I agree to the <a href="privacy.html" target="_blank">Privacy Policy</a> and consent to being contacted regarding my message.
+                I agree to the <a href="privacy.html" target="_blank">Privacy Policy</a> and consent to being contacted
+                regarding my message.
               </label>
             </div>
-            <span class="field-error" style="margin-top: -16px; margin-bottom: 20px; display:block;" :class="{ visible: errors.agree }" role="alert" x-text="errors.agree"></span>
+            <span class="field-error" style="margin-top: -16px; margin-bottom: 20px; display:block;"
+              :class="{ visible: errors.agree }" role="alert" x-text="errors.agree"></span>
 
             <button type="submit" class="btn-submit" :disabled="submitting">
               <template x-if="!submitting">
                 <span style="display:flex;align-items:center;gap:8px;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z" />
+                  </svg>
                   Send Message
                 </span>
               </template>
@@ -421,7 +958,8 @@
             </button>
 
             <p style="text-align:center; font-size:.75rem; color:var(--text-faint); margin-top:16px;">
-              We typically respond within 48 hours. Your data is handled per our <a href="privacy.html">Privacy Policy</a>.
+              We typically respond within 48 hours. Your data is handled per our <a href="privacy.html">Privacy
+                Policy</a>.
             </p>
 
           </form>
@@ -431,11 +969,136 @@
     </div>
   </main>
 
+  <!-- ===== FEATURED ON ===== -->
+  <section class="featured-on" aria-label="Featured on">
+    <div class="container featured-on-inner">
+      <span class="featured-on-label">As featured on</span>
+      <a href="https://www.producthunt.com/products/the-tool-empire?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-the-tool-empire"
+        target="_blank" rel="noopener noreferrer"><img
+          alt="The Tool Empire - Your Empire of Free Online Tools | Product Hunt" width="250" height="54"
+          src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1166806&amp;theme=dark&amp;t=1780939251352"></a>
+      <div class="featured-on-logos">
+        <a class="featured-on-logo" href="https://wired.business" target="_blank" rel="noopener"
+          aria-label="Featured on Wired Business">
+          <img src="https://wired.business/badge0-dark.svg" alt="Wired Business" width="200" height="54"
+            loading="lazy" />
+        </a>
+        <a class="featured-on-logo" href="https://twelve.tools" target="_blank" rel="noopener"
+          aria-label="Featured on Twelve Tools">
+          <img src="https://twelve.tools/badge0-dark.svg" alt="Twelve Tools" width="200" height="54" loading="lazy" />
+        </a>
+        <a href="https://frogdr.com/thetoolempire.com?utm_source=thetoolempire.com" target="_blank"><img
+            src="https://frogdr.com/thetoolempire.com/badge-dark.svg"
+            alt="Monitor&#0032;your&#0032;Domain&#0032;Rating&#0032;with&#0032;FrogDR" width="250" height="54"></a>
+        <a href="https://tooldirs.com" target="_blank"><img src="https://tooldirs.com/badge/badge_dark.svg"
+            alt="Featured on ToolDirs" width="200" height="54" /></a>
+        <a href="https://startupfa.me/s/the-tool-empire?utm_source=thetoolempire.com" target="_blank"><img
+            src="https://startupfa.me/badges/featured/default.webp" alt="The Tool Empire - Featured on Startup Fame"
+            width="171" height="54" /></a>
+        <a href="https://yo.directory/" target="_blank"><img
+            src="https://cdn.prod.website-files.com/65c1546fa73ea974db789e3d/65e1e171f89ebfa7bd0129ac_yodirectory-featured.png"
+            alt="yo.directory" style="width: 150px; height: 54px;" width="150" height="54" /></a>
+        <a href="https://saastool.site/item/the-tool-empire" target="_blank" rel="noopener noreferrer">
+          <img src="https://saastool.site/badges/saastool-dark.svg" alt="Featured on SaaSTool.site" height="54px"
+            width="auto" />
+        </a>
+        <a href="https://codetrendy.com" target="_blank" rel="noopener noreferrer">
+          <img src="https://codetrendy.com/api/badge?style=dark" alt="Listed on codetrendy.com" height="54" />
+        </a>
+        <a href="https://sellwithboost.com" target="_blank" rel="noopener">
+          <img src="https://sellwithboost.com/badge/the-tool-empire.svg" alt="Listed on SellWithBoost" width="160"
+            height="40">
+        </a>
+        <a href="https://startupspotlight.co/startup/the-tool-empire" rel="dofollow" target="_blank"><img
+            src="https://startupspotlight.co/api/badge/cmq6505wc002n15s51ew7shzz?variant=dark&v=2"
+            alt="Featured on StartupSpotlight" width="248" height="48" /></a>
+        <a href="https://fazier.com" target="_blank"><img
+            src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=dark" width=120
+            alt="Fazier badge" /></a>
+        <a href="https://fazier.com/launches/thetoolempire.com" target="_blank"><img
+            src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=featured&theme=neutral" width=250
+            alt="Fazier badge" /></a>
+        <a href="https://open-launch.com/projects/the-tool-empire" target="_blank" rel="noopener">
+          <img src="https://open-launch.com/api/badge/7c7ca351-e297-49f2-a261-3c6de6294bac/featured-dark.svg"
+            alt="Featured on Open-Launch" width="200" height="50" />
+        </a>
+        <a href="https://indiehunt.io/project/the-tool-empire-free-browser-based-tools" target="_blank" rel="noopener">
+          <img src="https://indiehunt.io/badges/indiehunt-badge-light.svg" alt="Featured on IndieHunt" width="265"
+            height="58" />
+        </a>
+        <a href="https://earlyhunt.com/project/the-tool-empire-free-browser-based-tools" target="_blank" rel="noopener">
+          <img src="https://earlyhunt.com/badges/earlyhunt-badge-light.svg" alt="Featured on EarlyHunt" width="265"
+            height="58" />
+        </a>
+        <a href="https://directoryhunt.org/" target="_blank" rel="noopener noreferrer"
+          style="text-decoration: none; display: inline-block;">
+          <img src="https://directoryhunt.org/assets/Badges/featured.svg" alt="Featured on DirectoryHunt.org"
+            width="225" height="61" style="display: block;" />
+        </a>
+        <a href="https://dofollow.tools" target="_blank"><img src="https://dofollow.tools/badge/badge_dark.svg"
+            alt="Featured on Dofollow.Tools" width="200" height="54" /></a>
+        <a href="https://findly.tools/the-tool-empire?utm_source=the-tool-empire" target="_blank"
+          rel="noopener noreferrer">
+          <img src="https://findly.tools/badges/findly-tools-badge-dark.svg" alt="Featured on Findly.tools" width="175"
+            height="55" />
+        </a>
+        <a href="https://www.aidirectori.es" target="_blank" rel="noopener noreferrer"><img
+            src="https://cdn.aidirectori.es/ai-tools/badges/light-mode.png" alt="AI Directories Badge" /></a>
+        <a href="https://submitaitools.org" target="_blank">
+          <img src="https://submitaitools.org/static_submitaitools/images/submitaitools.png" alt="Submit AI Tools"
+            style="border-radius: 10px; width: 200px; height: 60px;" />
+        </a>
+        <a href="https://toolfame.com/item/the-tool-empire" target="_blank" rel="noopener noreferrer">
+          <img src="https://toolfame.com/badge-dark.svg" alt="Featured on toolfame.com"
+            style="height: 54px; width: auto;" />
+        </a>
+        <a href="https://aitoolfame.com/item/the-tool-empire" target="_blank" rel="noopener noreferrer">
+          <img src="https://aitoolfame.com/badge-dark.svg" alt="Featured on aitoolfame.com"
+            style="height: 54px; width: auto;" />
+        </a>
+        <a href="https://saasfame.com/item/the-tool-empire" target="_blank" rel="noopener noreferrer">
+          <img src="https://saasfame.com/badge-dark.svg" alt="Featured on saasfame.com"
+            style="height: 54px; width: auto;" />
+        </a>
+        <a href="https://dang.ai" target="_blank" rel="dofollow noopener"
+          style="display:inline-block;text-decoration:none;"><img
+            src="https://assets.dang.ai/badges/dang-verified-dark.png" alt="Verified on DANG!" width="260" height="94"
+            style="display:block;width:260px;max-width:100%;height:auto;border:0;outline:none;text-decoration:none;" /></a>
+        <a href="https://geoly.net/item/the-tool-empire" target="_blank" rel="noopener noreferrer">
+          <img src="https://geoly.net/badge-dark.svg" alt="Featured on geoly.net" style="height: 54px; width: auto;" />
+        </a>
+        <a href="https://yo.directory/" target="_blank"><img
+            src="https://cdn.prod.website-files.com/65c1546fa73ea974db789e3d/65e1e171f89ebfa7bd0129ac_yodirectory-featured.png"
+            alt="yo.directory" style="width: 150px; height: 54px;" width="150" height="54" /></a>
+        <a href="https://newtool.site/item/the-tool-empire" target="_blank" rel="noopener noreferrer">
+          <img src="https://newtool.site/badges/newtool-dark.svg" alt="Featured on NewTool.site" height="54px"
+            width="auto" />
+        </a>
+        <a href="https://firstlook.tools" target="_blank"><img src="https://firstlook.tools/badge/badge_light.svg"
+            alt="Featured on First Look" width="200" height="54" /></a>
+        <a href="https://aifinder.site" target="_blank" rel="noopener noreferrer">
+          <img src="https://aifinder.site/light-badge.png" alt="Discover more AI tools at aifinder.site"
+            style="width: 200px; height: auto;">
+        </a>
+      </div>
+    </div>
+  </section>
+
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
         <a href="/" class="logo">
-          <svg class="logo-icon" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#lg2)"/><path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/><defs><linearGradient id="lg2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs></svg>
+          <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+            <rect width="40" height="40" rx="10" fill="url(#lg2)" />
+            <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round" />
+            <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2" />
+            <defs>
+              <linearGradient id="lg2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6C63FF" />
+                <stop offset="1" stop-color="#4ECDC4" />
+              </linearGradient>
+            </defs>
+          </svg>
           <span class="logo-text">The Tool Empire</span>
         </a>
         <p class="footer-tagline">Free tools, no limits.</p>
@@ -480,13 +1143,13 @@
         validateField(field) {
           this.errors[field] = '';
           const v = typeof this.form[field] === 'string' ? this.form[field].trim() : this.form[field];
-          if (field === 'name'    && !v)                                  this.errors.name    = 'Name is required.';
-          if (field === 'email')  {
+          if (field === 'name' && !v) this.errors.name = 'Name is required.';
+          if (field === 'email') {
             if (!v) this.errors.email = 'Email is required.';
             else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) this.errors.email = 'Please enter a valid email.';
           }
-          if (field === 'topic'   && !v)                                  this.errors.topic   = 'Please select a topic.';
-          if (field === 'subject' && !v)                                  this.errors.subject = 'Subject is required.';
+          if (field === 'topic' && !v) this.errors.topic = 'Please select a topic.';
+          if (field === 'subject' && !v) this.errors.subject = 'Subject is required.';
           if (field === 'message') {
             if (!v) this.errors.message = 'Message is required.';
             else if (v.length < 10) this.errors.message = 'Message must be at least 10 characters.';
@@ -495,7 +1158,7 @@
         },
 
         validateAll() {
-          ['name','email','topic','subject','message','agree'].forEach(f => this.validateField(f));
+          ['name', 'email', 'topic', 'subject', 'message', 'agree'].forEach(f => this.validateField(f));
           return Object.values(this.errors).every(e => !e);
         },
 
@@ -521,4 +1184,5 @@
   </script>
 
 </body>
+
 </html>

@@ -25,6 +25,19 @@ const ACCENT_COLORS = [
   '#059669','#d97706','#dc2626','#db2777',
 ];
 
+const FONT_FAMILIES = [
+  { id: 'sans',    label: 'Sans',    family: 'system-ui, Arial, sans-serif'           },
+  { id: 'serif',   label: 'Serif',   family: 'Georgia, "Times New Roman", serif'      },
+  { id: 'mono',    label: 'Mono',    family: '"Courier New", Courier, monospace'      },
+];
+
+const FONT_SCALES = [
+  { id: 0.85, label: 'S'  },
+  { id: 1.0,  label: 'M'  },
+  { id: 1.15, label: 'L'  },
+  { id: 1.3,  label: 'XL' },
+];
+
 let _canvas = null;
 let _ctx    = null;
 let _nextId = 1;
@@ -76,15 +89,16 @@ function renderInvoice(ctx, W, H, cfg) {
     invoiceNum, invoiceDate, dueDate, poNumber,
     items, taxRate, discountRate, notes, terms,
     currency, logoText, logoImg,
+    fontFamily, fontScale,
   } = cfg;
 
   const sym = currency.symbol;
 
   /* scale helpers so sizes feel right on every paper size */
-  const S = W / 794; /* scale factor relative to A4 width */
-
-  const f  = (px) => px * S;  /* scale font/margin */
-  const fs = (...px) => px.map(f);
+  const S  = W / 794;
+  const f  = (px) => px * S;
+  const fs = (px) => f(px) * (fontScale || 1);  /* font-size scaler */
+  const FF = fontFamily || 'system-ui, Arial, sans-serif';
 
   /* ── white background ── */
   ctx.fillStyle = '#ffffff';
@@ -95,31 +109,38 @@ function renderInvoice(ctx, W, H, cfg) {
   ctx.fillStyle = accentColor;
   ctx.fillRect(0, 0, W, HDR_H);
 
-  /* ── logo image or text ── */
+  /* ── logo image (optional) + company name ── */
   const PAD = f(44);
 
+  let nameX = PAD;
+
   if (logoImg) {
-    /* draw uploaded logo — fit inside a 140×60 box */
-    const maxLW = f(140), maxLH = f(50);
-    const scale = Math.min(maxLW / logoImg.naturalWidth, maxLH / logoImg.naturalHeight);
-    const lw = logoImg.naturalWidth * scale;
-    const lh = logoImg.naturalHeight * scale;
-    ctx.drawImage(logoImg, PAD, (HDR_H - lh) / 2, lw, lh);
-  } else {
+    const maxLW = f(50), maxLH = f(44);
+    const sc = Math.min(maxLW / logoImg.naturalWidth, maxLH / logoImg.naturalHeight);
+    const lw = logoImg.naturalWidth * sc;
+    const lh = logoImg.naturalHeight * sc;
+    const ly = (HDR_H - lh) / 2;
+    ctx.drawImage(logoImg, PAD, ly, lw, lh);
+    nameX = PAD + lw + f(10);
+  }
+
+  /* always draw company / logo text next to logo (or alone if no logo) */
+  const displayName = logoText || fromName || 'Your Company';
+  if (displayName) {
     ctx.fillStyle = '#ffffff';
-    ctx.font = `700 ${f(22)}px system-ui, Arial, sans-serif`;
+    ctx.font = `700 ${fs(20)}px ${FF}`;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
-    ctx.fillText(logoText || fromName || 'Your Company', PAD, HDR_H / 2);
+    ctx.fillText(displayName, nameX, HDR_H / 2);
   }
 
   /* ── INVOICE label (right of header) ── */
   ctx.textAlign = 'right';
-  ctx.font = `900 ${f(28)}px system-ui, Arial, sans-serif`;
+  ctx.font = `900 ${fs(28)}px ${FF}`;
   ctx.fillStyle = 'rgba(255,255,255,.95)';
   ctx.fillText('INVOICE', W - PAD, HDR_H * .42);
 
-  ctx.font = `${f(13)}px system-ui, Arial, sans-serif`;
+  ctx.font = `${fs(13)}px ${FF}`;
   ctx.fillStyle = 'rgba(255,255,255,.7)';
   ctx.fillText('#' + (invoiceNum || '0001'), W - PAD, HDR_H * .72);
 
@@ -130,11 +151,10 @@ function renderInvoice(ctx, W, H, cfg) {
   const COL3X     = W * .68;
   const COL1W     = COL2X - COL1X - f(10);
   const COL2W     = COL3X - COL2X - f(10);
-  const COL3W     = W - COL3X - PAD;
 
   /* helper: section label */
   function sLabel(text, x, y) {
-    ctx.font = `700 ${f(9)}px system-ui, Arial, sans-serif`;
+    ctx.font = `700 ${fs(9)}px ${FF}`;
     ctx.fillStyle = accentColor;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'alphabetic';
@@ -143,7 +163,7 @@ function renderInvoice(ctx, W, H, cfg) {
 
   /* helper: body line */
   function bLine(text, x, y, maxW, muted) {
-    ctx.font = `${f(11)}px system-ui, Arial, sans-serif`;
+    ctx.font = `${fs(11)}px ${FF}`;
     ctx.fillStyle = muted ? '#777777' : '#111111';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'alphabetic';
@@ -153,7 +173,7 @@ function renderInvoice(ctx, W, H, cfg) {
   /* FROM */
   let fy = BLOC_TOP + f(4);
   sLabel('From', COL1X, fy); fy += f(14);
-  ctx.font = `700 ${f(13)}px system-ui, Arial, sans-serif`;
+  ctx.font = `700 ${fs(13)}px ${FF}`;
   ctx.fillStyle = '#111'; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
   ctx.fillText(fromName || 'Your Company', COL1X, fy); fy += f(17);
   if (fromAddress) { fy = bLine(fromAddress, COL1X, fy, COL1W, true) + f(15); }
@@ -163,7 +183,7 @@ function renderInvoice(ctx, W, H, cfg) {
   /* BILL TO */
   let ty2 = BLOC_TOP + f(4);
   sLabel('Bill To', COL2X, ty2); ty2 += f(14);
-  ctx.font = `700 ${f(13)}px system-ui, Arial, sans-serif`;
+  ctx.font = `700 ${fs(13)}px ${FF}`;
   ctx.fillStyle = '#111'; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
   ctx.fillText(toName || 'Client Name', COL2X, ty2); ty2 += f(17);
   if (toAddress) { ty2 = bLine(toAddress, COL2X, ty2, COL2W, true) + f(15); }
@@ -179,10 +199,10 @@ function renderInvoice(ctx, W, H, cfg) {
 
   let my = BLOC_TOP + f(4);
   metaItems.forEach(([label, val]) => {
-    ctx.font = `600 ${f(9)}px system-ui, Arial, sans-serif`;
+    ctx.font = `600 ${fs(9)}px ${FF}`;
     ctx.fillStyle = '#999'; ctx.textAlign = 'right'; ctx.textBaseline = 'alphabetic';
     ctx.fillText(label, W - PAD, my);
-    ctx.font = `${f(11)}px system-ui, Arial, sans-serif`;
+    ctx.font = `${fs(11)}px ${FF}`;
     ctx.fillStyle = '#111'; ctx.textAlign = 'right';
     ctx.fillText(val, W - PAD, my + f(14));
     my += f(33);
@@ -206,7 +226,7 @@ function renderInvoice(ctx, W, H, cfg) {
   ctx.fillRect(PAD * .8, TBL_TOP, W - PAD * 1.6, ROW_H);
 
   const HDR_Y = TBL_TOP + f(20);
-  ctx.font = `700 ${f(9)}px system-ui, Arial, sans-serif`;
+  ctx.font = `700 ${fs(9)}px ${FF}`;
   ctx.fillStyle = '#555'; ctx.textBaseline = 'alphabetic';
   ctx.textAlign = 'left';   ctx.fillText('DESCRIPTION', CDESC.x, HDR_Y);
   ctx.textAlign = 'center'; ctx.fillText('QTY',  CQTY.x + CQTY.w / 2, HDR_Y);
@@ -223,8 +243,7 @@ function renderInvoice(ctx, W, H, cfg) {
     const amt  = qty * rate;
     subtotal += amt;
 
-    /* measure description height to set row height */
-    ctx.font = `${f(11)}px system-ui, Arial, sans-serif`;
+    ctx.font = `${fs(11)}px ${FF}`;
     const descH = _wrapHeight(ctx, item.desc || '', CDESC.w - f(8), f(16));
     const thisRowH = Math.max(f(30), descH + f(16));
 
@@ -234,7 +253,7 @@ function renderInvoice(ctx, W, H, cfg) {
     }
 
     const ry = rowY + f(14);
-    ctx.font = `${f(11)}px system-ui, Arial, sans-serif`;
+    ctx.font = `${fs(11)}px ${FF}`;
     ctx.fillStyle = '#222'; ctx.textBaseline = 'alphabetic';
 
     ctx.textAlign = 'left';
@@ -261,7 +280,6 @@ function renderInvoice(ctx, W, H, cfg) {
   const tax       = taxable  * (parseFloat(taxRate)      || 0) / 100;
   const total     = taxable  + tax;
 
-  /* totals sit right-aligned; label col starts at ~62% */
   const TOT_LABEL_X = W * .62;
   const TOT_VAL_X   = W - PAD;
   const TOT_COL_W   = TOT_VAL_X - TOT_LABEL_X - f(4);
@@ -270,24 +288,21 @@ function renderInvoice(ctx, W, H, cfg) {
     const lineH = bold ? f(34) : f(26);
 
     if (bold) {
-      ctx.fillStyle = accentColor + '18'; /* tinted bg */
+      ctx.fillStyle = accentColor + '18';
       ctx.fillRect(TOT_LABEL_X - f(8), rowY - f(2), W - TOT_LABEL_X + f(8) + PAD, lineH);
     }
 
     ctx.textBaseline = 'alphabetic';
     ctx.font = bold
-      ? `700 ${f(12)}px system-ui, Arial, sans-serif`
-      : `${f(11)}px system-ui, Arial, sans-serif`;
+      ? `700 ${fs(12)}px ${FF}`
+      : `${fs(11)}px ${FF}`;
 
-    /* label — left aligned within tot col */
     ctx.fillStyle = bold ? '#111' : '#555';
     ctx.textAlign = 'left';
     ctx.fillText(label, TOT_LABEL_X, rowY + (bold ? f(22) : f(18)));
 
-    /* value — right aligned, clipped to col width */
     ctx.textAlign = 'right';
     ctx.fillStyle = bold ? '#111' : '#333';
-    /* truncate if too wide */
     let valStr = valueStr;
     while (ctx.measureText(valStr).width > TOT_COL_W && valStr.length > 1) valStr = valStr.slice(0, -1);
     ctx.fillText(valStr, TOT_VAL_X, rowY + (bold ? f(22) : f(18)));
@@ -299,7 +314,6 @@ function renderInvoice(ctx, W, H, cfg) {
   if (discount > 0) totRow(`Discount (${discountRate}%)`, '−' + fmtMoney(discount, sym));
   if (tax > 0)      totRow(`Tax (${taxRate}%)`,           fmtMoney(tax, sym));
 
-  /* hairline above total */
   ctx.strokeStyle = '#e5e7eb'; ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(TOT_LABEL_X - f(8), rowY); ctx.lineTo(W - PAD * .8, rowY); ctx.stroke();
   rowY += f(4);
@@ -314,10 +328,10 @@ function renderInvoice(ctx, W, H, cfg) {
     rowY += f(18);
 
     if (notes) {
-      ctx.font = `700 ${f(10)}px system-ui, Arial, sans-serif`;
+      ctx.font = `700 ${fs(10)}px ${FF}`;
       ctx.fillStyle = '#333'; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
       ctx.fillText('Notes', PAD, rowY); rowY += f(14);
-      ctx.font = `${f(10)}px system-ui, Arial, sans-serif`;
+      ctx.font = `${fs(10)}px ${FF}`;
       ctx.fillStyle = '#666';
       const endY = _wrapCanvas(ctx, notes, PAD, rowY, W * .43, f(15));
       rowY = endY + f(20);
@@ -326,10 +340,10 @@ function renderInvoice(ctx, W, H, cfg) {
     if (terms) {
       const tx = notes ? W * .52 : PAD;
       const baseY = notes ? (rowY - f(20)) : rowY;
-      ctx.font = `700 ${f(10)}px system-ui, Arial, sans-serif`;
+      ctx.font = `700 ${fs(10)}px ${FF}`;
       ctx.fillStyle = '#333'; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
       ctx.fillText('Payment Terms', tx, baseY - f(14));
-      ctx.font = `${f(10)}px system-ui, Arial, sans-serif`;
+      ctx.font = `${fs(10)}px ${FF}`;
       ctx.fillStyle = '#666';
       _wrapCanvas(ctx, terms, tx, baseY, W * .42, f(15));
     }
@@ -341,7 +355,7 @@ function renderInvoice(ctx, W, H, cfg) {
   ctx.fillRect(0, H - FTR_H, W, FTR_H);
 
   if (fromEmail || fromPhone) {
-    ctx.font = `${f(9)}px system-ui, Arial, sans-serif`;
+    ctx.font = `${fs(9)}px ${FF}`;
     ctx.fillStyle = 'rgba(255,255,255,.85)';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     const footerTxt = [fromEmail, fromPhone].filter(Boolean).join('  ·  ');
@@ -388,17 +402,22 @@ function invoiceGeneratorApp() {
     terms: 'Payment due within 30 days.',
 
     /* style */
-    accentColor:  '#3b82f6',
-    currencyCode: 'USD',
-    paperSizeId:  'a4',
+    accentColor:   '#3b82f6',
+    currencyCode:  'USD',
+    paperSizeId:   'a4',
+    fontFamilyId:  'sans',
+    fontScale:     1.0,
 
-    currencies:   CURRENCIES,
-    accentColors: ACCENT_COLORS,
-    paperSizes:   PAPER_SIZES,
+    currencies:    CURRENCIES,
+    accentColors:  ACCENT_COLORS,
+    paperSizes:    PAPER_SIZES,
+    fontFamilies:  FONT_FAMILIES,
+    fontScales:    FONT_SCALES,
 
-    get paperSize()  { return PAPER_SIZES.find(p => p.id === this.paperSizeId) || PAPER_SIZES[0]; },
-    get currency()   { return CURRENCIES.find(c => c.code === this.currencyCode) || CURRENCIES[0]; },
-    get sym()        { return this.currency.symbol; },
+    get paperSize()   { return PAPER_SIZES.find(p => p.id === this.paperSizeId) || PAPER_SIZES[0]; },
+    get currency()    { return CURRENCIES.find(c => c.code === this.currencyCode) || CURRENCIES[0]; },
+    get sym()         { return this.currency.symbol; },
+    get fontFamily()  { return (FONT_FAMILIES.find(f => f.id === this.fontFamilyId) || FONT_FAMILIES[0]).family; },
 
     get subtotal()    { return this.items.reduce((s, it) => s + (parseFloat(it.qty) || 0) * (parseFloat(it.rate) || 0), 0); },
     get discountAmt() { return this.subtotal * (parseFloat(this.discountRate) || 0) / 100; },
@@ -431,6 +450,7 @@ function invoiceGeneratorApp() {
         'invoiceNum','invoiceDate','dueDate','poNumber',
         'taxRate','discountRate','notes','terms',
         'accentColor','currencyCode','paperSizeId',
+        'fontFamilyId','fontScale',
       ];
       fields.forEach(f => this.$watch(f, () => this.render()));
       this.$watch('items', () => this.render(), { deep: true });
@@ -468,6 +488,8 @@ function invoiceGeneratorApp() {
         currency:     this.currency,
         logoText:     this.logoText,
         logoImg:      this.logoImg,
+        fontFamily:   this.fontFamily,
+        fontScale:    this.fontScale,
       };
     },
 

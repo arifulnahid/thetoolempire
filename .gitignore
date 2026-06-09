@@ -30,3 +30,4 @@ build/
 *.bak
 
 google_analytics.txt
+.claude/

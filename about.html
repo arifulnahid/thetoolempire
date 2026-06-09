@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="About The Tool Empire — learn why we built a free, privacy-first, browser-based tool website for developers, designers, writers, and students." />
+  <meta name="description"
+    content="About The Tool Empire — learn why we built a free, privacy-first, browser-based tool website for developers, designers, writers, and students." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://thetoolempire.com/about.html" />
   <meta property="og:title" content="About The Tool Empire" />
   <meta property="og:description" content="Free browser-based tools built for speed, privacy, and everyone." />
   <meta property="og:type" content="website" />
   <title>About — The Tool Empire</title>
+   <link rel="stylesheet" href="assets/css/about.css" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#6C63FF" />
@@ -22,123 +25,11 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date()); gtag('config', 'G-CNN44ER8MF');
   </script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --primary: #6C63FF; --primary-dark: #5548e0; --secondary: #4ECDC4; --accent: #FF6B6B;
-      --bg: #0f0f14; --bg-surface: #18181f; --bg-card: #1e1e28; --bg-card-hover: #25253a;
-      --border: rgba(255,255,255,.08); --text: #e8e8f0; --text-muted: #8888a8; --text-faint: #555570;
-      --radius-sm: 8px; --radius-md: 14px; --radius-lg: 20px;
-      --transition: .2s cubic-bezier(.4,0,.2,1); --max-w: 1280px;
-    }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
-    a { color: var(--primary); text-decoration: none; transition: color var(--transition); }
-    a:hover { color: var(--secondary); }
-    button { cursor: pointer; font: inherit; border: none; background: none; }
-    svg { display: block; }
-
-    .container { width: 100%; max-width: var(--max-w); margin-inline: auto; padding-inline: clamp(16px, 4vw, 48px); }
-
-    /* HEADER */
-    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(15,15,20,.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); transition: box-shadow var(--transition); }
-    .site-header.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,.4); }
-    .header-inner { display: flex; align-items: center; gap: 24px; height: 64px; }
-    .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-    .logo-icon { width: 36px; height: 36px; border-radius: 9px; }
-    .logo-text { font-size: 1.1rem; font-weight: 700; letter-spacing: -.02em; background: linear-gradient(135deg, #fff 40%, var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .main-nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
-    .nav-link { padding: 6px 14px; border-radius: var(--radius-sm); font-size: .9rem; font-weight: 500; color: var(--text-muted); transition: color var(--transition), background var(--transition); }
-    .nav-link:hover, .nav-link.active { color: var(--text); background: rgba(255,255,255,.06); }
-    .menu-toggle { display: none; flex-direction: column; gap: 5px; margin-left: auto; padding: 8px; border-radius: var(--radius-sm); }
-    .menu-toggle span { display: block; width: 22px; height: 2px; background: var(--text-muted); border-radius: 2px; }
-    .mobile-nav { display: none; flex-direction: column; padding: 12px 16px 16px; border-top: 1px solid var(--border); background: var(--bg-surface); gap: 2px; }
-    .mobile-nav.open { display: flex; }
-
-    /* HERO */
-    .about-hero { padding: clamp(56px, 8vw, 100px) 0; text-align: center; background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(108,99,255,.18) 0%, transparent 70%); }
-    .page-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(108,99,255,.15); border: 1px solid rgba(108,99,255,.3); color: #a39dff; font-size: .75rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; margin-bottom: 20px; }
-    .about-hero h1 { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; letter-spacing: -.04em; line-height: 1.1; margin-bottom: 20px; }
-    .gradient-text { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .about-hero p { font-size: clamp(.95rem, 2vw, 1.1rem); color: var(--text-muted); max-width: 600px; margin-inline: auto; }
-
-    /* STATS */
-    .stats-strip { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-surface); padding: 32px 0; }
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0; }
-    .stat-item { text-align: center; padding: 16px 24px; position: relative; }
-    .stat-item + .stat-item::before { content: ''; position: absolute; left: 0; top: 20%; height: 60%; width: 1px; background: var(--border); }
-    .stat-value { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -.03em; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .stat-label { font-size: .8rem; color: var(--text-faint); margin-top: 4px; }
-
-    /* MISSION */
-    .section { padding: clamp(48px, 6vw, 80px) 0; }
-    .section + .section { border-top: 1px solid var(--border); }
-    .section-inner { max-width: 900px; margin-inline: auto; }
-    .section-label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--primary); margin-bottom: 12px; }
-    .section-title { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -.03em; margin-bottom: 20px; }
-    .section-body { font-size: .95rem; color: var(--text-muted); line-height: 1.8; }
-    .section-body p { margin-bottom: 16px; }
-    .section-body p:last-child { margin-bottom: 0; }
-    .section-body strong { color: var(--text); }
-
-    /* TWO-COL */
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; max-width: 1000px; margin-inline: auto; }
-    .two-col.reverse { direction: rtl; }
-    .two-col.reverse > * { direction: ltr; }
-
-    /* VALUES */
-    .values-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; max-width: 1000px; margin-inline: auto; }
-    .value-card { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 24px; transition: all var(--transition); }
-    .value-card:hover { border-color: rgba(108,99,255,.4); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(108,99,255,.15); }
-    .value-icon { width: 44px; height: 44px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
-    .value-icon svg { width: 22px; height: 22px; }
-    .value-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
-    .value-card p { font-size: .85rem; color: var(--text-muted); line-height: 1.6; }
-
-    /* CATEGORIES SHOWCASE */
-    .cats-grid { display: flex; flex-wrap: wrap; gap: 12px; max-width: 800px; margin-inline: auto; justify-content: center; margin-top: 32px; }
-    .cat-pill { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: var(--bg-card); border: 1.5px solid var(--border); border-radius: 999px; font-size: .88rem; font-weight: 500; color: var(--text-muted); transition: all var(--transition); }
-    .cat-pill:hover { border-color: rgba(108,99,255,.4); color: var(--text); background: rgba(108,99,255,.08); }
-    .cat-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-
-    /* CTA */
-    .about-cta { padding: clamp(48px, 6vw, 80px) 0; text-align: center; background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(108,99,255,.12) 0%, transparent 70%), var(--bg-surface); border-top: 1px solid var(--border); }
-    .about-cta h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -.02em; margin-bottom: 12px; }
-    .about-cta p { color: var(--text-muted); margin-bottom: 32px; }
-    .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; background: var(--primary); color: #fff; border-radius: var(--radius-sm); font-size: .95rem; font-weight: 600; transition: all var(--transition); }
-    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(108,99,255,.4); color: #fff; }
-    .btn-ghost { display: inline-flex; align-items: center; padding: 12px 24px; color: var(--text-muted); border-radius: var(--radius-sm); font-size: .95rem; font-weight: 500; border: 1.5px solid var(--border); transition: all var(--transition); }
-    .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,.15); background: rgba(255,255,255,.04); }
-
-    /* FOOTER */
-    .site-footer { background: var(--bg-surface); border-top: 1px solid var(--border); }
-    .footer-inner { display: grid; grid-template-columns: 1fr auto; gap: 48px; padding-block: clamp(40px, 5vw, 64px); align-items: start; }
-    .footer-brand { max-width: 260px; }
-    .footer-tagline { margin-top: 10px; font-size: .83rem; color: var(--text-faint); }
-    .footer-nav { display: flex; gap: 48px; flex-wrap: wrap; }
-    .footer-col { display: flex; flex-direction: column; gap: 10px; }
-    .footer-col h4 { font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--text-faint); margin-bottom: 4px; }
-    .footer-col a { font-size: .85rem; color: var(--text-muted); transition: color var(--transition); }
-    .footer-col a:hover { color: var(--text); }
-    .footer-bottom { border-top: 1px solid var(--border); padding-block: 20px; }
-    .footer-bottom .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-    .footer-bottom p { font-size: .78rem; color: var(--text-faint); }
-
-    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 3px; }
-    :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 4px; }
-
-    @media (max-width: 768px) {
-      .main-nav { display: none; } .menu-toggle { display: flex; }
-      .two-col { grid-template-columns: 1fr; } .two-col.reverse { direction: ltr; }
-      .stat-item + .stat-item::before { display: none; }
-      .footer-inner { grid-template-columns: 1fr; } .footer-bottom .container { flex-direction: column; text-align: center; }
-    }
-  </style>
 </head>
+
 <body x-data="{ mobileMenuOpen: false }" x-init="
   window.addEventListener('scroll', () => { document.querySelector('.site-header').classList.toggle('scrolled', window.scrollY > 10); });
   window.addEventListener('resize', () => { if(window.innerWidth > 768) mobileMenuOpen = false; });
@@ -147,7 +38,17 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="/" class="logo">
-        <svg class="logo-icon" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#lg1)"/><path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/><defs><linearGradient id="lg1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs></svg>
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#lg1)" />
+          <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round" />
+          <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2" />
+          <defs>
+            <linearGradient id="lg1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#6C63FF" />
+              <stop offset="1" stop-color="#4ECDC4" />
+            </linearGradient>
+          </defs>
+        </svg>
         <span class="logo-text">The Tool Empire</span>
       </a>
       <nav class="main-nav">
@@ -157,7 +58,8 @@
         <a href="contact.html" class="nav-link">Contact</a>
         <a href="about.html" class="nav-link active">About</a>
       </nav>
-      <button class="menu-toggle" @click="mobileMenuOpen = !mobileMenuOpen" :aria-expanded="mobileMenuOpen" aria-label="Toggle menu">
+      <button class="menu-toggle" @click="mobileMenuOpen = !mobileMenuOpen" :aria-expanded="mobileMenuOpen"
+        aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -175,7 +77,8 @@
     <div class="container">
       <div class="page-badge">About Us</div>
       <h1 id="about-heading">We Build Tools for <span class="gradient-text">Everyone</span></h1>
-      <p>The Tool Empire is a free, privacy-first collection of browser-based utilities built for developers, designers, writers, and students worldwide.</p>
+      <p>The Tool Empire is a free, privacy-first collection of browser-based utilities built for developers, designers,
+        writers, and students worldwide.</p>
     </div>
   </section>
 
@@ -215,23 +118,28 @@
           <p class="section-label">Our Mission</p>
           <h2 id="mission-heading" class="section-title">Tools should be free, fast, and private</h2>
           <div class="section-body">
-            <p>We started The Tool Empire because we were tired of tools that require sign-ups, slow down with server round-trips, or — worse — quietly harvest your data.</p>
-            <p>Every tool we build runs <strong>entirely in your browser</strong>. There is no server receiving your JSON, your text, or your financial data. What you type stays on your device. Always.</p>
-            <p>We believe utility software should be a public good. No paywalls, no "pro" tiers, no email required. Just open the tool and get to work.</p>
+            <p>We started The Tool Empire because we were tired of tools that require sign-ups, slow down with server
+              round-trips, or — worse — quietly harvest your data.</p>
+            <p>Every tool we build runs <strong>entirely in your browser</strong>. There is no server receiving your
+              JSON, your text, or your financial data. What you type stays on your device. Always.</p>
+            <p>We believe utility software should be a public good. No paywalls, no "pro" tiers, no email required. Just
+              open the tool and get to work.</p>
           </div>
         </div>
         <!-- Illustration placeholder -->
-        <div style="background: linear-gradient(135deg, rgba(108,99,255,.15), rgba(78,205,196,.1)); border: 1.5px solid var(--border); border-radius: var(--radius-lg); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
+        <div
+          style="background: linear-gradient(135deg, rgba(108,99,255,.15), rgba(78,205,196,.1)); border: 1.5px solid var(--border); border-radius: var(--radius-lg); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
           <svg viewBox="0 0 120 90" fill="none" style="width: 80%; opacity: .6;" xmlns="http://www.w3.org/2000/svg">
-            <rect x="10" y="10" width="100" height="70" rx="8" stroke="#6C63FF" stroke-width="2"/>
-            <path d="M10 26h100" stroke="#6C63FF" stroke-width="2"/>
-            <circle cx="22" cy="18" r="3" fill="#FF6B6B"/>
-            <circle cx="34" cy="18" r="3" fill="#fde68a"/>
-            <circle cx="46" cy="18" r="3" fill="#4ECDC4"/>
-            <rect x="22" y="36" width="36" height="6" rx="3" fill="#6C63FF" opacity=".4"/>
-            <rect x="22" y="48" width="60" height="4" rx="2" fill="#6C63FF" opacity=".2"/>
-            <rect x="22" y="58" width="48" height="4" rx="2" fill="#6C63FF" opacity=".2"/>
-            <rect x="70" y="36" width="24" height="28" rx="4" fill="#4ECDC4" opacity=".2" stroke="#4ECDC4" stroke-width="1.5"/>
+            <rect x="10" y="10" width="100" height="70" rx="8" stroke="#6C63FF" stroke-width="2" />
+            <path d="M10 26h100" stroke="#6C63FF" stroke-width="2" />
+            <circle cx="22" cy="18" r="3" fill="#FF6B6B" />
+            <circle cx="34" cy="18" r="3" fill="#fde68a" />
+            <circle cx="46" cy="18" r="3" fill="#4ECDC4" />
+            <rect x="22" y="36" width="36" height="6" rx="3" fill="#6C63FF" opacity=".4" />
+            <rect x="22" y="48" width="60" height="4" rx="2" fill="#6C63FF" opacity=".2" />
+            <rect x="22" y="58" width="48" height="4" rx="2" fill="#6C63FF" opacity=".2" />
+            <rect x="70" y="36" width="24" height="28" rx="4" fill="#4ECDC4" opacity=".2" stroke="#4ECDC4"
+              stroke-width="1.5" />
           </svg>
         </div>
       </div>
@@ -248,42 +156,61 @@
       <div class="values-grid">
         <div class="value-card">
           <div class="value-icon" style="background: rgba(108,99,255,.15); border: 1px solid rgba(108,99,255,.2);">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
           </div>
           <h3>Privacy First</h3>
           <p>Your data never leaves your device. All processing happens locally in your browser — period.</p>
         </div>
         <div class="value-card">
           <div class="value-icon" style="background: rgba(78,205,196,.12); border: 1px solid rgba(78,205,196,.2);">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#4ECDC4" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#4ECDC4" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 6v6l4 2" />
+            </svg>
           </div>
           <h3>Speed Matters</h3>
           <p>No server round-trips. Results appear instantly as you type. Time is your most valuable resource.</p>
         </div>
         <div class="value-card">
           <div class="value-icon" style="background: rgba(255,107,107,.12); border: 1px solid rgba(255,107,107,.2);">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2">
+              <path
+                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            </svg>
           </div>
           <h3>Forever Free</h3>
-          <p>Every tool is free. No freemium, no limits, no credit card. We're supported by advertising, not paywalls.</p>
+          <p>Every tool is free. No freemium, no limits, no credit card. We're supported by advertising, not paywalls.
+          </p>
         </div>
         <div class="value-card">
           <div class="value-icon" style="background: rgba(249,240,71,.1); border: 1px solid rgba(249,240,71,.2);">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fde68a" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fde68a" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <path d="M8 21h8M12 17v4" />
+            </svg>
           </div>
           <h3>Works Everywhere</h3>
           <p>Fully responsive design. Optimized for mobile, tablet, and desktop with no compromise.</p>
         </div>
         <div class="value-card">
           <div class="value-icon" style="background: rgba(15,216,80,.1); border: 1px solid rgba(15,216,80,.2);">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#6ee7b7" stroke-width="2"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10"/><path d="M12 8v4l2.5 2.5M22 12h-4m2 4-2-2 2-2"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#6ee7b7" stroke-width="2">
+              <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10" />
+              <path d="M12 8v4l2.5 2.5M22 12h-4m2 4-2-2 2-2" />
+            </svg>
           </div>
           <h3>Always Growing</h3>
           <p>New tools added every week based on what our users request. Have an idea? Let us know.</p>
         </div>
         <div class="value-card">
           <div class="value-icon" style="background: rgba(252,178,144,.1); border: 1px solid rgba(252,178,144,.2);">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fcb69f" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fcb69f" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
           </div>
           <h3>Built for Everyone</h3>
           <p>Developers, designers, students, writers, marketers — everyone deserves great free tools.</p>
@@ -297,7 +224,8 @@
     <div class="container" style="text-align: center;">
       <p class="section-label">What We Cover</p>
       <h2 id="cats-heading" class="section-title" style="margin-bottom: 8px;">Tool Categories</h2>
-      <p style="color: var(--text-muted); font-size: .93rem; max-width: 500px; margin-inline: auto;">From coding utilities to color tools, we cover the daily workflows of modern creators.</p>
+      <p style="color: var(--text-muted); font-size: .93rem; max-width: 500px; margin-inline: auto;">From coding
+        utilities to color tools, we cover the daily workflows of modern creators.</p>
       <div class="cats-grid">
         <span class="cat-pill"><span class="cat-dot" style="background: #667eea;"></span> Text Tools</span>
         <span class="cat-pill"><span class="cat-dot" style="background: #a18cd1;"></span> Math &amp; Calculators</span>
@@ -317,42 +245,83 @@
     <div class="container">
       <div style="text-align:center;margin-bottom:2.5rem;">
         <p class="section-label">How We're Different</p>
-        <h2 id="why-about-heading" class="section-title" style="margin-bottom:10px;">The four things we never compromise on</h2>
-        <p style="color:var(--text-muted);font-size:.93rem;max-width:520px;margin-inline:auto;line-height:1.7;">We could have built a typical SaaS tool platform. Instead we chose the harder path: every tool runs locally, every feature is free, always.</p>
+        <h2 id="why-about-heading" class="section-title" style="margin-bottom:10px;">The four things we never compromise
+          on</h2>
+        <p style="color:var(--text-muted);font-size:.93rem;max-width:520px;margin-inline:auto;line-height:1.7;">We could
+          have built a typical SaaS tool platform. Instead we chose the harder path: every tool runs locally, every
+          feature is free, always.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:1000px;margin-inline:auto 0 auto;">
+      <div
+        style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:1000px;margin-inline:auto 0 auto;">
 
-        <div style="background:linear-gradient(145deg,rgba(108,99,255,.12),rgba(78,205,196,.06));border:1.5px solid rgba(108,99,255,.25);border-radius:14px;padding:28px;transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 32px rgba(108,99,255,.2)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-          <div style="width:48px;height:48px;border-radius:10px;background:rgba(108,99,255,.18);border:1px solid rgba(108,99,255,.25);display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div
+          style="background:linear-gradient(145deg,rgba(108,99,255,.12),rgba(78,205,196,.06));border:1.5px solid rgba(108,99,255,.25);border-radius:14px;padding:28px;transition:transform .2s,box-shadow .2s;"
+          onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 32px rgba(108,99,255,.2)'"
+          onmouseout="this.style.transform='';this.style.boxShadow=''">
+          <div
+            style="width:48px;height:48px;border-radius:10px;background:rgba(108,99,255,.18);border:1px solid rgba(108,99,255,.25);display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6C63FF" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
           </div>
           <h3 style="font-size:1rem;font-weight:700;margin-bottom:8px;">Zero data collection</h3>
-          <p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;">We have no database of user inputs. What you type stays in your tab and nowhere else. This isn't a policy — it's a technical fact.</p>
-          <div style="display:inline-flex;margin-top:14px;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#4ECDC4;background:rgba(78,205,196,.12);border:1px solid rgba(78,205,196,.25);padding:3px 10px;border-radius:999px;">Verified private</div>
+          <p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;">We have no database of user inputs. What
+            you type stays in your tab and nowhere else. This isn't a policy — it's a technical fact.</p>
+          <div
+            style="display:inline-flex;margin-top:14px;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#4ECDC4;background:rgba(78,205,196,.12);border:1px solid rgba(78,205,196,.25);padding:3px 10px;border-radius:999px;">
+            Verified private</div>
         </div>
 
-        <div style="background:var(--bg-card);border:1.5px solid var(--border);border-radius:14px;padding:28px;transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 32px rgba(108,99,255,.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-          <div style="width:48px;height:48px;border-radius:10px;background:rgba(78,205,196,.12);border:1px solid rgba(78,205,196,.2);display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4ECDC4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <div
+          style="background:var(--bg-card);border:1.5px solid var(--border);border-radius:14px;padding:28px;transition:transform .2s,box-shadow .2s;"
+          onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 32px rgba(108,99,255,.12)'"
+          onmouseout="this.style.transform='';this.style.boxShadow=''">
+          <div
+            style="width:48px;height:48px;border-radius:10px;background:rgba(78,205,196,.12);border:1px solid rgba(78,205,196,.2);display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4ECDC4" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 6v6l4 2" />
+            </svg>
           </div>
           <h3 style="font-size:1rem;font-weight:700;margin-bottom:8px;">No server round-trips</h3>
-          <p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;">Because there's no server call, tools respond in milliseconds. Your internet speed has zero impact on how fast our tools run.</p>
+          <p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;">Because there's no server call, tools
+            respond in milliseconds. Your internet speed has zero impact on how fast our tools run.</p>
         </div>
 
-        <div style="background:var(--bg-card);border:1.5px solid var(--border);border-radius:14px;padding:28px;transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 32px rgba(108,99,255,.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-          <div style="width:48px;height:48px;border-radius:10px;background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.2);display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <div
+          style="background:var(--bg-card);border:1.5px solid var(--border);border-radius:14px;padding:28px;transition:transform .2s,box-shadow .2s;"
+          onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 32px rgba(108,99,255,.12)'"
+          onmouseout="this.style.transform='';this.style.boxShadow=''">
+          <div
+            style="width:48px;height:48px;border-radius:10px;background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.2);display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            </svg>
           </div>
           <h3 style="font-size:1rem;font-weight:700;margin-bottom:8px;">No paywalls, ever</h3>
-          <p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;">We're supported by display advertising, not subscriptions. That model lets us keep every single feature fully unlocked for everyone.</p>
+          <p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;">We're supported by display advertising,
+            not subscriptions. That model lets us keep every single feature fully unlocked for everyone.</p>
         </div>
 
-        <div style="background:var(--bg-card);border:1.5px solid var(--border);border-radius:14px;padding:28px;transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 32px rgba(108,99,255,.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-          <div style="width:48px;height:48px;border-radius:10px;background:rgba(249,240,71,.08);border:1px solid rgba(249,240,71,.18);display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fde68a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <div
+          style="background:var(--bg-card);border:1.5px solid var(--border);border-radius:14px;padding:28px;transition:transform .2s,box-shadow .2s;"
+          onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 32px rgba(108,99,255,.12)'"
+          onmouseout="this.style.transform='';this.style.boxShadow=''">
+          <div
+            style="width:48px;height:48px;border-radius:10px;background:rgba(249,240,71,.08);border:1px solid rgba(249,240,71,.18);display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fde68a" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <path d="M8 21h8M12 17v4" />
+            </svg>
           </div>
           <h3 style="font-size:1rem;font-weight:700;margin-bottom:8px;">Designed for every screen</h3>
-          <p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;">From a small phone at 320 px to an ultra-wide monitor, every layout is tested to work well. No separate mobile app needed.</p>
+          <p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;">From a small phone at 320 px to an
+            ultra-wide monitor, every layout is tested to work well. No separate mobile app needed.</p>
         </div>
 
       </div>
@@ -371,16 +340,127 @@
     </div>
   </section>
 
-  <!-- FEATURED ON -->
+  <!-- ===== FEATURED ON ===== -->
   <section class="featured-on" aria-label="Featured on">
     <div class="container featured-on-inner">
       <span class="featured-on-label">As featured on</span>
+      <a href="https://www.producthunt.com/products/the-tool-empire?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-the-tool-empire"
+        target="_blank" rel="noopener noreferrer"><img
+          alt="The Tool Empire - Your Empire of Free Online Tools | Product Hunt" width="250" height="54"
+          src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1166806&amp;theme=dark&amp;t=1780939251352"></a>
       <div class="featured-on-logos">
-        <a class="featured-on-logo" href="https://wired.business" target="_blank" rel="noopener" aria-label="Featured on Wired Business">
-          <img src="https://wired.business/badge0-dark.svg" alt="Wired Business" width="200" height="54" loading="lazy" />
+        <a class="featured-on-logo" href="https://wired.business" target="_blank" rel="noopener"
+          aria-label="Featured on Wired Business">
+          <img src="https://wired.business/badge0-dark.svg" alt="Wired Business" width="200" height="54"
+            loading="lazy" />
         </a>
-        <a class="featured-on-logo" href="https://twelve.tools" target="_blank" rel="noopener" aria-label="Featured on Twelve Tools">
+        <a class="featured-on-logo" href="https://twelve.tools" target="_blank" rel="noopener"
+          aria-label="Featured on Twelve Tools">
           <img src="https://twelve.tools/badge0-dark.svg" alt="Twelve Tools" width="200" height="54" loading="lazy" />
+        </a>
+        <a class="featured-on-logo" href="https://frogdr.com/thetoolempire.com?utm_source=thetoolempire.com"
+          target="_blank"><img src="https://frogdr.com/thetoolempire.com/badge-dark.svg"
+            alt="Monitor&#0032;your&#0032;Domain&#0032;Rating&#0032;with&#0032;FrogDR" width="250" height="54"></a>
+        <a class="featured-on-logo" href="https://tooldirs.com" target="_blank"><img
+            src="https://tooldirs.com/badge/badge_dark.svg" alt="Featured on ToolDirs" width="200" height="54" /></a>
+        <a class="featured-on-logo" href="https://startupfa.me/s/the-tool-empire?utm_source=thetoolempire.com"
+          target="_blank"><img src="https://startupfa.me/badges/featured/default.webp"
+            alt="The Tool Empire - Featured on Startup Fame" width="171" height="54" /></a>
+        <a class="featured-on-logo" href="https://yo.directory/" target="_blank"><img
+            src="https://cdn.prod.website-files.com/65c1546fa73ea974db789e3d/65e1e171f89ebfa7bd0129ac_yodirectory-featured.png"
+            alt="yo.directory" style="width: 150px; height: 54px;" width="150" height="54" /></a>
+        <a class="featured-on-logo" href="https://saastool.site/item/the-tool-empire" target="_blank"
+          rel="noopener noreferrer">
+          <img src="https://saastool.site/badges/saastool-dark.svg" alt="Featured on SaaSTool.site" height="54px"
+            width="auto" />
+        </a>
+        <a class="featured-on-logo" href="https://codetrendy.com" target="_blank" rel="noopener noreferrer">
+          <img src="https://codetrendy.com/api/badge?style=dark" alt="Listed on codetrendy.com" height="54" />
+        </a>
+        <a class="featured-on-logo" href="https://sellwithboost.com" target="_blank" rel="noopener">
+          <img src="https://sellwithboost.com/badge/the-tool-empire.svg" alt="Listed on SellWithBoost" width="160"
+            height="40">
+        </a>
+        <a class="featured-on-logo" href="https://startupspotlight.co/startup/the-tool-empire" rel="dofollow"
+          target="_blank"><img src="https://startupspotlight.co/api/badge/cmq6505wc002n15s51ew7shzz?variant=dark&v=2"
+            alt="Featured on StartupSpotlight" width="248" height="48" /></a>
+        <a class="featured-on-logo" href="https://fazier.com" target="_blank"><img
+            src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=dark" width=120
+            alt="Fazier badge" /></a>
+        <a class="featured-on-logo" href="https://fazier.com/launches/thetoolempire.com" target="_blank"><img
+            src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=featured&theme=neutral" width=250
+            alt="Fazier badge" /></a>
+        <a class="featured-on-logo" href="https://open-launch.com/projects/the-tool-empire" target="_blank"
+          rel="noopener">
+          <img src="https://open-launch.com/api/badge/7c7ca351-e297-49f2-a261-3c6de6294bac/featured-dark.svg"
+            alt="Featured on Open-Launch" width="200" height="50" />
+        </a>
+        <a class="featured-on-logo" href="https://indiehunt.io/project/the-tool-empire-free-browser-based-tools"
+          target="_blank" rel="noopener">
+          <img src="https://indiehunt.io/badges/indiehunt-badge-light.svg" alt="Featured on IndieHunt" width="265"
+            height="58" />
+        </a>
+        <a class="featured-on-logo" href="https://earlyhunt.com/project/the-tool-empire-free-browser-based-tools"
+          target="_blank" rel="noopener">
+          <img src="https://earlyhunt.com/badges/earlyhunt-badge-light.svg" alt="Featured on EarlyHunt" width="265"
+            height="58" />
+        </a>
+        <a class="featured-on-logo" href="https://directoryhunt.org/" target="_blank" rel="noopener noreferrer"
+          style="text-decoration: none; display: inline-block;">
+          <img src="https://directoryhunt.org/assets/Badges/featured.svg" alt="Featured on DirectoryHunt.org"
+            width="225" height="61" style="display: block;" />
+        </a>
+        <a class="featured-on-logo" href="https://dofollow.tools" target="_blank"><img
+            src="https://dofollow.tools/badge/badge_dark.svg" alt="Featured on Dofollow.Tools" width="200"
+            height="54" /></a>
+        <a class="featured-on-logo" href="https://findly.tools/the-tool-empire?utm_source=the-tool-empire"
+          target="_blank" rel="noopener noreferrer">
+          <img src="https://findly.tools/badges/findly-tools-badge-dark.svg" alt="Featured on Findly.tools" width="175"
+            height="55" />
+        </a>
+        <a class="featured-on-logo" href="https://www.aidirectori.es" target="_blank" rel="noopener noreferrer"><img
+            src="https://cdn.aidirectori.es/ai-tools/badges/light-mode.png" alt="AI Directories Badge" /></a>
+        <a class="featured-on-logo" href="https://submitaitools.org" target="_blank">
+          <img src="https://submitaitools.org/static_submitaitools/images/submitaitools.png" alt="Submit AI Tools"
+            style="border-radius: 10px; width: 200px; height: 60px;" />
+        </a>
+        <a class="featured-on-logo" href="https://toolfame.com/item/the-tool-empire" target="_blank"
+          rel="noopener noreferrer">
+          <img src="https://toolfame.com/badge-dark.svg" alt="Featured on toolfame.com"
+            style="height: 54px; width: auto;" />
+        </a>
+        <a class="featured-on-logo" href="https://aitoolfame.com/item/the-tool-empire" target="_blank"
+          rel="noopener noreferrer">
+          <img src="https://aitoolfame.com/badge-dark.svg" alt="Featured on aitoolfame.com"
+            style="height: 54px; width: auto;" />
+        </a>
+        <a class="featured-on-logo" href="https://saasfame.com/item/the-tool-empire" target="_blank"
+          rel="noopener noreferrer">
+          <img src="https://saasfame.com/badge-dark.svg" alt="Featured on saasfame.com"
+            style="height: 54px; width: auto;" />
+        </a>
+        <a class="featured-on-logo" href="https://dang.ai" target="_blank" rel="dofollow noopener"
+          style="display:inline-block;text-decoration:none;"><img
+            src="https://assets.dang.ai/badges/dang-verified-dark.png" alt="Verified on DANG!" width="260" height="94"
+            style="display:block;width:260px;max-width:100%;height:auto;border:0;outline:none;text-decoration:none;" /></a>
+        <a class="featured-on-logo" href="https://geoly.net/item/the-tool-empire" target="_blank"
+          rel="noopener noreferrer">
+          <img src="https://geoly.net/badge-dark.svg" alt="Featured on geoly.net" style="height: 54px; width: auto;" />
+        </a>
+        <a class="featured-on-logo" href="https://yo.directory/" target="_blank"><img
+            src="https://cdn.prod.website-files.com/65c1546fa73ea974db789e3d/65e1e171f89ebfa7bd0129ac_yodirectory-featured.png"
+            alt="yo.directory" style="width: 150px; height: 54px;" width="150" height="54" /></a>
+        <a class="featured-on-logo" href="https://newtool.site/item/the-tool-empire" target="_blank"
+          rel="noopener noreferrer">
+          <img src="https://newtool.site/badges/newtool-dark.svg" alt="Featured on NewTool.site" height="54px"
+            width="auto" />
+        </a>
+        <a class="featured-on-logo" href="https://firstlook.tools" target="_blank"><img
+            src="https://firstlook.tools/badge/badge_light.svg" alt="Featured on First Look" width="200"
+            height="54" /></a>
+        <a class="featured-on-logo" href="https://aifinder.site" target="_blank" rel="noopener noreferrer">
+          <img src="https://aifinder.site/light-badge.png" alt="Discover more AI tools at aifinder.site"
+            style="width: 200px; height: auto;">
         </a>
       </div>
     </div>
@@ -390,7 +470,17 @@
     <div class="container footer-inner">
       <div class="footer-brand">
         <a href="/" class="logo">
-          <svg class="logo-icon" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#lg2)"/><path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/><defs><linearGradient id="lg2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs></svg>
+          <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+            <rect width="40" height="40" rx="10" fill="url(#lg2)" />
+            <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round" />
+            <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2" />
+            <defs>
+              <linearGradient id="lg2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6C63FF" />
+                <stop offset="1" stop-color="#4ECDC4" />
+              </linearGradient>
+            </defs>
+          </svg>
           <span class="logo-text">The Tool Empire</span>
         </a>
         <p class="footer-tagline">Free tools, no limits.</p>
@@ -420,4 +510,5 @@
   </footer>
 
 </body>
+
 </html>

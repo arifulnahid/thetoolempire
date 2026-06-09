@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Split PDF — Split PDF Into Multiple Parts Online Free | The Tool Empire</title>
+  <meta name="description" content="Split a PDF into multiple parts by page range, every N pages, or individual pages. 100% in-browser using pdf-lib. Files never leave your device. Free and instant."/>
+  <meta name="keywords" content="split pdf, split pdf online free, pdf splitter, extract pdf pages, divide pdf, pdf page splitter, split pdf into parts"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/pdf/split-pdf.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Split PDF — Split PDF Into Multiple Parts Online Free"/>
+  <meta property="og:description" content="Split a PDF by page range, every N pages, or individual pages — entirely in your browser. No upload, 100% private."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/pdf/split-pdf.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"Split PDF","description":"Free browser-based PDF splitter. Split any PDF into multiple parts by every N pages, custom page ranges, or one page per file. Uses pdf-lib to preserve text, fonts, vectors, and links. All processing is 100% client-side — files never leave your device.","url":"https://thetoolempire.com/tools/pdf/split-pdf.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Split every N pages","Custom page ranges","One page per file","Preserves text, fonts, and links","100% client-side — no upload","Download as ZIP or individual PDFs"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"PDF Tools","item":"https://thetoolempire.com/tools.html#pdf"},
+      {"@type":"ListItem","position":3,"name":"Split PDF","item":"https://thetoolempire.com/tools/pdf/split-pdf.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Does splitting a PDF upload my files to a server?","acceptedAnswer":{"@type":"Answer","text":"No. All splitting is done locally in your browser using pdf-lib. Your files are never uploaded or sent anywhere."}},
+      {"@type":"Question","name":"Will text stay selectable after splitting?","acceptedAnswer":{"@type":"Answer","text":"Yes. pdf-lib copies the original page content streams, so text, links, vectors, and fonts remain fully intact in each output file."}},
+      {"@type":"Question","name":"What happens when I split into multiple parts?","acceptedAnswer":{"@type":"Answer","text":"When splitting produces more than one PDF, all files are bundled into a single ZIP archive for convenient download. You can also download each part individually."}},
+      {"@type":"Question","name":"Can I split a password-protected PDF?","acceptedAnswer":{"@type":"Answer","text":"No. The tool cannot read encrypted PDFs. Remove the password protection first using the PDF Password Remover tool, then split here."}},
+      {"@type":"Question","name":"What is the custom ranges format?","acceptedAnswer":{"@type":"Answer","text":"Enter comma-separated ranges like: 1-5, 6-10, 11. A bare number like 11 means just that single page. A range ending with a dash like 8- means from page 8 to the last page."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="split-pdf.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgS)"/>
+        <rect x="7" y="5" width="22" height="26" rx="2.5" fill="#fff" fill-opacity=".9"/>
+        <path d="M12 13h12M12 18h8" stroke="#10b981" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M18 22v6M15 25l3 3 3-3" stroke="#10b981" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <defs><linearGradient id="lgS" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#10b981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="splitPdfApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li><a href="../../tools.html#pdf" style="color:#8888a8">PDF</a></li><li>›</li>
+      <li style="color:#e8e8f0">Split PDF</li>
+    </ol>
+  </nav>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v10m0 0-3-3m3 3 3-3"/><rect x="3" y="14" width="8" height="8" rx="1.5"/><rect x="13" y="14" width="8" height="8" rx="1.5"/></svg>
+      PDF Tool
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">Split PDF</span></h1>
+    <p class="tool-subtitle">Divide a PDF into multiple parts by page range, every N pages, or one page per file — entirely in your browser.</p>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- ── Error banner ── -->
+  <div class="error-banner" x-show="error" x-text="error" style="display:none"></div>
+
+  <!-- ══════════════════════════════════════════════
+       STAGE: upload
+  ══════════════════════════════════════════════ -->
+  <template x-if="stage === 'upload'">
+    <div>
+      <div class="card">
+        <div class="drop-zone" :class="{ dragover: isDragOver }"
+          @dragover.prevent="isDragOver = true"
+          @dragleave.prevent="isDragOver = false"
+          @drop.prevent="onDrop($event)">
+          <div class="drop-icon">📄</div>
+          <div class="drop-title">Drop your PDF here</div>
+          <p class="drop-hint">or click the button below to choose a file</p>
+          <label class="btn-upload">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Choose PDF File
+            <input type="file" accept=".pdf,application/pdf" style="display:none" @change="onFileInput($event)"/>
+          </label>
+          <p class="upload-note">One file at a time &nbsp;·&nbsp; Any size &nbsp;·&nbsp; Never uploaded</p>
+        </div>
+      </div>
+
+      <!-- features -->
+      <div class="features">
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg></div>
+          <div class="feature-text"><strong>Every N Pages</strong><span>Evenly split into chunks of your chosen size</span></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h6"/></svg></div>
+          <div class="feature-text"><strong>Custom Ranges</strong><span>Extract any pages you choose, in any order</span></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <div class="feature-text"><strong>Every Page</strong><span>One PDF per page, great for batch processing</span></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div class="feature-text"><strong>100% Private</strong><span>Files never leave your device or browser</span></div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ══════════════════════════════════════════════
+       STAGE: config
+  ══════════════════════════════════════════════ -->
+  <template x-if="stage === 'config'">
+    <div>
+      <!-- file info bar -->
+      <div class="file-info-bar">
+        <div class="file-info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="file-info-text">
+          <div class="file-name" x-text="pdfName"></div>
+          <div class="file-meta" x-text="formatSize(pdfSize) + ' · ' + pageCount + (pageCount === 1 ? ' page' : ' pages')"></div>
+        </div>
+        <label class="btn-change">
+          Change
+          <input type="file" accept=".pdf,application/pdf" style="display:none" @change="onFileInput($event)"/>
+        </label>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v10m0 0-3-3m3 3 3-3"/><rect x="3" y="14" width="8" height="8" rx="1.5"/><rect x="13" y="14" width="8" height="8" rx="1.5"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Split Options</div>
+            <div class="card-desc">Choose how to divide your PDF</div>
+          </div>
+        </div>
+
+        <!-- mode tabs -->
+        <div class="mode-tabs">
+          <div class="mode-tab" :class="{ on: splitMode === 'fixed' }" @click="splitMode = 'fixed'">
+            <div class="mode-tab-icon">✂️</div>
+            <div class="mode-tab-label">Every N Pages</div>
+            <div class="mode-tab-desc">Equal-size chunks</div>
+          </div>
+          <div class="mode-tab" :class="{ on: splitMode === 'ranges' }" @click="splitMode = 'ranges'">
+            <div class="mode-tab-icon">📐</div>
+            <div class="mode-tab-label">Custom Ranges</div>
+            <div class="mode-tab-desc">Pick any pages</div>
+          </div>
+          <div class="mode-tab" :class="{ on: splitMode === 'pages' }" @click="splitMode = 'pages'">
+            <div class="mode-tab-icon">📄</div>
+            <div class="mode-tab-label">Every Page</div>
+            <div class="mode-tab-desc">One file per page</div>
+          </div>
+        </div>
+
+        <!-- fixed mode controls -->
+        <div class="config-panel" x-show="splitMode === 'fixed'">
+          <div class="config-label">Pages per part</div>
+          <div class="stepper">
+            <button class="stepper-btn" @click="chunkSize = Math.max(1, chunkSize - 1)" :disabled="chunkSize <= 1">−</button>
+            <input class="stepper-val" type="number" min="1" :max="pageCount" x-model.number="chunkSize"/>
+            <button class="stepper-btn" @click="chunkSize = Math.min(pageCount, chunkSize + 1)" :disabled="chunkSize >= pageCount">+</button>
+          </div>
+          <div class="stepper-hint" x-text="'Splits ' + pageCount + '-page PDF into ' + computedParts.length + (computedParts.length === 1 ? ' part' : ' parts')"></div>
+        </div>
+
+        <!-- ranges mode controls -->
+        <div class="config-panel" x-show="splitMode === 'ranges'">
+          <div class="config-label">Page ranges</div>
+          <input
+            class="range-input"
+            type="text"
+            x-model="rangeInput"
+            placeholder="e.g. 1-5, 6-10, 11"
+            spellcheck="false"
+            autocomplete="off"/>
+          <div class="range-hint" x-text="'Page 1–' + pageCount + '. Use commas to separate ranges. A bare number = single page. Trailing dash = to last page.'"></div>
+          <div class="range-error" x-show="rangeError" x-text="rangeError"></div>
+          <div class="range-examples">
+            <span class="range-hint" style="align-self:center;margin:0">Examples:</span>
+            <span class="range-example" @click="rangeInput = '1-' + Math.ceil(pageCount/2) + ', ' + (Math.ceil(pageCount/2)+1) + '-' + pageCount">First / Second half</span>
+            <span class="range-example" @click="rangeInput = '1'">Page 1 only</span>
+            <span class="range-example" @click="rangeInput = '1-3, 5, 7-'">1-3, 5, 7 to end</span>
+          </div>
+        </div>
+
+        <!-- each-page mode info -->
+        <div class="config-panel" x-show="splitMode === 'pages'">
+          <div class="config-label">Output</div>
+          <p style="font-size:.88rem;color:var(--text-muted)" x-text="'Each of the ' + pageCount + ' pages will become its own PDF file. All files will be bundled into a ZIP archive.'"></p>
+        </div>
+
+        <!-- parts preview -->
+        <div class="parts-preview" x-show="computedParts.length > 0">
+          <div class="parts-preview-header">
+            <span class="parts-preview-title">Output Preview</span>
+            <span class="parts-count-badge" x-text="computedParts.length + (computedParts.length === 1 ? ' part' : ' parts')"></span>
+          </div>
+          <div class="parts-list">
+            <template x-for="(part, i) in partsPreview" :key="i">
+              <div class="part-chip">
+                <div class="part-num" x-text="'Part ' + (i + 1)"></div>
+                <div class="part-range" x-text="partLabel(part)"></div>
+                <div class="part-pages-count" x-text="partPages(part)"></div>
+              </div>
+            </template>
+          </div>
+          <div class="parts-overflow" x-show="extraParts > 0" x-text="'+ ' + extraParts + ' more parts not shown'"></div>
+        </div>
+
+        <div class="parts-empty" x-show="computedParts.length === 0 && splitMode === 'ranges' && rangeInput.trim()">
+          No valid parts yet — check your range format.
+        </div>
+
+        <button class="btn-primary" @click="split()" :disabled="!canSplit">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2v10m0 0-3-3m3 3 3-3"/><rect x="3" y="14" width="8" height="8" rx="1.5"/><rect x="13" y="14" width="8" height="8" rx="1.5"/></svg>
+          Split PDF
+          <span x-show="computedParts.length > 0" x-text="'into ' + computedParts.length + (computedParts.length === 1 ? ' part' : ' parts')"></span>
+        </button>
+      </div>
+    </div>
+  </template>
+
+  <!-- ══════════════════════════════════════════════
+       STAGE: splitting
+  ══════════════════════════════════════════════ -->
+  <template x-if="stage === 'splitting'">
+    <div>
+      <div class="card" style="text-align:center;padding:40px 28px">
+        <div style="font-size:2.6rem;margin-bottom:16px">✂️</div>
+        <div style="font-size:1.1rem;font-weight:700;margin-bottom:6px">Splitting PDF…</div>
+        <div class="progress-wrap">
+          <div class="progress-msg" x-text="progressMsg"></div>
+          <div class="progress-bar"><div class="progress-fill" :style="'width:' + progress + '%'"></div></div>
+          <div class="progress-pct" x-text="progress + '%'"></div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ══════════════════════════════════════════════
+       STAGE: done
+  ══════════════════════════════════════════════ -->
+  <template x-if="stage === 'done'">
+    <div>
+      <div class="card">
+        <div class="result-hero">
+          <div class="result-check">✅</div>
+          <div class="result-title">Split Complete!</div>
+          <div class="result-subtitle" x-text="resultCount === 1 ? 'Your PDF has been split into 1 file.' : 'Your PDF has been split into ' + resultCount + ' files.'"></div>
+        </div>
+
+        <!-- stats -->
+        <div class="result-stats">
+          <div class="stat-box">
+            <div class="stat-num" x-text="resultCount"></div>
+            <div class="stat-label">Parts Created</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num" x-text="pageCount"></div>
+            <div class="stat-label">Source Pages</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num" x-text="resultCount === 1 ? formatSize(singleSize) : formatSize(zipSize)"></div>
+            <div class="stat-label" x-text="resultCount === 1 ? 'Output Size' : 'ZIP Size'"></div>
+          </div>
+        </div>
+
+        <!-- download -->
+        <button class="btn-download" @click="download()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span x-text="resultCount === 1 ? 'Download PDF' : 'Download All as ZIP'"></span>
+        </button>
+
+        <!-- individual parts list (multi only) -->
+        <template x-if="resultCount > 1">
+          <div>
+            <div style="font-size:.82rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin:20px 0 10px">Individual Files</div>
+            <div class="parts-done-list">
+              <template x-for="(part, i) in partsPreview" :key="i">
+                <div class="part-done-item">
+                  <div class="part-done-num" x-text="i + 1"></div>
+                  <div class="part-done-info">
+                    <div class="part-done-name" x-text="pdfName.replace(/\.pdf$/i,'') + (splitMode === 'pages' ? '_page' + String(i+1).padStart(String(resultCount).length,'0') : splitMode === 'ranges' ? '_p' + part.from + (part.from !== part.to ? '-' + part.to : '') : '_part' + String(i+1).padStart(String(resultCount).length,'0')) + '.pdf'"></div>
+                    <div class="part-done-pages" x-text="partLabel(part) + ' · ' + partPages(part)"></div>
+                  </div>
+                  <button class="btn-dl-part" @click="downloadPart(i)" title="Download this part">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  </button>
+                </div>
+              </template>
+              <div class="parts-overflow" x-show="extraParts > 0" x-text="'+ ' + extraParts + ' more — download the ZIP to get all files'"></div>
+            </div>
+          </div>
+        </template>
+
+        <!-- actions -->
+        <div class="result-actions">
+          <button class="btn-secondary" @click="splitAgain()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2v10m0 0-3-3m3 3 3-3"/><rect x="3" y="14" width="8" height="8" rx="1.5"/><rect x="13" y="14" width="8" height="8" rx="1.5"/></svg>
+            Split Again
+          </button>
+          <button class="btn-secondary" @click="reset()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            New File
+          </button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- ── FAQ ── -->
+  <section class="faq-section">
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">
+        Does splitting a PDF upload my files anywhere?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">No. Everything runs locally in your browser using pdf-lib. Your files are never sent to any server — they never leave your device.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">
+        Will the split PDFs have selectable text?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">Yes. pdf-lib copies the original page content streams directly — text, fonts, vectors, links, and annotations are all preserved exactly as in the source PDF.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">
+        How do I use custom ranges?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">Enter comma-separated ranges in the text box. For example: <code style="background:rgba(255,255,255,.06);padding:1px 5px;border-radius:3px">1-5, 6-10, 11</code>. A bare number extracts just that page. A trailing dash (like <code style="background:rgba(255,255,255,.06);padding:1px 5px;border-radius:3px">8-</code>) means from that page to the end of the document.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">
+        What do I get when splitting into multiple parts?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">When the split produces more than one PDF, all files are packaged into a single ZIP archive. You can also click the download icon next to any individual part to download just that file.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">
+        Can I split a password-protected PDF?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">No. Encrypted PDFs cannot be opened by this tool. Use the <a href="pdf-password.html">PDF Password Remover</a> first, then come back here to split.</div>
+    </div>
+  </section>
+
+</div><!-- end .main-wrap -->
+
+<div id="toast"></div>
+
+<script src="split-pdf.js"></script>
+</body>
+</html>

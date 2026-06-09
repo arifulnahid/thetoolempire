@@ -112,6 +112,17 @@ const TOOLS_DATA = [
     url: 'tools/math/xy-graph.html',
   },
 
+  // ── CHARTS & VISUALIZATION ────────────────────────────────────
+  {
+    id: 'chart-generator',
+    title: 'Chart Generator',
+    description: 'Create bar, line, pie, area, radar, doughnut, polar and scatter charts online. Add multiple datasets, customize colors with palette presets, and download as PNG, JPEG, SVG, or PDF.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/><polyline points="5,8 12,4 19,2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    color: 'linear-gradient(135deg,#8b5cf6,#7c3aed)',
+    categories: ['Design', 'Data', 'utilities'],
+    url: 'tools/design/chart-generator.html',
+  },
+
   // ── COLOR TOOLS ────────────────────────────────────────────────
   {
     id: 'color-picker',
@@ -539,6 +550,33 @@ const TOOLS_DATA = [
     color: 'linear-gradient(135deg,#a855f7,#9333ea)',
     categories: ['PDF', 'utilities'],
     url: 'tools/pdf/delete-pdf-pages.html',
+  },
+  {
+    id: 'merge-pdf',
+    title: 'Merge PDF',
+    description: 'Combine multiple PDF files into one document in your browser. Drag to reorder files, preserves text and fonts — no rasterization. No upload, no file size limit, 100% private.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6H3v16h13v-5"/><path d="M21 2H8v13h13V2z"/><line x1="11" y1="8" x2="18" y2="8"/><line x1="11" y1="12" x2="18" y2="12"/></svg>',
+    color: 'linear-gradient(135deg,#818cf8,#6366f1)',
+    categories: ['PDF', 'utilities'],
+    url: 'tools/pdf/merge-pdf.html',
+  },
+  {
+    id: 'rotate-pdf',
+    title: 'Rotate PDF',
+    description: 'Rotate individual pages or all pages in a PDF — left 90°, right 90°, or 180°. Live thumbnail preview. Preserves text, fonts, and links. No upload, 100% private.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><rect x="3" y="13" width="10" height="9" rx="1.5"/></svg>',
+    color: 'linear-gradient(135deg,#f59e0b,#d97706)',
+    categories: ['PDF', 'utilities'],
+    url: 'tools/pdf/rotate-pdf.html',
+  },
+  {
+    id: 'split-pdf',
+    title: 'Split PDF',
+    description: 'Split a PDF into multiple parts by every N pages, custom page ranges, or one page per file. Preserves text, fonts, and links. Download as ZIP or individual PDFs — no upload, 100% private.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v10m0 0-3-3m3 3 3-3"/><rect x="3" y="14" width="8" height="8" rx="1.5"/><rect x="13" y="14" width="8" height="8" rx="1.5"/></svg>',
+    color: 'linear-gradient(135deg,#10b981,#059669)',
+    categories: ['PDF', 'utilities'],
+    url: 'tools/pdf/split-pdf.html',
   },
   {
     id: 'pdf-compressor',

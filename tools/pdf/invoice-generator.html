@@ -196,6 +196,28 @@
 
           <hr class="sec-divider" />
 
+          <!-- font family -->
+          <div class="field" style="margin-bottom:.75rem;">
+            <label>Font Family</label>
+            <div class="chip-group">
+              <template x-for="ff in fontFamilies" :key="ff.id">
+                <div class="chip" :class="{ on: fontFamilyId === ff.id }" @click="fontFamilyId = ff.id" x-text="ff.label"></div>
+              </template>
+            </div>
+          </div>
+
+          <!-- font size -->
+          <div class="field" style="margin-bottom:.75rem;">
+            <label>Font Size</label>
+            <div class="chip-group">
+              <template x-for="fsc in fontScales" :key="fsc.id">
+                <div class="chip" :class="{ on: fontScale === fsc.id }" @click="fontScale = fsc.id" x-text="fsc.label"></div>
+              </template>
+            </div>
+          </div>
+
+          <hr class="sec-divider" />
+
           <!-- currency -->
           <div class="field" style="margin-bottom:0;">
             <label>Currency</label>
@@ -229,7 +251,7 @@
             <input class="fi" type="text" x-model="fromName" placeholder="Acme Studio" />
           </div>
           <div class="field">
-            <label>Header Display Name <span class="opt">(shown in invoice header if no logo)</span></label>
+            <label>Header Display Name <span class="opt">(shown in header alongside logo, or alone if no logo)</span></label>
             <input class="fi" type="text" x-model="logoText" placeholder="Acme Studio" />
           </div>
           <div class="field">

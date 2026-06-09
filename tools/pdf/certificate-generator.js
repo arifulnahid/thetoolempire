@@ -1,538 +1,709 @@
-/* Certificate PDF Generator */
+/* Certificate PDF Generator — v3
+   FS = S * fontScale for all font sizes (consistent across orientations + user scale).
+   _logoImgs[] lives outside Alpine proxy; up to 3 logos drawn horizontally.
+   _drawSigBlock() is a shared helper used by all templates.              */
 
-/* ── template definitions ──────────────────────────────────────────────────── */
 const TEMPLATES = [
-  { id: 'classic',    label: 'Classic'     },
-  { id: 'modern',     label: 'Modern'      },
-  { id: 'elegant',    label: 'Elegant'     },
-  { id: 'bold',       label: 'Bold'        },
-  { id: 'minimal',    label: 'Minimal'     },
-  { id: 'academic',   label: 'Academic'    },
+  { id: 'classic', label: 'Classic' },
+  { id: 'modern', label: 'Modern' },
+  { id: 'elegant', label: 'Elegant' },
+  { id: 'bold', label: 'Bold' },
+  { id: 'minimal', label: 'Minimal' },
+  { id: 'academic', label: 'Academic' },
+  { id: 'ribbon', label: 'Ribbon' },
+  { id: 'corporate', label: 'Corporate' },
+  { id: 'diploma', label: 'Diploma' },
 ];
 
-const PALETTE = [
-  '#7c3aed','#2563eb','#0891b2','#059669','#d97706',
-  '#dc2626','#db2777','#4f46e5',
+const BORDERS = [
+  { id: 'none', label: 'None' },
+  { id: 'single', label: 'Single' },
+  { id: 'double', label: 'Double' },
+  { id: 'thick', label: 'Thick' },
+  { id: 'ornate', label: 'Ornate' },
+];
+
+const FONT_SCALES = [
+  { id: 0.82, label: 'S' },
+  { id: 1.0, label: 'M' },
+  { id: 1.18, label: 'L' },
+  { id: 1.36, label: 'XL' },
 ];
 
 const FONTS = [
-  { id: 'serif',    label: 'Serif',      family: 'Georgia, "Times New Roman", serif' },
-  { id: 'sans',     label: 'Sans-serif', family: 'system-ui, Arial, sans-serif'       },
-  { id: 'mono',     label: 'Monospace',  family: '"Courier New", Courier, monospace'  },
-  { id: 'cursive',  label: 'Cursive',    family: 'cursive'                            },
+  { id: 'serif', label: 'Serif', family: 'Georgia, "Times New Roman", serif' },
+  { id: 'sans', label: 'Sans', family: 'system-ui, Arial, sans-serif' },
+  { id: 'mono', label: 'Mono', family: '"Courier New", Courier, monospace' },
+  { id: 'cursive', label: 'Cursive', family: 'cursive' },
 ];
 
-/* ── canvas helpers ─────────────────────────────────────────────────────────── */
-
+/* ── color helpers ─────────────────────────────────────── */
 function hexToRgb(hex) {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return { r, g, b };
+  return { r: parseInt(hex.slice(1, 3), 16), g: parseInt(hex.slice(3, 5), 16), b: parseInt(hex.slice(5, 7), 16) };
 }
-
 function lighten(hex, amt) {
   const { r, g, b } = hexToRgb(hex);
   const l = v => Math.min(255, Math.round(v + (255 - v) * amt));
   return `rgb(${l(r)},${l(g)},${l(b)})`;
 }
-
 function darken(hex, amt) {
   const { r, g, b } = hexToRgb(hex);
   const d = v => Math.max(0, Math.round(v * (1 - amt)));
   return `rgb(${d(r)},${d(g)},${d(b)})`;
 }
-
 function hexAlpha(hex, a) {
   const { r, g, b } = hexToRgb(hex);
   return `rgba(${r},${g},${b},${a})`;
 }
 
-/* Draw certificate on a canvas context (used for preview + PDF export).
-   W/H are the logical dimensions; ctx is already scaled to them. */
-function drawCertificate(ctx, W, H, cfg) {
-  const { template, color, fontFamily, recipient, title, subtitle, date, issuer, description, orientation } = cfg;
-  ctx.clearRect(0, 0, W, H);
+/* ── module-level vars (outside Alpine proxy) ──────────── */
+let _previewCanvas = null;
+let _previewCtx = null;
+let _logoImgs = [];   /* array of Image objects, up to 3 */
+const _thumbCtxs = {};
 
-  switch (template) {
-    case 'classic':  drawClassic(ctx, W, H, cfg); break;
-    case 'modern':   drawModern(ctx, W, H, cfg);  break;
-    case 'elegant':  drawElegant(ctx, W, H, cfg); break;
-    case 'bold':     drawBold(ctx, W, H, cfg);    break;
-    case 'minimal':  drawMinimal(ctx, W, H, cfg); break;
-    case 'academic': drawAcademic(ctx, W, H, cfg); break;
-    default:         drawClassic(ctx, W, H, cfg);
+/* ── logo drawing (multiple, horizontally) ─────────────── */
+function _drawLogos(ctx, W, H, S) {
+  const imgs = _logoImgs.filter(i => i && i.width);
+  if (!imgs.length) return;
+  const maxH = S * 0.1;
+  const maxW = W * 0.22;
+  const gap = S * 0.03;
+  const scaled = imgs.map(img => {
+    const sc = Math.min(maxW / img.width, maxH / img.height);
+    return { img, w: img.width * sc, h: img.height * sc };
+  });
+  const totalW = scaled.reduce((s, i) => s + i.w, 0) + gap * (scaled.length - 1);
+  let lx = (W - totalW) / 2;
+  const ly = H * 0.025;
+  ctx.save();
+  ctx.globalAlpha = 0.92;
+  scaled.forEach(({ img, w, h }) => {
+    ctx.drawImage(img, lx, ly, w, h);
+    lx += w + gap;
+  });
+  ctx.restore();
+}
+
+/* ── shared signature block ────────────────────────────── */
+/* fy  = Y of the signature line(s)
+   All text sizes use FS (font-scaled S).                  */
+function _drawSigBlock(ctx, W, H, FS, cfg, fy) {
+  const { color, fontFamily, issuer, issuerTitle, issuer2, issuerTitle2, date } = cfg;
+  const twoSigs = !!(issuer2 && issuer2.trim());
+  const nameY = fy + H * 0.046;
+  const titleY = nameY + H * 0.034;
+
+  ctx.textAlign = 'center';
+  ctx.strokeStyle = hexAlpha(color, 0.3);
+  ctx.lineWidth = 1;
+
+  if (twoSigs) {
+    /* two sig lines */
+    ctx.beginPath(); ctx.moveTo(W * 0.08, fy); ctx.lineTo(W * 0.4, fy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(W * 0.6, fy); ctx.lineTo(W * 0.92, fy); ctx.stroke();
+
+    ctx.fillStyle = '#333';
+    ctx.font = `600 ${FS * 0.024}px ${fontFamily}`;
+    ctx.fillText(issuer || 'Signatory 1', W * 0.24, nameY);
+    ctx.fillText(issuer2, W * 0.76, nameY);
+
+    ctx.fillStyle = '#999';
+    ctx.font = `${FS * 0.018}px ${fontFamily}`;
+    ctx.fillText(issuerTitle || 'Designation', W * 0.24, titleY);
+    ctx.fillText(issuerTitle2 || 'Designation', W * 0.76, titleY);
+  } else {
+    /* single sig line — left half */
+    ctx.beginPath(); ctx.moveTo(W * 0.1, fy); ctx.lineTo(W * 0.45, fy); ctx.stroke();
+
+    ctx.fillStyle = '#333';
+    ctx.font = `600 ${FS * 0.025}px ${fontFamily}`;
+    ctx.fillText(issuer || 'Issuing Authority', W * 0.275, nameY);
+
+    if (issuerTitle) {
+      ctx.fillStyle = '#999';
+      ctx.font = `${FS * 0.019}px ${fontFamily}`;
+      ctx.fillText(issuerTitle, W * 0.275, titleY);
+    }
+  }
+
+  /* date — always bottom-center below sigs */
+  if (date) {
+    ctx.fillStyle = hexAlpha(color, 0.7);
+    ctx.font = `italic ${FS * 0.022}px ${fontFamily}`;
+    ctx.fillText(date, W * 0.5, titleY + H * 0.04);
   }
 }
 
-/* ── template renderers ─────────────────────────────────────────────────────── */
+/* ── main dispatcher ───────────────────────────────────── */
+function drawCertificate(ctx, W, H, cfg) {
+  ctx.clearRect(0, 0, W, H);
+  const S = Math.min(W, H);
+  const FS = S * (cfg.fontScale || 1);
+  switch (cfg.template) {
+    case 'classic': drawClassic(ctx, W, H, S, FS, cfg); break;
+    case 'modern': drawModern(ctx, W, H, S, FS, cfg); break;
+    case 'elegant': drawElegant(ctx, W, H, S, FS, cfg); break;
+    case 'bold': drawBold(ctx, W, H, S, FS, cfg); break;
+    case 'minimal': drawMinimal(ctx, W, H, S, FS, cfg); break;
+    case 'academic': drawAcademic(ctx, W, H, S, FS, cfg); break;
+    case 'ribbon': drawRibbon(ctx, W, H, S, FS, cfg); break;
+    case 'corporate': drawCorporate(ctx, W, H, S, FS, cfg); break;
+    case 'diploma': drawDiploma(ctx, W, H, S, FS, cfg); break;
+    default: drawClassic(ctx, W, H, S, FS, cfg);
+  }
+  _applyBorder(ctx, W, H, S, cfg);
+  if (_logoImgs.length) _drawLogos(ctx, W, H, S);
+}
 
-function drawClassic(ctx, W, H, { color, fontFamily, recipient, title, subtitle, date, issuer, description }) {
-  /* parchment-like background */
+/* ══════════════════════════════════════════════════════════
+   TEMPLATES  (all use FS for font sizes, S for positions)
+══════════════════════════════════════════════════════════ */
+
+function drawClassic(ctx, W, H, S, FS, cfg) {
+  const { color, fontFamily, recipient, title, subtitle, description, timePeriod } = cfg;
+
   const grad = ctx.createLinearGradient(0, 0, W, H);
   grad.addColorStop(0, '#fdf8f0');
   grad.addColorStop(1, '#f5ede0');
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, W, H);
 
-  /* outer border */
-  ctx.strokeStyle = color;
-  ctx.lineWidth = 6;
-  ctx.strokeRect(20, 20, W - 40, H - 40);
+  _corners(ctx, W, H, S * 0.05, color, S * 0.025);
 
-  /* inner double border */
-  ctx.strokeStyle = hexAlpha(color, .4);
-  ctx.lineWidth = 1.5;
-  ctx.strokeRect(30, 30, W - 60, H - 60);
-
-  /* corner ornaments */
-  _corners(ctx, W, H, 42, color, 18);
-
-  /* title */
   ctx.fillStyle = color;
-  ctx.font = `bold ${H * .065}px ${fontFamily}`;
+  ctx.font = `bold ${FS * 0.062}px ${fontFamily}`;
   ctx.textAlign = 'center';
-  ctx.fillText(title || 'Certificate of Achievement', W / 2, H * .22);
+  ctx.fillText(title || 'Certificate of Achievement', W / 2, H * 0.22);
 
-  /* subtitle stripe */
   ctx.fillStyle = hexAlpha(color, .12);
-  ctx.fillRect(W * .1, H * .26, W * .8, 2);
+  ctx.fillRect(W * .1, H * .265, W * .8, 2);
 
   ctx.fillStyle = '#555';
-  ctx.font = `italic ${H * .034}px ${fontFamily}`;
-  ctx.fillText('This is to certify that', W / 2, H * .35);
+  ctx.font = `italic ${FS * 0.032}px ${fontFamily}`;
+  ctx.fillText('This is to certify that', W / 2, H * 0.34);
 
-  /* recipient */
   ctx.fillStyle = '#1a1a1a';
-  ctx.font = `bold ${H * .072}px ${fontFamily}`;
-  _underlineText(ctx, recipient || 'Recipient Name', W / 2, H * .46, color);
+  ctx.font = `bold ${FS * 0.068}px ${fontFamily}`;
+  _underlineText(ctx, recipient || 'Recipient Name', W / 2, H * 0.455, color);
 
+  let cy = H * 0.545;
   if (subtitle) {
     ctx.fillStyle = '#444';
-    ctx.font = `${H * .032}px ${fontFamily}`;
-    ctx.fillText(subtitle, W / 2, H * .55);
+    ctx.font = `${FS * 0.03}px ${fontFamily}`;
+    ctx.fillText(subtitle, W / 2, cy); cy += H * 0.045;
   }
-
+  if (timePeriod) {
+    ctx.fillStyle = hexAlpha(color, 0.7);
+    ctx.font = `italic ${FS * 0.026}px ${fontFamily}`;
+    ctx.fillText('Duration: ' + timePeriod, W / 2, cy); cy += H * 0.04;
+  }
   if (description) {
     ctx.fillStyle = '#666';
-    ctx.font = `${H * .026}px ${fontFamily}`;
-    _wrapText(ctx, description, W / 2, H * .61, W * .7, H * .034);
+    ctx.font = `${FS * 0.026}px ${fontFamily}`;
+    _wrapText(ctx, description, W / 2, cy, W * 0.7, S * 0.034);
   }
 
-  /* footer line */
-  ctx.strokeStyle = hexAlpha(color, .35);
-  ctx.lineWidth = 1;
-  const fy = H * .76;
-  _dashLine(ctx, W * .12, fy, W * .4, fy);
-  _dashLine(ctx, W * .6, fy, W * .88, fy);
-
-  ctx.fillStyle = '#555';
-  ctx.font = `${H * .026}px ${fontFamily}`;
-  ctx.textAlign = 'center';
-  ctx.fillText(issuer || 'Issuing Authority', W * .26, fy + H * .04);
-  ctx.fillText(date || 'Date', W * .74, fy + H * .04);
-
-  ctx.fillStyle = '#999';
-  ctx.font = `${H * .02}px ${fontFamily}`;
-  ctx.fillText('Authorized Signature', W * .26, fy + H * .065);
-  ctx.fillText('Date Issued', W * .74, fy + H * .065);
+  _drawSigBlock(ctx, W, H, FS, cfg, H * 0.75);
 }
 
-function drawModern(ctx, W, H, { color, fontFamily, recipient, title, subtitle, date, issuer, description }) {
-  /* clean white background */
-  ctx.fillStyle = '#ffffff';
-  ctx.fillRect(0, 0, W, H);
+function drawModern(ctx, W, H, S, FS, cfg) {
+  const { color, fontFamily, recipient, title, subtitle, description, timePeriod } = cfg;
 
-  /* left accent bar */
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H);
+
   const bar = ctx.createLinearGradient(0, 0, 0, H);
-  bar.addColorStop(0, color);
-  bar.addColorStop(1, darken(color, .3));
-  ctx.fillStyle = bar;
-  ctx.fillRect(0, 0, W * .06, H);
+  bar.addColorStop(0, color); bar.addColorStop(1, darken(color, .3));
+  ctx.fillStyle = bar; ctx.fillRect(0, 0, W * .055, H);
 
-  /* top-right circle accent */
-  ctx.beginPath();
-  ctx.arc(W, 0, H * .45, 0, Math.PI * 2);
-  ctx.fillStyle = hexAlpha(color, .07);
-  ctx.fill();
+  ctx.beginPath(); ctx.arc(W, 0, H * .45, 0, Math.PI * 2);
+  ctx.fillStyle = hexAlpha(color, .06); ctx.fill();
+  ctx.beginPath(); ctx.arc(W, 0, H * .28, 0, Math.PI * 2);
+  ctx.fillStyle = hexAlpha(color, .08); ctx.fill();
 
-  ctx.beginPath();
-  ctx.arc(W, 0, H * .3, 0, Math.PI * 2);
-  ctx.fillStyle = hexAlpha(color, .08);
-  ctx.fill();
-
-  /* headline */
   ctx.fillStyle = color;
-  ctx.font = `900 ${H * .05}px ${fontFamily}`;
+  ctx.font = `900 ${FS * 0.048}px ${fontFamily}`;
   ctx.textAlign = 'left';
-  ctx.fillText((title || 'Certificate of Achievement').toUpperCase(), W * .1, H * .2);
+  ctx.fillText((title || 'Certificate of Achievement').toUpperCase(), W * .1, H * 0.22);
 
-  /* thin separator */
-  ctx.fillStyle = color;
-  ctx.fillRect(W * .1, H * .24, W * .08, 3);
+  ctx.fillStyle = color; ctx.fillRect(W * .1, H * .255, W * .08, 3);
 
   ctx.fillStyle = '#888';
-  ctx.font = `${H * .03}px ${fontFamily}`;
-  ctx.fillText('Presented to', W * .1, H * .32);
+  ctx.font = `${FS * 0.029}px ${fontFamily}`;
+  ctx.fillText('Presented to', W * .1, H * 0.325);
 
-  /* recipient */
   ctx.fillStyle = '#111';
-  ctx.font = `700 ${H * .075}px ${fontFamily}`;
-  ctx.fillText(recipient || 'Recipient Name', W * .1, H * .44);
+  ctx.font = `700 ${FS * 0.072}px ${fontFamily}`;
+  ctx.fillText(recipient || 'Recipient Name', W * .1, H * 0.44);
 
+  let cy = H * 0.515;
   if (subtitle) {
     ctx.fillStyle = '#555';
-    ctx.font = `${H * .032}px ${fontFamily}`;
-    ctx.fillText(subtitle, W * .1, H * .52);
+    ctx.font = `${FS * 0.031}px ${fontFamily}`;
+    ctx.fillText(subtitle, W * .1, cy); cy += H * 0.045;
   }
-
+  if (timePeriod) {
+    ctx.fillStyle = hexAlpha(color, 0.7);
+    ctx.font = `italic ${FS * 0.026}px ${fontFamily}`;
+    ctx.fillText('Duration: ' + timePeriod, W * .1, cy); cy += H * 0.04;
+  }
   if (description) {
     ctx.fillStyle = '#777';
-    ctx.font = `${H * .026}px ${fontFamily}`;
-    _wrapTextLeft(ctx, description, W * .1, H * .58, W * .72, H * .034);
+    ctx.font = `${FS * 0.025}px ${fontFamily}`;
+    _wrapTextLeft(ctx, description, W * .1, cy, W * 0.72, S * 0.032);
   }
 
-  /* bottom meta */
-  ctx.strokeStyle = '#ddd';
-  ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(W * .1, H * .77); ctx.lineTo(W * .5, H * .77); ctx.stroke();
-
-  ctx.fillStyle = '#333';
-  ctx.font = `600 ${H * .028}px ${fontFamily}`;
-  ctx.fillText(issuer || 'Issuing Authority', W * .1, H * .83);
-  ctx.fillStyle = '#888';
-  ctx.font = `${H * .024}px ${fontFamily}`;
-  ctx.fillText(date || 'Date', W * .1, H * .89);
+  _drawSigBlock(ctx, W, H, FS, cfg, H * 0.755);
 }
 
-function drawElegant(ctx, W, H, { color, fontFamily, recipient, title, subtitle, date, issuer, description }) {
-  /* dark luxury background */
+function drawElegant(ctx, W, H, S, FS, cfg) {
+  const { color, fontFamily, recipient, title, subtitle, description, timePeriod } = cfg;
+
   const bg = ctx.createLinearGradient(0, 0, W, H);
-  bg.addColorStop(0, '#0d0d1a');
-  bg.addColorStop(1, '#1a1a2e');
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, W, H);
+  bg.addColorStop(0, '#0d0d1a'); bg.addColorStop(1, '#1a1a2e');
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
 
-  /* gold-toned border glow */
-  ctx.shadowColor = color;
-  ctx.shadowBlur = 20;
-  ctx.strokeStyle = color;
-  ctx.lineWidth = 2;
-  ctx.strokeRect(25, 25, W - 50, H - 50);
-  ctx.shadowBlur = 0;
-
-  ctx.strokeStyle = hexAlpha(color, .3);
-  ctx.lineWidth = 1;
-  ctx.strokeRect(34, 34, W - 68, H - 68);
-
-  /* corner diamonds */
-  _diamonds(ctx, W, H, 38, color);
-
-  /* ornate top divider */
+  _diamonds(ctx, W, H, S * 0.048, color);
   _ornament(ctx, W * .5, H * .15, color, W * .15);
 
   ctx.fillStyle = lighten(color, .6);
-  ctx.font = `${H * .03}px ${fontFamily}`;
+  ctx.font = `${FS * 0.03}px ${fontFamily}`;
   ctx.textAlign = 'center';
-  ctx.fillText('✦ ' + (title || 'Certificate of Excellence') + ' ✦', W / 2, H * .23);
+  ctx.fillText('✦ ' + (title || 'Certificate of Excellence') + ' ✦', W / 2, H * 0.235);
 
-  ctx.fillStyle = hexAlpha(color, .5);
-  ctx.fillRect(W * .2, H * .27, W * .6, 1);
+  ctx.fillStyle = hexAlpha(color, .5); ctx.fillRect(W * .2, H * .27, W * .6, 1);
 
   ctx.fillStyle = '#aaa';
-  ctx.font = `italic ${H * .028}px ${fontFamily}`;
-  ctx.fillText('Awarded with distinction to', W / 2, H * .35);
+  ctx.font = `italic ${FS * 0.027}px ${fontFamily}`;
+  ctx.fillText('Awarded with distinction to', W / 2, H * 0.35);
 
-  /* recipient in gold */
   ctx.fillStyle = lighten(color, .5);
-  ctx.font = `bold ${H * .068}px ${fontFamily}`;
-  ctx.fillText(recipient || 'Recipient Name', W / 2, H * .46);
+  ctx.font = `bold ${FS * 0.065}px ${fontFamily}`;
+  ctx.fillText(recipient || 'Recipient Name', W / 2, H * 0.455);
 
+  let cy = H * 0.535;
   if (subtitle) {
     ctx.fillStyle = '#bbb';
-    ctx.font = `italic ${H * .03}px ${fontFamily}`;
-    ctx.fillText(subtitle, W / 2, H * .54);
+    ctx.font = `italic ${FS * 0.029}px ${fontFamily}`;
+    ctx.fillText(subtitle, W / 2, cy); cy += H * 0.045;
   }
-
+  if (timePeriod) {
+    ctx.fillStyle = hexAlpha(color, 0.6);
+    ctx.font = `italic ${FS * 0.024}px ${fontFamily}`;
+    ctx.fillText('Duration: ' + timePeriod, W / 2, cy); cy += H * 0.038;
+  }
   if (description) {
     ctx.fillStyle = '#888';
-    ctx.font = `${H * .024}px ${fontFamily}`;
-    _wrapText(ctx, description, W / 2, H * .6, W * .65, H * .032);
+    ctx.font = `${FS * 0.024}px ${fontFamily}`;
+    _wrapText(ctx, description, W / 2, cy, W * 0.65, S * 0.032);
   }
 
-  _ornament(ctx, W * .5, H * .72, color, W * .12);
-
-  ctx.fillStyle = hexAlpha(color, .5);
-  ctx.fillRect(W * .15, H * .77, W * .31, 1);
-  ctx.fillRect(W * .54, H * .77, W * .31, 1);
-
-  ctx.fillStyle = lighten(color, .4);
-  ctx.font = `${H * .025}px ${fontFamily}`;
-  ctx.fillText(issuer || 'Issuing Authority', W * .3, H * .83);
-  ctx.fillText(date || 'Date', W * .7, H * .83);
-
-  ctx.fillStyle = '#666';
-  ctx.font = `${H * .019}px ${fontFamily}`;
-  ctx.fillText('Signature', W * .3, H * .875);
-  ctx.fillText('Date', W * .7, H * .875);
+  _ornament(ctx, W * .5, H * .73, color, W * .12);
+  _drawSigBlock(ctx, W, H, FS, cfg, H * 0.755);
 }
 
-function drawBold(ctx, W, H, { color, fontFamily, recipient, title, subtitle, date, issuer, description }) {
-  ctx.fillStyle = color;
-  ctx.fillRect(0, 0, W, H);
+function drawBold(ctx, W, H, S, FS, cfg) {
+  const { color, fontFamily, recipient, title, subtitle, description, timePeriod } = cfg;
 
-  /* white card area */
-  ctx.fillStyle = '#fff';
-  ctx.fillRect(W * .08, H * .12, W * .84, H * .76);
+  ctx.fillStyle = color; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#fff'; ctx.fillRect(W * .07, H * .11, W * .86, H * .78);
+  ctx.fillStyle = darken(color, .2); ctx.fillRect(W * .07, H * .11, W * .86, H * .07);
 
-  /* accent stripe top of card */
-  ctx.fillStyle = darken(color, .2);
-  ctx.fillRect(W * .08, H * .12, W * .84, H * .07);
-
-  /* geometric circles bottom-right */
-  ctx.beginPath(); ctx.arc(W * .94, H * .95, H * .35, 0, Math.PI * 2);
-  ctx.fillStyle = hexAlpha('#fff', .08); ctx.fill();
-  ctx.beginPath(); ctx.arc(W * .94, H * .95, H * .22, 0, Math.PI * 2);
-  ctx.fillStyle = hexAlpha('#fff', .08); ctx.fill();
+  ctx.beginPath(); ctx.arc(W * .95, H * .96, H * .38, 0, Math.PI * 2);
+  ctx.fillStyle = hexAlpha('#fff', .06); ctx.fill();
+  ctx.beginPath(); ctx.arc(W * .95, H * .96, H * .24, 0, Math.PI * 2);
+  ctx.fillStyle = hexAlpha('#fff', .07); ctx.fill();
 
   ctx.fillStyle = '#fff';
-  ctx.font = `900 ${H * .055}px ${fontFamily}`;
+  ctx.font = `900 ${FS * 0.052}px ${fontFamily}`;
   ctx.textAlign = 'center';
-  ctx.fillText((title || 'Certificate').toUpperCase(), W / 2, H * .17);
+  ctx.fillText((title || 'Certificate').toUpperCase(), W / 2, H * 0.165);
 
   ctx.fillStyle = color;
-  ctx.font = `900 ${H * .036}px ${fontFamily}`;
-  ctx.fillText('OF ACHIEVEMENT', W / 2, H * .25);
+  ctx.font = `900 ${FS * 0.034}px ${fontFamily}`;
+  ctx.fillText('OF ACHIEVEMENT', W / 2, H * 0.25);
 
   ctx.fillStyle = '#666';
-  ctx.font = `${H * .03}px ${fontFamily}`;
-  ctx.fillText('This certificate is proudly presented to', W / 2, H * .33);
+  ctx.font = `${FS * 0.029}px ${fontFamily}`;
+  ctx.fillText('This certificate is proudly presented to', W / 2, H * 0.335);
 
   ctx.fillStyle = '#111';
-  ctx.font = `bold ${H * .072}px ${fontFamily}`;
-  ctx.fillText(recipient || 'Recipient Name', W / 2, H * .445);
+  ctx.font = `bold ${FS * 0.07}px ${fontFamily}`;
+  ctx.fillText(recipient || 'Recipient Name', W / 2, H * 0.445);
 
+  let cy = H * 0.525;
   if (subtitle) {
     ctx.fillStyle = color;
-    ctx.font = `600 ${H * .032}px ${fontFamily}`;
-    ctx.fillText(subtitle, W / 2, H * .52);
+    ctx.font = `600 ${FS * 0.031}px ${fontFamily}`;
+    ctx.fillText(subtitle, W / 2, cy); cy += H * 0.045;
   }
-
+  if (timePeriod) {
+    ctx.fillStyle = darken(color, 0.1);
+    ctx.font = `italic ${FS * 0.026}px ${fontFamily}`;
+    ctx.fillText('Duration: ' + timePeriod, W / 2, cy); cy += H * 0.04;
+  }
   if (description) {
     ctx.fillStyle = '#666';
-    ctx.font = `${H * .026}px ${fontFamily}`;
-    _wrapText(ctx, description, W / 2, H * .59, W * .66, H * .033);
+    ctx.font = `${FS * 0.025}px ${fontFamily}`;
+    _wrapText(ctx, description, W / 2, cy, W * 0.66, S * 0.032);
   }
 
-  /* footer divider */
-  ctx.strokeStyle = '#ddd';
-  ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(W * .13, H * .74); ctx.lineTo(W * .44, H * .74); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(W * .56, H * .74); ctx.lineTo(W * .87, H * .74); ctx.stroke();
-
-  ctx.fillStyle = '#333';
-  ctx.font = `600 ${H * .026}px ${fontFamily}`;
-  ctx.fillText(issuer || 'Director', W * .285, H * .79);
-  ctx.fillText(date || 'Date', W * .715, H * .79);
+  _drawSigBlock(ctx, W, H, FS, cfg, H * 0.75);
 }
 
-function drawMinimal(ctx, W, H, { color, fontFamily, recipient, title, subtitle, date, issuer, description }) {
-  ctx.fillStyle = '#fafafa';
-  ctx.fillRect(0, 0, W, H);
+function drawMinimal(ctx, W, H, S, FS, cfg) {
+  const { color, fontFamily, recipient, title, subtitle, description, timePeriod } = cfg;
 
-  /* thin top bar */
-  ctx.fillStyle = color;
-  ctx.fillRect(0, 0, W, H * .007);
+  ctx.fillStyle = '#fafafa'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = color; ctx.fillRect(0, 0, W, H * 0.007);
 
   ctx.fillStyle = color;
-  ctx.font = `300 ${H * .032}px ${fontFamily}`;
+  ctx.font = `300 ${FS * 0.031}px ${fontFamily}`;
   ctx.textAlign = 'center';
-  ctx.letterSpacing = '4px';
-  ctx.fillText((title || 'CERTIFICATE OF ACHIEVEMENT').toUpperCase(), W / 2, H * .17);
-  ctx.letterSpacing = '0px';
+  ctx.fillText((title || 'CERTIFICATE OF ACHIEVEMENT').toUpperCase(), W / 2, H * 0.18);
 
-  ctx.strokeStyle = hexAlpha(color, .3);
-  ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(W * .35, H * .2); ctx.lineTo(W * .65, H * .2); ctx.stroke();
+  ctx.strokeStyle = hexAlpha(color, .3); ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(W * .35, H * .21); ctx.lineTo(W * .65, H * .21); ctx.stroke();
 
   ctx.fillStyle = '#ccc';
-  ctx.font = `300 ${H * .025}px ${fontFamily}`;
-  ctx.fillText('presented to', W / 2, H * .3);
+  ctx.font = `300 ${FS * 0.025}px ${fontFamily}`;
+  ctx.fillText('presented to', W / 2, H * 0.305);
 
   ctx.fillStyle = '#111';
-  ctx.font = `300 ${H * .075}px ${fontFamily}`;
-  ctx.fillText(recipient || 'Recipient Name', W / 2, H * .43);
+  ctx.font = `300 ${FS * 0.072}px ${fontFamily}`;
+  ctx.fillText(recipient || 'Recipient Name', W / 2, H * 0.43);
 
+  let cy = H * 0.515;
   if (subtitle) {
     ctx.fillStyle = '#888';
-    ctx.font = `300 ${H * .03}px ${fontFamily}`;
-    ctx.fillText(subtitle, W / 2, H * .51);
+    ctx.font = `300 ${FS * 0.029}px ${fontFamily}`;
+    ctx.fillText(subtitle, W / 2, cy); cy += H * 0.045;
+  }
+  if (timePeriod) {
+    ctx.fillStyle = hexAlpha(color, 0.6);
+    ctx.font = `300 italic ${FS * 0.025}px ${fontFamily}`;
+    ctx.fillText('Duration: ' + timePeriod, W / 2, cy); cy += H * 0.04;
   }
 
-  ctx.strokeStyle = '#e5e5e5';
-  ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(W * .2, H * .58); ctx.lineTo(W * .8, H * .58); ctx.stroke();
+  ctx.strokeStyle = '#e5e5e5'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(W * .2, cy + H * .01); ctx.lineTo(W * .8, cy + H * .01); ctx.stroke();
+  cy += H * 0.04;
 
   if (description) {
     ctx.fillStyle = '#999';
-    ctx.font = `300 ${H * .026}px ${fontFamily}`;
-    _wrapText(ctx, description, W / 2, H * .64, W * .65, H * .033);
+    ctx.font = `300 ${FS * 0.025}px ${fontFamily}`;
+    _wrapText(ctx, description, W / 2, cy, W * 0.65, S * 0.032);
   }
 
-  ctx.strokeStyle = '#ddd';
-  ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(W * .18, H * .79); ctx.lineTo(W * .42, H * .79); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(W * .58, H * .79); ctx.lineTo(W * .82, H * .79); ctx.stroke();
-
-  ctx.fillStyle = '#333';
-  ctx.font = `400 ${H * .025}px ${fontFamily}`;
-  ctx.fillText(issuer || 'Authorized By', W * .3, H * .85);
-  ctx.fillText(date || 'Date', W * .7, H * .85);
-
-  /* thin bottom bar */
-  ctx.fillStyle = color;
-  ctx.fillRect(0, H - H * .007, W, H * .007);
+  ctx.fillStyle = color; ctx.fillRect(0, H - H * .007, W, H * .007);
+  _drawSigBlock(ctx, W, H, FS, cfg, H * 0.755);
 }
 
-function drawAcademic(ctx, W, H, { color, fontFamily, recipient, title, subtitle, date, issuer, description }) {
-  /* cream background */
-  ctx.fillStyle = '#fffef5';
-  ctx.fillRect(0, 0, W, H);
+function drawAcademic(ctx, W, H, S, FS, cfg) {
+  const { color, fontFamily, recipient, title, subtitle, description, timePeriod } = cfg;
 
-  /* outer double border */
-  ctx.strokeStyle = darken(color, .1);
-  ctx.lineWidth = 3;
-  ctx.strokeRect(18, 18, W - 36, H - 36);
-  ctx.strokeStyle = hexAlpha(color, .5);
-  ctx.lineWidth = 1;
-  ctx.strokeRect(26, 26, W - 52, H - 52);
+  ctx.fillStyle = '#fffef5'; ctx.fillRect(0, 0, W, H);
 
-  /* top seal placeholder */
-  ctx.beginPath(); ctx.arc(W / 2, H * .13, H * .07, 0, Math.PI * 2);
-  ctx.fillStyle = hexAlpha(color, .1);
-  ctx.strokeStyle = color;
-  ctx.lineWidth = 1.5;
-  ctx.fill(); ctx.stroke();
-
-  /* inner ring */
-  ctx.beginPath(); ctx.arc(W / 2, H * .13, H * .055, 0, Math.PI * 2);
+  ctx.beginPath(); ctx.arc(W / 2, H * .135, S * .072, 0, Math.PI * 2);
+  ctx.fillStyle = hexAlpha(color, .1); ctx.fill();
+  ctx.strokeStyle = color; ctx.lineWidth = 1.5; ctx.stroke();
+  ctx.beginPath(); ctx.arc(W / 2, H * .135, S * .056, 0, Math.PI * 2);
   ctx.strokeStyle = hexAlpha(color, .5); ctx.lineWidth = 1; ctx.stroke();
-
   ctx.fillStyle = color;
-  ctx.font = `bold ${H * .045}px ${fontFamily}`;
+  ctx.font = `bold ${FS * 0.044}px ${fontFamily}`;
   ctx.textAlign = 'center';
-  ctx.fillText('★', W / 2, H * .145);
+  ctx.fillText('★', W / 2, H * .148);
 
   ctx.fillStyle = '#333';
-  ctx.font = `bold ${H * .04}px ${fontFamily}`;
-  ctx.fillText(title || 'Certificate of Completion', W / 2, H * .26);
+  ctx.font = `bold ${FS * 0.039}px ${fontFamily}`;
+  ctx.fillText(title || 'Certificate of Completion', W / 2, H * 0.265);
 
   ctx.fillStyle = hexAlpha(color, .6);
-  const sw = W * .35;
-  ctx.fillRect(W / 2 - sw / 2, H * .29, sw, 1.5);
+  const sw = W * .36;
+  ctx.fillRect(W / 2 - sw / 2, H * .295, sw, 1.5);
 
   ctx.fillStyle = '#666';
-  ctx.font = `italic ${H * .029}px ${fontFamily}`;
-  ctx.fillText('This is to certify that', W / 2, H * .36);
+  ctx.font = `italic ${FS * 0.028}px ${fontFamily}`;
+  ctx.fillText('This is to certify that', W / 2, H * 0.365);
 
   ctx.fillStyle = '#111';
-  ctx.font = `bold ${H * .066}px ${fontFamily}`;
-  _underlineText(ctx, recipient || 'Recipient Name', W / 2, H * .455, color);
+  ctx.font = `bold ${FS * 0.064}px ${fontFamily}`;
+  _underlineText(ctx, recipient || 'Recipient Name', W / 2, H * 0.455, color);
 
+  let cy = H * 0.535;
   if (subtitle) {
     ctx.fillStyle = '#555';
-    ctx.font = `italic ${H * .03}px ${fontFamily}`;
-    ctx.fillText('has successfully completed ' + subtitle, W / 2, H * .535);
+    ctx.font = `italic ${FS * 0.029}px ${fontFamily}`;
+    ctx.fillText('has successfully completed ' + subtitle, W / 2, cy); cy += H * 0.045;
   }
-
+  if (timePeriod) {
+    ctx.fillStyle = hexAlpha(color, 0.65);
+    ctx.font = `italic ${FS * 0.025}px ${fontFamily}`;
+    ctx.fillText('Duration: ' + timePeriod, W / 2, cy); cy += H * 0.04;
+  }
   if (description) {
     ctx.fillStyle = '#777';
-    ctx.font = `${H * .025}px ${fontFamily}`;
-    _wrapText(ctx, description, W / 2, H * .61, W * .68, H * .032);
+    ctx.font = `${FS * 0.024}px ${fontFamily}`;
+    _wrapText(ctx, description, W / 2, cy, W * 0.68, S * 0.032);
   }
 
-  /* seal text */
-  ctx.strokeStyle = '#ddd';
-  ctx.lineWidth = 1;
-  const yl = H * .76;
-  ctx.beginPath(); ctx.moveTo(W * .12, yl); ctx.lineTo(W * .4, yl); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(W * .6, yl); ctx.lineTo(W * .88, yl); ctx.stroke();
-
-  ctx.fillStyle = '#333';
-  ctx.font = `600 ${H * .026}px ${fontFamily}`;
-  ctx.fillText(issuer || 'Institution Name', W * .26, H * .82);
-  ctx.fillText(date || 'Date', W * .74, H * .82);
-
-  ctx.fillStyle = '#999';
-  ctx.font = `${H * .02}px ${fontFamily}`;
-  ctx.fillText('Director / Dean', W * .26, H * .86);
-  ctx.fillText('Date of Issue', W * .74, H * .86);
+  _drawSigBlock(ctx, W, H, FS, cfg, H * 0.755);
 }
 
-/* ── shared drawing utilities ──────────────────────────────────────────────── */
+function drawRibbon(ctx, W, H, S, FS, cfg) {
+  const { color, fontFamily, recipient, title, subtitle, description, timePeriod } = cfg;
 
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H);
+
+  ctx.fillStyle = color; ctx.fillRect(0, 0, W, H * 0.185);
+
+  ctx.fillStyle = hexAlpha('#fff', .09);
+  ctx.beginPath();
+  ctx.moveTo(W * .25, 0); ctx.lineTo(W * .42, H * .185);
+  ctx.lineTo(W * .32, H * .185); ctx.lineTo(W * .15, 0);
+  ctx.closePath(); ctx.fill();
+
+  ctx.fillStyle = darken(color, .25);
+  ctx.beginPath();
+  ctx.moveTo(0, H * .185); ctx.lineTo(W * .045, H * .12); ctx.lineTo(0, H * .06);
+  ctx.closePath(); ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(W, H * .185); ctx.lineTo(W * .955, H * .12); ctx.lineTo(W, H * .06);
+  ctx.closePath(); ctx.fill();
+
+  ctx.fillStyle = hexAlpha('#fff', .7);
+  ctx.font = `${FS * 0.04}px sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.fillText('★', W * .12, H * .118);
+  ctx.fillText('★', W * .88, H * .118);
+
+  ctx.fillStyle = '#ffffff';
+  ctx.font = `bold ${FS * 0.046}px ${fontFamily}`;
+  ctx.fillText(title || 'Certificate of Achievement', W / 2, H * 0.112);
+
+  ctx.fillStyle = '#555';
+  ctx.font = `${FS * 0.029}px ${fontFamily}`;
+  ctx.fillText('This certificate is proudly presented to', W / 2, H * 0.315);
+
+  ctx.fillStyle = '#111';
+  ctx.font = `bold ${FS * 0.068}px ${fontFamily}`;
+  _underlineText(ctx, recipient || 'Recipient Name', W / 2, H * 0.435, color);
+
+  let cy = H * 0.515;
+  if (subtitle) {
+    ctx.fillStyle = color;
+    ctx.font = `600 ${FS * 0.03}px ${fontFamily}`;
+    ctx.fillText(subtitle, W / 2, cy); cy += H * 0.045;
+  }
+  if (timePeriod) {
+    ctx.fillStyle = darken(color, 0.1);
+    ctx.font = `italic ${FS * 0.026}px ${fontFamily}`;
+    ctx.fillText('Duration: ' + timePeriod, W / 2, cy); cy += H * 0.04;
+  }
+  if (description) {
+    ctx.fillStyle = '#777';
+    ctx.font = `${FS * 0.025}px ${fontFamily}`;
+    _wrapText(ctx, description, W / 2, cy, W * 0.72, S * 0.032);
+  }
+
+  _drawSigBlock(ctx, W, H, FS, cfg, H * 0.755);
+}
+
+function drawCorporate(ctx, W, H, S, FS, cfg) {
+  const { color, fontFamily, recipient, title, subtitle, description, timePeriod, issuer } = cfg;
+
+  ctx.fillStyle = '#f7f8fa'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = color; ctx.fillRect(0, 0, W, H * 0.008);
+  ctx.fillStyle = color; ctx.fillRect(0, H - H * .008, W, H * .008);
+
+  ctx.fillStyle = '#eef0f4'; ctx.fillRect(0, H * .008, W, H * 0.115);
+
+  ctx.fillStyle = '#333';
+  ctx.font = `600 ${FS * 0.027}px ${fontFamily}`;
+  ctx.textAlign = 'center';
+  ctx.fillText((issuer || 'Organization Name').toUpperCase(), W / 2, H * 0.068);
+
+  ctx.strokeStyle = color; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(W * .36, H * .098); ctx.lineTo(W * .64, H * .098); ctx.stroke();
+
+  ctx.fillStyle = color;
+  ctx.font = `300 ${FS * 0.021}px ${fontFamily}`;
+  ctx.fillText('CERTIFICATE OF RECOGNITION', W / 2, H * 0.205);
+
+  ctx.fillStyle = '#111';
+  ctx.font = `bold ${FS * 0.058}px ${fontFamily}`;
+  ctx.fillText(title || 'Certificate', W / 2, H * 0.3);
+
+  ctx.strokeStyle = '#ddd'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(W * .15, H * .345); ctx.lineTo(W * .85, H * .345); ctx.stroke();
+
+  ctx.fillStyle = '#777';
+  ctx.font = `${FS * 0.027}px ${fontFamily}`;
+  ctx.fillText('This certificate is presented to', W / 2, H * 0.42);
+
+  ctx.fillStyle = '#111';
+  ctx.font = `bold ${FS * 0.068}px ${fontFamily}`;
+  ctx.fillText(recipient || 'Recipient Name', W / 2, H * 0.515);
+
+  let cy = H * 0.59;
+  if (subtitle) {
+    ctx.fillStyle = '#555';
+    ctx.font = `${FS * 0.028}px ${fontFamily}`;
+    ctx.fillText(subtitle, W / 2, cy); cy += H * 0.045;
+  }
+  if (timePeriod) {
+    ctx.fillStyle = hexAlpha(color, 0.7);
+    ctx.font = `italic ${FS * 0.024}px ${fontFamily}`;
+    ctx.fillText('Duration: ' + timePeriod, W / 2, cy); cy += H * 0.04;
+  }
+  if (description) {
+    ctx.fillStyle = '#777';
+    ctx.font = `${FS * 0.024}px ${fontFamily}`;
+    _wrapText(ctx, description, W / 2, cy, W * 0.7, S * 0.031);
+  }
+
+  _drawSigBlock(ctx, W, H, FS, cfg, H * 0.76);
+}
+
+function drawDiploma(ctx, W, H, S, FS, cfg) {
+  const { color, fontFamily, recipient, title, subtitle, description, timePeriod } = cfg;
+
+  ctx.fillStyle = '#fffef8'; ctx.fillRect(0, 0, W, H);
+
+  const bandGrad = ctx.createLinearGradient(0, 0, W, 0);
+  bandGrad.addColorStop(0, darken(color, .3));
+  bandGrad.addColorStop(.5, color);
+  bandGrad.addColorStop(1, darken(color, .3));
+  ctx.fillStyle = bandGrad;
+  ctx.fillRect(0, 0, W, H * .028);
+  ctx.fillRect(0, H - H * .028, W, H * .028);
+  ctx.fillStyle = hexAlpha(color, .3);
+  ctx.fillRect(0, H * .028, W, H * .007);
+  ctx.fillRect(0, H - H * .035, W, H * .007);
+
+  _ornament(ctx, W / 2, H * .098, color, W * .17);
+
+  ctx.fillStyle = color;
+  ctx.font = `bold ${FS * 0.037}px ${fontFamily}`;
+  ctx.textAlign = 'center';
+  ctx.fillText(title || 'Diploma', W / 2, H * .192);
+
+  ctx.fillStyle = hexAlpha(color, .45);
+  ctx.fillRect(W * .3, H * .22, W * .4, 1.5);
+
+  ctx.fillStyle = '#555';
+  ctx.font = `italic ${FS * 0.027}px ${fontFamily}`;
+  ctx.fillText('This is to certify that', W / 2, H * .305);
+
+  ctx.fillStyle = '#111';
+  ctx.font = `bold ${FS * 0.068}px ${fontFamily}`;
+  _underlineText(ctx, recipient || 'Recipient Name', W / 2, H * .41, color);
+
+  let cy = H * 0.49;
+  if (subtitle) {
+    ctx.fillStyle = '#555';
+    ctx.font = `italic ${FS * 0.029}px ${fontFamily}`;
+    ctx.fillText('has successfully completed ' + subtitle, W / 2, cy); cy += H * 0.048;
+  }
+  if (timePeriod) {
+    ctx.fillStyle = hexAlpha(color, 0.65);
+    ctx.font = `italic ${FS * 0.025}px ${fontFamily}`;
+    ctx.fillText('Duration: ' + timePeriod, W / 2, cy); cy += H * 0.04;
+  }
+  if (description) {
+    ctx.fillStyle = '#777';
+    ctx.font = `${FS * 0.025}px ${fontFamily}`;
+    _wrapText(ctx, description, W / 2, cy, W * .68, S * 0.032);
+  }
+
+  /* seal */
+  const sx = W / 2, sy = H * .765;
+  ctx.beginPath(); ctx.arc(sx, sy, S * .058, 0, Math.PI * 2);
+  ctx.fillStyle = hexAlpha(color, .1); ctx.fill();
+  ctx.strokeStyle = color; ctx.lineWidth = 1.5; ctx.stroke();
+  ctx.beginPath(); ctx.arc(sx, sy, S * .046, 0, Math.PI * 2);
+  ctx.strokeStyle = hexAlpha(color, .45); ctx.lineWidth = 1; ctx.stroke();
+  ctx.fillStyle = color;
+  ctx.font = `bold ${FS * 0.042}px sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.fillText('★', sx, sy + S * .016);
+
+  _drawSigBlock(ctx, W, H, FS, cfg, H * 0.84);
+}
+
+/* ── border layer ──────────────────────────────────────── */
+function _applyBorder(ctx, W, H, S, { color, border }) {
+  if (!border || border === 'none') return;
+  const m = S * 0.022;
+  const m2 = S * 0.034;
+  switch (border) {
+    case 'single':
+      ctx.strokeStyle = color; ctx.lineWidth = S * 0.006;
+      ctx.strokeRect(m, m, W - m * 2, H - m * 2);
+      break;
+    case 'double':
+      ctx.strokeStyle = color; ctx.lineWidth = S * 0.005;
+      ctx.strokeRect(m, m, W - m * 2, H - m * 2);
+      ctx.strokeStyle = hexAlpha(color, .4); ctx.lineWidth = 1.5;
+      ctx.strokeRect(m2, m2, W - m2 * 2, H - m2 * 2);
+      break;
+    case 'thick':
+      ctx.strokeStyle = color; ctx.lineWidth = S * 0.018;
+      const t = S * 0.018;
+      ctx.strokeRect(t, t, W - t * 2, H - t * 2);
+      ctx.strokeStyle = hexAlpha(color, .25); ctx.lineWidth = 1;
+      ctx.strokeRect(S * 0.04, S * 0.04, W - S * 0.08, H - S * 0.08);
+      break;
+    case 'ornate':
+      ctx.strokeStyle = color; ctx.lineWidth = S * 0.005;
+      ctx.strokeRect(m, m, W - m * 2, H - m * 2);
+      ctx.strokeStyle = hexAlpha(color, .35); ctx.lineWidth = 1;
+      ctx.strokeRect(m2, m2, W - m2 * 2, H - m2 * 2);
+      _corners(ctx, W, H, m2, color, S * 0.025);
+      _diamonds(ctx, W, H, m2 - 1, color);
+      break;
+  }
+}
+
+/* ── shared drawing utilities ──────────────────────────── */
 function _corners(ctx, W, H, inset, color, size) {
-  const pts = [
-    [inset, inset],
-    [W - inset, inset],
-    [inset, H - inset],
-    [W - inset, H - inset],
-  ];
-  ctx.strokeStyle = color;
-  ctx.lineWidth = 2;
-  const dirs = [[1,1],[-1,1],[1,-1],[-1,-1]];
-  pts.forEach(([x, y], i) => {
-    const [dx, dy] = dirs[i];
-    ctx.beginPath();
-    ctx.moveTo(x + dx * size, y);
-    ctx.lineTo(x, y);
-    ctx.lineTo(x, y + dy * size);
-    ctx.stroke();
-  });
+  ctx.strokeStyle = color; ctx.lineWidth = 2;
+  [[inset, inset, 1, 1], [W - inset, inset, -1, 1], [inset, H - inset, 1, -1], [W - inset, H - inset, -1, -1]]
+    .forEach(([x, y, dx, dy]) => {
+      ctx.beginPath();
+      ctx.moveTo(x + dx * size, y); ctx.lineTo(x, y); ctx.lineTo(x, y + dy * size);
+      ctx.stroke();
+    });
 }
 
 function _diamonds(ctx, W, H, inset, color) {
-  const pts = [
-    [inset, inset],
-    [W - inset, inset],
-    [inset, H - inset],
-    [W - inset, H - inset],
-  ];
   ctx.fillStyle = color;
-  const s = 7;
-  pts.forEach(([x, y]) => {
-    ctx.beginPath();
-    ctx.moveTo(x, y - s); ctx.lineTo(x + s, y);
-    ctx.lineTo(x, y + s); ctx.lineTo(x - s, y);
-    ctx.closePath(); ctx.fill();
-  });
+  const s = 6;
+  [[inset, inset], [W - inset, inset], [inset, H - inset], [W - inset, H - inset]]
+    .forEach(([x, y]) => {
+      ctx.beginPath();
+      ctx.moveTo(x, y - s); ctx.lineTo(x + s, y); ctx.lineTo(x, y + s); ctx.lineTo(x - s, y);
+      ctx.closePath(); ctx.fill();
+    });
 }
 
 function _ornament(ctx, cx, cy, color, halfW) {
-  ctx.strokeStyle = hexAlpha(color, .6);
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(cx - halfW, cy); ctx.lineTo(cx - halfW * .3, cy); ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(cx + halfW * .3, cy); ctx.lineTo(cx + halfW, cy); ctx.stroke();
+  ctx.strokeStyle = hexAlpha(color, .6); ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(cx - halfW, cy); ctx.lineTo(cx - halfW * .3, cy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx + halfW * .3, cy); ctx.lineTo(cx + halfW, cy); ctx.stroke();
   ctx.beginPath(); ctx.arc(cx, cy, 4, 0, Math.PI * 2);
   ctx.fillStyle = color; ctx.fill();
 }
 
 function _dashLine(ctx, x1, y1, x2, y2) {
-  ctx.beginPath();
-  ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
 }
 
 function _underlineText(ctx, text, x, y, color) {
   ctx.fillText(text, x, y);
   const w = ctx.measureText(text).width;
-  ctx.strokeStyle = hexAlpha(color, .5);
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.moveTo(x - w / 2, y + 6);
-  ctx.lineTo(x + w / 2, y + 6);
-  ctx.stroke();
+  ctx.strokeStyle = hexAlpha(color, .5); ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(x - w / 2, y + 6); ctx.lineTo(x + w / 2, y + 6); ctx.stroke();
 }
 
 function _wrapText(ctx, text, cx, y, maxW, lineH) {
@@ -541,57 +712,57 @@ function _wrapText(ctx, text, cx, y, maxW, lineH) {
   for (const word of words) {
     const test = line ? line + ' ' + word : word;
     if (ctx.measureText(test).width > maxW && line) {
-      ctx.fillText(line, cx, y);
-      line = word; y += lineH;
-    } else {
-      line = test;
-    }
+      ctx.fillText(line, cx, y); line = word; y += lineH;
+    } else { line = test; }
   }
   if (line) ctx.fillText(line, cx, y);
 }
 
 function _wrapTextLeft(ctx, text, lx, y, maxW, lineH) {
-  const save = ctx.textAlign;
-  ctx.textAlign = 'left';
+  const save = ctx.textAlign; ctx.textAlign = 'left';
   const words = text.split(' ');
   let line = '';
   for (const word of words) {
     const test = line ? line + ' ' + word : word;
     if (ctx.measureText(test).width > maxW && line) {
-      ctx.fillText(line, lx, y);
-      line = word; y += lineH;
-    } else {
-      line = test;
-    }
+      ctx.fillText(line, lx, y); line = word; y += lineH;
+    } else { line = test; }
   }
   if (line) ctx.fillText(line, lx, y);
   ctx.textAlign = save;
 }
 
-/* ── Alpine component ───────────────────────────────────────────────────────── */
-
-let _previewCanvas = null;
-let _previewCtx    = null;
-
-// Thumbnail canvases rendered per template
-const _thumbCtxs = {};
-
+/* ══════════════════════════════════════════════════════════
+   ALPINE COMPONENT
+══════════════════════════════════════════════════════════ */
 function certificateGeneratorApp() {
   return {
-    template:    'classic',
-    color:       '#7c3aed',
-    fontId:      'serif',
+    template: 'classic',
+    color: '#7c3aed',
+    fontId: 'serif',
+    fontScale: 1.0,
     orientation: 'landscape',
-    recipient:   '',
-    title:       'Certificate of Achievement',
-    subtitle:    '',
-    date:        '',
-    issuer:      '',
+    border: 'double',
+
+    recipient: '',
+    title: 'Certificate of Achievement',
+    subtitle: '',
+    timePeriod: '',
     description: '',
+    issuer: '',
+    issuerTitle: '',
+    issuer2: '',
+    issuerTitle2: '',
+    date: '',
+
+    hasLogo: false,
+    logoNames: [],
+    logoCount: 0,
 
     templates: TEMPLATES,
-    palette:   PALETTE,
-    fonts:     FONTS,
+    borders: BORDERS,
+    fontScales: FONT_SCALES,
+    fonts: FONTS,
 
     get fontFamily() {
       return FONTS.find(f => f.id === this.fontId)?.family || FONTS[0].family;
@@ -599,131 +770,194 @@ function certificateGeneratorApp() {
 
     get cfg() {
       return {
-        template:    this.template,
-        color:       this.color,
-        fontFamily:  this.fontFamily,
-        recipient:   this.recipient,
-        title:       this.title,
-        subtitle:    this.subtitle,
-        date:        this.date,
-        issuer:      this.issuer,
+        template: this.template,
+        color: this.color,
+        fontFamily: this.fontFamily,
+        fontScale: this.fontScale,
+        recipient: this.recipient,
+        title: this.title,
+        subtitle: this.subtitle,
+        timePeriod: this.timePeriod,
         description: this.description,
+        issuer: this.issuer,
+        issuerTitle: this.issuerTitle,
+        issuer2: this.issuer2,
+        issuerTitle2: this.issuerTitle2,
+        date: this.date,
         orientation: this.orientation,
+        border: this.border,
       };
     },
 
     /* ── init ─────────────────────────────────── */
     init() {
       _previewCanvas = this.$refs.previewCanvas;
-      _previewCtx    = _previewCanvas.getContext('2d');
-
-      // set today as default date
+      _previewCtx = _previewCanvas.getContext('2d');
       this.date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      this.$nextTick(() => {
+        this._renderThumbs();
+        this.renderPreview();
 
-      this._renderThumbs();
-      this.$nextTick(() => this.renderPreview());
+        /* Re-render at correct size whenever layout changes */
+        const ro = new ResizeObserver(() => {
+          this.renderPreview();
+          this._renderThumbs();
+        });
+        ro.observe(_previewCanvas.parentElement);
+        const tplGrid = document.querySelector('.tpl-grid');
+        if (tplGrid) ro.observe(tplGrid);
+      });
 
-      this.$watch('template',    () => this.renderPreview());
-      this.$watch('color',       () => { this._renderThumbs(); this.renderPreview(); });
-      this.$watch('fontId',      () => this.renderPreview());
-      this.$watch('orientation', () => this.renderPreview());
-      this.$watch('recipient',   () => this.renderPreview());
-      this.$watch('title',       () => { this._renderThumbs(); this.renderPreview(); });
-      this.$watch('subtitle',    () => this.renderPreview());
-      this.$watch('date',        () => this.renderPreview());
-      this.$watch('issuer',      () => this.renderPreview());
-      this.$watch('description', () => this.renderPreview());
+      const rerenderThumbs = ['color', 'template', 'fontId', 'fontScale'];
+      ['template', 'color', 'fontId', 'fontScale', 'orientation', 'border',
+        'recipient', 'title', 'subtitle', 'timePeriod', 'description',
+        'issuer', 'issuerTitle', 'issuer2', 'issuerTitle2', 'date']
+        .forEach(k => {
+          this.$watch(k, () => {
+            if (rerenderThumbs.includes(k)) this._renderThumbs();
+            this.renderPreview();
+          });
+        });
     },
 
-    /* ── dimensions ───────────────────────────── */
     _dims() {
-      /* A4 @ 150ppi */
       return this.orientation === 'landscape'
         ? { W: 1122, H: 794 }
-        : { W: 794,  H: 1122 };
+        : { W: 794, H: 1122 };
     },
 
-    /* ── preview render ───────────────────────── */
     renderPreview() {
-      const { W, H } = this._dims();
-      _previewCanvas.width  = W;
-      _previewCanvas.height = H;
-      drawCertificate(_previewCtx, W, H, this.cfg);
+      if (!_previewCanvas) return;
+      const wrap = _previewCanvas.parentElement;
+      if (!wrap || wrap.clientWidth === 0) return;
+      const dpr  = Math.min(window.devicePixelRatio || 1, 2);
+      const pad  = 14; /* .preview-wrap padding ≈ .85rem each side */
+      const dispW = Math.max(80, wrap.clientWidth - pad * 2);
+      const { W: cW, H: cH } = this._dims();
+      const dispH = Math.round(dispW * cH / cW);
+
+      _previewCanvas.style.width  = dispW + 'px';
+      _previewCanvas.style.height = dispH + 'px';
+      _previewCanvas.width  = Math.round(dispW * dpr);
+      _previewCanvas.height = Math.round(dispH * dpr);
+      _previewCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      drawCertificate(_previewCtx, dispW, dispH, this.cfg);
     },
 
-    /* ── thumbnail render ─────────────────────── */
     _renderThumbs() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       this.templates.forEach(tpl => {
         const el = document.getElementById('thumb-' + tpl.id);
         if (!el) return;
+        const container = el.closest('.tpl-thumb');
+        const W = Math.max(60, container ? container.clientWidth : 100);
+        const H = Math.round(W * 5 / 8);
+        el.style.width  = W + 'px';
+        el.style.height = H + 'px';
+        el.width  = Math.round(W * dpr);
+        el.height = Math.round(H * dpr);
         const tc = el.getContext('2d');
-        el.width  = 160;
-        el.height = 120;
-        const cfg = { ...this.cfg, template: tpl.id, recipient: 'Jane Doe', title: tpl.label };
-        drawCertificate(tc, 160, 120, cfg);
+        tc.setTransform(dpr, 0, 0, dpr, 0, 0);
+        drawCertificate(tc, W, H, { ...this.cfg, template: tpl.id, recipient: 'Jane Doe', title: tpl.label });
       });
     },
 
-    /* ── download PDF ─────────────────────────── */
-    downloadPdf() {
-      if (typeof window.jspdf === 'undefined') {
-        this._toast('PDF library not loaded yet — try again in a moment.');
-        return;
-      }
-      const { jsPDF } = window.jspdf;
-      const { W, H }  = this._dims();
-      const orient    = this.orientation === 'landscape' ? 'l' : 'p';
-
-      /* render at 2× for quality */
-      const offCanvas  = document.createElement('canvas');
-      offCanvas.width  = W * 2;
-      offCanvas.height = H * 2;
-      const offCtx = offCanvas.getContext('2d');
-      offCtx.scale(2, 2);
-      drawCertificate(offCtx, W, H, this.cfg);
-
-      const imgData = offCanvas.toDataURL('image/jpeg', 0.95);
-
-      /* jsPDF uses mm; A4 = 297×210mm landscape, 210×297mm portrait */
-      const pw = orient === 'l' ? 297 : 210;
-      const ph = orient === 'l' ? 210 : 297;
-
-      const pdf = new jsPDF({ orientation: orient, unit: 'mm', format: 'a4' });
-      pdf.addImage(imgData, 'JPEG', 0, 0, pw, ph);
-
-      const name = (this.recipient || 'certificate').replace(/[^a-z0-9]/gi, '_');
-      pdf.save(name + '_certificate.pdf');
-      this._toast('Certificate downloaded!');
+    /* ── logo ─────────────────────────────────── */
+    onLogoUpload(e) {
+      const files = Array.from(e.target.files).slice(0, 3 - _logoImgs.length);
+      e.target.value = '';
+      if (!files.length) return;
+      let loaded = 0;
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = ev => {
+          const img = new Image();
+          img.onload = () => {
+            _logoImgs.push(img);
+            this.logoNames = [...this.logoNames, file.name];
+            this.logoCount = _logoImgs.length;
+            this.hasLogo = true;
+            loaded++;
+            if (loaded === files.length) this.renderPreview();
+          };
+          img.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
     },
 
-    /* ── download PNG ─────────────────────────── */
-    downloadPng() {
+    removeLogo(idx) {
+      _logoImgs.splice(idx, 1);
+      this.logoNames.splice(idx, 1);
+      this.logoNames = [...this.logoNames];
+      this.logoCount = _logoImgs.length;
+      this.hasLogo = _logoImgs.length > 0;
+      this.renderPreview();
+    },
+
+    /* ── render offscreen at 2× ───────────────── */
+    _renderOff() {
       const { W, H } = this._dims();
       const off = document.createElement('canvas');
-      off.width  = W * 2;
+      off.width = W * 2;
       off.height = H * 2;
       const tc = off.getContext('2d');
       tc.scale(2, 2);
       drawCertificate(tc, W, H, this.cfg);
+      return { off, W, H };
+    },
+
+    /* ── downloads ────────────────────────────── */
+    downloadPdf() {
+      if (typeof window.jspdf === 'undefined') { this._toast('PDF library not ready — refresh.'); return; }
+      const { jsPDF } = window.jspdf;
+      const { off, W, H } = this._renderOff();
+      const orient = this.orientation === 'landscape' ? 'l' : 'p';
+      const pw = orient === 'l' ? 297 : 210;
+      const ph = orient === 'l' ? 210 : 297;
+      const pdf = new jsPDF({ orientation: orient, unit: 'mm', format: 'a4' });
+      pdf.addImage(off.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, pw, ph);
+      pdf.save(this._filename('pdf'));
+      this._toast('PDF downloaded!');
+    },
+
+    downloadPng() {
+      const { off } = this._renderOff();
       off.toBlob(blob => {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = (this.recipient || 'certificate').replace(/[^a-z0-9]/gi, '_') + '_certificate.png';
-        a.click();
-        URL.revokeObjectURL(url);
+        this._saveBlob(blob, this._filename('png'));
         this._toast('PNG downloaded!');
       }, 'image/png');
     },
 
-    toggleFaq(el) {
-      el.closest('.faq-item').classList.toggle('open');
+    downloadJpg() {
+      const { off, W, H } = this._renderOff();
+      const flat = document.createElement('canvas');
+      flat.width = off.width; flat.height = off.height;
+      const fc = flat.getContext('2d');
+      fc.fillStyle = '#ffffff';
+      fc.fillRect(0, 0, flat.width, flat.height);
+      fc.drawImage(off, 0, 0);
+      flat.toBlob(blob => {
+        this._saveBlob(blob, this._filename('jpg'));
+        this._toast('JPG downloaded!');
+      }, 'image/jpeg', 0.93);
+    },
+
+    _filename(ext) {
+      return (this.recipient || 'certificate').replace(/[^a-z0-9]/gi, '_') + '_certificate.' + ext;
+    },
+
+    _saveBlob(blob, name) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = name;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
     },
 
     _toast(msg) {
       const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
+      t.textContent = msg; t.classList.add('show');
       setTimeout(() => t.classList.remove('show'), 2500);
     },
   };

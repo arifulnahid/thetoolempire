@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chart Generator — Create & Download Charts Online Free | The Tool Empire</title>
+  <meta name="description" content="Create bar, line, pie, area, radar, doughnut, and scatter charts online. Customize colors, labels, and style. Download as PNG, JPEG, SVG, or PDF — free, no account required."/>
+  <meta name="keywords" content="chart maker online free, create chart, chart generator, bar chart maker, pie chart creator, line chart maker, download chart as image, data visualization tool"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/design/chart-generator.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Chart Generator — Create & Download Charts Online Free"/>
+  <meta property="og:description" content="Create beautiful bar, line, pie, radar and more charts in your browser. Download as PNG, JPEG, SVG, or PDF. Free and instant."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/design/chart-generator.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"Chart Generator","description":"Free browser-based chart maker. Create bar, horizontal bar, line, area, pie, doughnut, radar, polar area, and scatter charts. Customize colors with palette presets, add multiple datasets, set chart title and aspect ratio. Download as PNG, JPEG, SVG, or PDF. No account required — everything runs in the browser.","url":"https://thetoolempire.com/tools/design/chart-generator.html","applicationCategory":"DesignApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["9 chart types","Multiple datasets","5 color palettes","Custom chart title","Aspect ratio control","Download as PNG, JPEG, SVG, PDF","Smooth lines toggle","Stacked bars/areas","100% browser-based"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Design Tools","item":"https://thetoolempire.com/tools.html#design"},
+      {"@type":"ListItem","position":3,"name":"Chart Generator","item":"https://thetoolempire.com/tools/design/chart-generator.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What chart types can I create?","acceptedAnswer":{"@type":"Answer","text":"You can create 9 types: Bar (vertical), Horizontal Bar, Line, Area (filled line), Pie, Doughnut, Radar, Polar Area, and Scatter. Each type supports multiple datasets."}},
+      {"@type":"Question","name":"How do I add multiple datasets?","acceptedAnswer":{"@type":"Answer","text":"Click the '+ Add Dataset' button in the Data tab. Each dataset has its own label, values, and color. For bar and line charts you can have unlimited datasets shown as grouped or stacked series."}},
+      {"@type":"Question","name":"What download formats are supported?","acceptedAnswer":{"@type":"Answer","text":"You can download your chart as PNG (best for web), JPEG (smaller file size), SVG (scalable vector), or PDF (print-ready document on A4 paper)."}},
+      {"@type":"Question","name":"How do I enter data for a scatter chart?","acceptedAnswer":{"@type":"Answer","text":"For scatter charts, enter x,y pairs in the values field — one pair per line or separated by semicolons. For example: 1.5, 2.8 on the first line, then 3.2, 5.1 on the next."}},
+      {"@type":"Question","name":"Can I use my own colors?","acceptedAnswer":{"@type":"Answer","text":"Yes. In the Data tab, click the color dot next to any dataset name to open the browser's native color picker and choose any color you want. The palette presets in the Style tab set default colors for new datasets."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="chart-generator.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgC)"/>
+        <rect x="5"  y="18" width="5" height="12" rx="1.5" fill="#fff" fill-opacity=".9"/>
+        <rect x="13" y="12" width="5" height="18" rx="1.5" fill="#fff" fill-opacity=".9"/>
+        <rect x="21" y="8"  width="5" height="22" rx="1.5" fill="#fff" fill-opacity=".9"/>
+        <polyline points="7,14 15,9 23,6" stroke="#fbbf24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <defs><linearGradient id="lgC" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-wrap" x-data="chartGeneratorApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:4px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li><a href="../../tools.html#design" style="color:#8888a8">Design</a></li><li>›</li>
+      <li style="color:#e8e8f0">Chart Generator</li>
+    </ol>
+  </nav>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg>
+      Data Visualization
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">Chart Generator</span></h1>
+    <p class="tool-subtitle">Create beautiful bar, line, pie, radar and more charts. Customize colors, add multiple datasets, download as PNG, JPEG, SVG, or PDF.</p>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- Error banner -->
+  <div class="error-banner" x-show="error" x-text="error" style="display:none" @click="error=''"></div>
+
+  <!-- ══════════════════════════════
+       BUILDER — two-panel layout
+  ══════════════════════════════ -->
+  <div class="builder">
+
+    <!-- ── LEFT: Config panel ── -->
+    <div class="config-panel">
+
+      <!-- Tabs -->
+      <div class="panel-tabs">
+        <div class="panel-tab" :class="{ on: activeTab === 'data' }"  @click="activeTab = 'data'">Data</div>
+        <div class="panel-tab" :class="{ on: activeTab === 'style' }" @click="activeTab = 'style'">Style</div>
+        <div class="panel-tab" :class="{ on: activeTab === 'type' }"  @click="activeTab = 'type'">Type</div>
+      </div>
+
+      <div class="panel-body">
+
+        <!-- ─── TAB: TYPE ─── -->
+        <div x-show="activeTab === 'type'">
+          <div class="sec-label">Chart Type</div>
+          <div class="type-grid">
+            <template x-for="t in chartTypes" :key="t.id">
+              <div class="type-btn" :class="{ on: chartType === t.id }" @click="chartType = t.id">
+                <div class="type-btn-name" x-text="t.label"></div>
+                <div class="type-btn-hint" x-text="t.hint"></div>
+              </div>
+            </template>
+          </div>
+
+          <!-- scatter hint -->
+          <div x-show="isScatter" style="margin-top:12px;padding:10px 12px;background:rgba(139,92,246,.07);border:1px solid rgba(139,92,246,.18);border-radius:8px;font-size:.78rem;color:var(--text-muted);line-height:1.6">
+            <strong style="color:var(--primary)">Scatter format:</strong> Enter one x,y pair per line in the values field.<br>
+            Example: <code style="background:rgba(255,255,255,.06);padding:1px 5px;border-radius:3px">2.5, 4.8</code>
+          </div>
+        </div>
+
+        <!-- ─── TAB: DATA ─── -->
+        <div x-show="activeTab === 'data'">
+
+          <!-- Labels (not for scatter) -->
+          <div class="field" x-show="!isScatter">
+            <label>Labels <span style="font-weight:400;color:var(--text-faint)">(comma or newline separated)</span></label>
+            <textarea class="inp" x-model="labels" rows="2" placeholder="Jan, Feb, Mar, Apr, May, Jun"></textarea>
+          </div>
+
+          <!-- Datasets -->
+          <div class="sec-label" x-text="datasets.length > 1 ? 'Datasets (' + datasets.length + ')' : 'Dataset'"></div>
+          <div class="dataset-list">
+            <template x-for="ds in datasets" :key="ds.id">
+              <div class="dataset-card">
+                <div class="ds-header">
+                  <!-- color picker dot -->
+                  <label style="display:contents;cursor:pointer" :title="'Pick color for ' + ds.label">
+                    <div class="ds-color-dot" :style="'background:' + ds.color"></div>
+                    <input type="color" :value="ds.color" @input="ds.color = $event.target.value" style="display:none"/>
+                  </label>
+                  <!-- label input -->
+                  <input class="ds-label-inp" type="text" x-model="ds.label" placeholder="Dataset label"/>
+                  <!-- remove button -->
+                  <button class="ds-remove" @click="removeDataset(ds.id)" x-show="datasets.length > 1" title="Remove dataset">×</button>
+                </div>
+
+                <!-- values textarea -->
+                <div class="field" style="margin-bottom:0">
+                  <label x-text="isScatter ? 'X,Y Pairs (one per line or semicolons)' : 'Values (comma or newline separated)'"></label>
+                  <textarea class="inp" x-model="ds.values" rows="3"
+                    :placeholder="isScatter ? '1.5, 2.8\n3.2, 5.1\n4.7, 3.9' : '65, 59, 80, 81, 56, 72'"></textarea>
+                </div>
+              </div>
+            </template>
+          </div>
+
+          <button class="btn-add-ds" @click="addDataset()" x-show="datasets.length < 8">
+            + Add Dataset
+          </button>
+        </div>
+
+        <!-- ─── TAB: STYLE ─── -->
+        <div x-show="activeTab === 'style'">
+
+          <!-- Chart title -->
+          <div class="field">
+            <label>Chart Title</label>
+            <input class="inp" type="text" x-model="chartTitle" placeholder="My Chart"/>
+          </div>
+
+          <!-- Color palette -->
+          <div class="sec-label">Color Palette</div>
+          <div class="palette-row" style="margin-bottom:14px">
+            <template x-for="pal in palettes" :key="pal.id">
+              <div class="palette-chip" :class="{ on: paletteId === pal.id }" @click="paletteId = pal.id" :title="pal.label">
+                <div class="palette-swatches">
+                  <template x-for="(c, ci) in pal.colors.slice(0,5)" :key="ci">
+                    <div class="swatch" :style="'background:' + c"></div>
+                  </template>
+                </div>
+                <span class="palette-chip-label" x-text="pal.label"></span>
+              </div>
+            </template>
+          </div>
+
+          <!-- Aspect ratio -->
+          <div class="sec-label">Aspect Ratio</div>
+          <div class="ar-chips" style="margin-bottom:14px">
+            <template x-for="ar in aspectRatios" :key="ar.id">
+              <div class="ar-chip" :class="{ on: aspectRatioId === ar.id }" @click="aspectRatioId = ar.id" x-text="ar.label"></div>
+            </template>
+          </div>
+
+          <!-- Toggles -->
+          <div class="sec-label">Options</div>
+
+          <div class="toggle-row">
+            <span class="toggle-label">Show Legend</span>
+            <label class="toggle"><input type="checkbox" x-model="showLegend"/><div class="toggle-track"></div></label>
+          </div>
+
+          <div class="toggle-row">
+            <span class="toggle-label">Show Grid Lines</span>
+            <label class="toggle"><input type="checkbox" x-model="showGrid"/><div class="toggle-track"></div></label>
+          </div>
+
+          <div class="toggle-row" x-show="chartType === 'line' || chartType === 'area'">
+            <span class="toggle-label">Smooth Lines</span>
+            <label class="toggle"><input type="checkbox" x-model="smoothLine"/><div class="toggle-track"></div></label>
+          </div>
+
+          <div class="toggle-row" x-show="chartType === 'bar' || chartType === 'hbar' || chartType === 'area'">
+            <span class="toggle-label">Stacked</span>
+            <label class="toggle"><input type="checkbox" x-model="stacked"/><div class="toggle-track"></div></label>
+          </div>
+        </div>
+
+      </div><!-- end .panel-body -->
+    </div><!-- end .config-panel -->
+
+    <!-- ── RIGHT: Preview + Download ── -->
+    <div class="preview-panel">
+
+      <!-- Chart preview -->
+      <div class="preview-card">
+        <div class="preview-toolbar">
+          <span class="preview-label">Preview</span>
+          <div class="ar-row">
+            <template x-for="ar in aspectRatios" :key="ar.id">
+              <div class="ar-chip" :class="{ on: aspectRatioId === ar.id }" @click="aspectRatioId = ar.id" x-text="ar.label"></div>
+            </template>
+          </div>
+        </div>
+        <div class="preview-canvas-wrap">
+          <canvas x-ref="chartCanvas"></canvas>
+        </div>
+      </div>
+
+      <!-- Download card -->
+      <div class="dl-card">
+        <div class="dl-title">Download Chart</div>
+        <div class="dl-grid">
+          <button class="btn-dl" @click="downloadPng()">
+            <div class="btn-dl-icon">🖼</div>
+            <div class="btn-dl-ext">PNG</div>
+            <div class="btn-dl-desc">Lossless, transparent bg</div>
+          </button>
+          <button class="btn-dl" @click="downloadJpeg()">
+            <div class="btn-dl-icon">📷</div>
+            <div class="btn-dl-ext">JPEG</div>
+            <div class="btn-dl-desc">Smaller file size</div>
+          </button>
+          <button class="btn-dl" @click="downloadSvg()">
+            <div class="btn-dl-icon">✏️</div>
+            <div class="btn-dl-ext">SVG</div>
+            <div class="btn-dl-desc">Scalable vector</div>
+          </button>
+          <button class="btn-dl" @click="downloadPdf()">
+            <div class="btn-dl-icon">📄</div>
+            <div class="btn-dl-ext">PDF</div>
+            <div class="btn-dl-desc">A4 print-ready</div>
+          </button>
+        </div>
+      </div>
+
+    </div><!-- end .preview-panel -->
+  </div><!-- end .builder -->
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- ── FAQ ── -->
+  <section class="faq-section">
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">
+        What chart types are available?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">9 types are supported: Bar (vertical), Horizontal Bar, Line, Area (filled line), Pie, Doughnut (ring), Radar (spider), Polar Area, and Scatter. Each supports multiple datasets.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">
+        How do I add multiple datasets to a bar or line chart?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">Open the Data tab and click "Add Dataset". Each dataset gets its own label, values, and color. For bar/line charts they render as grouped series. Enable "Stacked" in the Style tab to stack them instead.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">
+        How do I enter scatter plot data?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">Select "Scatter" chart type, then in the dataset values field enter one x,y pair per line (or separate pairs with semicolons). For example: <code style="background:rgba(255,255,255,.06);padding:1px 5px;border-radius:3px">1.5, 2.8</code> on the first line, <code style="background:rgba(255,255,255,.06);padding:1px 5px;border-radius:3px">3.2, 5.1</code> on the next.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">
+        What download formats are supported?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">PNG (lossless, great for web and presentations), JPEG (smaller file, slight quality loss), SVG (vector format, scalable to any size), and PDF (A4 page, landscape or portrait automatically chosen). All downloads include a dark background matching the tool.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">
+        Can I pick my own colors?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">Yes. In the Data tab, click the colored dot next to any dataset name to open a color picker. The palette presets in the Style tab set the default starting colors when you add new datasets, but per-dataset colors always take precedence.</div>
+    </div>
+  </section>
+
+</div><!-- end .page-wrap -->
+
+<div id="toast"></div>
+
+<script src="chart-generator.js"></script>
+</body>
+</html>

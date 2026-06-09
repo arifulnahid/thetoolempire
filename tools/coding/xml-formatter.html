@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>XML Formatter & Validator — Free Online XML Beautifier | The Tool Empire</title>
+  <meta name="description" content="Format, validate, minify, and convert XML online for free. Syntax highlighting, XPath search, stats panel, XML-to-JSON conversion, file upload and download. No signup."/>
+  <meta name="keywords" content="xml formatter online, xml validator, xml beautifier, xml minifier, format xml free, xml syntax highlighter, xpath query, xml to json"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/coding/xml-formatter.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="XML Formatter & Validator — Free Online XML Beautifier"/>
+  <meta property="og:description" content="Format, validate, minify and convert XML with syntax highlighting, XPath search, and instant download. Free, runs in your browser."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/coding/xml-formatter.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+  <meta name="theme-color" content="#6C63FF"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"XML Formatter & Validator","description":"Free browser-based XML formatter, validator, minifier, XPath query tool, and XML-to-JSON converter with syntax highlighting.","url":"https://thetoolempire.com/tools/coding/xml-formatter.html","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["XML beautifier with syntax highlighting","XML validator with error location","XML minifier","XML to JSON converter","XPath query search","Stats panel (elements, attributes, depth)","Download as .xml file","Upload XML file"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Coding Tools","item":"https://thetoolempire.com/tools.html#coding"},
+      {"@type":"ListItem","position":3,"name":"XML Formatter","item":"https://thetoolempire.com/tools/coding/xml-formatter.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"What is an XML formatter?","acceptedAnswer":{"@type":"Answer","text":"An XML formatter (XML beautifier) takes minified or inconsistently indented XML and reformats it with consistent indentation and line breaks, making the document human-readable. This tool formats, validates, and syntax-highlights XML in one step."}},
+      {"@type":"Question","name":"How do I validate XML?","acceptedAnswer":{"@type":"Answer","text":"Paste your XML into the input field. Validation runs automatically and the result appears in the Validation Panel below the editor. If there is a parse error, the exact line and column number are shown. The tool uses the browser's native DOMParser for standards-compliant XML validation."}},
+      {"@type":"Question","name":"What is XPath?","acceptedAnswer":{"@type":"Answer","text":"XPath (XML Path Language) is a query language for selecting nodes in an XML document. Examples: /library/book selects all book elements directly inside library; //title selects all title elements anywhere in the document; //@id selects all id attributes. This tool supports standard XPath 1.0 expressions."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="xml-formatter.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgH)"/>
+        <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+        <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+        <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+        <defs><linearGradient id="lgH" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#f59e0b"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="xmlFormatterApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li style="color:#e8e8f0">XML Formatter</li>
+    </ol>
+  </nav>
+
+  <!-- Ad top -->
+  <div class="ad-slot" style="width:100%;margin-bottom:18px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg>
+      Developer Tool
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">XML Formatter</span> &amp; Validator</h1>
+    <p class="tool-subtitle">Format, validate, minify, convert to JSON, and query with XPath — all in your browser, no uploads, no account.</p>
+  </div>
+
+  <!-- ── TOOLBAR ── -->
+  <div class="toolbar">
+    <div class="toolbar-group">
+      <button class="btn-tool btn-primary" @click="format()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10H3M21 6H3M21 14H3M21 18H3" stroke-linecap="round"/></svg>
+        Format
+      </button>
+      <button class="btn-tool btn-secondary" @click="minify()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M9 19l3 3 3-3M19 9l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Minify
+      </button>
+      <button class="btn-tool btn-secondary" @click="validate()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Validate
+      </button>
+      <button class="btn-tool btn-secondary" @click="toJson()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        To JSON
+      </button>
+    </div>
+    <div class="toolbar-divider"></div>
+    <div class="toolbar-group">
+      <label style="font-size:.75rem;font-weight:700;color:var(--text-faint)">Indent:</label>
+      <select class="indent-select" x-model="indent">
+        <option value="2">2 spaces</option>
+        <option value="4">4 spaces</option>
+        <option value="tab">Tab</option>
+      </select>
+    </div>
+    <div class="toolbar-divider"></div>
+    <div class="toolbar-group">
+      <button class="btn-tool btn-secondary" @click="loadSample()">Sample</button>
+      <button class="btn-tool btn-secondary" style="position:relative;overflow:hidden">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+        Upload
+        <input type="file" accept=".xml,application/xml,text/xml,text/plain" @change="handleFile($event)" style="position:absolute;inset:0;opacity:0;cursor:pointer"/>
+      </button>
+      <button class="btn-tool btn-secondary" @click="download()" :disabled="!output">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        Download
+      </button>
+      <button class="btn-tool btn-danger" @click="clear()">Clear</button>
+    </div>
+    <div class="status-pill" :class="statusClass" x-text="statusLabel"></div>
+  </div>
+
+  <!-- ── EDITOR ── -->
+  <div class="editor-layout">
+
+    <!-- Input -->
+    <div class="editor-pane" :class="{'error-state': isValid === false}">
+      <div class="pane-header">
+        <span class="pane-title">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg>
+          Input XML
+        </span>
+        <div class="pane-actions">
+          <button class="pane-btn" @click="copyInput()">Copy</button>
+          <button class="pane-btn" @click="input=''">Clear</button>
+        </div>
+      </div>
+      <div class="error-banner" :class="{visible: errorMsg}" x-text="errorMsg"></div>
+      <textarea class="editor-textarea" x-model="input"
+        placeholder="Paste XML here…&#10;&#10;e.g. &lt;root&gt;&lt;item id=&quot;1&quot;&gt;Hello&lt;/item&gt;&lt;/root&gt;"
+        spellcheck="false"></textarea>
+    </div>
+
+    <!-- Output -->
+    <div class="editor-pane">
+      <div class="pane-header">
+        <span class="pane-title">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Formatted Output
+        </span>
+        <div class="pane-actions">
+          <button class="pane-btn" @click="copyOutput()">Copy</button>
+          <button class="pane-btn" @click="download()">Download</button>
+        </div>
+      </div>
+      <pre class="output-pre" x-html="outputHtml || '<span style=\'color:#555570\'>Formatted output will appear here…</span>'"></pre>
+    </div>
+
+  </div>
+
+  <!-- ── STATS BAR ── -->
+  <div class="stats-bar" x-show="stats">
+    <div class="stat-item">
+      <span class="stat-label">Input</span>
+      <span class="stat-value" x-text="inputSize"></span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Output</span>
+      <span class="stat-value" x-text="outputSize"></span>
+    </div>
+    <template x-if="stats">
+      <div class="stat-item">
+        <span class="stat-label">Elements</span>
+        <span class="stat-value" x-text="stats.elements"></span>
+      </div>
+    </template>
+    <template x-if="stats">
+      <div class="stat-item">
+        <span class="stat-label">Attributes</span>
+        <span class="stat-value" x-text="stats.attrs"></span>
+      </div>
+    </template>
+    <template x-if="stats">
+      <div class="stat-item">
+        <span class="stat-label">Text Nodes</span>
+        <span class="stat-value" x-text="stats.textNodes"></span>
+      </div>
+    </template>
+    <template x-if="stats">
+      <div class="stat-item">
+        <span class="stat-label">Comments</span>
+        <span class="stat-value" x-text="stats.comments"></span>
+      </div>
+    </template>
+    <template x-if="stats">
+      <div class="stat-item">
+        <span class="stat-label">Max Depth</span>
+        <span class="stat-value" x-text="stats.depth"></span>
+      </div>
+    </template>
+    <template x-if="stats">
+      <div class="stat-item">
+        <span class="stat-label">CDATA</span>
+        <span class="stat-value" x-text="stats.cdatas"></span>
+      </div>
+    </template>
+  </div>
+
+  <!-- ── VALIDATION PANEL ── -->
+  <div class="validation-panel" x-show="validation">
+    <div class="validation-header">
+      <span class="validation-title">Validation Results</span>
+      <template x-if="validation">
+        <span class="validation-badge"
+          :class="validation.ok ? 'vbadge-ok' : 'vbadge-err'"
+          x-text="validation.ok ? '✓ Well-formed' : '✗ ' + validation.errors.length + ' error' + (validation.errors.length > 1 ? 's' : '')">
+        </span>
+      </template>
+      <template x-if="validation && validation.warnings.length">
+        <span class="validation-badge vbadge-warn" x-text="validation.warnings.length + ' warning' + (validation.warnings.length > 1 ? 's' : '')"></span>
+      </template>
+    </div>
+    <div class="validation-issues" x-show="validation && (validation.errors.length || validation.warnings.length)">
+      <template x-if="validation && validation.ok && !validation.warnings.length">
+        <div class="v-issue v-ok">Document is well-formed XML with no issues detected.</div>
+      </template>
+      <template x-if="validation">
+        <div>
+          <template x-for="(e, i) in validation.errors" :key="'e'+i">
+            <div class="v-issue v-err">
+              <span class="v-issue-line" x-text="e.line ? 'L' + e.line + (e.col ? ':' + e.col : '') : 'Error'"></span>
+              <span x-text="e.msg"></span>
+            </div>
+          </template>
+          <template x-for="(w, i) in validation.warnings" :key="'w'+i">
+            <div class="v-issue v-warn">
+              <span class="v-issue-line">Warn</span>
+              <span x-text="w.msg"></span>
+            </div>
+          </template>
+        </div>
+      </template>
+    </div>
+    <div class="validation-issues" x-show="validation && validation.ok && !validation.warnings.length">
+      <div class="v-issue v-ok">
+        <span class="v-issue-line">✓</span>
+        <span>Document is well-formed XML with no issues detected.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ad mid -->
+  <div class="ad-slot" style="width:100%;margin-top:20px">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- ── XPATH QUERY SECTION ── -->
+  <div class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">XPath Query</h2>
+      <p class="section-desc">Run XPath 1.0 expressions against your XML. Try <code style="background:rgba(245,158,11,.1);color:#fcd34d;padding:1px 6px;border-radius:4px;font-family:'Fira Code',monospace;font-size:.85em">//book</code>, <code style="background:rgba(245,158,11,.1);color:#fcd34d;padding:1px 6px;border-radius:4px;font-family:'Fira Code',monospace;font-size:.85em">/library/catalog/book[@available='true']</code>, or <code style="background:rgba(245,158,11,.1);color:#fcd34d;padding:1px 6px;border-radius:4px;font-family:'Fira Code',monospace;font-size:.85em">//@id</code>.</p>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:4px">
+      <input
+        type="text"
+        x-model="xpathQuery"
+        @input="runXpath()"
+        placeholder="e.g. //book | /library/@name | //@id"
+        class="xpath-input"
+      />
+      <button class="btn-tool btn-secondary" @click="xpathQuery='';xpathResults=[]">Clear</button>
+    </div>
+    <div class="xpath-result" x-show="xpathResults.length">
+      <template x-for="(r,i) in xpathResults" :key="i">
+        <div class="xpath-match" x-text="r"></div>
+      </template>
+    </div>
+    <div x-show="xpathQuery && !xpathResults.length" style="font-size:.85rem;color:var(--text-faint);margin-top:8px">No matching nodes found.</div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── HOW TO USE ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">How to Use the XML Formatter</h2>
+      <p class="section-desc">Five ways to work with XML on this tool — built for real developer workflows.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-title">Paste & Format</div>
+        <div class="step-desc">Paste any XML into the left panel. The output updates live with syntax highlighting and proper indentation. Choose 2 spaces, 4 spaces, or tabs.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-title">Validate & Debug</div>
+        <div class="step-desc">The Validation Panel shows errors with exact line and column numbers. Warnings flag best-practice issues like missing XML declarations or mixed content.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-title">Minify for Production</div>
+        <div class="step-desc">Click Minify to strip all whitespace between tags. Use before embedding XML in APIs, config files, or service payloads to minimise size.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div class="step-title">Convert to JSON</div>
+        <div class="step-desc">Click <strong>To JSON</strong> to convert your XML document into a structured JSON object. Attributes appear under <code>@attributes</code>, text content under <code>#text</code>.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">5</div>
+        <div class="step-title">Run XPath Queries</div>
+        <div class="step-desc">Use the XPath Query section to select specific nodes or attributes. Results show the full path to every matching node in the document.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">6</div>
+        <div class="step-title">Upload or Download</div>
+        <div class="step-desc">Upload an <code>.xml</code> file from disk, or download the formatted output as a <code>formatted.xml</code> file. All processing stays local.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FEATURES ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">All Features at a Glance</h2>
+      <p class="section-desc">Everything built into this free tool — private, fast, no account required.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <div class="feature-title">Syntax Highlighting</div>
+        <div class="feature-desc">Tags, attributes, values, comments, CDATA sections, and processing instructions each render in a distinct colour.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✅</div>
+        <div class="feature-title">Standards Validation</div>
+        <div class="feature-desc">Uses the browser's native DOMParser for standards-compliant XML validation with exact line and column error locations.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🗜️</div>
+        <div class="feature-title">Minifier</div>
+        <div class="feature-desc">Remove all inter-tag whitespace to produce the most compact valid XML string for APIs and service payloads.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <div class="feature-title">XML to JSON</div>
+        <div class="feature-desc">Convert any well-formed XML document to a structured JSON object with attributes and text nodes mapped correctly.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-title">XPath 1.0 Query</div>
+        <div class="feature-desc">Run real XPath expressions to select elements, attributes, or text nodes. Returns full node paths for every match.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Stats Panel</div>
+        <div class="feature-desc">Element count, attribute count, text nodes, comments, CDATA sections, and maximum nesting depth at a glance.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚠️</div>
+        <div class="feature-title">Smart Warnings</div>
+        <div class="feature-desc">Beyond parse errors, the tool flags best-practice issues like missing XML declarations, duplicate attributes, and mixed content.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📁</div>
+        <div class="feature-title">File Upload & Download</div>
+        <div class="feature-desc">Upload .xml files directly from disk, or download the formatted output as a properly named .xml file instantly.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── XML CHEATSHEET ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">XML Syntax Cheatsheet</h2>
+      <p class="section-desc">Quick reference for well-formed XML — the rules developers most often overlook.</p>
+    </div>
+    <div class="cheat-grid">
+      <div class="cheat-card">
+        <div class="cheat-title">Document Structure</div>
+        <div class="cheat-body"><span class="xt">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="xt">&lt;root&gt;</span>
+  <span class="xt">&lt;child&gt;</span><span class="xtxt">text content</span><span class="xt">&lt;/child&gt;</span>
+<span class="xt">&lt;/root&gt;</span>
+
+Every document needs exactly one root element.</div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Elements & Attributes</div>
+        <div class="cheat-body"><span class="xt">&lt;book</span> <span class="xa">id</span>=<span class="xv">"1"</span> <span class="xa">lang</span>=<span class="xv">"en"</span><span class="xt">&gt;</span>
+  <span class="xt">&lt;title&gt;</span>Dune<span class="xt">&lt;/title&gt;</span>
+<span class="xt">&lt;/book&gt;</span>
+
+<span class="xt">&lt;img src="pic.png" /&gt;</span>  ← self-closing</div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Valid ✓ vs Invalid ✗</div>
+        <div class="cheat-body"><span style="color:#6ee7b7">✓</span> All tags must be closed
+<span style="color:#f87171">✗</span> &lt;br&gt; — use &lt;br/&gt;
+<span style="color:#6ee7b7">✓</span> Case-sensitive tag names
+<span style="color:#f87171">✗</span> &lt;P&gt;…&lt;/p&gt; mismatch
+<span style="color:#6ee7b7">✓</span> Attribute values quoted
+<span style="color:#f87171">✗</span> &lt;a href=url&gt; unquoted</div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Special Characters</div>
+        <div class="cheat-body"><span class="xv">&amp;amp;</span>   → &amp;  (ampersand)
+<span class="xv">&amp;lt;</span>    → &lt;  (less than)
+<span class="xv">&amp;gt;</span>    → &gt;  (greater than)
+<span class="xv">&amp;quot;</span>  → "  (double quote)
+<span class="xv">&amp;apos;</span>  → '  (apostrophe)</div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Comments & CDATA</div>
+        <div class="cheat-body"><span class="xc">&lt;!-- this is a comment --&gt;</span>
+
+<span class="xd">&lt;![CDATA[</span>
+  Raw text here: &lt;b&gt;not parsed&lt;/b&gt;
+<span class="xd">]]&gt;</span>
+
+Use CDATA for blocks containing &lt; or &amp;</div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">XPath Quick Reference</div>
+        <div class="cheat-body"><span class="xa">//book</span>         any book element
+<span class="xa">/root/child</span>    direct child
+<span class="xa">//@id</span>          all id attributes
+<span class="xa">//book[@id]</span>    books with id attr
+<span class="xa">//title/text()</span> text of titles
+<span class="xa">count(//book)</span>  count books</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FAQ ── -->
+  <div class="page-section" style="margin-top:0">
+    <div class="section-head">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-desc">Common questions about XML formatting, validation, and this tool.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What makes XML "well-formed"?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Well-formed XML follows these rules: (1) there is exactly one root element, (2) all elements are properly nested and not overlapping, (3) all tags are closed (or self-closed with <code>/&gt;</code>), (4) tag names are case-sensitive and must match, (5) all attribute values are quoted, (6) the characters <code>&amp;</code>, <code>&lt;</code>, and <code>&gt;</code> inside text are escaped as entities. A well-formed document can be parsed; a valid document also satisfies an associated DTD or schema.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is the difference between well-formed and valid XML?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Well-formed XML follows the basic syntactic rules of XML (proper tag nesting, quoting, character escaping). Valid XML is well-formed AND conforms to a DTD (Document Type Definition) or XML Schema (XSD) that defines which elements and attributes are allowed and in what order. This tool validates well-formedness. Full schema validation requires loading your DTD/XSD, which is beyond a browser-only tool.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What XPath syntax is supported?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>This tool supports XPath 1.0 via the browser's native <code>document.evaluate()</code> API. Supported patterns include: <code>//tagname</code> (any descendant), <code>/root/child</code> (specific path), <code>//@attrname</code> (any attribute), <code>//tag[@attr='value']</code> (predicate filtering), <code>count(//tag)</code> (function calls), and <code>text()</code> node selection. XPath 2.0 and 3.0 features are not supported in the browser.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">How does the XML to JSON conversion work?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>The converter walks the DOM tree and maps each element to a JSON key. Attributes are collected under an <code>@attributes</code> object. Plain text content becomes the value directly (or under <code>#text</code> if attributes are also present). Repeated sibling elements with the same tag name are collected into a JSON array. Comments and processing instructions are ignored in the output.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Is my XML data sent to any server?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>No. All formatting, validation, and conversion happens entirely in your browser using JavaScript and the browser's native DOMParser. Your XML data never leaves your device and is never stored or transmitted. This makes the tool safe for confidential API responses, configuration files, and private data structures.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What are XML namespaces and why do they cause errors?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>XML namespaces allow elements from different vocabularies to coexist in one document without naming conflicts. A namespace is declared with <code>xmlns:prefix="uri"</code> and then used as <code>prefix:tagname</code>. Errors occur when a prefix is used without being declared, or when the namespace URI is malformed. The DOMParser in this tool validates namespace consistency according to the XML Namespaces 1.0 specification.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is a CDATA section and when should I use it?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>A CDATA section (<code>&lt;![CDATA[…]]&gt;</code>) tells the XML parser to treat its content as literal character data, not markup. Use it when your text content contains many <code>&lt;</code>, <code>&gt;</code>, or <code>&amp;</code> characters — for example, embedded HTML snippets, code samples, or SQL queries. Without CDATA, each of these characters must be escaped as <code>&amp;lt;</code>, <code>&amp;gt;</code>, or <code>&amp;amp;</code>.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What is "mixed content" and why is it a warning?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Mixed content occurs when an element contains both text nodes and child elements — for example <code>&lt;p&gt;Hello &lt;b&gt;world&lt;/b&gt;&lt;/p&gt;</code>. This is perfectly valid XML and is normal in document-oriented XML (like XHTML). It is flagged as a warning by this tool because it can complicate data-centric XML processing — parsers and converters may handle whitespace in mixed-content models unexpectedly. If you are building document XML (not data XML), you can safely ignore this warning.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What indentation style should I use for XML?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>There is no official standard for XML indentation. Two spaces is the most common convention and produces compact output. Four spaces improves readability for deeply nested documents. Tabs allow each developer to control visual width via their editor settings. For files committed to version control, match your project's existing convention to avoid noisy whitespace diffs. Note that whitespace is technically significant in mixed-content XML, so formatters may not be appropriate for XHTML or DocBook source files.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── RELATED TOOLS ── -->
+  <div class="page-section" style="margin-top:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <h2 class="section-title">Related Tools</h2>
+      <a href="../../tools.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius-sm);font-size:.83rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted);transition:all var(--transition)" onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">View all →</a>
+    </div>
+    <div class="related-grid">
+      <a href="json-formatter.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <div class="related-name">JSON Formatter</div>
+        <div class="related-desc">Format, validate, minify, and diff JSON with syntax highlighting.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="json-validator.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#10b981,#3b82f6)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div class="related-name">JSON Validator</div>
+        <div class="related-desc">Strict JSON validation with schema checking.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="base64.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="related-name">Base64 Encoder</div>
+        <div class="related-desc">Encode and decode Base64 strings and files instantly.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+      <a href="html-encoder.html" class="related-card">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f97316,#fbbf24)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+        </div>
+        <div class="related-name">HTML Encoder</div>
+        <div class="related-desc">Encode special characters as HTML entities.</div>
+        <span class="related-link">Use tool →</span>
+      </a>
+    </div>
+  </div>
+
+</div><!-- /main-wrap -->
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="9" fill="url(#lgF)"/>
+          <circle cx="18" cy="18" r="8" stroke="#fff" stroke-width="2" stroke-opacity=".9"/>
+          <path d="M18 6v4M18 26v4M6 18h4M26 18h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-opacity=".7"/>
+          <circle cx="18" cy="18" r="3" fill="#fff" fill-opacity=".9"/>
+          <defs><linearGradient id="lgF" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#f59e0b"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free, fast, browser-based tools. No signup, no installs, no nonsense.</p>
+    </div>
+    <div><div class="footer-heading">Tools</div><div class="footer-links"><a href="../../tools.html#coding">Coding Tools</a><a href="../../tools.html#design">Design Tools</a><a href="../../tools.html">All Tools</a></div></div>
+    <div><div class="footer-heading">Company</div><div class="footer-links"><a href="../../about.html">About</a><a href="../../blog.html">Blog</a><a href="../../contact.html">Contact</a></div></div>
+    <div><div class="footer-heading">Legal</div><div class="footer-links"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a></div></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 The Tool Empire. All rights reserved.</span><span>Made with care for the web</span></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="xml-formatter.js"></script>
+</body>
+</html>

@@ -2,6 +2,15 @@
 const TOOLS_DATA = [
   // ── TEXT TOOLS ──────────────────────────────────────────────────
   {
+    id: 'rich-text-editor',
+    title: 'Rich Text WYSIWYG Editor',
+    description: 'Format text, insert tables, links, images, lists, and code. Export clean HTML or plain text. Auto-saves in your browser.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
+    color: 'linear-gradient(135deg,#6C63FF,#4ECDC4)',
+    categories: ['Text'],
+    url: 'tools/text/rich-text-editor.html',
+  },
+  {
     id: 'word-counter',
     title: 'Word Counter',
     description: 'Count words, characters, sentences, and paragraphs instantly.',
@@ -195,6 +204,26 @@ const TOOLS_DATA = [
     color: 'linear-gradient(135deg,#43e97b,#38f9d7)',
     categories: ['Coding', 'Text'],
     url: 'tools/coding/markdown.html',
+  },
+
+  {
+    id: 'xml-formatter',
+    title: 'XML Formatter & Validator',
+    description: 'Format, validate, minify, and convert XML to JSON. XPath query, syntax highlighting, stats panel, file upload and download.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h7"/><path d="m15 17 5-5-5-5"/></svg>',
+    color: 'linear-gradient(135deg,#f59e0b,#10b981)',
+    categories: ['Coding'],
+    url: 'tools/coding/xml-formatter.html',
+  },
+
+  {
+    id: 'log-analyzer',
+    title: 'Log File Analyzer',
+    description: 'Parse and analyze Apache, Nginx, syslog, JSON Lines, Log4j, and generic log files. Filter by level, IP, status code. Visualize error trends and top patterns.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+    color: 'linear-gradient(135deg,#f59e0b,#ef4444)',
+    categories: ['Coding'],
+    url: 'tools/coding/log-analyzer.html',
   },
 
   // ── SEO TOOLS ─────────────────────────────────────────────────

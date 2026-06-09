@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Log File Analyzer — Parse, Filter & Visualize Logs | The Tool Empire</title>
+<meta name="description" content="Free online log file analyzer. Parse Apache, Nginx, syslog, JSON Lines, and custom log formats. Filter by level, IP, status. Visualize error trends and top patterns instantly."/>
+<meta name="keywords" content="log file analyzer,log parser,apache log,nginx log,syslog analyzer,json logs,log viewer,error log"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/coding/log-analyzer.html"/>
+<link rel="manifest" href="../../manifest.json"/>
+<link rel="stylesheet" href="log-analyzer.css"/>
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"SoftwareApplication",
+      "name":"Log File Analyzer",
+      "url":"https://thetoolempire.com/tools/coding/log-analyzer.html",
+      "description":"Parse and analyze Apache, Nginx, syslog, JSON Lines, Log4j, and generic log files. Filter by level, IP, status code. Visualize trends and top patterns.",
+      "applicationCategory":"DeveloperApplication",
+      "operatingSystem":"Web Browser",
+      "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+        {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+        {"@type":"ListItem","position":3,"name":"Log File Analyzer","item":"https://thetoolempire.com/tools/coding/log-analyzer.html"}
+      ]
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"What log formats are supported?","acceptedAnswer":{"@type":"Answer","text":"Apache Combined, Nginx, syslog, JSON Lines, Log4j/Logback, Python logging, Docker/Kubernetes, and generic timestamped logs."}},
+        {"@type":"Question","name":"Is my log data sent to any server?","acceptedAnswer":{"@type":"Answer","text":"No. All parsing and analysis runs entirely in your browser using JavaScript. Your log data never leaves your device."}},
+        {"@type":"Question","name":"How large a log file can I analyze?","acceptedAnswer":{"@type":"Answer","text":"The tool handles files up to several hundred MB comfortably. Very large files (1GB+) may be slow depending on your browser and device."}},
+        {"@type":"Question","name":"Can I filter by log level?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use the Level dropdown to show only ERROR, WARN, INFO, DEBUG, or TRACE entries. You can also search by keyword, IP, or status code."}},
+        {"@type":"Question","name":"Can I download filtered results?","acceptedAnswer":{"@type":"Answer","text":"Yes. After applying filters, click Download to save a tab-separated .txt file containing only the matching log entries."}}
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body x-data="logAnalyzerApp()" x-cloak>
+
+<!-- ── HEADER ── -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <defs>
+          <linearGradient id="logoGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#f59e0b"/>
+            <stop offset="100%" stop-color="#10b981"/>
+          </linearGradient>
+        </defs>
+        <rect width="36" height="36" rx="10" fill="url(#logoGrad)"/>
+        <path d="M10 12h16M10 18h10M10 24h13" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../contact.html" class="nav-link">Contact</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="main-wrap">
+
+  <!-- HERO -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Developer Tool
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">Log File Analyzer</span></h1>
+    <p class="tool-subtitle">Parse, filter, and visualize Apache, Nginx, syslog, JSON, Log4j, and generic log files — all in your browser.</p>
+  </div>
+
+  <!-- AD TOP -->
+  <div class="ad-slot" style="margin-bottom:20px">
+    <ins class="adsbygoogle" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
+
+  <!-- ── UPLOAD / PASTE ── -->
+  <div class="upload-zone"
+       :class="{drag:dragging}"
+       @dragover.prevent="dragging=true"
+       @dragleave="dragging=false"
+       @drop.prevent="handleDrop($event)">
+    <input type="file" accept=".log,.txt,.json,.gz" @change="handleFile($event)" title="Upload log file"/>
+    <div class="upload-icon">
+      <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    </div>
+    <div class="upload-title">Drop a log file here</div>
+    <div class="upload-hint">or <em>click to browse</em> — .log, .txt, .json supported</div>
+  </div>
+
+  <div style="margin:14px 0 8px;font-size:.82rem;color:var(--text-faint);text-align:center">— or paste log text below —</div>
+
+  <textarea class="paste-area" x-model="rawText"
+    placeholder="Paste log lines here… Apache, Nginx, syslog, JSON Lines, Log4j, Python, Docker and generic formats are auto-detected."
+    rows="6"></textarea>
+
+  <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+    <button class="la-btn la-btn-primary" @click="analyzeText()">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Analyze
+    </button>
+    <button class="la-btn la-btn-ghost" @click="loadSample()">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Load Sample
+    </button>
+    <button class="la-btn la-btn-danger" @click="clear()" x-show="hasData">
+      <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+      Clear
+    </button>
+    <div x-show="processing" style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--text-faint)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+      Parsing…
+    </div>
+  </div>
+
+  <!-- ── RESULTS ── -->
+  <div x-show="loaded">
+
+    <!-- format badge -->
+    <div style="display:flex;align-items:center;gap:10px;margin-top:20px;flex-wrap:wrap">
+      <span style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-faint)">Detected format:</span>
+      <span style="padding:3px 12px;border-radius:999px;font-size:.75rem;font-weight:700;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);color:#fcd34d" x-text="format"></span>
+      <span style="font-size:.8rem;color:var(--text-faint)" x-text="stats?.total?.toLocaleString() + ' entries parsed'"></span>
+    </div>
+
+    <!-- STATS ROW -->
+    <div class="stats-row" style="margin-top:14px">
+      <div class="stat-card s-total">
+        <div class="stat-card-label">Total</div>
+        <div class="stat-card-val" x-text="stats?.total?.toLocaleString()"></div>
+        <div class="stat-card-sub">log lines</div>
+      </div>
+      <div class="stat-card s-error">
+        <div class="stat-card-label">Error</div>
+        <div class="stat-card-val" x-text="stats?.counts?.error?.toLocaleString()"></div>
+        <div class="stat-card-sub" x-text="stats?.total ? Math.round(stats.counts.error/stats.total*100)+'%' : ''"></div>
+      </div>
+      <div class="stat-card s-warn">
+        <div class="stat-card-label">Warn</div>
+        <div class="stat-card-val" x-text="stats?.counts?.warn?.toLocaleString()"></div>
+        <div class="stat-card-sub" x-text="stats?.total ? Math.round(stats.counts.warn/stats.total*100)+'%' : ''"></div>
+      </div>
+      <div class="stat-card s-info">
+        <div class="stat-card-label">Info</div>
+        <div class="stat-card-val" x-text="stats?.counts?.info?.toLocaleString()"></div>
+        <div class="stat-card-sub" x-text="stats?.total ? Math.round(stats.counts.info/stats.total*100)+'%' : ''"></div>
+      </div>
+      <div class="stat-card s-debug">
+        <div class="stat-card-label">Debug</div>
+        <div class="stat-card-val" x-text="(+(stats?.counts?.debug||0) + +(stats?.counts?.trace||0)).toLocaleString()"></div>
+        <div class="stat-card-sub">debug + trace</div>
+      </div>
+      <div class="stat-card s-other">
+        <div class="stat-card-label">Other</div>
+        <div class="stat-card-val" x-text="stats?.counts?.other?.toLocaleString()"></div>
+        <div class="stat-card-sub">unclassified</div>
+      </div>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="timeline-wrap" x-show="timeline.length > 0">
+      <div class="timeline-title">Activity Timeline (by hour)</div>
+      <div class="bar-chart">
+        <template x-for="col in timelineData" :key="col.label">
+          <div class="bar-col">
+            <div class="bar-stack">
+              <template x-for="seg in col.segs" :key="seg.level">
+                <div class="bar-seg" :class="'seg-'+seg.level" :style="'height:'+seg.pct+'%'" :title="seg.level+': '+Math.round(seg.pct*col.total/100)"></div>
+              </template>
+            </div>
+            <div class="bar-label" x-text="col.label"></div>
+          </div>
+        </template>
+      </div>
+      <div class="level-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c-error)"></div>Error</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c-warn)"></div>Warn</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c-info)"></div>Info</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c-debug)"></div>Debug</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--text-faint)"></div>Other</div>
+      </div>
+    </div>
+
+    <!-- TOP PATTERNS -->
+    <div class="patterns-grid" x-show="topIPs.length || topStatus.length">
+      <div class="pattern-card" x-show="topIPs.length">
+        <div class="pattern-title">Top IP Addresses</div>
+        <template x-for="row in topIPs" :key="row.key">
+          <div class="pattern-row">
+            <span class="pattern-msg" x-text="row.key"></span>
+            <div class="pattern-bar-wrap">
+              <div class="pattern-bar" :style="'width:'+Math.round(row.count/topMaxIP*100)+'%'"></div>
+            </div>
+            <span class="pattern-count" x-text="row.count.toLocaleString()"></span>
+          </div>
+        </template>
+      </div>
+      <div class="pattern-card" x-show="topStatus.length">
+        <div class="pattern-title">Top Status Codes</div>
+        <template x-for="row in topStatus" :key="row.key">
+          <div class="pattern-row">
+            <span class="pattern-msg" x-text="row.key"></span>
+            <div class="pattern-bar-wrap">
+              <div class="pattern-bar" :style="'width:'+Math.round(row.count/topMaxStatus*100)+'%'"></div>
+            </div>
+            <span class="pattern-count" x-text="row.count.toLocaleString()"></span>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="la-toolbar" style="margin-top:16px">
+      <input class="la-search" type="text" placeholder="Search messages, sources, timestamps…" x-model="searchTerm" @input="page=1"/>
+      <div class="tb-sep"></div>
+      <select class="la-select" x-model="filterLevel" @change="page=1">
+        <option value="">All Levels</option>
+        <option value="error">Error</option>
+        <option value="warn">Warn</option>
+        <option value="info">Info</option>
+        <option value="debug">Debug</option>
+        <option value="trace">Trace</option>
+        <option value="other">Other</option>
+      </select>
+      <input class="la-search" style="max-width:130px" type="text" placeholder="Filter IP…" x-model="filterIp" @input="page=1"/>
+      <input class="la-search" style="max-width:90px" type="text" placeholder="Status…" x-model="filterStatus" @input="page=1"/>
+      <div class="tb-sep"></div>
+      <button class="la-btn la-btn-ghost" @click="resetFilters()">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18M6 12h12M9 18h6"/></svg>
+        Reset
+      </button>
+      <button class="la-btn la-btn-ghost" @click="download()">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download
+      </button>
+    </div>
+
+    <!-- result count -->
+    <div style="font-size:.8rem;color:var(--text-faint);margin:8px 0 4px;padding:0 2px">
+      Showing <strong x-text="paged.length"></strong> of <strong x-text="filtered.length.toLocaleString()"></strong> matching entries
+    </div>
+
+    <!-- LOG TABLE -->
+    <div class="log-table-wrap">
+      <div class="log-table-header">
+        <span>Timestamp</span>
+        <span>Level</span>
+        <span>Message</span>
+        <span style="text-align:right">Source / IP</span>
+      </div>
+      <div class="log-rows">
+        <template x-if="paged.length === 0">
+          <div style="padding:28px;text-align:center;color:var(--text-faint);font-size:.88rem">No entries match the current filters.</div>
+        </template>
+        <template x-for="e in paged" :key="e.idx">
+          <div class="log-row" :class="'lv-'+e.level">
+            <div class="log-cell-ts" x-text="e.ts || '—'"></div>
+            <div class="log-cell-lvl">
+              <span class="lvl-badge" :class="'lvl-'+e.level" x-text="e.level.toUpperCase()"></span>
+            </div>
+            <div class="log-cell-msg" x-html="rowHtml(e)"></div>
+            <div class="log-cell-src" x-text="e.source || e.ip || '—'"></div>
+          </div>
+        </template>
+      </div>
+      <div class="pagination">
+        <button class="pg-btn" @click="prevPage()" :disabled="page<=1">&#8592; Prev</button>
+        <span class="pg-info">Page <strong x-text="page"></strong> of <strong x-text="totalPages"></strong></span>
+        <button class="pg-btn" @click="nextPage()" :disabled="page>=totalPages">Next &#8594;</button>
+        <span style="margin-left:auto">
+          <select class="la-select" x-model="pageSize" @change="page=1">
+            <option value="100">100 / page</option>
+            <option value="200">200 / page</option>
+            <option value="500">500 / page</option>
+          </select>
+        </span>
+      </div>
+    </div>
+
+  </div><!-- /loaded -->
+
+  <!-- AD MID -->
+  <div class="ad-slot" style="margin:28px 0">
+    <ins class="adsbygoogle" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- HOW TO USE -->
+  <section class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">How to Use</h2>
+      <p class="section-desc">Analyze any log file in seconds — no upload, no server, fully private.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-number">1</div><div class="step-title">Upload or Paste</div><div class="step-desc">Drop a log file onto the upload zone, click Browse, or paste raw log text into the text area.</div></div>
+      <div class="step-card"><div class="step-number">2</div><div class="step-title">Click Analyze</div><div class="step-desc">Hit the Analyze button. The tool auto-detects the format and parses every line instantly.</div></div>
+      <div class="step-card"><div class="step-number">3</div><div class="step-title">Read the Stats</div><div class="step-desc">See total lines, error/warn/info/debug counts, activity timeline, top IPs, and status codes at a glance.</div></div>
+      <div class="step-card"><div class="step-number">4</div><div class="step-title">Filter Entries</div><div class="step-desc">Narrow down by log level, IP address, status code, or keyword search. Results update instantly.</div></div>
+      <div class="step-card"><div class="step-number">5</div><div class="step-title">Read the Log Table</div><div class="step-desc">Color-coded rows highlight severity. Scroll through paginated entries. Matching keywords are highlighted.</div></div>
+      <div class="step-card"><div class="step-number">6</div><div class="step-title">Download Filtered</div><div class="step-desc">Export only the rows that match your current filters as a tab-separated .txt file.</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- FEATURES -->
+  <section class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">Features</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">🔍</div><div class="feature-title">Auto-Format Detection</div><div class="feature-desc">Identifies Apache Combined, Nginx, syslog, JSON Lines, Log4j/Logback, Python logging, Docker/Kubernetes, and generic formats automatically.</div></div>
+      <div class="feature-card"><div class="feature-icon">📊</div><div class="feature-title">Stats Dashboard</div><div class="feature-desc">Error, warn, info, debug counts with percentages. Activity timeline grouped by hour. Top IPs and status codes ranked by volume.</div></div>
+      <div class="feature-card"><div class="feature-icon">🎨</div><div class="feature-title">Color-Coded Severity</div><div class="feature-desc">Each log row is visually marked: red border for errors, yellow for warnings, blue for info, green for debug and trace.</div></div>
+      <div class="feature-card"><div class="feature-icon">🔎</div><div class="feature-title">Full-Text Search</div><div class="feature-desc">Search across messages, sources, and timestamps in real time. Matching terms are highlighted directly in the log table.</div></div>
+      <div class="feature-card"><div class="feature-icon">🧩</div><div class="feature-title">Multi-Filter</div><div class="feature-desc">Combine level, IP address, HTTP status code, and keyword filters simultaneously for precise narrowing.</div></div>
+      <div class="feature-card"><div class="feature-icon">📈</div><div class="feature-title">Activity Timeline</div><div class="feature-desc">Stacked bar chart shows error/warn/info/debug distribution across hours so you can spot incidents visually.</div></div>
+      <div class="feature-card"><div class="feature-icon">⬇️</div><div class="feature-title">Download Filtered</div><div class="feature-desc">Export the filtered view as a .txt file with timestamp, level, source, and message columns for further processing.</div></div>
+      <div class="feature-card"><div class="feature-icon">🔒</div><div class="feature-title">100% Private</div><div class="feature-desc">All parsing runs in your browser with JavaScript. Log data is never sent to any server or stored anywhere.</div></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- FAQ -->
+  <section class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">FAQ</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">What log formats are supported?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Apache Combined Log, Nginx access log, syslog, JSON Lines (one JSON object per line), Log4j/Logback, Python logging, Docker/Kubernetes container logs, and a generic catch-all pattern that handles most timestamped + level-prefixed formats.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Is my log data private?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Yes. The entire parser runs as JavaScript in your browser. No data is transmitted to any server. You can even disconnect from the internet before uploading a sensitive log file.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">How large a log file can I analyze?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Files up to a few hundred MB typically parse in 1–3 seconds on modern hardware. Very large files (500 MB+) may take a few seconds longer. The browser tab may warn about memory for gigabyte-scale files — split those with a command-line tool first.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">How does level detection work for Apache/Nginx logs?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>HTTP status codes are mapped to levels: 5xx → <code>ERROR</code>, 4xx → <code>WARN</code>, 3xx → <code>INFO</code>, 2xx → <code>DEBUG</code>. For other formats, the level keyword (ERROR, WARN, INFO, DEBUG, TRACE) is extracted directly from the line.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" @click="toggleFaq($el)">Can I search multiple terms at once?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>The search box matches a single string (including spaces). For AND-style filtering, combine the text search with the Level, IP, and Status filters simultaneously — all filters are applied together.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- RELATED -->
+  <section class="page-section">
+    <div class="section-head">
+      <h2 class="section-title">Related Tools</h2>
+    </div>
+    <div class="related-grid">
+      <a class="related-card" href="../coding/json-formatter.html">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div class="related-name">JSON Formatter</div>
+        <div class="related-desc">Format, validate, and minify JSON. Useful for JSON Lines log files.</div>
+        <div class="related-link">Open tool →</div>
+      </a>
+      <a class="related-card" href="../coding/xml-formatter.html">
+        <div class="related-icon" style="background:linear-gradient(135deg,#f59e0b,#f472b6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <div class="related-name">XML Formatter</div>
+        <div class="related-desc">Format, validate, and minify XML log files with syntax highlighting.</div>
+        <div class="related-link">Open tool →</div>
+      </a>
+      <a class="related-card" href="../text/diff-checker.html">
+        <div class="related-icon" style="background:linear-gradient(135deg,#6C63FF,#4ECDC4)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <div class="related-name">Diff Checker</div>
+        <div class="related-desc">Compare two log snapshots side by side to find what changed.</div>
+        <div class="related-link">Open tool →</div>
+      </a>
+      <a class="related-card" href="../text/regex-tester.html">
+        <div class="related-icon" style="background:linear-gradient(135deg,#10b981,#3b82f6)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <div class="related-name">Regex Tester</div>
+        <div class="related-desc">Build and test regular expressions for custom log parsing patterns.</div>
+        <div class="related-link">Open tool →</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- AD BOTTOM -->
+  <div class="ad-slot" style="margin-top:36px">
+    <ins class="adsbygoogle" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+          <defs><linearGradient id="fLogoGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#10b981"/></linearGradient></defs>
+          <rect width="36" height="36" rx="10" fill="url(#fLogoGrad)"/>
+          <path d="M10 12h16M10 18h10M10 24h13" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-brand-text">Free browser-based tools for developers, writers, and everyday productivity.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-heading">Tools</div>
+      <div class="footer-links">
+        <a href="../../tools.html">All Tools</a>
+        <a href="../coding/json-formatter.html">JSON Formatter</a>
+        <a href="../coding/xml-formatter.html">XML Formatter</a>
+        <a href="../text/rich-text-editor.html">Rich Text Editor</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-heading">Company</div>
+      <div class="footer-links">
+        <a href="../../about.html">About</a>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-heading">Legal</div>
+      <div class="footer-links">
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2025 The Tool Empire. All rights reserved.</span>
+    <span>Made with ❤️ for the web</span>
+  </div>
+</footer>
+
+<div id="toast" class="toast"></div>
+
+<script src="log-analyzer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</body>
+</html>

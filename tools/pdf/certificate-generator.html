@@ -2,382 +2,621 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Certificate PDF Generator — Free Online Certificate Maker | The Tool Empire</title>
-  <meta name="description" content="Create professional certificates online and download as PDF or PNG. Six templates, custom colors, fonts and fields. No upload, no account — runs entirely in your browser." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Free online certificate generator. Create professional certificates of completion, achievement, or appreciation. Download as PDF, PNG, or JPG instantly — no signup required." />
+  <meta name="keywords" content="certificate generator, certificate of completion, certificate maker, free certificate template, PDF certificate" />
+  <meta name="author" content="The Tool Empire" />
+  <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://thetoolempire.com/tools/pdf/certificate-generator.html" />
-  <link rel="manifest" href="../../manifest.json" />
 
-  <!-- GA4 -->
+  <meta property="og:title" content="Certificate Generator — Free PDF Certificate Maker" />
+  <meta property="og:description" content="Design and download professional certificates in seconds. 9 templates, custom colors, borders, and logo support. Free, no signup." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://thetoolempire.com/tools/pdf/certificate-generator.html" />
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png" />
+  <meta property="og:site_name" content="The Tool Empire" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Certificate Generator — Free PDF Certificate Maker" />
+  <meta name="twitter:description" content="Create professional certificates in seconds. Download as PDF, PNG, or JPG." />
+
+  <title>Certificate Generator — Free PDF Certificate Maker | The Tool Empire</title>
+
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
+  <link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+  <link rel="apple-touch-icon" href="../../assets/favicon.svg" />
+  <link rel="manifest" href="../../manifest.json" />
+  <meta name="theme-color" content="#a855f7" />
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+
+  <!-- Google tag -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-CNN44ER8MF');
   </script>
 
-  <!-- AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
-
-  <!-- jsPDF -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-  <!-- Alpine.js -->
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+  <link rel="stylesheet" href="../../assets/css/main.css" />
   <link rel="stylesheet" href="certificate-generator.css" />
 
-  <!-- JSON-LD -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+  <!-- Structured Data -->
   <script type="application/ld+json">
-  [
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Certificate PDF Generator",
-      "url": "https://thetoolempire.com/tools/pdf/certificate-generator.html",
-      "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "Any",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-      "description": "Free browser-based certificate maker. Choose from six templates, customize colors, fonts and text, then download a print-ready PDF or PNG. No upload required.",
-      "featureList": [
-        "Six certificate templates",
-        "Custom primary color",
-        "Four font styles",
-        "Landscape and portrait orientation",
-        "Download as PDF (A4)",
-        "Download as PNG (2× resolution)",
-        "Live canvas preview",
-        "100% client-side — no data uploaded"
-      ]
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home",      "item": "https://thetoolempire.com/" },
-        { "@type": "ListItem", "position": 2, "name": "PDF Tools", "item": "https://thetoolempire.com/#pdf" },
-        { "@type": "ListItem", "position": 3, "name": "Certificate PDF Generator" }
-      ]
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Does the certificate generator upload anything to a server?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. Everything runs inside your browser using the HTML5 Canvas API and jsPDF. No text, images, or data ever leave your device." }
-        },
-        {
-          "@type": "Question",
-          "name": "What PDF size does it produce?",
-          "acceptedAnswer": { "@type": "Answer", "text": "The downloaded PDF is A4 — either 297×210 mm (landscape) or 210×297 mm (portrait). The certificate image is rendered at twice the screen resolution before embedding, so it prints crisply." }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I print the certificate directly from the browser?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Download the PDF and open it in any PDF viewer, then print. For best results set your printer to the same orientation (landscape or portrait) as the certificate." }
-        },
-        {
-          "@type": "Question",
-          "name": "Is there a limit to how many certificates I can make?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No limit. The tool is free and runs offline in your browser, so you can generate as many certificates as you need without any account or subscription." }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I add a logo or image to the certificate?",
-          "acceptedAnswer": { "@type": "Answer", "text": "The current version uses canvas-drawn decorative elements only. Logo upload is not yet supported, but you can open the downloaded PDF in any editor (Adobe Acrobat, LibreOffice Draw, etc.) to add additional graphics." }
-        }
-      ]
-    }
-  ]
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Certificate Generator",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "url": "https://thetoolempire.com/tools/pdf/certificate-generator.html",
+    "description": "Free browser-based certificate generator. Create and download professional certificates as PDF, PNG, or JPG.",
+    "provider": { "@type": "Organization", "name": "The Tool Empire", "url": "https://thetoolempire.com" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home",      "item": "https://thetoolempire.com/" },
+      { "@type": "ListItem", "position": 2, "name": "PDF Tools", "item": "https://thetoolempire.com/tools.html?cat=PDF" },
+      { "@type": "ListItem", "position": 3, "name": "Certificate Generator", "item": "https://thetoolempire.com/tools/pdf/certificate-generator.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the certificate generator free?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free. No signup, no watermarks, no limits on downloads." }
+      },
+      {
+        "@type": "Question",
+        "name": "What file formats can I download?",
+        "acceptedAnswer": { "@type": "Answer", "text": "You can download your certificate as a PDF (A4, print-ready), PNG (transparent background), or JPG (white background)." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I add my organisation's logo?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Upload any PNG, JPG, or SVG image and it will appear at the top-center of your certificate." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it work offline or send data to a server?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Everything runs entirely in your browser using the Canvas API. Nothing you type or upload ever leaves your device." }
+      }
+    ]
+  }
   </script>
 </head>
+
 <body x-data="certificateGeneratorApp()" x-init="init()">
 
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" x-data="{ mobileMenuOpen: false }">
+    <div class="container header-inner">
+      <a href="/" class="logo" aria-label="The Tool Empire Home">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="40" height="40" rx="10" fill="url(#hLogoGrad)" />
+          <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round" />
+          <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2" />
+          <defs>
+            <linearGradient id="hLogoGrad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#6C63FF" />
+              <stop offset="1" stop-color="#4ECDC4" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="/" class="nav-link">Home</a>
+        <a href="../../tools.html" class="nav-link">Tools</a>
+        <a href="../../blog.html" class="nav-link">Blog</a>
+        <a href="../../contact.html" class="nav-link">Contact</a>
+        <a href="../../about.html" class="nav-link">About</a>
+      </nav>
+
+      <button class="menu-toggle" @click="mobileMenuOpen = !mobileMenuOpen"
+        :aria-expanded="mobileMenuOpen" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="mobile-nav" :class="{ open: mobileMenuOpen }" aria-label="Mobile navigation">
+      <a href="/" class="nav-link" @click="mobileMenuOpen = false">Home</a>
+      <a href="../../tools.html" class="nav-link" @click="mobileMenuOpen = false">Tools</a>
+      <a href="../../blog.html" class="nav-link" @click="mobileMenuOpen = false">Blog</a>
+      <a href="../../contact.html" class="nav-link" @click="mobileMenuOpen = false">Contact</a>
+      <a href="../../about.html" class="nav-link" @click="mobileMenuOpen = false">About</a>
+    </nav>
+  </header>
+
+  <!-- ===== PAGE CONTENT ===== -->
   <div class="page-wrap">
 
-    <!-- breadcrumb -->
+    <!-- Breadcrumb -->
     <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a href="../../index.html">Home</a>
+      <a href="/">Home</a>
       <span>›</span>
-      <a href="../../index.html#pdf">PDF Tools</a>
+      <a href="../../tools.html">Tools</a>
       <span>›</span>
-      <span>Certificate PDF Generator</span>
+      <a href="../../tools.html?cat=PDF">PDF</a>
+      <span>›</span>
+      <span>Certificate Generator</span>
     </nav>
 
-    <!-- header -->
-    <header class="tool-header">
-      <div class="tool-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="8" r="4"/>
-          <path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
-          <polyline points="9 11 12 14 15 11" stroke-width="1.4"/>
+    <!-- Tool header -->
+    <div class="tool-header">
+      <div class="tool-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="16" rx="2" />
+          <path d="M7 9h10M7 13h6" />
+          <circle cx="17" cy="15" r="2" />
+          <path d="M15.5 16.5 14 19l2-1 2 1-1.5-2.5" />
         </svg>
       </div>
       <div>
-        <h1>Certificate PDF Generator</h1>
-        <p>Design a professional certificate and download it as a print-ready PDF — all in your browser, no account needed.</p>
+        <h1>Certificate Generator</h1>
+        <p>Design professional certificates in seconds. 9 templates, custom colours, borders &amp; logo support.
+          Download as PDF, PNG, or JPG — free, no signup.</p>
       </div>
-    </header>
+    </div>
 
-    <!-- ad top -->
-    <div class="ad-wrap" style="margin-bottom:1.25rem;">
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <!-- Ad slot top -->
+    <div class="ad-wrap" aria-label="Advertisement">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+        data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
       <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
-    <!-- ── main tool ── -->
+    <!-- ===== TWO-COLUMN LAYOUT ===== -->
     <div class="tool-main">
 
-      <!-- left: controls -->
-      <aside>
-        <!-- template picker -->
-        <div class="card" style="margin-bottom:1rem;">
+      <!-- ── LEFT: CONTROLS ── -->
+      <div class="controls-col">
+
+        <!-- Template picker -->
+        <div class="card">
           <div class="card-title">Template</div>
           <div class="tpl-grid">
-            <template x-for="tpl in templates" :key="tpl.id">
-              <div
-                class="tpl-thumb"
-                :class="{ selected: template === tpl.id }"
-                @click="template = tpl.id"
-              >
-                <canvas :id="'thumb-' + tpl.id"></canvas>
-                <div class="tpl-label" x-text="tpl.label"></div>
+            <template x-for="t in templates" :key="t.id">
+              <div class="tpl-thumb" :class="{ selected: template === t.id }"
+                @click="template = t.id" :title="t.label"
+                role="button" :aria-pressed="template === t.id">
+                <canvas :id="'thumb-' + t.id" width="160" height="100"></canvas>
+                <div class="tpl-label" x-text="t.label"></div>
               </div>
             </template>
           </div>
         </div>
 
-        <!-- orientation -->
-        <div class="card" style="margin-bottom:1rem;">
-          <div class="card-title">Orientation</div>
-          <div class="orient-row">
-            <div class="orient-chip" :class="{ active: orientation === 'landscape' }" @click="orientation = 'landscape'">
-              ⬛ Landscape
-            </div>
-            <div class="orient-chip" :class="{ active: orientation === 'portrait' }" @click="orientation = 'portrait'">
-              ▮ Portrait
-            </div>
-          </div>
-
-          <!-- color -->
-          <div class="card-title" style="margin-top:.5rem;">Accent Color</div>
-          <div class="color-row">
-            <template x-for="c in palette" :key="c">
-              <div
-                class="color-chip"
-                :class="{ selected: color === c }"
-                :style="{ background: c }"
-                @click="color = c"
-              ></div>
-            </template>
-          </div>
-
-          <!-- font -->
-          <div class="card-title" style="margin-top:.5rem;">Font Style</div>
-          <div class="font-row">
-            <template x-for="f in fonts" :key="f.id">
-              <div
-                class="font-chip"
-                :class="{ active: fontId === f.id }"
-                :style="{ fontFamily: f.family }"
-                @click="fontId = f.id"
-                x-text="f.label"
-              ></div>
-            </template>
-          </div>
-        </div>
-
-        <!-- certificate fields -->
-        <div class="card" style="margin-bottom:1rem;">
-          <div class="card-title">Certificate Fields</div>
-
-          <div class="field-group">
-            <label>Recipient Name</label>
-            <input class="field-input" type="text" x-model="recipient" placeholder="Jane Doe" />
-          </div>
-
-          <div class="field-group">
-            <label>Certificate Title</label>
-            <input class="field-input" type="text" x-model="title" placeholder="Certificate of Achievement" />
-          </div>
-
-          <div class="field-group">
-            <label>Subtitle / Course Name <span style="color:var(--text-faint)">(optional)</span></label>
-            <input class="field-input" type="text" x-model="subtitle" placeholder="Advanced Web Development" />
-          </div>
-
-          <div class="field-group">
-            <label>Description <span style="color:var(--text-faint)">(optional)</span></label>
-            <textarea class="field-input" x-model="description" placeholder="For outstanding performance and dedication..."></textarea>
-          </div>
-
-          <div class="field-group">
-            <label>Issuer / Organization</label>
-            <input class="field-input" type="text" x-model="issuer" placeholder="The Tool Empire Academy" />
-          </div>
-
-          <div class="field-group">
-            <label>Date</label>
-            <input class="field-input" type="text" x-model="date" placeholder="June 8, 2026" />
-          </div>
-        </div>
-
-        <!-- actions -->
+        <!-- Style -->
         <div class="card">
-          <button class="btn-download" @click="downloadPdf()">
-            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download PDF
-          </button>
-          <button class="btn-secondary" @click="downloadPng()">
-            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            Download PNG
-          </button>
-        </div>
-      </aside>
+          <div class="card-title">Style</div>
 
-      <!-- right: preview -->
+          <!-- Orientation -->
+          <div class="field-group">
+            <label>Orientation</label>
+            <div class="chip-row">
+              <button class="chip" :class="{ active: orientation === 'landscape' }"
+                @click="orientation = 'landscape'">Landscape</button>
+              <button class="chip" :class="{ active: orientation === 'portrait' }"
+                @click="orientation = 'portrait'">Portrait</button>
+            </div>
+          </div>
+
+          <!-- Border -->
+          <div class="field-group">
+            <label>Border</label>
+            <div class="chip-row chip-row--border">
+              <template x-for="b in borders" :key="b.id">
+                <button class="chip" :class="{ active: border === b.id }"
+                  @click="border = b.id" x-text="b.label"></button>
+              </template>
+            </div>
+          </div>
+
+          <!-- Accent colour -->
+          <div class="field-group">
+            <label>Accent Colour</label>
+            <div class="color-row">
+              <template x-for="c in ['#8b5cf6','#3b82f6','#ef4444','#f59e0b','#10b981','#f97316','#ec4899','#14b8a6']" :key="c">
+                <div class="color-chip" :style="'background:' + c"
+                  :class="{ selected: color === c }"
+                  @click="color = c" :title="c"></div>
+              </template>
+            </div>
+            <div class="custom-color-row">
+              <label for="accentCustom">Custom</label>
+              <div class="color-input-wrap">
+                <input type="color" id="accentCustom" :value="color"
+                  @input="color = $event.target.value" />
+              </div>
+              <span style="font-size:.78rem;color:var(--text-muted)" x-text="color"></span>
+            </div>
+          </div>
+
+          <!-- Font size -->
+          <div class="field-group">
+            <label>Font Size</label>
+            <div class="chip-row chip-row--scale">
+              <template x-for="s in fontScales" :key="s.id">
+                <button class="chip" :class="{ active: fontScale === s.id }"
+                  @click="fontScale = s.id" x-text="s.label"></button>
+              </template>
+            </div>
+          </div>
+
+          <!-- Font style -->
+          <div class="field-group" style="margin-bottom:0">
+            <label>Font Style</label>
+            <div class="chip-row" style="margin-bottom:0">
+              <template x-for="f in fonts" :key="f.id">
+                <button class="chip" :class="{ active: fontId === f.id }"
+                  @click="fontId = f.id" x-text="f.label"></button>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Logo -->
+        <div class="card">
+          <div class="card-title">Logos (optional, up to 3)</div>
+
+          <!-- Uploaded logos list -->
+          <div class="logo-list" x-show="logoCount > 0">
+            <template x-for="(name, idx) in logoNames" :key="idx">
+              <div class="logo-item">
+                <svg style="width:14px;height:14px;stroke:var(--primary);fill:none;flex-shrink:0"
+                  viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>
+                <span class="logo-item-name" x-text="name"></span>
+                <button class="btn-remove-logo" @click="removeLogo(idx)" title="Remove" aria-label="Remove logo">&times;</button>
+              </div>
+            </template>
+          </div>
+
+          <!-- Upload zone (hidden when 3 logos loaded) -->
+          <div x-show="logoCount < 3">
+            <label class="logo-upload-zone" for="logoFileInput">
+              <svg style="width:17px;height:17px;stroke:currentColor;fill:none;display:inline-block;vertical-align:middle;margin-right:.35rem"
+                viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+              </svg>
+              <span x-text="logoCount === 0 ? 'Click to upload PNG / JPG / SVG' : 'Add another logo'"></span>
+            </label>
+            <input type="file" id="logoFileInput" accept="image/*" multiple style="display:none"
+              @change="onLogoUpload($event)" />
+            <div class="logo-hint">Multiple logos are placed side-by-side at the top</div>
+          </div>
+        </div>
+
+        <!-- Certificate details -->
+        <div class="card">
+          <div class="card-title">Certificate Details</div>
+
+          <div class="field-group">
+            <label for="f-title">Certificate Title</label>
+            <input id="f-title" class="field-input" type="text" x-model="title"
+              placeholder="Certificate of Completion" />
+          </div>
+
+          <div class="field-group">
+            <label for="f-subtitle">Course / Achievement</label>
+            <input id="f-subtitle" class="field-input" type="text" x-model="subtitle"
+              placeholder="Advanced Web Development" />
+          </div>
+
+          <div class="field-group">
+            <label for="f-recipient">Recipient Name</label>
+            <input id="f-recipient" class="field-input" type="text" x-model="recipient"
+              placeholder="John Smith" />
+          </div>
+
+          <div class="field-group">
+            <label for="f-timePeriod">Duration / Time Period</label>
+            <input id="f-timePeriod" class="field-input" type="text" x-model="timePeriod"
+              placeholder="e.g. 3 months · Jan – Mar 2026" />
+          </div>
+
+          <div class="field-group">
+            <label for="f-description">Description (optional)</label>
+            <textarea id="f-description" class="field-input" rows="2" x-model="description"
+              placeholder="For outstanding performance and dedication"></textarea>
+          </div>
+
+          <!-- Signatory 1 -->
+          <div class="two-col-fields">
+            <div class="field-group">
+              <label for="f-issuer">Signatory 1 — Name</label>
+              <input id="f-issuer" class="field-input" type="text" x-model="issuer"
+                placeholder="Dr. Jane Doe" />
+            </div>
+            <div class="field-group">
+              <label for="f-issuerTitle">Signatory 1 — Designation</label>
+              <input id="f-issuerTitle" class="field-input" type="text" x-model="issuerTitle"
+                placeholder="Director / Dean" />
+            </div>
+          </div>
+
+          <!-- Signatory 2 -->
+          <div class="two-col-fields" style="margin-bottom:.75rem">
+            <div class="field-group">
+              <label for="f-issuer2">Signatory 2 — Name</label>
+              <input id="f-issuer2" class="field-input" type="text" x-model="issuer2"
+                placeholder="Prof. John Smith (optional)" />
+            </div>
+            <div class="field-group">
+              <label for="f-issuerTitle2">Signatory 2 — Designation</label>
+              <input id="f-issuerTitle2" class="field-input" type="text" x-model="issuerTitle2"
+                placeholder="Head of Department" />
+            </div>
+          </div>
+
+          <div class="field-group" style="margin-bottom:0">
+            <label for="f-date">Issue Date</label>
+            <input id="f-date" class="field-input" type="text" x-model="date"
+              placeholder="June 9, 2026" />
+          </div>
+        </div>
+
+        <!-- Download -->
+        <div class="card">
+          <div class="card-title">Download</div>
+          <div class="dl-grid">
+            <button class="btn-dl btn-dl-pdf" @click="downloadPdf()" title="Download as PDF">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14,2 14,8 20,8" />
+                <line x1="12" y1="18" x2="12" y2="12" />
+                <polyline points="9,15 12,18 15,15" />
+              </svg>
+              PDF
+            </button>
+            <button class="btn-dl btn-dl-png" @click="downloadPng()" title="Download as PNG">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <polyline points="21,15 16,10 5,21" />
+              </svg>
+              PNG
+            </button>
+            <button class="btn-dl btn-dl-jpg" @click="downloadJpg()" title="Download as JPG">
+              <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <polyline points="21,15 16,10 5,21" />
+              </svg>
+              JPG
+            </button>
+          </div>
+          <div class="report-link">
+            <a href="https://github.com/arifulnahid/thetoolempire/issues/new?title=Certificate+Generator+Bug&labels=bug"
+              target="_blank" rel="noopener noreferrer">
+              <svg style="width:13px;height:13px;stroke:currentColor;fill:none"
+                viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+              Report an issue
+            </a>
+          </div>
+        </div>
+
+      </div><!-- /controls-col -->
+
+      <!-- ── RIGHT: PREVIEW ── -->
       <div class="preview-panel">
         <div class="preview-card">
-          <div class="card-title">Live Preview</div>
+          <div class="card-title" style="margin-bottom:.75rem">Preview</div>
           <div class="preview-wrap">
-            <canvas id="previewCanvas" x-ref="previewCanvas"></canvas>
-            <div class="preview-hint">Updates as you type</div>
+            <canvas x-ref="previewCanvas"></canvas>
+            <div class="preview-hint">Live preview</div>
           </div>
         </div>
 
-        <!-- ad sidebar -->
-        <div class="ad-wrap" style="min-height:250px;">
-          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <!-- Side ad -->
+        <div class="ad-wrap" style="min-height:250px" aria-label="Advertisement">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+            data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
           <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
       </div>
+
     </div><!-- /tool-main -->
 
-    <!-- ── sections ── -->
+    <!-- ===== SEO SECTIONS ===== -->
     <div class="sections">
 
-      <!-- description -->
       <section>
-        <h2 class="section-title">What This Tool Does</h2>
+        <h2 class="section-title">What is the Certificate Generator?</h2>
         <div class="prose">
-          <p>The Certificate PDF Generator lets you create polished, print-ready certificates entirely in your browser. There is no server involved — the canvas rendering, text layout, and PDF packaging all happen locally using the HTML5 Canvas API and jsPDF.</p>
-          <p>Six distinct templates cover the most common use cases: a traditional parchment <strong>Classic</strong>, a clean corporate <strong>Modern</strong>, a dark-luxury <strong>Elegant</strong>, a vivid high-contrast <strong>Bold</strong>, a typographic <strong>Minimal</strong>, and a formal <strong>Academic</strong> layout with a seal graphic. Each template adapts to whichever accent color and font style you select.</p>
-          <p>The downloaded PDF is A4 at full print resolution. The PNG export renders at 2× canvas size, giving you a high-density image suitable for digital display or further editing in any graphics application.</p>
+          <p>The Certificate Generator is a <strong>free, browser-based tool</strong> that lets you design and download
+            professional-quality certificates in seconds. Whether you need a <strong>certificate of completion</strong>,
+            achievement, appreciation, or attendance, you can customise every detail — recipient name, course,
+            date, and issuer — and get a polished result ready to print or share digitally.</p>
+          <p>Choose from <strong>9 unique templates</strong> covering styles from classic and academic to modern and
+            corporate. Personalise the <strong>accent colour</strong>, border style, font, and add your own
+            <strong>organisation logo</strong>. All processing happens entirely in your browser.</p>
         </div>
       </section>
 
-      <!-- how to use -->
       <section>
-        <h2 class="section-title">How to Make Your Certificate</h2>
+        <h2 class="section-title">How to create a certificate</h2>
         <div class="steps">
           <div class="step-item">
             <div class="step-num">1</div>
-            <div class="step-text"><strong>Pick a template.</strong> Click any thumbnail in the Template panel. The preview updates immediately.</div>
+            <div class="step-text"><strong>Pick a template</strong> — click any of the 9 thumbnails to preview it instantly on the canvas.</div>
           </div>
           <div class="step-item">
             <div class="step-num">2</div>
-            <div class="step-text"><strong>Choose orientation and style.</strong> Toggle Landscape or Portrait, select an accent color from the swatches, and pick a font style (Serif, Sans-serif, Monospace, or Cursive).</div>
+            <div class="step-text"><strong>Choose a style</strong> — set orientation, border type, accent colour, and font.</div>
           </div>
           <div class="step-item">
             <div class="step-num">3</div>
-            <div class="step-text"><strong>Fill in the fields.</strong> Enter the recipient's name, certificate title, optional subtitle or course name, a short description, issuer name, and date. The canvas redraws as you type.</div>
+            <div class="step-text"><strong>Upload a logo (optional)</strong> — click the logo zone to add your organisation's image to the certificate.</div>
           </div>
           <div class="step-item">
             <div class="step-num">4</div>
-            <div class="step-text"><strong>Download.</strong> Click <em>Download PDF</em> for a print-ready A4 PDF, or <em>Download PNG</em> if you need a high-resolution image file.</div>
+            <div class="step-text"><strong>Fill in the details</strong> — enter the recipient name, course or achievement, issuer, and date.</div>
           </div>
           <div class="step-item">
             <div class="step-num">5</div>
-            <div class="step-text"><strong>Print or share.</strong> Open the PDF in any viewer and print. For digital distribution simply attach the PDF or PNG to an email or learning platform.</div>
+            <div class="step-text"><strong>Download</strong> — PDF for print, PNG for transparency, or JPG for a compact image.</div>
           </div>
         </div>
       </section>
 
-      <!-- FAQ -->
       <section>
-        <h2 class="section-title">Common Questions</h2>
+        <h2 class="section-title">Frequently Asked Questions</h2>
         <div class="faq-list">
-
           <div class="faq-item">
-            <div class="faq-q" @click="toggleFaq($el)">
-              Does this tool upload anything to a server?
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+              Is this certificate generator completely free?
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
             </div>
-            <div class="faq-a">No. The certificate is drawn on an HTML5 Canvas element that lives entirely in your browser tab. jsPDF packages the canvas image into a PDF file on your device. Nothing is sent to any server — your recipient's name and any personal details stay completely private.</div>
+            <div class="faq-a">Yes — 100% free, with no watermarks, no download limits, and no account required.</div>
           </div>
-
           <div class="faq-item">
-            <div class="faq-q" @click="toggleFaq($el)">
-              What paper size and resolution does the PDF use?
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+              What download formats are available?
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
             </div>
-            <div class="faq-a">The PDF is A4 — 297 × 210 mm in landscape or 210 × 297 mm in portrait. Before embedding, the certificate is rendered on an offscreen canvas at twice the display resolution, so printed output is sharp and clear even on high-DPI printers.</div>
+            <div class="faq-a">PDF (A4, print-ready), PNG (transparent background, lossless), and JPG (white background, smaller file size).</div>
           </div>
-
           <div class="faq-item">
-            <div class="faq-q" @click="toggleFaq($el)">
-              Can I generate certificates in bulk for multiple recipients?
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+              Can I add my organisation's logo?
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
             </div>
-            <div class="faq-a">The tool is designed for one certificate at a time. For bulk generation, you would change the recipient name field and click Download PDF for each person. Automated batch processing from a spreadsheet is not currently supported but may be added in a future update.</div>
+            <div class="faq-a">Yes. Click the logo upload zone and choose any PNG, JPG, or SVG. It appears centered at the top of the certificate.</div>
           </div>
-
           <div class="faq-item">
-            <div class="faq-q" @click="toggleFaq($el)">
-              Is there a limit on how many I can create?
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+              Does portrait orientation scale fonts correctly?
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
             </div>
-            <div class="faq-a">There is no limit. The tool is free, runs locally in your browser, and requires no account or login. You can generate as many certificates as you need.</div>
+            <div class="faq-a">Yes. Font sizes are based on the shorter page dimension, so switching between landscape and portrait keeps text proportionally the same size.</div>
           </div>
-
           <div class="faq-item">
-            <div class="faq-q" @click="toggleFaq($el)">
-              Can I add my own logo or signature image?
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+              Is my data sent to any server?
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
             </div>
-            <div class="faq-a">Custom image upload is not supported in this version. All decorative elements are drawn programmatically on the canvas. If you need to add a logo, download the PDF or PNG and edit it in Adobe Acrobat, Canva, LibreOffice Draw, or any image editor before sending.</div>
+            <div class="faq-a">No. Everything runs entirely in your browser using the Canvas API. Nothing you type or upload ever leaves your device.</div>
           </div>
-
         </div>
       </section>
 
-      <!-- related -->
       <section>
-        <h2 class="section-title">Related Tools</h2>
+        <h2 class="section-title">Related PDF Tools</h2>
         <div class="related-grid">
-          <a href="image-to-pdf.html" class="related-card">
-            <div class="related-card-title">Image to PDF</div>
-            <div class="related-card-desc">Combine multiple images into a single PDF document.</div>
+          <a href="invoice-generator.html" class="related-card">
+            <div class="related-card-title">Invoice Generator</div>
+            <div class="related-card-desc">Create professional PDF invoices with itemised billing.</div>
+          </a>
+          <a href="pdf-password.html" class="related-card">
+            <div class="related-card-title">PDF Password</div>
+            <div class="related-card-desc">Password-protect or unlock PDF files in your browser.</div>
           </a>
           <a href="pdf-metadata.html" class="related-card">
             <div class="related-card-title">PDF Metadata Editor</div>
-            <div class="related-card-desc">View and edit title, author, subject of any PDF file.</div>
+            <div class="related-card-desc">Edit title, author, keywords, and other PDF metadata.</div>
           </a>
-          <a href="pdf-compressor.html" class="related-card">
-            <div class="related-card-title">PDF Compressor</div>
-            <div class="related-card-desc">Reduce PDF file size while keeping acceptable quality.</div>
+          <a href="delete-pdf-pages.html" class="related-card">
+            <div class="related-card-title">Delete PDF Pages</div>
+            <div class="related-card-desc">Remove specific pages from any PDF document.</div>
           </a>
-          <a href="pdf-to-image.html" class="related-card">
-            <div class="related-card-title">PDF to Image</div>
-            <div class="related-card-desc">Convert PDF pages to PNG or JPEG at up to 288 DPI.</div>
+          <a href="image-to-pdf.html" class="related-card">
+            <div class="related-card-title">Image to PDF</div>
+            <div class="related-card-desc">Convert PNG, JPG, or WebP images into a single PDF.</div>
           </a>
         </div>
       </section>
 
     </div><!-- /sections -->
 
-    <!-- ad bottom -->
-    <div class="ad-wrap" style="margin-top:2rem;">
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
-
   </div><!-- /page-wrap -->
 
-  <div id="toast"></div>
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="logo" aria-label="The Tool Empire">
+          <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="40" height="40" rx="10" fill="url(#fLogoGrad)" />
+            <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round" />
+            <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2" />
+            <defs>
+              <linearGradient id="fLogoGrad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6C63FF" />
+                <stop offset="1" stop-color="#4ECDC4" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <span class="logo-text">The Tool Empire</span>
+        </a>
+        <p class="footer-tagline">Free tools, no limits.</p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <div class="footer-col">
+          <h4>Tools</h4>
+          <a href="../../tools.html">All Tools</a>
+          <a href="../../tools.html?cat=Text">Text Tools</a>
+          <a href="../../tools.html?cat=Math">Math &amp; Calculators</a>
+          <a href="../../tools.html?cat=Color">Color Tools</a>
+          <a href="../../tools.html?cat=Coding">Coding Tools</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="../../blog.html">Blog</a>
+          <a href="../../contact.html">Contact</a>
+          <a href="../../about.html">About</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="../../privacy.html">Privacy Policy</a>
+          <a href="../../terms.html">Terms of Use</a>
+          <a href="../../sitemap.xml">Sitemap</a>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; <span x-text="new Date().getFullYear()"></span> The Tool Empire. All rights reserved.</p>
+        <p>All tools run locally in your browser. We never store your data.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast" role="status" aria-live="polite"></div>
 
   <script src="certificate-generator.js"></script>
 </body>

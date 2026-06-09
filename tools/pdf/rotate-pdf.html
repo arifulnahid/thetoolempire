@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rotate PDF Pages — Rotate PDF Online Free | The Tool Empire</title>
+  <meta name="description" content="Rotate PDF pages individually or all at once. Rotate left, right, or 180° — entirely in your browser. Text stays selectable. No upload, no file size limit, 100% private."/>
+  <meta name="keywords" content="rotate pdf, rotate pdf pages online free, rotate pdf page, rotate pdf 90 degrees, flip pdf page, pdf rotator, rotate pages in pdf"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/pdf/rotate-pdf.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Rotate PDF Pages — Rotate PDF Online Free"/>
+  <meta property="og:description" content="Rotate individual pages or all pages in a PDF — right, left, or 180°. No upload, text stays selectable, 100% private."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/pdf/rotate-pdf.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"Rotate PDF","description":"Free browser-based PDF page rotator. Rotate any combination of pages left 90°, right 90°, or 180°. Uses PDF.js for live thumbnail previews and pdf-lib to encode rotations — text, fonts, and vectors are fully preserved. All processing is 100% client-side, files never leave your device.","url":"https://thetoolempire.com/tools/pdf/rotate-pdf.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Rotate individual pages or all pages","Rotate 90° left, 90° right, or 180°","Live visual thumbnail preview","Preserves text, fonts, and links","100% client-side — no upload","Works in Chrome, Firefox, Edge, Safari"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"PDF Tools","item":"https://thetoolempire.com/tools.html#pdf"},
+      {"@type":"ListItem","position":3,"name":"Rotate PDF","item":"https://thetoolempire.com/tools/pdf/rotate-pdf.html"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Does rotating a PDF upload my file to a server?","acceptedAnswer":{"@type":"Answer","text":"No. All processing runs locally in your browser using pdf-lib. Your file is never uploaded or sent anywhere — it stays entirely on your device."}},
+      {"@type":"Question","name":"Will text stay selectable after rotating pages?","acceptedAnswer":{"@type":"Answer","text":"Yes. pdf-lib encodes the rotation metadata into the page without rasterizing any content. Text, hyperlinks, vector graphics, and fonts remain fully intact and selectable in the output PDF."}},
+      {"@type":"Question","name":"Can I rotate just one page and leave the rest unchanged?","acceptedAnswer":{"@type":"Answer","text":"Yes. Each page has its own ↺ and ↻ buttons. Only the pages you explicitly rotate will be changed in the output — all other pages keep their original orientation."}},
+      {"@type":"Question","name":"Can I rotate a password-protected PDF?","acceptedAnswer":{"@type":"Answer","text":"No. Encrypted PDFs cannot be opened or modified without the password. Use the PDF Password Remover tool first, then rotate here."}},
+      {"@type":"Question","name":"Why are the thumbnails still loading?","acceptedAnswer":{"@type":"Answer","text":"Thumbnail rendering happens in the background after the PDF is opened using PDF.js. You can start rotating pages while they render — the rendering queue doesn't block the editor."}}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="rotate-pdf.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lgR)"/>
+        <rect x="8" y="6" width="14" height="20" rx="2" fill="#fff" fill-opacity=".9"/>
+        <path d="M25 10a8 8 0 0 1 0 14" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M27 7l-2 3 3 1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <defs><linearGradient id="lgR" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#f59e0b"/><stop offset="1" stop-color="#d97706"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="main-wrap" x-data="rotatePdfApp()" x-init="init()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#8888a8">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#8888a8">Tools</a></li><li>›</li>
+      <li><a href="../../tools.html#pdf" style="color:#8888a8">PDF</a></li><li>›</li>
+      <li style="color:#e8e8f0">Rotate PDF</li>
+    </ol>
+  </nav>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/></svg>
+      PDF Tool
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">Rotate PDF</span></h1>
+    <p class="tool-subtitle">Rotate individual pages or all pages at once — left, right, or 180°. Live thumbnail preview, text always stays selectable.</p>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- ── Error banner ── -->
+  <div class="error-banner" x-show="error" x-text="error" style="display:none"></div>
+
+  <!-- ══════════════════════════════════════════════
+       STAGE: upload
+  ══════════════════════════════════════════════ -->
+  <template x-if="stage === 'upload'">
+    <div>
+      <div class="card">
+        <div class="drop-zone" :class="{ dragover: isDragOver }"
+          @dragover.prevent="isDragOver = true"
+          @dragleave.prevent="isDragOver = false"
+          @drop.prevent="onDrop($event)">
+          <div class="drop-icon">🔄</div>
+          <div class="drop-title">Drop your PDF here</div>
+          <p class="drop-hint">or click the button below to choose a file</p>
+          <label class="btn-upload">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Choose PDF File
+            <input type="file" accept=".pdf,application/pdf" style="display:none" @change="onFileInput($event)"/>
+          </label>
+          <p class="upload-note">Single file &nbsp;·&nbsp; Any size &nbsp;·&nbsp; Never uploaded</p>
+        </div>
+      </div>
+
+      <div class="features">
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/></svg></div>
+          <div class="feature-text"><strong>Per-Page Control</strong><span>Rotate each page independently with ↺ ↻ buttons</span></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+          <div class="feature-text"><strong>Bulk Rotate</strong><span>Rotate all pages left or right in one click</span></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg></div>
+          <div class="feature-text"><strong>Live Preview</strong><span>Thumbnail rotates in real-time as you click</span></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></div>
+          <div class="feature-text"><strong>Text Preserved</strong><span>pdf-lib encodes rotation metadata — no rasterization</span></div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ══════════════════════════════════════════════
+       STAGE: editor
+  ══════════════════════════════════════════════ -->
+  <template x-if="stage === 'editor'">
+    <div>
+      <!-- toolbar -->
+      <div class="editor-toolbar">
+        <div class="toolbar-info">
+          <div class="toolbar-fname" x-text="pdfName"></div>
+          <div class="toolbar-meta" x-text="formatSize(pdfSize) + ' · ' + pageCount + (pageCount === 1 ? ' page' : ' pages')"></div>
+        </div>
+        <div class="toolbar-actions">
+          <span class="rotated-badge" x-show="rotatedCount > 0" x-text="rotatedCount + (rotatedCount === 1 ? ' page rotated' : ' pages rotated')"></span>
+          <button class="btn-bulk" @click="rotateAllLeft()" title="Rotate all pages 90° left">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M3 12a9 9 0 0 0 9 9 9 9 0 0 0 6.4-2.7L21 15"/><path d="M21 9V3h-6"/></svg>
+            All ↺
+          </button>
+          <button class="btn-bulk" @click="rotateAllRight()" title="Rotate all pages 90° right">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 12a9 9 0 0 1-9 9 9 9 0 0 1-6.4-2.7L3 15"/><path d="M3 9V3h6"/></svg>
+            All ↻
+          </button>
+          <button class="btn-bulk reset-btn" @click="resetAll()" x-show="rotatedCount > 0" title="Reset all rotations">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M3 12a9 9 0 0 1 9-9 9 9 0 0 1 6.36 2.64L21 9"/><path d="M21 3v6h-6"/></svg>
+            Reset
+          </button>
+          <button class="btn-apply" @click="apply()" :disabled="!canApply">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Apply &amp; Save
+          </button>
+          <label class="btn-bulk" style="cursor:pointer">
+            Change File
+            <input type="file" accept=".pdf,application/pdf" style="display:none" @change="onFileInput($event)"/>
+          </label>
+        </div>
+      </div>
+
+      <!-- thumbnail render progress (shown while still loading) -->
+      <template x-if="renderDone < pageCount">
+        <div>
+          <div class="render-bar"><div class="render-fill" :style="'width:' + renderPct + '%'"></div></div>
+          <div class="render-progress" x-text="'Rendering thumbnails… ' + renderDone + ' / ' + pageCount"></div>
+        </div>
+      </template>
+
+      <!-- page grid -->
+      <div class="page-grid">
+        <template x-for="p in pages" :key="p.num">
+          <div class="page-card" :class="{ 'is-rotated': p.rotation !== 0 }">
+            <div class="thumb-wrap">
+              <!-- spinner while rendering -->
+              <template x-if="!p.dataUrl">
+                <span class="thumb-spinner">↻</span>
+              </template>
+              <!-- thumbnail with CSS rotation for live preview -->
+              <template x-if="p.dataUrl">
+                <img :src="p.dataUrl" :alt="'Page ' + p.num"
+                  :style="'transform: rotate(' + p.rotation + 'deg)'"
+                  draggable="false"/>
+              </template>
+              <!-- page number badge -->
+              <span class="page-num" x-text="p.num"></span>
+              <!-- rotation badge — shown when rotated -->
+              <span class="rot-badge" x-show="p.rotation !== 0" x-text="rotLabel(p.rotation)"></span>
+            </div>
+            <!-- per-page buttons -->
+            <div class="page-btns">
+              <button class="btn-rot" @click="rotateLeft(p.num)" title="Rotate 90° left">↺</button>
+              <button class="btn-rot" @click="rotateRight(p.num)" title="Rotate 90° right">↻</button>
+              <button class="btn-rot btn-reset" x-show="p.rotation !== 0" @click="resetPage(p.num)" title="Reset">✕</button>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <!-- bottom apply button for long lists -->
+      <div style="margin-top:24px;text-align:center" x-show="pageCount > 8">
+        <button class="btn-apply" style="display:inline-flex" @click="apply()" :disabled="!canApply">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Apply &amp; Save
+          <span x-show="rotatedCount > 0" x-text="'(' + rotatedCount + ' changed)'"></span>
+        </button>
+      </div>
+    </div>
+  </template>
+
+  <!-- ══════════════════════════════════════════════
+       STAGE: processing
+  ══════════════════════════════════════════════ -->
+  <template x-if="stage === 'processing'">
+    <div>
+      <div class="card" style="text-align:center;padding:40px 28px">
+        <div style="font-size:2.6rem;margin-bottom:16px">🔄</div>
+        <div style="font-size:1.1rem;font-weight:700;margin-bottom:6px">Applying Rotations…</div>
+        <div class="progress-wrap">
+          <div class="progress-msg" x-text="'Processing page ' + Math.ceil(processProgress / 85 * pageCount) + ' of ' + pageCount + '…'"></div>
+          <div class="progress-bar"><div class="progress-fill" :style="'width:' + processProgress + '%'"></div></div>
+          <div class="progress-pct" x-text="processProgress + '%'"></div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ══════════════════════════════════════════════
+       STAGE: done
+  ══════════════════════════════════════════════ -->
+  <template x-if="stage === 'done'">
+    <div>
+      <div class="card">
+        <div class="result-hero">
+          <div class="result-check">✅</div>
+          <div class="result-title">Rotations Applied!</div>
+          <div class="result-subtitle">Your PDF is ready to download.</div>
+        </div>
+
+        <div class="result-stats">
+          <div class="stat-box">
+            <div class="stat-num" x-text="pageCount"></div>
+            <div class="stat-label">Total Pages</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num" x-text="rotatedCount"></div>
+            <div class="stat-label">Pages Rotated</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num" x-text="formatSize(outputSize)"></div>
+            <div class="stat-label">Output Size</div>
+          </div>
+        </div>
+
+        <button class="btn-download" @click="download()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Rotated PDF
+        </button>
+
+        <div class="result-actions">
+          <button class="btn-secondary" @click="editAgain()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/></svg>
+            Rotate Again
+          </button>
+          <button class="btn-secondary" @click="reset()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            New File
+          </button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- ── FAQ ── -->
+  <section class="faq-section">
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">
+        Does rotating a PDF upload my file anywhere?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">No. Everything runs locally in your browser using PDF.js (for thumbnails) and pdf-lib (for applying rotations). Your file never leaves your device.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">
+        Will text stay selectable after rotating?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">Yes. pdf-lib encodes the rotation as metadata without rasterizing any content. Text, hyperlinks, vector graphics, and fonts are all preserved exactly as in the original.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">
+        Can I rotate just some pages and leave the rest?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">Yes. Use the ↺ or ↻ buttons on individual page cards. Only the pages you rotate will be changed — pages with no rotation badge keep their original orientation.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">
+        Can I rotate a password-protected PDF?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">No. Use the <a href="pdf-password.html">PDF Password Remover</a> to unlock the file first, then rotate it here.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">
+        Why are thumbnails still loading after I open the PDF?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">Thumbnails are rendered page-by-page in the background using PDF.js. You can start rotating pages immediately — the rotation controls work independently of thumbnail loading.</div>
+    </div>
+  </section>
+
+</div><!-- end .main-wrap -->
+
+<div id="toast"></div>
+
+<script src="rotate-pdf.js"></script>
+</body>
+</html>

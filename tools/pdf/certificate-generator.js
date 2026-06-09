@@ -794,7 +794,19 @@ function certificateGeneratorApp() {
       _previewCanvas = this.$refs.previewCanvas;
       _previewCtx = _previewCanvas.getContext('2d');
       this.date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-      this.$nextTick(() => { this._renderThumbs(); this.renderPreview(); });
+      this.$nextTick(() => {
+        this._renderThumbs();
+        this.renderPreview();
+
+        /* Re-render at correct size whenever layout changes */
+        const ro = new ResizeObserver(() => {
+          this.renderPreview();
+          this._renderThumbs();
+        });
+        ro.observe(_previewCanvas.parentElement);
+        const tplGrid = document.querySelector('.tpl-grid');
+        if (tplGrid) ro.observe(tplGrid);
+      });
 
       const rerenderThumbs = ['color', 'template', 'fontId', 'fontScale'];
       ['template', 'color', 'fontId', 'fontScale', 'orientation', 'border',
@@ -815,19 +827,38 @@ function certificateGeneratorApp() {
     },
 
     renderPreview() {
-      const { W, H } = this._dims();
-      _previewCanvas.width = W;
-      _previewCanvas.height = H;
-      drawCertificate(_previewCtx, W, H, this.cfg);
+      if (!_previewCanvas) return;
+      const wrap = _previewCanvas.parentElement;
+      if (!wrap || wrap.clientWidth === 0) return;
+      const dpr  = Math.min(window.devicePixelRatio || 1, 2);
+      const pad  = 14; /* .preview-wrap padding ≈ .85rem each side */
+      const dispW = Math.max(80, wrap.clientWidth - pad * 2);
+      const { W: cW, H: cH } = this._dims();
+      const dispH = Math.round(dispW * cH / cW);
+
+      _previewCanvas.style.width  = dispW + 'px';
+      _previewCanvas.style.height = dispH + 'px';
+      _previewCanvas.width  = Math.round(dispW * dpr);
+      _previewCanvas.height = Math.round(dispH * dpr);
+      _previewCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      drawCertificate(_previewCtx, dispW, dispH, this.cfg);
     },
 
     _renderThumbs() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       this.templates.forEach(tpl => {
         const el = document.getElementById('thumb-' + tpl.id);
         if (!el) return;
+        const container = el.closest('.tpl-thumb');
+        const W = Math.max(60, container ? container.clientWidth : 100);
+        const H = Math.round(W * 5 / 8);
+        el.style.width  = W + 'px';
+        el.style.height = H + 'px';
+        el.width  = Math.round(W * dpr);
+        el.height = Math.round(H * dpr);
         const tc = el.getContext('2d');
-        el.width = 160; el.height = 100;
-        drawCertificate(tc, 160, 100, { ...this.cfg, template: tpl.id, recipient: 'Jane Doe', title: tpl.label });
+        tc.setTransform(dpr, 0, 0, dpr, 0, 0);
+        drawCertificate(tc, W, H, { ...this.cfg, template: tpl.id, recipient: 'Jane Doe', title: tpl.label });
       });
     },
 

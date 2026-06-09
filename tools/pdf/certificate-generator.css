@@ -538,15 +538,16 @@ textarea.field-input {
   align-items: center;
   justify-content: center;
   padding: .85rem;
-  min-height: 220px;
+  min-height: 80px; /* fallback before JS paints */
 }
 
-#previewCanvas {
-  max-width: 100%;
-  height: auto;
+.preview-wrap canvas {
+  display: block;
   border-radius: 3px;
   box-shadow: 0 4px 28px rgba(0, 0, 0, .7);
-  display: block;
+  /* JS controls exact dimensions; max-width is a safety fallback */
+  max-width: 100%;
+  height: auto;
 }
 
 .preview-hint {
@@ -882,6 +883,7 @@ textarea.field-input {
   /* download: keep 3 col but allow narrower */
   .dl-grid {
     gap: .3rem;
+    grid-template-columns: 1fr;
   }
 
   .btn-dl {

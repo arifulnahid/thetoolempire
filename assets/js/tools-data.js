@@ -58,6 +58,33 @@ const TOOLS_DATA = [
 
   // ── MATH & CALCULATORS ─────────────────────────────────────────
   {
+    id: 'twos-complement',
+    title: "Two's Complement Calculator",
+    description: "Convert signed decimal integers to two's complement binary and back. Step-by-step conversion with bit visualization for 8, 16, 32, and 64-bit widths.",
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
+    color: 'linear-gradient(135deg,#06b6d4,#0891b2)',
+    categories: ['Math'],
+    url: 'tools/math/twos-complement.html',
+  },
+  {
+    id: 'ascii-unicode',
+    title: 'ASCII / Unicode Converter',
+    description: 'Convert text to ASCII decimal, hex, binary, octal, HTML entities or URL encoding. Look up any character\'s Unicode code point, block, category, UTF-8 bytes, and browse the interactive ASCII table.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>',
+    color: 'linear-gradient(135deg,#f59e0b,#d97706)',
+    categories: ['Math', 'Dev', 'Coding', 'Utilities'],
+    url: 'tools/coding/ascii-unicode.html',
+  },
+  {
+    id: 'number-system',
+    title: 'Number System Converter',
+    description: 'Convert between binary, octal, decimal, hex and any base 2–36. Bitwise calculator (AND/OR/XOR/NOT/NAND/NOR/shift), IEEE 754 float visualiser (32 & 64-bit), ASCII/Unicode lookup.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h4"/></svg>',
+    color: 'linear-gradient(135deg,#6366f1,#4f46e5)',
+    categories: ['Math'],
+    url: 'tools/math/number-system.html',
+  },
+  {
     id: 'bearing-calculator',
     title: 'Bearing Calculator',
     description: 'Calculate compass bearing between GPS coordinates, convert DMS formats, find back bearings, and apply magnetic declination corrections.',
@@ -122,6 +149,15 @@ const TOOLS_DATA = [
   },
 
   // ── CHARTS & VISUALIZATION ────────────────────────────────────
+  {
+    id: 'json-to-chart',
+    title: 'JSON to Chart',
+    description: 'Paste or upload JSON data and instantly generate bar, line, pie, area, radar, scatter and more. Auto-detects format, syntax-highlighted resizable viewer, 5 palettes, and PNG/SVG/PDF export.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+    color: 'linear-gradient(135deg,#8b5cf6,#7c3aed)',
+    categories: ['Design', 'Data', 'utilities'],
+    url: 'tools/design/json-to-chart.html',
+  },
   {
     id: 'chart-generator',
     title: 'Chart Generator',
@@ -412,6 +448,24 @@ const TOOLS_DATA = [
   },
 
   // ── GIS TOOLS ─────────────────────────────────────────────────
+  {
+    id: 'gpx-viewer',
+    title: 'GPX Viewer',
+    description: 'Upload a GPX file to visualize your track on an interactive map with elevation profile, distance, speed, duration and waypoints. Supports tracks, routes and waypoints. 100% private.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+    color: 'linear-gradient(135deg,#22c55e,#4ade80)',
+    categories: ['GIS'],
+    url: 'tools/gis/gpx-viewer.html',
+  },
+  {
+    id: 'utm-zone-finder',
+    title: 'UTM Zone Finder',
+    description: 'Convert latitude/longitude to UTM coordinates. Find UTM zone number, band letter, easting and northing. Handles Norway and Svalbard special zones. Reverse UTM to lat/lon included.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>',
+    color: 'linear-gradient(135deg,#22c55e,#16a34a)',
+    categories: ['GIS'],
+    url: 'tools/gis/utm-zone-finder.html',
+  },
   {
     id: 'lat-long',
     title: 'Lat Long Converter',

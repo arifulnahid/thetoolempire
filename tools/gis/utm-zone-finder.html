@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>UTM Zone Finder — Find UTM Zone from Latitude & Longitude | The Tool Empire</title>
+  <meta name="description" content="Free online UTM Zone Finder. Convert latitude/longitude to UTM coordinates, find UTM zone number and band letter, reverse UTM to lat/lon. Handles Norway and Svalbard special zones."/>
+  <meta name="keywords" content="UTM zone finder, UTM coordinates, latitude longitude to UTM, UTM zone calculator, UTM converter, WGS84 UTM, easting northing, UTM grid zone, MGRS zone"/>
+  <meta name="robots" content="index,follow"/>
+  <meta name="author" content="The Tool Empire"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/gis/utm-zone-finder.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="UTM Zone Finder — Convert Lat/Lon to UTM Coordinates"/>
+  <meta property="og:description" content="Find UTM zone from latitude and longitude. Get easting, northing, zone number, band letter. Free, instant, runs in your browser."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/gis/utm-zone-finder.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"UTM Zone Finder","applicationCategory":"UtilityApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/gis/utm-zone-finder.html","description":"Convert latitude/longitude to UTM coordinates and find UTM zone numbers, band letters, easting and northing. Supports reverse UTM to lat/lon conversion.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+      {"@type":"ListItem","position":3,"name":"GIS Tools","item":"https://thetoolempire.com/tools.html#gis"},
+      {"@type":"ListItem","position":4,"name":"UTM Zone Finder","item":"https://thetoolempire.com/tools/gis/utm-zone-finder.html"}
+    ]}
+  ]}</script>
+
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="utm-zone-finder.css"/>
+  <link rel="stylesheet" href="../../assets/css/tool.css"/>
+  <link rel="stylesheet" href="../../assets/css/report-modal.css"/>
+</head>
+<body x-data="utmApp()">
+
+<!-- ══ HEADER ══ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#lg)"/>
+        <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/>
+        <defs><linearGradient id="lg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+    GIS / Coordinate Tool
+  </div>
+  <h1>UTM <span>Zone Finder</span></h1>
+  <p>Convert latitude & longitude to UTM coordinates — zone number, band letter, easting and northing. Includes reverse conversion and special zone handling.</p>
+</section>
+
+<!-- ══ TOOL ══ -->
+<div class="tool-wrap" x-data="utmApp()">
+
+  <!-- Presets -->
+  <div class="presets-section">
+    <h3>Quick Examples</h3>
+    <div class="preset-grid">
+      <template x-for="p in presets" :key="p.name">
+        <button class="preset-btn" @click="loadPreset(p)" x-text="p.name"></button>
+      </template>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tab-bar">
+    <button class="tab-btn" :class="{ active: tab==='fwd' }" @click="tab='fwd'">
+      Lat / Lon → UTM
+    </button>
+    <button class="tab-btn" :class="{ active: tab==='rev' }" @click="tab='rev'">
+      UTM → Lat / Lon
+    </button>
+  </div>
+
+  <!-- ── Tab: Forward ── -->
+  <div x-show="tab==='fwd'">
+    <div class="input-card">
+      <h2>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Enter Coordinates (Decimal Degrees)
+      </h2>
+      <div class="coord-grid">
+        <div class="field">
+          <label>Latitude</label>
+          <input type="number" x-model="fLat" placeholder="e.g. 51.5074" step="any" min="-80" max="84" @keydown.enter="calcForward()"/>
+          <small>−80° to +84° (UTM coverage)</small>
+        </div>
+        <div class="field">
+          <label>Longitude</label>
+          <input type="number" x-model="fLon" placeholder="e.g. -0.1278" step="any" min="-180" max="180" @keydown.enter="calcForward()"/>
+          <small>−180° to +180°</small>
+        </div>
+      </div>
+      <button class="calc-btn" @click="calcForward()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Find UTM Zone
+      </button>
+      <div class="error-msg" x-show="fError" x-text="fError"></div>
+    </div>
+
+    <!-- Results -->
+    <div class="result-section" x-show="fResult">
+      <template x-if="fResult">
+        <div>
+          <!-- Zone banner -->
+          <div class="result-zone-banner">
+            <div class="result-zone-label">UTM Zone</div>
+            <div class="result-zone-value" x-text="fResult.zone"></div>
+            <div class="result-zone-sub">
+              Zone <span x-text="fResult.zoneNum"></span> &nbsp;·&nbsp;
+              Band <span x-text="fResult.letter"></span> &nbsp;·&nbsp;
+              <span x-text="fResult.hemisphere"></span> Hemisphere
+            </div>
+          </div>
+
+          <!-- Detail cards -->
+          <div class="result-grid">
+            <div class="result-card">
+              <div class="result-card-label">Zone Number</div>
+              <div class="result-card-value" x-text="fResult.zoneNum"></div>
+              <button class="result-card-copy" @click="copy(fResult.zoneNum,'zn')" :class="{ 'copy-ok': copySuccess==='zn' }">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+            </div>
+            <div class="result-card">
+              <div class="result-card-label">Zone Letter (Band)</div>
+              <div class="result-card-value" x-text="fResult.letter"></div>
+              <button class="result-card-copy" @click="copy(fResult.letter,'zl')" :class="{ 'copy-ok': copySuccess==='zl' }">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+            </div>
+            <div class="result-card">
+              <div class="result-card-label">Hemisphere</div>
+              <div class="result-card-value" x-text="fResult.hemisphere"></div>
+            </div>
+            <div class="result-card">
+              <div class="result-card-label">Easting (m)</div>
+              <div class="result-card-value" x-text="fResult.easting.toLocaleString()"></div>
+              <button class="result-card-copy" @click="copy(fResult.easting,'e')" :class="{ 'copy-ok': copySuccess==='e' }">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+            </div>
+            <div class="result-card">
+              <div class="result-card-label">Northing (m)</div>
+              <div class="result-card-value" x-text="fResult.northing.toLocaleString()"></div>
+              <button class="result-card-copy" @click="copy(fResult.northing,'n')" :class="{ 'copy-ok': copySuccess==='n' }">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+            </div>
+            <div class="result-card">
+              <div class="result-card-label">Central Meridian</div>
+              <div class="result-card-value" x-text="fResult.centralMeridian + '°'"></div>
+              <button class="result-card-copy" @click="copy(fResult.centralMeridian,'cm')" :class="{ 'copy-ok': copySuccess==='cm' }">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Special zone note -->
+          <div class="special-note" x-show="fResult.special">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span x-text="fResult.special"></span>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <!-- Zone map -->
+    <div class="zone-map-section" x-show="fResult">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Zone Strip (1 – 60)
+      </h3>
+      <div class="zone-strip-wrap">
+        <div class="zone-strip">
+          <template x-for="z in Array.from({length:60},(_,i)=>i+1)" :key="z">
+            <div class="zone-cell" :class="{ active: z === activeZone() }" x-text="z"></div>
+          </template>
+        </div>
+      </div>
+      <div class="zone-band-info">
+        <span style="font-size:.78rem;color:var(--text3);margin-right:4px;">Latitude band:</span>
+        <template x-for="l in zoneLetterBands()" :key="l">
+          <span class="band-chip" :class="{ active: l === activeLetter() }">
+            <span x-text="l"></span>
+          </span>
+        </template>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Tab: Reverse ── -->
+  <div x-show="tab==='rev'">
+    <div class="input-card">
+      <h2>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+        Enter UTM Coordinates
+      </h2>
+      <div class="utm-grid-4">
+        <div class="field">
+          <label>Easting (m)</label>
+          <input type="number" x-model="rEasting" placeholder="e.g. 699651" @keydown.enter="calcReverse()"/>
+        </div>
+        <div class="field">
+          <label>Northing (m)</label>
+          <input type="number" x-model="rNorthing" placeholder="e.g. 5710144" @keydown.enter="calcReverse()"/>
+        </div>
+        <div class="field">
+          <label>Zone #</label>
+          <input type="number" x-model="rZone" placeholder="30" min="1" max="60" @keydown.enter="calcReverse()"/>
+        </div>
+        <div class="field">
+          <label>Band</label>
+          <input type="text" x-model="rLetter" placeholder="U" maxlength="1" @keydown.enter="calcReverse()" style="text-transform:uppercase"/>
+        </div>
+      </div>
+      <button class="calc-btn" @click="calcReverse()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+        Convert to Lat / Lon
+      </button>
+      <div class="error-msg" x-show="rError" x-text="rError"></div>
+    </div>
+
+    <div x-show="rResult">
+      <template x-if="rResult">
+        <div class="ll-result-banner">
+          <div class="ll-result-item">
+            <label>Latitude</label>
+            <div class="val" x-text="rResult.lat + '°'"></div>
+          </div>
+          <div class="ll-result-item">
+            <label>Longitude</label>
+            <div class="val" x-text="rResult.lon + '°'"></div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <!-- ══ ABOUT / HOW TO USE / LOGIC ══ -->
+  <section class="tis-section">
+    <div class="tis-grid">
+
+      <div class="tis-card">
+        <div class="tis-icon" style="background:rgba(34,197,94,.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <h3>About This Tool</h3>
+        <p>The UTM Zone Finder converts geographic coordinates (latitude/longitude) to UTM (Universal Transverse Mercator) coordinates and vice versa. UTM is a plane coordinate grid system dividing the Earth into 60 longitudinal zones, each 6° wide, widely used in cartography, surveying, GPS, and GIS applications.</p>
+      </div>
+
+      <div class="tis-card">
+        <div class="tis-icon" style="background:rgba(59,130,246,.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <h3>How to Use</h3>
+        <ol>
+          <li>Enter latitude and longitude in decimal degrees (e.g. 51.5074, −0.1278)</li>
+          <li>Click <strong>Find UTM Zone</strong></li>
+          <li>Read off the zone number, band letter, easting and northing</li>
+          <li>For reverse: switch to the <strong>UTM → Lat/Lon</strong> tab and enter easting, northing, zone number and band letter</li>
+          <li>Use the Quick Examples to explore well-known cities</li>
+        </ol>
+      </div>
+
+      <div class="tis-card">
+        <div class="tis-icon" style="background:rgba(168,85,247,.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <h3>Algorithm & Logic</h3>
+        <p>Uses the <strong>WGS84 ellipsoid</strong> (semi-major axis 6 378 137 m, flattening 1/298.257). Zone number = ⌊(lon+180)/6⌋+1. Band letter from 20 bands (C–X, omitting I & O), each 8° tall (X is 12°). Implements the <strong>transverse Mercator projection</strong> with scale factor k₀ = 0.9996 and a 500 000 m false easting. Handles Norway (zone 32V) and Svalbard (31X/33X/35X/37X) special exceptions.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ FAQ ══ -->
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item" x-data="{open:false}">
+      <div class="faq-q" :class="{open}" @click="open=!open">
+        What is a UTM zone?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="faq-a" x-show="open" x-collapse>The Earth is divided into 60 vertical zones numbered 1–60 west to east, each covering 6° of longitude. Each zone is further divided into horizontal bands C–X (excluding I and O), each covering 8° of latitude (band X is 12°). The combination — e.g. 30U — uniquely identifies a 6° × 8° cell anywhere on Earth outside the polar regions.</div>
+    </div>
+
+    <div class="faq-item" x-data="{open:false}">
+      <div class="faq-q" :class="{open}" @click="open=!open">
+        What does easting and northing mean?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="faq-a" x-show="open" x-collapse>Easting is the distance in metres east of the zone's central meridian (offset by 500 000 m to keep values positive). Northing is the distance in metres north of the equator; in the southern hemisphere a 10 000 000 m false northing is added to avoid negative values.</div>
+    </div>
+
+    <div class="faq-item" x-data="{open:false}">
+      <div class="faq-q" :class="{open}" @click="open=!open">
+        Why does UTM not cover the poles?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="faq-a" x-show="open" x-collapse>UTM is based on the transverse Mercator projection which becomes highly distorted near the poles. Regions above 84°N and below 80°S use the Universal Polar Stereographic (UPS) system instead.</div>
+    </div>
+
+    <div class="faq-item" x-data="{open:false}">
+      <div class="faq-q" :class="{open}" @click="open=!open">
+        What are the Norway and Svalbard exceptions?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="faq-a" x-show="open" x-collapse>Zone 32V is extended westward and zone 31V is narrowed to prevent southwest Norway from being split across two zones. In band X (72°–84°N), zones 31X and 37X are widened and zones 32X, 34X, and 36X are eliminated to keep Svalbard within single zones.</div>
+    </div>
+
+    <div class="faq-item" x-data="{open:false}">
+      <div class="faq-q" :class="{open}" @click="open=!open">
+        How accurate is this tool?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="faq-a" x-show="open" x-collapse>Sub-millimetre accuracy across the full UTM coverage area using the standard WGS84 series expansion. Results are rounded to the nearest metre for easting/northing and to 7 decimal places for the reverse conversion.</div>
+    </div>
+  </section>
+
+</div><!-- /tool-wrap -->
+
+<!-- ══ RELATED TOOLS ══ -->
+<section class="related-section">
+  <div class="tool-wrap">
+    <div class="related-header">
+      <h2 class="related-title">Related Tools</h2>
+      <a href="../../tools.html?cat=GIS" class="btn-view-all">All GIS tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="related-grid">
+      <a href="gpx-viewer.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#22c55e,#4ade80);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="related-tool-name">GPX Viewer</div>
+        <div class="related-tool-desc">Visualize GPX tracks on an interactive map with elevation profile and stats.</div>
+        <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="../math/bearing-calculator.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#0ea5e9,#0284c7);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
+        </div>
+        <div class="related-tool-name">Bearing Calculator</div>
+        <div class="related-tool-desc">Calculate compass bearing between GPS coordinates. Convert DMS, apply declination.</div>
+        <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="lat-long.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#3b82f6,#a78bfa);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+        </div>
+        <div class="related-tool-name">Lat Long Converter</div>
+        <div class="related-tool-desc">Convert coordinates between DD, DMS, DDM, UTM and Geohash formats.</div>
+        <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="coordinate-distance.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+        <div class="related-tool-name">Coordinate Distance</div>
+        <div class="related-tool-desc">Calculate the great-circle distance between two geographic points.</div>
+        <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RELATED BLOG ══ -->
+<section class="related-section">
+  <div class="tool-wrap">
+    <div class="related-header">
+      <h2 class="related-title">Related Articles</h2>
+      <a href="../../blog.html" class="btn-view-all">All articles <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="blog-cards-grid">
+      <a href="../../blog/gis-coordinate-systems.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.25);">GIS</span>
+        <div class="blog-card-title">UTM vs Geographic Coordinates: Which Should You Use and When?</div>
+        <div class="blog-card-excerpt">A practical guide to choosing between lat/lon and UTM for mapping, surveying, and GIS analysis.</div>
+        <div class="blog-card-meta"><span>6 min read</span></div>
+        <span class="blog-read-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="../../blog/gps-coordinate-formats.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(59,130,246,.1);color:#93c5fd;border:1px solid rgba(59,130,246,.25);">GPS</span>
+        <div class="blog-card-title">GPS Coordinate Formats Explained: DD, DMS, DDM, UTM and MGRS</div>
+        <div class="blog-card-excerpt">Every format you'll encounter in navigation, GIS, and surveying — explained with conversion examples.</div>
+        <div class="blog-card-meta"><span>8 min read</span></div>
+        <span class="blog-read-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="../../blog/open-source-gis-tools.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(168,85,247,.1);color:#d8b4fe;border:1px solid rgba(168,85,247,.25);">Tools</span>
+        <div class="blog-card-title">10 Free GIS Tools Every Geographer Should Bookmark</div>
+        <div class="blog-card-excerpt">From coordinate converters to spatial analysis — the best free browser-based GIS tools available today.</div>
+        <div class="blog-card-meta"><span>5 min read</span></div>
+        <span class="blog-read-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo" aria-label="The Tool Empire">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <rect width="40" height="40" rx="10" fill="url(#footerLg)"/>
+          <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/>
+          <defs>
+            <linearGradient id="footerLg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#6C63FF"/>
+              <stop offset="1" stop-color="#4ECDC4"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free tools, no limits.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=Text">Text Tools</a>
+        <a href="../../tools.html?cat=Math">Math &amp; Calculators</a>
+        <a href="../../tools.html?cat=Color">Color Tools</a>
+        <a href="../../tools.html?cat=GIS">GIS Tools</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+        <a href="../../about.html">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../terms.html">Terms of Use</a>
+        <a href="../../sitemap.xml">Sitemap</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>&copy; <span x-text="new Date().getFullYear()"></span> The Tool Empire. All rights reserved.</p>
+      <p>All tools run locally in your browser. We never store your data.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="utm-zone-finder.js"></script>
+<script src="../../assets/js/report-modal.js"></script>
+
+<!-- ══ Report / Feedback Modal ══ -->
+<div x-data="reportModal()" x-cloak>
+  <button class="rm-trigger" @click="openModal()" aria-label="Report or send feedback">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+      <line x1="4" y1="22" x2="4" y2="15"/>
+    </svg>
+    Report / Feedback
+  </button>
+  <div class="rm-overlay" x-show="open"
+       x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+       x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+       @click.self="closeModal()" role="dialog" aria-modal="true">
+    <div class="rm-modal" x-show="open"
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4">
+      <template x-if="submitted">
+        <div class="rm-success">
+          <div class="rm-success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <h3>Thanks for your feedback!</h3>
+          <p>We've received your report and will look into it shortly.</p>
+          <button class="rm-btn-done" @click="reset()">Close</button>
+        </div>
+      </template>
+      <template x-if="!submitted">
+        <div>
+          <div class="rm-header">
+            <div class="rm-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Report / Feedback
+            </div>
+            <button class="rm-close" @click="closeModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+          </div>
+          <div class="rm-types">
+            <button class="rm-type-btn" :class="{ active: form.type==='bug' }"      @click="form.type='bug'"      type="button">🐛 Bug Report</button>
+            <button class="rm-type-btn" :class="{ active: form.type==='wrong' }"    @click="form.type='wrong'"    type="button">⚠️ Wrong Result</button>
+            <button class="rm-type-btn" :class="{ active: form.type==='feature' }"  @click="form.type='feature'"  type="button">💡 Feature Request</button>
+            <button class="rm-type-btn" :class="{ active: form.type==='feedback' }" @click="form.type='feedback'" type="button">💬 Feedback</button>
+          </div>
+          <div class="rm-field">
+            <label class="rm-label" for="rm-message">Description <span>*</span></label>
+            <textarea id="rm-message" class="rm-textarea" x-model="form.message" placeholder="Describe the issue or your suggestion…" rows="4"></textarea>
+            <p class="rm-error-msg" x-show="errors.message" x-text="errors.message"></p>
+          </div>
+          <div class="rm-field">
+            <label class="rm-label" for="rm-email">Email <em style="font-style:normal;color:#475569;">(optional)</em></label>
+            <input id="rm-email" class="rm-input" type="email" x-model="form.email" placeholder="you@example.com"/>
+            <p class="rm-error-msg" x-show="errors.email" x-text="errors.email"></p>
+          </div>
+          <div class="rm-actions">
+            <button class="rm-btn-cancel" type="button" @click="closeModal()">Cancel</button>
+            <button class="rm-btn-submit" type="button" @click="submit()" :disabled="submitting">
+              <template x-if="!submitting"><span style="display:flex;align-items:center;gap:7px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg>Send Report</span></template>
+              <template x-if="submitting"><span style="display:flex;align-items:center;gap:8px;"><span class="rm-spinner"></span>Sending…</span></template>
+            </button>
+          </div>
+          <p class="rm-submit-error" x-show="submitError" x-text="submitError"></p>
+        </div>
+      </template>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

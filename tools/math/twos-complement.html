@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Two's Complement Calculator — Convert Signed Binary Online | The Tool Empire</title>
+  <meta name="description" content="Free online two's complement calculator. Convert decimal to two's complement binary and back. See step-by-step conversion with bit visualization for 8, 16, 32, and 64-bit integers."/>
+  <meta name="keywords" content="two's complement calculator, twos complement converter, signed binary converter, decimal to binary two's complement, binary to decimal signed, 8 bit 16 bit 32 bit signed integer"/>
+  <meta name="robots" content="index,follow"/>
+  <meta name="author" content="The Tool Empire"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/math/twos-complement.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Two's Complement Calculator — Convert Signed Binary Online"/>
+  <meta property="og:description" content="Convert decimal to two's complement binary and vice versa. Step-by-step conversion, bit visualization, hex and octal output for 8 to 64-bit integers."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/math/twos-complement.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"Two's Complement Calculator","applicationCategory":"UtilityApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/math/twos-complement.html","description":"Free browser-based two's complement calculator. Convert decimal to signed binary and back, with step-by-step explanation and bit visualization for 8, 16, 32, and 64-bit integers.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+      {"@type":"ListItem","position":3,"name":"Math &amp; Calculators","item":"https://thetoolempire.com/tools.html#math"},
+      {"@type":"ListItem","position":4,"name":"Two's Complement Calculator","item":"https://thetoolempire.com/tools/math/twos-complement.html"}
+    ]}
+  ]}</script>
+
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <link rel="stylesheet" href="twos-complement.css"/>
+  <link rel="stylesheet" href="../../assets/css/tool.css"/>
+  <link rel="stylesheet" href="../../assets/css/report-modal.css"/>
+</head>
+<body x-data="tcApp()">
+
+<!-- ══ HEADER ══ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hLg)"/>
+        <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/>
+        <defs><linearGradient id="hLg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h4"/></svg>
+    Math &amp; Calculators
+  </div>
+  <h1>Two's <span>Complement</span> Calculator</h1>
+  <p>Convert signed decimal integers to two's complement binary and back. See the full step-by-step conversion with a live bit visualization for 8, 16, 32, and 64-bit widths.</p>
+</section>
+
+<!-- ══ TOOL ══ -->
+<div class="tool-wrap">
+
+  <!-- Mode + bit-width controls -->
+  <div class="ctrl-bar">
+    <div class="mode-group">
+      <button class="ctrl-btn" :class="{ active: mode==='dec2bin' }" @click="switchMode('dec2bin')">
+        Decimal → Binary
+      </button>
+      <button class="ctrl-btn" :class="{ active: mode==='bin2dec' }" @click="switchMode('bin2dec')">
+        Binary → Decimal
+      </button>
+    </div>
+    <div class="bits-group" x-show="mode==='dec2bin'">
+      <template x-for="b in bitOptions" :key="b">
+        <button class="ctrl-btn" :class="{ active: bits===b }" @click="bits=b; calculate()" x-text="b+'-bit'"></button>
+      </template>
+    </div>
+  </div>
+
+  <!-- Main card -->
+  <div class="tc-card">
+
+    <!-- Dec → Bin mode -->
+    <template x-if="mode==='dec2bin'">
+      <div>
+        <div class="tc-label">SIGNED DECIMAL INTEGER</div>
+        <div class="tc-input-row">
+          <input class="tc-input" type="text" x-model="input" @input="calculate()"
+            :placeholder="'e.g. -13  (range: '+(-(2**(bits-1)))+' to '+(2**(bits-1)-1)+')'"
+            autocomplete="off" spellcheck="false"/>
+          <button class="clear-btn" @click="clear()" title="Clear">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div class="tc-hint" x-text="bits+'-bit signed range: '+(-(2**(bits-1)))+' to '+(2**(bits-1)-1)"></div>
+      </div>
+    </template>
+
+    <!-- Bin → Dec mode -->
+    <template x-if="mode==='bin2dec'">
+      <div>
+        <div class="tc-label">TWO'S COMPLEMENT BINARY</div>
+        <div class="tc-input-row">
+          <input class="tc-input" type="text" x-model="input" @input="calculate()"
+            placeholder="e.g. 11110011  (MSB = sign bit)"
+            autocomplete="off" spellcheck="false"/>
+          <button class="clear-btn" @click="clear()" title="Clear">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div class="tc-hint">The leftmost bit is the sign bit. Leading zeros are significant — they affect the bit width.</div>
+      </div>
+    </template>
+
+    <!-- Error -->
+    <div class="tc-err" x-show="err" x-text="err" x-cloak></div>
+
+    <!-- Result -->
+    <template x-if="result">
+      <div class="tc-result">
+
+        <!-- Output fields -->
+        <div class="tc-result-grid">
+          <div class="tc-res-item">
+            <div>
+              <label>Decimal (Signed)</label>
+              <div class="val accent" x-text="result.decimal"></div>
+            </div>
+            <button class="copy-btn" :class="{ ok: copyOk==='dec' }" @click="copy(result.decimal,'dec')" title="Copy">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </div>
+          <div class="tc-res-item">
+            <div>
+              <label>Binary (<span x-text="result.bits"></span>-bit)</label>
+              <div class="val" x-text="grouped(result.binary)"></div>
+            </div>
+            <button class="copy-btn" :class="{ ok: copyOk==='bin' }" @click="copy(result.binary,'bin')" title="Copy">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </div>
+          <div class="tc-res-item">
+            <div>
+              <label>Hexadecimal</label>
+              <div class="val" x-text="result.hex"></div>
+            </div>
+            <button class="copy-btn" :class="{ ok: copyOk==='hex' }" @click="copy(result.hex,'hex')" title="Copy">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </div>
+          <div class="tc-res-item">
+            <div>
+              <label>Octal</label>
+              <div class="val" x-text="result.octal"></div>
+            </div>
+            <button class="copy-btn" :class="{ ok: copyOk==='oct' }" @click="copy(result.octal,'oct')" title="Copy">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Bit visualization -->
+        <div class="bit-viz">
+          <div class="bit-viz-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            Bit layout — <span x-text="result.bits+'-bit, MSB left'"></span>
+          </div>
+          <div class="bit-row">
+            <template x-for="(bit, i) in result.binary.split('')" :key="i">
+              <div class="bit-cell"
+                :class="{
+                  'sign-1': i===0 && bit==='1',
+                  'sign-0': i===0 && bit==='0',
+                  'one':    i>0 && bit==='1',
+                  'zero':   i>0 && bit==='0'
+                }"
+                x-text="bit"></div>
+            </template>
+          </div>
+          <div class="bit-legend">
+            <span><span class="bit-dot" style="background:rgba(239,68,68,.4);border:1px solid rgba(239,68,68,.5);"></span>Sign bit (MSB)</span>
+            <span><span class="bit-dot" style="background:rgba(6,182,212,.2);border:1px solid rgba(6,182,212,.3);"></span>Data bits</span>
+            <span x-show="result.isNeg" style="color:#f87171;font-weight:600;">← Negative value (MSB = 1)</span>
+          </div>
+        </div>
+
+        <!-- Conversion steps (only for negative) -->
+        <template x-if="steps && mode==='dec2bin'">
+          <div class="steps-block">
+            <div class="steps-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              Step-by-step conversion for <span x-text="result.decimal"></span>
+            </div>
+            <div class="step-row">
+              <span class="step-label">① Start with |<span x-text="steps.abs"></span>| =</span>
+              <span class="step-bits" x-text="grouped(steps.magBin)"></span>
+            </div>
+            <div class="step-row">
+              <span class="step-label">② Invert all bits</span>
+              <span class="step-bits inv" x-text="grouped(steps.invBin)"></span>
+            </div>
+            <div class="step-row">
+              <span class="step-label">③ Add 1</span>
+              <span class="step-bits res" x-text="grouped(steps.result)"></span>
+            </div>
+            <div class="step-row">
+              <span class="step-label">✓ Result</span>
+              <span class="step-bits res" x-text="result.decimal + ' = ' + grouped(result.binary)"></span>
+            </div>
+          </div>
+        </template>
+
+        <!-- Reverse steps (Bin → Dec, negative) -->
+        <template x-if="steps && mode==='bin2dec'">
+          <div class="steps-block">
+            <div class="steps-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              Decoding negative two's complement
+            </div>
+            <div class="step-row">
+              <span class="step-label">① Input (MSB=1, negative)</span>
+              <span class="step-bits" x-text="grouped(steps.bin)"></span>
+            </div>
+            <div class="step-row">
+              <span class="step-label">② Invert all bits</span>
+              <span class="step-bits inv" x-text="grouped(steps.inv)"></span>
+            </div>
+            <div class="step-row">
+              <span class="step-label">③ Add 1 → magnitude</span>
+              <span class="step-bits res" x-text="grouped(steps.magnitude)"></span>
+            </div>
+            <div class="step-row">
+              <span class="step-label">✓ Apply negative sign</span>
+              <span class="step-bits res" x-text="steps.decimal.toString()"></span>
+            </div>
+          </div>
+        </template>
+
+      </div>
+    </template>
+
+  </div><!-- /tc-card -->
+
+  <!-- ══ ABOUT ══ -->
+  <section class="info-section">
+    <div class="info-icon-row">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      </div>
+      <h2>About Two's Complement</h2>
+    </div>
+    <div class="info-body">
+      <p>Two's complement is the most widely used method for representing signed integers in binary. Every modern CPU — from your smartphone to a supercomputer — uses two's complement internally for integer arithmetic. Understanding it is fundamental to low-level programming, embedded systems, and computer architecture.</p>
+      <p>In an <strong>n-bit two's complement</strong> system the most significant bit (MSB) carries a negative weight of <code>−2<sup>n−1</sup></code>, while all other bits carry their normal positive powers of 2. This single design choice means that addition and subtraction circuits work identically for both positive and negative numbers, which is why hardware designers love it.</p>
+      <p>Key properties that make two's complement special:</p>
+      <ul>
+        <li>There is exactly <strong>one representation of zero</strong> (unlike sign-magnitude or one's complement, which have +0 and −0).</li>
+        <li>The range for an <em>n</em>-bit value is <code>−2<sup>n−1</sup></code> to <code>+2<sup>n−1</sup> − 1</code> — one more negative number than positive.</li>
+        <li>Adding a positive number and its two's complement always yields zero (with any carry discarded), which is the defining property.</li>
+        <li>Overflow in two's complement arithmetic wraps around predictably — e.g., adding 1 to the maximum value gives the minimum value.</li>
+      </ul>
+      <div class="info-example">
+        <div>8-bit range: <span class="hl-err">−128</span> (10000000) to <span class="hl">+127</span> (01111111)</div>
+        <div>16-bit range: <span class="hl-err">−32 768</span> to <span class="hl">+32 767</span></div>
+        <div>32-bit range: <span class="hl-err">−2 147 483 648</span> to <span class="hl">+2 147 483 647</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ HOW TO USE ══ -->
+  <section class="info-section">
+    <div class="info-icon-row">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
+      <h2>How to Use</h2>
+    </div>
+    <div class="info-body">
+      <ol>
+        <li><strong>Choose a direction.</strong> Select <em>Decimal → Binary</em> to encode a signed integer into two's complement, or <em>Binary → Decimal</em> to decode a two's complement bit string back to a signed decimal.</li>
+        <li><strong>Select bit width</strong> (8, 16, 32, or 64-bit) when in Decimal → Binary mode. The bit width determines the valid input range and the length of the output. In Binary → Decimal mode the width is inferred from how many bits you type.</li>
+        <li><strong>Type your value.</strong> Results update live as you type — no button press needed.
+          <ul style="margin-top:8px;">
+            <li>For <em>Decimal → Binary</em>: enter any whole integer, including negative numbers prefixed with <code>−</code>. Values outside the selected bit-width range will show a range error.</li>
+            <li>For <em>Binary → Decimal</em>: type only <code>0</code>s and <code>1</code>s. The leftmost bit is treated as the sign bit. Leading zeros matter — <code>00001101</code> (8-bit) decodes as +13, while <code>11110011</code> decodes as −13.</li>
+          </ul>
+        </li>
+        <li><strong>Read the results.</strong> The tool shows the binary, hexadecimal, and octal representations alongside the signed decimal value, plus a colour-coded bit visualisation that highlights the sign bit in red.</li>
+        <li><strong>Follow the steps.</strong> When the result is negative the tool shows the full invert-then-add-1 procedure so you can verify the conversion manually.</li>
+        <li><strong>Copy any value</strong> by clicking the copy icon next to it.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ══ LOGIC & ALGORITHM ══ -->
+  <section class="info-section">
+    <div class="info-icon-row">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <h2>Logic &amp; Algorithm</h2>
+    </div>
+    <div class="info-body">
+      <p><strong>Converting a negative decimal to two's complement (Decimal → Binary):</strong></p>
+      <ol>
+        <li>Take the absolute value and write it in binary, left-padded with zeros to the target bit width.</li>
+        <li>Invert every bit (0→1, 1→0). This is the <em>one's complement</em>.</li>
+        <li>Add 1 to the result (ignoring any carry out of the MSB). The result is the two's complement representation.</li>
+      </ol>
+      <div class="info-example">
+        <div>Encode −13 in 8-bit two's complement:</div>
+        <div>① |−13| = 13 → <span class="hl-warn">0000 1101</span></div>
+        <div>② Invert → <span class="hl-warn">1111 0010</span></div>
+        <div>③ Add 1 → <span class="hl">1111 0011</span>  ✓ (−13 in 8-bit)</div>
+      </div>
+      <p style="margin-top:16px;"><strong>Decoding two's complement binary back to decimal (Binary → Decimal):</strong></p>
+      <ol>
+        <li>If the MSB is <code>0</code>: the number is non-negative. Read the binary value directly as an unsigned integer.</li>
+        <li>If the MSB is <code>1</code>: the number is negative. Apply the same procedure in reverse — invert all bits, add 1, read the magnitude, then negate.</li>
+      </ol>
+      <p style="margin-top:14px;"><strong>Mathematical shortcut:</strong> The signed value of any n-bit two's complement string can be computed directly as:</p>
+      <div class="info-example">
+        value = −b<sub>n−1</sub> × 2<sup>n−1</sup> + b<sub>n−2</sub> × 2<sup>n−2</sup> + … + b<sub>1</sub> × 2 + b<sub>0</sub>
+        <div style="margin-top:8px;color:var(--text3);font-size:.8rem;">where b<sub>n−1</sub> is the sign bit and the rest are data bits with normal positive weights.</div>
+      </div>
+      <p style="margin-top:14px;"><strong>Implementation note:</strong> In JavaScript, bitwise operators work internally on signed 32-bit integers. This tool handles all widths (8, 16, 32, 64) using pure arithmetic — adding <code>2<sup>n</sup></code> to negative values to get the unsigned representation, and subtracting <code>2<sup>n</sup></code> from values with a set MSB to decode them.</p>
+    </div>
+  </section>
+
+  <!-- ══ FAQ ══ -->
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <div class="faq-q" @click="$el.classList.toggle('open'); $el.nextElementSibling.style.display=$el.classList.contains('open')?'block':'none'">
+        Why is there one more negative number than positive in two's complement?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a" style="display:none;">
+        Zero is represented as all-zero bits, which "uses up" one slot in the positive half of the range. In 8-bit, the 256 possible bit patterns split as: 128 negatives (10000000–11111111), 1 zero (00000000), and 127 positives (00000001–01111111). The bit pattern <code>10000000</code> encodes −128 with no corresponding +128.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" @click="$el.classList.toggle('open'); $el.nextElementSibling.style.display=$el.classList.contains('open')?'block':'none'">
+        What happens if I overflow — e.g. add 1 to the maximum value?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a" style="display:none;">
+        The value wraps around to the minimum (most negative) value. In 8-bit: <code>01111111</code> (+127) + 1 = <code>10000000</code> (−128). This is a signed integer overflow. In C and C++, signed overflow is undefined behaviour; in Java and many other languages it wraps by definition. Languages like Rust panic in debug mode and wrap in release mode unless you use wrapping_add().
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" @click="$el.classList.toggle('open'); $el.nextElementSibling.style.display=$el.classList.contains('open')?'block':'none'">
+        What is the difference between two's complement and sign-magnitude?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a" style="display:none;">
+        In <strong>sign-magnitude</strong>, the MSB is simply a sign flag (0 = positive, 1 = negative) and the remaining bits hold the absolute value — so <code>00000101</code> = +5 and <code>10000101</code> = −5. This has two representations of zero (+0 and −0) and requires special-cased subtraction circuits. In <strong>two's complement</strong>, no special casing is needed: the same addition hardware works for all signed values, making it far more efficient in silicon.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" @click="$el.classList.toggle('open'); $el.nextElementSibling.style.display=$el.classList.contains('open')?'block':'none'">
+        Does this tool support 64-bit values accurately?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a" style="display:none;">
+        For values within JavaScript's safe integer range (±2<sup>53</sup>−1, roughly ±9 quadrillion) the tool is accurate. Beyond that, JavaScript floating-point precision limits apply. For truly exact 64-bit signed arithmetic you would need <code>BigInt</code> — which is a planned enhancement for this tool.
+      </div>
+    </div>
+  </section>
+
+</div><!-- /tool-wrap -->
+
+<!-- ══ RELATED TOOLS ══ -->
+<section class="related-section">
+  <div class="tool-wrap">
+    <div class="related-header">
+      <h2 class="related-title">Related Tools</h2>
+      <a href="../../tools.html?cat=Math" class="btn-view-all">All Math tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="related-grid">
+      <a href="number-system.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#6366f1,#4f46e5);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h4"/></svg>
+        </div>
+        <div class="related-tool-name">Number System Converter</div>
+        <div class="related-tool-desc">Convert between binary, octal, decimal, hex and any custom base. Bitwise calculator and IEEE 754 viewer included.</div>
+        <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="bearing-calculator.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#0ea5e9,#0284c7);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
+        </div>
+        <div class="related-tool-name">Bearing Calculator</div>
+        <div class="related-tool-desc">Calculate compass bearing and great-circle distance between two GPS coordinate pairs.</div>
+        <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="percentage-calculator.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="9" r="3"/><circle cx="15" cy="15" r="3"/><line x1="5" y1="19" x2="19" y2="5"/></svg>
+        </div>
+        <div class="related-tool-name">Percentage Calculator</div>
+        <div class="related-tool-desc">Calculate percentages, percentage change, and reverse percentage instantly.</div>
+        <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="../text/diff-checker.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#22c55e,#16a34a);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <div class="related-tool-name">Diff Checker</div>
+        <div class="related-tool-desc">Compare two blocks of text and highlight exactly what changed, line by line.</div>
+        <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RELATED BLOG ══ -->
+<section class="related-section">
+  <div class="tool-wrap">
+    <div class="related-header">
+      <h2 class="related-title">Related Articles</h2>
+      <a href="../../blog.html" class="btn-view-all">All articles <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="blog-cards-grid">
+      <a href="../../blog/twos-complement-explained.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(6,182,212,.1);color:#67e8f9;border:1px solid rgba(6,182,212,.25);">CS Basics</span>
+        <div class="blog-card-title">Two's Complement Explained: How Computers Store Negative Numbers</div>
+        <div class="blog-card-excerpt">A plain-English walkthrough of why two's complement was invented, how it works, and why it makes integer arithmetic so elegant.</div>
+        <div class="blog-card-meta"><span>6 min read</span></div>
+        <span class="blog-read-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="../../blog/binary-hex-guide.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(99,102,241,.1);color:#a5b4fc;border:1px solid rgba(99,102,241,.25);">CS Basics</span>
+        <div class="blog-card-title">Binary and Hex Explained: A Practical Guide for Developers</div>
+        <div class="blog-card-excerpt">Why computers use binary, how hexadecimal makes it readable, and the conversions every developer should know by heart.</div>
+        <div class="blog-card-meta"><span>7 min read</span></div>
+        <span class="blog-read-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="../../blog/bitwise-operations.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(34,197,94,.1);color:#86efac;border:1px solid rgba(34,197,94,.25);">Performance</span>
+        <div class="blog-card-title">Bitwise Operations in JavaScript: Tricks Every Programmer Should Know</div>
+        <div class="blog-card-excerpt">From flags and masks to fast integer operations — practical uses of AND, OR, XOR, and shift operators in real code.</div>
+        <div class="blog-card-meta"><span>7 min read</span></div>
+        <span class="blog-read-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo" aria-label="The Tool Empire">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <rect width="40" height="40" rx="10" fill="url(#fLg)"/>
+          <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/>
+          <defs><linearGradient id="fLg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free tools, no limits.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=Text">Text Tools</a>
+        <a href="../../tools.html?cat=Math">Math &amp; Calculators</a>
+        <a href="../../tools.html?cat=GIS">GIS Tools</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+        <a href="../../about.html">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../terms.html">Terms of Use</a>
+        <a href="../../sitemap.xml">Sitemap</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>&copy; <span x-text="new Date().getFullYear()"></span> The Tool Empire. All rights reserved.</p>
+      <p>All tools run locally in your browser. We never store your data.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="twos-complement.js"></script>
+<script src="../../assets/js/report-modal.js"></script>
+
+<!-- ══ Report / Feedback Modal ══ -->
+<div x-data="reportModal()" x-cloak>
+  <button class="rm-trigger" @click="openModal()" aria-label="Report or send feedback">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+      <line x1="4" y1="22" x2="4" y2="15"/>
+    </svg>
+    Report / Feedback
+  </button>
+  <div class="rm-overlay" x-show="open"
+       x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+       x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+       @click.self="closeModal()" role="dialog" aria-modal="true">
+    <div class="rm-modal" x-show="open"
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4">
+      <template x-if="submitted">
+        <div class="rm-success">
+          <div class="rm-success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <h3>Thanks for your feedback!</h3>
+          <p>We've received your report and will look into it shortly.</p>
+          <button class="rm-btn-done" @click="reset()">Close</button>
+        </div>
+      </template>
+      <template x-if="!submitted">
+        <div>
+          <div class="rm-header">
+            <div class="rm-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Report / Feedback
+            </div>
+            <button class="rm-close" @click="closeModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+          </div>
+          <div class="rm-types">
+            <button class="rm-type-btn" :class="{ active: form.type==='bug' }"      @click="form.type='bug'"      type="button">🐛 Bug Report</button>
+            <button class="rm-type-btn" :class="{ active: form.type==='wrong' }"    @click="form.type='wrong'"    type="button">⚠️ Wrong Result</button>
+            <button class="rm-type-btn" :class="{ active: form.type==='feature' }"  @click="form.type='feature'"  type="button">💡 Feature Request</button>
+            <button class="rm-type-btn" :class="{ active: form.type==='feedback' }" @click="form.type='feedback'" type="button">💬 Feedback</button>
+          </div>
+          <div class="rm-field">
+            <label class="rm-label" for="rm-msg">Description <span>*</span></label>
+            <textarea id="rm-msg" class="rm-textarea" x-model="form.message" placeholder="Describe the issue or your suggestion…" rows="4"></textarea>
+            <p class="rm-error-msg" x-show="errors.message" x-text="errors.message"></p>
+          </div>
+          <div class="rm-field">
+            <label class="rm-label" for="rm-email">Email <em style="font-style:normal;color:#475569;">(optional)</em></label>
+            <input id="rm-email" class="rm-input" type="email" x-model="form.email" placeholder="you@example.com"/>
+            <p class="rm-error-msg" x-show="errors.email" x-text="errors.email"></p>
+          </div>
+          <div class="rm-actions">
+            <button class="rm-btn-cancel" type="button" @click="closeModal()">Cancel</button>
+            <button class="rm-btn-submit" type="button" @click="submit()" :disabled="submitting">
+              <template x-if="!submitting"><span style="display:flex;align-items:center;gap:7px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg>Send Report</span></template>
+              <template x-if="submitting"><span style="display:flex;align-items:center;gap:8px;"><span class="rm-spinner"></span>Sending…</span></template>
+            </button>
+          </div>
+          <p class="rm-submit-error" x-show="submitError" x-text="submitError"></p>
+        </div>
+      </template>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

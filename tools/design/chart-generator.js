@@ -123,6 +123,11 @@ function chartGeneratorApp() {
     csvText:      '',
     csvError:     '',
 
+    /* JSON import */
+    showJsonPanel: false,
+    jsonText:      '',
+    jsonError:     '',
+
     /* style */
     chartTitle:    'Monthly Revenue',
     titleFontSize: 17,
@@ -511,5 +516,100 @@ function chartGeneratorApp() {
     },
 
     toggleFaq(el) { el.closest('.faq-item').classList.toggle('open'); },
+
+    /* ── JSON import ───────────────────────────────── */
+    importJson() {
+      this.jsonError = '';
+      const raw = this.jsonText.trim();
+      if (!raw) { this.jsonError = 'Paste your JSON first.'; return; }
+
+      let obj;
+      try { obj = JSON.parse(raw); } catch(e) { this.jsonError = 'Invalid JSON: ' + e.message; return; }
+
+      const pal = this.currentPalette;
+
+      /* 1 — Chart.js native format: { labels, datasets } */
+      if (obj && typeof obj === 'object' && !Array.isArray(obj) && obj.datasets) {
+        if (Array.isArray(obj.labels)) this.labels = obj.labels.join(', ');
+        const isXY = obj.datasets[0]?.data?.[0]?.x !== undefined;
+        this.datasets = (obj.datasets || []).map((ds, i) => ({
+          id:     this._nextDsId++,
+          label:  ds.label || `Dataset ${i + 1}`,
+          values: Array.isArray(ds.data)
+            ? (isXY ? ds.data.map(p => `${p.x},${p.y}`).join('\n') : ds.data.join(', '))
+            : '',
+          color: pal[i % pal.length],
+        }));
+        if (isXY) this.chartType = 'scatter';
+        this._finishJson(); return;
+      }
+
+      /* 2 — Plain key:value object: { "Jan": 10, "Feb": 20 } */
+      if (obj && typeof obj === 'object' && !Array.isArray(obj)) {
+        const entries = Object.entries(obj);
+        if (entries.length && entries.every(([, v]) => typeof v === 'number')) {
+          this.labels   = entries.map(([k]) => k).join(', ');
+          this.datasets = [{ id: this._nextDsId++, label: 'Value', values: entries.map(([, v]) => v).join(', '), color: pal[0] }];
+          this._finishJson(); return;
+        }
+        this.jsonError = 'Plain-object format expects all values to be numbers: {"Jan":10,"Feb":20}'; return;
+      }
+
+      /* 3 — Array */
+      if (Array.isArray(obj) && obj.length > 0) {
+        /* 3a — array of numbers */
+        if (typeof obj[0] === 'number') {
+          this.labels   = obj.map((_, i) => `Item ${i + 1}`).join(', ');
+          this.datasets = [{ id: this._nextDsId++, label: 'Value', values: obj.join(', '), color: pal[0] }];
+          this._finishJson(); return;
+        }
+
+        /* 3b — array of objects */
+        if (typeof obj[0] === 'object' && obj[0] !== null) {
+          /* scatter: [{x,y},...] */
+          if ('x' in obj[0] && 'y' in obj[0]) {
+            this.chartType = 'scatter';
+            this.datasets  = [{ id: this._nextDsId++, label: 'Data', values: obj.map(p => `${p.x},${p.y}`).join('\n'), color: pal[0] }];
+            this._finishJson(); return;
+          }
+
+          /* general: [{labelKey, numKey1, numKey2, ...}] */
+          const keys     = Object.keys(obj[0]);
+          const numKeys  = keys.filter(k => obj.every(r => typeof r[k] === 'number'));
+          const LABEL_HINTS = ['label','name','category','key','month','date','year','quarter','country','city','product','item','region','type','group'];
+          const labelKey = LABEL_HINTS.find(k => k in obj[0]) ?? keys.find(k => !numKeys.includes(k)) ?? keys[0];
+          const dataKeys = numKeys.filter(k => k !== labelKey);
+
+          if (dataKeys.length > 0) {
+            this.labels   = obj.map(r => String(r[labelKey])).join(', ');
+            this.datasets = dataKeys.map((k, i) => ({
+              id: this._nextDsId++, label: k,
+              values: obj.map(r => r[k]).join(', '),
+              color:  pal[i % pal.length],
+            }));
+            this._finishJson(); return;
+          }
+
+          /* simple [{label,value}] */
+          const valKey = ['value','count','total','amount','y','val','score','qty'].find(k => k in obj[0]);
+          if (valKey) {
+            this.labels   = obj.map(r => String(r[labelKey])).join(', ');
+            this.datasets = [{ id: this._nextDsId++, label: valKey, values: obj.map(r => r[valKey]).join(', '), color: pal[0] }];
+            this._finishJson(); return;
+          }
+        }
+
+        this.jsonError = 'Array format not recognized. See the format guide above.'; return;
+      }
+
+      this.jsonError = 'Unrecognized JSON structure. See the format guide above.';
+    },
+
+    _finishJson() {
+      this.showJsonPanel = false;
+      this.jsonText = '';
+      this.activeTab = 'data';
+      this._toast('JSON imported!');
+    },
   };
 }

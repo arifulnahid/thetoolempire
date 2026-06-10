@@ -43,6 +43,7 @@
   ]}</script>
 
   <link rel="stylesheet" href="chart-generator.css"/>
+  <link rel="stylesheet" href="../../assets/css/report-modal.css"/>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -145,11 +146,35 @@
         <!-- ───────── TAB: DATA ───────── -->
         <div x-show="activeTab==='data'">
 
-          <!-- CSV import button -->
-          <button class="csv-btn" @click="showCsvPanel=!showCsvPanel">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-            Import CSV
-          </button>
+          <!-- Import buttons row -->
+          <div style="display:flex;gap:8px;margin-bottom:0;">
+            <button class="csv-btn" @click="showCsvPanel=!showCsvPanel;showJsonPanel=false">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+              Import CSV
+            </button>
+            <button class="csv-btn" style="background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.3);color:var(--primary);" @click="showJsonPanel=!showJsonPanel;showCsvPanel=false">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3M12 8v8M9 11l3-3 3 3"/></svg>
+              Import JSON
+            </button>
+          </div>
+
+          <!-- JSON panel -->
+          <div class="csv-panel json-panel" x-show="showJsonPanel">
+            <div class="csv-panel-title" style="color:var(--primary);">Import JSON Data</div>
+            <div class="json-fmt-guide">
+<strong>Accepted formats:</strong>
+<span class="jfmt-label">Chart.js native</span> <code>{"labels":[…],"datasets":[{"label":"…","data":[…]}]}</code>
+<span class="jfmt-label">Array of objects</span> <code>[{"month":"Jan","sales":10},…]</code>
+<span class="jfmt-label">Key-value object</span> <code>{"Jan":10,"Feb":20}</code>
+<span class="jfmt-label">Array of numbers</span> <code>[10,20,30,40]</code>
+            </div>
+            <textarea class="inp" x-model="jsonText" rows="7" placeholder='Paste JSON here…' style="font-size:.75rem;font-family:monospace"></textarea>
+            <div class="csv-error" x-show="jsonError" x-text="jsonError"></div>
+            <div style="display:flex;gap:7px;margin-top:8px">
+              <button class="btn-import" @click="importJson()">Import</button>
+              <button class="btn-cancel-csv" @click="showJsonPanel=false;jsonError=''">Cancel</button>
+            </div>
+          </div>
 
           <!-- CSV panel -->
           <div class="csv-panel" x-show="showCsvPanel">
@@ -357,30 +382,57 @@ Mar,80,52</div>
 
   <!-- ── Tags / Hashtags ── -->
   
-  <!-- Tool Info Sections -->
-  <section class="tool-info-sections">
-    <div class="tis-grid">
-      <div class="tis-card">
-        <div class="tis-icon-wrap">📋</div>
-        <h3>About This Tool</h3>
-        <p>Chart Generator creates publication-quality bar, line, pie, area, radar, doughnut, polar area, and scatter charts in the browser. Import data from CSV, customise colours, legend, axis labels, and font sizes — then download as PNG, JPEG, SVG, or PDF.</p>
+  <!-- ══ ABOUT ══ -->
+  <section class="info-section">
+    <div class="info-section-icon-row">
+      <div class="info-section-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
       </div>
-      <div class="tis-card">
-        <div class="tis-icon-wrap">🛠</div>
-        <h3>How to Use</h3>
-        <ol>
-        <li>Choose a chart type in the Type tab.</li>
-        <li>Click "Load Sample Data" to pre-fill matching example data, or enter your own labels and values.</li>
-        <li>Import from CSV using the Import CSV button in the Data tab.</li>
-        <li>Adjust colours, legend position, axis labels, and title size in the Style tab.</li>
-        <li>Download as PNG, JPEG, SVG, or PDF using the buttons on the right.</li>
-        </ol>
+      <h2>About This Tool</h2>
+    </div>
+    <div class="info-section-body">
+      <p>Chart Generator is a fully client-side data visualisation tool — nothing is uploaded to a server, and no account is required. It supports <strong>9 chart types</strong>: Bar, Horizontal Bar, Line, Area (filled line), Pie, Doughnut, Radar, Polar Area, and Scatter. You can create single-dataset charts for simple comparisons or multi-dataset charts for side-by-side series.</p>
+      <p>Data can be entered manually, imported from a <strong>CSV file</strong> (paste or upload), or pasted as <strong>JSON</strong> — including Chart.js native format, plain arrays, key-value objects, and arrays of objects with automatic column detection. Charts update live as you change any setting. When you're ready, download your chart as <strong>PNG, JPEG, SVG, or PDF</strong> with a single click.</p>
+    </div>
+  </section>
+
+  <!-- ══ HOW TO USE ══ -->
+  <section class="info-section">
+    <div class="info-section-icon-row">
+      <div class="info-section-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
       </div>
-      <div class="tis-card">
-        <div class="tis-icon-wrap">⚙️</div>
-        <h3>Logic &amp; Algorithm</h3>
-        <p>Rendering is handled by <strong>Chart.js 4</strong>. The Alpine.js reactive state is watched via a single computed <code>chartConfigKey</code> string that JSON-serialises all config fields — one <code>$watch</code> call fires a 180 ms debounced rebuild. Area charts map to Chart.js <code>line</code> type with <code>fill: true</code>. Pie/doughnut charts use one <code>backgroundColor</code> colour per label. PDFs are rendered via <strong>jsPDF</strong> by drawing the chart canvas onto an A4 page.</p>
+      <h2>How to Use</h2>
+    </div>
+    <div class="info-section-body">
+      <ol>
+        <li><strong>Pick a chart type</strong> in the Type tab. Click "Load Sample Data" to instantly see matching example data for that chart type.</li>
+        <li><strong>Add your data</strong> in the Data tab — three options:
+          <ul style="margin-top:8px;margin-bottom:8px;">
+            <li><strong>Manual entry</strong>: type comma-separated labels and values directly into the text fields.</li>
+            <li><strong>Import CSV</strong>: paste CSV text or upload a <code>.csv</code> file. First column = labels, remaining columns = datasets.</li>
+            <li><strong>Import JSON</strong>: paste JSON in any of the supported formats (Chart.js native, <code>[{label,value}]</code>, <code>{"key":number}</code>, or a plain number array). The tool detects the format automatically.</li>
+          </ul>
+        </li>
+        <li><strong>Style your chart</strong> in the Style tab — set title, choose a colour palette, configure legend position and size, set X/Y axis labels, toggle grid lines, smooth lines, and stacking.</li>
+        <li><strong>Download</strong> using the PNG, JPEG, SVG, or PDF buttons on the right panel. All formats include the dark background.</li>
+      </ol>
+      <p style="margin-top:12px;">For scatter plots, enter one <code>x, y</code> pair per line in the dataset values field, or import JSON with <code>[{"x":1,"y":2},…]</code> format.</p>
+    </div>
+  </section>
+
+  <!-- ══ LOGIC ══ -->
+  <section class="info-section">
+    <div class="info-section-icon-row">
+      <div class="info-section-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
       </div>
+      <h2>Logic &amp; Algorithm</h2>
+    </div>
+    <div class="info-section-body">
+      <p><strong>Rendering</strong> is handled by <strong>Chart.js 4</strong>. The Alpine.js component stores all configuration in reactive state and computes a single <code>chartConfigKey</code> string by JSON-serialising every field. A single <code>$watch</code> on this key fires a 180 ms debounced rebuild — so the chart only re-draws after the user stops typing, preventing unnecessary redraws mid-keystroke.</p>
+      <p><strong>JSON import</strong> follows a detection cascade: (1) Chart.js native <code>{ labels, datasets }</code> shape, (2) plain key-value object, (3) flat number array, (4) array of <code>{ x, y }</code> scatter points, (5) array of mixed objects — numeric columns become datasets, the first string-valued column (or a known label key like <code>month</code>, <code>name</code>, <code>category</code>) becomes the labels. This handles most real-world API responses without any schema declaration.</p>
+      <p><strong>Chart type mapping</strong>: <em>Horizontal Bar</em> maps to Chart.js <code>bar</code> with <code>indexAxis: 'y'</code>; <em>Area</em> maps to <code>line</code> with <code>fill: true</code> per dataset. Pie/doughnut charts apply one colour per label across all datasets. PDFs are produced with <strong>jsPDF</strong> by drawing the rasterised canvas onto an auto-rotated A4 page.</p>
     </div>
   </section>
 <div class="tags-section">
@@ -583,5 +635,70 @@ Mar,80,52</div>
 
 <div id="toast"></div>
 <script src="chart-generator.js"></script>
+<script src="../../assets/js/report-modal.js"></script>
+
+<!-- ══ Report / Feedback Modal ══ -->
+<div x-data="reportModal()" x-cloak>
+  <button class="rm-trigger" @click="openModal()" aria-label="Report or send feedback">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+      <line x1="4" y1="22" x2="4" y2="15"/>
+    </svg>
+    Report / Feedback
+  </button>
+  <div class="rm-overlay" x-show="open"
+       x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+       x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+       @click.self="closeModal()" role="dialog" aria-modal="true">
+    <div class="rm-modal" x-show="open"
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4">
+      <template x-if="submitted">
+        <div class="rm-success">
+          <div class="rm-success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <h3>Thanks for your feedback!</h3>
+          <p>We've received your report and will look into it shortly.</p>
+          <button class="rm-btn-done" @click="reset()">Close</button>
+        </div>
+      </template>
+      <template x-if="!submitted">
+        <div>
+          <div class="rm-header">
+            <div class="rm-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Report / Feedback
+            </div>
+            <button class="rm-close" @click="closeModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+          </div>
+          <div class="rm-types">
+            <button class="rm-type-btn" :class="{ active: form.type==='bug' }"      @click="form.type='bug'"      type="button">🐛 Bug Report</button>
+            <button class="rm-type-btn" :class="{ active: form.type==='wrong' }"    @click="form.type='wrong'"    type="button">⚠️ Wrong Result</button>
+            <button class="rm-type-btn" :class="{ active: form.type==='feature' }"  @click="form.type='feature'"  type="button">💡 Feature Request</button>
+            <button class="rm-type-btn" :class="{ active: form.type==='feedback' }" @click="form.type='feedback'" type="button">💬 Feedback</button>
+          </div>
+          <div class="rm-field">
+            <label class="rm-label" for="rm-msg">Description <span>*</span></label>
+            <textarea id="rm-msg" class="rm-textarea" x-model="form.message" placeholder="Describe the issue or your suggestion…" rows="4"></textarea>
+            <p class="rm-error-msg" x-show="errors.message" x-text="errors.message"></p>
+          </div>
+          <div class="rm-field">
+            <label class="rm-label" for="rm-email">Email <em style="font-style:normal;color:#475569;">(optional)</em></label>
+            <input id="rm-email" class="rm-input" type="email" x-model="form.email" placeholder="you@example.com"/>
+            <p class="rm-error-msg" x-show="errors.email" x-text="errors.email"></p>
+          </div>
+          <div class="rm-actions">
+            <button class="rm-btn-cancel" type="button" @click="closeModal()">Cancel</button>
+            <button class="rm-btn-submit" type="button" @click="submit()" :disabled="submitting">
+              <template x-if="!submitting"><span style="display:flex;align-items:center;gap:7px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg>Send Report</span></template>
+              <template x-if="submitting"><span style="display:flex;align-items:center;gap:8px;"><span class="rm-spinner"></span>Sending…</span></template>
+            </button>
+          </div>
+          <p class="rm-submit-error" x-show="submitError" x-text="submitError"></p>
+        </div>
+      </template>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

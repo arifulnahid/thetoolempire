@@ -137,6 +137,7 @@
     ]
   }
   </script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body x-data="textReverserApp()" x-init="init()">
 
@@ -458,6 +459,32 @@
 </section>
 
 <!-- ── TAGS ──────────────────────────────────────────────────── -->
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Text Reverser flips text character-by-character, word-by-word, or line-by-line. It can also reverse only specific characters, flip Unicode emoji and multi-byte characters safely, and mirror text for artistic or debugging purposes.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Type or paste your text in the input box.</li>
+        <li>Choose a reversal mode: Characters, Words, or Lines.</li>
+        <li>The reversed text appears instantly in the output.</li>
+        <li>Click Copy to copy to clipboard.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Character reversal spreads the string into a Unicode-aware array using <code>[...str]</code> (which handles multi-byte characters and emoji correctly) then calls <code>.reverse().join("")</code>. Word and line reversal split on whitespace or newlines respectively, reverse the array, and rejoin.</p>
+      </div>
+    </div>
+  </section>
 <section class="tags-section">
   <div class="container">
     <div class="tags-row">

@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Number System Converter — Binary, Octal, Decimal, Hex, Bitwise, IEEE 754 | The Tool Empire</title>
+  <meta name="description" content="Free online number system tool. Convert between binary, octal, decimal, hex and any base 2–36. Bitwise calculator, IEEE 754 float viewer, ASCII/Unicode lookup. No login needed."/>
+  <meta name="keywords" content="number system converter, binary to decimal, hex converter, bitwise calculator, IEEE 754 viewer, ascii unicode converter, base converter, binary hex octal"/>
+  <meta name="robots" content="index,follow"/>
+  <meta name="author" content="The Tool Empire"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/math/number-system.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Number System Converter — Binary, Octal, Decimal, Hex, Bitwise, IEEE 754"/>
+  <meta property="og:description" content="Convert between any number bases, perform bitwise operations, explore IEEE 754 float representation, and look up ASCII/Unicode characters."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/math/number-system.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"Number System Converter","applicationCategory":"UtilityApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/math/number-system.html","description":"Free browser-based number system tool. Convert between binary, octal, decimal, hex and any custom base. Bitwise calculator, IEEE 754 float representation, ASCII/Unicode lookup.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+      {"@type":"ListItem","position":3,"name":"Math &amp; Calculators","item":"https://thetoolempire.com/tools.html#math"},
+      {"@type":"ListItem","position":4,"name":"Number System Converter","item":"https://thetoolempire.com/tools/math/number-system.html"}
+    ]}
+  ]}</script>
+
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <link rel="stylesheet" href="number-system.css"/>
+  <link rel="stylesheet" href="../../assets/css/tool.css"/>
+  <link rel="stylesheet" href="../../assets/css/report-modal.css"/>
+</head>
+<body x-data="nsApp()">
+
+<!-- ══ HEADER ══ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hLg)"/>
+        <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/>
+        <defs><linearGradient id="hLg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h4"/></svg>
+    Math &amp; Calculators
+  </div>
+  <h1>Number <span>System</span> Tool</h1>
+  <p>Convert between binary, octal, decimal, hex and any custom base. Perform bitwise operations, visualise IEEE 754 floats, and look up ASCII/Unicode characters — all in your browser.</p>
+</section>
+
+<!-- ══ TOOL ══ -->
+<div class="tool-wrap">
+
+  <!-- Tab bar -->
+  <div class="tab-bar">
+    <button class="tab-btn" :class="{ active: tab==='convert' }" @click="tab='convert'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;vertical-align:middle;margin-right:5px"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+      Base Converter
+    </button>
+    <button class="tab-btn" :class="{ active: tab==='bitwise' }" @click="tab='bitwise'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;vertical-align:middle;margin-right:5px"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      Bitwise Calc
+    </button>
+    <button class="tab-btn" :class="{ active: tab==='ieee754' }" @click="tab='ieee754'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;vertical-align:middle;margin-right:5px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
+      IEEE 754
+    </button>
+    <button class="tab-btn" :class="{ active: tab==='ascii' }" @click="tab='ascii'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;vertical-align:middle;margin-right:5px"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+      ASCII / Unicode
+    </button>
+  </div>
+
+  <!-- ══ TAB 1: Base Converter ══ -->
+  <div x-show="tab==='convert'">
+    <div class="s-card">
+      <div class="s-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+        Base Converter
+      </div>
+
+      <div class="cv-grid">
+        <!-- Binary -->
+        <div class="cv-field">
+          <div class="cv-label">
+            <span>Binary</span>
+            <span class="cv-badge">Base 2</span>
+          </div>
+          <div class="cv-input-wrap">
+            <input class="cv-input" type="text" x-model="cv.bin" @input="cvInput('bin')" placeholder="e.g. 1101"/>
+            <button class="cv-copy" :class="{ ok: copyOk==='bin' }" @click="copy(cv.bin,'bin')" title="Copy">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </div>
+          <div class="cv-bin-grouped" x-show="cvBinGrouped" x-text="cvBinGrouped"></div>
+        </div>
+
+        <!-- Octal -->
+        <div class="cv-field">
+          <div class="cv-label">
+            <span>Octal</span>
+            <span class="cv-badge">Base 8</span>
+          </div>
+          <div class="cv-input-wrap">
+            <input class="cv-input" type="text" x-model="cv.oct" @input="cvInput('oct')" placeholder="e.g. 15"/>
+            <button class="cv-copy" :class="{ ok: copyOk==='oct' }" @click="copy(cv.oct,'oct')" title="Copy">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Decimal -->
+        <div class="cv-field">
+          <div class="cv-label">
+            <span>Decimal</span>
+            <span class="cv-badge">Base 10</span>
+          </div>
+          <div class="cv-input-wrap">
+            <input class="cv-input" type="text" x-model="cv.dec" @input="cvInput('dec')" placeholder="e.g. 13"/>
+            <button class="cv-copy" :class="{ ok: copyOk==='dec' }" @click="copy(cv.dec,'dec')" title="Copy">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Hexadecimal -->
+        <div class="cv-field">
+          <div class="cv-label">
+            <span>Hexadecimal</span>
+            <span class="cv-badge">Base 16</span>
+          </div>
+          <div class="cv-input-wrap">
+            <input class="cv-input" type="text" x-model="cv.hex" @input="cvInput('hex')" placeholder="e.g. D or FF"/>
+            <button class="cv-copy" :class="{ ok: copyOk==='hex' }" @click="copy(cv.hex,'hex')" title="Copy">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom base row -->
+      <div class="cv-custom-row" style="margin-top:16px;">
+        <div class="cv-field">
+          <div class="cv-label">
+            <span>Custom Base</span>
+            <span class="cv-badge" x-text="'Base ' + cvBase"></span>
+          </div>
+          <div class="cv-input-wrap">
+            <input class="cv-input" type="text" x-model="cv.cust" @input="cvInput('cust')" placeholder="Enter value…"/>
+            <button class="cv-copy" :class="{ ok: copyOk==='cust' }" @click="copy(cv.cust,'cust')" title="Copy">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="cv-base-field">
+          <label style="font-size:.78rem;font-weight:600;color:var(--text2);">Radix (2–36)</label>
+          <input class="cv-base-input" type="number" min="2" max="36" x-model="cvBase" @change="cvBaseChange()"/>
+        </div>
+      </div>
+
+      <div class="cv-err" x-show="cvErr" x-text="cvErr"></div>
+      <button class="cv-clear" @click="cvClear()">Clear all</button>
+    </div>
+  </div>
+
+  <!-- ══ TAB 2: Bitwise Calculator ══ -->
+  <div x-show="tab==='bitwise'" x-cloak>
+    <div class="s-card">
+      <div class="s-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Bitwise Calculator
+      </div>
+
+      <!-- Input base selector -->
+      <div class="bw-base-row">
+        <span>Input base:</span>
+        <template x-for="b in ['bin','oct','dec','hex']" :key="b">
+          <button class="bw-base-btn" :class="{ active: bwBase===b }" @click="bwBase=b" x-text="b.toUpperCase()"></button>
+        </template>
+      </div>
+
+      <!-- Inputs A & B -->
+      <div class="bw-inputs">
+        <div class="bw-field">
+          <label>Input A</label>
+          <input class="bw-input" type="text" x-model="bwA" :placeholder="bwBase==='bin'?'e.g. 1010':bwBase==='hex'?'e.g. FF':'e.g. 42'"/>
+        </div>
+        <div class="bw-sep" x-text="bwActiveOp?.sym ?? 'op'"></div>
+        <div class="bw-field" x-show="!bwActiveOp?.unary">
+          <label>Input B</label>
+          <input class="bw-input" type="text" x-model="bwB" :placeholder="bwBase==='bin'?'e.g. 0110':bwBase==='hex'?'e.g. 0F':'e.g. 15'"/>
+        </div>
+      </div>
+
+      <!-- Operation selector -->
+      <div class="bw-ops">
+        <template x-for="op in bwOps" :key="op.id">
+          <button class="bw-op-btn" :class="{ active: bwOp===op.id }" @click="bwOp=op.id" x-text="op.label"></button>
+        </template>
+      </div>
+
+      <!-- Bit width -->
+      <div class="bw-bits-row">
+        <span>Result width:</span>
+        <button class="bw-base-btn" :class="{ active: bwBits===8  }" @click="bwBits=8">8-bit</button>
+        <button class="bw-base-btn" :class="{ active: bwBits===16 }" @click="bwBits=16">16-bit</button>
+        <button class="bw-base-btn" :class="{ active: bwBits===32 }" @click="bwBits=32">32-bit</button>
+      </div>
+
+      <button class="calc-btn" @click="calcBw()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        Calculate
+      </button>
+
+      <div class="cv-err" x-show="bwErr" x-text="bwErr" style="margin-top:12px;"></div>
+
+      <!-- Result -->
+      <template x-if="bwResult">
+        <div class="bw-result">
+          <div class="bw-result-grid">
+            <div class="bw-res-item">
+              <label>Decimal</label>
+              <div class="val accent" x-text="bwResult.dec"></div>
+            </div>
+            <div class="bw-res-item">
+              <label>Hex</label>
+              <div class="val" x-text="'0x'+bwResult.hex"></div>
+            </div>
+            <div class="bw-res-item">
+              <label>Octal</label>
+              <div class="val" x-text="'0o'+bwResult.oct"></div>
+            </div>
+            <div class="bw-res-item">
+              <label>Binary</label>
+              <div class="val" x-text="bwResult.bin"></div>
+            </div>
+          </div>
+          <!-- Bit strip -->
+          <div style="margin-top:12px;">
+            <div style="font-size:.73rem;color:var(--text3);margin-bottom:7px;" x-text="bwBits+'-bit representation'"></div>
+            <div class="bit-strip">
+              <template x-for="(bit, i) in bwResult.bits" :key="i">
+                <div class="bit-cell" :class="{ one: bit==='1', zero: bit==='0' }" x-text="bit"></div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <!-- ══ TAB 3: IEEE 754 ══ -->
+  <div x-show="tab==='ieee754'" x-cloak>
+    <div class="s-card">
+      <div class="s-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
+        IEEE 754 Float Viewer
+      </div>
+
+      <div class="f754-input-row">
+        <input class="f754-input" type="text" x-model="f754In" @input="calc754()" placeholder="Enter decimal number (e.g. 3.14, -0.5, Infinity, NaN)"/>
+        <button class="calc-btn" @click="calc754()" style="white-space:nowrap;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          Analyse
+        </button>
+      </div>
+
+      <div class="cv-err" x-show="f754Err" x-text="f754Err"></div>
+
+      <template x-if="f754">
+        <div class="f754-result">
+          <!-- 32-bit -->
+          <div class="f754-block">
+            <h4>32-bit Single Precision (float)</h4>
+            <div class="f754-bit-row">
+              <!-- sign -->
+              <div class="f754-bit f754-sign" x-text="f754.f32.sign"></div>
+              <!-- exponent (8 bits) -->
+              <template x-for="(b,i) in f754.f32.exp.split('')" :key="'e32'+i">
+                <div class="f754-bit f754-exp" x-text="b"></div>
+              </template>
+              <!-- mantissa (23 bits) -->
+              <template x-for="(b,i) in f754.f32.mant.split('')" :key="'m32'+i">
+                <div class="f754-bit f754-mant" x-text="b"></div>
+              </template>
+            </div>
+            <div class="f754-legend">
+              <span><span class="f754-dot" style="background:rgba(239,68,68,.4);border:1px solid rgba(239,68,68,.5);"></span>Sign (1 bit)</span>
+              <span><span class="f754-dot" style="background:rgba(245,158,11,.3);border:1px solid rgba(245,158,11,.4);"></span>Exponent (8 bits)</span>
+              <span><span class="f754-dot" style="background:rgba(99,102,241,.25);border:1px solid rgba(99,102,241,.35);"></span>Mantissa (23 bits)</span>
+            </div>
+            <div class="f754-meta">
+              <div class="f754-meta-item"><label>Sign</label><div class="val" x-text="f754.f32.sign==='0'?'+ (positive)':'− (negative)'"></div></div>
+              <div class="f754-meta-item"><label>Exponent (raw)</label><div class="val" x-text="f754.f32.expVal"></div></div>
+              <div class="f754-meta-item"><label>Exponent (biased)</label><div class="val" x-text="f754.f32.expBias"></div></div>
+              <div class="f754-meta-item"><label>Hex</label><div class="val" x-text="'0x'+f754.f32.hex"></div></div>
+              <div class="f754-meta-item"><label>Binary (32)</label><div class="val" style="font-size:.75rem;word-break:break-all;" x-text="f754.f32.bin.match(/.{1,8}/g)?.join(' ')??f754.f32.bin"></div></div>
+              <div class="f754-meta-item"><label>Special</label><div class="val" x-text="f754.f32.value ?? 'normal'"></div></div>
+            </div>
+          </div>
+
+          <!-- 64-bit -->
+          <div class="f754-block">
+            <h4>64-bit Double Precision (double)</h4>
+            <div class="f754-bit-row">
+              <div class="f754-bit f754-sign" x-text="f754.f64.sign"></div>
+              <template x-for="(b,i) in f754.f64.exp.split('')" :key="'e64'+i">
+                <div class="f754-bit f754-exp" x-text="b"></div>
+              </template>
+              <template x-for="(b,i) in f754.f64.mant.split('').slice(0,32)" :key="'m64a'+i">
+                <div class="f754-bit f754-mant" x-text="b"></div>
+              </template>
+            </div>
+            <div class="f754-bit-row" style="margin-top:2px;">
+              <template x-for="(b,i) in f754.f64.mant.split('').slice(32)" :key="'m64b'+i">
+                <div class="f754-bit f754-mant" x-text="b"></div>
+              </template>
+            </div>
+            <div class="f754-legend">
+              <span><span class="f754-dot" style="background:rgba(239,68,68,.4);border:1px solid rgba(239,68,68,.5);"></span>Sign (1 bit)</span>
+              <span><span class="f754-dot" style="background:rgba(245,158,11,.3);border:1px solid rgba(245,158,11,.4);"></span>Exponent (11 bits)</span>
+              <span><span class="f754-dot" style="background:rgba(99,102,241,.25);border:1px solid rgba(99,102,241,.35);"></span>Mantissa (52 bits)</span>
+            </div>
+            <div class="f754-meta">
+              <div class="f754-meta-item"><label>Sign</label><div class="val" x-text="f754.f64.sign==='0'?'+ (positive)':'− (negative)'"></div></div>
+              <div class="f754-meta-item"><label>Exponent (raw)</label><div class="val" x-text="f754.f64.expVal"></div></div>
+              <div class="f754-meta-item"><label>Exponent (biased)</label><div class="val" x-text="f754.f64.expBias"></div></div>
+              <div class="f754-meta-item"><label>Hex (64)</label><div class="val" style="font-size:.78rem;word-break:break-all;" x-text="'0x'+f754.f64.hex"></div></div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <!-- ══ TAB 4: ASCII / Unicode ══ -->
+  <div x-show="tab==='ascii'" x-cloak>
+    <div class="s-card">
+      <div class="s-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+        ASCII / Unicode Lookup
+      </div>
+
+      <div class="asc-mode-row">
+        <button class="asc-mode-btn" :class="{ active: ascMode==='char' }" @click="ascMode='char'; ascResult=null; ascErr=''">Character → Code</button>
+        <button class="asc-mode-btn" :class="{ active: ascMode==='code' }" @click="ascMode='code'; ascResult=null; ascErr=''">Code → Character</button>
+      </div>
+
+      <div class="asc-input-row">
+        <input class="asc-input" type="text" x-model="ascIn"
+          :placeholder="ascMode==='char' ? 'Type a character (e.g. A)' : 'Code point (e.g. 65, 0x41, 0b1000001)'"
+          @input="calcAsc()"/>
+        <button class="calc-btn" @click="calcAsc()" style="white-space:nowrap;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Look up
+        </button>
+      </div>
+
+      <div class="asc-err" x-show="ascErr" x-text="ascErr"></div>
+
+      <template x-if="ascResult">
+        <div class="asc-result">
+          <div class="asc-char-display" x-text="ascResult.isPrintable ? ascResult.char : '(control)'"></div>
+          <template x-if="ascResult.name">
+            <div style="text-align:center;font-size:.8rem;color:var(--text3);margin-bottom:14px;" x-text="'Named: ' + ascResult.name"></div>
+          </template>
+          <div class="asc-grid">
+            <div class="asc-item">
+              <label>Decimal</label>
+              <div class="val" x-text="ascResult.dec"></div>
+              <button class="asc-copy" @click="copy(ascResult.dec,'asc-dec')" title="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+            <div class="asc-item">
+              <label>Hex</label>
+              <div class="val" x-text="'0x'+ascResult.hex"></div>
+              <button class="asc-copy" @click="copy('0x'+ascResult.hex,'asc-hex')" title="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+            <div class="asc-item">
+              <label>Binary</label>
+              <div class="val" x-text="ascResult.bin"></div>
+              <button class="asc-copy" @click="copy(ascResult.bin,'asc-bin')" title="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+            <div class="asc-item">
+              <label>Octal</label>
+              <div class="val" x-text="'0o'+ascResult.oct"></div>
+              <button class="asc-copy" @click="copy('0o'+ascResult.oct,'asc-oct')" title="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+            <div class="asc-item">
+              <label>Unicode</label>
+              <div class="val" x-text="ascResult.unicode"></div>
+              <button class="asc-copy" @click="copy(ascResult.unicode,'asc-uni')" title="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+            <div class="asc-item">
+              <label>JS Escape</label>
+              <div class="val" x-text="ascResult.escape"></div>
+              <button class="asc-copy" @click="copy(ascResult.escape,'asc-esc')" title="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+            <div class="asc-item">
+              <label>HTML Entity</label>
+              <div class="val" x-text="ascResult.html"></div>
+              <button class="asc-copy" @click="copy(ascResult.html,'asc-html')" title="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+            <div class="asc-item">
+              <label>UTF-8 Bytes</label>
+              <div class="val" x-text="ascResult.utf8"></div>
+              <button class="asc-copy" @click="copy(ascResult.utf8,'asc-utf8')" title="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <!-- ══ ABOUT / HOW-TO / LOGIC ══ -->
+  <section class="tis-section">
+    <div class="tis-grid">
+      <!-- About -->
+      <div class="tis-card">
+        <div class="tis-icon" style="background:rgba(99,102,241,.15);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        </div>
+        <h3>About This Tool</h3>
+        <p>A multi-tab number system toolkit that runs entirely in your browser. No server, no upload, no data ever leaves your device.</p>
+        <ul style="margin-top:10px;">
+          <li><strong>Base Converter</strong> — instant live conversion between binary, octal, decimal, hexadecimal, and any custom base 2–36, including fractional numbers.</li>
+          <li><strong>Bitwise Calculator</strong> — AND, OR, XOR, NOT, NAND, NOR, left/right shift with 8/16/32-bit result visualisation.</li>
+          <li><strong>IEEE 754 Viewer</strong> — sign, exponent, and mantissa breakdown for both 32-bit and 64-bit IEEE 754 floats.</li>
+          <li><strong>ASCII / Unicode</strong> — look up any character by typing it or entering a code point; shows hex, octal, binary, HTML entity, JS escape, and UTF-8 bytes.</li>
+        </ul>
+      </div>
+
+      <!-- How to use -->
+      <div class="tis-card">
+        <div class="tis-icon" style="background:rgba(99,102,241,.15);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <h3>How to Use</h3>
+        <ol>
+          <li>Select a tab: <strong>Base Converter</strong>, <strong>Bitwise Calc</strong>, <strong>IEEE 754</strong>, or <strong>ASCII / Unicode</strong>.</li>
+          <li><strong>Base Converter</strong>: type in any field — all other bases update instantly. Set a custom radix (2–36) in the bottom row.</li>
+          <li><strong>Bitwise Calc</strong>: choose your input base, enter values A (and B if needed), pick an operation, select bit width, click Calculate.</li>
+          <li><strong>IEEE 754</strong>: type any number and see the 32-bit and 64-bit floating-point bit layout with sign/exponent/mantissa colour coding.</li>
+          <li><strong>ASCII / Unicode</strong>: switch between "Character → Code" and "Code → Character" modes. Code points accept decimal, <code>0x</code> hex, <code>0b</code> binary, or <code>0o</code> octal.</li>
+          <li>Click any copy icon to copy that value to your clipboard.</li>
+        </ol>
+      </div>
+
+      <!-- Logic / Algorithm -->
+      <div class="tis-card">
+        <div class="tis-icon" style="background:rgba(99,102,241,.15);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Logic &amp; Algorithm</h3>
+        <ul>
+          <li><strong>Base conversion</strong>: custom <code>nsFromBase(str, base)</code> parses digit-by-digit including fractions; <code>nsToBase(n, base)</code> converts integer and fractional parts separately. Supports all digit symbols 0–9, a–z (base 36 max).</li>
+          <li><strong>Bitwise ops</strong>: JavaScript bitwise operators truncate to signed 32-bit integers; <code>&gt;&gt;&gt; 0</code> coerces to unsigned 32-bit for display.</li>
+          <li><strong>IEEE 754</strong>: <code>Float32Array</code> / <code>Float64Array</code> + <code>DataView</code> are used to read the exact memory representation of a number. Bit fields are extracted from the resulting integer via <code>.toString(2)</code>. Exponent bias = 127 (32-bit) or 1023 (64-bit).</li>
+          <li><strong>ASCII / Unicode</strong>: <code>String.fromCodePoint</code> + <code>codePointAt</code> for full Unicode support beyond the BMP; <code>TextEncoder</code> generates UTF-8 bytes.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FAQ ══ -->
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <div class="faq-q" @click="$el.classList.toggle('open'); $el.nextElementSibling.style.display=$el.classList.contains('open')?'block':'none'">
+        What is the maximum base supported by the converter?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a" style="display:none;">
+        The custom base field accepts any integer from 2 to 36. Digits are 0–9 followed by a–z (case-insensitive), so base 36 uses 0–9 and a–z. Fractional values (with a decimal point) are supported for all bases.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" @click="$el.classList.toggle('open'); $el.nextElementSibling.style.display=$el.classList.contains('open')?'block':'none'">
+        Why does the bitwise result show a very large number for NOT?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a" style="display:none;">
+        JavaScript bitwise NOT (<code>~</code>) operates on a signed 32-bit integer. This tool coerces the result to unsigned 32-bit (<code>&gt;&gt;&gt; 0</code>) for display. For example, <code>~0</code> = <code>-1</code> signed = <code>4294967295</code> (0xFFFFFFFF) unsigned. Use the 8-bit or 16-bit result width buttons to see only the lower bits.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" @click="$el.classList.toggle('open'); $el.nextElementSibling.style.display=$el.classList.contains('open')?'block':'none'">
+        How does IEEE 754 handle special values like Infinity and NaN?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a" style="display:none;">
+        In IEEE 754, an all-ones exponent (255 for 32-bit, 2047 for 64-bit) signals a special value. If the mantissa is all zeros, the number is ±Infinity (sign bit decides). If the mantissa is non-zero, the value is NaN. You can type <code>Infinity</code>, <code>-Infinity</code>, or <code>NaN</code> into the IEEE 754 input field to see their bit patterns.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" @click="$el.classList.toggle('open'); $el.nextElementSibling.style.display=$el.classList.contains('open')?'block':'none'">
+        Does this tool support emoji and non-Latin characters?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a" style="display:none;">
+        Yes. The ASCII/Unicode tab uses <code>codePointAt(0)</code> and <code>String.fromCodePoint()</code>, which handle the full Unicode range including emoji and supplementary characters (code points above U+FFFF). The UTF-8 bytes field will show the multi-byte encoding for any character outside ASCII.
+      </div>
+    </div>
+  </section>
+
+</div><!-- /tool-wrap -->
+
+<!-- ══ RELATED TOOLS ══ -->
+<section class="related-section">
+  <div class="tool-wrap">
+    <div class="related-header">
+      <h2 class="related-title">Related Tools</h2>
+      <a href="../../tools.html?cat=Math" class="btn-view-all">All Math tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="related-grid">
+      <a href="bearing-calculator.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#0ea5e9,#0284c7);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
+        </div>
+        <div class="related-tool-name">Bearing Calculator</div>
+        <div class="related-tool-desc">Calculate compass bearing and distance between two GPS coordinate pairs using the Haversine formula.</div>
+        <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="percentage-calculator.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="9" r="3"/><circle cx="15" cy="15" r="3"/><line x1="5" y1="19" x2="19" y2="5"/></svg>
+        </div>
+        <div class="related-tool-name">Percentage Calculator</div>
+        <div class="related-tool-desc">Calculate percentages, percentage change, and reverse percentage instantly.</div>
+        <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="../text/hex-rgb-converter.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#ec4899,#db2777);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </div>
+        <div class="related-tool-name">Hex → RGB Converter</div>
+        <div class="related-tool-desc">Convert hex color codes to RGB, HSL, and CSS values. Supports all hex formats.</div>
+        <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="../text/diff-checker.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#6366f1,#4f46e5);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <div class="related-tool-name">Diff Checker</div>
+        <div class="related-tool-desc">Compare two blocks of text and see exactly what changed, line by line or character by character.</div>
+        <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RELATED BLOG ══ -->
+<section class="related-section">
+  <div class="tool-wrap">
+    <div class="related-header">
+      <h2 class="related-title">Related Articles</h2>
+      <a href="../../blog.html" class="btn-view-all">All articles <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="blog-cards-grid">
+      <a href="../../blog/binary-hex-guide.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(99,102,241,.1);color:#a5b4fc;border:1px solid rgba(99,102,241,.25);">CS Basics</span>
+        <div class="blog-card-title">Binary and Hex Explained: A Practical Guide for Developers</div>
+        <div class="blog-card-excerpt">Why computers use binary, how hexadecimal makes it readable, and the conversions every developer should know by heart.</div>
+        <div class="blog-card-meta"><span>6 min read</span></div>
+        <span class="blog-read-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="../../blog/ieee754-floating-point.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(245,158,11,.1);color:#fcd34d;border:1px solid rgba(245,158,11,.25);">Deep Dive</span>
+        <div class="blog-card-title">IEEE 754 Floating-Point: Why 0.1 + 0.2 ≠ 0.3</div>
+        <div class="blog-card-excerpt">A visual walkthrough of how modern CPUs store floating-point numbers and the quirks that trip up every programmer eventually.</div>
+        <div class="blog-card-meta"><span>8 min read</span></div>
+        <span class="blog-read-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="../../blog/bitwise-operations.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(34,197,94,.1);color:#86efac;border:1px solid rgba(34,197,94,.25);">Performance</span>
+        <div class="blog-card-title">Bitwise Operations in JavaScript: Tricks Every Programmer Should Know</div>
+        <div class="blog-card-excerpt">From flags and masks to fast integer operations — practical uses of AND, OR, XOR, and shift operators in real code.</div>
+        <div class="blog-card-meta"><span>7 min read</span></div>
+        <span class="blog-read-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo" aria-label="The Tool Empire">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <rect width="40" height="40" rx="10" fill="url(#fLg)"/>
+          <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/>
+          <defs><linearGradient id="fLg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free tools, no limits.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=Text">Text Tools</a>
+        <a href="../../tools.html?cat=Math">Math &amp; Calculators</a>
+        <a href="../../tools.html?cat=GIS">GIS Tools</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+        <a href="../../about.html">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../terms.html">Terms of Use</a>
+        <a href="../../sitemap.xml">Sitemap</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>&copy; <span x-text="new Date().getFullYear()"></span> The Tool Empire. All rights reserved.</p>
+      <p>All tools run locally in your browser. We never store your data.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="number-system.js"></script>
+<script src="../../assets/js/report-modal.js"></script>
+
+<!-- ══ Report / Feedback Modal ══ -->
+<div x-data="reportModal()" x-cloak>
+  <button class="rm-trigger" @click="openModal()" aria-label="Report or send feedback">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+      <line x1="4" y1="22" x2="4" y2="15"/>
+    </svg>
+    Report / Feedback
+  </button>
+  <div class="rm-overlay" x-show="open"
+       x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+       x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+       @click.self="closeModal()" role="dialog" aria-modal="true">
+    <div class="rm-modal" x-show="open"
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4">
+      <template x-if="submitted">
+        <div class="rm-success">
+          <div class="rm-success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <h3>Thanks for your feedback!</h3>
+          <p>We've received your report and will look into it shortly.</p>
+          <button class="rm-btn-done" @click="reset()">Close</button>
+        </div>
+      </template>
+      <template x-if="!submitted">
+        <div>
+          <div class="rm-header">
+            <div class="rm-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Report / Feedback
+            </div>
+            <button class="rm-close" @click="closeModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+          </div>
+          <div class="rm-types">
+            <button class="rm-type-btn" :class="{ active: form.type==='bug' }"      @click="form.type='bug'"      type="button">🐛 Bug Report</button>
+            <button class="rm-type-btn" :class="{ active: form.type==='wrong' }"    @click="form.type='wrong'"    type="button">⚠️ Wrong Result</button>
+            <button class="rm-type-btn" :class="{ active: form.type==='feature' }"  @click="form.type='feature'"  type="button">💡 Feature Request</button>
+            <button class="rm-type-btn" :class="{ active: form.type==='feedback' }" @click="form.type='feedback'" type="button">💬 Feedback</button>
+          </div>
+          <div class="rm-field">
+            <label class="rm-label" for="rm-msg">Description <span>*</span></label>
+            <textarea id="rm-msg" class="rm-textarea" x-model="form.message" placeholder="Describe the issue or your suggestion…" rows="4"></textarea>
+            <p class="rm-error-msg" x-show="errors.message" x-text="errors.message"></p>
+          </div>
+          <div class="rm-field">
+            <label class="rm-label" for="rm-email">Email <em style="font-style:normal;color:#475569;">(optional)</em></label>
+            <input id="rm-email" class="rm-input" type="email" x-model="form.email" placeholder="you@example.com"/>
+            <p class="rm-error-msg" x-show="errors.email" x-text="errors.email"></p>
+          </div>
+          <div class="rm-actions">
+            <button class="rm-btn-cancel" type="button" @click="closeModal()">Cancel</button>
+            <button class="rm-btn-submit" type="button" @click="submit()" :disabled="submitting">
+              <template x-if="!submitting"><span style="display:flex;align-items:center;gap:7px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg>Send Report</span></template>
+              <template x-if="submitting"><span style="display:flex;align-items:center;gap:8px;"><span class="rm-spinner"></span>Sending…</span></template>
+            </button>
+          </div>
+          <p class="rm-submit-error" x-show="submitError" x-text="submitError"></p>
+        </div>
+      </template>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

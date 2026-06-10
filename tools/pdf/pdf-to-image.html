@@ -44,6 +44,7 @@
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -506,6 +507,33 @@
 
 </div><!-- /main-wrap -->
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>PDF to Image Converter exports each page of a PDF as a JPEG, PNG, or WebP image at a chosen resolution (DPI). Supports single page or batch export, with download as individual files or a ZIP archive.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload a PDF file.</li>
+        <li>Choose output format (JPEG, PNG, WebP) and resolution (72–300 DPI).</li>
+        <li>Select which pages to convert (all, or a range).</li>
+        <li>Click Convert.</li>
+        <li>Download images individually or as a ZIP.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Page rendering uses <strong>PDF.js</strong>: <code>pdfjsLib.getDocument(bytes)</code> parses the PDF, then <code>page.render({ canvasContext, viewport })</code> draws each page onto a <code>&lt;canvas&gt;</code>. The viewport scale is <code>DPI / 72</code> (PDF's native unit is 72 pt/inch). The canvas is exported via <code>toDataURL()</code> and zipped with <strong>JSZip</strong>.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

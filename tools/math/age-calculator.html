@@ -56,6 +56,7 @@
     ]
   }
   </script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body x-data="ageCalcApp()" x-init="init()">
 
@@ -454,7 +455,33 @@
   </section>
 
   <!-- ── TAGS ────────────────────────────────────────────────── -->
-  <section class="tags-section">
+  
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Age Calculator computes your exact age from a date of birth to today (or any target date) in years, months, weeks, days, hours, minutes, and seconds. Also shows the next birthday countdown.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Enter your date of birth.</li>
+        <li>Optionally change the target date (defaults to today).</li>
+        <li>Click Calculate to see your exact age in all units.</li>
+        <li>View the birthday countdown timer at the bottom.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Years and months are computed by comparing year/month/day components directly (not by dividing milliseconds) to handle variable month lengths and leap years correctly. Days remaining in the current month are counted from the birth day to the current day. Total days, hours, and smaller units are derived from the millisecond difference.</p>
+      </div>
+    </div>
+  </section>
+<section class="tags-section">
     <div class="container">
       <div class="tags-row">
         <span class="tags-label">Category</span>

@@ -45,6 +45,7 @@
 
   <link rel="stylesheet" href="geojson-merger.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 
 <body>
@@ -625,7 +626,33 @@
 
     </div>
 
-    <footer class="site-footer">
+    
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>GeoJSON Merger combines multiple GeoJSON files into a single FeatureCollection. Useful for joining tiles, merging layers from different sources, or concatenating feature sets before analysis.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload two or more GeoJSON files.</li>
+        <li>Re-order them by dragging if needed.</li>
+        <li>Click Merge.</li>
+        <li>Download the merged GeoJSON FeatureCollection.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Each uploaded file is parsed with <code>JSON.parse()</code>. The merger extracts the <code>features</code> array from each FeatureCollection (unwrapping single Feature or Geometry objects where needed) and concatenates them all into a new <code>FeatureCollection</code>. Duplicate-ID detection optionally warns about overlapping <code>id</code> fields.</p>
+      </div>
+    </div>
+  </section>
+<footer class="site-footer">
       <div class="footer-grid">
         <div>
           <a href="../../index.html" class="logo">

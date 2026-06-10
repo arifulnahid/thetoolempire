@@ -39,6 +39,7 @@
 
   <link rel="stylesheet" href="yt-timestamp.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -544,6 +545,32 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>YouTube Timestamp Generator creates shareable YouTube URLs that start at a specific time — enter a video URL and a time (as MM:SS or seconds) to get a deep-link that jumps straight to that moment.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Paste a YouTube video URL.</li>
+        <li>Enter the timestamp as <code>MM:SS</code> (e.g. <code>1:35</code>) or total seconds.</li>
+        <li>The timestamp URL is generated instantly.</li>
+        <li>Copy the URL and share it.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Time input in MM:SS is converted to seconds: <code>minutes × 60 + seconds</code>. The <code>t=N</code> parameter is appended to the YouTube watch URL: <code>https://www.youtube.com/watch?v=ID&t=Ns</code>. For <code>youtu.be</code> short links: <code>https://youtu.be/ID?t=N</code>. Existing <code>t=</code> parameters in the input URL are stripped before appending the new value.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

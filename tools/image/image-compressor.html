@@ -38,6 +38,7 @@
 
   <link rel="stylesheet" href="image-compressor.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -466,6 +467,33 @@
 
   <hr class="section-divider"/>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Image Compressor reduces JPEG, PNG, and WebP file sizes without requiring server upload. Adjust quality, resize dimensions, and see the compression ratio and before/after file sizes in real time.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload an image (JPEG, PNG, WebP, or GIF).</li>
+        <li>Drag the Quality slider to set compression strength.</li>
+        <li>Optionally set a maximum width or height.</li>
+        <li>Preview the compressed result and compare file sizes.</li>
+        <li>Click Download to save the compressed image.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>The original image is decoded onto an <code>HTMLImageElement</code>. A <code>&lt;canvas&gt;</code> is sized to the target dimensions and the image is drawn with <code>drawImage()</code>. <code>canvas.toDataURL('image/jpeg', quality)</code> re-encodes at the target quality level using the browser's built-in JPEG encoder. PNG compression applies <code>'image/png'</code> export (lossless, smaller canvas = smaller file).</p>
+      </div>
+    </div>
+  </section>
   <!-- Related tools -->
   <div class="page-section" style="margin-top:0">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">

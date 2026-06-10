@@ -103,6 +103,7 @@
     ]
   }
   </script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 
 <body x-data="certificateGeneratorApp()" x-init="init()">
@@ -591,7 +592,34 @@
   </div><!-- /page-wrap -->
 
   <!-- ===== FOOTER ===== -->
-  <footer class="site-footer" role="contentinfo">
+  
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Certificate Generator creates printable PDF certificates with customisable text fields — recipient name, course title, date, and signatures. Choose from multiple professional templates and download instantly.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Select a certificate template.</li>
+        <li>Fill in the recipient name, course/award title, and date.</li>
+        <li>Add optional fields like instructor name or organisation.</li>
+        <li>Preview the certificate in real time.</li>
+        <li>Click Download PDF to save a print-ready A4 landscape PDF.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Templates are defined as SVG or HTML with placeholder slots. Dynamic text is injected into the template's DOM. The final result is rendered to a <code>&lt;canvas&gt;</code> using <code>html2canvas</code> or SVG serialisation, then embedded into a PDF page via <strong>pdf-lib</strong>'s <code>PDFDocument.embedPng()</code> API.</p>
+      </div>
+    </div>
+  </section>
+<footer class="site-footer" role="contentinfo">
     <div class="container footer-inner">
       <div class="footer-brand">
         <a href="/" class="logo" aria-label="The Tool Empire">

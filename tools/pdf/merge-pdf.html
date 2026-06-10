@@ -42,6 +42,7 @@
   <link rel="stylesheet" href="merge-pdf.css"/>
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -430,6 +431,32 @@
 
 </div><!-- /main-wrap -->
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Merge PDF combines multiple PDF files into a single document. Drag to reorder pages between files, and download the merged PDF — all processing happens locally in the browser with no file size limit.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload two or more PDF files.</li>
+        <li>Drag files in the list to change their order.</li>
+        <li>Click Merge PDFs.</li>
+        <li>Download the merged file.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Uses <strong>pdf-lib</strong>: a new empty <code>PDFDocument</code> is created. For each input file, the bytes are loaded with <code>PDFDocument.load(bytes)</code>, all pages are copied with <code>targetDoc.copyPages(srcDoc, allIndices)</code>, and each copied page is added with <code>targetDoc.addPage(page)</code>. The final document is serialised with <code>targetDoc.save()</code>.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-grid">

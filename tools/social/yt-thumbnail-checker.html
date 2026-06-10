@@ -39,6 +39,7 @@
 
   <link rel="stylesheet" href="yt-thumbnail-checker.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -564,6 +565,31 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>YouTube Thumbnail Checker shows all available thumbnail resolutions for any YouTube video — maxresdefault, hqdefault, mqdefault, and sddefault — so you can check which are actually available before downloading or replacing.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Paste a YouTube video URL or ID.</li>
+        <li>All available thumbnail sizes are shown as preview images.</li>
+        <li>Click any thumbnail to download it or open it full size.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>YouTube thumbnail URLs follow a predictable pattern: <code>https://img.youtube.com/vi/VIDEO_ID/QUALITY.jpg</code>. Quality options are <code>maxresdefault</code> (1280×720), <code>sddefault</code> (640×480), <code>hqdefault</code> (480×360), <code>mqdefault</code> (320×180), and <code>default</code> (120×90). Availability is checked by loading each <code>Image</code> object and checking its <code>naturalWidth</code> — unavailable thumbnails return a 120×90 placeholder.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

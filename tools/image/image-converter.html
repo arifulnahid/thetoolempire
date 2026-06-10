@@ -40,6 +40,7 @@
   <!-- JSZip for batch ZIP download — client-side only -->
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -446,6 +447,33 @@
 
   <hr class="section-divider"/>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Image Format Converter transforms images between JPEG, PNG, WebP, GIF, BMP, ICO, and TIFF formats in the browser. Batch conversion supported — upload multiple files and download a ZIP.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload one or more image files.</li>
+        <li>Select the output format.</li>
+        <li>Adjust quality settings if converting to JPEG or WebP.</li>
+        <li>Click Convert.</li>
+        <li>Download individual files or a ZIP archive of all results.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Each image is decoded via an <code>HTMLImageElement</code> and drawn onto a <code>&lt;canvas&gt;</code>. Output format is selected with <code>canvas.toDataURL(targetMimeType, quality)</code>. Canvas supports JPEG, PNG, and WebP natively in modern browsers. BMP is encoded by writing a raw BMP byte header + pixel data from <code>getImageData()</code> into an <code>ArrayBuffer</code>.</p>
+      </div>
+    </div>
+  </section>
   <!-- Related -->
   <div class="page-section" style="margin-top:0">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">

@@ -43,6 +43,7 @@
   <link rel="stylesheet" href="image-to-pdf.css"/>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -438,6 +439,33 @@
 
 </div><!-- /main-wrap -->
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Image to PDF Converter embeds JPEG, PNG, WebP, and GIF images into a PDF document — one image per page or multiple per page with layout options. Supports batch uploads and custom page sizes.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload one or more images.</li>
+        <li>Choose page size (A4, Letter, custom) and orientation.</li>
+        <li>Arrange images by dragging to reorder.</li>
+        <li>Select fit mode: fill page, fit within margins, or original size.</li>
+        <li>Click Convert and download the PDF.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Uses <strong>pdf-lib</strong>: a new <code>PDFDocument</code> is created, then each image is embedded with <code>embedJpg()</code> or <code>embedPng()</code>. A new page is added for each image (or images are tiled using layout math). The image is drawn with <code>page.drawImage(img, { x, y, width, height })</code> after scaling to fit the page with aspect-ratio preservation.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

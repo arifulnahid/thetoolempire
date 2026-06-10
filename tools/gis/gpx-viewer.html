@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>GPX Viewer — Visualize GPX Tracks on a Map | The Tool Empire</title>
+  <meta name="description" content="Free online GPX viewer. Upload a GPX file to see your track on an interactive map with elevation profile, distance, speed, and waypoints. No login, 100% private."/>
+  <meta name="keywords" content="gpx viewer, gpx file viewer, view gpx online, gpx map viewer, gpx track viewer, gpx elevation profile, gps track viewer, online gpx, gpx to map"/>
+  <meta name="robots" content="index,follow"/>
+  <meta name="author" content="The Tool Empire"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/gis/gpx-viewer.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="GPX Viewer — Visualize GPX Tracks on a Map"/>
+  <meta property="og:description" content="Upload a GPX file and instantly see your route on an interactive map with elevation chart, distance, duration and waypoints."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/gis/gpx-viewer.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"GPX Viewer","applicationCategory":"UtilityApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/gis/gpx-viewer.html","description":"Free browser-based GPX file viewer. Visualize GPS tracks on an interactive map with elevation profile, distance, speed, and waypoints.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+      {"@type":"ListItem","position":3,"name":"GIS Tools","item":"https://thetoolempire.com/tools.html#gis"},
+      {"@type":"ListItem","position":4,"name":"GPX Viewer","item":"https://thetoolempire.com/tools/gis/gpx-viewer.html"}
+    ]}
+  ]}</script>
+
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <link rel="stylesheet" href="gpx-viewer.css"/>
+  <link rel="stylesheet" href="../../assets/css/tool.css"/>
+  <link rel="stylesheet" href="../../assets/css/report-modal.css"/>
+</head>
+<body x-data="gpxApp()">
+
+<!-- ══ HEADER ══ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hLg)"/>
+        <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/>
+        <defs><linearGradient id="hLg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    GIS / GPS Tool
+  </div>
+  <h1>GPX <span>Viewer</span></h1>
+  <p>Upload a GPX file to visualize your track on an interactive map — elevation profile, distance, speed, duration, and waypoints. Runs entirely in your browser.</p>
+</section>
+
+<!-- ══ TOOL ══ -->
+<div class="tool-wrap">
+
+  <!-- ── Upload zone (before load) ── -->
+  <div x-show="!loaded">
+    <div class="drop-zone"
+         :class="{ dragging }"
+         @dragover.prevent="dragging=true"
+         @dragleave="dragging=false"
+         @drop.prevent="handleDrop($event)"
+         @click="$refs.fileInput.click()">
+      <input type="file" accept=".gpx" x-ref="fileInput" @change="handleDrop($event)" style="display:none"/>
+      <div class="drop-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div class="drop-title">Drop your GPX file here</div>
+      <div class="drop-sub">Supports tracks, routes and waypoints — GPX 1.0 and 1.1</div>
+      <div class="drop-btn">Browse File</div>
+    </div>
+    <div class="error-box" x-show="error" x-text="error" style="margin-top:14px;"></div>
+  </div>
+
+  <!-- ── Loaded view ── -->
+  <div x-show="loaded" x-cloak>
+
+    <!-- Loaded header bar -->
+    <div class="loaded-bar">
+      <div>
+        <div class="loaded-name">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span x-text="gpx?.name"></span>
+        </div>
+        <div class="loaded-file" x-text="fileName"></div>
+      </div>
+      <button class="btn-reset" @click="reset()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.13"/></svg>
+        Load new file
+      </button>
+    </div>
+
+    <!-- Track selector (only shown when multiple tracks) -->
+    <div class="track-tabs" x-show="gpx && gpx.tracks.length > 1">
+      <template x-for="(trk, i) in gpx?.tracks ?? []" :key="i">
+        <button class="track-tab" :class="{ active: activeTrack === i }" @click="selectTrack(i)" x-text="trk.name"></button>
+      </template>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid" x-show="stats">
+      <template x-if="stats">
+        <div style="display:contents">
+          <div class="stat-card">
+            <div class="stat-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+              Distance
+            </div>
+            <div class="stat-value accent" x-text="fmtDist(stats.dist)"></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+              Elev. Gain
+            </div>
+            <div class="stat-value" x-text="fmtEle(stats.gain)"></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/></svg>
+              Elev. Loss
+            </div>
+            <div class="stat-value" x-text="fmtEle(stats.loss)"></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Duration
+            </div>
+            <div class="stat-value" x-text="fmtDuration(stats.duration)"></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              Avg Speed
+            </div>
+            <div class="stat-value" x-text="fmtSpeed(stats.avgSpeed)"></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              Max Speed
+            </div>
+            <div class="stat-value" x-text="fmtSpeed(stats.maxSpeed)"></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
+              Max Elev.
+            </div>
+            <div class="stat-value" x-text="fmtEle(stats.maxEle)"></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+              Min Elev.
+            </div>
+            <div class="stat-value" x-text="fmtEle(stats.minEle)"></div>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <!-- Map -->
+    <div class="map-card">
+      <div class="map-card-header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+        Track Map
+        <div class="map-legend">
+          <span><span class="legend-dot" style="background:#22c55e;"></span>Start</span>
+          <span><span class="legend-dot" style="background:#ef4444;"></span>End</span>
+          <template x-if="gpx && gpx.waypoints.length">
+            <span><span class="legend-dot" style="background:#f59e0b;"></span>Waypoint</span>
+          </template>
+        </div>
+      </div>
+      <div id="gpx-map"></div>
+    </div>
+
+    <!-- Elevation chart -->
+    <div id="elev-wrap" class="elev-card" style="display:none">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Elevation Profile
+      </h3>
+      <div class="elev-chart-wrap">
+        <canvas id="elev-chart"></canvas>
+      </div>
+    </div>
+
+    <!-- Waypoints table -->
+    <div class="wpt-card" x-show="gpx && gpx.waypoints.length">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+        Waypoints (<span x-text="gpx?.waypoints.length"></span>)
+      </h3>
+      <div style="overflow-x:auto;">
+        <table class="wpt-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Latitude</th>
+              <th>Longitude</th>
+              <th>Elevation</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="(w, i) in gpx?.waypoints ?? []" :key="i">
+              <tr>
+                <td class="wpt-name" x-text="w.name || '—'"></td>
+                <td x-text="w.lat.toFixed(6)"></td>
+                <td x-text="w.lon.toFixed(6)"></td>
+                <td x-text="fmtEle(w.ele)"></td>
+                <td x-text="w.desc || '—'"></td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /loaded -->
+
+  <!-- ══ About / How to Use / Logic ══ -->
+  <section class="tis-section">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon" style="background:rgba(34,197,94,.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h3>About This Tool</h3>
+        <p>The GPX Viewer lets you upload any GPX file and instantly visualize it on an interactive OpenStreetMap. It parses GPS tracks, routes and waypoints, computes statistics like distance, elevation gain, speed and duration, and plots a full elevation profile — all locally in your browser with no data ever leaving your device.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon" style="background:rgba(59,130,246,.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <h3>How to Use</h3>
+        <ol>
+          <li>Click <strong>Browse File</strong> or drag and drop a <code>.gpx</code> file onto the upload zone</li>
+          <li>Your track appears on the map — green dot = start, red dot = end, yellow = waypoints</li>
+          <li>Review the stats cards for distance, elevation, speed and duration</li>
+          <li>Scroll down to see the elevation profile chart</li>
+          <li>If the file has multiple tracks, use the tab bar to switch between them</li>
+          <li>Click <strong>Load new file</strong> to reset and try another GPX</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon" style="background:rgba(168,85,247,.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <h3>Algorithm & Logic</h3>
+        <p>GPX is parsed as XML using the browser's built-in <code>DOMParser</code> — no server upload. Distance uses the <strong>Haversine formula</strong> on consecutive trackpoints. Elevation gain/loss is summed from signed altitude differences. Speed is derived from ISO 8601 timestamps when present. The elevation chart samples up to 600 points for performance and uses cumulative distance (km) as the X-axis.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FAQ ══ -->
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item" x-data="{o:false}">
+      <div class="faq-q" :class="{open:o}" @click="o=!o">What is a GPX file?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+      <div class="faq-a" x-show="o">GPX (GPS Exchange Format) is an open XML-based standard for storing GPS data including tracks, routes and waypoints. It is exported by most GPS devices, sports watches (Garmin, Suunto, Polar), and fitness apps (Strava, Komoot, AllTrails).</div>
+    </div>
+    <div class="faq-item" x-data="{o:false}">
+      <div class="faq-q" :class="{open:o}" @click="o=!o">Is my file uploaded anywhere?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+      <div class="faq-a" x-show="o">No. The file is read entirely by JavaScript in your browser using the FileReader API. Nothing is sent to any server. Map tiles are fetched from OpenStreetMap (the tile images, not your coordinates).</div>
+    </div>
+    <div class="faq-item" x-data="{o:false}">
+      <div class="faq-q" :class="{open:o}" @click="o=!o">Why is elevation not shown?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+      <div class="faq-a" x-show="o">Not all GPX files include <code>&lt;ele&gt;</code> elements. Many phone-recorded tracks omit altitude data. If elevation is missing, the elevation chart is hidden and all elevation stats show "—".</div>
+    </div>
+    <div class="faq-item" x-data="{o:false}">
+      <div class="faq-q" :class="{open:o}" @click="o=!o">Why is speed not shown?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+      <div class="faq-a" x-show="o">Speed requires <code>&lt;time&gt;</code> timestamps in each trackpoint. Files exported from mapping apps (routes drawn on a map) often lack timestamps, so speed cannot be calculated.</div>
+    </div>
+    <div class="faq-item" x-data="{o:false}">
+      <div class="faq-q" :class="{open:o}" @click="o=!o">What is the file size limit?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+      <div class="faq-a" x-show="o">There is no enforced limit — the file is processed in memory. Tracks with more than 100 000 points may be slow to render; the elevation chart automatically samples down to 600 points for chart performance.</div>
+    </div>
+  </section>
+
+</div><!-- /tool-wrap -->
+
+<!-- ══ RELATED TOOLS ══ -->
+<section class="related-section">
+  <div class="tool-wrap">
+    <div class="related-header">
+      <h2 class="related-title">Related Tools</h2>
+      <a href="../../tools.html?cat=GIS" class="btn-view-all">All GIS tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="related-grid">
+      <a href="utm-zone-finder.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#22c55e,#16a34a);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </div>
+        <div class="related-tool-name">UTM Zone Finder</div>
+        <div class="related-tool-desc">Convert latitude/longitude to UTM coordinates. Find zone number, band letter, easting and northing.</div>
+        <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="gpx-kml-converter.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#3b82f6,#60a5fa);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="related-tool-name">GPX → KML Converter</div>
+        <div class="related-tool-desc">Convert GPX files to KML format for use in Google Earth and Google Maps.</div>
+        <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="gpx-geojson-converter.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        </div>
+        <div class="related-tool-name">GPX → GeoJSON</div>
+        <div class="related-tool-desc">Convert GPX tracks and waypoints to GeoJSON for web mapping and APIs.</div>
+        <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="../math/bearing-calculator.html" class="related-tool-card">
+        <div class="related-tool-icon" style="background:linear-gradient(135deg,#0ea5e9,#0284c7);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
+        </div>
+        <div class="related-tool-name">Bearing Calculator</div>
+        <div class="related-tool-desc">Calculate compass bearing and distance between GPS coordinate pairs.</div>
+        <span class="related-tool-link">Try it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RELATED BLOG ══ -->
+<section class="related-section">
+  <div class="tool-wrap">
+    <div class="related-header">
+      <h2 class="related-title">Related Articles</h2>
+      <a href="../../blog.html" class="btn-view-all">All articles <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="blog-cards-grid">
+      <a href="../../blog/gpx-file-guide.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.25);">GPS</span>
+        <div class="blog-card-title">GPX Files Explained: How to Create, Edit, and View GPS Tracks</div>
+        <div class="blog-card-excerpt">Everything you need to know about the GPX format — from Garmin exports to Strava downloads and online viewers.</div>
+        <div class="blog-card-meta"><span>7 min read</span></div>
+        <span class="blog-read-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="../../blog/gps-track-analysis.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(59,130,246,.1);color:#93c5fd;border:1px solid rgba(59,130,246,.25);">Fitness</span>
+        <div class="blog-card-title">How to Analyse Your GPS Track Data for Better Training</div>
+        <div class="blog-card-excerpt">Elevation gain, pace zones, segment analysis — make the most of the data recorded on your runs and rides.</div>
+        <div class="blog-card-meta"><span>9 min read</span></div>
+        <span class="blog-read-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <a href="../../blog/open-source-gis-tools.html" class="blog-card-sm">
+        <span class="blog-cat-badge" style="background:rgba(168,85,247,.1);color:#d8b4fe;border:1px solid rgba(168,85,247,.25);">Tools</span>
+        <div class="blog-card-title">10 Free GIS Tools Every Geographer Should Bookmark</div>
+        <div class="blog-card-excerpt">From coordinate converters to spatial analysis — the best free browser-based GIS tools available today.</div>
+        <div class="blog-card-meta"><span>5 min read</span></div>
+        <span class="blog-read-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo" aria-label="The Tool Empire">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <rect width="40" height="40" rx="10" fill="url(#fLg)"/>
+          <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/>
+          <defs><linearGradient id="fLg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free tools, no limits.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=Text">Text Tools</a>
+        <a href="../../tools.html?cat=Math">Math &amp; Calculators</a>
+        <a href="../../tools.html?cat=GIS">GIS Tools</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+        <a href="../../about.html">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../terms.html">Terms of Use</a>
+        <a href="../../sitemap.xml">Sitemap</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>&copy; <span x-text="new Date().getFullYear()"></span> The Tool Empire. All rights reserved.</p>
+      <p>All tools run locally in your browser. We never store your data.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="gpx-viewer.js"></script>
+<script src="../../assets/js/report-modal.js"></script>
+
+<!-- ══ Report / Feedback Modal ══ -->
+<div x-data="reportModal()" x-cloak>
+  <button class="rm-trigger" @click="openModal()" aria-label="Report or send feedback">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+      <line x1="4" y1="22" x2="4" y2="15"/>
+    </svg>
+    Report / Feedback
+  </button>
+  <div class="rm-overlay" x-show="open"
+       x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+       x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+       @click.self="closeModal()" role="dialog" aria-modal="true">
+    <div class="rm-modal" x-show="open"
+         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4">
+      <template x-if="submitted">
+        <div class="rm-success">
+          <div class="rm-success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <h3>Thanks for your feedback!</h3>
+          <p>We've received your report and will look into it shortly.</p>
+          <button class="rm-btn-done" @click="reset()">Close</button>
+        </div>
+      </template>
+      <template x-if="!submitted">
+        <div>
+          <div class="rm-header">
+            <div class="rm-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Report / Feedback
+            </div>
+            <button class="rm-close" @click="closeModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+          </div>
+          <div class="rm-types">
+            <button class="rm-type-btn" :class="{ active: form.type==='bug' }"      @click="form.type='bug'"      type="button">🐛 Bug Report</button>
+            <button class="rm-type-btn" :class="{ active: form.type==='wrong' }"    @click="form.type='wrong'"    type="button">⚠️ Wrong Result</button>
+            <button class="rm-type-btn" :class="{ active: form.type==='feature' }"  @click="form.type='feature'"  type="button">💡 Feature Request</button>
+            <button class="rm-type-btn" :class="{ active: form.type==='feedback' }" @click="form.type='feedback'" type="button">💬 Feedback</button>
+          </div>
+          <div class="rm-field">
+            <label class="rm-label" for="rm-msg">Description <span>*</span></label>
+            <textarea id="rm-msg" class="rm-textarea" x-model="form.message" placeholder="Describe the issue or your suggestion…" rows="4"></textarea>
+            <p class="rm-error-msg" x-show="errors.message" x-text="errors.message"></p>
+          </div>
+          <div class="rm-field">
+            <label class="rm-label" for="rm-email">Email <em style="font-style:normal;color:#475569;">(optional)</em></label>
+            <input id="rm-email" class="rm-input" type="email" x-model="form.email" placeholder="you@example.com"/>
+            <p class="rm-error-msg" x-show="errors.email" x-text="errors.email"></p>
+          </div>
+          <div class="rm-actions">
+            <button class="rm-btn-cancel" type="button" @click="closeModal()">Cancel</button>
+            <button class="rm-btn-submit" type="button" @click="submit()" :disabled="submitting">
+              <template x-if="!submitting"><span style="display:flex;align-items:center;gap:7px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg>Send Report</span></template>
+              <template x-if="submitting"><span style="display:flex;align-items:center;gap:8px;"><span class="rm-spinner"></span>Sending…</span></template>
+            </button>
+          </div>
+          <p class="rm-submit-error" x-show="submitError" x-text="submitError"></p>
+        </div>
+      </template>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

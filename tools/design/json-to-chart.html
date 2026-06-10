@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>JSON to Chart — Paste or Upload JSON &amp; Visualize Instantly | The Tool Empire</title>
+<meta name="description" content="Paste or upload JSON data and instantly generate beautiful charts. Auto-detects format, syntax-highlighted resizable viewer, 8 chart types, multiple palettes, and PNG/SVG/PDF download."/>
+<link rel="canonical" href="https://thetoolempire.com/tools/design/json-to-chart.html"/>
+<link rel="stylesheet" href="../../assets/css/report-modal.css"/>
+<link rel="stylesheet" href="json-to-chart.css"/>
+</head>
+<body>
+
+<!-- ══ Header ══════════════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="10" fill="url(#lg)"/>
+        <path d="M10 28l6-8 5 6 4-5 5 7" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <defs><linearGradient id="lg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ Hero ═════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 3h18v4H3z"/><path d="M3 11h12v4H3z"/><path d="M3 19h8v4H3z"/></svg>
+    Design &amp; Data Tools
+  </div>
+  <h1>JSON to <span class="g">Chart</span></h1>
+  <p>Paste or upload any JSON — auto-detected, syntax-highlighted, and charted in seconds.</p>
+</div>
+
+<!-- ══ Tool ══════════════════════════════════════════════════════════ -->
+<div class="page-wrap" x-data="jsonToChartApp()" x-init="init()" x-cloak>
+
+  <div class="jtc-layout">
+
+    <!-- ─── LEFT: JSON input + viewer ──────────────────────────── -->
+    <div class="jtc-left">
+
+      <!-- Toolbar -->
+      <div class="jtc-toolbar">
+        <label class="upload-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Upload .json
+          <input type="file" accept=".json,application/json" @change="handleFile($event)"/>
+        </label>
+        <button class="tb-btn primary" @click="formatJson()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h14"/></svg>
+          Format
+        </button>
+        <button class="tb-btn" @click="minifyJson()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          Minify
+        </button>
+        <button class="tb-btn" @click="copyRaw()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+        <button class="tb-btn danger" @click="clear()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+          Clear
+        </button>
+      </div>
+
+      <!-- Textarea -->
+      <textarea
+        class="json-input"
+        x-model="raw"
+        placeholder='Paste JSON here… e.g. [{"month":"Jan","sales":120},{"month":"Feb","sales":195}]'
+        spellcheck="false"
+      ></textarea>
+
+      <!-- Parse error -->
+      <div class="parse-err" x-show="parseErr" x-text="parseErr"></div>
+
+      <!-- Detected badge -->
+      <div class="detected-badge" x-show="detected">
+        <span class="label">Detected:</span>
+        <span class="format" x-text="detected"></span>
+        <span class="dot"></span>
+        <span class="stats" x-text="dataStats"></span>
+      </div>
+
+      <!-- Viewer header -->
+      <div class="viewer-header">
+        <span class="viewer-header-title">JSON Viewer</span>
+        <div class="viewer-header-actions">
+          <button class="vh-btn" @click="viewerExpanded = true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            Expand
+          </button>
+        </div>
+      </div>
+
+      <!-- Viewer -->
+      <div class="json-viewer" x-ref="jsonViewer">
+        <pre x-show="highlighted" x-html="highlighted"></pre>
+        <pre x-show="!highlighted" style="color:var(--faint);font-style:italic;">// Viewer will show formatted JSON here…</pre>
+      </div>
+
+      <!-- Drag handle -->
+      <div class="drag-handle" x-ref="dragHandle" title="Drag to resize viewer"></div>
+
+      <!-- Samples -->
+      <div class="sample-row">
+        <span>Samples:</span>
+        <template x-for="t in chartTypes" :key="t.id">
+          <button class="sample-btn" @click="loadSample(t.id)" x-text="t.label"></button>
+        </template>
+      </div>
+
+    </div>
+
+    <!-- ─── RIGHT: Chart builder ───────────────────────────────── -->
+    <div class="jtc-right">
+
+      <!-- Chart type -->
+      <div class="chart-card">
+        <div class="cc-label">Chart Type</div>
+        <div class="type-row">
+          <template x-for="t in chartTypes" :key="t.id">
+            <button class="type-btn" :class="{ active: chartType === t.id }" @click="chartType = t.id" x-text="t.label"></button>
+          </template>
+        </div>
+      </div>
+
+      <!-- Palette -->
+      <div class="chart-card">
+        <div class="cc-label">Color Palette</div>
+        <div class="palette-row">
+          <template x-for="pal in palettes" :key="pal.id">
+            <div class="pal-chip" :class="{ active: paletteId === pal.id }" @click="paletteId = pal.id">
+              <div class="pal-swatches">
+                <template x-for="(c, idx) in pal.colors.slice(0,4)" :key="idx">
+                  <div class="pal-swatch" :style="`background:${c}`"></div>
+                </template>
+              </div>
+              <span class="pal-name" x-text="pal.label"></span>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- Options -->
+      <div class="chart-card">
+        <div class="cc-label">Options</div>
+        <div class="opts-row">
+          <input class="title-input" type="text" x-model="chartTitle" placeholder="Chart title (optional)"/>
+          <button class="toggle-pill" :class="{ on: showLegend }" @click="showLegend = !showLegend">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="4" height="4" rx="1"/><line x1="9" y1="5" x2="21" y2="5"/><rect x="3" y="11" width="4" height="4" rx="1"/><line x1="9" y1="13" x2="21" y2="13"/><rect x="3" y="19" width="4" height="4" rx="1"/><line x1="9" y1="21" x2="21" y2="21"/></svg>
+            Legend
+          </button>
+          <button class="toggle-pill" :class="{ on: showGrid }" @click="showGrid = !showGrid">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3zM3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+            Grid
+          </button>
+          <button class="toggle-pill" :class="{ on: smoothLine }" @click="smoothLine = !smoothLine">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17c2-4 4-6 6-6s4 6 6 6 4-8 6-12"/></svg>
+            Smooth
+          </button>
+          <button class="toggle-pill" :class="{ on: stacked }" @click="stacked = !stacked">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="5" rx="1"/><rect x="3" y="10" width="18" height="5" rx="1"/><rect x="3" y="17" width="18" height="5" rx="1"/></svg>
+            Stacked
+          </button>
+        </div>
+        <div style="margin-top:12px;">
+          <div class="cc-label" style="margin-bottom:8px;">Aspect Ratio</div>
+          <div class="ar-row">
+            <template x-for="r in arOptions" :key="r.id">
+              <button class="ar-btn" :class="{ active: arId === r.id }" @click="arId = r.id" x-text="r.label"></button>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <!-- Canvas -->
+      <div class="canvas-card">
+        <canvas x-ref="canvas"></canvas>
+        <div x-show="!parsed" style="text-align:center;padding:48px 16px;color:var(--faint);font-size:.88rem;">
+          Paste valid JSON on the left to generate a chart
+        </div>
+      </div>
+
+      <!-- Downloads -->
+      <div class="chart-card" x-show="parsed">
+        <div class="cc-label">Download</div>
+        <div class="dl-row">
+          <button class="dl-btn" @click="downloadPng()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
+            PNG
+            <span>Raster</span>
+          </button>
+          <button class="dl-btn" @click="downloadJpeg()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
+            JPEG
+            <span>Compressed</span>
+          </button>
+          <button class="dl-btn" @click="downloadSvg()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            SVG
+            <span>Vector</span>
+          </button>
+          <button class="dl-btn" @click="downloadPdf()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            PDF
+            <span>Document</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ Viewer Expand Modal ══════════════════════════════════════ -->
+  <div class="viewer-modal" x-show="viewerExpanded" x-cloak @click.self="viewerExpanded = false"
+       x-transition:enter="transition ease-out duration-200"
+       x-transition:enter-start="opacity-0"
+       x-transition:enter-end="opacity-100"
+       x-transition:leave="transition ease-in duration-150"
+       x-transition:leave-start="opacity-100"
+       x-transition:leave-end="opacity-0">
+    <div class="viewer-modal-box">
+      <div class="vm-toolbar">
+        <span class="vm-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/></svg>
+          JSON Inspector
+        </span>
+        <div class="vm-actions">
+          <span class="vm-stats" x-text="dataStats" x-show="dataStats"></span>
+          <button class="vm-btn" @click="copyRaw()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy
+          </button>
+          <button class="vm-btn close-btn" @click="viewerExpanded = false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Close
+          </button>
+        </div>
+      </div>
+      <pre class="vm-pre" x-show="highlighted" x-html="highlighted"></pre>
+      <pre class="vm-pre vm-empty" x-show="!highlighted">No JSON to display yet.</pre>
+    </div>
+  </div>
+
+  <!-- ══ Info Sections ════════════════════════════════════════════ -->
+  <div class="info-sections">
+
+    <!-- About -->
+    <section class="info-sec">
+      <div class="info-sec-head">
+        <div class="info-sec-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h2>About JSON to Chart</h2>
+      </div>
+      <div class="info-sec-body">
+        <p><strong>JSON to Chart</strong> is a free browser-based tool that converts raw JSON data into interactive, publication-quality charts with zero setup. Paste your JSON directly or upload a <code>.json</code> file and the tool auto-detects the data structure, renders a syntax-highlighted viewer, and builds a chart — all in real time.</p>
+        <p>The tool supports <strong>8 chart types</strong>: Bar, Horizontal Bar, Line, Area, Pie, Donut, Radar, and Scatter. It recognizes five common JSON formats out of the box, from plain key-value objects to arrays of multi-series records. The JSON viewer is fully resizable with a drag handle and can be expanded to full-screen for inspecting large payloads.</p>
+        <p>Everything runs entirely in your browser — no data is sent to any server. Charts can be exported as <strong>PNG, JPEG, SVG, or PDF</strong>.</p>
+      </div>
+    </section>
+
+    <!-- How to Use -->
+    <section class="info-sec">
+      <div class="info-sec-head">
+        <div class="info-sec-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h2>How to Use</h2>
+      </div>
+      <div class="info-sec-body">
+        <ol>
+          <li><strong>Input JSON</strong> — Paste JSON into the text area, or click <em>Upload .json</em> to load a local file. Samples are available for each chart type.</li>
+          <li><strong>Inspect the viewer</strong> — The panel below the textarea shows syntax-highlighted, formatted JSON. Drag the handle at the bottom to resize it; click <em>Expand</em> for a full-screen inspector. Use <em>Format</em> to pretty-print and <em>Minify</em> to compact.</li>
+          <li><strong>Check the detected badge</strong> — Once the JSON parses successfully, a badge shows the auto-detected format and row/series count.</li>
+          <li><strong>Choose a chart type</strong> — Click any of the 8 type pills on the right panel. Some formats (e.g. <code>{"x","y"}</code> pairs) auto-switch to Scatter.</li>
+          <li><strong>Customize</strong> — Pick a colour palette, toggle the legend/grid/smooth/stacked options, add a title, and select an aspect ratio.</li>
+          <li><strong>Download</strong> — Use the download buttons (PNG / JPEG / SVG / PDF) below the chart to save the result.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Logic & Supported Formats -->
+    <section class="info-sec">
+      <div class="info-sec-head">
+        <div class="info-sec-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h2>Logic &amp; Supported Formats</h2>
+      </div>
+      <div class="info-sec-body">
+        <p>When JSON is parsed, the tool runs a <strong>5-step detection cascade</strong> to figure out how to map your data onto chart axes:</p>
+        <table class="fmt-table">
+          <thead>
+            <tr><th>#</th><th>Format</th><th>Example</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Chart.js native</td>
+              <td><code>{"labels":[…],"datasets":[{"label":"…","data":[…]}]}</code></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Key-value object</td>
+              <td><code>{"Jan":120,"Feb":195,"Mar":160}</code></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Number array</td>
+              <td><code>[120,195,160,210]</code></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Scatter pairs</td>
+              <td><code>[{"x":1.2,"y":3.4},{"x":2.1,"y":4.8}]</code></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Array of objects</td>
+              <td><code>[{"month":"Jan","sales":120,"costs":80}]</code> — label key auto-detected, numeric columns become series</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin-top:16px;">For format 5, the label key is chosen by matching against a priority list of common column names (<code>name</code>, <code>month</code>, <code>label</code>, <code>category</code>, etc.). All remaining numeric columns become separate chart series — so a single JSON array can produce a multi-series bar or line chart with no configuration.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ══ Related Tools ════════════════════════════════════════════ -->
+  <div class="related-sec">
+    <div class="related-hd">
+      <h2>Related Tools</h2>
+      <a href="../../tools.html" class="view-all">
+        All Tools
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+    </div>
+    <div class="tools-grid">
+      <a class="tool-card" href="chart-generator.html">
+        <div class="tool-icon" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg>
+        </div>
+        <div class="tool-name">Chart Generator</div>
+        <div class="tool-desc">Build multi-dataset charts with manual input, CSV import, or JSON.</div>
+        <span class="tool-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="tool-card" href="color-picker.html">
+        <div class="tool-icon" style="background:linear-gradient(135deg,#f7971e,#ffd200)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10"/></svg>
+        </div>
+        <div class="tool-name">Color Picker</div>
+        <div class="tool-desc">Pick any color and export HEX, RGB, HSL values.</div>
+        <span class="tool-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="tool-card" href="gradient-generator.html">
+        <div class="tool-icon" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><defs><linearGradient id="gi" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#aaa"/></linearGradient></defs><rect x="3" y="3" width="18" height="18" rx="3" fill="url(#gi)" stroke="currentColor"/></svg>
+        </div>
+        <div class="tool-name">Gradient Generator</div>
+        <div class="tool-desc">Create linear or radial CSS gradients with live preview.</div>
+        <span class="tool-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="tool-card" href="hex-rgb-converter.html">
+        <div class="tool-icon" style="background:linear-gradient(135deg,#06b6d4,#0ea5e9)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 12v-8a8 8 0 0 1 8 8"/></svg>
+        </div>
+        <div class="tool-name">HEX to RGB</div>
+        <div class="tool-desc">Convert between HEX, RGB, HSL, and CMYK color formats.</div>
+        <span class="tool-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ Related Blog ══════════════════════════════════════════════ -->
+  <div class="related-sec">
+    <div class="related-hd">
+      <h2>From the Blog</h2>
+      <a href="../../blog.html" class="view-all">
+        All Posts
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+    </div>
+    <div class="blog-grid">
+      <a class="blog-card" href="../../blog/json-visualization-guide.html">
+        <span class="blog-cat" style="background:rgba(139,92,246,.12);color:#a78bfa;">Data</span>
+        <div class="blog-title">JSON Data Visualization: A Practical Guide</div>
+        <div class="blog-excerpt">Learn how to structure JSON for charts, pick the right chart type for your data, and avoid common pitfalls in data visualization.</div>
+        <div class="blog-meta">June 2025 · 8 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/chart-types-guide.html">
+        <span class="blog-cat" style="background:rgba(6,182,212,.1);color:#67e8f9;">Charts</span>
+        <div class="blog-title">Choosing the Right Chart Type for Your Data</div>
+        <div class="blog-excerpt">Bar, line, pie, radar — each chart type has strengths. This guide helps you match your data structure to the most effective visualization.</div>
+        <div class="blog-meta">May 2025 · 6 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/working-with-json.html">
+        <span class="blog-cat" style="background:rgba(245,158,11,.1);color:#fcd34d;">Dev</span>
+        <div class="blog-title">Working with JSON: Format, Parse, and Debug</div>
+        <div class="blog-excerpt">From API responses to config files — tips for validating, formatting, and debugging JSON efficiently in modern development workflows.</div>
+        <div class="blog-meta">April 2025 · 5 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ Toast ═════════════════════════════════════════════════════ -->
+  <div class="jtc-toast" x-show="toastMsg" x-cloak x-text="toastMsg"
+       x-transition:enter="transition ease-out duration-200"
+       x-transition:enter-start="opacity-0 translate-y-2"
+       x-transition:enter-end="opacity-100 translate-y-0"
+       x-transition:leave="transition ease-in duration-150"
+       x-transition:leave-start="opacity-100 translate-y-0"
+       x-transition:leave-end="opacity-0 translate-y-2"></div>
+
+  <!-- Report button -->
+  <div style="text-align:center;padding:24px 0 0;" x-data="reportModal('JSON to Chart')">
+    <button @click="open = true" style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--faint);cursor:pointer;transition:color .14s,border-color .14s;" @mouseover="$el.style.borderColor='#f87171';$el.style.color='#f87171'" @mouseout="$el.style.borderColor='';$el.style.color=''">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Report an Issue
+    </button>
+    <!-- Report modal -->
+    <div x-show="open" x-cloak style="position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;" @click.self="open=false">
+      <div style="background:#1e1e28;border:1px solid rgba(255,255,255,.12);border-radius:16px;width:100%;max-width:440px;padding:28px;">
+        <h3 style="font-size:1.1rem;font-weight:800;margin-bottom:6px;">Report an Issue</h3>
+        <p style="font-size:.85rem;color:#a0a0b8;margin-bottom:18px;">Let us know what's wrong with <strong>JSON to Chart</strong>.</p>
+        <select x-model="reason" style="width:100%;padding:10px 14px;background:#141420;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#e8e8f0;font-size:.87rem;margin-bottom:12px;outline:none;">
+          <option value="">Select a reason…</option>
+          <option>Tool not working correctly</option>
+          <option>Wrong result / calculation error</option>
+          <option>UI / display issue</option>
+          <option>Missing feature</option>
+          <option>Other</option>
+        </select>
+        <textarea x-model="details" placeholder="Describe the issue (optional)…" style="width:100%;min-height:90px;padding:10px 14px;background:#141420;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#e8e8f0;font-size:.85rem;resize:vertical;outline:none;margin-bottom:14px;font-family:inherit;"></textarea>
+        <div style="display:flex;gap:10px;">
+          <button @click="submit()" :disabled="!reason" style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:700;border:none;background:linear-gradient(135deg,#8b5cf6,#7c3aed);color:#fff;cursor:pointer;" :style="reason ? '' : 'opacity:.4;cursor:default'">Submit</button>
+          <button @click="open=false" style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:600;border:1px solid rgba(255,255,255,.12);background:transparent;color:#a0a0b8;cursor:pointer;">Cancel</button>
+        </div>
+        <p x-show="submitted" style="margin-top:12px;text-align:center;font-size:.82rem;color:#86efac;">Thank you — report received!</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ Footer ════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="url(#flg)"/><path d="M10 28l6-8 5 6 4-5 5 7" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="flg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs></svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free online tools for developers, designers, and data people.</p>
+    </div>
+    <nav class="footer-nav">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=Math">Math</a>
+        <a href="../../tools.html?cat=Design">Design</a>
+        <a href="../../tools.html?cat=Dev">Developer</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../about.html">About</a>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy</a>
+        <a href="../../terms.html">Terms</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>&copy; 2025 The Tool Empire. All rights reserved.</p>
+      <p>Built with Alpine.js &amp; Chart.js</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ Scripts ═══════════════════════════════════════════════════ -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="json-to-chart.js"></script>
+<script>
+  function reportModal(toolName) {
+    return {
+      open: false, reason: '', details: '', submitted: false, toolName,
+      submit() {
+        if (!this.reason) return;
+        this.submitted = true;
+        setTimeout(() => { this.open = false; this.submitted = false; this.reason = ''; this.details = ''; }, 2000);
+      }
+    };
+  }
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

@@ -42,6 +42,7 @@
   <link rel="stylesheet" href="pdf-metadata.css"/>
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -379,6 +380,33 @@
 
   <hr class="section-divider"/>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>PDF Metadata Editor reads and edits the document information dictionary of a PDF — title, author, subject, keywords, creator, producer, and creation/modification dates — then saves the updated file.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload a PDF.</li>
+        <li>Existing metadata fields appear in the form.</li>
+        <li>Edit any field.</li>
+        <li>Click Save to download the PDF with updated metadata.</li>
+        <li>Click Clear All to strip all metadata for privacy.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Metadata is read from the PDF's <code>Info</code> dictionary using <strong>pdf-lib</strong>'s <code>doc.getTitle()</code>, <code>getAuthor()</code> etc. Writes use the corresponding <code>doc.setTitle()</code> etc. setters. Dates are stored in PDF date format: <code>D:YYYYMMDDHHmmSS+00'00'</code>. "Clear all" calls each setter with an empty string and removes the XMP metadata stream.</p>
+      </div>
+    </div>
+  </section>
   <!-- Related tools -->
   <div class="page-section">
     <div class="section-head">

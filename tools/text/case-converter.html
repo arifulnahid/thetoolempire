@@ -137,6 +137,7 @@
     ]
   }
   </script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body x-data="caseConverterApp()" x-init="init()">
 
@@ -467,6 +468,32 @@
 </section>
 
 <!-- ── TAGS ──────────────────────────────────────────────────── -->
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Case Converter transforms any text between UPPERCASE, lowercase, Title Case, Sentence case, camelCase, PascalCase, snake_case, kebab-case, and more — instantly without any button.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Paste or type your text in the input box.</li>
+        <li>Click any case button (e.g. Title Case, snake_case).</li>
+        <li>The result appears immediately in the output area.</li>
+        <li>Click Copy to copy the converted text to the clipboard.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Each conversion uses string manipulation: <code>toUpperCase()</code>/<code>toLowerCase()</code> for basic cases. Title Case capitalises the first letter of each word with a regex word-boundary split. camelCase/PascalCase split on spaces and punctuation then join with capitalised fragments. snake_case and kebab-case replace word boundaries with <code>_</code> or <code>-</code>.</p>
+      </div>
+    </div>
+  </section>
 <section class="tags-section">
   <div class="container">
     <div class="tags-row">

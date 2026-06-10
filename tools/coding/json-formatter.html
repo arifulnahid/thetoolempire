@@ -40,6 +40,7 @@
 
   <link rel="stylesheet" href="json-formatter.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -515,6 +516,33 @@ Minified = no whitespace.</div>
     </div>
   </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>JSON Formatter takes any compact or malformed-whitespace JSON string and reformats it with configurable indentation, syntax highlighting, and collapsible tree view — making large API responses easy to read.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Paste raw JSON into the input panel.</li>
+        <li>Choose indent size (2 or 4 spaces, or tabs).</li>
+        <li>Click Format to produce pretty-printed output with syntax highlighting.</li>
+        <li>Use the tree view to collapse large nested objects.</li>
+        <li>Copy or download the formatted JSON.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Parsing uses <code>JSON.parse()</code> which throws a <code>SyntaxError</code> if the input is invalid. Pretty-printing uses <code>JSON.stringify(value, null, indent)</code>. Syntax highlighting is applied with a regex that colours strings, numbers, booleans, and null values using CSS classes.</p>
+      </div>
+    </div>
+  </section>
   <!-- Related Blogs -->
   <div class="page-section" style="margin-top:20px">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">

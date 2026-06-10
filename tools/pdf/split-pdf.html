@@ -43,6 +43,7 @@
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -347,7 +348,34 @@
   <div class="ad-slot">Advertisement</div>
 
   <!-- ── FAQ ── -->
-  <section class="faq-section">
+  
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Split PDF divides a single PDF into multiple files — by a fixed number of pages, custom ranges (e.g. <code>1-5, 6-10</code>), or one page per file. Results download as individual PDFs or a ZIP archive.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload a PDF.</li>
+        <li>Choose a split mode: Every N Pages, Custom Ranges, or Every Page.</li>
+        <li>For Custom Ranges, enter comma-separated ranges (e.g. <code>1-3, 4-7, 8</code>).</li>
+        <li>Click Split.</li>
+        <li>Download individual parts or a ZIP of all parts.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Range parsing splits the input on commas, then parses each token with a regex: <code>/^(\d+)(?:-(\d*))?$/</code>. A trailing dash means "to last page". For each range, a new <strong>pdf-lib</strong> <code>PDFDocument</code> is created, the specified pages are copied with <code>copyPages()</code>, and each document is saved to a <code>Uint8Array</code>. Multiple outputs are bundled with <strong>JSZip</strong>.</p>
+      </div>
+    </div>
+  </section>
+<section class="faq-section">
     <h2 class="faq-title">Frequently Asked Questions</h2>
 
     <div class="faq-item">

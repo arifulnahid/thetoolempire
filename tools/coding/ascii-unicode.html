@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ASCII / Unicode Converter — Text, Codes, Lookup &amp; Table | The Tool Empire</title>
+<meta name="description" content="Free online ASCII and Unicode converter. Convert text to decimal, hex, binary, HTML entities or URL encoding. Lookup any character's Unicode block, category, UTF-8 bytes, and more."/>
+<meta name="keywords" content="ASCII converter, unicode converter, text to ASCII, ASCII to text, character lookup, unicode code point, hex to text, binary to text, HTML entities, URL encoding"/>
+<meta name="robots" content="index,follow"/>
+<meta name="author" content="The Tool Empire"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/math/ascii-unicode.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="ASCII / Unicode Converter — Text, Codes, Lookup &amp; Table"/>
+<meta property="og:description" content="Convert text to ASCII decimal, hex, binary, HTML entities or URL encoding. Look up any Unicode character's code point, block, category and UTF-8 bytes."/>
+<meta property="og:url" content="https://thetoolempire.com/tools/math/ascii-unicode.html"/>
+<meta property="og:site_name" content="The Tool Empire"/>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":"SoftwareApplication","name":"ASCII / Unicode Converter","applicationCategory":"UtilityApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/math/ascii-unicode.html","description":"Free browser-based ASCII and Unicode converter. Convert text to decimal, hex, binary, HTML entities or URL encoding, look up any character's code point, block, category, and UTF-8 bytes.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+    {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+    {"@type":"ListItem","position":3,"name":"Math &amp; Calculators","item":"https://thetoolempire.com/tools.html#math"},
+    {"@type":"ListItem","position":4,"name":"ASCII / Unicode Converter","item":"https://thetoolempire.com/tools/math/ascii-unicode.html"}
+  ]}
+]}</script>
+
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+<link rel="manifest" href="../../manifest.json"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<link rel="stylesheet" href="ascii-unicode.css"/>
+<link rel="stylesheet" href="../../assets/css/report-modal.css"/>
+<script src="ascii-unicode.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="asciiUnicodeApp()" x-init="init()">
+
+<!-- ══ HEADER ══════════════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hg)"/>
+        <text x="8" y="27" font-family="monospace" font-size="16" font-weight="900" fill="#fff">A</text>
+        <text x="22" y="27" font-family="monospace" font-size="11" font-weight="700" fill="rgba(255,255,255,.7)">z</text>
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#f59e0b"/><stop offset="1" stop-color="#d97706"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ═════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+    Math &amp; Encoding Tools
+  </div>
+  <h1>ASCII &amp; <span class="g">Unicode</span> Converter</h1>
+  <p>Convert text to codes, look up any character, browse the ASCII table, and inspect Unicode code points.</p>
+</div>
+
+<!-- ══ TOOL ══════════════════════════════════════════════════════════ -->
+<div class="page-wrap">
+
+  <!-- Tab bar -->
+  <div class="tab-bar">
+    <button class="tab-btn" :class="{active: tab==='text'}"   @click="tab='text'">
+      📝 Text ↔ Codes
+    </button>
+    <button class="tab-btn" :class="{active: tab==='char'}"   @click="tab='char'">
+      🔍 Char Lookup
+    </button>
+    <button class="tab-btn" :class="{active: tab==='table'}"  @click="tab='table'">
+      📋 ASCII Table
+    </button>
+    <button class="tab-btn" :class="{active: tab==='special'}" @click="tab='special'">
+      🌐 Unicode
+    </button>
+  </div>
+
+  <!-- ─── TAB: Text ↔ Codes ──────────────────────────────────────── -->
+  <div x-show="tab==='text'" class="tool-panel">
+
+    <div class="row">
+      <div class="sec-label">Encoding Format</div>
+      <div class="mode-row">
+        <template x-for="m in ['decimal','hex','binary','octal','html','url']" :key="m">
+          <button class="mode-pill" :class="{active: textMode===m}" @click="textMode=m" x-text="m==='html'?'HTML Entity':m==='url'?'URL Encode':m.charAt(0).toUpperCase()+m.slice(1)"></button>
+        </template>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="dir-toggle">
+        <span class="dir-label">Direction:</span>
+        <button class="dir-btn" :class="{active: !textReverse}" @click="textReverse=false">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Text → Codes
+        </button>
+        <button class="dir-btn" :class="{active: textReverse}" @click="textReverse=true">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Codes → Text
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="sec-label" x-text="textReverse ? 'Input Codes (space-separated)' : 'Input Text'"></div>
+      <textarea
+        class="tool-textarea"
+        x-model="textInput"
+        :placeholder="textReverse ? 'Enter codes separated by spaces, e.g. 72 101 108 108 111' : 'Type or paste text here…'"
+        style="min-height:100px;"
+      ></textarea>
+    </div>
+
+    <div class="row">
+      <div class="sec-label" x-text="textReverse ? 'Result Text' : 'Result Codes'"></div>
+      <div class="result-box">
+        <div class="result-text" x-show="textResult" x-text="textResult"></div>
+        <div class="result-placeholder" x-show="!textResult">Result will appear here…</div>
+        <button class="copy-btn" :class="{ok: copyKey==='textResult'}" @click="copy(textResult,'textResult')" title="Copy result">
+          <svg x-show="copyKey!=='textResult'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <svg x-show="copyKey==='textResult'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ─── TAB: Char Lookup ───────────────────────────────────────── -->
+  <div x-show="tab==='char'" class="tool-panel">
+
+    <div class="row">
+      <div class="sec-label">Character, Code Point, or Decimal / Hex / Binary</div>
+      <input
+        class="tool-input"
+        x-model="charInput"
+        placeholder="e.g.  A  or  65  or  0x41  or  U+0041  or  0b01000001"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+      />
+    </div>
+
+    <!-- Result -->
+    <div x-show="charResult && !charResult.err" class="row">
+      <div class="char-result">
+
+        <!-- Glyph card -->
+        <div class="char-glyph-card">
+          <div class="char-glyph" x-show="charResult && charResult.ch" x-text="charResult && charResult.ch"></div>
+          <div class="char-glyph" x-show="charResult && !charResult.ch" style="color:var(--faint);font-size:1.1rem;">Control</div>
+          <div class="char-glyph-ctrl" x-show="charResult && charResult.ctrlName" x-text="charResult && charResult.ctrlName"></div>
+          <div class="char-uplus" x-text="charResult && charResult.uplus"></div>
+          <span class="char-cat-badge" x-text="charResult && charResult.cat"></span>
+          <div class="char-block" x-text="charResult && charResult.block"></div>
+        </div>
+
+        <!-- Detail table -->
+        <div class="char-details">
+          <template x-for="row in [
+            {key:'Decimal',   val: charResult && String(charResult.decimal), k:'cd'},
+            {key:'Hex',       val: charResult && '0x'+charResult.hex,        k:'ch'},
+            {key:'U+',        val: charResult && charResult.uplus,           k:'cu'},
+            {key:'Binary',    val: charResult && charResult.binary,          k:'cb'},
+            {key:'Octal',     val: charResult && charResult.octal,           k:'co'},
+            {key:'HTML Dec',  val: charResult && charResult.htmlDec,         k:'chd'},
+            {key:'HTML Hex',  val: charResult && charResult.htmlHex,         k:'chh'},
+            {key:'URL Enc',   val: charResult && charResult.urlEnc,          k:'cue'},
+            {key:'UTF-8',     val: charResult && charResult.utf8,            k:'cu8'},
+            {key:'UTF-16',    val: charResult && charResult.utf16,           k:'cu16'},
+          ]" :key="row.k">
+            <div class="detail-row">
+              <span class="detail-key" x-text="row.key"></span>
+              <div class="detail-val">
+                <code x-text="row.val"></code>
+                <button class="detail-copy" :class="{ok: copyKey===row.k}" @click="copy(row.val, row.k)" title="Copy">
+                  <svg x-show="copyKey!==row.k" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <svg x-show="copyKey===row.k" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                </button>
+              </div>
+            </div>
+          </template>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div class="u-err" x-show="charResult && charResult.err" x-text="charResult && charResult.err"></div>
+
+    <!-- Empty state -->
+    <div x-show="!charResult" style="padding:28px 0;text-align:center;color:var(--faint);font-size:.88rem;">
+      Type a character or code point above to see full details
+    </div>
+
+  </div>
+
+  <!-- ─── TAB: ASCII Table ───────────────────────────────────────── -->
+  <div x-show="tab==='table'" class="tool-panel">
+
+    <div class="table-controls">
+      <input class="table-search" x-model="tableSearch" placeholder="Search glyph, code, hex…" autocomplete="off"/>
+      <select class="cat-select" x-model="tableCat">
+        <option>All</option>
+        <option>Uppercase</option>
+        <option>Lowercase</option>
+        <option>Digit</option>
+        <option>Punctuation</option>
+        <option>Symbol</option>
+        <option>Space</option>
+      </select>
+      <div class="mode-row">
+        <template x-for="m in ['decimal','hex','binary','octal']" :key="m">
+          <button class="mode-pill" :class="{active: tableMode===m}" @click="tableMode=m" x-text="tableColLabel(m)"></button>
+        </template>
+      </div>
+    </div>
+
+    <div class="ascii-grid">
+      <template x-for="row in filteredTable" :key="row.code">
+        <div class="ascii-cell"
+             @click="tab='char'; charInput=row.ch || String(row.code)"
+             :title="`${row.ch || ''} — Dec ${row.code} · Hex ${row.hex} · ${row.cat}`">
+          <div class="ascii-cell .glyph">
+            <span x-show="row.code !== 32" class="glyph" x-text="row.ch" style="font-size:1.25rem;"></span>
+            <span x-show="row.code === 32" class="glyph-sp">SP</span>
+          </div>
+          <div class="code-val" x-text="tableColValue(row, tableMode)"></div>
+          <div class="cat-dot" :style="`background:${
+            row.cat==='Uppercase'  ? '#60a5fa' :
+            row.cat==='Lowercase'  ? '#4ade80' :
+            row.cat==='Digit'      ? '#f59e0b' :
+            row.cat==='Punctuation'? '#a78bfa' :
+            row.cat==='Symbol'     ? '#f87171' :
+                                     '#64748b'
+          }`"></div>
+        </div>
+      </template>
+    </div>
+
+    <div class="cat-legend">
+      <div class="cat-item"><div class="dot" style="background:#60a5fa"></div> Uppercase</div>
+      <div class="cat-item"><div class="dot" style="background:#4ade80"></div> Lowercase</div>
+      <div class="cat-item"><div class="dot" style="background:#f59e0b"></div> Digit</div>
+      <div class="cat-item"><div class="dot" style="background:#a78bfa"></div> Punctuation</div>
+      <div class="cat-item"><div class="dot" style="background:#f87171"></div> Symbol</div>
+      <div class="cat-item"><div class="dot" style="background:#64748b"></div> Space</div>
+    </div>
+
+    <div x-show="filteredTable.length === 0" style="padding:24px;text-align:center;color:var(--faint);font-size:.88rem;">
+      No characters match your search.
+    </div>
+
+  </div>
+
+  <!-- ─── TAB: Unicode ──────────────────────────────────────────── -->
+  <div x-show="tab==='special'" class="tool-panel">
+
+    <div class="row">
+      <div class="sec-label">Input Mode</div>
+      <div class="mode-row">
+        <button class="mode-pill" :class="{active: uMode==='codepoint'}" @click="uMode='codepoint'">Code Point (U+XXXX)</button>
+        <button class="mode-pill" :class="{active: uMode==='emoji'}"     @click="uMode='emoji'">Emoji / Symbol Glyph</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="sec-label" x-text="uMode==='codepoint' ? 'Enter code point (hex, with or without U+)' : 'Paste an emoji or symbol'"></div>
+      <input
+        class="tool-input"
+        x-model="uInput"
+        :placeholder="uMode==='codepoint' ? 'e.g.  1F600  or  U+1F600  or  1F4BB' : 'Paste emoji, e.g. 😀 🎸 ❤️'"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+      />
+    </div>
+
+    <!-- Error -->
+    <div class="u-err" x-show="uErr" x-text="uErr"></div>
+
+    <!-- Unicode result -->
+    <div x-show="uResult" class="row">
+      <div class="u-result-card">
+        <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:80px;">
+            <span class="u-glyph-big" x-text="uResult && uResult.ch"></span>
+            <span style="font-family:var(--mono);font-size:.88rem;color:var(--text2)" x-text="uResult && uResult.uplus"></span>
+            <span class="char-cat-badge" x-text="uResult && uResult.cat"></span>
+          </div>
+          <div class="char-details" style="flex:1;min-width:240px;">
+            <template x-for="row in uResult ? [
+              {key:'Block',    val: uResult.block,              k:'ub'},
+              {key:'Decimal',  val: String(uResult.decimal),    k:'ud'},
+              {key:'Hex',      val: '0x'+uResult.hex,          k:'uh'},
+              {key:'HTML Dec', val: uResult.htmlDec,            k:'uhd'},
+              {key:'HTML Hex', val: uResult.htmlHex,            k:'uhh'},
+              {key:'URL Enc',  val: uResult.urlEnc,             k:'uur'},
+              {key:'UTF-8',    val: uResult.utf8,               k:'uu8'},
+            ] : []" :key="row.k">
+              <div class="detail-row">
+                <span class="detail-key" x-text="row.key"></span>
+                <div class="detail-val">
+                  <code x-text="row.val"></code>
+                  <button class="detail-copy" :class="{ok: copyKey===row.k}" @click="copy(row.val, row.k)">
+                    <svg x-show="copyKey!==row.k" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    <svg x-show="copyKey===row.k" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  </button>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div x-show="!uResult && !uErr" style="padding:28px 0;text-align:center;color:var(--faint);font-size:.88rem;">
+      Enter a Unicode code point (e.g. <code style="color:var(--accent);background:var(--accent-bg);padding:1px 6px;border-radius:4px;">1F600</code>) or paste an emoji above
+    </div>
+
+  </div>
+
+  <!-- ══ INFO SECTIONS ════════════════════════════════════════════ -->
+  <div class="info-sections">
+
+    <!-- About -->
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h2>About This Tool</h2>
+      </div>
+      <div class="info-body">
+        <p><strong>ASCII / Unicode Converter</strong> is a free browser-based tool covering four workflows in one interface: bulk text-to-code conversion, individual character inspection, an interactive ASCII reference table, and Unicode code point lookup.</p>
+        <p>The <strong>Text ↔ Codes</strong> tab converts any string to decimal, hex, binary, octal, HTML entities, or URL-encoded form — and reverses the process just as easily. The <strong>Char Lookup</strong> tab accepts a typed character, a decimal code, hex (<code>0x41</code>), binary (<code>0b01000001</code>), or <code>U+</code> notation and displays all representations simultaneously. The <strong>ASCII Table</strong> is filterable by category and searchable by glyph or code. The <strong>Unicode</strong> tab lets you look up any of the 1.1 million Unicode code points by hex value or by pasting an emoji.</p>
+        <p>Everything runs entirely in your browser — no data leaves your device.</p>
+      </div>
+    </section>
+
+    <!-- How to Use -->
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h2>How to Use</h2>
+      </div>
+      <div class="info-body">
+        <ul>
+          <li><strong>Text → Codes:</strong> Select the <em>Text ↔ Codes</em> tab, choose a format (Decimal / Hex / Binary / Octal / HTML Entity / URL Encode), ensure direction is <em>Text → Codes</em>, and type your string. Copy the result with the button on the right.</li>
+          <li><strong>Codes → Text:</strong> Flip the direction toggle to <em>Codes → Text</em>. Paste space-separated codes (or a URL-encoded string / HTML entity string) and the original text appears instantly.</li>
+          <li><strong>Char Lookup:</strong> Switch to <em>Char Lookup</em>. Type a single character, or enter its code in any format (<code>65</code>, <code>0x41</code>, <code>0b01000001</code>, <code>U+0041</code>). All representations, UTF-8 bytes, UTF-16 surrogate pairs, HTML entities, and Unicode block are shown.</li>
+          <li><strong>ASCII Table:</strong> Browse or search the printable ASCII range (32–126). Filter by category (Uppercase, Lowercase, Digit, etc.) and toggle the value column between Dec / Hex / Binary / Oct. Clicking any cell opens it in Char Lookup.</li>
+          <li><strong>Unicode:</strong> Enter a hex code point (e.g. <code>1F600</code> or <code>U+1F600</code>) to look up emojis and non-ASCII characters, or paste an emoji/symbol directly to decode it.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Logic -->
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h2>Logic &amp; Technical Notes</h2>
+      </div>
+      <div class="info-body">
+        <p><strong>ASCII</strong> (American Standard Code for Information Interchange) defines 128 characters: 33 control characters (0–31, 127) and 95 printable characters (32–126). Each printable character has a fixed decimal code that maps to binary, octal, and hex representations.</p>
+        <p><strong>Unicode</strong> extends this to over 1.1 million code points (U+0000 to U+10FFFF), covering virtually every writing system, symbol, and emoji in use today. This tool uses the browser's built-in <code>String.fromCodePoint()</code> and <code>TextEncoder</code> APIs to compute representations, so results are always spec-correct.</p>
+        <p><strong>UTF-8 encoding</strong> uses 1 byte for code points 0–127 (identical to ASCII), 2 bytes for 128–2047, 3 bytes for 2048–65535, and 4 bytes for 65536–1114111. The UTF-8 bytes shown for each character use the standard multi-byte encoding scheme with leading <code>110xxxxx</code>, <code>1110xxxx</code>, or <code>11110xxx</code> headers.</p>
+        <p><strong>URL encoding</strong> (percent-encoding) converts non-ASCII bytes to <code>%HH</code> format per RFC 3986. HTML entity encoding uses decimal (<code>&amp;#NNN;</code>) or hexadecimal (<code>&amp;#xNNN;</code>) numeric character references, which work for any Unicode code point.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ══ Related Tools ════════════════════════════════════════════ -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>Related Tools</h2>
+      <a href="../../tools.html" class="view-all-link">
+        All Tools
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+    </div>
+    <div class="related-grid">
+      <a class="related-tool-card" href="number-system.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#6366f1,#4f46e5)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h4"/></svg>
+        </div>
+        <div class="rt-name">Number System Converter</div>
+        <div class="rt-desc">Convert between binary, octal, decimal, hex and any base 2–36, plus bitwise ops and IEEE 754.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="twos-complement.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M21 14h-4M21 17h-4M21 20h-4"/></svg>
+        </div>
+        <div class="rt-name">Two's Complement</div>
+        <div class="rt-desc">Convert signed integers to two's complement binary with step-by-step breakdown.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="../design/hex-rgb-converter.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#10b981,#059669)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 12v-8a8 8 0 0 1 8 8"/></svg>
+        </div>
+        <div class="rt-name">HEX to RGB Converter</div>
+        <div class="rt-desc">Convert between HEX, RGB, HSL, and CMYK color formats instantly.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="bearing-calculator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#f97316,#ea580c)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="rt-name">Bearing Calculator</div>
+        <div class="rt-desc">Calculate compass bearings, distances, and azimuths between coordinates.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ Related Blog ══════════════════════════════════════════════ -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>From the Blog</h2>
+      <a href="../../blog.html" class="view-all-link">
+        All Posts
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+    </div>
+    <div class="blog-grid-sm">
+      <a class="blog-card-sm" href="../../blog/ascii-explained.html">
+        <span class="blog-cat-badge" style="background:rgba(245,158,11,.1);color:#fcd34d;">Encoding</span>
+        <div class="blog-title-sm">ASCII Explained: The Charset That Built the Internet</div>
+        <div class="blog-excerpt-sm">From teletype machines to modern web servers — why 128 characters shaped how computers talk to each other.</div>
+        <div class="blog-meta-sm">May 2025 · 6 min read</div>
+        <span class="blog-read-sm">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card-sm" href="../../blog/unicode-utf8-guide.html">
+        <span class="blog-cat-badge" style="background:rgba(139,92,246,.12);color:#c4b5fd;">Unicode</span>
+        <div class="blog-title-sm">Unicode &amp; UTF-8: How Text Really Works</div>
+        <div class="blog-excerpt-sm">Code points, planes, surrogate pairs, and byte-order marks — a clear guide to how Unicode encodes every script on earth.</div>
+        <div class="blog-meta-sm">April 2025 · 8 min read</div>
+        <span class="blog-read-sm">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card-sm" href="../../blog/character-encoding-pitfalls.html">
+        <span class="blog-cat-badge" style="background:rgba(248,113,113,.1);color:#fca5a5;">Dev</span>
+        <div class="blog-title-sm">Character Encoding Bugs and How to Avoid Them</div>
+        <div class="blog-excerpt-sm">Mojibake, BOM nightmares, and broken emoji — real encoding bugs developers encounter and how to prevent them.</div>
+        <div class="blog-meta-sm">March 2025 · 5 min read</div>
+        <span class="blog-read-sm">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ Report ════════════════════════════════════════════════════ -->
+  <div class="report-trigger-wrap" x-data="{open:false,reason:'',details:'',submitted:false}">
+    <button class="report-trigger" @click="open=true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Report an Issue
+    </button>
+    <div class="report-overlay" x-show="open" x-cloak @click.self="open=false">
+      <div class="report-box">
+        <h3>Report an Issue</h3>
+        <p>Let us know what's wrong with <strong>ASCII / Unicode Converter</strong>.</p>
+        <select class="report-select" x-model="reason">
+          <option value="">Select a reason…</option>
+          <option>Tool not working correctly</option>
+          <option>Wrong result / calculation error</option>
+          <option>UI / display issue</option>
+          <option>Missing feature</option>
+          <option>Other</option>
+        </select>
+        <textarea class="report-textarea" x-model="details" placeholder="Describe the issue (optional)…"></textarea>
+        <div class="report-actions">
+          <button class="report-submit" @click="submitted=true;setTimeout(()=>{open=false;submitted=false;reason='';details=''},2000)" :disabled="!reason">Submit</button>
+          <button class="report-cancel" @click="open=false">Cancel</button>
+        </div>
+        <p class="report-thanks" x-show="submitted">Thank you — report received!</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ FOOTER ════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#flg)"/>
+          <text x="8" y="27" font-family="monospace" font-size="16" font-weight="900" fill="#fff">A</text>
+          <text x="22" y="27" font-family="monospace" font-size="11" font-weight="700" fill="rgba(255,255,255,.7)">z</text>
+          <defs><linearGradient id="flg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#f59e0b"/><stop offset="1" stop-color="#d97706"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free online tools for developers, designers, and data people.</p>
+    </div>
+    <nav class="footer-nav-wrap">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=Math">Math</a>
+        <a href="../../tools.html?cat=Design">Design</a>
+        <a href="../../tools.html?cat=Dev">Developer</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../about.html">About</a>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy</a>
+        <a href="../../terms.html">Terms</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="inner">
+      <p>&copy; 2025 The Tool Empire. All rights reserved.</p>
+      <p>Built with Alpine.js</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

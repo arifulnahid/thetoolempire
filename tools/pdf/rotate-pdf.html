@@ -43,6 +43,7 @@
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -288,7 +289,34 @@
   <div class="ad-slot">Advertisement</div>
 
   <!-- ── FAQ ── -->
-  <section class="faq-section">
+  
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Rotate PDF rotates individual pages or all pages in a PDF by 90°, 180°, or 270° — with a visual thumbnail grid for page-by-page control. Download the result as a standard PDF.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload a PDF.</li>
+        <li>Thumbnails of all pages appear — click ↺ or ↻ to rotate each page.</li>
+        <li>Use "Rotate All Left/Right" for bulk rotation.</li>
+        <li>Page thumbnails show the current rotation visually.</li>
+        <li>Click Apply & Download to save the rotated PDF.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Thumbnails are rendered using <strong>PDF.js</strong> with CSS <code>transform: rotate()</code> applied for live preview (no re-render needed per click). On save, <strong>pdf-lib</strong> loads the original bytes fresh, iterates all pages, and calls <code>page.setRotation(degrees(originalAngle + userDelta))</code>. Using a fresh load prevents rotation values from stacking on repeated saves.</p>
+      </div>
+    </div>
+  </section>
+<section class="faq-section">
     <h2 class="faq-title">Frequently Asked Questions</h2>
 
     <div class="faq-item">

@@ -39,6 +39,7 @@
 
   <link rel="stylesheet" href="regex.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -486,6 +487,33 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Regex Tester tests regular expressions against sample text with real-time match highlighting, capture group display, named groups, and a pattern reference cheat sheet — supporting both JS and PCRE flavours.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Enter your regular expression in the pattern field.</li>
+        <li>Set flags (g, i, m, s) using the checkbox toggles.</li>
+        <li>Paste test text in the input area.</li>
+        <li>All matches are highlighted inline; capture groups appear in the results table below.</li>
+        <li>Hover a match to see the full group breakdown.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Uses the native browser <code>RegExp</code> constructor with the selected flags. Matches are found with <code>String.matchAll()</code> (global flag) or a single <code>.exec()</code>. Match positions are used to build a highlight overlay by inserting <code>&lt;mark&gt;</code> spans around each match range.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

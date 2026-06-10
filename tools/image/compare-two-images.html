@@ -41,6 +41,7 @@
 
   <link rel="stylesheet" href="compare-two-images.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -572,6 +573,32 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Compare Two Images places two images side-by-side with a draggable divider slider for before/after comparison. Also shows a pixel-difference heatmap and percentage difference score — useful for design reviews and QA testing.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload the first image (Before) on the left.</li>
+        <li>Upload the second image (After) on the right.</li>
+        <li>Drag the slider to reveal the before or after image.</li>
+        <li>Click "Diff" mode to see the pixel-level difference heatmap.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>The slider view uses CSS <code>clip-path</code> on the top image to reveal the bottom. The diff heatmap is computed on a <code>&lt;canvas&gt;</code>: both images are drawn at the same dimensions, pixel data is read with <code>getImageData()</code>, and each pixel's RGBA delta is computed. Differences are rendered as a red intensity proportional to the Euclidean colour distance.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

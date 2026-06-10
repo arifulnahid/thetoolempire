@@ -39,6 +39,7 @@
 
   <link rel="stylesheet" href="markdown.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -426,6 +427,32 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Markdown Editor renders Markdown to HTML in real time with a live split-pane preview. Supports all CommonMark syntax — headings, bold, italic, code blocks, tables, blockquotes, task lists, and links.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Type or paste Markdown in the left editor pane.</li>
+        <li>The HTML preview updates instantly on the right.</li>
+        <li>Switch to HTML source view to inspect the generated markup.</li>
+        <li>Click Export to download the rendered HTML or the raw Markdown file.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Rendering uses the <strong>marked.js</strong> library with GFM (GitHub Flavoured Markdown) extensions enabled. Syntax highlighting inside code fences uses <strong>highlight.js</strong> via marked's <code>highlight</code> option. The editor is a plain <code>textarea</code>; the preview pane is an <code>iframe</code> or sandboxed <code>div</code> to prevent XSS.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

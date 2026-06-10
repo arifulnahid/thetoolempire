@@ -39,6 +39,7 @@
 
   <link rel="stylesheet" href="date-difference.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -408,6 +409,32 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Date Difference Calculator finds the exact time between any two dates and times — expressed in years, months, weeks, days, hours, minutes, and seconds simultaneously. Useful for project timelines, age checks, and deadline tracking.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Enter the start date (and optionally time).</li>
+        <li>Enter the end date and time.</li>
+        <li>Click Calculate — the difference is shown in multiple units at once.</li>
+        <li>Toggle "Include end day" to count the end date as a full day.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Both date inputs are parsed into <code>Date</code> objects. The millisecond difference is divided by fixed factors (1000 for seconds, 60000 for minutes, etc.) for total counts. Year/month breakdowns use iterative month-by-month counting to account for variable month lengths and leap years, avoiding the over-simplification of dividing by 365.25.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

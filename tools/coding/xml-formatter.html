@@ -40,6 +40,7 @@
 
   <link rel="stylesheet" href="xml-formatter.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -549,6 +550,33 @@ Use CDATA for blocks containing &lt; or &amp;</div>
 
 </div><!-- /main-wrap -->
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>XML Formatter parses and pretty-prints XML with configurable indentation, syntax highlighting, and tag collapsing. It also validates well-formedness and reports parse errors with line numbers.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Paste XML content into the input panel.</li>
+        <li>Choose indent size.</li>
+        <li>Click Format — valid XML is reformatted and highlighted; parse errors are shown with position info.</li>
+        <li>Use the collapsible tree to navigate large XML documents.</li>
+        <li>Copy or download the formatted output.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Parsing uses the browser's built-in <code>DOMParser</code> with <code>text/xml</code> MIME type. If parsing fails, the <code>parsererror</code> element in the result document carries the error message and position. Re-serialisation uses <code>XMLSerializer</code> followed by a custom indentation pass that inserts newlines and spaces before each tag.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

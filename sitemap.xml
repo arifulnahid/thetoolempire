@@ -85,6 +85,30 @@
 
   <!-- ── MATH &amp; CALCULATORS ────────────────────────────── -->
   <url>
+    <loc>https://thetoolempire.com/tools/math/twos-complement.html</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/math/ascii-unicode.html</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/math/number-system.html</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/math/bearing-calculator.html</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
     <loc>https://thetoolempire.com/tools/math/percentage-calculator.html</loc>
     <lastmod>2026-06-06</lastmod>
     <changefreq>monthly</changefreq>
@@ -415,6 +439,12 @@
     <priority>0.87</priority>
   </url>
   <url>
+    <loc>https://thetoolempire.com/tools/design/json-to-chart.html</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
     <loc>https://thetoolempire.com/tools/design/chart-generator.html</loc>
     <lastmod>2026-06-09</lastmod>
     <changefreq>monthly</changefreq>
@@ -705,6 +735,18 @@
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/gis/gpx-viewer.html</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/gis/utm-zone-finder.html</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.87</priority>
   </url>
   <url>
     <loc>https://thetoolempire.com/tools/gis/lat-long.html</loc>

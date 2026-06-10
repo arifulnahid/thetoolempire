@@ -39,6 +39,7 @@
 
   <link rel="stylesheet" href="og-tag-generator.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -659,6 +660,33 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Open Graph Tag Generator creates og: and Twitter Card meta tags for rich link previews on Facebook, Twitter/X, LinkedIn, and Slack. Preview how the share card will look before copying the tags.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Enter the page URL, title, description, and image URL.</li>
+        <li>Select content type (website, article, product).</li>
+        <li>Fill in optional Twitter-specific fields (card type, @username).</li>
+        <li>See a live preview of the social share card.</li>
+        <li>Copy the generated meta tag block.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>OG tags follow the Open Graph Protocol (ogp.me) specification. Required tags are <code>og:title</code>, <code>og:type</code>, <code>og:image</code>, and <code>og:url</code>. Twitter Card tags use the <code>twitter:</code> prefix. The social preview is simulated by a styled HTML card that mirrors how Facebook Scraper and Twitter Card Validator render the metadata.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

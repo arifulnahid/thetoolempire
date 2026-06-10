@@ -65,6 +65,7 @@
     ]
   }
   </script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body x-data="pomodoroApp()" x-init="init()">
 
@@ -404,6 +405,32 @@
     </div>
   </section>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Pomodoro Timer implements the Pomodoro Technique — 25-minute work sprints followed by 5-minute short breaks and a 15-minute long break every 4 pomodoros. Tracks completed sessions and daily totals.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Click Start to begin a 25-minute work session.</li>
+        <li>Work until the timer rings, then click Break.</li>
+        <li>After 4 sessions, a long 15-minute break is automatically offered.</li>
+        <li>Adjust session and break lengths in Settings.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>The countdown uses <code>setInterval()</code> firing every 1000 ms. The remaining seconds are decremented and formatted as MM:SS with <code>String.padStart(2, '0')</code>. At zero, a Web Notifications API alert is shown (if permission granted) and the Audio API plays a bell tone. Session count increments and the next phase is auto-selected.</p>
+      </div>
+    </div>
+  </section>
   <!-- Related tools -->
   <section class="related-section">
     <div class="container">

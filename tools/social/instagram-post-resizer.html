@@ -41,6 +41,7 @@
 
   <link rel="stylesheet" href="instagram-post-resizer.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -524,6 +525,33 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Instagram Post Resizer crops and resizes images to Instagram's recommended formats — Square (1:1), Portrait (4:5), Landscape (1.91:1), Story (9:16), and Reel — with a drag-to-reposition crop tool.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload an image.</li>
+        <li>Select the target Instagram format.</li>
+        <li>Drag the image within the crop frame to reposition it.</li>
+        <li>Zoom in or out using the slider.</li>
+        <li>Click Export to download the cropped image at the correct pixel dimensions.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>The crop interface renders the image inside a fixed-aspect-ratio container using CSS <code>object-position</code>. On export, a <code>&lt;canvas&gt;</code> is created at the target pixel size (e.g. 1080 × 1080 for square) and <code>drawImage()</code> is called with the calculated source region based on pan/zoom state. Output is PNG or JPEG via <code>toDataURL()</code>.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

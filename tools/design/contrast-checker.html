@@ -42,6 +42,7 @@
 
   <link rel="stylesheet" href="contrast-checker.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -473,6 +474,32 @@ Ratio = (1.0 + 0.05) / (0.0 + 0.05) = 1.05 / 0.05 = 21:1  ← maximum</div>
     </div>
   </section>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Contrast Checker calculates the WCAG 2.1 colour contrast ratio between two colours and reports whether the pair passes AA or AAA accessibility standards for normal text, large text, and UI components.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Enter or pick a foreground colour (text colour).</li>
+        <li>Enter or pick a background colour.</li>
+        <li>The contrast ratio and pass/fail badges update instantly.</li>
+        <li>Adjust either colour until all required WCAG levels pass.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Contrast ratio = (L1 + 0.05) / (L2 + 0.05) where L1 > L2 and L is <em>relative luminance</em>. Relative luminance converts each sRGB channel to linear light: values ≤ 0.04045 divide by 12.92; higher values use <code>((c + 0.055) / 1.055)^2.4</code>. Then <code>L = 0.2126R + 0.7152G + 0.0722B</code>. WCAG AA requires ≥ 4.5:1 for normal text and ≥ 3:1 for large text.</p>
+      </div>
+    </div>
+  </section>
   <!-- Related Tools -->
   <section class="related-section">
     <div class="related-header">

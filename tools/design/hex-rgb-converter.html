@@ -41,6 +41,7 @@
 
   <link rel="stylesheet" href="hex-rgb-converter.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -463,6 +464,31 @@ else:
     </div>
   </section>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>HEX ↔ RGB Converter instantly converts between HEX colour codes and RGB/RGBA values, and also outputs HSL, HSV, and CSS <code>hsl()</code> notation. Accepts shorthand HEX (<code>#f0f</code>), 6-digit, and 8-digit HEXA formats.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Enter a HEX colour (e.g. <code>#3a7bd5</code>) or an RGB value (e.g. <code>rgb(58,123,213)</code>).</li>
+        <li>The tool converts to all formats simultaneously.</li>
+        <li>Click any result row to copy that value.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>HEX→RGB: parse each 2-hex-digit pair with <code>parseInt(pair, 16)</code>. RGB→HEX: convert each channel with <code>channel.toString(16).padStart(2,'0')</code>. RGB→HSL: normalise to 0–1, find min/max, compute lightness = (max+min)/2, saturation from range/denominator, hue from which channel is max. HSV uses the same min/max approach with value = max.</p>
+      </div>
+    </div>
+  </section>
   <!-- Related Tools -->
   <section class="related-section">
     <div class="related-header">

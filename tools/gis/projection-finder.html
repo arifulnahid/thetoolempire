@@ -41,6 +41,7 @@
 
   <link rel="stylesheet" href="projection-finder.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -381,6 +382,32 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Projection Finder identifies the coordinate reference system (CRS) of spatial data from its EPSG code, WKT string, or PROJ string — and converts coordinates between any two projections.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Enter an EPSG code (e.g. 4326), a WKT string, or a PROJ definition.</li>
+        <li>Click Search to display the CRS name, datum, units, and extent.</li>
+        <li>To convert coordinates, enter X/Y values and select source and target CRS.</li>
+        <li>Click Convert to transform the coordinates.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>CRS lookup queries an embedded EPSG registry database for common codes. Projection transformation uses the <strong>proj4js</strong> library which implements the PROJ coordinate transformation engine in JavaScript. Input and output coordinates are in the native units of each CRS (degrees for geographic, metres or feet for projected).</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

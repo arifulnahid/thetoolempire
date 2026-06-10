@@ -102,6 +102,7 @@
     ]
   }
   </script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body x-data="bmiCalcApp()" x-init="init()">
 
@@ -531,7 +532,33 @@
   </section>
 
   <!-- ── TAGS ────────────────────────────────────────────────── -->
-  <section class="tags-section">
+  
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>BMI Calculator computes Body Mass Index from height and weight in metric or imperial units, shows where the result falls on the WHO classification scale, and provides context on healthy weight ranges for your height.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Select Metric (kg/cm) or Imperial (lb/in).</li>
+        <li>Enter your weight and height.</li>
+        <li>BMI and category are shown instantly.</li>
+        <li>View the healthy weight range for your height at the bottom.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>BMI = weight(kg) / height(m)². Imperial inputs are first converted: pounds × 0.453592 = kg, inches × 0.0254 = m. WHO categories: &lt;18.5 Underweight, 18.5–24.9 Normal, 25–29.9 Overweight, ≥30 Obese. Healthy weight range is back-calculated: multiply BMI range bounds (18.5 and 24.9) by height².</p>
+      </div>
+    </div>
+  </section>
+<section class="tags-section">
     <div class="container">
       <div class="tags-row">
         <span class="tags-label">Category</span>

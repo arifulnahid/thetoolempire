@@ -39,6 +39,7 @@
 
   <link rel="stylesheet" href="compound-interest.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -554,6 +555,33 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Compound Interest Calculator computes final balance, total interest earned, and year-by-year growth for any combination of principal, annual rate, compounding frequency, and time period. Supports regular contributions.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Enter the principal (initial deposit).</li>
+        <li>Set the annual interest rate (%).</li>
+        <li>Choose compounding frequency: daily, monthly, quarterly, or annually.</li>
+        <li>Enter the number of years and any regular contribution amount.</li>
+        <li>View the total balance, interest earned, and a year-by-year growth table.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Uses the compound interest formula: <code>A = P(1 + r/n)^(nt)</code> where P = principal, r = annual rate, n = compounds per year, t = years. With regular contributions C added each period: <code>A = P(1+r/n)^(nt) + C × ((1+r/n)^(nt) − 1) / (r/n)</code>. Each year row is calculated iteratively to show step-by-step growth.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

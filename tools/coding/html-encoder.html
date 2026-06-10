@@ -39,6 +39,7 @@
 
   <link rel="stylesheet" href="html-encoder.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -417,6 +418,32 @@
     </div>
   </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>HTML Encoder/Decoder escapes special characters into HTML entities (<code>&amp;lt;</code>, <code>&amp;gt;</code>, <code>&amp;amp;</code>, <code>&amp;quot;</code>, etc.) and decodes them back. Useful for safely embedding code snippets in web pages.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Paste HTML or text containing special characters.</li>
+        <li>Click Encode to escape all special characters into entities.</li>
+        <li>Click Decode to convert entities back to readable characters.</li>
+        <li>Copy the output for use in your HTML source.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Encoding replaces <code>&</code>, <code><</code>, <code>></code>, <code>"</code>, and <code>'</code> using a lookup table via <code>String.replace()</code> with a regex. Decoding creates a temporary DOM element, sets its <code>innerHTML</code>, and reads <code>innerText</code> — letting the browser's own HTML parser do the entity expansion.</p>
+      </div>
+    </div>
+  </section>
   <!-- Related Blogs -->
   <div class="page-section" style="margin-top:20px">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">

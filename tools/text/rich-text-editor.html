@@ -39,6 +39,7 @@
 
   <link rel="stylesheet" href="rich-text-editor.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -582,6 +583,32 @@
   </div>
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Rich Text Editor is a browser-based WYSIWYG editor with formatting controls — bold, italic, underline, heading levels, lists, alignment, links, and colour. Paste content from Word or Google Docs, format it, then copy the clean HTML or plain text.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Type or paste content into the editor area.</li>
+        <li>Select text and click toolbar buttons to apply formatting.</li>
+        <li>Use the HTML tab to inspect or paste raw HTML.</li>
+        <li>Export as HTML, plain text, or copy to clipboard.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>The editor uses the browser's built-in <code>contenteditable</code> attribute and <code>document.execCommand()</code> API for formatting commands. HTML export serialises the <code>innerHTML</code> of the editable div. Plain-text export uses <code>innerText</code> to strip tags.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

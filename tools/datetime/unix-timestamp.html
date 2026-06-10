@@ -39,6 +39,7 @@
 
   <link rel="stylesheet" href="unix-timestamp.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -550,6 +551,33 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Unix Timestamp Converter translates between Unix epoch timestamps (seconds or milliseconds) and human-readable dates in any timezone. Also shows the current timestamp live and lets you add/subtract time intervals.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>The current Unix timestamp updates every second automatically.</li>
+        <li>Paste a timestamp into the input to convert it to a date.</li>
+        <li>Or pick a date/time to get its Unix timestamp.</li>
+        <li>Switch between seconds and milliseconds using the toggle.</li>
+        <li>Select a timezone from the dropdown to localise the output.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Unix time counts seconds elapsed since 1970-01-01T00:00:00Z (UTC). Conversion to a date uses <code>new Date(timestamp * 1000)</code>. Timezone display uses the <code>Intl.DateTimeFormat</code> API with the selected IANA timezone string, avoiding manual UTC offset arithmetic.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

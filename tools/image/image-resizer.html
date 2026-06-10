@@ -38,6 +38,7 @@
 
   <link rel="stylesheet" href="image-resizer.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -476,6 +477,33 @@
 
   <hr class="section-divider"/>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Image Resizer scales images to exact pixel dimensions or by percentage, with options to maintain aspect ratio, apply sharpening, and choose the resampling method. Supports batch resize for multiple files.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload one or more images.</li>
+        <li>Enter target width and/or height in pixels, or a scale percentage.</li>
+        <li>Lock the aspect ratio toggle to avoid distortion.</li>
+        <li>Choose a resampling method (Lanczos, Bilinear, Nearest).</li>
+        <li>Click Resize and download.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Resizing uses a <code>&lt;canvas&gt;</code> set to the target dimensions with <code>drawImage(img, 0, 0, targetW, targetH)</code>. Modern browsers apply bilinear interpolation by default. For Lanczos resampling, the pixel grid is computed manually using a sinc-based kernel applied to the source pixel neighbourhood, then written back with <code>putImageData()</code>.</p>
+      </div>
+    </div>
+  </section>
   <!-- Related tools -->
   <div class="page-section" style="margin-top:0">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">

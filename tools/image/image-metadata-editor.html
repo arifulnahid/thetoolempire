@@ -42,6 +42,7 @@
   <link rel="stylesheet" href="image-metadata-editor.css"/>
   <script src="https://cdn.jsdelivr.net/npm/piexifjs@1.0.6/piexif.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -304,7 +305,34 @@
                 <template x-if="allTags.length > 0">
                   <div>
                     <template x-for="section in [...new Set(allTags.map(t=>t.section))]" :key="section">
-                      <div class="tags-section">
+                      
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Image Metadata Editor reads and edits EXIF, IPTC, and XMP metadata embedded in JPEG files — camera settings, GPS location, copyright, author, title, and more — then saves the modified image.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload a JPEG image.</li>
+        <li>View all embedded metadata fields in the table.</li>
+        <li>Edit any field by clicking its value.</li>
+        <li>Click Remove GPS to strip location data for privacy.</li>
+        <li>Click Save to download the image with updated metadata.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>EXIF parsing uses the <strong>exif.js</strong> library which reads the <code>APP1</code> marker in the JPEG binary. GPS coordinates are decoded from rational number pairs (degrees, minutes, seconds as numerator/denominator). To write updated metadata, the original JPEG byte stream is patched at the EXIF segment offset using a binary <code>DataView</code>.</p>
+      </div>
+    </div>
+  </section>
+<div class="tags-section">
                         <div class="tags-section-title" x-text="section"></div>
                         <template x-for="tag in allTags.filter(t=>t.section===section)" :key="tag.hex">
                           <div class="tag-row">

@@ -40,6 +40,7 @@
 
   <link rel="stylesheet" href="gpx-geojson-converter.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -378,6 +379,32 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>GPX to GeoJSON Converter transforms GPS Exchange Format files (tracks, routes, and waypoints) into GeoJSON FeatureCollection, preserving timestamps, elevation, and all GPX extension attributes.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload a .gpx file.</li>
+        <li>Choose which elements to include: tracks, routes, and/or waypoints.</li>
+        <li>Click Convert.</li>
+        <li>Download the GeoJSON file.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>GPX is an XML dialect parsed with <code>DOMParser</code>. Track points (<code>&lt;trkpt&gt;</code>) become GeoJSON <code>LineString</code> or <code>MultiLineString</code> features; waypoints (<code>&lt;wpt&gt;</code>) become <code>Point</code> features. Elevation (<code>&lt;ele&gt;</code>) populates the third coordinate. Time, name, and description map to feature properties.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

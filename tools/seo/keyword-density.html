@@ -39,6 +39,7 @@
 
   <link rel="stylesheet" href="keyword-density.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -358,6 +359,33 @@
 
   <hr class="section-divider"/>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Keyword Density Analyser counts word and phrase frequency in any text, calculates density percentage, highlights over-stuffed terms, and shows a visualisation of the top keywords — useful for SEO content optimisation.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Paste your article or web page text.</li>
+        <li>Set the minimum word length and stop-word language.</li>
+        <li>View the keyword frequency table sorted by count.</li>
+        <li>Check the density percentage — aim for 1–3% for primary keywords.</li>
+        <li>Toggle 2-word and 3-word phrase analysis with the n-gram selector.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Text is tokenised by splitting on non-word characters (<code>/\W+/</code>). Common stop words (the, and, is, etc.) are filtered using a built-in language list. Frequency is counted with an object as a hash map. Density = (occurrences / total words) × 100. N-grams are built by sliding a window of size N over the token array.</p>
+      </div>
+    </div>
+  </section>
   <!-- Related tools -->
   <div class="page-section" style="margin-top:0">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">

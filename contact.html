@@ -28,6 +28,7 @@
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date()); gtag('config', 'G-CNN44ER8MF');
   </script>
+  <link rel="stylesheet" href="assets/css/report-modal.css" />
 </head>
 
 <body x-data="contactApp()" x-init="
@@ -251,7 +252,8 @@
               </template>
             </button>
 
-            <p x-show="submitError" x-text="submitError" style="text-align:center;margin-top:14px;color:#f87171;font-size:.875rem;"></p>
+            <p x-show="submitError" x-text="submitError"
+              style="text-align:center;margin-top:14px;color:#f87171;font-size:.875rem;"></p>
 
             <p style="text-align:center; font-size:.75rem; color:var(--text-faint); margin-top:16px;">
               We typically respond within 48 hours. Your data is handled per our <a href="privacy.html">Privacy
@@ -479,36 +481,36 @@
           /* ── collect client meta from browser-native APIs (no external call) ── */
           const ua = navigator.userAgent;
           const browserName = (() => {
-            if (/Edg\//.test(ua))     return 'Edge';
-            if (/OPR\//.test(ua))     return 'Opera';
-            if (/Chrome\//.test(ua))  return 'Chrome';
+            if (/Edg\//.test(ua)) return 'Edge';
+            if (/OPR\//.test(ua)) return 'Opera';
+            if (/Chrome\//.test(ua)) return 'Chrome';
             if (/Firefox\//.test(ua)) return 'Firefox';
-            if (/Safari\//.test(ua))  return 'Safari';
+            if (/Safari\//.test(ua)) return 'Safari';
             return 'Unknown';
           })();
           const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 
           const payload = {
-            formType:    'contact',
-            name:        this.form.name.trim(),
-            email:       this.form.email.trim(),
-            topic:       this.form.topic,
-            subject:     this.form.subject.trim(),
-            message:     this.form.message.trim(),
+            formType: 'contact',
+            name: this.form.name.trim(),
+            email: this.form.email.trim(),
+            topic: this.form.topic,
+            subject: this.form.subject.trim(),
+            message: this.form.message.trim(),
             /* client meta */
-            device:      /Mobi|Android|iPhone|iPad/i.test(ua) ? 'Mobile' : 'Desktop',
-            browser:     browserName,
-            ip:          navigator.platform || '',
-            screenSize:  `${screen.width}x${screen.height}`,
-            pixelRatio:  window.devicePixelRatio || 1,
-            language:    navigator.language || '',
-            location:    Intl.DateTimeFormat().resolvedOptions().timeZone || '',
-            connection:  conn ? (conn.effectiveType || '') : '',
-            referrer:    document.referrer || '',
+            device: /Mobi|Android|iPhone|iPad/i.test(ua) ? 'Mobile' : 'Desktop',
+            browser: browserName,
+            ip: navigator.platform || '',
+            screenSize: `${screen.width}x${screen.height}`,
+            pixelRatio: window.devicePixelRatio || 1,
+            language: navigator.language || '',
+            location: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
+            connection: conn ? (conn.effectiveType || '') : '',
+            referrer: document.referrer || '',
           };
 
           try {
-            const res  = await fetch(
+            const res = await fetch(
               'https://script.google.com/macros/s/AKfycbyX9HY2bL_HxM4UHFU9B2cQh-VZ5OqAhQNDyTFzBqjgCCfNdu2f_21A-HRCftHVrYPesw/exec',
               {
                 method: 'POST',
@@ -518,14 +520,14 @@
               }
             );
           } catch (err) {
-            this.submitting  = false;
+            this.submitting = false;
             this.submitError = err.message || 'Something went wrong. Please try again.';
             return;
           }
 
-          this.submitting  = false;
+          this.submitting = false;
           this.submitError = '';
-          this.submitted   = true;
+          this.submitted = true;
           if (typeof gtag !== 'undefined') gtag('event', 'contact_form_submit', { topic: this.form.topic });
         },
 
@@ -537,7 +539,94 @@
       };
     }
   </script>
+  <script src="assets/js/report-modal.js"></script>
 
+  <!-- ══ Report / Feedback Modal ══ -->
+  <div x-data="reportModal()" x-cloak>
+    <button class="rm-trigger" @click="openModal()" aria-label="Report or send feedback">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+        <line x1="4" y1="22" x2="4" y2="15" />
+      </svg>
+      Report / Feedback
+    </button>
+    <div class="rm-overlay" x-show="open" x-transition:enter="transition ease-out duration-200"
+      x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+      x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0" @click.self="closeModal()" role="dialog" aria-modal="true"
+      aria-labelledby="rm-modal-title">
+      <div class="rm-modal" x-show="open" x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 translate-y-4">
+        <template x-if="submitted">
+          <div class="rm-success">
+            <div class="rm-success-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+            </div>
+            <h3>Thanks for your feedback!</h3>
+            <p>We've received your report and will look into it shortly.</p>
+            <button class="rm-btn-done" @click="reset()">Close</button>
+          </div>
+        </template>
+        <template x-if="!submitted">
+          <div>
+            <div class="rm-header">
+              <div class="rm-title" id="rm-modal-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                  <line x1="12" y1="9" x2="12" y2="13" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+                Report / Feedback
+              </div>
+              <button class="rm-close" @click="closeModal()" aria-label="Close">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 6 6 18M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div class="rm-types" role="group">
+              <button class="rm-type-btn" :class="{ active: form.type==='bug' }" @click="form.type='bug'"
+                type="button">🐛 Bug Report</button>
+              <button class="rm-type-btn" :class="{ active: form.type==='wrong' }" @click="form.type='wrong'"
+                type="button">⚠️ Wrong Result</button>
+              <button class="rm-type-btn" :class="{ active: form.type==='feature' }" @click="form.type='feature'"
+                type="button">💡 Feature Request</button>
+              <button class="rm-type-btn" :class="{ active: form.type==='feedback' }" @click="form.type='feedback'"
+                type="button">💬 Feedback</button>
+            </div>
+            <div class="rm-field">
+              <label class="rm-label" for="rm-message">Description <span>*</span></label>
+              <textarea id="rm-message" class="rm-textarea" x-model="form.message"
+                placeholder="Describe the issue or your suggestion…" rows="4"></textarea>
+              <p class="rm-error-msg" x-show="errors.message" x-text="errors.message"></p>
+            </div>
+            <div class="rm-field">
+              <label class="rm-label" for="rm-email">Email <em
+                  style="font-style:normal;color:#475569;">(optional)</em></label>
+              <input id="rm-email" class="rm-input" type="email" x-model="form.email" placeholder="you@example.com" />
+              <p class="rm-error-msg" x-show="errors.email" x-text="errors.email"></p>
+            </div>
+            <div class="rm-actions">
+              <button class="rm-btn-cancel" type="button" @click="closeModal()">Cancel</button>
+              <button class="rm-btn-submit" type="button" @click="submit()" :disabled="submitting">
+                <template x-if="!submitting"><span style="display:flex;align-items:center;gap:7px;"><svg
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z" />
+                    </svg>Send Report</span></template>
+                <template x-if="submitting"><span style="display:flex;align-items:center;gap:8px;"><span
+                      class="rm-spinner"></span>Sending…</span></template>
+              </button>
+            </div>
+            <p class="rm-submit-error" x-show="submitError" x-text="submitError"></p>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>

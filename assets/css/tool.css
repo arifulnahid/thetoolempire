@@ -292,17 +292,53 @@
         z-index: 50;
     }
 
+    .filter-bar-scroll-wrap {
+        max-width: var(--max-w);
+        margin-inline: auto;
+        padding-inline: clamp(16px, 4vw, 48px);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        position: relative;
+    }
+
     .filter-bar-inner {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
         padding-block: 12px;
         overflow-x: auto;
         scrollbar-width: none;
+        flex: 1;
+        min-width: 0;
     }
 
     .filter-bar-inner::-webkit-scrollbar {
         display: none;
+    }
+
+    .filter-scroll-btn {
+        flex-shrink: 0;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background .15s, color .15s, border-color .15s;
+        padding: 0;
+    }
+
+    .filter-scroll-btn:hover {
+        background: rgba(108,99,255,.12);
+        border-color: var(--primary);
+        color: var(--primary);
     }
 
     .filter-label {
@@ -808,7 +844,11 @@
         }
 
         .filter-bar {
-            top: 64px;
+            top: 56px;
+        }
+
+        .filter-scroll-btn {
+            display: none;
         }
 
         .toolbar {

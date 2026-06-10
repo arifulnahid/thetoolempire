@@ -108,14 +108,20 @@
 
   <!-- FILTER BAR -->
   <div class="filter-bar" role="navigation" aria-label="Filter by category">
-    <div class="container filter-bar-inner">
-      <span class="filter-label">Filter:</span>
-      <button class="pill" :class="{ active: activeCategory === '' }"
-        @click="activeCategory=''; applyFilters()">All</button>
-      <template x-for="cat in categories" :key="cat.slug">
-        <button class="pill" :class="{ active: activeCategory === cat.slug }"
-          @click="activeCategory = cat.slug; applyFilters()" x-text="cat.label"></button>
-      </template>
+    <div class="filter-bar-scroll-wrap">
+      <button class="filter-scroll-btn filter-scroll-left" id="filterScrollLeft" aria-label="Scroll filters left"
+        onclick="document.getElementById('filterPills').scrollBy({left:-200,behavior:'smooth'})">‹</button>
+      <div class="filter-bar-inner" id="filterPills">
+        <span class="filter-label">Filter:</span>
+        <button class="pill" :class="{ active: activeCategory === '' }"
+          @click="activeCategory=''; applyFilters()">All</button>
+        <template x-for="cat in categories" :key="cat.slug">
+          <button class="pill" :class="{ active: activeCategory === cat.slug }"
+            @click="activeCategory = cat.slug; applyFilters()" x-text="cat.label"></button>
+        </template>
+      </div>
+      <button class="filter-scroll-btn filter-scroll-right" id="filterScrollRight" aria-label="Scroll filters right"
+        onclick="document.getElementById('filterPills').scrollBy({left:200,behavior:'smooth'})">›</button>
     </div>
   </div>
 
@@ -551,7 +557,7 @@
               tool.title.toLowerCase().includes(q) ||
               tool.description.toLowerCase().includes(q) ||
               tool.categories.some(c => c.toLowerCase().includes(q));
-            const matchCat = !cat || tool.categories.includes(cat);
+            const matchCat = !cat || tool.categories.some(c => c.toLowerCase() === cat.toLowerCase());
             return matchQ && matchCat;
           });
 

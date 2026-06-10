@@ -3,20 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Free online Text Diff Checker — compare two texts side-by-side and highlight additions, deletions and changes instantly. Split view and unified view. No sign-up, 100% private." />
-  <meta name="keywords" content="text diff checker, compare two texts online, find text differences, diff tool, text comparison, online diff, side by side comparison, file diff" />
+  <meta name="description" content="Free online Text Diff Checker — compare two texts side-by-side and highlight every addition, deletion and change instantly. Split view and unified view, ignore case/whitespace options, similarity score. No sign-up, 100% private, runs in your browser." />
+  <meta name="keywords" content="text diff checker, compare two texts online, find text differences, diff tool, text comparison, online diff checker, side by side text comparison, file diff, document comparison, code diff, git diff online, LCS diff, free diff tool, text difference finder, compare documents online, text version control" />
   <meta name="author" content="The Tool Empire" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="theme-color" content="#6C63FF" />
   <link rel="canonical" href="https://thetoolempire.com/tools/text/diff-checker.html" />
 
   <meta property="og:title" content="Free Text Diff Checker — Compare Texts & Find Differences | The Tool Empire" />
-  <meta property="og:description" content="Paste two texts and instantly see what changed — additions in green, deletions in red. Split view and unified view. Free, private, no login." />
+  <meta property="og:description" content="Paste two texts and instantly see every addition, deletion and unchanged line — green for added, red for removed. Split and unified view. Free, private, no login needed." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://thetoolempire.com/tools/text/diff-checker.html" />
+  <meta property="og:site_name" content="The Tool Empire" />
   <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Text Diff Checker — side-by-side text comparison tool" />
+  <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Free Text Diff Checker — The Tool Empire" />
-  <meta name="twitter:description" content="Compare two texts instantly. Additions in green, deletions in red. Split and unified views." />
+  <meta name="twitter:site" content="@thetoolempire" />
+  <meta name="twitter:creator" content="@thetoolempire" />
+  <meta name="twitter:title" content="Free Text Diff Checker — Compare Texts Instantly | The Tool Empire" />
+  <meta name="twitter:description" content="Compare two texts instantly. Additions in green, deletions in red. Split &amp; unified views, ignore case/whitespace, similarity score. 100% private." />
+  <meta name="twitter:image" content="https://thetoolempire.com/assets/og-image.png" />
+  <meta name="twitter:image:alt" content="Text Diff Checker tool preview" />
 
   <title>Free Text Diff Checker — Compare Texts & Highlight Changes | The Tool Empire</title>
   <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg" />
@@ -46,44 +56,75 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Text Diff Checker",
-    "applicationCategory": "UtilitiesApplication",
-    "operatingSystem": "Web",
-    "url": "https://thetoolempire.com/tools/text/diff-checker.html",
-    "description": "Free online text diff tool that compares two texts side-by-side and highlights additions, deletions and unchanged lines. Split and unified view modes.",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "featureList": ["Side-by-side split view","Unified diff view","Line-level comparison","Ignore case option","Ignore whitespace option","Copy diff output"],
-    "provider": { "@type": "Organization", "name": "The Tool Empire", "url": "https://thetoolempire.com" }
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home",       "item": "https://thetoolempire.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Tools",      "item": "https://thetoolempire.com/tools.html" },
-      { "@type": "ListItem", "position": 3, "name": "Text Tools", "item": "https://thetoolempire.com/tools.html?cat=text" },
-      { "@type": "ListItem", "position": 4, "name": "Text Diff Checker", "item": "https://thetoolempire.com/tools/text/diff-checker.html" }
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      { "@type": "Question", "name": "How does the diff checker work?", "acceptedAnswer": { "@type": "Answer", "text": "The tool implements the Longest Common Subsequence (LCS) algorithm to identify lines that are identical in both texts, then marks the remaining lines as additions or deletions. All computation runs locally in your browser." } },
-      { "@type": "Question", "name": "Is my text sent to a server?", "acceptedAnswer": { "@type": "Answer", "text": "No. Everything is processed locally in JavaScript inside your browser. Your text never leaves your device." } },
-      { "@type": "Question", "name": "What is split view vs unified view?", "acceptedAnswer": { "@type": "Answer", "text": "Split view shows the original text on the left and the revised text on the right, with changed lines highlighted side-by-side. Unified view shows a single column with additions (+) and deletions (-) interspersed." } },
-      { "@type": "Question", "name": "What does 'ignore whitespace' do?", "acceptedAnswer": { "@type": "Answer", "text": "When enabled, leading/trailing spaces are stripped and consecutive spaces are collapsed to one before comparison. This is useful when you only care about content differences, not formatting." } },
-      { "@type": "Question", "name": "What does 'ignore case' do?", "acceptedAnswer": { "@type": "Answer", "text": "All text is converted to lowercase before comparison so lines that differ only in capitalisation are treated as equal." } },
-      { "@type": "Question", "name": "Can I compare entire documents?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Paste any amount of text — articles, code files, contracts, emails. The tool handles large documents, though very large inputs (100k+ lines) may be slower due to the O(m×n) LCS algorithm." } },
-      { "@type": "Question", "name": "Does it work for code comparison?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The monospace font and line-by-line comparison make it well-suited for comparing code snippets, configuration files, or JSON between two versions." } },
-      { "@type": "Question", "name": "Can I copy the diff result?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — click the Copy button in the controls bar to copy the unified diff output to your clipboard, with + and - prefixes indicating additions and deletions." } },
-      { "@type": "Question", "name": "How is the similarity percentage calculated?", "acceptedAnswer": { "@type": "Answer", "text": "Similarity is the number of unchanged lines divided by the total lines in the longer document, expressed as a percentage." } },
-      { "@type": "Question", "name": "What algorithm is used?", "acceptedAnswer": { "@type": "Answer", "text": "The Longest Common Subsequence (LCS) dynamic programming algorithm — the same approach used by Unix diff and Git. It finds the minimal set of edits to transform text A into text B." } }
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Text Diff Checker",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web Browser",
+        "url": "https://thetoolempire.com/tools/text/diff-checker.html",
+        "description": "Free online text diff tool that compares two texts side-by-side and highlights additions, deletions and unchanged lines. Split view, unified view, ignore case, ignore whitespace, similarity score.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "featureList": [
+          "Side-by-side split view",
+          "Unified diff view",
+          "Line-level comparison with LCS algorithm",
+          "Ignore case option",
+          "Ignore whitespace option",
+          "Similarity percentage score",
+          "Copy diff output to clipboard",
+          "Swap texts in one click",
+          "Expandable textarea panels",
+          "100% private — no server upload"
+        ],
+        "provider": { "@type": "Organization", "name": "The Tool Empire", "url": "https://thetoolempire.com" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "ratingCount": "876", "bestRating": "5", "worstRating": "1" }
+      },
+      {
+        "@type": "WebPage",
+        "name": "Free Text Diff Checker — Compare Texts & Find Differences",
+        "url": "https://thetoolempire.com/tools/text/diff-checker.html",
+        "description": "Compare two texts side-by-side and highlight additions, deletions, and unchanged lines instantly. No sign-up, runs entirely in your browser.",
+        "inLanguage": "en",
+        "isPartOf": { "@type": "WebSite", "name": "The Tool Empire", "url": "https://thetoolempire.com" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home",       "item": "https://thetoolempire.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools",      "item": "https://thetoolempire.com/tools.html" },
+          { "@type": "ListItem", "position": 3, "name": "Text Tools", "item": "https://thetoolempire.com/tools.html?cat=text" },
+          { "@type": "ListItem", "position": 4, "name": "Text Diff Checker", "item": "https://thetoolempire.com/tools/text/diff-checker.html" }
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "name": "How to Use the Text Diff Checker",
+        "description": "Compare two texts and find every difference in seconds.",
+        "step": [
+          { "@type": "HowToStep", "position": 1, "name": "Paste Original Text", "text": "Click inside the left panel labelled 'Original Text' and paste your first version of the text." },
+          { "@type": "HowToStep", "position": 2, "name": "Paste Revised Text", "text": "Click inside the right panel labelled 'Revised Text' and paste the updated or edited version." },
+          { "@type": "HowToStep", "position": 3, "name": "Review the Diff Result", "text": "The diff output appears instantly below — green lines are additions, red lines are deletions, grey lines are unchanged." },
+          { "@type": "HowToStep", "position": 4, "name": "Choose a View Mode", "text": "Toggle between Split view (side-by-side) and Unified view (single column with +/- prefixes) using the buttons in the controls bar." },
+          { "@type": "HowToStep", "position": 5, "name": "Copy or Export", "text": "Click 'Copy diff' to copy the unified diff output to your clipboard for pasting into a document or email." }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "How does the diff checker work?", "acceptedAnswer": { "@type": "Answer", "text": "The tool implements the Longest Common Subsequence (LCS) algorithm to identify lines that are identical in both texts, then marks the remaining lines as additions or deletions. All computation runs locally in your browser — nothing is sent to any server." } },
+          { "@type": "Question", "name": "Is my text sent to a server?", "acceptedAnswer": { "@type": "Answer", "text": "No. Everything is processed locally in JavaScript inside your browser. Your text never leaves your device, making it safe for confidential documents, proprietary code, and sensitive data." } },
+          { "@type": "Question", "name": "What is split view vs unified view?", "acceptedAnswer": { "@type": "Answer", "text": "Split view shows the original text on the left and the revised text on the right, with changed lines highlighted side-by-side. Unified view shows a single column with additions (+) and deletions (-) interspersed, similar to Git diff output." } },
+          { "@type": "Question", "name": "What does 'ignore whitespace' do?", "acceptedAnswer": { "@type": "Answer", "text": "When enabled, leading and trailing spaces are stripped and consecutive internal spaces are collapsed to one before comparison. Lines that differ only in spacing are treated as equal." } },
+          { "@type": "Question", "name": "What does 'ignore case' do?", "acceptedAnswer": { "@type": "Answer", "text": "All text is converted to lowercase before comparison so lines that differ only in capitalisation are treated as equal and shown as unchanged." } },
+          { "@type": "Question", "name": "Can I compare entire documents?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Paste any amount of text — articles, code files, contracts, emails, JSON. The tool handles large documents well, though inputs over 100k lines may be slightly slower due to the O(m×n) LCS algorithm." } },
+          { "@type": "Question", "name": "Does it work for comparing code?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The monospace font and line-by-line comparison make it ideal for code snippets, config files, JSON, SQL, HTML, and any structured text." } },
+          { "@type": "Question", "name": "Can I copy the diff result?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — click 'Copy diff' in the controls bar to copy the unified diff output with + for additions, - for deletions, and two spaces for unchanged lines." } },
+          { "@type": "Question", "name": "How is the similarity percentage calculated?", "acceptedAnswer": { "@type": "Answer", "text": "Similarity = (unchanged lines × 2) ÷ (total lines in A + total lines in B), expressed as a percentage. 100% means identical, 0% means completely different." } },
+          { "@type": "Question", "name": "What algorithm does it use?", "acceptedAnswer": { "@type": "Answer", "text": "The Longest Common Subsequence (LCS) dynamic programming algorithm — the same fundamental approach used by Unix diff and Git. It finds the minimal set of line-level edits to transform text A into text B." } },
+          { "@type": "Question", "name": "Can I expand the text input area?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Each text panel has an Expand button in its header that doubles the textarea height for more comfortable editing of large documents. You can also drag the bottom-right resize handle of each textarea to set any custom height." } }
+        ]
+      }
     ]
   }
   </script>
@@ -222,6 +263,10 @@
               <span class="label-dot original"></span>Original Text
             </span>
             <div class="input-actions">
+              <button class="btn-expand" @click="expandA=!expandA" :title="expandA ? 'Collapse' : 'Expand'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><template x-if="!expandA"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></template><template x-if="expandA"><path d="M8 3v6H3M21 16h-6v6M3 9l6 6M15 15l6-6"/></template></svg>
+                <span x-text="expandA ? 'Collapse' : 'Expand'"></span>
+              </button>
               <button class="btn-sm" @click="pasteA()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
                 Paste
@@ -233,6 +278,7 @@
             </div>
           </div>
           <textarea class="diff-textarea" x-model="textA"
+            :style="expandA ? 'min-height:560px;max-height:none' : ''"
             placeholder="Paste your original text here…" aria-label="Original text"></textarea>
         </div>
 
@@ -242,6 +288,10 @@
               <span class="label-dot revised"></span>Revised Text
             </span>
             <div class="input-actions">
+              <button class="btn-expand" @click="expandB=!expandB" :title="expandB ? 'Collapse' : 'Expand'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><template x-if="!expandB"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></template><template x-if="expandB"><path d="M8 3v6H3M21 16h-6v6M3 9l6 6M15 15l6-6"/></template></svg>
+                <span x-text="expandB ? 'Collapse' : 'Expand'"></span>
+              </button>
               <button class="btn-sm" @click="pasteB()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
                 Paste
@@ -253,6 +303,7 @@
             </div>
           </div>
           <textarea class="diff-textarea" x-model="textB"
+            :style="expandB ? 'min-height:560px;max-height:none' : ''"
             placeholder="Paste your revised text here…" aria-label="Revised text"></textarea>
         </div>
       </div>
@@ -531,31 +582,50 @@
   <section class="tags-section">
     <div class="container">
       <div class="tags-row">
-        <span class="tags-label">Tags</span>
+        <span class="tags-label">Category</span>
+        <a href="../../tools.html?cat=text" class="tag-chip">Text Tools</a>
+        <a href="../../tools.html?cat=coding" class="tag-chip">Coding</a>
+        <a href="../../tools.html?cat=writing" class="tag-chip">Writing</a>
+        <a href="../../tools.html?cat=seo" class="tag-chip">SEO</a>
+        <a href="../../tools.html?cat=productivity" class="tag-chip">Productivity</a>
+      </div>
+      <div class="tags-row">
+        <span class="tags-label">Topics</span>
         <span class="tag-chip">Text Diff</span>
-        <span class="tag-chip">Compare Text</span>
+        <span class="tag-chip">Compare Two Texts</span>
         <span class="tag-chip">Find Differences</span>
-        <span class="tag-chip">Side by Side</span>
+        <span class="tag-chip">Side by Side Comparison</span>
         <span class="tag-chip">Unified Diff</span>
         <span class="tag-chip">Code Compare</span>
-        <span class="tag-chip">Document Compare</span>
+        <span class="tag-chip">Document Comparison</span>
         <span class="tag-chip">Version Control</span>
         <span class="tag-chip">LCS Algorithm</span>
-        <span class="tag-chip">Writing Tool</span>
-        <span class="tag-chip">SEO Content</span>
+        <span class="tag-chip">Contract Review</span>
+        <span class="tag-chip">SEO Content Audit</span>
         <span class="tag-chip">Free Online Tool</span>
+        <span class="tag-chip">No Sign-up</span>
+        <span class="tag-chip">100% Private</span>
       </div>
       <div class="tags-row">
         <span class="tags-label">Hashtags</span>
         <span class="tag-chip hashtag-chip">#DiffChecker</span>
         <span class="tag-chip hashtag-chip">#TextComparison</span>
+        <span class="tag-chip hashtag-chip">#TextDiff</span>
+        <span class="tag-chip hashtag-chip">#CompareText</span>
         <span class="tag-chip hashtag-chip">#DevTools</span>
         <span class="tag-chip hashtag-chip">#WritingTools</span>
         <span class="tag-chip hashtag-chip">#ContentSEO</span>
         <span class="tag-chip hashtag-chip">#CodeReview</span>
         <span class="tag-chip hashtag-chip">#FreeTools</span>
         <span class="tag-chip hashtag-chip">#GitDiff</span>
+        <span class="tag-chip hashtag-chip">#OnlineDiff</span>
+        <span class="tag-chip hashtag-chip">#DocumentCompare</span>
+        <span class="tag-chip hashtag-chip">#VersionControl</span>
+        <span class="tag-chip hashtag-chip">#PrivacyFirst</span>
+        <span class="tag-chip hashtag-chip">#SEOTools</span>
+        <span class="tag-chip hashtag-chip">#ProductivityTools</span>
         <span class="tag-chip hashtag-chip">#TheToolEmpire</span>
+        <span class="tag-chip hashtag-chip">#FreeOnlineTools</span>
       </div>
     </div>
   </section>

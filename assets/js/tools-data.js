@@ -507,6 +507,15 @@ const TOOLS_DATA = [
 
   // ── PDF TOOLS ──────────────────────────────────────────────────
   {
+    id: 'pdf-bookmark',
+    title: 'PDF Bookmark Tool',
+    description: 'Add multi-level bookmarks (outlines) to any PDF. Set chapter titles, page numbers, and nesting depth. Download instantly — fully private, no server upload.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>',
+    color: 'linear-gradient(135deg,#f59e0b,#10b981)',
+    categories: ['PDF', 'utilities'],
+    url: 'tools/pdf/pdf-bookmark.html',
+  },
+  {
     id: 'invoice-generator',
     title: 'Invoice PDF Generator',
     description: 'Create professional invoices with line items, tax, discount, and payment terms. Download as a print-ready PDF or PNG. Eight currencies, live preview — no account needed.',

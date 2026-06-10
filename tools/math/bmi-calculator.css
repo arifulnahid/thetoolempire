@@ -181,10 +181,11 @@ svg { display: block; }
 /* ── TAGS ────────────────────────────────────────────────── */
 .tags-section { padding: clamp(16px,3vw,28px) 0; border-top: 1px solid var(--border); }
 .tags-row { display: flex; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
-.tags-label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--text-faint); margin-top: 6px; flex-shrink: 0; }
+.tags-label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--text-faint); margin-top: 6px; flex-shrink: 0; min-width: 68px; }
 .tag-chip { display: inline-flex; padding: 5px 12px; border-radius: 999px; font-size: .78rem; font-weight: 600; border: 1px solid var(--border); color: var(--text-muted); transition: all var(--transition); }
 .tag-chip:hover { border-color: rgba(244,114,182,.5); color: var(--text); }
 .hashtag-chip { background: rgba(244,114,182,.07); border-color: rgba(244,114,182,.2); color: #f9a8d4; }
+.hashtag-chip:hover { background: rgba(244,114,182,.14); }
 
 /* ── REPORT ──────────────────────────────────────────────── */
 .report-strip { padding: 14px 0; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }

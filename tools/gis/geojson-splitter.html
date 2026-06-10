@@ -41,6 +41,7 @@
 
   <link rel="stylesheet" href="geojson-splitter.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -443,6 +444,32 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>GeoJSON Splitter divides a single large GeoJSON FeatureCollection into multiple files — by feature count, by a property value, or by geographic bounding box — making large datasets easier to manage.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload a GeoJSON file.</li>
+        <li>Choose split mode: By Count, By Property, or By Bounding Box.</li>
+        <li>Enter the split value (e.g. 100 features per file, or a property name).</li>
+        <li>Click Split and download the resulting ZIP of GeoJSON files.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>By Count: slices the features array into chunks of the specified size. By Property: builds a map from each unique property value to a subset of features. By Bounding Box: checks each feature's centroid or bounding envelope against the grid cells. Each subset is wrapped in a new FeatureCollection and packaged with JSZip.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

@@ -38,6 +38,7 @@
 
   <link rel="stylesheet" href="url-encoder.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -370,6 +371,32 @@
 
   <hr class="section-divider"/>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>URL Encoder/Decoder converts special characters in URLs to percent-encoded format (<code>%20</code>, <code>%2F</code>, etc.) and back. Handles both full URL encoding and component-level encoding with correct RFC 3986 rules.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Paste a URL or URL component into the input.</li>
+        <li>Select Full URL or Component mode.</li>
+        <li>Click Encode or Decode.</li>
+        <li>Copy the result.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Component encoding uses <code>encodeURIComponent()</code> which encodes everything except unreserved characters (<code>A–Z a–z 0–9 - _ . ~</code>). Full URL encoding uses <code>encodeURI()</code> which additionally preserves <code>: / ? # [ ] @ ! $ & ' ( ) * + , ; =</code>. Decoding uses the matching <code>decode*</code> functions wrapped in try/catch for malformed sequences.</p>
+      </div>
+    </div>
+  </section>
   <!-- Related tools -->
   <div class="page-section" style="margin-top:0">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">

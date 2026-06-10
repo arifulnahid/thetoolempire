@@ -88,6 +88,7 @@
     ]
   }
   </script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body x-data="wordCounterApp()" x-init="init()">
 
@@ -562,7 +563,33 @@
   </section>
 
   <!-- ── TAGS ─────────────────────────────────────────────── -->
-  <section class="tags-section">
+  
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Word Counter counts words, characters (with and without spaces), sentences, paragraphs, and estimates reading time as you type. It also shows the top 10 most-used keywords and their frequency, making it useful for SEO and content analysis.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Paste or type your text into the editor.</li>
+        <li>Results update in real time — no button click needed.</li>
+        <li>Check the keyword list to spot over-used words.</li>
+        <li>Use the reading-time estimate for blog or article planning.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Words are split on whitespace using a regex token split. Sentences are detected by <code>. ? !</code> punctuation. Paragraphs count consecutive non-empty line groups. Reading time uses a 200 words-per-minute average. Keyword frequency is built with a plain JS object as a frequency map, then sorted by count descending.</p>
+      </div>
+    </div>
+  </section>
+<section class="tags-section">
     <div class="container">
       <div class="tags-row">
         <span class="tags-label">Tags</span>

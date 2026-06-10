@@ -49,6 +49,7 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I calculate what is X% of a number?","acceptedAnswer":{"@type":"Answer","text":"Multiply the number by X then divide by 100. For example, 20% of 150 = (20 ÷ 100) × 150 = 30. Use the Basic tab in this calculator to get instant results."}},{"@type":"Question","name":"How do I find what percentage one number is of another?","acceptedAnswer":{"@type":"Answer","text":"Divide the part by the whole and multiply by 100. For example, 30 is what percent of 150? (30 ÷ 150) × 100 = 20%. Use the What % tab."}},{"@type":"Question","name":"How do I calculate percentage change?","acceptedAnswer":{"@type":"Answer","text":"Subtract the original value from the new value, divide by the absolute original value, then multiply by 100. Formula: ((New − Old) ÷ |Old|) × 100. A positive result is an increase; negative is a decrease."}},{"@type":"Question","name":"What is a reverse percentage calculation?","acceptedAnswer":{"@type":"Answer","text":"A reverse percentage finds the original whole when you know a part and the percentage it represents. Formula: Whole = Part ÷ (Percentage ÷ 100). For example, 30 is 20% of what number? 30 ÷ 0.20 = 150."}},{"@type":"Question","name":"How do I increase a number by a percentage?","acceptedAnswer":{"@type":"Answer","text":"Multiply the number by (1 + percentage/100). For example, 200 increased by 15% = 200 × 1.15 = 230. Use the Add/Subtract tab for both increase and decrease in one step."}},{"@type":"Question","name":"How do I decrease a number by a percentage?","acceptedAnswer":{"@type":"Answer","text":"Multiply the number by (1 − percentage/100). For example, 200 decreased by 15% = 200 × 0.85 = 170."}},{"@type":"Question","name":"Is this calculator accurate for financial calculations?","acceptedAnswer":{"@type":"Answer","text":"Yes for general use. Results are computed using standard floating-point arithmetic and displayed to up to 8 significant decimal places. For high-stakes financial decisions always verify with a certified financial tool."}},{"@type":"Question","name":"Can I see my past calculations?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every calculation is automatically saved in the History panel at the bottom of the tool. You can clear the history at any time."}},{"@type":"Question","name":"What is the difference between percentage points and percent change?","acceptedAnswer":{"@type":"Answer","text":"Percentage points are the arithmetic difference between two percentages (e.g., 30% − 20% = 10 percentage points). Percent change is relative: a change from 20% to 30% is a 50% increase (10 ÷ 20 × 100)."}},{"@type":"Question","name":"Does this tool store my calculations?","acceptedAnswer":{"@type":"Answer","text":"No data is sent to any server. All calculations run in your browser using JavaScript. History is stored in memory only and cleared when you refresh the page."}}]}
   </script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body x-data="pctCalcApp()" x-init="init()">
 
@@ -501,6 +502,32 @@
 </section>
 
 <!-- ── TAGS ──────────────────────────────────────────────────── -->
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Percentage Calculator solves five common percentage problems: X% of Y, what % is X of Y, X is Y% of what, percentage increase/decrease between two numbers, and percentage difference.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Choose the calculation type from the mode selector.</li>
+        <li>Fill in the known values.</li>
+        <li>The answer calculates automatically.</li>
+        <li>All five modes are always visible — switch between them freely.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Mode 1 (X% of Y): <code>Y × X / 100</code>. Mode 2 (X is what % of Y): <code>X / Y × 100</code>. Mode 3 (X is Y% of what): <code>X / (Y / 100)</code>. Mode 4 (% change): <code>(new − old) / |old| × 100</code>. Mode 5 (% difference): <code>|A − B| / ((A + B) / 2) × 100</code>. Division-by-zero cases are caught and shown as "undefined".</p>
+      </div>
+    </div>
+  </section>
 <section class="tags-section">
   <div class="container">
     <div class="tags-row">

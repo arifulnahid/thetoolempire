@@ -42,6 +42,7 @@
 
   <link rel="stylesheet" href="gradient-generator.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -322,6 +323,33 @@
     </div>
   </section>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Gradient Generator creates CSS linear, radial, and conic gradients with unlimited colour stops, adjustable angle, and multiple position controls. Preview updates live and the CSS output is copy-ready.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Choose gradient type: Linear, Radial, or Conic.</li>
+        <li>Add colour stops by clicking the gradient bar.</li>
+        <li>Drag stops to reposition them; click a stop to change its colour.</li>
+        <li>Adjust angle or direction using the dial or arrow buttons.</li>
+        <li>Copy the generated CSS <code>background</code> rule.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>The gradient preview uses a CSS <code>background</code> property on a <code>div</code> built dynamically from the stop array. Stops are stored as <code>{color, position}</code> objects sorted by position. CSS output is assembled by mapping stops to <code>color position%</code> strings and joining with commas inside the gradient function.</p>
+      </div>
+    </div>
+  </section>
   <!-- Related Tools -->
   <section class="related-section">
     <div class="related-header">

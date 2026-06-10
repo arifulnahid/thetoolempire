@@ -44,6 +44,7 @@
   <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -495,6 +496,32 @@
 
 </div><!-- /main-wrap -->
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>HEIC to JPG Converter decodes Apple HEIC/HEIF images (from iPhone and iPad) to standard JPEG or PNG format entirely in the browser — no upload to any server, no privacy risk.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload one or more .heic or .heif files.</li>
+        <li>Choose output format (JPEG or PNG) and quality.</li>
+        <li>Click Convert.</li>
+        <li>Download individual files or a ZIP of all converted images.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>HEIC/HEIF uses H.265 (HEVC) image compression. Decoding uses the <strong>heic2any</strong> library which implements a WebAssembly HEIF decoder. The decoded raw pixel data is passed to a <code>&lt;canvas&gt;</code> element, then exported with <code>canvas.toDataURL('image/jpeg', quality)</code> or <code>'image/png'</code>.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

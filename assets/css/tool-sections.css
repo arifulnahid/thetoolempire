@@ -1,0 +1,91 @@
+/* ── Tool Info Sections (shared across all tool pages) ─── */
+.tool-info-sections {
+  margin-bottom: 36px;
+}
+
+.tool-info-sections .tis-heading {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin-bottom: 16px;
+}
+
+.tis-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 820px) {
+  .tis-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px) {
+  .tis-grid { grid-template-columns: 1fr; }
+}
+
+.tis-card {
+  background: #111822;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 14px;
+  padding: 20px 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color .15s ease, background .15s ease;
+}
+
+.tis-card:hover {
+  border-color: rgba(255,255,255,.13);
+  background: #141c28;
+}
+
+.tis-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.tis-card:nth-child(1) .tis-icon-wrap { background: rgba(99,102,241,.12); }
+.tis-card:nth-child(2) .tis-icon-wrap { background: rgba(16,185,129,.12); }
+.tis-card:nth-child(3) .tis-icon-wrap { background: rgba(245,158,11,.12); }
+
+.tis-card h3 {
+  font-size: .88rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin: 0;
+}
+
+.tis-card p {
+  font-size: .82rem;
+  color: #8ba0b8;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.tis-card ol,
+.tis-card ul {
+  font-size: .82rem;
+  color: #8ba0b8;
+  line-height: 1.8;
+  padding-left: 18px;
+  margin: 0;
+}
+
+.tis-card ol li,
+.tis-card ul li {
+  margin-bottom: 3px;
+}
+
+.tis-card code {
+  background: rgba(255,255,255,.06);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: .78rem;
+  color: #93c5fd;
+}

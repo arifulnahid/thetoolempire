@@ -56,6 +56,7 @@
     ]
   }
   </script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body x-data="unitConverterApp()" x-init="init()">
 
@@ -401,7 +402,33 @@
   </section>
 
   <!-- ── TAGS ────────────────────────────────────────────────── -->
-  <section class="tags-section">
+  
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Unit Converter handles 14 measurement categories — length, weight, temperature, area, volume, speed, time, digital storage, pressure, energy, force, angle, frequency, and fuel economy — with instant conversion across all units in the category.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Select a measurement category.</li>
+        <li>Enter a value in any unit field.</li>
+        <li>All other units in that category update instantly.</li>
+        <li>Use the search box to find a specific unit quickly.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Each category defines a base unit and a conversion factor for every other unit relative to that base. Entering a value in unit X: divide by X's factor to get the base value, then multiply by Y's factor for each target unit Y. Temperature is a special case using offset formulas: °C→°F: <code>× 9/5 + 32</code>; °F→°C: <code>(× − 32) × 5/9</code>; K = °C + 273.15.</p>
+      </div>
+    </div>
+  </section>
+<section class="tags-section">
     <div class="container">
       <div class="tags-row">
         <span class="tags-label">Category</span>

@@ -46,6 +46,7 @@
 
   <link rel="stylesheet" href="coordinate-distance.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 
 <body>
@@ -647,7 +648,33 @@
 
   </div>
 
-  <footer class="site-footer">
+  
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Coordinate Distance Calculator measures the great-circle distance between two geographic points entered as decimal degrees or DMS. Returns results in kilometres, miles, and nautical miles.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Enter latitude and longitude for Point A.</li>
+        <li>Enter latitude and longitude for Point B.</li>
+        <li>Click Calculate to get the great-circle distance.</li>
+        <li>Switch between decimal degrees and DMS input using the format selector.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Uses the <strong>Haversine formula</strong>: <code>a = sin²(Δlat/2) + cos(lat1)cos(lat2)sin²(Δlng/2)</code>; <code>c = 2atan2(√a, √(1−a))</code>; <code>d = R × c</code> where R = 6,371 km. This gives the shortest path along the surface of a sphere — accurate to within 0.3% versus the WGS84 ellipsoid for most distances.</p>
+      </div>
+    </div>
+  </section>
+<footer class="site-footer">
     <div class="footer-grid">
       <div>
         <a href="../../index.html" class="logo">

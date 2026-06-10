@@ -85,6 +85,7 @@
   </script>
 
   <link rel="stylesheet" href="qr-code-maker.css" />
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body x-data="qrApp()" x-init="init()" @keydown.escape="reportOpen = false; mobileMenuOpen = false">
 
@@ -555,7 +556,34 @@
 
   <!-- TAGS & HASHTAGS -->
   <div class="container">
-    <div class="tags-section" aria-label="Tags and hashtags">
+    
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>QR Code Maker generates QR codes for any URL, plain text, phone number, email address, or vCard contact. Choose size, error-correction level, and foreground/background colours — download as PNG or SVG.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Select the content type (URL, Text, Email, Phone, etc.).</li>
+        <li>Enter the data to encode.</li>
+        <li>Adjust size and error-correction level (L/M/Q/H) in the options panel.</li>
+        <li>Pick custom colours.</li>
+        <li>Click Download PNG or SVG.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>QR codes use Reed–Solomon error correction to allow partial damage recovery. The <strong>qrcode.js</strong> library implements the QR encoding standard (ISO 18004): data is encoded in mode bytes (numeric, alphanumeric, byte, kanji), split into error-correction blocks, and arranged into an 8-bit matrix with finder, alignment, and timing patterns.</p>
+      </div>
+    </div>
+  </section>
+<div class="tags-section" aria-label="Tags and hashtags">
       <p style="font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-faint);margin-bottom:10px;">Tags</p>
       <div class="tags-row">
         <span class="tag-chip regular">QR Code</span>

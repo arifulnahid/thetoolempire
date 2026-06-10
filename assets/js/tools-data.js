@@ -58,6 +58,15 @@ const TOOLS_DATA = [
 
   // ── MATH & CALCULATORS ─────────────────────────────────────────
   {
+    id: 'bearing-calculator',
+    title: 'Bearing Calculator',
+    description: 'Calculate compass bearing between GPS coordinates, convert DMS formats, find back bearings, and apply magnetic declination corrections.',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><polygon points="12,5 13.5,12 12,14 10.5,12"/></svg>',
+    color: 'linear-gradient(135deg,#0ea5e9,#0284c7)',
+    categories: ['Math', 'Navigation'],
+    url: 'tools/math/bearing-calculator.html',
+  },
+  {
     id: 'percentage-calc',
     title: 'Percentage Calculator',
     description: 'Calculate percentages, increases, decreases, and ratios in seconds.',

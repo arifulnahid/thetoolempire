@@ -39,6 +39,7 @@
 
   <link rel="stylesheet" href="yt-custom-player.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -461,6 +462,32 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>YouTube Custom Player embeds a YouTube video with custom branding, colour controls, and playback settings — generating a clean iframe embed code with autoplay, loop, and UI control options.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Paste a YouTube video URL or ID.</li>
+        <li>Customise the player: hide controls, set autoplay/loop, choose start time.</li>
+        <li>Preview the embedded player.</li>
+        <li>Copy the iframe embed code.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>The YouTube IFrame Player API parameters are assembled as URL query string parameters: <code>autoplay=1</code>, <code>loop=1&playlist=VIDEO_ID</code>, <code>controls=0</code>, <code>start=N</code> etc. The video ID is extracted from various YouTube URL formats using a regex: <code>/(?:v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{11})/</code>.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

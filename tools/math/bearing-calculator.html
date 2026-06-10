@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Bearing Calculator — Compass Bearing Between Two Points | The Tool Empire</title>
+  <meta name="description" content="Free online bearing calculator. Calculate compass bearing between two GPS coordinates, find back/reverse bearings, convert between decimal degrees, DMS and compass notation, and apply magnetic declination corrections. No signup needed."/>
+  <meta name="keywords" content="bearing calculator, compass bearing calculator, bearing between two points, azimuth calculator, back bearing calculator, magnetic bearing calculator, true bearing, DMS bearing converter, GPS bearing, navigation calculator, heading calculator"/>
+  <meta name="robots" content="index,follow"/>
+  <meta name="author" content="The Tool Empire"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/math/bearing-calculator.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Bearing Calculator — Compass Bearing Between Two Points"/>
+  <meta property="og:description" content="Calculate GPS bearings, find reverse/back bearings, convert DMS to decimal, apply magnetic declination. Free browser-based navigation calculator."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/math/bearing-calculator.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+  <link rel="manifest" href="../../manifest.json"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"Bearing Calculator","applicationCategory":"UtilityApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/math/bearing-calculator.html","description":"Calculate compass bearing between two GPS coordinates, find back/reverse bearings, convert between bearing formats, and apply magnetic declination corrections.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+      {"@type":"ListItem","position":3,"name":"Math Tools","item":"https://thetoolempire.com/tools.html#math"},
+      {"@type":"ListItem","position":4,"name":"Bearing Calculator","item":"https://thetoolempire.com/tools/math/bearing-calculator.html"}
+    ]}
+  ]}</script>
+
+  <link rel="stylesheet" href="bearing-calculator.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
+</head>
+<body>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <rect width="36" height="36" rx="9" fill="url(#lhBC)"/>
+        <circle cx="18" cy="18" r="10" stroke="#fff" stroke-width="1.8" fill="none"/>
+        <line x1="18" y1="8"  x2="18" y2="11" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <line x1="18" y1="25" x2="18" y2="28" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <line x1="8"  y1="18" x2="11" y2="18" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <line x1="25" y1="18" x2="28" y2="18" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <polygon points="18,10 20,18 18,22 16,18" fill="#0ea5e9"/>
+        <polygon points="18,26 16,18 18,14 20,18" fill="rgba(255,255,255,.35)"/>
+        <circle cx="18" cy="18" r="2" fill="#fff"/>
+        <defs><linearGradient id="lhBC" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#0ea5e9"/><stop offset="1" stop-color="#0284c7"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../index.html" class="nav-link">Home</a>
+      <a href="../../tools.html" class="nav-link active">Tools</a>
+      <a href="../../blog.html" class="nav-link">Blog</a>
+      <a href="../../about.html" class="nav-link">About</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══════════════ MAIN ══════════════ -->
+<div class="page-wrap" x-data="bearingApp()">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" style="margin-bottom:6px">
+    <ol style="display:flex;align-items:center;gap:6px;list-style:none;font-size:.8rem;color:#555570;flex-wrap:wrap">
+      <li><a href="../../index.html" style="color:#667790">Home</a></li><li>›</li>
+      <li><a href="../../tools.html" style="color:#667790">Tools</a></li><li>›</li>
+      <li><a href="../../tools.html#math" style="color:#667790">Math</a></li><li>›</li>
+      <li style="color:var(--text-muted)">Bearing Calculator</li>
+    </ol>
+  </nav>
+
+  <!-- Hero -->
+  <div class="tool-hero">
+    <div class="tool-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
+      Navigation
+    </div>
+    <h1 class="tool-title"><span class="gradient-title">Bearing Calculator</span></h1>
+    <p class="tool-subtitle">Calculate compass bearings between GPS coordinates, convert bearing formats, find back bearings, and apply magnetic declination corrections.</p>
+  </div>
+
+  <div class="ad-slot">Advertisement</div>
+
+  <!-- ══════ TOOL LAYOUT ══════ -->
+  <div class="tool-layout">
+
+    <!-- ── LEFT: Input panel ── -->
+    <div>
+      <div class="panel">
+        <div class="panel-tabs">
+          <div class="ptab" :class="{on:activeTab==='p2p'}"   @click="activeTab='p2p'">Point-to-Point</div>
+          <div class="ptab" :class="{on:activeTab==='back'}"  @click="activeTab='back'">Back Bearing</div>
+          <div class="ptab" :class="{on:activeTab==='conv'}"  @click="activeTab='conv'">Converter</div>
+          <div class="ptab" :class="{on:activeTab==='mag'}"   @click="activeTab='mag'">Magnetic</div>
+        </div>
+
+        <div class="panel-body">
+
+          <!-- ─── POINT-TO-POINT ─── -->
+          <div x-show="activeTab==='p2p'">
+            <p style="font-size:.8rem;color:var(--text-muted);margin-bottom:16px;line-height:1.6">
+              Enter decimal coordinates (e.g. <code style="color:var(--primary)">51.5074, -0.1278</code>).
+              Negative latitude = South; negative longitude = West.
+            </p>
+
+            <!-- Example presets -->
+            <div style="display:flex;gap:7px;margin-bottom:16px;flex-wrap:wrap">
+              <button @click="loadExample('london-paris')" style="padding:5px 11px;border-radius:6px;border:1px solid var(--border-medium);background:var(--bg-surface);color:var(--text-muted);font-size:.75rem;font-weight:600;transition:all var(--transition)"
+                onmouseover="this.style.color='var(--primary)';this.style.borderColor='var(--primary)'"
+                onmouseout="this.style.color='var(--text-muted)';this.style.borderColor='var(--border-medium)'">
+                London → Paris
+              </button>
+              <button @click="loadExample('nyc-la')" style="padding:5px 11px;border-radius:6px;border:1px solid var(--border-medium);background:var(--bg-surface);color:var(--text-muted);font-size:.75rem;font-weight:600;transition:all var(--transition)"
+                onmouseover="this.style.color='var(--primary)';this.style.borderColor='var(--primary)'"
+                onmouseout="this.style.color='var(--text-muted)';this.style.borderColor='var(--border-medium)'">
+                New York → Los Angeles
+              </button>
+            </div>
+
+            <!-- Point A -->
+            <div class="coord-label">Point A (Origin)</div>
+            <div class="coord-grid">
+              <div class="field">
+                <label>Latitude</label>
+                <input class="inp" type="number" step="any" x-model="lat1" placeholder="e.g. 51.5074" @keyup.enter="calcP2P()"/>
+              </div>
+              <div class="field">
+                <label>Longitude</label>
+                <input class="inp" type="number" step="any" x-model="lng1" placeholder="e.g. -0.1278" @keyup.enter="calcP2P()"/>
+              </div>
+            </div>
+
+            <button class="btn-swap" @click="swapPoints()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 16V4m0 0L3 8m4-4 4 4"/><path d="M17 8v12m0 0 4-4m-4 4-4-4"/></svg>
+              Swap Points
+            </button>
+
+            <!-- Point B -->
+            <div class="coord-label">Point B (Destination)</div>
+            <div class="coord-grid">
+              <div class="field">
+                <label>Latitude</label>
+                <input class="inp" type="number" step="any" x-model="lat2" placeholder="e.g. 48.8566" @keyup.enter="calcP2P()"/>
+              </div>
+              <div class="field">
+                <label>Longitude</label>
+                <input class="inp" type="number" step="any" x-model="lng2" placeholder="e.g. 2.3522" @keyup.enter="calcP2P()"/>
+              </div>
+            </div>
+
+            <div class="field-err" x-show="p2pErr" x-text="p2pErr"></div>
+            <button class="btn-primary" @click="calcP2P()">Calculate Bearing</button>
+
+            <!-- Result -->
+            <div class="result-card" x-show="p2p" style="display:none">
+              <div class="rc-header">Bearing Results</div>
+
+              <!-- Forward bearing -->
+              <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
+                <div style="font-size:.7rem;font-weight:700;color:var(--text-faint);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">Forward Bearing (A → B)</div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <span style="font-size:2rem;font-weight:800;color:var(--text)" x-text="p2p?.fwdDeg+'°'"></span>
+                  <span style="font-size:1rem;font-weight:700;color:var(--primary)" x-text="p2p?.fwdCard"></span>
+                  <span style="font-size:.8rem;color:var(--text-muted)" x-text="p2p?.fwdDMS"></span>
+                  <button class="copy-btn" @click="copy(p2p?.fwdDeg+'°')">Copy</button>
+                </div>
+                <div style="font-size:.78rem;color:var(--text-faint);margin-top:4px" x-text="'Quadrant: '+p2p?.fwdQ"></div>
+              </div>
+
+              <!-- Back bearing -->
+              <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
+                <div style="font-size:.7rem;font-weight:700;color:var(--text-faint);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">Back Bearing (B → A)</div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <span style="font-size:1.6rem;font-weight:800;color:var(--text-muted)" x-text="p2p?.backDeg+'°'"></span>
+                  <span style="font-size:.95rem;font-weight:700;color:var(--text-muted)" x-text="p2p?.backCard"></span>
+                  <span style="font-size:.78rem;color:var(--text-faint)" x-text="p2p?.backDMS"></span>
+                  <button class="copy-btn" @click="copy(p2p?.backDeg+'°')">Copy</button>
+                </div>
+                <div style="font-size:.78rem;color:var(--text-faint);margin-top:4px" x-text="'Quadrant: '+p2p?.backQ"></div>
+              </div>
+
+              <!-- Distance -->
+              <div class="result-grid" style="grid-template-columns:1fr 1fr 1fr">
+                <div class="result-item" style="border-right:1px solid var(--border)">
+                  <div class="ri-label">Kilometres</div>
+                  <div class="ri-val" x-text="p2p?.distKm"></div>
+                  <div class="ri-sub">km</div>
+                </div>
+                <div class="result-item" style="border-right:1px solid var(--border)">
+                  <div class="ri-label">Miles</div>
+                  <div class="ri-val" x-text="p2p?.distMi"></div>
+                  <div class="ri-sub">mi</div>
+                </div>
+                <div class="result-item" style="border-right:none">
+                  <div class="ri-label">Nautical Miles</div>
+                  <div class="ri-val" x-text="p2p?.distNm"></div>
+                  <div class="ri-sub">nm</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ─── BACK BEARING ─── -->
+          <div x-show="activeTab==='back'">
+            <p style="font-size:.8rem;color:var(--text-muted);margin-bottom:16px;line-height:1.6">
+              The back bearing (reciprocal bearing) is the opposite direction — exactly 180° from the original bearing.
+              Used to retrace a route or verify an approach.
+            </p>
+            <div class="field">
+              <label>Forward Bearing (degrees)</label>
+              <input class="inp" type="number" step="any" x-model="bbInput" placeholder="e.g. 045 or 312.5" @keyup.enter="calcBack()"/>
+            </div>
+            <div class="field-err" x-show="bbErr" x-text="bbErr"></div>
+            <button class="btn-primary" @click="calcBack()">Find Back Bearing</button>
+
+            <div class="result-card" x-show="bb" style="display:none">
+              <div class="rc-header">Bearing Results</div>
+
+              <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
+                <div style="font-size:.7rem;font-weight:700;color:var(--text-faint);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">Forward Bearing</div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <span style="font-size:1.8rem;font-weight:800;color:var(--text)" x-text="bb?.fwd+'°'"></span>
+                  <span style="font-size:.95rem;font-weight:700;color:var(--primary)" x-text="bb?.fwdCard"></span>
+                  <span style="font-size:.78rem;color:var(--text-muted)" x-text="bb?.fwdDMS"></span>
+                </div>
+                <div style="font-size:.78rem;color:var(--text-faint);margin-top:3px" x-text="'Quadrant: '+bb?.fwdQ"></div>
+              </div>
+
+              <div style="padding:14px 16px">
+                <div style="font-size:.7rem;font-weight:700;color:var(--text-faint);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">Back Bearing (reciprocal)</div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                  <span style="font-size:2rem;font-weight:800;color:var(--primary)" x-text="bb?.back+'°'"></span>
+                  <span style="font-size:1rem;font-weight:700;color:var(--primary)" x-text="bb?.backCard"></span>
+                  <span style="font-size:.78rem;color:var(--text-muted)" x-text="bb?.backDMS"></span>
+                  <button class="copy-btn" @click="copy(bb?.back+'°')">Copy</button>
+                </div>
+                <div style="font-size:.78rem;color:var(--text-faint);margin-top:3px" x-text="'Quadrant: '+bb?.backQ"></div>
+              </div>
+            </div>
+
+            <!-- Quick reference -->
+            <div style="margin-top:20px">
+              <div class="sec-label">Quick Reference</div>
+              <table class="ref-table">
+                <thead><tr><th>Forward</th><th>Back</th><th>Cardinal</th></tr></thead>
+                <tbody>
+                  <tr><td>000° N</td><td>180° S</td><td>North → South</td></tr>
+                  <tr><td>045° NE</td><td>225° SW</td><td>NE → SW</td></tr>
+                  <tr><td>090° E</td><td>270° W</td><td>East → West</td></tr>
+                  <tr><td>135° SE</td><td>315° NW</td><td>SE → NW</td></tr>
+                  <tr><td>180° S</td><td>000° N</td><td>South → North</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ─── CONVERTER ─── -->
+          <div x-show="activeTab==='conv'">
+            <p style="font-size:.8rem;color:var(--text-muted);margin-bottom:16px;line-height:1.6">
+              Convert a bearing between decimal degrees, degrees/minutes/seconds (DMS), and compass notation.
+            </p>
+
+            <div class="sec-label">Input Format</div>
+            <div class="fmt-row">
+              <div class="fmt-chip" :class="{on:cvFormat==='decimal'}"  @click="cvFormat='decimal'">Decimal °</div>
+              <div class="fmt-chip" :class="{on:cvFormat==='dms'}"     @click="cvFormat='dms'">DMS</div>
+              <div class="fmt-chip" :class="{on:cvFormat==='compass'}" @click="cvFormat='compass'">Compass</div>
+            </div>
+
+            <div class="field">
+              <label x-text="cvFormat==='decimal'?'Bearing in Decimal Degrees':cvFormat==='dms'?'Bearing in DMS':'Compass Notation'"></label>
+              <input class="inp" type="text" x-model="cvInput"
+                :placeholder="cvFormat==='decimal'?'e.g. 045.75 or 312.5':cvFormat==='dms'?'e.g. 45° 45\' 0\"':'e.g. N45E or NE or SW'"
+                @keyup.enter="convert()"/>
+            </div>
+
+            <!-- Format hints -->
+            <div style="font-size:.75rem;color:var(--text-faint);margin-bottom:14px;padding:8px 10px;background:rgba(14,165,233,.04);border:1px solid var(--border);border-radius:6px;line-height:1.7">
+              <template x-if="cvFormat==='decimal'">
+                <span>Enter degrees as a number, 0–360. e.g. <strong style="color:var(--text)">045</strong>, <strong style="color:var(--text)">312.5</strong>, <strong style="color:var(--text)">90</strong></span>
+              </template>
+              <template x-if="cvFormat==='dms'">
+                <span>Degrees° Minutes' Seconds". e.g. <strong style="color:var(--text)">45° 30' 0"</strong> or <strong style="color:var(--text)">45d 30m 0s</strong></span>
+              </template>
+              <template x-if="cvFormat==='compass'">
+                <span>Cardinal: <strong style="color:var(--text)">NE</strong>, <strong style="color:var(--text)">NNW</strong> — or quadrant: <strong style="color:var(--text)">N45E</strong>, <strong style="color:var(--text)">S30W</strong></span>
+              </template>
+            </div>
+
+            <div class="field-err" x-show="cvErr" x-text="cvErr"></div>
+            <button class="btn-primary" @click="convert()">Convert</button>
+
+            <div class="result-card" x-show="cv" style="display:none">
+              <div class="rc-header">Conversion Results</div>
+              <div class="result-row">
+                <span class="rr-label">Decimal Degrees</span>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span class="rr-val" x-text="cv?.decimal"></span>
+                  <button class="copy-btn" @click="copy(cv?.decimal)">Copy</button>
+                </div>
+              </div>
+              <div class="result-row">
+                <span class="rr-label">Padded (nav)</span>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span class="rr-val" x-text="cv?.paddedDeg"></span>
+                  <button class="copy-btn" @click="copy(cv?.paddedDeg)">Copy</button>
+                </div>
+              </div>
+              <div class="result-row">
+                <span class="rr-label">DMS</span>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span class="rr-val" x-text="cv?.dms"></span>
+                  <button class="copy-btn" @click="copy(cv?.dms)">Copy</button>
+                </div>
+              </div>
+              <div class="result-row">
+                <span class="rr-label">Cardinal</span>
+                <span class="rr-val" style="color:var(--primary)" x-text="cv?.compass"></span>
+              </div>
+              <div class="result-row">
+                <span class="rr-label">Quadrant Notation</span>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span class="rr-val" x-text="cv?.quadrant"></span>
+                  <button class="copy-btn" @click="copy(cv?.quadrant)">Copy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ─── MAGNETIC ─── -->
+          <div x-show="activeTab==='mag'">
+            <p style="font-size:.8rem;color:var(--text-muted);margin-bottom:14px;line-height:1.6">
+              Magnetic declination is the angle between true north (geographic) and magnetic north. It varies by location and changes over time.
+            </p>
+            <div class="decl-hint">
+              <strong style="color:var(--text)">Easterly declination</strong> (+) → magnetic north is east of true north → <em>subtract</em> from true bearing.<br>
+              <strong style="color:var(--text)">Westerly declination</strong> (−) → magnetic north is west of true north → <em>add</em> to true bearing.<br>
+              Find your local declination at <strong style="color:var(--primary)">ngdc.noaa.gov</strong>.
+            </div>
+
+            <div class="field">
+              <label>True Bearing (degrees)</label>
+              <input class="inp" type="number" step="any" x-model="mgTrue" placeholder="e.g. 045 or 312.5" @keyup.enter="calcMag()"/>
+            </div>
+            <div class="field">
+              <label>Magnetic Declination (degrees)</label>
+              <input class="inp" type="number" step="any" x-model="mgDecl" placeholder="e.g. 3.5 (East) or -12 (West)" @keyup.enter="calcMag()"/>
+            </div>
+
+            <div class="field-err" x-show="mgErr" x-text="mgErr"></div>
+            <button class="btn-primary" @click="calcMag()">Calculate</button>
+
+            <div class="result-card" x-show="mg" style="display:none">
+              <div class="rc-header">Magnetic Correction</div>
+              <div class="result-row">
+                <span class="rr-label">True Bearing</span>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span class="rr-val" x-text="mg?.true+'°'"></span>
+                  <span style="font-size:.8rem;color:var(--primary);font-weight:600" x-text="mg?.trueCard"></span>
+                </div>
+              </div>
+              <div class="result-row">
+                <span class="rr-label">Declination</span>
+                <span class="rr-val" x-text="mg?.decl+'° '+mg?.declDir"></span>
+              </div>
+              <div class="result-row">
+                <span class="rr-label">Magnetic Bearing</span>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span class="rr-val" style="color:var(--primary);font-size:1.1rem" x-text="mg?.magnetic+'°'"></span>
+                  <span style="font-size:.8rem;color:var(--primary);font-weight:600" x-text="mg?.magCard"></span>
+                  <button class="copy-btn" @click="copy(mg?.magnetic+'°')">Copy</button>
+                </div>
+              </div>
+              <div class="result-row" style="background:rgba(14,165,233,.03)">
+                <span class="rr-label">Formula</span>
+                <span style="font-size:.78rem;color:var(--text-muted);font-style:italic" x-text="mg?.formula"></span>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- end panel-body -->
+      </div><!-- end panel -->
+    </div>
+
+    <!-- ── RIGHT: Compass ── -->
+    <div>
+      <div class="compass-card">
+        <div class="compass-wrap">
+          <!-- Compass SVG -->
+          <svg class="compass-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer ring -->
+            <circle cx="100" cy="100" r="96" fill="rgba(14,165,233,.04)" stroke="rgba(14,165,233,.25)" stroke-width="1.5"/>
+            <circle cx="100" cy="100" r="82" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+
+            <!-- Degree ticks — every 10° major, every 30° label -->
+            <template x-for="i in 36" :key="i">
+              <line
+                :x1="100 + 82*Math.sin(((i-1)*10)*Math.PI/180)"
+                :y1="100 - 82*Math.cos(((i-1)*10)*Math.PI/180)"
+                :x2="100 + ((i-1)%3===0?73:78)*Math.sin(((i-1)*10)*Math.PI/180)"
+                :y2="100 - ((i-1)%3===0?73:78)*Math.cos(((i-1)*10)*Math.PI/180)"
+                :stroke="(i-1)%3===0?'rgba(255,255,255,.3)':'rgba(255,255,255,.12)'"
+                :stroke-width="(i-1)%3===0?1.5:0.8"/>
+            </template>
+
+            <!-- Cardinal labels -->
+            <text x="100" y="17" text-anchor="middle" fill="#0ea5e9" font-size="13" font-weight="800" font-family="system-ui,sans-serif">N</text>
+            <text x="183" y="104" text-anchor="middle" fill="rgba(255,255,255,.7)" font-size="11" font-weight="700" font-family="system-ui,sans-serif">E</text>
+            <text x="100" y="190" text-anchor="middle" fill="rgba(255,255,255,.7)" font-size="11" font-weight="700" font-family="system-ui,sans-serif">S</text>
+            <text x="17" y="104" text-anchor="middle" fill="rgba(255,255,255,.7)" font-size="11" font-weight="700" font-family="system-ui,sans-serif">W</text>
+
+            <!-- Intercardinal labels -->
+            <text x="157" y="48" text-anchor="middle" fill="rgba(255,255,255,.35)" font-size="8" font-family="system-ui,sans-serif">NE</text>
+            <text x="157" y="158" text-anchor="middle" fill="rgba(255,255,255,.35)" font-size="8" font-family="system-ui,sans-serif">SE</text>
+            <text x="44" y="158" text-anchor="middle" fill="rgba(255,255,255,.35)" font-size="8" font-family="system-ui,sans-serif">SW</text>
+            <text x="44" y="48" text-anchor="middle" fill="rgba(255,255,255,.35)" font-size="8" font-family="system-ui,sans-serif">NW</text>
+
+            <!-- Inner circle -->
+            <circle cx="100" cy="100" r="48" fill="rgba(14,165,233,.05)" stroke="rgba(14,165,233,.15)" stroke-width="1"/>
+
+            <!-- Needle group — rotates by compassDeg -->
+            <g class="compass-needle-group" :style="`transform:rotate(${compassDeg}deg)`">
+              <!-- North (blue) half -->
+              <polygon points="100,32 104.5,98 100,108 95.5,98" fill="url(#needleN)" opacity=".95"/>
+              <!-- South (dark) half -->
+              <polygon points="100,168 104.5,102 100,92 95.5,102" fill="rgba(255,255,255,.18)"/>
+              <!-- Center cap -->
+              <circle cx="100" cy="100" r="6" fill="#0d1520" stroke="rgba(14,165,233,.6)" stroke-width="1.5"/>
+              <circle cx="100" cy="100" r="3" fill="#0ea5e9"/>
+            </g>
+
+            <!-- Bearing arc indicator -->
+            <circle cx="100" cy="100" r="54" fill="none"
+              stroke="rgba(14,165,233,.18)" stroke-width="3" stroke-dasharray="6 3"
+              stroke-dashoffset="0"/>
+
+            <defs>
+              <linearGradient id="needleN" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="#0ea5e9"/>
+                <stop offset="100%" stop-color="#7dd3fc"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <!-- Bearing readout -->
+        <div class="compass-bearing-display">
+          <div class="cbd-deg" x-text="compassDeg.toFixed(1)+'°'"></div>
+          <div class="cbd-card" x-text="compassCard"></div>
+          <div class="cbd-hint" x-text="compassLabel"></div>
+        </div>
+
+        <!-- Cardinal reference -->
+        <div style="width:100%;border-top:1px solid var(--border);padding-top:14px">
+          <div class="sec-label" style="text-align:center;margin-bottom:8px">16-Point Compass</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;font-size:.7rem;text-align:center">
+            <div style="color:#0ea5e9;font-weight:700">N · 000°</div>
+            <div style="color:var(--text-muted)">NNE · 023°</div>
+            <div style="color:var(--text-muted)">NE · 045°</div>
+            <div style="color:var(--text-muted)">ENE · 067°</div>
+            <div style="color:var(--text-muted)">E · 090°</div>
+            <div style="color:var(--text-muted)">ESE · 112°</div>
+            <div style="color:var(--text-muted)">SE · 135°</div>
+            <div style="color:var(--text-muted)">SSE · 157°</div>
+            <div style="color:var(--text-muted)">S · 180°</div>
+            <div style="color:var(--text-muted)">SSW · 202°</div>
+            <div style="color:var(--text-muted)">SW · 225°</div>
+            <div style="color:var(--text-muted)">WSW · 247°</div>
+            <div style="color:var(--text-muted)">W · 270°</div>
+            <div style="color:var(--text-muted)">WNW · 292°</div>
+            <div style="color:var(--text-muted)">NW · 315°</div>
+            <div style="color:var(--text-muted)">NNW · 337°</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end tool-layout -->
+
+  <div class="ad-slot" style="margin-top:28px">Advertisement</div>
+
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Bearing Calculator computes the compass bearing between two GPS coordinates, converts between bearing formats (decimal degrees, DMS, compass notation), finds reciprocal back bearings, and applies magnetic declination corrections. Includes a live animated compass rose.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Point-to-Point: Enter decimal lat/lng for both points and click Calculate.</li>
+        <li>Back Bearing: Enter a forward bearing to get its 180° reciprocal.</li>
+        <li>Converter: Paste a bearing in any format and choose the input type to convert to all others.</li>
+        <li>Magnetic: Enter a true bearing and your local declination to get the magnetic bearing.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Forward bearing uses the <strong>Haversine-based azimuth formula</strong>: <code>θ = atan2(sin(Δλ)cos(φ2), cos(φ1)sin(φ2)−sin(φ1)cos(φ2)cos(Δλ))</code>. Distance uses the Haversine formula on a spherical Earth (R = 6,371 km). DMS↔decimal uses modulo arithmetic. Magnetic correction subtracts easterly (positive) or adds westerly (negative) declination from the true bearing.</p>
+      </div>
+    </div>
+  </section>
+  <!-- Tags -->
+  <div class="tags-section">
+    <span class="tags-label">Tags:</span>
+    <a href="../../tools.html?cat=Math" class="tag-chip">#Math</a>
+    <a href="../../tools.html" class="tag-chip">#Navigation</a>
+    <a href="../../tools.html" class="tag-chip">#Bearing</a>
+    <a href="../../tools.html" class="tag-chip">#Compass</a>
+    <a href="../../tools.html" class="tag-chip">#GPS</a>
+    <a href="../../tools.html" class="tag-chip">#Azimuth</a>
+    <a href="../../tools.html" class="tag-chip">#Haversine</a>
+    <a href="../../tools.html" class="tag-chip">#MagneticDeclination</a>
+    <a href="../../tools.html" class="tag-chip">#Free</a>
+  </div>
+
+  <!-- Related Tools -->
+  <div class="related-section">
+    <h2 class="related-heading">Related Tools</h2>
+    <div class="related-tools-grid">
+      <a href="unit-converter.html" class="rel-tool-card">
+        <div class="rtc-icon" style="background:rgba(212,163,251,.12);border-color:rgba(212,163,251,.2)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#d4a3fb" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3M12 8v8M9 11l3-3 3 3"/></svg>
+        </div>
+        <div class="rtc-title">Unit Converter</div>
+        <div class="rtc-desc">Convert length, speed, area, temperature and more</div>
+        <span class="rtc-arrow">→</span>
+      </a>
+      <a href="percentage-calculator.html" class="rel-tool-card">
+        <div class="rtc-icon" style="background:rgba(161,140,209,.12);border-color:rgba(161,140,209,.2)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a18cd1" stroke-width="2"><circle cx="9" cy="9" r="2"/><circle cx="15" cy="15" r="2"/><path d="M7 17L17 7"/></svg>
+        </div>
+        <div class="rtc-title">Percentage Calculator</div>
+        <div class="rtc-desc">Calculate percentages, increases, decreases and ratios</div>
+        <span class="rtc-arrow">→</span>
+      </a>
+      <a href="../design/chart-generator.html" class="rel-tool-card">
+        <div class="rtc-icon" style="background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.2)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg>
+        </div>
+        <div class="rtc-title">Chart Generator</div>
+        <div class="rtc-desc">Visualize data with 9 chart types — PNG, PDF download</div>
+        <span class="rtc-arrow">→</span>
+      </a>
+      <a href="age-calculator.html" class="rel-tool-card">
+        <div class="rtc-icon" style="background:rgba(252,182,159,.12);border-color:rgba(252,182,159,.2)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fcb69f" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </div>
+        <div class="rtc-title">Age Calculator</div>
+        <div class="rtc-desc">Find exact age in years, months, days and seconds</div>
+        <span class="rtc-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Related Blog -->
+  <div class="related-section" style="margin-top:0">
+    <h2 class="related-heading">From the Blog</h2>
+    <div class="related-blog-grid">
+      <a href="../../blog.html" class="rel-blog-card">
+        <div class="rbc-bar" style="background:linear-gradient(90deg,#0ea5e9,#0284c7)"></div>
+        <div class="rbc-body">
+          <span class="rbc-tag">Navigation</span>
+          <div class="rbc-title">How to Read a Compass: Bearings Explained</div>
+          <div class="rbc-desc">Understand true north, magnetic north, forward bearings, and back bearings with clear examples.</div>
+        </div>
+      </a>
+      <a href="../../blog.html" class="rel-blog-card">
+        <div class="rbc-bar" style="background:linear-gradient(90deg,#06b6d4,#0891b2)"></div>
+        <div class="rbc-body">
+          <span class="rbc-tag">Navigation</span>
+          <div class="rbc-title">What Is Magnetic Declination and Why Does It Matter?</div>
+          <div class="rbc-desc">Learn how declination shifts over time and how to apply corrections to your navigation calculations.</div>
+        </div>
+      </a>
+      <a href="../../blog.html" class="rel-blog-card">
+        <div class="rbc-bar" style="background:linear-gradient(90deg,#38bdf8,#0ea5e9)"></div>
+        <div class="rbc-body">
+          <span class="rbc-tag">GPS</span>
+          <div class="rbc-title">GPS Coordinates Explained: Decimal vs DMS</div>
+          <div class="rbc-desc">A practical guide to understanding and converting latitude/longitude coordinate formats.</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">What is a compass bearing?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">A compass bearing is an angle measured clockwise from north (0°) to the direction of travel, expressed in degrees from 000° to 360°. North is 000°, East is 090°, South is 180°, West is 270°. It is used in navigation, surveying, and orienteering to describe direction precisely.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">What is the back bearing (reciprocal bearing)?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">The back bearing is the exact opposite direction of a given bearing — simply add 180° (and subtract 360° if the result exceeds 360°). If your forward bearing from A to B is 045°, the back bearing from B to A is 225°. It is useful for retracing a route or confirming your position.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">What is the difference between true north and magnetic north?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">True north is the direction toward the geographic North Pole. Magnetic north is where a compass needle points — the magnetic north pole — which is currently located in northern Canada and moves several kilometres per year. The angle between them is called magnetic declination. GPS bearings use true north; compass needles point to magnetic north.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">How accurate is the point-to-point bearing calculation?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">The calculator uses the Haversine formula on a spherical Earth model (R = 6,371 km), which gives bearing accuracy to within a fraction of a degree for most practical purposes. For very short distances (under 1 km) or polar regions, the error may be slightly larger. The distance result is typically accurate to within 0.3% compared to the WGS84 ellipsoid model.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" @click="toggleFaq($el)">What is DMS format?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="faq-a">DMS stands for Degrees, Minutes, Seconds. It breaks a decimal angle into whole degrees, whole minutes (1° = 60 minutes), and seconds with decimals (1 minute = 60 seconds). For example, 45.75° = 45° 45' 0". DMS is commonly used in aviation charts, paper maps, and traditional navigation.</div>
+    </div>
+  </section>
+
+</div><!-- end .page-wrap -->
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#fgBC)"/>
+          <path d="M12 20h16M20 12v16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="5" stroke="#fff" stroke-width="2"/>
+          <defs><linearGradient id="fgBC" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4ECDC4"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free tools, no limits.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=Math">Math Tools</a>
+        <a href="../../tools.html?cat=Design">Design Tools</a>
+        <a href="../../tools.html?cat=PDF">PDF Tools</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+        <a href="../../about.html">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../terms.html">Terms of Use</a>
+        <a href="../../sitemap.xml">Sitemap</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>&copy; 2025 The Tool Empire. All rights reserved.</p>
+      <p>All tools run locally in your browser. We never store your data.</p>
+    </div>
+  </div>
+</footer>
+
+<div id="toast"></div>
+<script src="bearing-calculator.js"></script>
+</body>
+</html>

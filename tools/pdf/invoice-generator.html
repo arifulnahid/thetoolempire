@@ -35,6 +35,7 @@
     {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does this invoice tool upload my data to a server?","acceptedAnswer":{"@type":"Answer","text":"No. Everything is processed in your browser using the HTML5 Canvas API and jsPDF."}},{"@type":"Question","name":"What paper sizes are supported?","acceptedAnswer":{"@type":"Answer","text":"A4, US Letter, A5, Legal, B5, and Half Letter."}},{"@type":"Question","name":"Can I upload a logo?","acceptedAnswer":{"@type":"Answer","text":"Yes. Click Upload Logo in the Style section to add a PNG, JPG, or SVG."}},{"@type":"Question","name":"How is tax calculated?","acceptedAnswer":{"@type":"Answer","text":"Discount is applied first, then tax is calculated on the discounted subtotal."}},{"@type":"Question","name":"Is there a limit on line items?","acceptedAnswer":{"@type":"Answer","text":"No limit."}}]}
   ]
   </script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body x-data="invoiceGeneratorApp()" x-init="init()">
 
@@ -568,6 +569,33 @@
 </div><!-- /page-wrap -->
 
 <!-- ===== FOOTER ===== -->
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Invoice Generator creates professional PDF invoices with your company details, client information, itemised line items, tax, and totals. Supports custom logos, currency, payment terms, and PDF/HTML download.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Fill in your company name, address, and logo.</li>
+        <li>Enter client details and invoice number.</li>
+        <li>Add line items with description, quantity, unit price, and tax rate.</li>
+        <li>Set currency and payment terms.</li>
+        <li>Preview the invoice, then click Download PDF.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>The invoice template is an HTML/CSS layout rendered in a hidden <code>div</code>. Line item totals = quantity × unit price; tax = subtotal × rate; grand total = subtotal + tax. <strong>html2canvas</strong> converts the rendered HTML to a canvas image which is embedded into a <strong>jsPDF</strong> document scaled to A4 dimensions.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer" role="contentinfo">
   <div class="container footer-inner">
     <div class="footer-brand">

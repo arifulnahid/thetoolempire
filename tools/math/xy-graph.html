@@ -41,6 +41,7 @@
 
   <link rel="stylesheet" href="xy-graph.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -440,6 +441,33 @@
 
 </div><!-- /main-wrap -->
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>XY Graph Plotter plots mathematical functions, parametric curves, and point datasets on a Cartesian plane with adjustable axis ranges, zoom, pan, and multi-function overlay support.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Type a function in the input box (e.g. <code>sin(x)</code>, <code>x^2 - 3</code>).</li>
+        <li>Press Enter or click Plot to draw the curve.</li>
+        <li>Add multiple functions using the + button.</li>
+        <li>Scroll to zoom; drag to pan.</li>
+        <li>Click a point on the curve to see its exact coordinates.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Function strings are parsed and evaluated using a safe math expression evaluator (no <code>eval()</code>). The function is sampled at evenly-spaced X intervals across the visible range, producing (x, y) pairs. Discontinuities (division by zero, <code>NaN</code>) break the polyline into segments. Rendering is done on a <code>&lt;canvas&gt;</code> using <code>lineTo()</code> path drawing scaled by the current viewport transform.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

@@ -41,6 +41,7 @@
       {"@type":"Question","name":"Is this color picker free?","acceptedAnswer":{"@type":"Answer","text":"Yes, completely free. No signup, no download, no ads blocking the tool. All color math runs in your browser — nothing is sent to any server."}}
     ]}
   ]}</script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body x-data="colorPickerApp()" x-init="init()">
 
@@ -412,6 +413,33 @@
     </div>
   </section>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Color Picker lets you visually pick any colour and instantly get its HEX, RGB, HSL, CMYK, and CSS variable values. Supports eyedropper sampling from your screen (Chrome/Edge), history of recent picks, and one-click copy for each format.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Click the colour swatch or gradient canvas to pick a colour.</li>
+        <li>Use the hue slider to change the base hue, then click in the saturation/brightness square.</li>
+        <li>Enter a HEX, RGB, or HSL value directly to jump to that colour.</li>
+        <li>Use the Eyedropper button (Chrome/Edge) to sample a colour from anywhere on screen.</li>
+        <li>Click any format value to copy it.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>The colour picker canvas is drawn with a 2D gradient: horizontal white→selected-hue and vertical opaque→black overlaid. The clicked pixel's <code>[r,g,b]</code> values are read with <code>getImageData()</code>. RGB→HSL conversion uses the standard normalised formula; RGB→CMYK divides by the max channel value. The Eyedropper uses the <code>EyeDropper</code> Web API.</p>
+      </div>
+    </div>
+  </section>
   <!-- Related tools -->
   <section class="related-section">
     <div class="container">

@@ -49,6 +49,7 @@
   ]
 }
 </script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body x-data="logAnalyzerApp()" x-cloak>
 
@@ -416,6 +417,32 @@
 </main>
 
 <!-- FOOTER -->
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Log Analyzer parses server, application, and access log files to extract log levels (ERROR, WARN, INFO, DEBUG), timestamps, counts, and frequency charts — helping you spot issues without reading raw log text.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload a log file or paste log content into the text area.</li>
+        <li>The tool automatically detects the log format (Apache, Nginx, syslog, or generic).</li>
+        <li>View the summary — total lines, error count, warn count — and the level breakdown chart.</li>
+        <li>Use the filter bar to show only ERROR or WARN lines.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>A set of regular expressions matches common log formats: Apache Combined Log, Nginx error log, ISO-8601 timestamped logs, and plain bracket-prefixed levels. Each line is tested against the patterns in priority order. Matched entries are grouped by level and sorted by timestamp for chart rendering.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div class="footer-col">

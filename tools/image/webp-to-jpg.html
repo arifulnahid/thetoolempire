@@ -42,6 +42,7 @@
   <link rel="stylesheet" href="webp-to-jpg.css"/>
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -486,6 +487,32 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>WebP to JPG/PNG Converter converts modern WebP images to the more universally supported JPEG or PNG format — all in the browser with no server upload and no file size limit.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload one or more .webp files.</li>
+        <li>Choose output format (JPEG or PNG) and JPEG quality.</li>
+        <li>Click Convert.</li>
+        <li>Download the converted images or a ZIP for batch results.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>WebP decoding is handled natively by the browser's image rendering engine — the file is loaded via an <code>HTMLImageElement</code>. Once decoded, it is drawn onto a <code>&lt;canvas&gt;</code> and re-exported with <code>canvas.toDataURL('image/jpeg', quality)</code> or <code>'image/png'</code>. No WebP codec is needed in JavaScript because the browser already decodes WebP.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

@@ -137,6 +137,7 @@
     ]
   }
   </script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body x-data="loremIpsumApp()" x-init="init()">
 
@@ -510,6 +511,32 @@
 </section>
 
 <!-- ── TAGS ──────────────────────────────────────────────────── -->
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Lorem Ipsum Generator produces placeholder Latin text for design mockups, prototypes, and layout testing. Choose the number of words, sentences, or paragraphs and get well-formed dummy text instantly.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Select a unit: Words, Sentences, or Paragraphs.</li>
+        <li>Enter the desired count.</li>
+        <li>Tick "Start with Lorem ipsum…" to begin with the classic opener.</li>
+        <li>Click Generate and copy the result.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>The tool holds a pool of authentic Lorem Ipsum sentences derived from Cicero's <em>de Finibus Bonorum et Malorum</em>. It picks random sentences from the pool and concatenates them to meet the requested length. Word and sentence counts are enforced by slicing the token array after generation.</p>
+      </div>
+    </div>
+  </section>
 <section class="tags-section">
   <div class="container">
     <div class="tags-row">

@@ -39,6 +39,7 @@
 
   <link rel="stylesheet" href="yt-thumbnail-downloader.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -411,6 +412,31 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>YouTube Thumbnail Downloader fetches and saves the highest-resolution thumbnail from any YouTube video URL with a single click — no API key required, no login.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Paste the YouTube video URL.</li>
+        <li>Thumbnails at all available resolutions are shown.</li>
+        <li>Click Download next to the desired quality.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>The video ID is extracted with a regex matching <code>v=</code>, <code>youtu.be/</code>, and <code>/embed/</code> URL patterns. Thumbnail image URLs are constructed using the public <code>img.youtube.com/vi/{ID}/{quality}.jpg</code> CDN endpoint. Download is triggered by fetching the image as a blob via <code>fetch()</code> and creating an object URL linked to a programmatic <code>&lt;a download&gt;</code> click — avoiding CORS issues with direct <code>href</code> downloads.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

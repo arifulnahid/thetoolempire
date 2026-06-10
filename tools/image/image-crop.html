@@ -46,6 +46,7 @@
 
   <link rel="stylesheet" href="image-crop.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -485,6 +486,33 @@
 
   <hr class="section-divider"/>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Image Crop lets you crop images to any custom rectangle, aspect-ratio-locked crop (1:1, 16:9, 4:3), or exact pixel dimensions — with a drag-and-resize crop handle and real-time preview.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload an image.</li>
+        <li>Drag the crop handles to define the crop region.</li>
+        <li>Optionally lock an aspect ratio from the preset buttons.</li>
+        <li>Enter exact pixel dimensions in the X, Y, W, H fields for precision.</li>
+        <li>Click Crop & Download to save the cropped image.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>The crop overlay is drawn with CSS absolutely-positioned divs. When confirmed, a <code>&lt;canvas&gt;</code> is created at the crop dimensions and <code>drawImage(source, sx, sy, sw, sh, 0, 0, dw, dh)</code> is called with the source region coordinates to extract just the cropped area. The canvas is exported as PNG or JPEG.</p>
+      </div>
+    </div>
+  </section>
   <!-- Related tools -->
   <div class="page-section" style="margin-top:0">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">

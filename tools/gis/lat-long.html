@@ -40,6 +40,7 @@
 
   <link rel="stylesheet" href="lat-long.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -648,6 +649,32 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Latitude/Longitude Lookup displays a map pin for any coordinate pair, converts between decimal degrees and DMS format, performs reverse geocoding to get the address, and shares a direct map link.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Enter a latitude and longitude in decimal or DMS format.</li>
+        <li>Click Search to place the pin on the map.</li>
+        <li>Or click anywhere on the map to get the coordinates of that point.</li>
+        <li>Copy the result in decimal or DMS format.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Map rendering uses the <strong>Leaflet.js</strong> library with OpenStreetMap tiles. Reverse geocoding calls the <strong>Nominatim</strong> API (<code>nominatim.openstreetmap.org/reverse</code>). DMS conversion splits the decimal into degrees, minutes, and seconds using modulo arithmetic and formats the N/S/E/W suffix based on sign.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

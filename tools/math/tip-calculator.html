@@ -56,6 +56,7 @@
     ]
   }
   </script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body x-data="tipCalcApp()" x-init="init()">
 
@@ -367,6 +368,32 @@
     </div>
   </section>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Tip Calculator computes the tip amount and total bill for any number of people at any tip percentage. Supports custom tip entry and shows per-person breakdown.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Enter the bill amount.</li>
+        <li>Select or type a tip percentage.</li>
+        <li>Enter the number of people splitting the bill.</li>
+        <li>See tip per person, total per person, and total bill instantly.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Tip amount = bill × (tipPercent / 100). Total bill = bill + tipAmount. Per-person share = total / numberOfPeople. All values are rounded to 2 decimal places using <code>Math.round(value × 100) / 100</code> to avoid floating-point display errors.</p>
+      </div>
+    </div>
+  </section>
   <!-- Related tools -->
   <section class="related-section">
     <div class="container">

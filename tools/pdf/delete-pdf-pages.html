@@ -44,6 +44,7 @@
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -472,6 +473,33 @@
 
 </div><!-- /main-wrap -->
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Delete PDF Pages removes one or more pages from a PDF file by clicking page thumbnails or entering page numbers/ranges. No server upload — everything runs in the browser using pdf-lib.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload a PDF file.</li>
+        <li>Thumbnails of all pages are rendered.</li>
+        <li>Click pages to mark them for deletion (they turn red).</li>
+        <li>Or enter page numbers/ranges in the text field (e.g. <code>2, 5-8</code>).</li>
+        <li>Click Remove Pages and download the resulting PDF.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>PDF.js renders page thumbnails by rasterising each page onto a <code>&lt;canvas&gt;</code>. When saving, pdf-lib's <code>PDFDocument.load()</code> parses the original file. Pages are copied individually to a new <code>PDFDocument</code> using <code>copyPages()</code>, skipping deleted page indices. The result is saved with <code>doc.save()</code> returning a <code>Uint8Array</code>.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

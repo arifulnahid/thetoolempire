@@ -40,6 +40,7 @@
 
   <link rel="stylesheet" href="geojson-kml-converter.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -375,6 +376,32 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>GeoJSON ↔ KML Converter transforms GeoJSON files to KML (for Google Maps/Earth) and KML to GeoJSON. Handles all geometry types: Point, LineString, Polygon, MultiPolygon, and FeatureCollections.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload a GeoJSON or KML file.</li>
+        <li>Select the output format.</li>
+        <li>Click Convert.</li>
+        <li>Download the output file.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>GeoJSON→KML: each feature's geometry type maps to a KML element — <code>Point→&lt;Point&gt;</code>, <code>LineString→&lt;LineString&gt;</code>, <code>Polygon→&lt;Polygon&gt;&lt;outerBoundaryIs&gt;</code>. Coordinates are reordered from GeoJSON [lng,lat,alt] to KML [lng,lat,alt] (same order). Properties map to <code>&lt;ExtendedData&gt;</code>. KML→GeoJSON reverses the process using a DOM parser.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

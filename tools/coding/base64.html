@@ -40,6 +40,7 @@
 
   <link rel="stylesheet" href="base64.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -541,6 +542,32 @@ base64.urlsafe_b64encode(...)</div>
     </div>
   </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Base64 Encoder/Decoder converts text, files, or binary data to Base64-encoded strings and back. Useful for embedding images in CSS/HTML, encoding API tokens, or inspecting data URIs.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Select Encode or Decode mode.</li>
+        <li>Paste text or upload a file.</li>
+        <li>The result appears instantly in the output box.</li>
+        <li>Use "Copy" or "Download" to save the output.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Text encoding uses the browser's <code>btoa()</code> function after converting the string to a UTF-8 byte sequence via <code>TextEncoder</code>. Decoding uses <code>atob()</code> followed by <code>TextDecoder</code>. File inputs are read via <code>FileReader.readAsArrayBuffer()</code>, then converted to a Uint8Array before Base64 encoding.</p>
+      </div>
+    </div>
+  </section>
   <!-- Related Blogs -->
   <div class="page-section" style="margin-top:20px">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">

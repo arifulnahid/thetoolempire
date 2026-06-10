@@ -40,6 +40,7 @@
 
   <link rel="stylesheet" href="csv-to-gis.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -457,6 +458,33 @@ Louvre Museum,48.8606,2.3376,34"
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>CSV to GIS Converter transforms a CSV file with latitude/longitude columns into GeoJSON FeatureCollection, KML, or Shapefile-ready data. Useful for uploading point datasets to QGIS, Google Maps, or Mapbox.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload a CSV file or paste CSV data.</li>
+        <li>Map the latitude and longitude columns from the dropdown selectors.</li>
+        <li>Optionally select additional property columns.</li>
+        <li>Choose output format (GeoJSON or KML).</li>
+        <li>Download the converted file.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>CSV is parsed into row objects using a streaming parser that handles quoted fields, commas within quotes, and optional headers. Each row becomes a GeoJSON <code>Point</code> feature with <code>geometry.coordinates = [longitude, latitude]</code> (GeoJSON uses [lng, lat] order). All remaining columns become feature <code>properties</code>.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

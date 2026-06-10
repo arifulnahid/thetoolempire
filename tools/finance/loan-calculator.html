@@ -39,6 +39,7 @@
 
   <link rel="stylesheet" href="loan-calculator.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -498,6 +499,33 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Loan Calculator computes monthly payment, total payment, and total interest for any loan — mortgages, auto loans, personal loans. Includes a full amortisation schedule showing principal and interest breakdown per payment.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Enter the loan amount (principal).</li>
+        <li>Enter the annual interest rate (%).</li>
+        <li>Enter the loan term in years.</li>
+        <li>View monthly payment, total payment, and total interest.</li>
+        <li>Scroll the amortisation table to see each payment's principal and interest split.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Monthly payment uses the standard annuity formula: <code>M = P × [r(1+r)^n] / [(1+r)^n − 1]</code> where r = monthly rate = annual rate / 12 and n = total months. The amortisation schedule iterates month by month: interest for that period = remaining balance × r, principal = M − interest, remaining balance decreases by principal.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

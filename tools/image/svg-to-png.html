@@ -42,6 +42,7 @@
   <link rel="stylesheet" href="svg-to-png.css"/>
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -520,6 +521,32 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>SVG to PNG Converter renders SVG vector graphics to raster PNG images at any resolution. Set a custom scale factor or exact pixel dimensions to export crisp images for screens, print, or social media.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload an SVG file or paste SVG code.</li>
+        <li>Set output width/height or a scale multiplier.</li>
+        <li>Click Convert.</li>
+        <li>Download the PNG.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>The SVG source is encoded as a <code>data:</code> URL and set as the <code>src</code> of an <code>HTMLImageElement</code>. Once loaded, it is drawn onto a <code>&lt;canvas&gt;</code> scaled to the target resolution via <code>drawImage()</code>. Because SVG is vector, drawing at 2× or 4× scale produces a sharp result. Canvas exports to PNG with <code>toDataURL('image/png')</code>.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

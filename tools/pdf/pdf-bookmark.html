@@ -49,6 +49,7 @@
   ]
 }
 </script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body x-data="pdfBookmarkApp()" x-cloak>
 
@@ -373,6 +374,34 @@
 </main>
 
 <!-- FOOTER -->
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>PDF Bookmark Manager reads and edits the outline (bookmark/table-of-contents) tree of a PDF. Add, rename, reorder, or remove bookmarks and set their destination page — then download the updated PDF.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload a PDF.</li>
+        <li>The existing bookmark tree is displayed.</li>
+        <li>Click a bookmark to rename it or change its target page.</li>
+        <li>Use Add Bookmark to insert a new entry at the current position.</li>
+        <li>Drag to reorder.</li>
+        <li>Click Save PDF to download.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Bookmark reading uses <strong>pdf-lib</strong>'s <code>PDFDocument.catalog.lookup(PDFName.of('Outlines'))</code> to traverse the outline linked list. Each outline item stores a title string and a destination array <code>[pageRef, /Fit]</code>. Writing modifies the outline dictionary in place before saving.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div class="footer-col">

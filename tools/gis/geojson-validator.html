@@ -46,6 +46,7 @@
 
   <link rel="stylesheet" href="geojson-validator.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 
 <body>
@@ -544,7 +545,33 @@
 
     </div>
 
-    <footer class="site-footer">
+    
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>GeoJSON Validator checks uploaded or pasted GeoJSON against RFC 7946 — verifying structure, coordinate dimensionality, ring winding order, and required property types — and reports all errors with path locations.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload a GeoJSON file or paste GeoJSON text.</li>
+        <li>Click Validate.</li>
+        <li>Errors are listed with JSON path (e.g. <code>features[3].geometry.coordinates[0]</code>).</li>
+        <li>Fix each error and re-validate until the file passes.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Validation follows RFC 7946: top-level type must be FeatureCollection, Feature, or a geometry type. Coordinates must be arrays of numbers with 2 or 3 elements. Polygon rings must be closed (first == last point) and the outer ring must be counter-clockwise by the right-hand rule (computed via the shoelace formula). <code>properties</code> must be an object or null.</p>
+      </div>
+    </div>
+  </section>
+<footer class="site-footer">
       <div class="footer-grid">
         <div>
           <a href="../../index.html" class="logo">

@@ -40,6 +40,7 @@
 
   <link rel="stylesheet" href="gpx-kml-converter.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -361,6 +362,32 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>GPX to KML Converter transforms GPS track/route files into KML format for import into Google Earth, Google Maps, or any KML-compatible GIS software. Supports tracks, routes, waypoints, and elevation.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload a .gpx file.</li>
+        <li>Configure output options (include/exclude tracks, waypoints, etc.).</li>
+        <li>Click Convert.</li>
+        <li>Download the .kml file.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>GPX XML is parsed with <code>DOMParser</code>. Track segments map to KML <code>&lt;LineString&gt;</code> elements inside a <code>&lt;Placemark&gt;</code>. Waypoints become <code>&lt;Point&gt;</code> placemarks with <code>&lt;name&gt;</code> and <code>&lt;description&gt;</code>. Elevation data is included as the third coordinate in <code>&lt;coordinates&gt;</code>. The output KML document is serialised to a UTF-8 string for download.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

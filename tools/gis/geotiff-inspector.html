@@ -43,6 +43,7 @@
   <!-- geotiff.js — browser build -->
   <script src="https://cdn.jsdelivr.net/npm/geotiff@2.1.3/dist-browser/geotiff.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -463,6 +464,32 @@
 
 </div>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>GeoTIFF Inspector reads GeoTIFF raster files and displays metadata: coordinate reference system (CRS), bounding box, resolution, band count, nodata value, and a visual preview of the first band.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload a GeoTIFF file (.tif or .tiff).</li>
+        <li>Metadata appears automatically in the info panel.</li>
+        <li>The raster preview renders the first band with a grey or colour scale.</li>
+        <li>Click individual tags to see their raw TIFF tag values.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Uses the <strong>geotiff.js</strong> library to decode the TIFF/BigTIFF binary format. GeoKeys (GeoTIFF metadata tags) are parsed to extract the EPSG code and projection parameters. The first image band is read as a typed array, normalised to 0–255, and drawn onto a <code>&lt;canvas&gt;</code> with a colour map.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-grid">
     <div>

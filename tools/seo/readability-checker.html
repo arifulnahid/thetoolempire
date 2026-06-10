@@ -38,6 +38,7 @@
 
   <link rel="stylesheet" href="readability-checker.css"/>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -348,6 +349,33 @@
 
   <hr class="section-divider"/>
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Readability Checker analyses text using Flesch Reading Ease, Flesch–Kincaid Grade Level, Gunning Fog, SMOG, and Coleman–Liau indices — plus sentence length analysis, passive voice detection, and adverb flags.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Paste your text into the editor.</li>
+        <li>Scores for all readability indices update automatically.</li>
+        <li>Long or complex sentences are underlined in the preview.</li>
+        <li>Check the grade level — aim for grade 6–8 for general audiences.</li>
+        <li>Click a highlighted sentence to see improvement suggestions.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Flesch Reading Ease = 206.835 − 1.015(words/sentences) − 84.6(syllables/words). Syllables are estimated by counting vowel groups (<code>/[aeiou]+/gi</code>) with adjustments for silent-e endings. FK Grade = 0.39(words/sentences) + 11.8(syllables/words) − 15.59. Gunning Fog uses the count of "complex words" (≥3 syllables, not proper nouns or compound words).</p>
+      </div>
+    </div>
+  </section>
   <!-- Related -->
   <div class="page-section" style="margin-top:0">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">

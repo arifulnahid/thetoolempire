@@ -44,6 +44,7 @@
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body>
 
@@ -393,6 +394,32 @@
 
 </div><!-- /main-wrap -->
 
+
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>PDF Compressor reduces PDF file size by compressing embedded images and removing redundant metadata, optimising the file for email attachments or web uploads — without re-encoding text or vector graphics.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Upload a PDF file.</li>
+        <li>Choose compression level: Low (best quality), Medium, or High (smallest size).</li>
+        <li>Click Compress.</li>
+        <li>View the before/after file size comparison and download.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>PDF images are extracted by identifying image XObjects in the PDF content streams using <strong>pdf-lib</strong>. Each image is decoded, drawn onto a <code>&lt;canvas&gt;</code> at reduced quality using <code>toDataURL('image/jpeg', quality)</code>, re-encoded, and replaced in the PDF XObject dictionary. Metadata streams are removed by deleting optional XMP entries.</p>
+      </div>
+    </div>
+  </section>
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-grid">

@@ -128,6 +128,7 @@
     ]
   }
   </script>
+  <link rel="stylesheet" href="../../assets/css/tool-sections.css"/>
 </head>
 <body x-data="diffApp()" x-init="init()">
 
@@ -579,7 +580,34 @@
   </section>
 
   <!-- TAGS -->
-  <section class="tags-section">
+  
+  <!-- Tool Info Sections -->
+  <section class="tool-info-sections">
+    <div class="tis-grid">
+      <div class="tis-card">
+        <div class="tis-icon-wrap">📋</div>
+        <h3>About This Tool</h3>
+        <p>Diff Checker visually compares two blocks of text and highlights inserted, deleted, and unchanged lines side-by-side or inline — similar to a <code>git diff</code> output, but in the browser.</p>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">🛠</div>
+        <h3>How to Use</h3>
+        <ol>
+        <li>Paste the original text into the left panel.</li>
+        <li>Paste the modified text into the right panel.</li>
+        <li>Click Compare to generate the diff.</li>
+        <li>Green lines are additions; red lines are deletions; grey lines are unchanged.</li>
+        <li>Toggle between side-by-side and inline views using the view switch.</li>
+        </ol>
+      </div>
+      <div class="tis-card">
+        <div class="tis-icon-wrap">⚙️</div>
+        <h3>Logic &amp; Algorithm</h3>
+        <p>Uses a longest-common-subsequence (LCS) dynamic-programming algorithm to find matching lines between the two texts. Lines not in the LCS are marked as insertions or deletions. The result is rendered as a colour-coded HTML diff table.</p>
+      </div>
+    </div>
+  </section>
+<section class="tags-section">
     <div class="container">
       <div class="tags-row">
         <span class="tags-label">Category</span>

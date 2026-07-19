@@ -1,0 +1,407 @@
+1. Counting Tools
+Number Counter
+Reading Time Calculator
+Speaking Time Calculator
+2. Case Conversion
+Uppercase Converter
+Lowercase Converter
+Sentence Case Converter
+Title Case Converter
+Capitalize Each Word
+Toggle Case Converter
+Inverse Case Converter
+Camel Case Converter
+Pascal Case Converter
+Snake Case Converter
+Kebab Case Converter
+Dot Case Converter
+Constant Case Converter
+Train Case Converter
+Cobol Case Converter
+3. Text Cleaning
+Remove Extra Spaces
+Trim Text
+Remove Blank Lines
+Remove Duplicate Lines
+Remove Duplicate Words
+Remove Numbers
+Remove Letters
+Remove Special Characters
+Remove Emojis
+Remove HTML Tags
+4. Formatting Tools
+Text Sorter
+Reverse Text
+Reverse Words
+Reverse Lines
+Shuffle Text
+Randomize Lines
+Wrap Text
+Unwrap Text
+Add Prefix to Lines
+Add Suffix to Lines
+Remove Prefix
+Remove Suffix
+Number Lines
+Bullet List Generator
+Alphabetical List Generator
+5. Find & Replace
+Find and Replace
+Multi Find and Replace
+Replace Spaces
+Replace Line Breaks
+Replace Tabs
+Remove Specific Word
+Highlight Keywords
+Count Keyword Frequency
+Extract Matching Text
+Text Difference Checker
+6. Encoding & Decoding
+Base64 Encoder
+Base64 Decoder
+URL Encoder
+URL Decoder
+HTML Encoder
+HTML Decoder
+Unicode Encoder
+Unicode Decoder
+ROT13 Encoder
+ROT13 Decoder
+7. Generators
+Lorem Ipsum Generator
+Dummy Paragraph Generator
+Random Sentence Generator
+Random Word Generator
+Random Letter Generator
+Password Generator
+Username Generator
+Nickname Generator
+Slug Generator
+Hashtag Generator
+8. Extraction Tools
+Email Extractor
+URL Extractor
+Phone Number Extractor
+Number Extractor
+Date Extractor
+Hashtag Extractor
+Mention Extractor (@username)
+Emoji Extractor
+HTML Link Extractor
+Keyword Extractor
+9. Validation & Analysis
+Palindrome Checker
+Anagram Checker
+Keyword Density Checker
+Duplicate Word Checker
+Readability Checker
+Text Complexity Analyzer
+Most Frequent Words
+N-Gram Generator
+Character Frequency Counter
+Word Frequency Counter
+Bonus (High Search Potential)
+
+These are especially relevant as AI usage grows:
+
+AI Prompt Formatter
+Prompt Cleaner
+Prompt Word Counter
+Prompt Token Estimator
+Markdown Formatter
+Markdown Preview
+HTML to Markdown
+Markdown to HTML
+Text to HTML
+HTML to Text
+JSON Formatter
+XML Formatter
+CSV Formatter
+YAML Formatter
+SQL Formatter
+
+
+1. Image Conversion (1–20)
+JPG to PNG
+PNG to JPG
+WebP to JPG
+JPG to WebP
+PNG to WebP
+WebP to PNG
+HEIC to JPG
+AVIF to PNG
+BMP to PNG
+TIFF to JPG
+SVG to PNG
+PNG to SVG (basic tracing)
+ICO Converter
+Image to PDF
+PDF to Image
+GIF to PNG
+PNG to GIF
+Image Format Converter
+Batch Image Converter
+Image Type Detector
+2. Compression & Optimization (21–35)
+Image Compressor
+Lossless Image Compressor
+JPEG Optimizer
+PNG Optimizer
+WebP Optimizer
+AVIF Optimizer
+Resize Without Losing Quality
+Bulk Image Compressor
+Image Quality Estimator
+Image File Size Calculator
+Social Media Image Optimizer
+Website Image Optimizer
+Image Metadata Remover
+EXIF Remover
+Progressive JPEG Converter
+3. Resize & Crop (36–50)
+Image Resizer
+Crop Image
+Circle Crop
+Square Crop
+Resize by Pixels
+Resize by Percentage
+Resize for Instagram
+Resize for Facebook
+Resize for LinkedIn
+Resize for YouTube
+Resize for TikTok
+Resize for X (Twitter)
+Resize for Pinterest
+Batch Resize Images
+Smart Crop
+4. Image Editing (51–65)
+Rotate Image
+Flip Image
+Mirror Image
+Blur Image
+Sharpen Image
+Brightness Adjuster
+Contrast Adjuster
+Saturation Adjuster
+Hue Adjuster
+Grayscale Converter
+Black & White Converter
+Sepia Filter
+Pixelate Image
+Vignette Filter
+Sketch Effect
+5. Background & Transparency (66–75)
+Background Remover
+Transparent Background Maker
+White Background Generator
+Change Background Color
+Blur Background
+Green Screen Remover
+Transparent PNG Creator
+Shadow Generator
+Image Outline Generator
+Border Generator
+6. Image Utilities (76–90)
+QR Code Generator with Logo
+Watermark Image
+Add Text to Image
+Meme Generator
+Image Splitter
+Image Merger
+Image Collage Maker
+Image Grid Maker
+Image Color Picker
+Color Palette Extractor
+Dominant Color Finder
+Image Histogram Viewer
+EXIF Viewer
+Image Information Viewer
+Image DPI Checker
+7. OCR & AI Utilities (91–100)
+Image to Text (OCR)
+Handwriting to Text
+Screenshot to Text
+QR Code Scanner
+Barcode Scanner
+Reverse Image Search Helper
+Alt Text Generator
+Image Caption Generator
+Face Blur Tool
+Image Upscaler
+Highest Search Potential (Top 20)
+
+If you're prioritizing traffic, these are among the strongest candidates:
+
+Image Compressor
+JPG to PNG
+PNG to JPG
+WebP Converter
+Background Remover
+Image Resizer
+Crop Image
+Image to PDF
+PDF to Image
+Watermark Image
+QR Code Generator
+Add Text to Image
+Meme Generator
+Color Picker from Image
+EXIF Viewer
+Transparent PNG Maker
+Resize for Instagram
+Resize for YouTube Thumbnail
+Resize for Facebook
+Image Metadata Remover
+
+
+A practical strategy is to combine broad tools with long-tail, purpose-specific tools, such as:
+
+Resize Image for WhatsApp DP
+Resize Image for LinkedIn Banner
+Resize Image for Etsy Listing
+Resize Image for Shopify Product
+YouTube Thumbnail Safe Area Checker
+Instagram Carousel Splitter
+Twitter/X Header Crop Tool
+Discord Emoji Resizer
+Twitch Emote Resizer
+Passport Photo Maker (country-specific)
+
+
+1. JSON Tools (1–10)
+JSON Formatter
+JSON Validator
+JSON Minifier
+JSON Beautifier
+JSON Viewer
+JSON Diff Checker
+JSON to CSV
+CSV to JSON
+JSON to YAML
+YAML to JSON
+2. XML Tools (11–20)
+XML Formatter
+XML Validator
+XML Minifier
+XML to JSON
+JSON to XML
+XML Viewer
+XML Diff Checker
+XML Pretty Printer
+XML Escape
+XML Unescape
+3. HTML Tools (21–30)
+HTML Formatter
+HTML Minifier
+HTML Beautifier
+HTML Encoder
+HTML Decoder
+HTML Entity Encoder
+HTML Entity Decoder
+HTML Escape
+HTML to Text
+Text to HTML
+4. CSS Tools (31–40)
+CSS Minifier
+CSS Beautifier
+CSS Formatter
+CSS Gradient Generator
+CSS Box Shadow Generator
+CSS Border Radius Generator
+CSS Clip Path Generator
+CSS Flexbox Generator
+CSS Grid Generator
+CSS Animation Generator
+5. JavaScript Tools (41–50)
+JavaScript Minifier
+JavaScript Beautifier
+JavaScript Obfuscator
+JavaScript Deobfuscator
+JavaScript Formatter
+JavaScript Validator
+Regex Tester
+Regex Generator
+Regex Cheat Sheet
+Cron Expression Generator
+6. Encoding & Decoding (51–60)
+Base64 Encoder
+Base64 Decoder
+URL Encoder
+URL Decoder
+Unicode Encoder
+Unicode Decoder
+JWT Decoder
+JWT Encoder
+ROT13 Encoder
+ROT13 Decoder
+7. SQL Tools (61–70)
+SQL Formatter
+SQL Minifier
+SQL Beautifier
+SQL Query Validator
+SQL Pretty Printer
+SQL to JSON
+JSON to SQL INSERT
+CSV to SQL
+SQL Escape String
+SQL Keyword Formatter
+8. Color Tools (71–80)
+HEX to RGB
+RGB to HEX
+HEX to HSL
+HSL to HEX
+Color Picker
+Color Palette Generator
+Gradient Generator
+Contrast Checker
+Random Color Generator
+Tailwind Color Palette Viewer
+9. Web Utilities (81–90)
+UUID Generator
+Nano ID Generator
+Hash Generator (MD5, SHA-1, SHA-256)
+Password Generator
+Password Strength Checker
+Slug Generator
+Lorem Ipsum Generator
+QR Code Generator
+Barcode Generator
+Timestamp Converter
+10. API & Data Tools (91–100)
+API Request Builder
+HTTP Header Viewer
+HTTP Status Code Lookup
+MIME Type Lookup
+URL Parser
+Query String Parser
+Query String Builder
+User-Agent Parser
+Markdown Previewer
+Markdown to HTML Converter
+⭐ Highest Traffic Potential
+
+If I were starting today, I'd build these first:
+
+JSON Formatter
+JSON Validator
+Regex Tester
+UUID Generator
+JWT Decoder
+Timestamp Converter
+SQL Formatter
+CSS Gradient Generator
+CSS Box Shadow Generator
+Flexbox Generator
+Grid Generator
+Base64 Encoder/Decoder
+URL Encoder/Decoder
+Hash Generator
+Password Generator
+Markdown Previewer
+CSV to JSON
+JSON to CSV
+Color Picker
+HTTP Status Code Lookup
+
+
+

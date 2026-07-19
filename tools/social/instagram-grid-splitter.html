@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Instagram Grid Splitter — Split Image into Multi-Post Grid | The Tool Empire</title>
+<meta name="description" content="Free Instagram grid splitter. Upload any image, choose a 3×3, 3×6 or custom grid, and download each tile numbered in the exact posting order. No upload, 100% private."/>
+<meta name="keywords" content="instagram grid splitter, instagram grid maker, split image instagram, instagram puzzle grid, instagram multi post grid, instagram 9 grid, instagram carousel grid"/>
+<meta name="robots" content="index,follow"/>
+<meta name="author" content="The Tool Empire"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/social/instagram-grid-splitter.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Instagram Grid Splitter — Split Image into Multi-Post Grid"/>
+<meta property="og:description" content="Split any image into a seamless Instagram grid. Download tiles numbered in posting order. Supports 3×1 through 3×6 and custom grids. No upload required."/>
+<meta property="og:url" content="https://thetoolempire.com/tools/social/instagram-grid-splitter.html"/>
+<meta property="og:site_name" content="The Tool Empire"/>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[
+  {"@type":"SoftwareApplication","name":"Instagram Grid Splitter","applicationCategory":"MultimediaApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/social/instagram-grid-splitter.html","description":"Free browser-based tool to split any image into a seamless Instagram grid. Supports 3×1 through 3×6 presets and custom column/row counts. Tiles are downloaded as a ZIP numbered in the correct Instagram posting order. 100% client-side — no upload.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+    {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+    {"@type":"ListItem","position":3,"name":"Social Media","item":"https://thetoolempire.com/tools.html#social-media"},
+    {"@type":"ListItem","position":4,"name":"Instagram Grid Splitter","item":"https://thetoolempire.com/tools/social/instagram-grid-splitter.html"}
+  ]}
+]}</script>
+
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+<link rel="manifest" href="../../manifest.json"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<link rel="stylesheet" href="instagram-grid-splitter.css"/>
+<script src="instagram-grid-splitter.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="igGridSplitterApp()" x-init="init()" x-cloak>
+
+<!-- ══ HEADER ════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hg)"/>
+        <rect x="8" y="8" width="24" height="24" rx="6" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="2.5"/>
+        <circle cx="20" cy="20" r="5" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="2"/>
+        <circle cx="27" cy="13" r="1.8" fill="rgba(255,255,255,.9)"/>
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#833ab4"/><stop offset=".5" stop-color="#e1306c"/><stop offset="1" stop-color="#f77737"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    Instagram
+  </div>
+  <h1><span class="g">Instagram Grid</span> Splitter</h1>
+  <p>Split any image into a seamless multi-post Instagram grid. Tiles are numbered in the correct posting order so your profile looks perfect the moment you finish uploading.</p>
+</div>
+
+<!-- ══ TOOL ══════════════════════════════════════════════ -->
+<div class="page-wrap">
+
+  <div class="tool-card">
+
+    <!-- ── ERROR BAR ── -->
+    <div class="error-bar" x-show="error" x-transition>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".5" fill="currentColor"/></svg>
+      <span x-text="error"></span>
+    </div>
+
+    <!-- ══ UPLOAD STATE ══ -->
+    <div x-show="stage==='upload'">
+      <label
+        class="drop-zone"
+        :class="{dragover: isDragOver}"
+        @dragover.prevent="isDragOver=true"
+        @dragleave.prevent="isDragOver=false"
+        @drop.prevent="onDrop($event)"
+        for="imgFileInput"
+        role="button"
+        aria-label="Drop an image here or click to browse"
+      >
+        <div class="drop-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="8" y1="8" x2="8.01" y2="8"/><line x1="16" y1="8" x2="16.01" y2="8"/></svg>
+        </div>
+        <div class="drop-title">Drop your image here</div>
+        <div class="drop-sub">JPG, PNG, WebP, AVIF — any size</div>
+        <span class="drop-browse" tabindex="0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Browse image
+        </span>
+        <div class="drop-privacy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Your image never leaves your device
+        </div>
+      </label>
+      <input id="imgFileInput" type="file" accept="image/*" style="display:none" @change="onFileInput($event)"/>
+    </div>
+
+    <!-- ══ READY STATE ══ -->
+    <div x-show="stage==='ready'">
+
+      <!-- Controls bar -->
+      <div class="ctrl-bar">
+        <!-- Filename -->
+        <div class="file-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
+          <span class="file-chip-name" x-text="fileName"></span>
+        </div>
+
+        <div class="sep"></div>
+
+        <!-- Grid presets -->
+        <div class="presets">
+          <template x-for="p in presets" :key="p.label">
+            <button class="preset-btn" :class="{active: isActivePreset(p)}" @click="setPreset(p)" :title="p.desc">
+              <span x-text="p.label"></span>
+            </button>
+          </template>
+        </div>
+
+        <!-- Custom sliders -->
+        <div class="custom-row">
+          <label>Cols</label>
+          <input type="range" min="1" max="6" x-model.number="cols"/>
+          <span class="val" x-text="cols"></span>
+        </div>
+        <div class="custom-row">
+          <label>Rows</label>
+          <input type="range" min="1" max="9" x-model.number="rows"/>
+          <span class="val" x-text="rows"></span>
+        </div>
+
+        <div class="sep"></div>
+
+        <!-- Format -->
+        <div class="fmt-group">
+          <button class="fmt-btn" :class="{active: outputFormat==='png'}" @click="outputFormat='png'">PNG</button>
+          <button class="fmt-btn" :class="{active: outputFormat==='jpg'}" @click="outputFormat='jpg'">JPG</button>
+        </div>
+
+        <!-- Dim label -->
+        <span class="dim-label" x-text="dimLabel" x-show="tileW > 0"></span>
+
+        <div class="ctrl-right">
+          <button class="btn primary" @click="downloadAll()" :disabled="!tiles.length || downloading || splitting">
+            <template x-if="!downloading">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </template>
+            <template x-if="downloading">
+              <span class="spin" style="display:inline-block;"></span>
+            </template>
+            <span x-text="downloading ? 'Zipping…' : 'Download ZIP (' + totalTiles + ')'"></span>
+          </button>
+          <button class="btn" @click="reset()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.53"/></svg>
+            New
+          </button>
+        </div>
+      </div>
+
+      <!-- Quality hint -->
+      <div class="quality-hint" x-show="qualityHint" x-text="qualityHint"></div>
+
+      <!-- Splitting indicator -->
+      <div class="splitting-msg" x-show="splitting">
+        <div class="spin"></div>
+        <span>Processing tiles…</span>
+      </div>
+
+      <!-- TABS -->
+      <div class="tool-tabs" x-show="!splitting">
+        <button class="tool-tab" :class="{active: activeTab==='preview'}" @click="activeTab='preview'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+          Split Preview
+        </button>
+        <button class="tool-tab" :class="{active: activeTab==='guide'}" @click="activeTab='guide'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Posting Guide
+        </button>
+        <button class="tool-tab" :class="{active: activeTab==='profile'}" @click="activeTab='profile'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
+          Profile Preview
+        </button>
+      </div>
+
+      <!-- ══ TAB: SPLIT PREVIEW ══ -->
+      <div x-show="activeTab==='preview' && !splitting" class="preview-wrap">
+        <canvas class="preview-canvas-el" x-ref="previewCanvas"></canvas>
+      </div>
+
+      <!-- ══ TAB: POSTING GUIDE ══ -->
+      <div x-show="activeTab==='guide' && !splitting">
+        <div class="guide-head">
+          <span class="guide-title">Post in this order →</span>
+          <span class="guide-note">post-01 first · post-<span x-text="String(totalTiles).padStart(2,'0')"></span> last</span>
+        </div>
+        <div class="guide-strip">
+          <template x-for="tile in sortedByPost" :key="tile.postNum">
+            <div class="guide-card">
+              <div class="guide-card-top">
+                <img class="guide-thumb" :src="tile.dataUrl" :alt="'Post ' + tile.postNum" loading="lazy"/>
+                <span class="guide-post-badge" :class="tile.postNum === totalTiles ? 'guide-last-badge' : ''"
+                  x-text="tile.postNum === 1 ? '1st ← post first' : tile.postNum === totalTiles ? 'Last' : '#' + tile.postNum"></span>
+              </div>
+              <div class="guide-info">
+                <div class="guide-pos" x-text="'Row ' + (tile.row+1) + ', Col ' + (tile.col+1)"></div>
+                <button class="guide-dl-btn" @click="downloadTile(tile)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Save tile
+                </button>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- ══ TAB: PROFILE PREVIEW ══ -->
+      <div x-show="activeTab==='profile' && !splitting" class="profile-tab-wrap">
+        <div class="ig-mockup">
+          <!-- Status bar -->
+          <div class="ig-status-bar">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1 6h22v12H1z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a8 8 0 1 1 0 16A8 8 0 0 1 12 2z"/></svg>
+          </div>
+          <!-- Nav bar -->
+          <div class="ig-nav-bar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            <span class="ig-nav-username">yourusername</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+          </div>
+          <!-- Profile head -->
+          <div class="ig-profile-head">
+            <div class="ig-profile-row">
+              <div class="ig-avatar"></div>
+              <div class="ig-stats">
+                <div class="ig-stat">
+                  <strong class="ig-stat-num" x-text="totalTiles"></strong>
+                  <span class="ig-stat-label">Posts</span>
+                </div>
+                <div class="ig-stat">
+                  <strong class="ig-stat-num">1.2K</strong>
+                  <span class="ig-stat-label">Followers</span>
+                </div>
+                <div class="ig-stat">
+                  <strong class="ig-stat-num">348</strong>
+                  <span class="ig-stat-label">Following</span>
+                </div>
+              </div>
+            </div>
+            <div class="ig-handle">@yourusername</div>
+            <div class="ig-bio">Creator ✨ Your bio goes here<br>thetoolempire.com</div>
+            <button class="ig-follow-btn">Follow</button>
+            <!-- Tab icons -->
+            <div class="ig-tab-bar">
+              <div class="ig-tab-icon active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              </div>
+              <div class="ig-tab-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M7 2v20M17 2v20M2 12h20M2 7h5M2 17h5M17 7h5M17 17h5"/></svg>
+              </div>
+              <div class="ig-tab-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
+            </div>
+          </div>
+          <!-- Profile grid (tiles in reading order + placeholder row) -->
+          <div class="ig-grid-mock">
+            <template x-for="tile in tilesForProfile" :key="tile.readingNum">
+              <div class="ig-mock-tile">
+                <img :src="tile.dataUrl" alt=""/>
+              </div>
+            </template>
+            <!-- 3 placeholder "older" posts -->
+            <div class="ig-mock-placeholder"></div>
+            <div class="ig-mock-placeholder"></div>
+            <div class="ig-mock-placeholder"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /ready -->
+
+  </div><!-- /tool-card -->
+
+  <!-- ══ INFO SECTIONS ══════════════════════════════════ -->
+  <div class="info-sections">
+
+    <!-- About -->
+    <div class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".5" fill="currentColor"/></svg>
+        </div>
+        <h2>About Instagram Grid Splitter</h2>
+      </div>
+      <div class="info-body">
+        <p>An Instagram grid layout turns your profile into a cohesive visual story. Instead of individual unrelated posts, a grid split makes your last 9 (or 6, or 18) posts form a single large image when viewed on your profile. When done well, it stops visitors in their tracks and significantly increases profile-to-follow conversions.</p>
+        <p>This tool takes any image, slices it into equal tiles based on your chosen grid, renders them directly on a canvas in your browser, and downloads them as a ZIP with files numbered in the exact order you should post them. Your image never leaves your device.</p>
+      </div>
+    </div>
+
+    <!-- How to Use -->
+    <div class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <h2>How to Use</h2>
+      </div>
+      <div class="info-body">
+        <ul>
+          <li><strong>Prepare your image</strong> — For a standard 3×3 grid, use a source image that is at least 3240×3240 px (3 × 1080 px per tile). For 3×6, use at least 3240×6480 px.</li>
+          <li><strong>Upload</strong> — Drop your image onto the tool or click "Browse image". No file size limit.</li>
+          <li><strong>Choose grid</strong> — Click a preset (3×1 through 3×6) or drag the sliders for custom columns and rows.</li>
+          <li><strong>Preview tabs</strong> — "Split Preview" shows your image with grid lines and tile numbers. "Posting Guide" shows every tile in posting order with a download button for each. "Profile Preview" shows a phone mockup of how your profile will look.</li>
+          <li><strong>Download ZIP</strong> — Click "Download ZIP" to get all tiles. Files are named <code>post-01.png</code> through <code>post-09.png</code>. <strong>Post them in numerical order — post-01 first, post-09 last.</strong></li>
+          <li><strong>Post to Instagram</strong> — Upload each file in order. After the last one, your profile grid will display the full image.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Logic & Algorithm -->
+    <div class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h2>Logic &amp; Posting Order</h2>
+      </div>
+      <div class="info-body">
+        <p>Instagram's profile grid fills left-to-right, top-to-bottom, with the <strong>most recent post appearing in the top-left</strong>. To display a full image correctly:</p>
+        <ul>
+          <li><strong>Tile (row 1, col 1) — top-left of your image — must be the LAST post you upload</strong>, because it will appear top-left once all tiles are on your profile.</li>
+          <li>Conversely, <strong>tile (bottom row, rightmost column) must be the FIRST post</strong>, as it is the oldest post and lands at the bottom-right of the grid.</li>
+          <li>The posting order algorithm iterates rows bottom-to-top, and within each row right-to-left. For a 3×3: posting sequence is tiles 9 → 8 → 7 → 6 → 5 → 4 → 3 → 2 → 1 (reading-order numbering).</li>
+          <li><strong>Canvas rendering</strong> — <code>CanvasRenderingContext2D.drawImage(img, sx, sy, sw, sh, 0, 0, tw, th)</code> extracts each tile's rectangular region from the original image at native resolution, so no quality is lost.</li>
+          <li><strong>ZIP packaging</strong> — JSZip assembles all tiles using base-64 encoded data URLs (<code>zip.file(name, base64, {base64:true})</code>). Files arrive pre-sorted alphabetically which matches posting order.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ RELATED TOOLS ══════════════════════════════════ -->
+  <section class="related-section">
+    <div class="related-header">
+      <h2>Related Tools</h2>
+      <a href="../../tools.html" class="view-all-link">
+        View all tools
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <div class="related-grid">
+
+      <a href="instagram-post-resizer.html" class="related-tool-card">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#833AB4,#E1306C,#F77737)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <span class="rt-name">Instagram Post Resizer</span>
+        <span class="rt-desc">Resize any image to perfect Instagram dimensions — Square, Portrait, Story, Reels, and more.</span>
+        <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+      <a href="../image/image-resizer.html" class="related-tool-card">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#6366f1,#818cf8)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18M15 3v6M3 15h6"/></svg>
+        </div>
+        <span class="rt-name">Image Resizer</span>
+        <span class="rt-desc">Resize JPEG, PNG, and WebP by exact pixels, percentage, or social media preset.</span>
+        <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+      <a href="../image/image-crop.html" class="related-tool-card">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#e11d48,#f43f5e)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg>
+        </div>
+        <span class="rt-name">Image Crop Tool</span>
+        <span class="rt-desc">Crop images to circle, square, 16:9, or free selection with drag-and-resize.</span>
+        <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+      <a href="../utilities/youtube-chapter-generator.html" class="related-tool-card">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        </div>
+        <span class="rt-name">YouTube Chapter Generator</span>
+        <span class="rt-desc">Build, validate, and copy YouTube chapter timestamps. Checks all of YouTube's rules.</span>
+        <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ══ RELATED BLOG ═══════════════════════════════════ -->
+  <section class="related-section">
+    <div class="related-header">
+      <h2>From the Blog</h2>
+      <a href="../../blog.html" class="view-all-link">
+        All articles
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <div class="blog-grid">
+
+      <a href="../../blog.html" class="blog-card">
+        <span class="blog-cat" style="background:rgba(225,48,108,.1);color:#f9a8d4;">Instagram</span>
+        <span class="blog-title">How to Create a Seamless Instagram Grid That Stops Scrollers</span>
+        <span class="blog-excerpt">A step-by-step guide to planning, designing, and posting a multi-tile Instagram grid layout that makes your profile impossible to ignore.</span>
+        <span class="blog-meta">7 min read</span>
+        <span class="blog-read">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+      <a href="../../blog.html" class="blog-card">
+        <span class="blog-cat" style="background:rgba(225,48,108,.1);color:#f9a8d4;">Social Media</span>
+        <span class="blog-title">Instagram Image Sizes in 2025: Every Format You Need to Know</span>
+        <span class="blog-excerpt">Square, portrait, landscape, Stories, Reels, carousels — the exact pixel dimensions and aspect ratios for every Instagram post type.</span>
+        <span class="blog-meta">4 min read</span>
+        <span class="blog-read">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+      <a href="../../blog.html" class="blog-card">
+        <span class="blog-cat" style="background:rgba(225,48,108,.1);color:#f9a8d4;">Growth</span>
+        <span class="blog-title">Profile Grid Aesthetic: 5 Strategies Top Creators Use</span>
+        <span class="blog-excerpt">From row-by-row colour blocking to full-feed puzzle grids — the visual strategies that consistently drive follows and saves.</span>
+        <span class="blog-meta">5 min read</span>
+        <span class="blog-read">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+    </div>
+  </section>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ FOOTER ═════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#fg)"/>
+          <rect x="8" y="8" width="24" height="24" rx="6" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="2.5"/>
+          <circle cx="20" cy="20" r="5" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="2"/>
+          <circle cx="27" cy="13" r="1.8" fill="rgba(255,255,255,.9)"/>
+          <defs><linearGradient id="fg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#833ab4"/><stop offset=".5" stop-color="#e1306c"/><stop offset="1" stop-color="#f77737"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free, fast, browser-based tools for creators and developers. No sign-up. No tracking. Just tools.</p>
+    </div>
+    <nav class="footer-nav-wrap">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html#social-media">Social Media</a>
+        <a href="../../tools.html#Image">Image Tools</a>
+        <a href="../../tools.html#Utilities">Utilities</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+        <a href="../../about.html">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../terms.html">Terms of Use</a>
+        <a href="../../sitemap.xml">Sitemap</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="inner">
+      <p>&copy; <span x-text="new Date().getFullYear()"></span> The Tool Empire. All rights reserved.</p>
+      <p>All tools run locally in your browser.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ REPORT MODAL ═══════════════════════════════════════ -->
+<script src="../../assets/js/report-modal.js"></script>
+<div x-data="reportModal()" x-cloak>
+  <button class="rm-trigger" @click="openModal()" aria-label="Report or send feedback">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+    Report / Feedback
+  </button>
+  <div class="rm-overlay" x-show="open"
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+    @click.self="closeModal()">
+    <div class="rm-modal" @click.stop>
+      <template x-if="!submitted">
+        <div>
+          <h3>Report / Feedback</h3>
+          <p>Found a bug or have a suggestion? We'd love to hear from you.</p>
+          <div class="rm-field">
+            <label>Type</label>
+            <select x-model="type">
+              <option value="bug">Bug Report</option>
+              <option value="feature">Feature Request</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="rm-field">
+            <label>Message</label>
+            <textarea x-model="message" placeholder="Describe the issue or suggestion…" rows="4"></textarea>
+          </div>
+          <div class="rm-field">
+            <label>Email (optional)</label>
+            <input type="email" x-model="email" placeholder="you@example.com"/>
+          </div>
+          <div class="rm-actions">
+            <button class="rm-btn" @click="closeModal()">Cancel</button>
+            <button class="rm-btn primary" @click="submitReport()" :disabled="!message.trim()">Send</button>
+          </div>
+        </div>
+      </template>
+      <template x-if="submitted">
+        <div class="rm-success">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <h3>Thank you!</h3>
+          <p>Your feedback has been received. We'll look into it soon.</p>
+        </div>
+      </template>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Org Chart Maker — Free Online Organizational Chart Tool | The Tool Empire</title>
+<meta name="description" content="Free online org chart maker. Build organizational charts with nodes, roles, departments and hierarchies. Zoom, export as PNG or PDF. Auto-saves in your browser."/>
+<meta name="keywords" content="org chart maker, organizational chart, org chart creator, company hierarchy, team structure, free org chart tool"/>
+<meta name="robots" content="index,follow"/>
+<meta name="author" content="The Tool Empire"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/design/org-chart.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Org Chart Maker — Free Online Organizational Chart Tool"/>
+<meta property="og:description" content="Build organizational charts with custom nodes, roles, departments and hierarchies. Export as PNG or PDF — no sign-up needed."/>
+<meta property="og:url" content="https://thetoolempire.com/tools/design/org-chart.html"/>
+<meta property="og:site_name" content="The Tool Empire"/>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":"SoftwareApplication","name":"Org Chart Maker","applicationCategory":"BusinessApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/design/org-chart.html","description":"Free browser-based org chart maker. Build hierarchical organizational charts with names, roles, departments and color coding. Export as PNG or PDF.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+    {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+    {"@type":"ListItem","position":3,"name":"Productivity","item":"https://thetoolempire.com/tools.html#Productivity"},
+    {"@type":"ListItem","position":4,"name":"Org Chart Maker","item":"https://thetoolempire.com/tools/design/org-chart.html"}
+  ]}
+]}</script>
+
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+<link rel="manifest" href="../../manifest.json"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<link rel="stylesheet" href="org-chart.css"/>
+<link rel="stylesheet" href="../../assets/css/report-modal.css"/>
+<script src="org-chart.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="orgChartApp()" x-init="init()">
+
+<!-- ══ HEADER ════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hg)"/>
+        <circle cx="20" cy="10" r="5" fill="rgba(255,255,255,.9)"/>
+        <circle cx="10" cy="28" r="4" fill="rgba(255,255,255,.75)"/>
+        <circle cx="30" cy="28" r="4" fill="rgba(255,255,255,.75)"/>
+        <line x1="20" y1="15" x2="10" y2="24" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+        <line x1="20" y1="15" x2="30" y2="24" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#10b981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="19" r="3"/><circle cx="19" cy="19" r="3"/><line x1="12" y1="8" x2="5" y2="16"/><line x1="12" y1="8" x2="19" y2="16"/></svg>
+    Productivity Tools
+  </div>
+  <h1><span class="g">Org Chart</span> Maker</h1>
+  <p>Build hierarchical organizational charts with names, roles, departments and colour coding. Zoom and export as PNG or PDF.</p>
+</div>
+
+<!-- ══ TOOL ══════════════════════════════════════════════ -->
+<div class="page-wrap">
+
+  <!-- Toolbar -->
+  <div class="tool-header">
+    <div class="th-titles">
+      <input class="th-title-input" x-model="title"    placeholder="Organization name…" maxlength="80"/>
+      <input class="th-sub-input"   x-model="subtitle" placeholder="Department, date, or version (optional)…" maxlength="100"/>
+    </div>
+    <div class="th-actions">
+      <!-- Zoom cluster -->
+      <div class="zoom-cluster">
+        <button class="zoom-btn" @click="zoomOut()" title="Zoom out">−</button>
+        <div class="zoom-val" x-text="Math.round(zoom*100)+'%'"></div>
+        <button class="zoom-btn" @click="zoomIn()"  title="Zoom in">+</button>
+        <button class="zoom-btn" @click="zoomReset()" title="Reset zoom" style="font-size:.65rem;letter-spacing:-.02em;">1:1</button>
+        <button class="zoom-btn" @click="fitScreen()" title="Fit to screen" style="font-size:.62rem;">Fit</button>
+      </div>
+
+      <button class="th-btn primary" @click="openAddRoot()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Node
+      </button>
+      <button class="th-btn export" :class="{loading: exporting}" @click="exportPng()" :disabled="exporting">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span x-text="exporting ? '…' : 'PNG'"></span>
+      </button>
+      <button class="th-btn export" :class="{loading: exporting}" @click="exportPdf()" :disabled="exporting">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        PDF
+      </button>
+      <button class="th-btn" @click="copyJson()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        JSON
+      </button>
+      <button class="th-btn" @click="importJson()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Import
+      </button>
+      <button class="th-btn danger" @click="clearAll()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+        Clear
+      </button>
+    </div>
+  </div>
+
+  <!-- ══ CANVAS ════════════════════════════════════════ -->
+  <div class="canvas-outer" x-ref="canvasWrap" @click.self="deselect()" style="min-height:520px;">
+
+    <!-- Empty state -->
+    <div class="oc-empty" x-show="!nodes.length">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="19" r="3"/><circle cx="19" cy="19" r="3"/><line x1="12" y1="8" x2="5" y2="16"/><line x1="12" y1="8" x2="19" y2="16"/></svg>
+      <p>Click <strong>Add Node</strong> to create your first person or role</p>
+    </div>
+
+    <div class="canvas-scaler" x-show="nodes.length"
+         :style="`transform: scale(${zoom}); width: ${layoutData.width}px; height: ${layoutData.height}px;`">
+
+      <!-- chart root captures for export -->
+      <div class="chart-root" x-ref="chartRoot"
+           :style="`width: ${layoutData.width}px; height: ${layoutData.height}px; position:relative;`">
+
+        <!-- Title overlay for export -->
+        <div style="position:absolute;top:6px;left:0;right:0;text-align:center;pointer-events:none;" x-show="title">
+          <div style="font-size:.9rem;font-weight:900;color:var(--text);opacity:.6;" x-text="title"></div>
+        </div>
+
+        <!-- SVG connector lines -->
+        <svg class="oc-svg" :width="layoutData.width" :height="layoutData.height">
+          <template x-for="(line, i) in layoutData.lines" :key="i">
+            <path class="oc-line"
+              :d="`M ${line.x1} ${line.y1} L ${line.x1} ${line.mid} L ${line.x2} ${line.mid} L ${line.x2} ${line.y2}`">
+            </path>
+          </template>
+        </svg>
+
+        <!-- Node cards -->
+        <template x-for="lnode in layoutData.nodes" :key="lnode.id">
+          <div class="oc-node"
+               :class="{ selected: selectedId === lnode.id }"
+               :style="`left: ${lnode.x}px; top: ${lnode.y}px;`"
+               @click.stop="select(lnode.id)">
+
+            <!-- Avatar -->
+            <div class="oc-avatar" :style="`background: ${colorHex(lnode.color)}`"
+                 x-text="initials(lnode.name)"></div>
+
+            <!-- Info -->
+            <div class="oc-info">
+              <div class="oc-name" x-text="lnode.name"></div>
+              <div class="oc-role" x-show="lnode.role" x-text="lnode.role"></div>
+              <div class="oc-dept" x-show="lnode.dept" x-text="lnode.dept"></div>
+            </div>
+
+            <!-- Floating actions -->
+            <div class="oc-node-actions">
+              <button class="oc-nact-btn" @click.stop="openAddChild(lnode.id)" title="Add child">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </button>
+              <button class="oc-nact-btn" @click.stop="openEdit(lnode)" title="Edit">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              </button>
+              <button class="oc-nact-btn del" @click.stop="deleteNode(lnode.id)" title="Remove (reparent children)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+              </button>
+            </div>
+          </div>
+        </template>
+
+      </div><!-- /chart-root -->
+    </div><!-- /canvas-scaler -->
+  </div><!-- /canvas-outer -->
+
+  <!-- ── Selected node panel ───────────────────────── -->
+  <div class="oc-side-panel" x-show="selectedNode" x-cloak>
+    <div class="sp-avatar" :style="`background:${colorHex(selectedNode?.color)}`"
+         x-text="initials(selectedNode?.name || '')"></div>
+    <div class="sp-info">
+      <div class="sp-name" x-text="selectedNode?.name"></div>
+      <div class="sp-role" x-show="selectedNode?.role" x-text="selectedNode?.role"></div>
+      <div class="sp-dept" x-show="selectedNode?.dept" x-text="selectedNode?.dept"></div>
+    </div>
+    <div class="sp-actions">
+      <button class="sp-btn" @click="openAddChild(selectedNode.id)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Direct Report
+      </button>
+      <button class="sp-btn" @click="openEdit(selectedNode)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Edit
+      </button>
+      <button class="sp-btn del" @click="deleteNode(selectedNode.id)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+        Remove
+      </button>
+      <button class="sp-btn del" @click="deleteSubtree(selectedNode.id)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
+        Delete Branch
+      </button>
+    </div>
+  </div>
+
+  <!-- ══ FORM MODAL ════════════════════════════════════ -->
+  <div class="modal-overlay" x-show="showForm" x-cloak @click.self="showForm=false">
+    <div class="modal-box">
+      <div class="modal-title" x-text="editId !== null ? 'Edit Node' : 'Add Node'"></div>
+
+      <div class="form-group">
+        <label class="form-label">Name *</label>
+        <input class="form-input" x-model="form.name" x-ref="ocName" placeholder="Full name or label" maxlength="60" @keydown.enter="saveForm()"/>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Role / Title</label>
+        <input class="form-input" x-model="form.role" placeholder="e.g. Chief Executive Officer" maxlength="60"/>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Department</label>
+        <input class="form-input" x-model="form.dept" placeholder="e.g. Engineering" maxlength="40"/>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Reports To</label>
+        <select class="form-select" x-model="form.parentId">
+          <option :value="null">— None (root node) —</option>
+          <template x-for="n in parentOptions(editId)" :key="n.id">
+            <option :value="n.id" x-text="`${n.name}${n.role ? ' — '+n.role : ''}`"></option>
+          </template>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Color</label>
+        <div class="color-row">
+          <button class="color-chip" style="background:#10b981" :class="{active:form.color==='emerald'}" @click="form.color='emerald'" title="Emerald"></button>
+          <button class="color-chip" style="background:#3b82f6" :class="{active:form.color==='blue'}"    @click="form.color='blue'"    title="Blue"></button>
+          <button class="color-chip" style="background:#8b5cf6" :class="{active:form.color==='violet'}"  @click="form.color='violet'"  title="Violet"></button>
+          <button class="color-chip" style="background:#f43f5e" :class="{active:form.color==='rose'}"    @click="form.color='rose'"    title="Rose"></button>
+          <button class="color-chip" style="background:#f59e0b" :class="{active:form.color==='amber'}"   @click="form.color='amber'"   title="Amber"></button>
+          <button class="color-chip" style="background:#06b6d4" :class="{active:form.color==='cyan'}"    @click="form.color='cyan'"    title="Cyan"></button>
+          <button class="color-chip" style="background:#f97316" :class="{active:form.color==='orange'}"  @click="form.color='orange'"  title="Orange"></button>
+          <button class="color-chip" style="background:#64748b" :class="{active:form.color==='slate'}"   @click="form.color='slate'"   title="Slate"></button>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="modal-save"   @click="saveForm()" :disabled="!form.name.trim()">Save</button>
+        <button class="modal-cancel" @click="showForm=false">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ INFO SECTIONS ════════════════════════════════ -->
+  <div class="info-sections">
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h2>About This Tool</h2>
+      </div>
+      <div class="info-body">
+        <p><strong>Org Chart Maker</strong> is a free, browser-based tool for creating hierarchical organizational charts. Add people or roles as nodes, set their reporting relationships, colour-code by team or department, and export the result as a PNG image or PDF document.</p>
+        <p>It handles any tree structure: flat teams with one leader, deep reporting chains, or multi-root charts where several independent teams are shown side by side. Clicking any node reveals a selection panel with quick actions — add a direct report, edit, remove, or delete an entire branch. The chart auto-saves every change in your browser.</p>
+        <p>Typical uses: company structures, project team hierarchies, department maps, responsibility matrices, reporting line diagrams, and training materials.</p>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h2>How to Use</h2>
+      </div>
+      <div class="info-body">
+        <ul>
+          <li><strong>Add the first node</strong> with the "Add Node" button. Leave "Reports To" empty to make it a root (top-level) node.</li>
+          <li><strong>Add direct reports</strong> by clicking a node to select it, then clicking "Add Direct Report" in the panel below the chart — or hover the node and click the <code>+</code> icon that appears.</li>
+          <li><strong>Edit any node</strong> by clicking the pencil icon on hover, or "Edit" in the selected-node panel. You can change the name, role, department, reporting line, and colour.</li>
+          <li><strong>Remove a node</strong> (promoting its children to its parent) with "Remove", or delete an entire subtree with "Delete Branch".</li>
+          <li><strong>Zoom</strong> using the <code>+</code> / <code>−</code> buttons, reset to 100% with <code>1:1</code>, or click <strong>Fit</strong> to make the full chart visible at once. Scroll to pan around large charts.</li>
+          <li><strong>Export</strong> PNG or PDF — both capture the full chart canvas at 2× resolution. Use "JSON" to copy all data; "Import" to restore it on any device.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h2>Logic &amp; Technical Notes</h2>
+      </div>
+      <div class="info-body">
+        <p>Nodes are stored as a flat array with <code>parentId</code> references. On each render, this is converted to a tree structure in memory, then a recursive layout algorithm computes every node's <code>x</code> and <code>y</code> position.</p>
+        <p>The layout uses the <strong>Reingold–Tilford variant</strong>: first, each subtree's width is computed bottom-up (<code>subtreeWidth = max(nodeWidth, sum of children widths + gaps)</code>). Then nodes are placed top-down — each parent is horizontally centred over its children by offsetting it by <code>(subtreeWidth − nodeWidth) / 2</code>. This produces compact, non-overlapping trees without deep recursion.</p>
+        <p>Connector lines use <strong>elbow routing</strong>: each line goes vertically from the parent's bottom-center to a midpoint Y, then horizontally to the child's X, then vertically to the child's top-center. This avoids diagonal crossing lines that are hard to follow in dense charts.</p>
+        <p>The chart is rendered as absolutely-positioned <code>div</code> nodes over an SVG connector layer, all inside a scrollable container with a CSS <code>scale()</code> transform for zoom. Export uses <code>html2canvas</code> at 2× DPR scale fed into <code>jsPDF</code>, both loaded on-demand via dynamic <code>import()</code>. State persists to <code>localStorage</code> via Alpine.js reactive watchers.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ══ Related Tools ════════════════════════════════ -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>Related Tools</h2>
+      <a href="../../tools.html" class="view-all-link">All Tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="related-grid">
+      <a class="related-tool-card" href="gantt-chart.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#6366f1,#4f46e5)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="14" height="4" rx="1"/><rect x="7" y="11" width="12" height="4" rx="1"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg>
+        </div>
+        <div class="rt-name">Gantt Chart Maker</div>
+        <div class="rt-desc">Plan projects with tasks, dates, and progress bars on an interactive Gantt chart.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="swot-analysis.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#a78bfa,#7c3aed)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <div class="rt-name">SWOT Analysis Maker</div>
+        <div class="rt-desc">Build Strengths, Weaknesses, Opportunities, and Threats matrices with priority levels.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="timeline-maker.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#14b8a6,#0d9488)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12"/><circle cx="6" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="18" cy="12" r="2" fill="currentColor"/></svg>
+        </div>
+        <div class="rt-name">Timeline Maker</div>
+        <div class="rt-desc">Build vertical or horizontal visual timelines with custom events and dates.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="json-to-chart.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="rt-name">JSON to Chart</div>
+        <div class="rt-desc">Paste or upload JSON data and generate beautiful charts instantly.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Blog -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>From the Blog</h2>
+      <a href="../../blog.html" class="view-all-link">All Posts <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="blog-grid">
+      <a class="blog-card" href="../../blog/org-chart-design-tips.html">
+        <span class="blog-cat" style="background:rgba(16,185,129,.1);color:#6ee7b7;">Design</span>
+        <div class="blog-title">How to Design an Org Chart That's Actually Useful</div>
+        <div class="blog-excerpt">When to show roles vs. names, how many levels is too many, and what to leave off your organizational chart entirely.</div>
+        <div class="blog-meta">June 2025 · 5 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/team-structure-guide.html">
+        <span class="blog-cat" style="background:rgba(99,102,241,.1);color:#a5b4fc;">Team Mgmt</span>
+        <div class="blog-title">Flat vs. Hierarchical Teams: Which Structure Works When</div>
+        <div class="blog-excerpt">The tradeoffs between flat, matrix, and traditional hierarchical team structures — and how each shows up on an org chart.</div>
+        <div class="blog-meta">May 2025 · 7 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/strategic-planning-frameworks.html">
+        <span class="blog-cat" style="background:rgba(167,139,250,.1);color:#c4b5fd;">Strategy</span>
+        <div class="blog-title">Strategic Planning Frameworks: SWOT, PESTLE, Porter's Five Forces</div>
+        <div class="blog-excerpt">Pair an org chart with the right strategic framework to give your planning sessions structure and clarity.</div>
+        <div class="blog-meta">April 2025 · 8 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Report -->
+  <div style="text-align:center;padding:24px 0 0;" x-data="{open:false,reason:'',details:'',submitted:false}">
+    <button style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--faint);cursor:pointer;" @click="open=true">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Report an Issue
+    </button>
+    <div style="position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;" x-show="open" x-cloak @click.self="open=false">
+      <div style="background:var(--card);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:440px;padding:28px;">
+        <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:6px;">Report an Issue</h3>
+        <p style="font-size:.84rem;color:var(--text2);margin-bottom:18px;">Let us know what's wrong with <strong>Org Chart Maker</strong>.</p>
+        <select style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;margin-bottom:12px;" x-model="reason">
+          <option value="">Select a reason…</option>
+          <option>Chart not displaying correctly</option>
+          <option>Export not working</option>
+          <option>Nodes overlapping</option>
+          <option>Missing feature</option>
+          <option>Other</option>
+        </select>
+        <textarea style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;min-height:88px;resize:vertical;font-family:inherit;margin-bottom:12px;" x-model="details" placeholder="Describe the issue (optional)…"></textarea>
+        <div style="display:flex;gap:10px;">
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:700;border:none;background:var(--agrad);color:#fff;cursor:pointer;" :style="!reason?'opacity:.4;cursor:default':''" @click="submitted=true;setTimeout(()=>{open=false;submitted=false},2000)" :disabled="!reason">Submit</button>
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;" @click="open=false">Cancel</button>
+        </div>
+        <p style="margin-top:12px;text-align:center;font-size:.82rem;color:#86efac;" x-show="submitted">Thank you — report received!</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ TOAST ══════════════════════════════════════════ -->
+<div class="oc-toast" x-show="toast" x-cloak x-text="toast"></div>
+
+<!-- ══ FOOTER ════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#flg)"/>
+          <circle cx="20" cy="10" r="5" fill="rgba(255,255,255,.9)"/>
+          <circle cx="10" cy="28" r="4" fill="rgba(255,255,255,.75)"/>
+          <circle cx="30" cy="28" r="4" fill="rgba(255,255,255,.75)"/>
+          <line x1="20" y1="15" x2="10" y2="24" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+          <line x1="20" y1="15" x2="30" y2="24" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+          <defs><linearGradient id="flg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#10b981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free online tools for developers, designers, and data people.</p>
+    </div>
+    <nav class="footer-nav-wrap">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=Productivity">Productivity</a>
+        <a href="../../tools.html?cat=Design">Design</a>
+        <a href="../../tools.html?cat=Math">Math</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../about.html">About</a>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy</a>
+        <a href="../../terms.html">Terms</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="inner">
+      <p>&copy; 2025 The Tool Empire. All rights reserved.</p>
+      <p>Built with Alpine.js</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

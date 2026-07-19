@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Gantt Chart Maker — Free Online Project Timeline Tool | The Tool Empire</title>
+<meta name="description" content="Free online Gantt chart maker. Create project timelines with tasks, groups, progress bars and date ranges. Export as PNG or PDF. Auto-saves in your browser."/>
+<meta name="keywords" content="gantt chart maker, gantt chart online, project timeline, task schedule, free gantt tool, gantt chart creator"/>
+<meta name="robots" content="index,follow"/>
+<meta name="author" content="The Tool Empire"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/design/gantt-chart.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Gantt Chart Maker — Free Online Project Timeline Tool"/>
+<meta property="og:description" content="Build professional Gantt charts with tasks, groups, progress tracking, and day/week/month zoom. Export as PNG or PDF — no sign-up needed."/>
+<meta property="og:url" content="https://thetoolempire.com/tools/design/gantt-chart.html"/>
+<meta property="og:site_name" content="The Tool Empire"/>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":"SoftwareApplication","name":"Gantt Chart Maker","applicationCategory":"BusinessApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/design/gantt-chart.html","description":"Free browser-based Gantt chart maker. Create project timelines with task groups, progress tracking, and day/week/month zoom. Export as PNG or PDF.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+    {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+    {"@type":"ListItem","position":3,"name":"Productivity","item":"https://thetoolempire.com/tools.html#Productivity"},
+    {"@type":"ListItem","position":4,"name":"Gantt Chart Maker","item":"https://thetoolempire.com/tools/design/gantt-chart.html"}
+  ]}
+]}</script>
+
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+<link rel="manifest" href="../../manifest.json"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<link rel="stylesheet" href="gantt-chart.css"/>
+<link rel="stylesheet" href="../../assets/css/report-modal.css"/>
+<script src="gantt-chart.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="ganttApp()" x-init="init()">
+
+<!-- ══ HEADER ════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hg)"/>
+        <rect x="6"  y="10" width="20" height="5" rx="2" fill="rgba(255,255,255,.9)"/>
+        <rect x="10" y="18" width="16" height="5" rx="2" fill="rgba(255,255,255,.65)"/>
+        <rect x="8"  y="26" width="22" height="5" rx="2" fill="rgba(255,255,255,.8)"/>
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#4f46e5"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    Productivity Tools
+  </div>
+  <h1><span class="g">Gantt Chart</span> Maker</h1>
+  <p>Plan projects with a visual Gantt chart. Add tasks, track progress, group by phase, and export as PNG or PDF.</p>
+</div>
+
+<!-- ══ TOOL ══════════════════════════════════════════════ -->
+<div class="page-wrap">
+
+  <!-- Toolbar -->
+  <div class="tool-header">
+    <div class="th-titles">
+      <input class="th-title-input" x-model="title"    placeholder="Project name…" maxlength="80"/>
+      <input class="th-sub-input"   x-model="subtitle" placeholder="Subtitle or sprint (optional)…" maxlength="100"/>
+    </div>
+    <div class="th-actions">
+      <!-- Zoom -->
+      <div class="zoom-row">
+        <button class="zoom-btn" :class="{active: zoom==='day'}"   @click="zoom='day'">Day</button>
+        <button class="zoom-btn" :class="{active: zoom==='week'}"  @click="zoom='week'">Week</button>
+        <button class="zoom-btn" :class="{active: zoom==='month'}" @click="zoom='month'">Month</button>
+      </div>
+      <!-- Toggles -->
+      <button class="opt-toggle" :class="{on: showToday}"    @click="showToday=!showToday">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22"/></svg>
+        Today
+      </button>
+      <button class="opt-toggle" :class="{on: showProgress}" @click="showProgress=!showProgress">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="10" width="20" height="4" rx="2"/><rect x="2" y="10" width="13" height="4" rx="2" fill="currentColor"/></svg>
+        Progress
+      </button>
+      <button class="opt-toggle" :class="{on: showWeekends}" @click="showWeekends=!showWeekends" x-show="zoom==='day'">
+        Weekends
+      </button>
+      <!-- Actions -->
+      <button class="th-btn primary" @click="openAdd()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Task
+      </button>
+      <button class="th-btn export" :class="{loading: exporting}" @click="exportPng()" :disabled="exporting">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span x-text="exporting ? '…' : 'PNG'"></span>
+      </button>
+      <button class="th-btn export" :class="{loading: exporting}" @click="exportPdf()" :disabled="exporting">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        PDF
+      </button>
+      <button class="th-btn" @click="copyJson()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        JSON
+      </button>
+      <button class="th-btn" @click="importJson()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Import
+      </button>
+      <button class="th-btn danger" @click="clearAll()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+        Clear
+      </button>
+    </div>
+  </div>
+
+  <!-- ══ GANTT ══════════════════════════════════════════ -->
+  <div class="gantt-wrap" x-ref="ganttCanvas">
+
+    <!-- Title row (for export) -->
+    <div style="padding:14px 18px;border-bottom:1px solid var(--border2);display:flex;align-items:baseline;gap:12px;" x-show="title">
+      <span style="font-size:1rem;font-weight:900;color:var(--text)" x-text="title"></span>
+      <span style="font-size:.82rem;color:var(--text2)" x-show="subtitle" x-text="subtitle"></span>
+    </div>
+
+    <!-- Empty state -->
+    <div class="gantt-empty" x-show="!tasks.length">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
+      <p>No tasks yet — click <strong>Add Task</strong> to get started</p>
+    </div>
+
+    <div x-show="tasks.length">
+
+      <!-- ── Column header ─────────────────────────────── -->
+      <div class="gantt-head">
+        <div class="gantt-tasklist-head">Tasks (<span x-text="tasks.length"></span>)</div>
+        <div class="gantt-chart-head">
+          <div class="gantt-col-labels">
+            <template x-for="col in gridCols" :key="col.label + col.date">
+              <div class="gantt-col-label"
+                   :class="{weekend: col.isWeekend && showWeekends && zoom==='day'}"
+                   :style="`width: calc(${col.days} / ${totalDays} * 100%)`">
+                <span class="col-label-main" x-text="col.label"></span>
+                <span class="col-label-sub"  x-text="col.subLabel"></span>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Body ─────────────────────────────────────── -->
+      <div class="gantt-body">
+
+        <!-- Left: task list -->
+        <div class="gantt-tasklist">
+          <template x-for="(task, i) in tasks" :key="task.id">
+            <div>
+              <!-- Group header when group changes -->
+              <div class="group-row"
+                   x-show="task.group && (i === 0 || tasks[i-1].group !== task.group)">
+                <span class="group-row-label" x-text="task.group"></span>
+              </div>
+              <!-- Task row -->
+              <div class="task-row-left"
+                   :class="{'drag-over': dragOver===task.id}"
+                   draggable="true"
+                   @dragstart="dragStart(task.id)"
+                   @dragenter.prevent="dragEnter(task.id)"
+                   @dragleave="dragLeave()"
+                   @dragover.prevent
+                   @drop.prevent="drop(task.id)"
+                   @dragend="dragEnd()">
+                <div class="task-color-dot" :style="`background:${colorHex(task.color)}`"></div>
+                <div class="task-name-text" x-text="task.name" :title="task.name"></div>
+                <div class="task-left-actions">
+                  <button class="t-ico-btn" @click.stop="openEdit(task)" title="Edit">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                  </button>
+                  <button class="t-ico-btn del" @click.stop="deleteTask(task.id)" title="Delete">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <!-- Right: chart -->
+        <div class="gantt-chart-body">
+          <div class="gantt-chart-inner"
+               :style="`min-width:${zoom==='day' ? totalDays * 28 : zoom==='week' ? Math.ceil(totalDays/7) * 90 : gridCols.length * 100}px`">
+
+            <!-- Grid column backgrounds -->
+            <template x-for="col in gridCols" :key="'gc'+col.label+col.date">
+              <div class="grid-col"
+                   :class="{weekend: col.isWeekend && showWeekends && zoom==='day'}"
+                   :style="`left:calc(${colLeft(col)}%);width:calc(${colWidth(col)}%)`">
+              </div>
+            </template>
+
+            <!-- Today marker (behind tasks) -->
+            <div class="today-marker" x-show="showTodayLine" :style="`left:${todayLeft}%`">
+              <div class="today-label">Today</div>
+            </div>
+
+            <!-- Task rows (mirroring task list) -->
+            <template x-for="(task, i) in tasks" :key="'bar'+task.id">
+              <div>
+                <!-- Group spacer row -->
+                <div class="chart-group-row"
+                     x-show="task.group && (i === 0 || tasks[i-1].group !== task.group)">
+                </div>
+                <!-- Task bar row -->
+                <div class="chart-task-row">
+                  <div class="task-bar"
+                       :style="`left:${taskLeft(task)}%; width:${taskWidth(task)}%; background:${colorHex(task.color)}; opacity:.9;`"
+                       @click="openEdit(task)"
+                       :title="`${task.name} — ${formatDate(task.startDate)} → ${formatDate(task.endDate)} (${taskDuration(task)}) — ${task.progress}%`">
+                    <!-- Progress fill -->
+                    <div class="task-bar-fill" x-show="showProgress" :style="`width:${task.progress}%`"></div>
+                    <!-- Label -->
+                    <span class="task-bar-label" x-text="task.name"></span>
+                  </div>
+                </div>
+              </div>
+            </template>
+
+          </div>
+        </div>
+
+      </div><!-- /gantt-body -->
+    </div>
+
+  </div><!-- /gantt-wrap -->
+
+  <!-- ══ FORM MODAL ════════════════════════════════════ -->
+  <div class="modal-overlay" x-show="showForm" x-cloak @click.self="showForm=false">
+    <div class="modal-box">
+      <div class="modal-title" x-text="editId !== null ? 'Edit Task' : 'Add Task'"></div>
+
+      <div class="form-group">
+        <label class="form-label">Task Name *</label>
+        <input class="form-input" x-model="form.name" x-ref="gFormName" placeholder="e.g. Backend Development" maxlength="80" @keydown.enter="saveForm()"/>
+      </div>
+
+      <div class="form-row form-group">
+        <div>
+          <label class="form-label">Start Date</label>
+          <input class="form-input" x-model="form.startDate" type="date"/>
+        </div>
+        <div>
+          <label class="form-label">End Date</label>
+          <input class="form-input" x-model="form.endDate" type="date"/>
+        </div>
+      </div>
+
+      <div class="form-row form-group">
+        <div>
+          <label class="form-label">Group / Phase</label>
+          <input class="form-input" x-model="form.group" placeholder="e.g. Design" maxlength="40"/>
+        </div>
+        <div>
+          <label class="form-label">Progress</label>
+          <div class="progress-row" style="margin-top:6px;">
+            <input class="progress-slider" type="range" min="0" max="100" x-model.number="form.progress"/>
+            <span class="progress-val" x-text="form.progress + '%'"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Color</label>
+        <div class="color-row">
+          <button class="color-chip" style="background:#6366f1" :class="{active:form.color==='indigo'}" @click="form.color='indigo'" title="Indigo"></button>
+          <button class="color-chip" style="background:#8b5cf6" :class="{active:form.color==='violet'}" @click="form.color='violet'" title="Violet"></button>
+          <button class="color-chip" style="background:#3b82f6" :class="{active:form.color==='blue'}"   @click="form.color='blue'"   title="Blue"></button>
+          <button class="color-chip" style="background:#06b6d4" :class="{active:form.color==='cyan'}"   @click="form.color='cyan'"   title="Cyan"></button>
+          <button class="color-chip" style="background:#22c55e" :class="{active:form.color==='green'}"  @click="form.color='green'"  title="Green"></button>
+          <button class="color-chip" style="background:#f59e0b" :class="{active:form.color==='amber'}"  @click="form.color='amber'"  title="Amber"></button>
+          <button class="color-chip" style="background:#f97316" :class="{active:form.color==='orange'}" @click="form.color='orange'" title="Orange"></button>
+          <button class="color-chip" style="background:#f43f5e" :class="{active:form.color==='rose'}"   @click="form.color='rose'"   title="Rose"></button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Note (optional)</label>
+        <textarea class="form-textarea" x-model="form.note" placeholder="Additional context…" maxlength="300"></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button class="modal-save"   @click="saveForm()" :disabled="!form.name.trim() || !form.startDate || !form.endDate">Save</button>
+        <button class="modal-cancel" @click="showForm=false">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ INFO SECTIONS ════════════════════════════════ -->
+  <div class="info-sections">
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h2>About This Tool</h2>
+      </div>
+      <div class="info-body">
+        <p><strong>Gantt Chart Maker</strong> is a free, browser-based project scheduling tool. It lets you visualise tasks on a horizontal timeline, grouped by project phase, with colour coding, progress tracking, and a live "today" marker.</p>
+        <p>Switch between <strong>Day, Week, and Month</strong> zoom levels to see the fine-grained schedule or the high-level roadmap. Tasks are draggable in the list to reorder them. The chart auto-saves every change to your browser — no account needed. Export options include <strong>PNG</strong> (for slide decks or emails) and <strong>PDF</strong> (for documents and printing).</p>
+        <p>Common use cases: software sprints, product launches, event planning, construction schedules, academic project timelines, and marketing campaigns.</p>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h2>How to Use</h2>
+      </div>
+      <div class="info-body">
+        <ul>
+          <li><strong>Add tasks</strong> with the "Add Task" button. Set a name, start date, end date, optional group/phase label, progress %, colour, and note.</li>
+          <li><strong>Group tasks</strong> by phase using the "Group / Phase" field (e.g. "Design", "Development", "Testing"). Tasks with the same group are visually separated by a group header row.</li>
+          <li><strong>Reorder tasks</strong> by dragging rows up or down in the task list on the left.</li>
+          <li><strong>Edit or delete</strong> tasks by hovering a row and clicking the pencil or bin icon, or by clicking the bar in the chart.</li>
+          <li><strong>Zoom</strong> between Day, Week, and Month using the buttons in the toolbar. Day view shows each calendar day; Week view shows Monday-anchored 7-day spans; Month view shows calendar months.</li>
+          <li><strong>Today line</strong> shows where the current date falls on the chart. Toggle it off for cleaner exports.</li>
+          <li><strong>Progress</strong> is shown as a darker fill inside each task bar. Toggle it off to hide progress fills.</li>
+          <li><strong>Export</strong> PNG or PDF captures the entire Gantt canvas. Use "JSON" to copy all task data; "Import" to restore it.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h2>Logic &amp; Technical Notes</h2>
+      </div>
+      <div class="info-body">
+        <p>A <strong>Gantt chart</strong> (named after Henry Gantt, 1910s) represents tasks as horizontal bars on a time axis. The left edge of each bar = start date; the right edge = end date; bar width = duration. This tool computes positioning using pure CSS percentages derived from the task's date offset within the chart's visible date range.</p>
+        <p>The chart range is auto-computed: <code>chartStart</code> = earliest task start − 3 days; <code>chartEnd</code> = latest task end + 3 days. Task bar left position = <code>(taskStart − chartStart) / totalDays × 100%</code>. Bar width = <code>duration / totalDays × 100%</code>.</p>
+        <p>Grid columns for each zoom level are generated by iterating from <code>chartStart</code> to <code>chartEnd</code> in day, 7-day, or calendar-month increments. The <code>min-width</code> of the chart inner div is set to <code>totalDays × 28px</code> (day zoom), <code>weeks × 90px</code> (week), or <code>months × 100px</code> (month) to ensure bars remain readable at any scale.</p>
+        <p>State persists to <code>localStorage</code> via Alpine.js watchers. Export uses <code>html2canvas</code> at 2× DPR scale fed into <code>jsPDF</code>, both loaded on-demand via dynamic <code>import()</code>.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ══ Related Tools ════════════════════════════════ -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>Related Tools</h2>
+      <a href="../../tools.html" class="view-all-link">All Tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="related-grid">
+      <a class="related-tool-card" href="timeline-maker.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#14b8a6,#0d9488)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12"/><circle cx="6" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="18" cy="12" r="2" fill="currentColor"/></svg>
+        </div>
+        <div class="rt-name">Timeline Maker</div>
+        <div class="rt-desc">Build vertical or horizontal visual timelines with custom events and dates.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="swot-analysis.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#a78bfa,#7c3aed)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <div class="rt-name">SWOT Analysis Maker</div>
+        <div class="rt-desc">Build Strengths, Weaknesses, Opportunities, and Threats matrices with priority levels.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="chart-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg>
+        </div>
+        <div class="rt-name">Chart Generator</div>
+        <div class="rt-desc">Create bar, line, pie, radar, and scatter charts from your data.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="json-to-chart.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#3b82f6,#2563eb)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="rt-name">JSON to Chart</div>
+        <div class="rt-desc">Paste or upload JSON data and generate beautiful charts instantly.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Blog -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>From the Blog</h2>
+      <a href="../../blog.html" class="view-all-link">All Posts <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="blog-grid">
+      <a class="blog-card" href="../../blog/gantt-chart-guide.html">
+        <span class="blog-cat" style="background:rgba(99,102,241,.1);color:#a5b4fc;">Project Mgmt</span>
+        <div class="blog-title">How to Build a Gantt Chart That Teams Actually Follow</div>
+        <div class="blog-excerpt">The difference between a Gantt chart that collects dust and one that drives daily stand-ups — structure, granularity, and ownership.</div>
+        <div class="blog-meta">May 2025 · 6 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/project-scheduling-tips.html">
+        <span class="blog-cat" style="background:rgba(6,182,212,.1);color:#67e8f9;">Productivity</span>
+        <div class="blog-title">Project Scheduling: Why Most Timelines Slip and How to Fix It</div>
+        <div class="blog-excerpt">Buffer time, dependency mapping, and resource conflicts — the three biggest reasons project schedules fail and practical fixes for each.</div>
+        <div class="blog-meta">April 2025 · 7 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/strategic-planning-frameworks.html">
+        <span class="blog-cat" style="background:rgba(167,139,250,.1);color:#c4b5fd;">Strategy</span>
+        <div class="blog-title">Strategic Planning Frameworks: SWOT, PESTLE, Porter's Five Forces</div>
+        <div class="blog-excerpt">When to use each framework — and how to combine a SWOT analysis with a Gantt chart for a complete project kickoff.</div>
+        <div class="blog-meta">March 2025 · 8 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Report -->
+  <div style="text-align:center;padding:24px 0 0;" x-data="{open:false,reason:'',details:'',submitted:false}">
+    <button style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--faint);cursor:pointer;" @click="open=true">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Report an Issue
+    </button>
+    <div style="position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;" x-show="open" x-cloak @click.self="open=false">
+      <div style="background:var(--card);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:440px;padding:28px;">
+        <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:6px;">Report an Issue</h3>
+        <p style="font-size:.84rem;color:var(--text2);margin-bottom:18px;">Let us know what's wrong with <strong>Gantt Chart Maker</strong>.</p>
+        <select style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;margin-bottom:12px;" x-model="reason">
+          <option value="">Select a reason…</option>
+          <option>Tool not working correctly</option>
+          <option>Chart display issue</option>
+          <option>Export not working</option>
+          <option>Missing feature</option>
+          <option>Other</option>
+        </select>
+        <textarea style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;min-height:88px;resize:vertical;font-family:inherit;margin-bottom:12px;" x-model="details" placeholder="Describe the issue (optional)…"></textarea>
+        <div style="display:flex;gap:10px;">
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:700;border:none;background:var(--agrad);color:#fff;cursor:pointer;" :style="!reason?'opacity:.4;cursor:default':''" @click="submitted=true;setTimeout(()=>{open=false;submitted=false},2000)" :disabled="!reason">Submit</button>
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;" @click="open=false">Cancel</button>
+        </div>
+        <p style="margin-top:12px;text-align:center;font-size:.82rem;color:#86efac;" x-show="submitted">Thank you — report received!</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ TOAST ══════════════════════════════════════════ -->
+<div class="gantt-toast" x-show="toast" x-cloak x-text="toast"></div>
+
+<!-- ══ FOOTER ════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#flg)"/>
+          <rect x="6"  y="10" width="20" height="5" rx="2" fill="rgba(255,255,255,.9)"/>
+          <rect x="10" y="18" width="16" height="5" rx="2" fill="rgba(255,255,255,.65)"/>
+          <rect x="8"  y="26" width="22" height="5" rx="2" fill="rgba(255,255,255,.8)"/>
+          <defs><linearGradient id="flg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#4f46e5"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free online tools for developers, designers, and data people.</p>
+    </div>
+    <nav class="footer-nav-wrap">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=Productivity">Productivity</a>
+        <a href="../../tools.html?cat=Design">Design</a>
+        <a href="../../tools.html?cat=Math">Math</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../about.html">About</a>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy</a>
+        <a href="../../terms.html">Terms</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="inner">
+      <p>&copy; 2025 The Tool Empire. All rights reserved.</p>
+      <p>Built with Alpine.js</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

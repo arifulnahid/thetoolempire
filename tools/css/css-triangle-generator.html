@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CSS Triangle Generator — Free Border-Trick Triangle Tool | The Tool Empire</title>
+<meta name="description" content="Free online CSS triangle generator. Choose direction, size, and colour — get a live preview and copy the pure-CSS border-trick code in one click. No images, no SVG."/>
+<meta name="keywords" content="CSS triangle generator, CSS border triangle, pure CSS triangle, triangle CSS code, CSS shapes, border trick triangle"/>
+<meta name="robots" content="index,follow"/>
+<meta name="author" content="The Tool Empire"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/css/css-triangle-generator.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="CSS Triangle Generator — Free Border-Trick Triangle Tool"/>
+<meta property="og:description" content="Pick direction, size, and colour. Get a live preview and copy the pure-CSS border triangle code — no images, no SVG."/>
+<meta property="og:url" content="https://thetoolempire.com/tools/css/css-triangle-generator.html"/>
+<meta property="og:site_name" content="The Tool Empire"/>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":"SoftwareApplication","name":"CSS Triangle Generator","applicationCategory":"DeveloperApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/css/css-triangle-generator.html","description":"Free browser-based CSS triangle generator. Select direction, width, height and colour, see a live preview, and copy the border-trick CSS code.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+    {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+    {"@type":"ListItem","position":3,"name":"CSS","item":"https://thetoolempire.com/tools.html#CSS"},
+    {"@type":"ListItem","position":4,"name":"CSS Triangle Generator","item":"https://thetoolempire.com/tools/css/css-triangle-generator.html"}
+  ]}
+]}</script>
+
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+<link rel="manifest" href="../../manifest.json"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<link rel="stylesheet" href="css-triangle-generator.css"/>
+<script src="css-triangle-generator.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="cssTriangleApp()">
+
+<!-- ══ HEADER ════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hg)"/>
+        <polygon points="20,8 34,30 6,30" fill="rgba(255,255,255,.9)"/>
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#f97316"/><stop offset="1" stop-color="#ea580c"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+    CSS Tools
+  </div>
+  <h1><span class="g">CSS Triangle</span> Generator</h1>
+  <p>Choose direction, size, and colour — get a live preview and copy the pure-CSS border-trick code instantly. No images, no SVG.</p>
+</div>
+
+<!-- ══ TOOL ══════════════════════════════════════════════ -->
+<div class="page-wrap">
+
+  <!-- ══ MAIN LAYOUT ══════════════════════════════════ -->
+  <div class="tg-layout">
+
+    <!-- ── CONTROLS ──────────────────────────────────── -->
+    <div class="tg-controls">
+
+      <!-- Direction grid -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Direction
+          <span class="dir-label" x-text="humanLabel"></span>
+        </div>
+        <div style="display:flex;justify-content:center;margin-top:4px;">
+          <div class="dir-grid">
+            <!-- top-left -->
+            <button class="dir-cell" :class="{active:direction==='top-left'}"     @click="direction='top-left'"     style="grid-column:1;grid-row:1;">↖</button>
+            <!-- up -->
+            <button class="dir-cell" :class="{active:direction==='up'}"           @click="direction='up'"           style="grid-column:2;grid-row:1;">↑</button>
+            <!-- top-right -->
+            <button class="dir-cell" :class="{active:direction==='top-right'}"    @click="direction='top-right'"    style="grid-column:3;grid-row:1;">↗</button>
+            <!-- left -->
+            <button class="dir-cell" :class="{active:direction==='left'}"         @click="direction='left'"         style="grid-column:1;grid-row:2;">←</button>
+            <!-- center dot -->
+            <div class="dir-center" style="grid-column:2;grid-row:2;">▲</div>
+            <!-- right -->
+            <button class="dir-cell" :class="{active:direction==='right'}"        @click="direction='right'"        style="grid-column:3;grid-row:2;">→</button>
+            <!-- bottom-left -->
+            <button class="dir-cell" :class="{active:direction==='bottom-left'}"  @click="direction='bottom-left'"  style="grid-column:1;grid-row:3;">↙</button>
+            <!-- down -->
+            <button class="dir-cell" :class="{active:direction==='down'}"         @click="direction='down'"         style="grid-column:2;grid-row:3;">↓</button>
+            <!-- bottom-right -->
+            <button class="dir-cell" :class="{active:direction==='bottom-right'}" @click="direction='bottom-right'" style="grid-column:3;grid-row:3;">↘</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ctrl-sep"></div>
+
+      <!-- Color -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Colour <span class="ctrl-val" x-text="color.toUpperCase()"></span></div>
+        <div class="color-row">
+          <input type="color" x-model="color" title="Triangle colour"/>
+          <span class="color-hex" x-text="color.toUpperCase()"></span>
+        </div>
+      </div>
+
+      <!-- Width -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Width <span class="ctrl-val" x-text="width + 'px'"></span></div>
+        <input type="range" x-model.number="width" min="10" max="300" step="2"/>
+      </div>
+
+      <!-- Height -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Height <span class="ctrl-val" x-text="height + 'px'"></span></div>
+        <input type="range" x-model.number="height" min="10" max="300" step="2"/>
+      </div>
+
+      <!-- Quick size presets -->
+      <div class="ctrl-group">
+        <div class="ctrl-label" style="margin-bottom:6px;">Size Presets</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="dir-cell" style="width:auto;padding:0 10px;font-size:.75rem;height:32px;" @click="width=32;height=32">32px</button>
+          <button class="dir-cell" style="width:auto;padding:0 10px;font-size:.75rem;height:32px;" @click="width=64;height=64">64px</button>
+          <button class="dir-cell" style="width:auto;padding:0 10px;font-size:.75rem;height:32px;" @click="width=100;height=100">100px</button>
+          <button class="dir-cell" style="width:auto;padding:0 10px;font-size:.75rem;height:32px;" @click="width=160;height=80">Wide</button>
+          <button class="dir-cell" style="width:auto;padding:0 10px;font-size:.75rem;height:32px;" @click="width=60;height=120">Tall</button>
+        </div>
+      </div>
+
+    </div><!-- /tg-controls -->
+
+    <!-- ── PREVIEW ─────────────────────────────────── -->
+    <div class="tg-preview">
+      <div class="preview-scene">
+        <div class="tri-shape" :style="previewStyle"></div>
+      </div>
+      <div class="dim-labels">
+        <div class="dim-label">W: <span x-text="width + 'px'"></span></div>
+        <div class="dim-label">H: <span x-text="height + 'px'"></span></div>
+        <div class="dim-label">Colour: <span x-text="color.toUpperCase()"></span></div>
+        <span class="dir-label" x-text="humanLabel + ' triangle'"></span>
+      </div>
+    </div><!-- /tg-preview -->
+
+  </div><!-- /tg-layout -->
+
+  <!-- ══ CSS OUTPUT ════════════════════════════════════ -->
+  <div class="tg-code-wrap">
+    <div class="tg-code-head">
+      <div class="tg-code-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Generated CSS
+      </div>
+      <button class="copy-btn" :class="{ done: copied }" @click="copyCSS()">
+        <svg x-show="!copied" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <svg x-show="copied"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <span x-text="copied ? 'Copied!' : 'Copy CSS'"></span>
+      </button>
+    </div>
+    <div class="tg-code-body">
+      <pre x-text="cssCode"></pre>
+    </div>
+  </div>
+
+  <!-- ══ INFO SECTIONS ════════════════════════════════ -->
+  <div class="info-sections">
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <h2>About This Tool</h2>
+      </div>
+      <div class="info-body">
+        <p><strong>CSS Triangle Generator</strong> is a free, browser-based tool for creating pure-CSS triangles using the classic border trick. Select a direction from the 8-point compass grid, pick your size and colour, see an instant live preview on a checkerboard background, and copy the generated CSS rule in one click.</p>
+        <p>CSS triangles are used throughout web UIs: tooltip arrows, dropdown carets, decorative dividers, speech bubble tails, loading indicators, and navigation breadcrumb separators. Because they use only borders — no images, no SVG, no pseudo-element canvas — they scale perfectly, load instantly, and are fully customisable via CSS variables.</p>
+        <p>The checkerboard preview background (adapted from the pattern CSS uses to indicate transparency in image editors) makes it obvious which borders are structural-transparent vs. the visible coloured border that forms the triangle shape.</p>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <h2>How to Use</h2>
+      </div>
+      <div class="info-body">
+        <ul>
+          <li><strong>Direction</strong> — click any of the 8 arrows in the compass grid to set which way the triangle points. Cardinal directions (↑↓←→) create symmetrical triangles. Diagonal directions (↖↗↙↘) create right-angle corner triangles.</li>
+          <li><strong>Width</strong> — the horizontal span of the triangle. For up/down triangles this is the base width; for left/right triangles it's the triangle's height.</li>
+          <li><strong>Height</strong> — the vertical span. For up/down triangles this is how tall the triangle is; for left/right it's the base width.</li>
+          <li><strong>Quick Presets</strong> — jump to common sizes (32 px, 64 px, 100 px) or shape ratios (Wide for flat triangles, Tall for narrow ones).</li>
+          <li>Click <strong>Copy CSS</strong> to get the <code>.triangle</code> rule. Paste it into your stylesheet and apply the class to any empty <code>&lt;div&gt;</code>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <h2>How CSS Triangles Work</h2>
+      </div>
+      <div class="info-body">
+        <p>A CSS triangle is created by setting an element to zero width and height, then exploiting how CSS renders borders. When an element has zero dimensions and multiple borders meet at a corner, each border is drawn as a trapezoid that fills the corner. When only one border is given a colour and the adjacent borders are <code>transparent</code>, that trapezoid becomes a triangle.</p>
+        <p>For a <strong>pointing-up triangle</strong>: the left and right borders are set to half the desired width each and coloured <code>transparent</code>. The bottom border is set to the full height and given the visible colour. The result is a triangle pointing upward.</p>
+        <p>For <strong>corner triangles</strong> (diagonal): only two adjacent borders are needed — one coloured, one transparent. Since there are only two borders, no "trapezoid averaging" occurs and the shape is a true right-angle triangle filling the corner of the box.</p>
+        <p>Width and height are computed like this:</p>
+        <ul>
+          <li>Up/down: <code>border-left = border-right = width÷2</code>, <code>border-bottom/top = height</code></li>
+          <li>Left/right: <code>border-top = border-bottom = height÷2</code>, <code>border-right/left = width</code></li>
+          <li>Corner: both borders equal the respective dimension — no halving needed</li>
+        </ul>
+        <p>These elements have zero <code>width</code> and <code>height</code> — so their invisible CSS box occupies no page space. This means you may need to position them with absolute/relative positioning or inline-block spacing depending on usage.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ══ Related Tools ════════════════════════════════ -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>Related Tools</h2>
+      <a href="../../tools.html" class="view-all-link">All Tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="related-grid">
+      <a class="related-tool-card" href="../design/glassmorphism-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#0ea5e9,#0284c7)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div class="rt-name">Glassmorphism Generator</div>
+        <div class="rt-desc">Design frosted-glass UI with blur, opacity, and border controls. Copy the CSS instantly.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="../design/neumorphism-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#818cf8,#6366f1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg>
+        </div>
+        <div class="rt-name">Neumorphism Generator</div>
+        <div class="rt-desc">Design soft UI neumorphic components with dual-shadow effects and live preview.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="../design/org-chart.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#10b981,#059669)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="19" r="3"/><circle cx="19" cy="19" r="3"/><line x1="12" y1="8" x2="5" y2="16"/><line x1="12" y1="8" x2="19" y2="16"/></svg>
+        </div>
+        <div class="rt-name">Org Chart Maker</div>
+        <div class="rt-desc">Build hierarchical organizational charts with auto-layout, zoom, and export.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="../design/timeline-maker.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#14b8a6,#0d9488)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12"/><circle cx="6" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="18" cy="12" r="2" fill="currentColor"/></svg>
+        </div>
+        <div class="rt-name">Timeline Maker</div>
+        <div class="rt-desc">Build vertical or horizontal visual timelines with custom events and dates.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Blog -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>From the Blog</h2>
+      <a href="../../blog.html" class="view-all-link">All Posts <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="blog-grid">
+      <a class="blog-card" href="../../blog/css-shapes-guide.html">
+        <span class="blog-cat" style="background:rgba(249,115,22,.1);color:#fdba74;">CSS</span>
+        <div class="blog-title">CSS Shapes: Triangles, Circles, Stars, and Beyond</div>
+        <div class="blog-excerpt">How to create geometric shapes in pure CSS — no images, no SVG. The border trick, clip-path, and more.</div>
+        <div class="blog-meta">June 2025 · 6 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/css-border-guide.html">
+        <span class="blog-cat" style="background:rgba(99,102,241,.1);color:#a5b4fc;">CSS</span>
+        <div class="blog-title">CSS border: Everything You Can Do With It</div>
+        <div class="blog-excerpt">Width, style, colour, shorthand, individual sides, border-image, gradient borders, and the shape trick.</div>
+        <div class="blog-meta">May 2025 · 8 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/ui-design-trends-2025.html">
+        <span class="blog-cat" style="background:rgba(167,139,250,.1);color:#c4b5fd;">Design</span>
+        <div class="blog-title">UI Design Trends 2025: What's In, What's Out</div>
+        <div class="blog-excerpt">From glassmorphism to bento grids to variable fonts — the design patterns shaping interfaces this year.</div>
+        <div class="blog-meta">April 2025 · 7 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Report -->
+  <div style="text-align:center;padding:24px 0 0;" x-data="{open:false,reason:'',details:'',submitted:false}">
+    <button style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--faint);cursor:pointer;" @click="open=true">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Report an Issue
+    </button>
+    <div style="position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;" x-show="open" x-cloak @click.self="open=false">
+      <div style="background:var(--card);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:440px;padding:28px;">
+        <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:6px;">Report an Issue</h3>
+        <p style="font-size:.84rem;color:var(--text2);margin-bottom:18px;">Let us know what's wrong with <strong>CSS Triangle Generator</strong>.</p>
+        <select style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;margin-bottom:12px;" x-model="reason">
+          <option value="">Select a reason…</option>
+          <option>Triangle not rendering correctly</option>
+          <option>Wrong CSS output</option>
+          <option>Copy button not working</option>
+          <option>Direction buttons not responding</option>
+          <option>Missing feature</option>
+          <option>Other</option>
+        </select>
+        <textarea style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;min-height:88px;resize:vertical;font-family:inherit;margin-bottom:12px;" x-model="details" placeholder="Describe the issue (optional)…"></textarea>
+        <div style="display:flex;gap:10px;">
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:700;border:none;background:var(--agrad);color:#fff;cursor:pointer;" :style="!reason?'opacity:.4;cursor:default':''" @click="submitted=true;setTimeout(()=>{open=false;submitted=false},2000)" :disabled="!reason">Submit</button>
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;" @click="open=false">Cancel</button>
+        </div>
+        <p style="margin-top:12px;text-align:center;font-size:.82rem;color:#86efac;" x-show="submitted">Thank you — report received!</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ FOOTER ════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#flg)"/>
+          <polygon points="20,8 34,30 6,30" fill="rgba(255,255,255,.9)"/>
+          <defs><linearGradient id="flg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#f97316"/><stop offset="1" stop-color="#ea580c"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free online tools for developers, designers, and data people.</p>
+    </div>
+    <nav class="footer-nav-wrap">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=CSS">CSS</a>
+        <a href="../../tools.html?cat=Design">Design</a>
+        <a href="../../tools.html?cat=Coding">Coding</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../about.html">About</a>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy</a>
+        <a href="../../terms.html">Terms</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="inner">
+      <p>&copy; 2025 The Tool Empire. All rights reserved.</p>
+      <p>Built with Alpine.js</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

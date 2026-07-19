@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meta Description Length Checker — Live SERP Preview & Pixel Counter | The Tool Empire</title>
+  <meta name="description" content="Check and optimise your meta descriptions in real time. See character count, pixel width, a live Google SERP preview with keyword highlighting, bulk checker, and length guidance. Free, no signup."/>
+  <meta name="keywords" content="meta description length checker, meta description checker, meta description pixel width, serp preview tool, meta description optimizer, seo description length"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/seo/meta-description-checker.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Meta Description Length Checker — Live SERP Preview"/>
+  <meta property="og:description" content="Real-time meta description checker with pixel-accurate length, Google SERP preview, keyword highlighting, and bulk mode. Free."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/seo/meta-description-checker.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"Meta Description Length Checker","description":"Real-time meta description checker with pixel-accurate length measurement, live Google SERP preview, keyword highlighting, and bulk mode.","url":"https://thetoolempire.com/tools/seo/meta-description-checker.html","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"SEO Tools","item":"https://thetoolempire.com/tools.html#seo"},
+      {"@type":"ListItem","position":3,"name":"Meta Description Length Checker","item":"https://thetoolempire.com/tools/seo/meta-description-checker.html"}
+    ]}
+  ]}
+  </script>
+
+  <link rel="stylesheet" href="meta-description-checker.css"/>
+</head>
+<body x-data="metaDescApp()" x-cloak>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <a href="../../index.html" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+    </div>
+    <span class="nav-logo-text">Tool Empire</span>
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-tool">Meta Description Checker</span>
+  <div class="nav-spacer"></div>
+  <a href="../../tools.html" class="nav-tools-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    All Tools
+  </a>
+</nav>
+
+<!-- ── HERO ── */
+<section class="hero">
+  <div class="hero-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    SEO — On-Page
+  </div>
+  <h1>Meta Description <span>Length Checker</span></h1>
+  <p class="hero-sub">Real-time character &amp; pixel counter, live Google SERP preview, keyword highlighting, and bulk mode — all in your browser.</p>
+</section>
+
+<!-- ── TOOL CARD ── -->
+<div class="tool-card">
+
+  <!-- Mode tabs -->
+  <div class="mode-tabs">
+    <button class="mode-tab" :class="mode==='single'?'active':''" @click="mode='single'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Single
+    </button>
+    <button class="mode-tab" :class="mode==='bulk'?'active':''" @click="mode='bulk'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      Bulk
+    </button>
+  </div>
+
+  <!-- ── SINGLE MODE ── -->
+  <div x-show="mode==='single'" x-transition>
+    <div class="md-layout">
+
+      <!-- LEFT -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+
+        <!-- Inputs -->
+        <div class="panel">
+          <div class="panel-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span class="panel-title">Page Details</span>
+          </div>
+          <div class="panel-body">
+            <div>
+              <div class="field-label">Meta Description <span style="color:var(--accent);">*</span></div>
+              <textarea class="md-ta" placeholder="Write a compelling 120–158 character description that includes your target keyword and clearly describes the page content…"
+                x-model="description"></textarea>
+            </div>
+            <div>
+              <div class="field-label">Page Title <span>(for SERP preview)</span></div>
+              <input class="md-input" type="text" placeholder="Your Page Title — Brand Name" x-model="pageTitle"/>
+            </div>
+            <div>
+              <div class="field-label">Page URL <span>(for SERP preview)</span></div>
+              <input class="md-input" type="url" placeholder="https://example.com/page" x-model="pageUrl"/>
+            </div>
+            <div>
+              <div class="field-label">Target Keyword <span>(highlights in preview)</span></div>
+              <input class="md-input" type="text" placeholder="e.g. meta description" x-model="keyword"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Meter & Counts -->
+        <div class="panel">
+          <div class="panel-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span class="panel-title">Length Analysis</span>
+            <div style="margin-left:auto;">
+              <span class="status-badge" :class="statusLabel">
+                <template x-if="statusLabel==='good'">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                </template>
+                <template x-if="statusLabel!=='good'">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                </template>
+                <span x-text="statusText"></span>
+              </span>
+            </div>
+          </div>
+          <div class="panel-body">
+
+            <!-- Counts row -->
+            <div class="counts-row">
+              <div class="count-chip">
+                <div class="count-num" :class="statusLabel==='good'?'good':(statusLabel==='truncated'?'truncated':'warn')" x-text="chars"></div>
+                <div class="count-lbl">chars</div>
+              </div>
+              <div class="count-chip">
+                <div class="count-num" :class="isOverPx?'truncated':(descPx>MOBILE_PX?'warn':'good')" x-text="descPx + 'px'"></div>
+                <div class="count-lbl">pixels</div>
+              </div>
+              <div class="count-chip" style="border-color:rgba(16,185,129,.3);">
+                <div class="count-num" style="color:#34d399;">120</div>
+                <div class="count-lbl">min chars</div>
+              </div>
+              <div class="count-chip" style="border-color:rgba(245,158,11,.3);">
+                <div class="count-num" style="color:#fbbf24;">158</div>
+                <div class="count-lbl">max chars</div>
+              </div>
+              <div class="count-chip" style="border-color:rgba(239,68,68,.3);">
+                <div class="count-num" style="color:#f87171;">920</div>
+                <div class="count-lbl">px desktop</div>
+              </div>
+            </div>
+
+            <!-- Pixel bars -->
+            <div class="meter-wrap">
+              <div class="meter-row">
+                <div class="meter-label">Desktop</div>
+                <div class="meter-track">
+                  <div class="meter-fill"
+                    :class="descPx>DESKTOP_PX?'truncated':(descPx>MOBILE_PX?'warn':'good')"
+                    :style="'width:' + Math.min(descPx/DESKTOP_PX*100,100) + '%'"></div>
+                  <div class="meter-zone-min" :style="'left:' + (MOBILE_PX/DESKTOP_PX*100) + '%'" title="Mobile limit"></div>
+                </div>
+                <div class="meter-val" :style="'color:' + (descPx>DESKTOP_PX?'#f87171':'var(--text2)')" x-text="descPx + ' / ' + DESKTOP_PX + 'px'"></div>
+              </div>
+              <div class="meter-row">
+                <div class="meter-label">Mobile</div>
+                <div class="meter-track">
+                  <div class="meter-fill"
+                    :class="descPx>MOBILE_PX?'truncated':'good'"
+                    :style="'width:' + Math.min(descPx/MOBILE_PX*100,100) + '%'"></div>
+                </div>
+                <div class="meter-val" :style="'color:' + (descPx>MOBILE_PX?'#f87171':'var(--text2)')" x-text="descPx + ' / ' + MOBILE_PX + 'px'"></div>
+              </div>
+            </div>
+
+            <!-- Keyword presence -->
+            <div style="display:flex;gap:12px;flex-wrap:wrap;" x-show="keyword.trim()">
+              <div style="display:flex;align-items:center;gap:6px;font-size:12px;">
+                <svg :style="'color:' + (keywordInDesc?'#34d399':'#f87171')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px;">
+                  <template x-if="keywordInDesc"><polyline points="20 6 9 17 4 12"/></template>
+                  <template x-if="!keywordInDesc"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></template>
+                </svg>
+                <span :style="'color:' + (keywordInDesc?'#34d399':'#f87171')" x-text="keywordInDesc ? 'Keyword in description' : 'Keyword missing from description'"></span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;font-size:12px;" x-show="pageTitle.trim()">
+                <svg :style="'color:' + (keywordInTitle?'#34d399':'#f59e0b')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px;">
+                  <template x-if="keywordInTitle"><polyline points="20 6 9 17 4 12"/></template>
+                  <template x-if="!keywordInTitle"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></template>
+                </svg>
+                <span :style="'color:' + (keywordInTitle?'#34d399':'#f59e0b')" x-text="keywordInTitle ? 'Keyword in title' : 'Keyword missing from title'"></span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Tag output -->
+        <div class="tag-output">
+          <div class="tag-output-header">
+            <span class="tag-output-lang">HTML — &lt;head&gt;</span>
+            <button class="copy-btn" :class="copied?'copied':''" @click="copyTag()" :disabled="!description">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              <span x-text="copied ? '✓ Copied!' : 'Copy Tag'"></span>
+            </button>
+          </div>
+          <div class="tag-output-pre">
+            <template x-if="description">
+              <span x-text="'<meta name=\'description\' content=\'' + description.replace(/'/g, '&#39;') + '\'/>'" ></span>
+            </template>
+            <template x-if="!description">
+              <span style="color:var(--text2);font-style:italic;font-family:'Segoe UI',sans-serif;">Your meta tag will appear here…</span>
+            </template>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="right-col">
+
+        <!-- Device switcher + SERP preview -->
+        <div class="panel">
+          <div class="panel-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <span class="panel-title">SERP Preview</span>
+            <div class="device-tabs" style="margin-left:auto;">
+              <button class="device-tab" :class="device==='desktop'?'active':''" @click="device='desktop'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                Desktop
+              </button>
+              <button class="device-tab" :class="device==='mobile'?'active':''" @click="device='mobile'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                Mobile
+              </button>
+            </div>
+          </div>
+          <div class="serp-wrap">
+            <div class="serp-body">
+              <div class="serp-site-row">
+                <div class="serp-favicon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7"/></svg>
+                </div>
+                <div>
+                  <div class="serp-domain" x-text="pageUrl ? (pageUrl.replace(/^https?:\/\//,'').split('/')[0]) : 'example.com'"></div>
+                  <div class="serp-url-crumb" x-text="serpUrl"></div>
+                </div>
+              </div>
+              <div class="serp-title">
+                <template x-for="seg in serpTitleSegments" :key="seg.text">
+                  <span :class="seg.hl ? 'kw' : ''" x-text="seg.text"></span>
+                </template>
+              </div>
+              <template x-if="description">
+                <div>
+                  <div class="serp-desc">
+                    <template x-for="seg in serpDescSegments" :key="seg.text + seg.hl">
+                      <span :class="seg.hl ? 'kw' : ''" x-text="seg.text"></span>
+                    </template>
+                  </div>
+                  <div class="serp-truncated-note" x-show="isOverPx">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    Description will be cut off on this device
+                  </div>
+                </div>
+              </template>
+              <template x-if="!description">
+                <div class="serp-no-desc">Your meta description will appear here once you start typing…</div>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Validation -->
+        <div class="panel" x-show="description.trim()">
+          <div class="panel-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            <span class="panel-title">Checks</span>
+            <span class="panel-sub" x-text="scorePass + '/' + scoreTotal"></span>
+          </div>
+          <div class="panel-body">
+            <div class="val-score-bar">
+              <div class="val-score-num" x-text="scorePass"></div>
+              <div style="flex:1;">
+                <div class="val-score-label" x-text="'of ' + scoreTotal + ' checks passed'"></div>
+                <div class="val-track">
+                  <div class="val-fill"
+                    :class="errorCount>0?'error':(warnCount>0?'warn':'ok')"
+                    :style="scoreTotal ? 'width:' + Math.round(scorePass/scoreTotal*100) + '%' : 'width:0'"></div>
+                </div>
+              </div>
+            </div>
+            <div class="val-list">
+              <template x-for="v in validations" :key="v.label">
+                <div class="val-item">
+                  <div class="val-icon" :class="v.pass ? 'pass' : ('fail-' + v.level)">
+                    <template x-if="v.pass">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    </template>
+                    <template x-if="!v.pass && v.level==='error'">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                    </template>
+                    <template x-if="!v.pass && v.level==='warn'">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    </template>
+                    <template x-if="!v.pass && v.level==='info'">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    </template>
+                  </div>
+                  <div class="val-text">
+                    <div class="val-label" x-text="v.label"></div>
+                    <div class="val-note" x-text="v.note"></div>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BULK MODE ── -->
+  <div x-show="mode==='bulk'" x-transition>
+    <div class="panel">
+      <div class="panel-header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        <span class="panel-title">Bulk Checker</span>
+        <span class="panel-sub" x-text="bulkRows.length + ' descriptions'"></span>
+      </div>
+      <div class="panel-body">
+        <div class="bulk-table-wrap">
+          <table class="bulk-table">
+            <thead>
+              <tr>
+                <th style="width:32px;">#</th>
+                <th>Meta Description</th>
+                <th style="width:110px;">Status</th>
+                <th style="width:130px;">Length</th>
+                <th style="width:32px;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <template x-for="(row, idx) in bulkRows" :key="row.id">
+                <tr>
+                  <td style="color:var(--text2);font-size:12px;padding-top:14px;" x-text="idx+1"></td>
+                  <td>
+                    <textarea class="bulk-desc-ta" rows="2"
+                      placeholder="Enter meta description…"
+                      x-model="row.desc"></textarea>
+                  </td>
+                  <td>
+                    <template x-if="row.desc.trim()">
+                      <div>
+                        <div class="bulk-status-badge"
+                          :style="'background:' + bulkStatus(row).color + '18;color:' + bulkStatus(row).color + ';border:1px solid ' + bulkStatus(row).color + '44;'"
+                          x-text="bulkStatus(row).label"></div>
+                        <div class="bulk-mini-bar" style="margin-top:6px;">
+                          <div class="bulk-mini-fill"
+                            :style="'width:' + bulkPct(row) + '%;background:' + bulkStatus(row).color"></div>
+                        </div>
+                      </div>
+                    </template>
+                    <template x-if="!row.desc.trim()">
+                      <span style="font-size:12px;color:var(--text2);">—</span>
+                    </template>
+                  </td>
+                  <td>
+                    <template x-if="row.desc.trim()">
+                      <div>
+                        <div class="bulk-char-lbl" :style="'color:' + bulkStatus(row).color" x-text="bulkStatus(row).chars + ' chars'"></div>
+                        <div class="bulk-px-lbl" x-text="bulkStatus(row).px + 'px'"></div>
+                      </div>
+                    </template>
+                    <template x-if="!row.desc.trim()">
+                      <span style="font-size:12px;color:var(--text2);">—</span>
+                    </template>
+                  </td>
+                  <td>
+                    <button class="bulk-row-del" @click="removeBulkRow(row.id)" title="Remove">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+                    </button>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+        <div class="bulk-actions">
+          <button class="add-row-btn" @click="addBulkRow()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Row
+          </button>
+          <span style="font-size:12px;color:var(--text2);margin-left:auto;">
+            Desktop limit: 920px · Soft char limit: 120–158 chars
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── INFO SECTIONS ── -->
+<div class="info-sections">
+
+  <div class="info-card">
+    <div class="info-card-header" @click="$el.nextElementSibling.classList.toggle('open'); $el.querySelector('.info-card-chevron').classList.toggle('open')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span class="info-card-title">About This Tool</span>
+      <svg class="info-card-chevron open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polyline points="18 15 12 9 6 15"/></svg>
+    </div>
+    <div class="info-card-body open">
+      <p>Google does not truncate meta descriptions by character count — it truncates by <strong>pixel width</strong>. On desktop, the limit is approximately <strong>920px</strong>; on mobile it is around <strong>680px</strong>, both rendered in Arial 14px. A 160-character description made up of narrow characters like <code>i l t !</code> may fit, while the same count of wide characters like <code>W M m</code> will be cut off.</p>
+      <p>This tool measures pixel width using an HTML5 <code>&lt;canvas&gt;</code> context set to <code>14px Arial</code> — the closest browser approximation to Google's rendering engine. The character soft limits (120–158) remain useful as a proxy and are widely cited in SEO tools, but pixel width is the definitive measure.</p>
+      <p><strong>Bulk mode</strong> lets you audit an entire list of meta descriptions at once — paste them in, see statuses, pixel widths, and character counts for every row simultaneously.</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-header" @click="$el.nextElementSibling.classList.toggle('open'); $el.querySelector('.info-card-chevron').classList.toggle('open')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      <span class="info-card-title">How to Use</span>
+      <svg class="info-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polyline points="18 15 12 9 6 15"/></svg>
+    </div>
+    <div class="info-card-body">
+      <h4>Single mode</h4>
+      <ol>
+        <li>Type or paste your meta description into the text area — character count, pixel width, and the SERP preview update live.</li>
+        <li>Optionally add your page title, URL, and target keyword. The keyword will be <strong>highlighted in bold</strong> inside the preview exactly as Google bolds keyword matches.</li>
+        <li>Switch between <strong>Desktop</strong> and <strong>Mobile</strong> views to see how the description is truncated on each device.</li>
+        <li>Review the checks panel — aim for 0 warnings on the core length checks before publishing.</li>
+        <li>Click <strong>Copy Tag</strong> to get the ready-to-paste <code>&lt;meta name="description"&gt;</code> HTML tag.</li>
+      </ol>
+      <h4>Bulk mode</h4>
+      <ol>
+        <li>Switch to Bulk tab and add rows for each page you want to audit.</li>
+        <li>Paste descriptions into each row — status badge, mini pixel bar, char count, and pixel count update immediately.</li>
+        <li>Click "Add Row" to add more pages. Fix any "Truncated" or "Too short" rows before publishing.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-header" @click="$el.nextElementSibling.classList.toggle('open'); $el.querySelector('.info-card-chevron').classList.toggle('open')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      <span class="info-card-title">Logic &amp; Algorithm</span>
+      <svg class="info-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polyline points="18 15 12 9 6 15"/></svg>
+    </div>
+    <div class="info-card-body">
+      <h4>Pixel measurement</h4>
+      <p>A single hidden <code>&lt;canvas&gt;</code> element is created on first use. Its 2D context is set to <code>font = "14px Arial, sans-serif"</code>. <code>CanvasRenderingContext2D.measureText(text).width</code> returns a floating-point pixel width, which is rounded to the nearest integer. This method runs synchronously and adds no network requests.</p>
+      <h4>Truncation preview</h4>
+      <p>To generate the truncated SERP string, the text is iterated character-by-character, accumulating pixel widths until the device limit is exceeded — at that point the string is sliced and an ellipsis (<code>…</code>) is appended. This mirrors Google's approximate behaviour.</p>
+      <h4>Keyword highlighting</h4>
+      <p>A case-insensitive <code>indexOf</code> search finds the first occurrence of the keyword in the SERP title and description strings. The match is split into three segments (before, match, after) and rendered with separate <code>&lt;span&gt;</code> elements — the matching segment gets the <code>.kw</code> bold style, identical to how Google bolds keyword matches in organic results.</p>
+      <h4>Validation checks</h4>
+      <ul>
+        <li><strong>Warning</strong> — under 120 chars; over 158 chars; over 920px desktop; over 680px mobile; keyword absent from description; double spaces; ALL-CAPS words; no terminal punctuation.</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── RELATED TOOLS ── -->
+<div class="section-block">
+  <div class="section-title">Related <span>Tools</span></div>
+  <div class="related-grid">
+    <a href="../seo/meta-tag-generator.html" class="related-card">
+      <div class="related-icon" style="background:linear-gradient(135deg,#f093fb,#f5576c);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </div>
+      <div class="related-info">
+        <div class="related-name">Meta Tag Generator</div>
+        <div class="related-desc">Generate complete SEO, Open Graph, and Twitter Card meta tags.</div>
+      </div>
+    </a>
+    <a href="../seo/keyword-density.html" class="related-card">
+      <div class="related-icon" style="background:linear-gradient(135deg,#10b981,#34d399);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M8 11h6M11 8v6"/></svg>
+      </div>
+      <div class="related-info">
+        <div class="related-name">Keyword Density Checker</div>
+        <div class="related-desc">Analyse keyword frequency and density to optimise your content.</div>
+      </div>
+    </a>
+    <a href="../seo/readability-checker.html" class="related-card">
+      <div class="related-icon" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <div class="related-info">
+        <div class="related-name">Readability Checker</div>
+        <div class="related-desc">Score your content's readability with Flesch-Kincaid and other metrics.</div>
+      </div>
+    </a>
+    <a href="../seo/canonical-tag-generator.html" class="related-card">
+      <div class="related-icon" style="background:linear-gradient(135deg,#10b981,#0891b2);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+      </div>
+      <div class="related-info">
+        <div class="related-name">Canonical Tag Generator</div>
+        <div class="related-desc">Generate rel=canonical tags to prevent duplicate content issues.</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- ── BLOG CARDS ── -->
+<div class="section-block">
+  <div class="section-title">Learn More About <span>Meta Descriptions</span></div>
+  <div class="blog-grid">
+    <a href="../../blog/meta-description-guide.html" class="blog-card">
+      <span class="blog-tag">SEO Guide</span>
+      <div class="blog-title">How to Write Meta Descriptions That Get Clicks in 2026</div>
+      <div class="blog-excerpt">Pixel limits, character counts, keyword placement, CTAs, and what Google actually uses — a practical guide to writing meta descriptions that improve click-through rate.</div>
+      <div class="blog-meta"><span>June 2026</span><span>8 min read</span></div>
+    </a>
+    <a href="../../blog/google-rewrites-meta-descriptions.html" class="blog-card">
+      <span class="blog-tag">Research</span>
+      <div class="blog-title">Why Google Rewrites Your Meta Descriptions (And How to Stop It)</div>
+      <div class="blog-excerpt">Google rewrites meta descriptions up to 70% of the time. Learn the patterns that trigger rewrites and how to write descriptions Google is more likely to use as-is.</div>
+      <div class="blog-meta"><span>May 2026</span><span>7 min read</span></div>
+    </a>
+    <a href="../../blog/seo-meta-tags-guide.html" class="blog-card">
+      <span class="blog-tag">SEO</span>
+      <div class="blog-title">The Complete Guide to HTML Meta Tags for SEO</div>
+      <div class="blog-excerpt">Every meta tag that matters for SEO — description, robots, canonical, viewport, Open Graph, Twitter Cards — explained with examples and best practices.</div>
+      <div class="blog-meta"><span>April 2026</span><span>12 min read</span></div>
+    </a>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <span class="footer-brand-name">The Tool Empire</span>
+        </div>
+        <p class="footer-tagline">Free browser-based tools for developers, designers, and content creators. No signup, no tracking.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">SEO Tools</div>
+        <div class="footer-links">
+          <a href="../seo/meta-tag-generator.html">Meta Tag Generator</a>
+          <a href="../seo/keyword-density.html">Keyword Density Checker</a>
+          <a href="../seo/readability-checker.html">Readability Checker</a>
+          <a href="../seo/canonical-tag-generator.html">Canonical Tag Generator</a>
+          <a href="../seo/faq-schema-generator.html">FAQ Schema Generator</a>
+          <a href="meta-description-checker.html">Meta Description Checker</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="../../index.html">Home</a>
+          <a href="../../tools.html">All Tools</a>
+          <a href="../../blog.html">Blog</a>
+          <a href="../../about.html">About</a>
+          <a href="../../contact.html">Contact</a>
+          <a href="../../privacy.html">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 The Tool Empire. All rights reserved.</span>
+      <span><a href="../../privacy.html">Privacy</a> · <a href="../../terms.html">Terms</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ── REPORT MODAL ── -->
+<div id="report-modal-root"></div>
+<script src="../../assets/js/report-modal.js"></script>
+
+<script src="meta-description-checker.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

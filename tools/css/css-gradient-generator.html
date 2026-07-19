@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CSS Gradient Generator — Linear, Radial &amp; Conic with Live Preview | The Tool Empire</title>
+<meta name="description" content="Free CSS gradient generator. Build linear, radial, and conic gradients with colour-stop editor, 12 presets, and live preview. Copy the CSS code instantly."/>
+<meta name="keywords" content="CSS gradient generator, linear gradient, radial gradient, conic gradient, CSS background generator, colour stops, gradient tool"/>
+<meta name="robots" content="index,follow"/>
+<meta name="author" content="The Tool Empire"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/css/css-gradient-generator.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="CSS Gradient Generator — Linear, Radial &amp; Conic Gradients"/>
+<meta property="og:description" content="Design CSS gradients with a live colour-stop editor. Choose linear, radial, or conic type. 12 built-in presets, one-click copy."/>
+<meta property="og:url" content="https://thetoolempire.com/tools/css/css-gradient-generator.html"/>
+<meta property="og:site_name" content="The Tool Empire"/>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":"SoftwareApplication","name":"CSS Gradient Generator","applicationCategory":"DeveloperApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/css/css-gradient-generator.html","description":"Free browser-based CSS gradient generator. Linear, radial, and conic gradients with colour-stop editor, live preview, and one-click CSS copy.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+    {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+    {"@type":"ListItem","position":3,"name":"CSS","item":"https://thetoolempire.com/tools.html#CSS"},
+    {"@type":"ListItem","position":4,"name":"CSS Gradient Generator","item":"https://thetoolempire.com/tools/css/css-gradient-generator.html"}
+  ]}
+]}</script>
+
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+<link rel="manifest" href="../../manifest.json"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<link rel="stylesheet" href="css-gradient-generator.css"/>
+<script src="css-gradient-generator.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="cssGradientApp()">
+
+<!-- ══ HEADER ════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hg)"/>
+        <rect x="6" y="6" width="28" height="28" rx="7" fill="url(#hg2)" opacity=".7"/>
+        <circle cx="20" cy="20" r="6" fill="rgba(255,255,255,.9)"/>
+        <defs>
+          <linearGradient id="hg"  x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#6d28d9"/></linearGradient>
+          <linearGradient id="hg2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#f43f5e"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient>
+        </defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+    CSS Tools
+  </div>
+  <h1><span class="g">CSS Gradient</span> Generator</h1>
+  <p>Build linear, radial, and conic gradients with a live colour-stop editor. 12 presets to jump-start your design.</p>
+</div>
+
+<!-- ══ TOOL ══════════════════════════════════════════════ -->
+<div class="page-wrap">
+
+  <!-- ── PRESET BAR ──────────────────────────────────── -->
+  <div class="preset-bar">
+    <template x-for="(p, i) in presets" :key="i">
+      <button class="preset-chip" @click="applyPreset(p)">
+        <div class="preset-swatch" :style="`background: linear-gradient(135deg, ${p.stops.map(s=>s.color).join(', ')})`"></div>
+        <span class="preset-label" x-text="p.label"></span>
+      </button>
+    </template>
+  </div>
+
+  <!-- ── CONTROLS + PREVIEW ──────────────────────────── -->
+  <div class="gg-layout">
+
+    <!-- ─── CONTROLS ───────────────────────────────── -->
+    <div class="gg-controls">
+
+      <!-- Type selector -->
+      <div>
+        <div class="ctrl-head">Gradient Type</div>
+        <div class="type-tabs">
+          <button class="type-tab" :class="{active: type==='linear'}" @click="type='linear'">Linear</button>
+          <button class="type-tab" :class="{active: type==='radial'}" @click="type='radial'">Radial</button>
+          <button class="type-tab" :class="{active: type==='conic'}"  @click="type='conic'">Conic</button>
+        </div>
+      </div>
+
+      <!-- ── Linear options ── -->
+      <div x-show="type === 'linear'" x-cloak>
+        <div class="ctrl-head">Direction</div>
+        <div class="dir-grid">
+          <template x-for="d in dirGrid" :key="d.angle">
+            <button class="dir-btn"
+                    :class="{active: angle === d.angle}"
+                    :style="`grid-column:${d.col}; grid-row:${d.row}`"
+                    @click="angle = d.angle"
+                    :title="d.angle + 'deg'"
+                    x-text="d.arrow">
+            </button>
+          </template>
+          <div class="dir-center" style="grid-column:2; grid-row:2" x-text="angle + '°'"></div>
+        </div>
+        <div class="ctrl-row">
+          <span>Angle</span>
+          <span class="ctrl-val" x-text="angle + '°'"></span>
+        </div>
+        <input type="range" x-model.number="angle" min="0" max="359" step="1"/>
+      </div>
+
+      <!-- ── Radial options ── -->
+      <div x-show="type === 'radial'" x-cloak>
+        <div class="ctrl-head">Shape</div>
+        <div class="seg-row" style="margin-bottom:16px;">
+          <button class="seg-btn" :class="{active: radialShape==='ellipse'}" @click="radialShape='ellipse'">Ellipse</button>
+          <button class="seg-btn" :class="{active: radialShape==='circle'}"  @click="radialShape='circle'">Circle</button>
+        </div>
+
+        <div class="ctrl-head">Size</div>
+        <div class="seg-row" style="margin-bottom:16px; flex-wrap:wrap;">
+          <template x-for="sz in radialSizes" :key="sz.id">
+            <button class="seg-btn" :class="{active: radialSize===sz.id}" @click="radialSize=sz.id" x-text="sz.label"></button>
+          </template>
+        </div>
+
+        <div class="ctrl-head">Position</div>
+        <div class="pos-xy">
+          <div>
+            <div class="ctrl-row"><span>X</span><span class="ctrl-val" x-text="radialPosX + '%'"></span></div>
+            <input type="range" x-model.number="radialPosX" min="0" max="100"/>
+          </div>
+          <div>
+            <div class="ctrl-row"><span>Y</span><span class="ctrl-val" x-text="radialPosY + '%'"></span></div>
+            <input type="range" x-model.number="radialPosY" min="0" max="100"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Conic options ── -->
+      <div x-show="type === 'conic'" x-cloak>
+        <div class="ctrl-head">From Angle</div>
+        <div class="ctrl-row"><span>Angle</span><span class="ctrl-val" x-text="conicFrom + '°'"></span></div>
+        <input type="range" x-model.number="conicFrom" min="0" max="359" step="1" style="margin-bottom:16px;"/>
+
+        <div class="ctrl-head">Position</div>
+        <div class="pos-xy">
+          <div>
+            <div class="ctrl-row"><span>X</span><span class="ctrl-val" x-text="conicPosX + '%'"></span></div>
+            <input type="range" x-model.number="conicPosX" min="0" max="100"/>
+          </div>
+          <div>
+            <div class="ctrl-row"><span>Y</span><span class="ctrl-val" x-text="conicPosY + '%'"></span></div>
+            <input type="range" x-model.number="conicPosY" min="0" max="100"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="ctrl-sep"></div>
+
+      <!-- ── Color stops ── -->
+      <div>
+        <div class="ctrl-head">Colour Stops (<span x-text="stops.length"></span>)</div>
+        <div class="gradient-bar" :style="barBg"></div>
+
+        <div class="stop-list">
+          <template x-for="stop in stops" :key="stop.id">
+            <div class="stop-row">
+              <div class="stop-color-wrap">
+                <input type="color" class="stop-color-input" x-model="stop.color"/>
+              </div>
+              <span class="stop-hex" x-text="stop.color.toUpperCase()"></span>
+              <input type="range" class="stop-pos-slider" x-model.number="stop.pos" min="0" max="100" step="1"/>
+              <span class="stop-pos-val" x-text="stop.pos + '%'"></span>
+              <button class="stop-remove"
+                      :disabled="stops.length <= 2"
+                      @click="removeStop(stop.id)"
+                      title="Remove stop">×</button>
+            </div>
+          </template>
+        </div>
+
+        <button class="add-stop-btn" :disabled="stops.length >= 8" @click="addStop()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Colour Stop
+        </button>
+      </div>
+
+    </div><!-- /gg-controls -->
+
+    <!-- ─── PREVIEW ─────────────────────────────── -->
+    <div class="gg-preview">
+      <div class="preview-scene" :style="previewBg"></div>
+    </div>
+
+  </div><!-- /gg-layout -->
+
+  <!-- ── CODE OUTPUT ──────────────────────────────────── -->
+  <div class="gg-code-wrap">
+    <div class="gg-code-head">
+      <div class="gg-code-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Generated CSS
+      </div>
+      <button class="copy-btn" :class="{done: copied}" @click="copyCSS()">
+        <svg x-show="!copied" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <svg x-show="copied"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <span x-text="copied ? 'Copied!' : 'Copy CSS'"></span>
+      </button>
+    </div>
+    <div class="gg-code-body">
+      <pre x-text="cssCode"></pre>
+    </div>
+  </div>
+
+  <!-- ══ INFO SECTIONS ═══════════════════════════════════ -->
+  <div class="info-sections">
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <h2>About This Tool</h2>
+      </div>
+      <div class="info-body">
+        <p><strong>CSS Gradient Generator</strong> lets you build all three CSS gradient types — <strong>linear</strong>, <strong>radial</strong>, and <strong>conic</strong> — with a visual editor and live preview. The tool generates the exact <code>background</code> CSS property value you need, ready to paste.</p>
+        <p>Start from one of the 12 built-in presets or build your own from scratch. Add up to 8 colour stops, pick any colour with the native colour picker, and drag the position slider to place each stop precisely along the 0–100% range. The gradient preview updates instantly as you adjust every parameter.</p>
+        <p>Use the type tabs to switch between gradient types at any time — your colour stops are preserved across type changes so you can compare the same palette in linear, radial, and conic forms.</p>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <h2>How to Use</h2>
+      </div>
+      <div class="info-body">
+        <ul>
+          <li><strong>Presets</strong> — click any preset chip in the bar above the tool to instantly load a colour palette with its default type and angle. Great starting points.</li>
+          <li><strong>Type tabs</strong> — switch between Linear, Radial, and Conic. Each type reveals its own set of controls below the tabs.</li>
+          <li><strong>Linear — Direction</strong> — click a compass button to set a preset angle, or drag the slider for any angle from 0° to 359°. The direction grid center always shows the current angle.</li>
+          <li><strong>Radial — Shape &amp; Size</strong> — choose circle or ellipse, then control how far the gradient extends (closest-side, farthest-corner, etc.). The X/Y sliders set the radial center position.</li>
+          <li><strong>Conic — From &amp; Position</strong> — set the starting angle of the sweep and the position of the cone's apex with the X/Y sliders.</li>
+          <li><strong>Colour stops</strong> — click the colour swatch to open the native picker; drag the slider to reposition a stop. The gradient preview bar above the list always reflects the sorted stop order. Remove stops with ×; add new ones with the + button (auto-placed in the largest gap, blending between neighbours).</li>
+          <li>Click <strong>Copy CSS</strong> to copy the ready-to-use <code>.element { background: ... }</code> rule.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <h2>How CSS Gradients Work</h2>
+      </div>
+      <div class="info-body">
+        <p>All three gradient functions produce an image value that can be used anywhere an image is accepted — most commonly as a <code>background</code> or <code>background-image</code>.</p>
+        <ul>
+          <li><strong><code>linear-gradient(angle, stop1, stop2, …)</code></strong> — draws a colour transition along a straight line defined by the angle. <code>0deg</code> runs bottom-to-top; <code>90deg</code> runs left-to-right. Stops are positioned as percentages of the gradient line length.</li>
+          <li><strong><code>radial-gradient(shape size at x y, stop1, stop2, …)</code></strong> — emanates from a central point outward as concentric ellipses or circles. The <em>size</em> keyword controls how far the gradient extends relative to the element edges (e.g., <code>farthest-corner</code> means 100% of the gradient line reaches the furthest corner from the center).</li>
+          <li><strong><code>conic-gradient(from angle at x y, stop1, stop2, …)</code></strong> — rotates around a center point. Colour stops are positioned along an angular sweep (0–360°) rather than a linear or radial axis. Useful for pie charts and colour wheels.</li>
+        </ul>
+        <p>Colour stops can overlap or have hard edges: placing two stops at the same position (e.g., <code>#f00 50%, #00f 50%</code>) creates a sharp colour boundary with no blending — used in the Pie preset.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ══ RELATED TOOLS ═══════════════════════════════════ -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>Related Tools</h2>
+      <a href="../../tools.html" class="view-all-link">All Tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="related-grid">
+      <a class="related-tool-card" href="css-shape-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#f43f5e,#e11d48)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 22 2 22"/><circle cx="17" cy="8" r="3"/></svg>
+        </div>
+        <div class="rt-name">CSS Shape Generator</div>
+        <div class="rt-desc">22 pure-CSS shapes via clip-path and border-radius — circle, stars, arrows, heart and more.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="css-triangle-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#f97316,#ea580c)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 22 2 22"/></svg>
+        </div>
+        <div class="rt-name">CSS Triangle Generator</div>
+        <div class="rt-desc">8-direction pure-CSS triangles using the classic border trick. No images, no clip-path.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="../design/glassmorphism-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#0ea5e9,#0284c7)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div class="rt-name">Glassmorphism Generator</div>
+        <div class="rt-desc">Design frosted-glass UI components with backdrop-filter and live preview.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="../design/neumorphism-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#818cf8,#6366f1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg>
+        </div>
+        <div class="rt-name">Neumorphism Generator</div>
+        <div class="rt-desc">Soft UI neumorphic component generator with dual-shadow depth effects.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Blog -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>From the Blog</h2>
+      <a href="../../blog.html" class="view-all-link">All Posts <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="blog-grid">
+      <a class="blog-card" href="../../blog/css-gradients-guide.html">
+        <span class="blog-cat" style="background:rgba(139,92,246,.1);color:#a78bfa;">CSS</span>
+        <div class="blog-title">CSS Gradients: Linear, Radial, and Conic — The Complete Guide</div>
+        <div class="blog-excerpt">Everything about gradient syntax, colour stop placement, repeating gradients, and creative techniques including hard colour stops.</div>
+        <div class="blog-meta">June 2025 · 10 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/css-background-guide.html">
+        <span class="blog-cat" style="background:rgba(139,92,246,.1);color:#a78bfa;">CSS</span>
+        <div class="blog-title">CSS background: Every Property and When to Use It</div>
+        <div class="blog-excerpt">background-image, background-size, background-position, background-repeat, multiple layers, and blending modes — all in one place.</div>
+        <div class="blog-meta">May 2025 · 8 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/css-color-guide.html">
+        <span class="blog-cat" style="background:rgba(139,92,246,.1);color:#a78bfa;">CSS</span>
+        <div class="blog-title">CSS Color: HEX, RGB, HSL, oklch and How to Choose</div>
+        <div class="blog-excerpt">Understand every CSS colour format — when HEX is fine, why HSL is great for theming, and why oklch is the future of perceptual colour.</div>
+        <div class="blog-meta">April 2025 · 7 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Report -->
+  <div style="text-align:center;padding:24px 0 0;" x-data="{open:false,reason:'',details:'',submitted:false}">
+    <button style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--faint);cursor:pointer;" @click="open=true">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Report an Issue
+    </button>
+    <div style="position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;" x-show="open" x-cloak @click.self="open=false">
+      <div style="background:var(--card);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:440px;padding:28px;">
+        <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:6px;">Report an Issue</h3>
+        <p style="font-size:.84rem;color:var(--text2);margin-bottom:18px;">Let us know what's wrong with <strong>CSS Gradient Generator</strong>.</p>
+        <select style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;margin-bottom:12px;" x-model="reason">
+          <option value="">Select a reason…</option>
+          <option>Gradient not rendering correctly</option>
+          <option>Wrong CSS output</option>
+          <option>Copy button not working</option>
+          <option>Colour stop issue</option>
+          <option>Preset not loading</option>
+          <option>Other</option>
+        </select>
+        <textarea style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;min-height:88px;resize:vertical;font-family:inherit;margin-bottom:12px;" x-model="details" placeholder="Describe the issue (optional)…"></textarea>
+        <div style="display:flex;gap:10px;">
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:700;border:none;background:var(--agrad);color:#fff;cursor:pointer;" :style="!reason?'opacity:.4;cursor:default':''" @click="submitted=true;setTimeout(()=>{open=false;submitted=false},2000)" :disabled="!reason">Submit</button>
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;" @click="open=false">Cancel</button>
+        </div>
+        <p style="margin-top:12px;text-align:center;font-size:.82rem;color:#86efac;" x-show="submitted">Thank you — report received!</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ FOOTER ════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#flg)"/>
+          <rect x="6" y="6" width="28" height="28" rx="7" fill="url(#flg2)" opacity=".7"/>
+          <circle cx="20" cy="20" r="6" fill="rgba(255,255,255,.9)"/>
+          <defs>
+            <linearGradient id="flg"  x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#6d28d9"/></linearGradient>
+            <linearGradient id="flg2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#f43f5e"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient>
+          </defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free online tools for developers, designers, and data people.</p>
+    </div>
+    <nav class="footer-nav-wrap">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=CSS">CSS</a>
+        <a href="../../tools.html?cat=Design">Design</a>
+        <a href="../../tools.html?cat=Coding">Coding</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../about.html">About</a>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy</a>
+        <a href="../../terms.html">Terms</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="inner">
+      <p>&copy; 2025 The Tool Empire. All rights reserved.</p>
+      <p>Built with Alpine.js</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

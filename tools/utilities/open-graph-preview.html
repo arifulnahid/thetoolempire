@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Open Graph Preview — Test &amp; Generate OG Meta Tags | The Tool Empire</title>
+<meta name="description" content="Preview how your URL looks when shared on Twitter/X, Facebook, LinkedIn, Discord, Slack, and WhatsApp. Paste a URL to auto-fetch OG tags, or fill them manually. Validate tags and copy the generated HTML in one click."/>
+<meta name="keywords" content="open graph preview, og meta tag preview, social media link preview, twitter card preview, facebook link preview, discord embed preview, og image checker, meta tag generator, open graph tester"/>
+<meta name="robots" content="index,follow"/>
+<meta name="author" content="The Tool Empire"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/utilities/open-graph-preview.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://thetoolempire.com/tools/utilities/open-graph-preview.html"/>
+<meta property="og:title" content="Open Graph Preview — Test &amp; Generate OG Meta Tags"/>
+<meta property="og:description" content="Preview your link on Twitter/X, Facebook, Discord, Slack &amp; WhatsApp. Auto-fetch OG tags from any URL, validate them, and copy the generated HTML meta tags."/>
+<meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+<meta property="og:site_name" content="The Tool Empire"/>
+<meta name="twitter:card" content="summary_large_image"/>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[
+  {"@type":"SoftwareApplication","name":"Open Graph Preview","applicationCategory":"DeveloperApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/utilities/open-graph-preview.html","description":"Free browser-based Open Graph preview tool. Paste any URL to auto-fetch og:title, og:description, og:image, og:site_name, og:type, and Twitter Card meta tags via a CORS proxy. Or fill in the fields manually. Preview how the link card looks on Twitter/X (summary and summary_large_image), Facebook, Discord, Slack, and WhatsApp. Validate against character limits and platform requirements. Copy the complete set of OG and Twitter meta tags as ready-to-paste HTML. 100% client-side.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Auto-fetch OG meta tags from any URL via CORS proxy","Manual input for all Open Graph fields: title, description, image, URL, site name, type","Twitter-specific overrides: twitter:title, twitter:description, twitter:image, twitter:creator","Live previews for 5 platforms: Twitter/X, Facebook, Discord, Slack, WhatsApp","Supports twitter:card summary and summary_large_image layouts","Real-time validation with pass/warn/error indicators and notes","Character limit checks: title ≤ 60, description ≤ 155","Image load success detection","Generated HTML code block with syntax-highlighted meta tags","One-click copy of all meta tags","100% client-side — no upload, no server, no sign-up"]},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+    {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+    {"@type":"ListItem","position":3,"name":"Utilities","item":"https://thetoolempire.com/tools.html#Utilities"},
+    {"@type":"ListItem","position":4,"name":"Open Graph Preview","item":"https://thetoolempire.com/tools/utilities/open-graph-preview.html"}
+  ]},
+  {"@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"What is an Open Graph tag?","acceptedAnswer":{"@type":"Answer","text":"Open Graph (OG) tags are HTML meta tags in the <head> of a page that tell social media platforms how to display your URL when it's shared as a link. The most important ones are og:title (the card headline), og:description (the summary text), og:image (the preview image), og:url (the canonical URL), and og:site_name. Twitter/X also reads its own twitter:card and twitter:image tags. Platforms fall back to OG tags when Twitter-specific tags are absent."}},
+    {"@type":"Question","name":"Why does my link preview look different on different platforms?","acceptedAnswer":{"@type":"Answer","text":"Each platform has its own rendering rules. Facebook renders og:image at a 1.91:1 ratio. Twitter/X uses 2:1 for summary_large_image cards. Discord shows a left-bordered embed with a blurple color. Slack unfurls links with a teal left border. WhatsApp shows a compact bubble preview. Character limits and truncation rules also differ — this tool shows a faithful simulation of each platform's card layout so you can spot problems before sharing."}},
+    {"@type":"Question","name":"Why does the URL fetch sometimes fail?","acceptedAnswer":{"@type":"Answer","text":"The fetch button uses a public CORS proxy (allorigins.win) to make a server-side request to the target URL and return its HTML. Some sites block requests from unknown servers (via CSP or IP allow-lists), some return bot-detection pages instead of real content, and some require authentication. When the fetch fails, fill in the fields manually — the preview and validation work identically either way."}},
+    {"@type":"Question","name":"What image size should I use for Open Graph?","acceptedAnswer":{"@type":"Answer","text":"The recommended og:image size is 1200×630 pixels at a 1.91:1 aspect ratio. This covers Facebook, LinkedIn, and most platforms. For Twitter summary_large_image cards, a 2:1 ratio (e.g. 1200×600 or 1200×630) works best. The image must be served over HTTPS and be publicly accessible — no authentication, no referrer restrictions. Keep the file under 5 MB."}},
+    {"@type":"Question","name":"Do I need both og: and twitter: meta tags?","acceptedAnswer":{"@type":"Answer","text":"Twitter reads og: tags as a fallback if twitter: tags are absent, so for most sites you only need the OG tags. Add twitter:card (required for Twitter card rendering), and optionally twitter:title, twitter:description, and twitter:image if you want the Twitter card to show different content from the OG card — for example, a portrait-ratio image for Twitter vs a landscape one for Facebook."}}
+  ]}
+]}</script>
+
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+<link rel="manifest" href="../../manifest.json"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<link rel="stylesheet" href="open-graph-preview.css"/>
+<script src="open-graph-preview.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="ogPreviewApp()" x-cloak>
+
+<!-- ══ HEADER ══════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hg)"/>
+        <rect x="7" y="11" width="26" height="4" rx="2" fill="rgba(255,255,255,.9)"/>
+        <rect x="7" y="18" width="26" height="4" rx="2" fill="rgba(255,255,255,.8)"/>
+        <rect x="7" y="25" width="18" height="4" rx="2" fill="rgba(255,255,255,.7)"/>
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#f97316"/><stop offset="1" stop-color="#f59e0b"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+    Meta Tags
+  </div>
+  <h1><span class="g">Open Graph</span> Preview</h1>
+  <p>Paste any URL to auto-fetch its OG tags, or fill them in manually. Preview exactly how your link card looks on Twitter/X, Facebook, Discord, Slack, and WhatsApp — then copy the generated HTML.</p>
+</div>
+
+<!-- ══ TOOL ════════════════════════════════════════════════ -->
+<div class="page-wrap">
+
+<div class="tool-card">
+
+  <!-- URL Fetch bar -->
+  <div class="fetch-bar">
+    <input
+      class="fetch-input"
+      x-model="fetchInput"
+      @keydown.enter="fetchMeta()"
+      type="url"
+      placeholder="https://example.com — paste URL to auto-fetch OG tags"/>
+    <button class="fetch-btn" @click="fetchMeta()" :disabled="fetching || !fetchInput.trim()">
+      <svg x-show="!fetching" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+      <svg x-show="fetching" class="fetching-spinner" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12a9 9 0 11-6.219-8.56"/></svg>
+      <span x-text="fetching ? 'Fetching…' : 'Fetch OG tags'"></span>
+    </button>
+    <button class="clear-btn" @click="clearAll()">Clear all</button>
+  </div>
+  <div class="fetch-error" x-show="fetchError" x-text="fetchError"></div>
+
+  <!-- Two-column layout -->
+  <div class="og-layout">
+
+    <!-- ── LEFT: Form ── -->
+    <div class="form-panel">
+
+      <!-- Title -->
+      <div class="field-group">
+        <label class="field-label">
+          og:title
+          <span class="field-counter" :class="{'warn': titleLen > 50 && titleLen <= 60, 'over': titleLen > 60}" x-text="titleLen + '/60'"></span>
+        </label>
+        <input class="og-input" x-model="title" type="text" placeholder="Your page title" maxlength="300"/>
+      </div>
+
+      <!-- Description -->
+      <div class="field-group">
+        <label class="field-label">
+          og:description
+          <span class="field-counter" :class="{'warn': descLen > 130 && descLen <= 155, 'over': descLen > 155}" x-text="descLen + '/155'"></span>
+        </label>
+        <textarea class="og-textarea" x-model="description" placeholder="A short summary of your page content…" maxlength="500"></textarea>
+      </div>
+
+      <!-- Image URL -->
+      <div class="field-group">
+        <label class="field-label">og:image</label>
+        <div class="img-thumb-row">
+          <div class="img-thumb">
+            <img :src="imageUrl" x-show="imageUrl && !imageError" @load="onImageLoad()" @error="onImageError()" alt=""/>
+            <svg x-show="!imageUrl || imageError" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--border2)"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <input class="og-input" x-model="imageUrl" @input="onImgChange()" type="url" placeholder="https://example.com/og-image.jpg" style="flex:1"/>
+        </div>
+        <div x-show="imageUrl">
+          <span class="img-status ok" x-show="imageLoaded && !imageError">✓ Image loaded</span>
+          <span class="img-status err" x-show="imageError">⚠ Could not load image</span>
+          <span class="img-status wait" x-show="!imageLoaded && !imageError && imageUrl">Loading…</span>
+        </div>
+      </div>
+
+      <!-- Page URL + Site Name -->
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">og:url</label>
+          <input class="og-input" x-model="url" type="url" placeholder="https://example.com/page"/>
+        </div>
+        <div class="field-group">
+          <label class="field-label">og:site_name</label>
+          <input class="og-input" x-model="siteName" type="text" placeholder="Example Site"/>
+        </div>
+      </div>
+
+      <!-- Type + Twitter Card -->
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">og:type</label>
+          <select class="og-select" x-model="ogType">
+            <option value="website">website</option>
+            <option value="article">article</option>
+            <option value="product">product</option>
+            <option value="book">book</option>
+            <option value="profile">profile</option>
+            <option value="video.other">video.other</option>
+            <option value="music.song">music.song</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">twitter:card</label>
+          <select class="og-select" x-model="twitterCard">
+            <option value="summary_large_image">summary_large_image</option>
+            <option value="summary">summary</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Twitter creator -->
+      <div class="field-group">
+        <label class="field-label">twitter:creator</label>
+        <input class="og-input" x-model="twitterCreator" type="text" placeholder="@yourhandle (optional)"/>
+      </div>
+
+      <!-- Advanced toggle -->
+      <button class="adv-toggle" @click="showAdv = !showAdv">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        Twitter-specific overrides (optional)
+        <svg class="adv-chevron" :class="{open: showAdv}" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="adv-panel" x-show="showAdv" x-transition>
+        <p class="adv-note">Leave blank to inherit the og: values. Use these only when the Twitter card should show different content.</p>
+        <div class="field-group">
+          <label class="field-label">twitter:title</label>
+          <input class="og-input" x-model="twTitle" type="text" placeholder="Overrides og:title on Twitter"/>
+        </div>
+        <div class="field-group">
+          <label class="field-label">twitter:description</label>
+          <textarea class="og-textarea" x-model="twDescription" placeholder="Overrides og:description on Twitter" style="min-height:56px"></textarea>
+        </div>
+        <div class="field-group">
+          <label class="field-label">twitter:image</label>
+          <input class="og-input" x-model="twImageUrl" type="url" placeholder="Overrides og:image on Twitter"/>
+        </div>
+      </div>
+
+    </div><!-- /form-panel -->
+
+    <!-- ── RIGHT: Previews + Validation + Code ── -->
+    <div class="result-panel">
+
+      <!-- Platform tabs -->
+      <div class="platform-tabs">
+        <button class="platform-tab" :class="{active: activeTab==='twitter'}" @click="activeTab='twitter'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Twitter/X
+        </button>
+        <button class="platform-tab" :class="{active: activeTab==='facebook'}" @click="activeTab='facebook'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          Facebook
+        </button>
+        <button class="platform-tab" :class="{active: activeTab==='discord'}" @click="activeTab='discord'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>
+          Discord
+        </button>
+        <button class="platform-tab" :class="{active: activeTab==='slack'}" @click="activeTab='slack'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 01-2.52 2.523A2.528 2.528 0 010 15.165a2.527 2.527 0 012.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 012.521-2.52 2.527 2.527 0 012.521 2.52v6.313A2.528 2.528 0 018.834 24a2.528 2.528 0 01-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 01-2.521-2.52A2.528 2.528 0 018.834 0a2.528 2.528 0 012.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 012.521 2.521 2.528 2.528 0 01-2.521 2.521H2.522A2.528 2.528 0 010 8.834a2.528 2.528 0 012.522-2.521h6.312zm10.122 2.521a2.528 2.528 0 012.522-2.521A2.528 2.528 0 0124 8.834a2.528 2.528 0 01-2.522 2.521h-2.522V8.834zm-1.268 0a2.528 2.528 0 01-2.523 2.521 2.527 2.527 0 01-2.52-2.521V2.522A2.527 2.527 0 0115.165 0a2.528 2.528 0 012.523 2.522v6.312zm-2.523 10.122a2.528 2.528 0 012.523 2.522A2.528 2.528 0 0115.165 24a2.527 2.527 0 01-2.52-2.522v-2.522h2.52zm0-1.268a2.527 2.527 0 01-2.52-2.523 2.526 2.526 0 012.52-2.52h6.313A2.527 2.527 0 0124 15.165a2.528 2.528 0 01-2.522 2.523h-6.313z"/></svg>
+          Slack
+        </button>
+        <button class="platform-tab" :class="{active: activeTab==='whatsapp'}" @click="activeTab='whatsapp'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </button>
+      </div>
+
+      <!-- ── Twitter/X preview ── -->
+      <div class="platform-preview-wrap" x-show="activeTab === 'twitter'">
+        <div class="platform-label">Twitter / X — <span x-text="twitterCard"></span></div>
+
+        <!-- summary_large_image -->
+        <div class="tw-card" x-show="twitterCard === 'summary_large_image'">
+          <div class="tw-img-wrap">
+            <img :src="effTwImg" x-show="effTwImg && !imageError" alt=""/>
+            <div class="preview-img-placeholder" x-show="!effTwImg || imageError">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <span>og:image not set</span>
+            </div>
+          </div>
+          <div class="tw-body">
+            <div class="tw-domain" x-text="domain"></div>
+            <div class="tw-title" x-text="effTwTitle || 'Page title will appear here'"></div>
+            <div class="tw-desc" x-text="effTwDesc || 'Description text will appear here'"></div>
+          </div>
+        </div>
+
+        <!-- summary (small) -->
+        <div class="tw-card summary" x-show="twitterCard === 'summary'">
+          <div class="tw-body">
+            <div class="tw-thumb">
+              <img :src="effTwImg" x-show="effTwImg && !imageError" alt="" style="width:100%;height:100%;object-fit:cover"/>
+              <div class="preview-img-placeholder" x-show="!effTwImg || imageError" style="height:100%">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+            </div>
+            <div class="tw-text">
+              <div class="tw-domain" x-text="domain"></div>
+              <div class="tw-title" x-text="effTwTitle || 'Page title'"></div>
+              <div class="tw-desc" x-text="effTwDesc || 'Description text'"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Facebook preview ── -->
+      <div class="platform-preview-wrap" x-show="activeTab === 'facebook'">
+        <div class="platform-label">Facebook / LinkedIn</div>
+        <div class="fb-card">
+          <div class="fb-img-wrap">
+            <img :src="imageUrl" x-show="imageUrl && !imageError" alt="" style="width:100%;height:100%;object-fit:cover"/>
+            <div class="preview-img-placeholder" x-show="!imageUrl || imageError" style="height:100%">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <span style="color:#aaa">og:image not set</span>
+            </div>
+          </div>
+          <div class="fb-body">
+            <div class="fb-site" x-text="(siteName || domain).toUpperCase()"></div>
+            <div class="fb-title" x-text="title || 'Page title will appear here'"></div>
+            <div class="fb-desc" x-text="description || 'Description text will appear here'"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Discord preview ── -->
+      <div class="platform-preview-wrap" x-show="activeTab === 'discord'">
+        <div class="platform-label">Discord embed</div>
+        <div class="dc-embed">
+          <div class="dc-site" x-text="siteName || domain"></div>
+          <div class="dc-title" x-text="title || 'Page title'"></div>
+          <div class="dc-desc" x-show="description" x-text="description"></div>
+          <div class="dc-img-wrap" x-show="imageUrl && !imageError">
+            <img :src="imageUrl" alt="" style="width:100%;height:100%;object-fit:cover"/>
+          </div>
+          <div style="font-size:12px;color:#555;margin-top:6px" x-show="!imageUrl || imageError">No image set</div>
+        </div>
+      </div>
+
+      <!-- ── Slack preview ── -->
+      <div class="platform-preview-wrap" x-show="activeTab === 'slack'">
+        <div class="platform-label">Slack unfurl</div>
+        <div class="sl-unfurl">
+          <div class="sl-site" x-text="siteName || domain"></div>
+          <div class="sl-title" x-text="title || 'Page title'"></div>
+          <div class="sl-desc" x-show="description" x-text="description"></div>
+          <div class="sl-img-wrap" x-show="imageUrl && !imageError">
+            <img :src="imageUrl" alt="" style="width:100%;height:100%;object-fit:cover"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── WhatsApp preview ── -->
+      <div class="platform-preview-wrap" x-show="activeTab === 'whatsapp'">
+        <div class="platform-label">WhatsApp link preview</div>
+        <div class="wa-bubble">
+          <div class="wa-preview">
+            <div class="wa-img-wrap" x-show="imageUrl && !imageError">
+              <img :src="imageUrl" alt="" style="width:100%;height:100%;object-fit:cover"/>
+            </div>
+            <div class="wa-body">
+              <div class="wa-title" x-text="title || 'Page title'"></div>
+              <div class="wa-desc" x-show="description" x-text="description"></div>
+              <div class="wa-domain" x-text="domain"></div>
+            </div>
+          </div>
+          <div class="wa-time">12:34 ✓✓</div>
+        </div>
+      </div>
+
+      <!-- ── Validation ── -->
+      <div class="validation-box">
+        <div class="val-header">
+          <span class="val-title">Validation</span>
+          <span class="val-score"
+            :class="{'all-pass': errorCount === 0 && warnCount === 0, 'has-error': errorCount > 0, 'has-warn': errorCount === 0 && warnCount > 0}"
+            x-text="scorePass + '/' + scoreTotal + ' checks passing'"></span>
+        </div>
+        <div class="val-list">
+          <template x-for="v in validations" :key="v.label">
+            <div class="val-item">
+              <div class="val-icon" :class="v.pass ? 'pass' : (v.level === 'error' ? 'fail-error' : (v.level === 'info' ? 'fail-info' : 'fail-warn'))">
+                <svg x-show="v.pass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg x-show="!v.pass && v.level === 'error'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <svg x-show="!v.pass && v.level !== 'error'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <div>
+                <div class="val-label" x-text="v.label"></div>
+                <div class="val-note" x-text="v.note"></div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- ── Generated code ── -->
+      <div class="code-box">
+        <div class="code-header">
+          <span class="code-title">Generated HTML</span>
+          <button class="copy-code-btn" @click="copyCode()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span x-text="codeCopied ? '✓ Copied!' : 'Copy'"></span>
+          </button>
+        </div>
+        <pre class="code-pre" x-text="generatedCode || '<!-- Fill in the fields on the left to generate meta tags -->'"></pre>
+      </div>
+
+    </div><!-- /result-panel -->
+  </div><!-- /og-layout -->
+</div><!-- /tool-card -->
+
+<!-- ══ INFO SECTIONS ═══════════════════════════════════════ -->
+<div class="info-sections-wrap">
+
+  <!-- About -->
+  <div class="info-section">
+    <div class="info-icon-row">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".5" fill="currentColor"/></svg>
+      </div>
+      <h2>About Open Graph Preview</h2>
+    </div>
+    <div class="info-body">
+      <p>When a URL is shared on social media, platforms don't use the page title — they read a set of HTML <code>&lt;meta&gt;</code> tags in the page's <code>&lt;head&gt;</code> block called Open Graph (OG) tags. These tags define the title, description, image, and other metadata shown in the link preview card. Getting them right is the difference between a card that drives clicks and a blank square with a truncated URL.</p>
+      <p>This tool gives you a live editor for all the critical OG and Twitter Card meta tags, with simultaneous previews of how the card renders on five different platforms: <strong>Twitter/X</strong> (both summary and summary_large_image layouts), <strong>Facebook/LinkedIn</strong>, <strong>Discord</strong>, <strong>Slack</strong>, and <strong>WhatsApp</strong>. You can paste any public URL into the fetch bar and the tool will attempt to read the existing OG tags via a CORS proxy — useful for auditing live pages without digging through DevTools. Paste the generated HTML directly into your <code>&lt;head&gt;</code> block when you're done.</p>
+    </div>
+  </div>
+
+  <!-- How to Use -->
+  <div class="info-section">
+    <div class="info-icon-row">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <h2>How to Use</h2>
+    </div>
+    <div class="info-body">
+      <ul>
+        <li><strong>Auto-fetch from a URL</strong> — paste any public URL into the fetch bar and click "Fetch OG tags". The tool reads the page's existing meta tags via a CORS proxy and auto-fills all the fields below. This works for most public pages; pages with strict CSP headers or bot-detection may return empty or blocked content.</li>
+        <li><strong>Fill in manually</strong> — type directly into the form fields. Previews update in real time as you type, with no "preview" button needed.</li>
+        <li><strong>og:title</strong> — the headline shown in the card. Aim for 55–60 characters to avoid truncation. Tracked by the counter next to the field label.</li>
+        <li><strong>og:description</strong> — 2–3 lines of supporting copy. Keep it under 155 characters. Facebook shows ~110 chars, Twitter ~200. The counter warns you near both limits.</li>
+        <li><strong>og:image</strong> — the most important field visually. Use a 1200×630 px JPEG at a 1.91:1 ratio. Must be HTTPS. A thumbnail appears in the form as soon as the image loads, confirming the URL is correct.</li>
+        <li><strong>Twitter overrides</strong> — expand the Advanced section to set <code>twitter:title</code>, <code>twitter:description</code>, and <code>twitter:image</code> independently, e.g. if your Twitter card should have a different image ratio from the Facebook card.</li>
+        <li><strong>Platform tabs</strong> — switch between Twitter/X, Facebook, Discord, Slack, and WhatsApp to see how the same tags render on each platform.</li>
+        <li><strong>Validation</strong> — the checklist below the preview flags missing required tags, character overruns, HTTP image URLs, and image load failures.</li>
+        <li><strong>Copy</strong> — click "Copy" on the generated HTML block to copy the complete set of meta tags for pasting into your page's <code>&lt;head&gt;</code>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Logic & Algorithm -->
+  <div class="info-section">
+    <div class="info-icon-row">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </div>
+      <h2>Logic &amp; Implementation</h2>
+    </div>
+    <div class="info-body">
+      <p><strong>CORS proxy fetch</strong> — browsers enforce the Same-Origin Policy, blocking JavaScript from reading the HTML of cross-origin pages. This tool sends the target URL to <code>https://api.allorigins.win/get?url=</code>, a public CORS proxy that makes the request server-side and returns the page HTML as a JSON string. The returned HTML is parsed with <code>new DOMParser().parseFromString(contents, 'text/html')</code>, giving a DOM object that can be queried with <code>querySelector</code>. Relative image URLs are resolved to absolute using <code>new URL(path, baseUrl).href</code>.</p>
+      <p><strong>Meta tag priority</strong> — the tool reads tags in this fallback order: <code>og:title</code> → <code>twitter:title</code> → <code>document.title</code> for the title; <code>og:description</code> → <code>twitter:description</code> → <code>name="description"</code> for the description. Twitter-specific overrides in the Advanced panel take precedence over <code>og:</code> values when computing the Twitter card preview.</p>
+      <p><strong>Image validation</strong> — <code>&lt;img&gt;</code> elements fire <code>load</code> or <code>error</code> events after the browser attempts to fetch the URL. <code>@load="onImageLoad()"</code> sets <code>imageLoaded = true</code> and clears <code>imageError</code>; <code>@error="onImageError()"</code> does the reverse. The same image element is used across all platform previews so the browser only makes one request regardless of how many tabs are shown.</p>
+      <p><strong>HTML escaping in generated code</strong> — the <code>generatedCode</code> getter escapes <code>&amp;</code> → <code>&amp;amp;</code> and <code>"</code> → <code>&amp;quot;</code> in attribute values so user input containing these characters produces valid HTML. The display uses Alpine's <code>x-text</code> which sets <code>textContent</code> (not <code>innerHTML</code>), so the <code>&lt;</code> and <code>&gt;</code> characters in the tag strings render correctly as-is without a second round of escaping. The <code>copyCode()</code> method builds a parallel version using only the <code>&amp;</code>/<code>"</code> escapes (no <code>&lt;</code>/<code>&gt;</code>) so the copied HTML is pasteable directly into <code>&lt;head&gt;</code>.</p>
+    </div>
+  </div>
+
+</div><!-- /info-sections-wrap -->
+
+<!-- ══ RELATED TOOLS ════════════════════════════════════════ -->
+<section class="related-section">
+  <div class="related-header">
+    <h2>Related Tools</h2>
+    <a href="../../tools.html" class="view-all-link">
+      View all tools
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+  <div class="related-grid">
+
+    <a href="youtube-chapter-generator.html" class="related-tool-card">
+      <div class="rt-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+      </div>
+      <span class="rt-name">YouTube Chapter Generator</span>
+      <span class="rt-desc">Build, validate, and copy YouTube chapter timestamps. Checks all of YouTube's chapter rules automatically.</span>
+      <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+
+    <a href="../social/instagram-caption-formatter.html" class="related-tool-card">
+      <div class="rt-icon" style="background:linear-gradient(135deg,#d946ef,#a855f7)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 10h16M4 14h10"/></svg>
+      </div>
+      <span class="rt-name">Instagram Caption Formatter</span>
+      <span class="rt-desc">Format captions with Unicode fonts, fix line breaks, manage hashtags, and insert CTAs for Instagram.</span>
+      <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+
+    <a href="../text/word-counter.html" class="related-tool-card">
+      <div class="rt-icon" style="background:linear-gradient(135deg,#667eea,#764ba2)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 10h16M4 14h10"/></svg>
+      </div>
+      <span class="rt-name">Word Counter</span>
+      <span class="rt-desc">Count words, characters, sentences, and paragraphs in real time with reading-time estimates.</span>
+      <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+
+    <a href="../social/instagram-bio-space-generator.html" class="related-tool-card">
+      <div class="rt-icon" style="background:linear-gradient(135deg,#22d3ee,#0ea5e9)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="3" y1="14" x2="14" y2="14"/></svg>
+      </div>
+      <span class="rt-name">Instagram Bio Space Generator</span>
+      <span class="rt-desc">Build perfectly spaced Instagram bios with invisible line-break separators. Preview and copy instantly.</span>
+      <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+
+  </div>
+</section>
+
+<!-- ══ BLOG CARDS ═══════════════════════════════════════════ -->
+<section class="related-section">
+  <div class="related-header">
+    <h2>From the Blog</h2>
+    <a href="../../blog.html" class="view-all-link">
+      All articles
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+  <div class="blog-grid">
+
+    <a href="../../blog.html" class="blog-card">
+      <span class="blog-cat" style="background:rgba(249,115,22,.1);color:#fdba74">SEO</span>
+      <span class="blog-title">The Complete Guide to Open Graph Tags: Title, Description, and Image Best Practices</span>
+      <span class="blog-excerpt">Everything you need to know about og:title, og:description, og:image, and Twitter Card meta tags — with character limits, image dimensions, and platform quirks.</span>
+      <span class="blog-meta">8 min read</span>
+      <span class="blog-read">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+
+    <a href="../../blog.html" class="blog-card">
+      <span class="blog-cat" style="background:rgba(249,115,22,.1);color:#fdba74">Social Media</span>
+      <span class="blog-title">Why Your Links Look Bad on Discord and How to Fix Them</span>
+      <span class="blog-excerpt">Discord's embed renderer reads og: tags differently from Twitter and Facebook. Here's how to write meta tags that look great across every platform.</span>
+      <span class="blog-meta">5 min read</span>
+      <span class="blog-read">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+
+    <a href="../../blog.html" class="blog-card">
+      <span class="blog-cat" style="background:rgba(249,115,22,.1);color:#fdba74">Development</span>
+      <span class="blog-title">Twitter Card vs Open Graph: When to Use Both and When to Use One</span>
+      <span class="blog-excerpt">Twitter falls back to og: tags automatically — so when do you actually need twitter:image? A practical guide to meta tag strategy for developer blogs and marketing sites.</span>
+      <span class="blog-meta">6 min read</span>
+      <span class="blog-read">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+
+  </div>
+</section>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ FOOTER ══════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#fg)"/>
+          <rect x="7" y="11" width="26" height="4" rx="2" fill="rgba(255,255,255,.9)"/>
+          <rect x="7" y="18" width="26" height="4" rx="2" fill="rgba(255,255,255,.8)"/>
+          <rect x="7" y="25" width="18" height="4" rx="2" fill="rgba(255,255,255,.7)"/>
+          <defs><linearGradient id="fg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#f97316"/><stop offset="1" stop-color="#f59e0b"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free, fast, browser-based tools for creators and developers. No sign-up. No tracking. Just tools.</p>
+    </div>
+    <nav class="footer-nav-wrap">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html#Utilities">Utilities</a>
+        <a href="../../tools.html#social-media">Social Media</a>
+        <a href="../../tools.html#Text">Text Tools</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+        <a href="../../about.html">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../terms.html">Terms of Use</a>
+        <a href="../../sitemap.xml">Sitemap</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="inner">
+      <p>&copy; <span x-text="new Date().getFullYear()"></span> The Tool Empire. All rights reserved.</p>
+      <p>All tools run locally in your browser.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ REPORT MODAL ════════════════════════════════════════ -->
+<script src="../../assets/js/report-modal.js"></script>
+<div x-data="reportModal()" x-cloak>
+  <button class="rm-trigger" @click="openModal()" aria-label="Report or send feedback">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+    Report / Feedback
+  </button>
+  <div class="rm-overlay" x-show="open"
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+    @click.self="closeModal()">
+    <div class="rm-modal" @click.stop>
+      <template x-if="!submitted">
+        <div>
+          <h3>Report / Feedback</h3>
+          <p>Found a bug or have a suggestion? We'd love to hear from you.</p>
+          <div class="rm-field">
+            <label>Type</label>
+            <select x-model="type">
+              <option value="bug">Bug Report</option>
+              <option value="feature">Feature Request</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="rm-field">
+            <label>Message</label>
+            <textarea x-model="message" placeholder="Describe the issue or suggestion…" rows="4"></textarea>
+          </div>
+          <div class="rm-field">
+            <label>Email (optional)</label>
+            <input type="email" x-model="email" placeholder="you@example.com"/>
+          </div>
+          <div class="rm-actions">
+            <button class="rm-btn" @click="closeModal()">Cancel</button>
+            <button class="rm-btn primary" @click="submitReport()" :disabled="!message.trim()">Send</button>
+          </div>
+        </div>
+      </template>
+      <template x-if="submitted">
+        <div class="rm-success">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <h3>Thank you!</h3>
+          <p>Your feedback has been received. We'll look into it soon.</p>
+        </div>
+      </template>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

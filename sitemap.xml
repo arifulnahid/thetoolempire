@@ -445,6 +445,72 @@
     <priority>0.88</priority>
   </url>
   <url>
+    <loc>https://thetoolempire.com/tools/design/gantt-chart.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/design/swot-analysis.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/design/timeline-maker.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/design/org-chart.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/design/glassmorphism-generator.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/design/neumorphism-generator.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/css/css-triangle-generator.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/css/css-shape-generator.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/css/flexbox-playground.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/css/css-grid-generator.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/css/css-gradient-generator.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
     <loc>https://thetoolempire.com/tools/design/chart-generator.html</loc>
     <lastmod>2026-06-09</lastmod>
     <changefreq>monthly</changefreq>
@@ -481,7 +547,45 @@
     <priority>0.85</priority>
   </url>
 
+  <!-- ── UTILITIES ───────────────────────────────────────── -->
+  <url>
+    <loc>https://thetoolempire.com/tools/pdf/pdf-orientation-checker.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/utilities/youtube-chapter-generator.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/utilities/open-graph-preview.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+
   <!-- ── SOCIAL / YOUTUBE TOOLS ────────────────────────── -->
+  <url>
+    <loc>https://thetoolempire.com/tools/social/instagram-bio-space-generator.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/social/instagram-caption-formatter.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/social/instagram-grid-splitter.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
   <url>
     <loc>https://thetoolempire.com/tools/social/yt-custom-player.html</loc>
     <lastmod>2026-06-07</lastmod>
@@ -735,6 +839,30 @@
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/seo/faq-schema-generator.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/seo/breadcrumb-schema-generator.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/seo/canonical-tag-generator.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://thetoolempire.com/tools/seo/meta-description-checker.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
   </url>
   <url>
     <loc>https://thetoolempire.com/tools/gis/gpx-viewer.html</loc>

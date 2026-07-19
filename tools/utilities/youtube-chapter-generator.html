@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>YouTube Chapter Generator — Create &amp; Format Video Timestamps | The Tool Empire</title>
+<meta name="description" content="Free YouTube chapter generator. Add chapter titles with timestamps, validate them against YouTube's rules, auto-sort by time, and copy the formatted list to paste into your video description."/>
+<meta name="keywords" content="youtube chapter generator, youtube timestamps, video chapters, youtube description chapters, youtube timestamp maker, chapter list generator"/>
+<meta name="robots" content="index,follow"/>
+<meta name="author" content="The Tool Empire"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/utilities/youtube-chapter-generator.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="YouTube Chapter Generator — Create &amp; Format Video Timestamps"/>
+<meta property="og:description" content="Build, validate, and copy YouTube chapter timestamps instantly. Checks YouTube's rules — first chapter at 0:00, 3+ chapters, 10-second minimum gap."/>
+<meta property="og:url" content="https://thetoolempire.com/tools/utilities/youtube-chapter-generator.html"/>
+<meta property="og:site_name" content="The Tool Empire"/>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[
+  {"@type":"SoftwareApplication","name":"YouTube Chapter Generator","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/utilities/youtube-chapter-generator.html","description":"Free YouTube chapter generator. Add chapter titles and timestamps, validate against YouTube's rules, auto-sort, and copy the formatted list for your video description.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+    {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+    {"@type":"ListItem","position":3,"name":"Utilities","item":"https://thetoolempire.com/tools.html#Utilities"},
+    {"@type":"ListItem","position":4,"name":"YouTube Chapter Generator","item":"https://thetoolempire.com/tools/utilities/youtube-chapter-generator.html"}
+  ]}
+]}</script>
+
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+<link rel="manifest" href="../../manifest.json"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<link rel="stylesheet" href="youtube-chapter-generator.css"/>
+<script src="youtube-chapter-generator.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="ytChaptersApp()" x-cloak>
+
+<!-- ══ HEADER ════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hg)"/>
+        <rect x="10" y="8"  width="20" height="3"  rx="1.5" fill="rgba(255,255,255,.9)"/>
+        <rect x="10" y="15" width="15" height="2.5" rx="1.2" fill="rgba(255,255,255,.6)"/>
+        <rect x="10" y="21" width="18" height="2.5" rx="1.2" fill="rgba(255,255,255,.6)"/>
+        <rect x="10" y="27" width="12" height="2.5" rx="1.2" fill="rgba(255,255,255,.4)"/>
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#ef4444"/><stop offset="1" stop-color="#dc2626"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+    YouTube
+  </div>
+  <h1><span class="g">YouTube Chapter</span> Generator</h1>
+  <p>Build chapter timestamps for your YouTube videos. Validates YouTube's rules, auto-sorts by time, and outputs the formatted list ready to paste into your description.</p>
+</div>
+
+<!-- ══ TOOL ══════════════════════════════════════════════ -->
+<div class="page-wrap">
+
+  <div class="tool-card">
+
+    <!-- ── TABS ── -->
+    <div class="tool-tabs">
+      <button class="tool-tab" :class="{active: tab==='build'}" @click="tab='build'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="3" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="3" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
+        Build Chapters
+      </button>
+      <button class="tool-tab" :class="{active: tab==='import'}" @click="tab='import'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Import from Text
+      </button>
+    </div>
+
+    <!-- ══ BUILD TAB ══ -->
+    <div x-show="tab==='build'" class="yc-layout">
+
+      <!-- LEFT — chapter list -->
+      <div class="yc-panel">
+        <div class="panel-head">
+          <span class="panel-title">Chapters (<span x-text="chapters.length"></span>)</span>
+          <div class="panel-acts">
+            <button class="btn sm" @click="sortInPlace()" title="Sort chapters by timestamp">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+              Sort
+            </button>
+            <button class="btn sm" @click="clearAll()" title="Clear all chapters">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+              Clear
+            </button>
+          </div>
+        </div>
+
+        <!-- Column headers -->
+        <div style="display:grid;grid-template-columns:26px 84px 1fr 28px;gap:6px;margin-bottom:6px;padding:0 1px;">
+          <span></span>
+          <span style="font-size:.7rem;color:var(--faint);font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:.05em;">Time</span>
+          <span style="font-size:.7rem;color:var(--faint);font-weight:700;text-transform:uppercase;letter-spacing:.05em;">Title</span>
+          <span></span>
+        </div>
+
+        <!-- Chapter rows -->
+        <div class="ch-list">
+          <template x-for="(ch, i) in chapters" :key="ch.id">
+            <div class="ch-row">
+              <span class="ch-num" x-text="i + 1"></span>
+              <input
+                class="ch-time-input"
+                :class="{'invalid': ch.time && _secs(ch.time) < 0}"
+                type="text"
+                x-model="ch.time"
+                @blur="blurTime(ch)"
+                placeholder="0:00"
+                maxlength="9"
+                spellcheck="false"
+                autocomplete="off"
+                :aria-label="'Timestamp for chapter ' + (i+1)"
+              />
+              <input
+                class="ch-title-input"
+                type="text"
+                x-model="ch.title"
+                placeholder="Chapter title"
+                maxlength="100"
+                :aria-label="'Title for chapter ' + (i+1)"
+              />
+              <button class="ch-remove" @click="removeChapter(ch.id)" :disabled="chapters.length <= 1" title="Remove chapter">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+          </template>
+        </div>
+
+        <button class="btn add-ch-btn" @click="addChapter()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Chapter
+        </button>
+      </div>
+
+      <!-- RIGHT — output + validation -->
+      <div class="yc-panel">
+        <div class="panel-head">
+          <span class="panel-title">Output</span>
+        </div>
+
+        <textarea
+          class="output-area"
+          readonly
+          :value="output"
+          placeholder="Your formatted chapters will appear here as you type…"
+          spellcheck="false"
+        ></textarea>
+
+        <div class="output-meta">
+          <span><strong x-text="validLines"></strong> chapters</span>
+          <span><strong x-text="charCount"></strong> chars</span>
+        </div>
+
+        <div class="copy-row">
+          <button
+            class="btn primary"
+            :class="{done: copied}"
+            @click="copyOutput()"
+            :disabled="!output"
+          >
+            <template x-if="!copied">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </template>
+            <template x-if="copied">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+            </template>
+            <span x-text="copied ? 'Copied!' : 'Copy to Clipboard'"></span>
+          </button>
+        </div>
+
+        <!-- Validation -->
+        <div class="val-box" :class="isValid ? 'val-ok' : 'val-err'">
+          <div class="val-head">
+            <template x-if="isValid">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+            </template>
+            <template x-if="!isValid">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".5" fill="currentColor"/></svg>
+            </template>
+            <span x-text="isValid ? 'Ready for YouTube!' : errors.length + ' issue(s) to fix'"></span>
+          </div>
+          <div class="val-items" x-show="!isValid">
+            <template x-for="err in errors" :key="err">
+              <div class="val-item" x-text="err"></div>
+            </template>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /build tab -->
+
+    <!-- ══ IMPORT TAB ══ -->
+    <div x-show="tab==='import'" class="yc-layout">
+
+      <!-- LEFT — paste area -->
+      <div class="yc-panel">
+        <div class="panel-head">
+          <span class="panel-title">Paste Chapter Text</span>
+        </div>
+        <p class="import-hint">
+          Paste any text containing timestamps. Supported formats:<br>
+          <code>0:00 Intro</code> &nbsp; <code>0:00:00 Intro</code> &nbsp; <code>(0:00) Intro</code> &nbsp; <code>0:00 - Intro</code>
+        </p>
+        <textarea
+          class="import-textarea"
+          x-model="importText"
+          placeholder="Paste your YouTube description or chapter list here…"
+          spellcheck="false"
+        ></textarea>
+        <div class="import-actions">
+          <button class="btn primary" @click="parseImport()" :disabled="!importText.trim()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Parse Chapters
+          </button>
+          <button class="btn" @click="clearImport()" :disabled="!importText && !importParsed.length">
+            Clear
+          </button>
+        </div>
+      </div>
+
+      <!-- RIGHT — preview -->
+      <div class="yc-panel">
+        <div class="panel-head">
+          <span class="panel-title">Parsed Preview</span>
+        </div>
+
+        <!-- Not yet parsed -->
+        <template x-if="!importDone">
+          <div class="import-none">Paste text on the left and click "Parse Chapters" to see results.</div>
+        </template>
+
+        <!-- Parsed with results -->
+        <template x-if="importDone && importParsed.length > 0">
+          <div>
+            <p class="import-count">Found <span x-text="importParsed.length"></span> chapter(s)</p>
+            <div class="import-preview-list">
+              <template x-for="(c, i) in importParsed" :key="i">
+                <div class="ip-row">
+                  <span class="ip-idx" x-text="i + 1"></span>
+                  <span class="ip-time" x-text="c.time"></span>
+                  <span class="ip-title" x-text="c.title"></span>
+                </div>
+              </template>
+            </div>
+            <div style="margin-top:16px;">
+              <button class="btn primary" @click="applyImport()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"/><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"/></svg>
+                Apply to Builder
+              </button>
+            </div>
+          </div>
+        </template>
+
+        <!-- Parsed but nothing found -->
+        <template x-if="importDone && importParsed.length === 0">
+          <div class="import-none">No chapter timestamps found. Make sure each line starts with a timestamp like <code style="font-family:monospace;color:var(--accent);">0:00</code>.</div>
+        </template>
+      </div>
+
+    </div><!-- /import tab -->
+
+  </div><!-- /tool-card -->
+
+  <!-- ══ INFO SECTIONS ══════════════════════════════════ -->
+  <div class="info-sections">
+
+    <!-- About -->
+    <div class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".5" fill="currentColor"/></svg>
+        </div>
+        <h2>About YouTube Chapter Generator</h2>
+      </div>
+      <div class="info-body">
+        <p>YouTube chapters break your video into navigable sections, appearing as visual markers on the progress bar and as a clickable table of contents beneath the video. Viewers can jump directly to any section, which reduces bounce rate and keeps people watching longer.</p>
+        <p>This tool lets you build your chapter list with real-time validation. It checks YouTube's exact requirements — a first chapter at <code>0:00</code>, a minimum of three chapters, at least ten seconds between each, and no duplicate timestamps — and shows you exactly what needs fixing before you even open YouTube Studio.</p>
+      </div>
+    </div>
+
+    <!-- How to Use -->
+    <div class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <h2>How to Use</h2>
+      </div>
+      <div class="info-body">
+        <ul>
+          <li><strong>Build Chapters tab</strong> — Enter a timestamp (e.g. <code>0:00</code>, <code>1:30</code>, <code>1:05:20</code>) and a title for each chapter. The first chapter must be <code>0:00</code>.</li>
+          <li><strong>Add Chapter</strong> — Click the button to add more rows. You can add up to as many chapters as your video needs.</li>
+          <li><strong>Sort by Time</strong> — Click "Sort" to reorder the list by timestamp if you've entered chapters out of order.</li>
+          <li><strong>Import from Text</strong> — Have existing chapters? Paste your description or any text containing timestamps. The parser extracts them automatically. Click "Apply to Builder" to load them for editing.</li>
+          <li><strong>Copy to Clipboard</strong> — Once the validation box turns green, click Copy and paste the result into your YouTube video description.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Logic & Algorithm -->
+    <div class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h2>Logic &amp; Validation Rules</h2>
+      </div>
+      <div class="info-body">
+        <p>The tool enforces YouTube's documented chapter requirements in real time:</p>
+        <ul>
+          <li><strong>Minimum 3 chapters</strong> — YouTube ignores the chapter list entirely if fewer than three are present.</li>
+          <li><strong>First chapter at 0:00</strong> — YouTube requires the very first chapter to start at the beginning of the video.</li>
+          <li><strong>10-second minimum gap</strong> — Each chapter must be at least 10 seconds apart from the previous one.</li>
+          <li><strong>No duplicate timestamps</strong> — Two chapters at the same time conflict and will break the chapter display.</li>
+          <li><strong>Auto-sort output</strong> — The output is always sorted ascending by time, even if you enter chapters in a different order in the builder.</li>
+          <li><strong>Time normalisation</strong> — On blur, timestamps are auto-formatted to canonical form (e.g. <code>90</code> seconds → <code>1:30</code>). Accepts <code>M:SS</code> or <code>H:MM:SS</code> formats.</li>
+          <li><strong>Flexible import parser</strong> — The regex <code>/^\(?(\d+:\d{2}(?::\d{2})?)\)?\s*[-–—]?\s*(.+)/</code> matches timestamps in parentheses, with dashes, em-dashes, or plain spaces — covering every common YouTube chapter format.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ RELATED TOOLS ══════════════════════════════════ -->
+  <section class="related-section">
+    <div class="related-header">
+      <h2>Related Tools</h2>
+      <a href="../../tools.html" class="view-all-link">
+        View all tools
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <div class="related-grid">
+
+      <a href="pastebin.html" class="related-tool-card">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#14b8a6,#0d9488)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </div>
+        <span class="rt-name">Pastebin</span>
+        <span class="rt-desc">Share code or text with syntax highlighting via a shareable URL. No account needed.</span>
+        <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+      <a href="../coding/qr-code-maker.html" class="related-tool-card">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#6C63FF,#4ECDC4)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="5" y="5" width="3" height="3" fill="currentColor" stroke="none"/><rect x="16" y="5" width="3" height="3" fill="currentColor" stroke="none"/><rect x="5" y="16" width="3" height="3" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <span class="rt-name">QR Code Maker</span>
+        <span class="rt-desc">Generate QR codes for URLs, WiFi, email, and more. Download with a branded card.</span>
+        <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+      <a href="../coding/meta-tag-generator.html" class="related-tool-card">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#f093fb,#f5576c)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <span class="rt-name">Meta Tag Generator</span>
+        <span class="rt-desc">Generate SEO meta tags and Open Graph tags for any webpage in seconds.</span>
+        <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+      <a href="../coding/url-encoder.html" class="related-tool-card">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        </div>
+        <span class="rt-name">URL Encoder / Decoder</span>
+        <span class="rt-desc">Encode or decode URLs and query string parameters for safe sharing and debugging.</span>
+        <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ══ RELATED BLOG ═══════════════════════════════════ -->
+  <section class="related-section">
+    <div class="related-header">
+      <h2>From the Blog</h2>
+      <a href="../../blog.html" class="view-all-link">
+        All articles
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <div class="blog-grid">
+
+      <a href="../../blog.html" class="blog-card">
+        <span class="blog-cat" style="background:rgba(239,68,68,.1);color:#fca5a5;">YouTube</span>
+        <span class="blog-title">How YouTube Chapters Boost Watch Time and Audience Retention</span>
+        <span class="blog-excerpt">Chapters help viewers navigate long videos and signal structured content to the algorithm — here's the data behind why they matter.</span>
+        <span class="blog-meta">6 min read</span>
+        <span class="blog-read">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+      <a href="../../blog.html" class="blog-card">
+        <span class="blog-cat" style="background:rgba(239,68,68,.1);color:#fca5a5;">Content</span>
+        <span class="blog-title">Writing Better Chapter Titles: The Creator's Short-Form Guide</span>
+        <span class="blog-excerpt">Good chapter names are specific, action-oriented, and 3–5 words long. Learn the patterns that make viewers click.</span>
+        <span class="blog-meta">4 min read</span>
+        <span class="blog-read">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+      <a href="../../blog.html" class="blog-card">
+        <span class="blog-cat" style="background:rgba(239,68,68,.1);color:#fca5a5;">SEO</span>
+        <span class="blog-title">YouTube SEO in 2025: What Still Works and What Doesn't</span>
+        <span class="blog-excerpt">From keyword placement in descriptions to chapters and end screens — an up-to-date overview of the ranking signals that matter.</span>
+        <span class="blog-meta">8 min read</span>
+        <span class="blog-read">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+    </div>
+  </section>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ FOOTER ═════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#fg)"/>
+          <rect x="10" y="8"  width="20" height="3"  rx="1.5" fill="rgba(255,255,255,.9)"/>
+          <rect x="10" y="15" width="15" height="2.5" rx="1.2" fill="rgba(255,255,255,.6)"/>
+          <rect x="10" y="21" width="18" height="2.5" rx="1.2" fill="rgba(255,255,255,.6)"/>
+          <rect x="10" y="27" width="12" height="2.5" rx="1.2" fill="rgba(255,255,255,.4)"/>
+          <defs><linearGradient id="fg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#ef4444"/><stop offset="1" stop-color="#dc2626"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free, fast, browser-based tools for creators and developers. No sign-up. No tracking. Just tools.</p>
+    </div>
+    <nav class="footer-nav-wrap">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html#CSS">CSS Tools</a>
+        <a href="../../tools.html#Utilities">Utilities</a>
+        <a href="../../tools.html#Coding">Coding</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+        <a href="../../about.html">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../terms.html">Terms of Use</a>
+        <a href="../../sitemap.xml">Sitemap</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="inner">
+      <p>&copy; <span x-text="new Date().getFullYear()"></span> The Tool Empire. All rights reserved.</p>
+      <p>All tools run locally in your browser.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ REPORT MODAL ═══════════════════════════════════════ -->
+<script src="../../assets/js/report-modal.js"></script>
+<div x-data="reportModal()" x-cloak>
+  <button class="rm-trigger" @click="openModal()" aria-label="Report or send feedback">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+    Report / Feedback
+  </button>
+  <div class="rm-overlay" x-show="open"
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
+    @click.self="closeModal()">
+    <div class="rm-modal" @click.stop>
+      <template x-if="!submitted">
+        <div>
+          <h3>Report / Feedback</h3>
+          <p>Found a bug or have a suggestion? We'd love to hear from you.</p>
+          <div class="rm-field">
+            <label>Type</label>
+            <select x-model="type">
+              <option value="bug">Bug Report</option>
+              <option value="feature">Feature Request</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="rm-field">
+            <label>Message</label>
+            <textarea x-model="message" placeholder="Describe the issue or suggestion…" rows="4"></textarea>
+          </div>
+          <div class="rm-field">
+            <label>Email (optional)</label>
+            <input type="email" x-model="email" placeholder="you@example.com"/>
+          </div>
+          <div class="rm-actions">
+            <button class="rm-btn" @click="closeModal()">Cancel</button>
+            <button class="rm-btn primary" @click="submitReport()" :disabled="!message.trim()">Send</button>
+          </div>
+        </div>
+      </template>
+      <template x-if="submitted">
+        <div class="rm-success">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <h3>Thank you!</h3>
+          <p>Your feedback has been received. We'll look into it soon.</p>
+        </div>
+      </template>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

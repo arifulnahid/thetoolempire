@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Flexbox Playground — Interactive CSS Flexbox Visualizer | The Tool Empire</title>
+<meta name="description" content="Free interactive flexbox playground. Visualize flex-direction, justify-content, align-items, flex-grow, flex-shrink and more. Click items to configure per-item properties and copy the CSS."/>
+<meta name="keywords" content="flexbox playground, CSS flexbox, flex-direction, justify-content, align-items, flex-grow, flex-shrink, flexbox visualizer, CSS layout tool"/>
+<meta name="robots" content="index,follow"/>
+<meta name="author" content="The Tool Empire"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/css/flexbox-playground.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Flexbox Playground — Interactive CSS Flexbox Visualizer"/>
+<meta property="og:description" content="Experiment with every flexbox property live. Add items, configure per-item flex values, visualize alignment, and copy the CSS instantly."/>
+<meta property="og:url" content="https://thetoolempire.com/tools/css/flexbox-playground.html"/>
+<meta property="og:site_name" content="The Tool Empire"/>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":"SoftwareApplication","name":"Flexbox Playground","applicationCategory":"DeveloperApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/css/flexbox-playground.html","description":"Interactive CSS Flexbox playground. Configure all container and item flex properties with live preview. Generates ready-to-use CSS.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+    {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+    {"@type":"ListItem","position":3,"name":"CSS","item":"https://thetoolempire.com/tools.html#CSS"},
+    {"@type":"ListItem","position":4,"name":"Flexbox Playground","item":"https://thetoolempire.com/tools/css/flexbox-playground.html"}
+  ]}
+]}</script>
+
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+<link rel="manifest" href="../../manifest.json"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<link rel="stylesheet" href="flexbox-playground.css"/>
+<script src="flexbox-playground.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="flexboxPlaygroundApp()">
+
+<!-- ══ HEADER ════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hg)"/>
+        <rect x="6" y="14" width="10" height="12" rx="2" fill="rgba(255,255,255,.9)"/>
+        <rect x="20" y="10" width="14" height="20" rx="2" fill="rgba(255,255,255,.5)"/>
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#4f46e5"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+    CSS Tools
+  </div>
+  <h1><span class="g">Flexbox</span> Playground</h1>
+  <p>Experiment with every flexbox property live. Click items to configure per-item flex values. Copy the complete CSS when you're happy.</p>
+</div>
+
+<!-- ══ TOOL ══════════════════════════════════════════════ -->
+<div class="page-wrap">
+
+  <div class="fp-layout">
+
+    <!-- ─── LEFT: CONTROLS ───────────────────────── -->
+    <div class="fp-controls">
+
+      <!-- ── Container ── -->
+      <div>
+        <div class="ctrl-head">Container</div>
+      </div>
+
+      <!-- flex-direction -->
+      <div>
+        <div class="ctrl-subhead">flex-direction</div>
+        <div class="prop-btns">
+          <template x-for="opt in dirOpts" :key="opt.val">
+            <button class="prop-btn"
+                    :class="{active: direction === opt.val}"
+                    :title="opt.val"
+                    @click="direction = opt.val"
+                    x-text="opt.label"></button>
+          </template>
+        </div>
+      </div>
+
+      <!-- flex-wrap -->
+      <div>
+        <div class="ctrl-subhead">flex-wrap</div>
+        <div class="prop-btns">
+          <template x-for="opt in wrapOpts" :key="opt.val">
+            <button class="prop-btn"
+                    :class="{active: wrap === opt.val}"
+                    :title="opt.val"
+                    @click="wrap = opt.val"
+                    x-text="opt.label"></button>
+          </template>
+        </div>
+      </div>
+
+      <!-- justify-content -->
+      <div>
+        <div class="ctrl-subhead">justify-content</div>
+        <div class="prop-btns">
+          <template x-for="opt in jcOpts" :key="opt.val">
+            <button class="prop-btn"
+                    :class="{active: justifyContent === opt.val}"
+                    :title="opt.val"
+                    @click="justifyContent = opt.val"
+                    x-text="opt.label"></button>
+          </template>
+        </div>
+      </div>
+
+      <!-- align-items -->
+      <div>
+        <div class="ctrl-subhead">align-items</div>
+        <div class="prop-btns">
+          <template x-for="opt in aiOpts" :key="opt.val">
+            <button class="prop-btn"
+                    :class="{active: alignItems === opt.val}"
+                    :title="opt.val"
+                    @click="alignItems = opt.val"
+                    x-text="opt.label"></button>
+          </template>
+        </div>
+      </div>
+
+      <!-- align-content (only meaningful when wrap is active) -->
+      <div>
+        <div class="ctrl-subhead" :style="wrap === 'nowrap' ? 'opacity:.4' : ''">
+          align-content
+          <span style="font-size:.62rem;font-weight:600;color:var(--faint);margin-left:4px;"
+                x-show="wrap === 'nowrap'">(needs wrap)</span>
+        </div>
+        <div class="prop-btns">
+          <template x-for="opt in acOpts" :key="opt.val">
+            <button class="prop-btn"
+                    :class="{active: alignContent === opt.val}"
+                    :title="opt.val"
+                    :disabled="wrap === 'nowrap'"
+                    @click="alignContent = opt.val"
+                    x-text="opt.label"></button>
+          </template>
+        </div>
+      </div>
+
+      <!-- Gap -->
+      <div>
+        <div class="ctrl-subhead">gap</div>
+        <div>
+          <div class="ctrl-row"><span>Column gap</span><span class="ctrl-val" x-text="colGap + 'px'"></span></div>
+          <input type="range" x-model.number="colGap" min="0" max="64" step="2" style="margin-bottom:10px;"/>
+          <div class="ctrl-row"><span>Row gap</span><span class="ctrl-val" x-text="rowGap + 'px'"></span></div>
+          <input type="range" x-model.number="rowGap" min="0" max="64" step="2"/>
+        </div>
+      </div>
+
+      <div class="ctrl-sep"></div>
+
+      <!-- ── Selected Item Panel ── -->
+      <div>
+        <div class="ctrl-head">Selected Item</div>
+
+        <!-- No selection hint -->
+        <p class="no-item-hint" x-show="!selectedItem">
+          Click an item in the preview to configure its flex properties
+        </p>
+
+        <!-- Item controls (when selected) -->
+        <div x-show="!!selectedItem" x-cloak>
+
+          <!-- Item header -->
+          <div class="item-panel-header" style="margin-bottom:14px;">
+            <div class="item-color-dot" :style="`background:${selectedItem ? itemColor(selectedItem) : '#ccc'}`"></div>
+            <span class="item-panel-name" x-text="selectedItem ? 'Item ' + (items.indexOf(selectedItem)+1) : ''"></span>
+            <button class="deselect-btn" @click="selectedId = null">Deselect</button>
+          </div>
+
+          <!-- flex-grow -->
+          <div style="margin-bottom:14px;">
+            <div class="ctrl-row">
+              <span>flex-grow</span>
+              <span class="ctrl-val" x-text="selectedItem ? selectedItem.flexGrow : 0"></span>
+            </div>
+            <input type="range" x-model.number="selectedItem.flexGrow" min="0" max="6" step="1" x-show="!!selectedItem"/>
+          </div>
+
+          <!-- flex-shrink -->
+          <div style="margin-bottom:14px;">
+            <div class="ctrl-row">
+              <span>flex-shrink</span>
+              <span class="ctrl-val" x-text="selectedItem ? selectedItem.flexShrink : 1"></span>
+            </div>
+            <input type="range" x-model.number="selectedItem.flexShrink" min="0" max="6" step="1" x-show="!!selectedItem"/>
+          </div>
+
+          <!-- flex-basis -->
+          <div style="margin-bottom:14px;">
+            <div class="ctrl-subhead">flex-basis</div>
+            <input class="prop-input" type="text" x-model="selectedItem.flexBasis" x-show="!!selectedItem" placeholder="auto"/>
+            <div class="basis-presets">
+              <template x-for="preset in basisPresets" :key="preset">
+                <button class="basis-preset"
+                        :class="{active: selectedItem && selectedItem.flexBasis === preset}"
+                        @click="if(selectedItem) selectedItem.flexBasis = preset"
+                        x-text="preset"></button>
+              </template>
+            </div>
+          </div>
+
+          <!-- align-self -->
+          <div style="margin-bottom:14px;">
+            <div class="ctrl-subhead">align-self</div>
+            <div class="prop-btns">
+              <template x-for="opt in asOpts" :key="opt.val">
+                <button class="prop-btn"
+                        :class="{active: selectedItem && selectedItem.alignSelf === opt.val}"
+                        :title="opt.val"
+                        @click="if(selectedItem) selectedItem.alignSelf = opt.val"
+                        x-text="opt.label"></button>
+              </template>
+            </div>
+          </div>
+
+          <!-- order -->
+          <div style="margin-bottom:14px;">
+            <div class="ctrl-row">
+              <span>order</span>
+              <span class="ctrl-val" x-text="selectedItem ? selectedItem.order : 0"></span>
+            </div>
+            <input type="range" x-model.number="selectedItem.order" min="-4" max="4" step="1" x-show="!!selectedItem"/>
+          </div>
+
+          <!-- Custom width -->
+          <div style="margin-bottom:8px;">
+            <div class="size-toggle-row">
+              <span class="size-toggle-label">Custom width</span>
+              <button class="mini-toggle"
+                      :class="{on: selectedItem && selectedItem.customW !== null}"
+                      @click="selectedItem && selectedItem.customW !== null ? disableCustomW() : enableCustomW()">
+                <span x-text="selectedItem && selectedItem.customW !== null ? 'On' : 'Off'"></span>
+              </button>
+            </div>
+            <div x-show="selectedItem && selectedItem.customW !== null" x-cloak>
+              <div class="ctrl-row">
+                <span>Width</span>
+                <span class="ctrl-val" x-text="selectedItem && selectedItem.customW !== null ? selectedItem.customW + 'px' : ''"></span>
+              </div>
+              <input type="range" x-model.number="selectedItem.customW" min="40" max="300" step="4" x-show="!!selectedItem"/>
+            </div>
+          </div>
+
+          <!-- Custom height -->
+          <div>
+            <div class="size-toggle-row">
+              <span class="size-toggle-label">Custom height</span>
+              <button class="mini-toggle"
+                      :class="{on: selectedItem && selectedItem.customH !== null}"
+                      @click="selectedItem && selectedItem.customH !== null ? disableCustomH() : enableCustomH()">
+                <span x-text="selectedItem && selectedItem.customH !== null ? 'On' : 'Off'"></span>
+              </button>
+            </div>
+            <div x-show="selectedItem && selectedItem.customH !== null" x-cloak>
+              <div class="ctrl-row">
+                <span>Height</span>
+                <span class="ctrl-val" x-text="selectedItem && selectedItem.customH !== null ? selectedItem.customH + 'px' : ''"></span>
+              </div>
+              <input type="range" x-model.number="selectedItem.customH" min="40" max="300" step="4" x-show="!!selectedItem"/>
+            </div>
+          </div>
+
+        </div><!-- /item controls -->
+      </div>
+
+    </div><!-- /fp-controls -->
+
+    <!-- ─── RIGHT: PREVIEW ────────────────────────── -->
+    <div class="fp-preview">
+
+      <!-- Toolbar -->
+      <div class="preview-toolbar">
+        <span class="preview-toolbar-label">Items (<span x-text="items.length"></span>/8)</span>
+
+        <button class="tb-btn" :disabled="items.length >= 8" @click="addItem()">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add
+        </button>
+
+        <button class="tb-btn danger" :disabled="!selectedId || items.length <= 1" @click="removeSelected()">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Remove
+        </button>
+
+        <div class="tb-sep"></div>
+
+        <button class="tb-btn" @click="resetAll()">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.36"/></svg>
+          Reset
+        </button>
+
+        <div class="tb-h-wrap">
+          <span>H</span>
+          <input type="range" x-model.number="containerH" min="120" max="560" step="8"/>
+          <span class="tb-h-val" x-text="containerH + 'px'"></span>
+        </div>
+      </div>
+
+      <!-- Flex container -->
+      <div class="preview-scene">
+        <div :style="containerStyle">
+          <template x-for="item in items" :key="item.id">
+            <div class="fp-item"
+                 :class="{selected: selectedId === item.id}"
+                 :style="itemStyle(item)"
+                 @click="selectItem(item.id)">
+              <span class="fp-item-label" x-text="items.indexOf(item) + 1"></span>
+              <svg x-show="selectedId === item.id" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+          </template>
+        </div>
+      </div>
+
+    </div><!-- /fp-preview -->
+
+  </div><!-- /fp-layout -->
+
+  <!-- ── CSS OUTPUT ──────────────────────────────────── -->
+  <div class="fp-code-wrap">
+    <div class="fp-code-head">
+      <div class="fp-code-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Generated CSS
+        <span style="font-size:.68rem;color:var(--faint);" x-show="!!selectedItem">(container + selected item)</span>
+      </div>
+      <button class="copy-btn" :class="{done: copied}" @click="copyCSS()">
+        <svg x-show="!copied" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <svg x-show="copied"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <span x-text="copied ? 'Copied!' : 'Copy CSS'"></span>
+      </button>
+    </div>
+    <div class="fp-code-body">
+      <pre x-text="cssCode"></pre>
+    </div>
+  </div>
+
+  <!-- ══ INFO SECTIONS ═══════════════════════════════════ -->
+  <div class="info-sections">
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <h2>About This Tool</h2>
+      </div>
+      <div class="info-body">
+        <p><strong>Flexbox Playground</strong> is an interactive visualizer for all CSS Flexbox properties. Every change you make to a property updates the live preview immediately — no page reloads, no guessing. The colored items in the preview ARE real browser-rendered flex items.</p>
+        <p>The left panel controls the <strong>flex container</strong>: <code>flex-direction</code>, <code>flex-wrap</code>, <code>justify-content</code>, <code>align-items</code>, <code>align-content</code>, and gap. The container height can be adjusted with the slider above the preview to see how <code>align-items: stretch</code> and <code>align-content</code> behave with different container heights.</p>
+        <p>Click any item in the preview to select it. The left panel then shows <strong>per-item properties</strong>: <code>flex-grow</code>, <code>flex-shrink</code>, <code>flex-basis</code>, <code>align-self</code>, and <code>order</code>. Enable custom width/height overrides for the selected item to see how <code>flex-basis</code> and explicit sizes interact. Add up to 8 items or remove the selected one with the toolbar buttons.</p>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <h2>How to Use</h2>
+      </div>
+      <div class="info-body">
+        <ul>
+          <li><strong>Container properties</strong> — click any property value button on the left. The preview updates instantly. Try switching <code>flex-direction</code> between row and column and watch items reflow.</li>
+          <li><strong>align-content</strong> — only has a visual effect when <code>flex-wrap</code> is set to <code>wrap</code> or <code>wrap-reverse</code>. Set wrap, add several items to cause wrapping, then experiment with align-content.</li>
+          <li><strong>Gap</strong> — controls space between items. Column gap is the space between items along the main axis; row gap is the space between wrapped rows/columns.</li>
+          <li><strong>Container height</strong> — drag the H slider in the toolbar to resize the flex container. Taller containers make <code>align-items</code> and <code>align-self</code> effects more visible.</li>
+          <li><strong>Adding &amp; removing items</strong> — use the Add / Remove toolbar buttons. Remove deletes the currently selected item.</li>
+          <li><strong>Per-item properties</strong> — click any item to select it (checkmark appears). <code>flex-grow</code> allows an item to grow into available space; <code>flex-shrink</code> controls how much it shrinks; <code>flex-basis</code> sets its initial main-axis size. <code>order</code> changes visual position without changing DOM order.</li>
+          <li><strong>Custom width/height</strong> — toggle on to add an explicit dimension. Note: if align-items/align-self is stretch, setting an explicit height (in row direction) overrides stretch.</li>
+          <li>Click <strong>Copy CSS</strong> to copy the container CSS plus the selected item's CSS (if any selected).</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <h2>Flexbox Property Reference</h2>
+      </div>
+      <div class="info-body">
+        <p><strong>Container properties</strong> — applied to the element with <code>display: flex</code>:</p>
+        <ul>
+          <li><code>flex-direction</code> — defines the main axis. <code>row</code>: left→right. <code>column</code>: top→bottom. <code>-reverse</code> variants flip the direction.</li>
+          <li><code>flex-wrap</code> — <code>nowrap</code>: items stay on one line (may overflow). <code>wrap</code>: items wrap to new lines. <code>wrap-reverse</code>: wraps in reverse cross-axis direction.</li>
+          <li><code>justify-content</code> — distributes items along the <em>main axis</em>. <code>space-between</code>: equal gaps between; <code>space-around</code>: half-gaps at edges; <code>space-evenly</code>: equal gaps everywhere.</li>
+          <li><code>align-items</code> — aligns items on the <em>cross axis</em> within a single line. <code>stretch</code>: items fill the container's cross dimension (default).</li>
+          <li><code>align-content</code> — aligns the <em>lines</em> on the cross axis when <code>flex-wrap</code> causes multiple lines. Has no effect with a single line.</li>
+          <li><code>gap</code> — shorthand for <code>row-gap</code> (between lines) and <code>column-gap</code> (between items on a line).</li>
+        </ul>
+        <p><strong>Item properties</strong> — applied to direct children of the flex container:</p>
+        <ul>
+          <li><code>flex-grow</code> — factor controlling how much extra space an item takes relative to siblings. <code>0</code>: don't grow. <code>1</code>: grow proportionally. <code>2</code>: grow twice as much as grow-1 items.</li>
+          <li><code>flex-shrink</code> — factor controlling how much an item shrinks when there isn't enough space. <code>0</code>: never shrink. <code>1</code>: shrink proportionally (default). Higher = shrinks more.</li>
+          <li><code>flex-basis</code> — the item's starting main-axis size before grow/shrink is applied. <code>auto</code>: use the item's width/height. <code>0</code>: start from zero (grow fills all space proportionally).</li>
+          <li><code>align-self</code> — overrides <code>align-items</code> for a single item. Useful for making one item not stretch when others do.</li>
+          <li><code>order</code> — changes visual order without affecting DOM order. Default <code>0</code>. Negative values appear first; higher values appear last.</li>
+        </ul>
+        <p>The <code>flex</code> shorthand — <code>flex: grow shrink basis</code> — is what the CSS output uses. <code>flex: 1</code> is equivalent to <code>flex: 1 1 0</code>; <code>flex: auto</code> is <code>flex: 1 1 auto</code>.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ══ RELATED TOOLS ═══════════════════════════════════ -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>Related Tools</h2>
+      <a href="../../tools.html" class="view-all-link">All Tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="related-grid">
+      <a class="related-tool-card" href="css-grid-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#10b981,#059669)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <div class="rt-name">CSS Grid Generator</div>
+        <div class="rt-desc">Interactive visual CSS Grid builder. Drag to place items, set custom track sizes, copy CSS.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="css-gradient-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M3 12h18"/></svg>
+        </div>
+        <div class="rt-name">CSS Gradient Generator</div>
+        <div class="rt-desc">Linear, radial, and conic gradient builder with colour-stop editor and 12 presets.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="css-shape-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#f43f5e,#e11d48)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 22 2 22"/></svg>
+        </div>
+        <div class="rt-name">CSS Shape Generator</div>
+        <div class="rt-desc">22 pure-CSS shapes via clip-path and border-radius — circles, stars, arrows and more.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="../design/neumorphism-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#818cf8,#6366f1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg>
+        </div>
+        <div class="rt-name">Neumorphism Generator</div>
+        <div class="rt-desc">Soft UI neumorphic CSS generator with dual-shadow depth and light direction controls.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Blog -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>From the Blog</h2>
+      <a href="../../blog.html" class="view-all-link">All Posts <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="blog-grid">
+      <a class="blog-card" href="../../blog/css-flexbox-guide.html">
+        <span class="blog-cat" style="background:rgba(99,102,241,.1);color:#a5b4fc;">CSS</span>
+        <div class="blog-title">CSS Flexbox: The Complete Guide (With Visuals)</div>
+        <div class="blog-excerpt">Everything about flexbox — main/cross axis, all container and item properties, common patterns, and when to use Grid instead.</div>
+        <div class="blog-meta">June 2025 · 14 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/css-grid-vs-flexbox.html">
+        <span class="blog-cat" style="background:rgba(99,102,241,.1);color:#a5b4fc;">CSS</span>
+        <div class="blog-title">CSS Grid vs Flexbox: When to Use Which</div>
+        <div class="blog-excerpt">The real answer isn't "Grid is 2D, Flexbox is 1D." Here's how to decide based on content and intent.</div>
+        <div class="blog-meta">May 2025 · 7 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/css-layout-patterns.html">
+        <span class="blog-cat" style="background:rgba(99,102,241,.1);color:#a5b4fc;">CSS</span>
+        <div class="blog-title">10 CSS Layout Patterns You'll Actually Use</div>
+        <div class="blog-excerpt">Centered heroes, sticky footers, equal-height columns, responsive card grids — real patterns with minimal, copy-ready code.</div>
+        <div class="blog-meta">April 2025 · 9 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Report -->
+  <div style="text-align:center;padding:24px 0 0;" x-data="{open:false,reason:'',details:'',submitted:false}">
+    <button style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--faint);cursor:pointer;" @click="open=true">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Report an Issue
+    </button>
+    <div style="position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;" x-show="open" x-cloak @click.self="open=false">
+      <div style="background:var(--card);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:440px;padding:28px;">
+        <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:6px;">Report an Issue</h3>
+        <p style="font-size:.84rem;color:var(--text2);margin-bottom:18px;">Let us know what's wrong with <strong>Flexbox Playground</strong>.</p>
+        <select style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;margin-bottom:12px;" x-model="reason">
+          <option value="">Select a reason…</option>
+          <option>Preview not rendering correctly</option>
+          <option>Wrong CSS output</option>
+          <option>Property button not responding</option>
+          <option>Item selection not working</option>
+          <option>Copy button not working</option>
+          <option>Other</option>
+        </select>
+        <textarea style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;min-height:88px;resize:vertical;font-family:inherit;margin-bottom:12px;" x-model="details" placeholder="Describe the issue (optional)…"></textarea>
+        <div style="display:flex;gap:10px;">
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:700;border:none;background:var(--agrad);color:#fff;cursor:pointer;" :style="!reason?'opacity:.4;cursor:default':''" @click="submitted=true;setTimeout(()=>{open=false;submitted=false},2000)" :disabled="!reason">Submit</button>
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;" @click="open=false">Cancel</button>
+        </div>
+        <p style="margin-top:12px;text-align:center;font-size:.82rem;color:#86efac;" x-show="submitted">Thank you — report received!</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ FOOTER ════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#flg)"/>
+          <rect x="6" y="14" width="10" height="12" rx="2" fill="rgba(255,255,255,.9)"/>
+          <rect x="20" y="10" width="14" height="20" rx="2" fill="rgba(255,255,255,.5)"/>
+          <defs><linearGradient id="flg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#4f46e5"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free online tools for developers, designers, and data people.</p>
+    </div>
+    <nav class="footer-nav-wrap">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=CSS">CSS</a>
+        <a href="../../tools.html?cat=Design">Design</a>
+        <a href="../../tools.html?cat=Coding">Coding</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../about.html">About</a>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy</a>
+        <a href="../../terms.html">Terms</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="inner">
+      <p>&copy; 2025 The Tool Empire. All rights reserved.</p>
+      <p>Built with Alpine.js</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

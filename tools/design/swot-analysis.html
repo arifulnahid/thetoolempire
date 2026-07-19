@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>SWOT Analysis Maker — Free Online SWOT Tool | The Tool Empire</title>
+<meta name="description" content="Free online SWOT Analysis maker. Create professional Strengths, Weaknesses, Opportunities, and Threats matrices with priority levels. Export as PNG or PDF instantly."/>
+<meta name="keywords" content="SWOT analysis maker, SWOT analysis tool, SWOT matrix, strengths weaknesses opportunities threats, business analysis, strategic planning tool"/>
+<meta name="robots" content="index,follow"/>
+<meta name="author" content="The Tool Empire"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/design/swot-analysis.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="SWOT Analysis Maker — Free Online SWOT Tool"/>
+<meta property="og:description" content="Build professional SWOT analysis matrices online. Add items with priority levels, export as PNG or PDF. No sign-up required."/>
+<meta property="og:url" content="https://thetoolempire.com/tools/design/swot-analysis.html"/>
+<meta property="og:site_name" content="The Tool Empire"/>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":"SoftwareApplication","name":"SWOT Analysis Maker","applicationCategory":"BusinessApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/design/swot-analysis.html","description":"Free browser-based SWOT analysis tool. Create Strengths, Weaknesses, Opportunities, and Threats matrices with priority levels, notes, and PNG/PDF export.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+    {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+    {"@type":"ListItem","position":3,"name":"Productivity","item":"https://thetoolempire.com/tools.html#Productivity"},
+    {"@type":"ListItem","position":4,"name":"SWOT Analysis Maker","item":"https://thetoolempire.com/tools/design/swot-analysis.html"}
+  ]}
+]}</script>
+
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+<link rel="manifest" href="../../manifest.json"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<link rel="stylesheet" href="swot-analysis.css"/>
+<link rel="stylesheet" href="../../assets/css/report-modal.css"/>
+<script src="swot-analysis.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="swotApp()" x-init="init()">
+
+<!-- ══ HEADER ════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hg)"/>
+        <rect x="6" y="6"  width="12" height="12" rx="3" fill="rgba(34,197,94,.8)"/>
+        <rect x="22" y="6"  width="12" height="12" rx="3" fill="rgba(248,113,113,.8)"/>
+        <rect x="6" y="22" width="12" height="12" rx="3" fill="rgba(96,165,250,.8)"/>
+        <rect x="22" y="22" width="12" height="12" rx="3" fill="rgba(251,191,36,.8)"/>
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    Productivity Tools
+  </div>
+  <h1><span class="g">SWOT</span> Analysis Maker</h1>
+  <p>Build professional Strengths · Weaknesses · Opportunities · Threats matrices with priority levels and notes. Export as PNG or PDF.</p>
+</div>
+
+<!-- ══ TOOL ══════════════════════════════════════════ -->
+<div class="page-wrap">
+
+  <!-- Summary strip -->
+  <div class="summary-strip">
+    <div class="sum-card">
+      <div class="sum-icon">💪</div>
+      <div>
+        <div class="sum-count" style="color:var(--s-color)" x-text="count('strengths')"></div>
+        <div class="sum-label">Strengths</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">⚠️</div>
+      <div>
+        <div class="sum-count" style="color:var(--w-color)" x-text="count('weaknesses')"></div>
+        <div class="sum-label">Weaknesses</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">🚀</div>
+      <div>
+        <div class="sum-count" style="color:var(--o-color)" x-text="count('opportunities')"></div>
+        <div class="sum-label">Opportunities</div>
+      </div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-icon">⚡</div>
+      <div>
+        <div class="sum-count" style="color:var(--t-color)" x-text="count('threats')"></div>
+        <div class="sum-label">Threats</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tool header / toolbar -->
+  <div class="tool-header">
+    <div class="th-titles">
+      <input class="th-title-input" x-model="title"    placeholder="Analysis title…"    maxlength="80"/>
+      <input class="th-sub-input"   x-model="subtitle" placeholder="Subtitle, date, or context…" maxlength="100"/>
+    </div>
+    <div class="th-actions">
+      <button class="th-btn export" :class="{loading: exporting}" @click="exportPng()" :disabled="exporting">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span x-text="exporting ? 'Exporting…' : 'PNG'"></span>
+      </button>
+      <button class="th-btn export" :class="{loading: exporting}" @click="exportPdf()" :disabled="exporting">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        PDF
+      </button>
+      <button class="th-btn" @click="copyJson()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        JSON
+      </button>
+      <button class="th-btn" @click="importJson()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Import
+      </button>
+      <button class="th-btn danger" @click="clearAll()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6M9 6V4h6v2"/></svg>
+        Clear
+      </button>
+    </div>
+  </div>
+
+  <!-- ══ SWOT GRID ══════════════════════════════════ -->
+  <div class="swot-grid" x-ref="swotCanvas">
+
+    <!-- Title inside canvas for export -->
+    <div style="grid-column:1/-1;text-align:center;padding:4px 0 16px;" x-show="title">
+      <div style="font-size:1.5rem;font-weight:900;color:var(--text)" x-text="title"></div>
+      <div style="font-size:.88rem;color:var(--text2);margin-top:4px" x-show="subtitle" x-text="subtitle"></div>
+    </div>
+
+    <!-- ─── Strengths ─── -->
+    <div class="quadrant s">
+      <div class="q-header">
+        <div class="q-head-left">
+          <span class="q-icon">💪</span>
+          <span class="q-label">Strengths</span>
+          <span class="q-count" x-text="count('strengths')"></span>
+        </div>
+        <div class="q-head-right">
+          <button class="q-ico-btn danger" @click="clearQuadrant('strengths')" title="Clear all">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="q-items">
+        <div class="q-empty" x-show="!data.strengths.length">Internal positive factors…</div>
+        <template x-for="item in data.strengths" :key="item.id">
+          <div class="swot-item"
+               :class="{'drag-over': dragOverId===item.id}"
+               draggable="true"
+               @dragstart="dragStart('strengths',item.id)"
+               @dragenter.prevent="dragEnterItem(item.id)"
+               @dragleave="dragLeaveItem()"
+               @dragover.prevent
+               @drop.prevent="dropItem('strengths',item.id)"
+               @dragend="dragEnd()">
+            <div class="item-drag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="16" y2="18"/></svg></div>
+            <div class="item-body">
+              <div class="item-text" x-text="item.text"></div>
+              <div class="item-note" x-show="item.note" x-text="item.note"></div>
+            </div>
+            <div class="item-side">
+              <div class="priority-dot" :style="`background:${priorityColor(item.priority)}`" :title="priorityLabel(item.priority)+' priority'"></div>
+              <div class="item-actions">
+                <button class="item-act-btn" @click.stop="openEdit('strengths',item)" title="Edit">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </button>
+                <button class="item-act-btn del" @click.stop="deleteItem('strengths',item.id)" title="Delete">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+      <button class="q-add-btn" @click="openAdd('strengths')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Strength
+      </button>
+    </div>
+
+    <!-- ─── Weaknesses ─── -->
+    <div class="quadrant w">
+      <div class="q-header">
+        <div class="q-head-left">
+          <span class="q-icon">⚠️</span>
+          <span class="q-label">Weaknesses</span>
+          <span class="q-count" x-text="count('weaknesses')"></span>
+        </div>
+        <div class="q-head-right">
+          <button class="q-ico-btn danger" @click="clearQuadrant('weaknesses')" title="Clear all">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="q-items">
+        <div class="q-empty" x-show="!data.weaknesses.length">Internal negative factors…</div>
+        <template x-for="item in data.weaknesses" :key="item.id">
+          <div class="swot-item"
+               :class="{'drag-over': dragOverId===item.id}"
+               draggable="true"
+               @dragstart="dragStart('weaknesses',item.id)"
+               @dragenter.prevent="dragEnterItem(item.id)"
+               @dragleave="dragLeaveItem()"
+               @dragover.prevent
+               @drop.prevent="dropItem('weaknesses',item.id)"
+               @dragend="dragEnd()">
+            <div class="item-drag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="16" y2="18"/></svg></div>
+            <div class="item-body">
+              <div class="item-text" x-text="item.text"></div>
+              <div class="item-note" x-show="item.note" x-text="item.note"></div>
+            </div>
+            <div class="item-side">
+              <div class="priority-dot" :style="`background:${priorityColor(item.priority)}`" :title="priorityLabel(item.priority)+' priority'"></div>
+              <div class="item-actions">
+                <button class="item-act-btn" @click.stop="openEdit('weaknesses',item)" title="Edit">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </button>
+                <button class="item-act-btn del" @click.stop="deleteItem('weaknesses',item.id)" title="Delete">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+      <button class="q-add-btn" @click="openAdd('weaknesses')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Weakness
+      </button>
+    </div>
+
+    <!-- ─── Opportunities ─── -->
+    <div class="quadrant o">
+      <div class="q-header">
+        <div class="q-head-left">
+          <span class="q-icon">🚀</span>
+          <span class="q-label">Opportunities</span>
+          <span class="q-count" x-text="count('opportunities')"></span>
+        </div>
+        <div class="q-head-right">
+          <button class="q-ico-btn danger" @click="clearQuadrant('opportunities')" title="Clear all">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="q-items">
+        <div class="q-empty" x-show="!data.opportunities.length">External positive factors…</div>
+        <template x-for="item in data.opportunities" :key="item.id">
+          <div class="swot-item"
+               :class="{'drag-over': dragOverId===item.id}"
+               draggable="true"
+               @dragstart="dragStart('opportunities',item.id)"
+               @dragenter.prevent="dragEnterItem(item.id)"
+               @dragleave="dragLeaveItem()"
+               @dragover.prevent
+               @drop.prevent="dropItem('opportunities',item.id)"
+               @dragend="dragEnd()">
+            <div class="item-drag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="16" y2="18"/></svg></div>
+            <div class="item-body">
+              <div class="item-text" x-text="item.text"></div>
+              <div class="item-note" x-show="item.note" x-text="item.note"></div>
+            </div>
+            <div class="item-side">
+              <div class="priority-dot" :style="`background:${priorityColor(item.priority)}`" :title="priorityLabel(item.priority)+' priority'"></div>
+              <div class="item-actions">
+                <button class="item-act-btn" @click.stop="openEdit('opportunities',item)" title="Edit">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </button>
+                <button class="item-act-btn del" @click.stop="deleteItem('opportunities',item.id)" title="Delete">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+      <button class="q-add-btn" @click="openAdd('opportunities')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Opportunity
+      </button>
+    </div>
+
+    <!-- ─── Threats ─── -->
+    <div class="quadrant t">
+      <div class="q-header">
+        <div class="q-head-left">
+          <span class="q-icon">⚡</span>
+          <span class="q-label">Threats</span>
+          <span class="q-count" x-text="count('threats')"></span>
+        </div>
+        <div class="q-head-right">
+          <button class="q-ico-btn danger" @click="clearQuadrant('threats')" title="Clear all">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="q-items">
+        <div class="q-empty" x-show="!data.threats.length">External negative factors…</div>
+        <template x-for="item in data.threats" :key="item.id">
+          <div class="swot-item"
+               :class="{'drag-over': dragOverId===item.id}"
+               draggable="true"
+               @dragstart="dragStart('threats',item.id)"
+               @dragenter.prevent="dragEnterItem(item.id)"
+               @dragleave="dragLeaveItem()"
+               @dragover.prevent
+               @drop.prevent="dropItem('threats',item.id)"
+               @dragend="dragEnd()">
+            <div class="item-drag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="16" y2="18"/></svg></div>
+            <div class="item-body">
+              <div class="item-text" x-text="item.text"></div>
+              <div class="item-note" x-show="item.note" x-text="item.note"></div>
+            </div>
+            <div class="item-side">
+              <div class="priority-dot" :style="`background:${priorityColor(item.priority)}`" :title="priorityLabel(item.priority)+' priority'"></div>
+              <div class="item-actions">
+                <button class="item-act-btn" @click.stop="openEdit('threats',item)" title="Edit">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </button>
+                <button class="item-act-btn del" @click.stop="deleteItem('threats',item.id)" title="Delete">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+      <button class="q-add-btn" @click="openAdd('threats')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Threat
+      </button>
+    </div>
+
+  </div><!-- /swot-grid -->
+
+  <!-- ══ FORM MODAL ════════════════════════════════ -->
+  <div class="modal-overlay" x-show="showForm" x-cloak @click.self="showForm=false">
+    <div class="modal-box">
+      <div class="modal-title">
+        <div class="modal-accent-dot" :style="`background:${quadrantMeta(editQ)?.accent || '#a78bfa'}`"></div>
+        <span x-text="(editId !== null ? 'Edit' : 'Add') + ' — ' + (quadrantMeta(editQ)?.label || '')"></span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Item *</label>
+        <input class="form-input" x-model="editText" x-ref="swotInput" placeholder="Describe the factor…" maxlength="200" @keydown.enter="saveForm()"/>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Note (optional)</label>
+        <textarea class="form-textarea" x-model="editNote" placeholder="Additional context or evidence…" maxlength="400"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Priority</label>
+        <div class="priority-row">
+          <button class="pri-btn" data-p="high"   :class="{active: editPriority==='high'}"   @click="editPriority='high'">High</button>
+          <button class="pri-btn" data-p="medium" :class="{active: editPriority==='medium'}" @click="editPriority='medium'">Medium</button>
+          <button class="pri-btn" data-p="low"    :class="{active: editPriority==='low'}"    @click="editPriority='low'">Low</button>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="modal-save"   @click="saveForm()" :disabled="!editText.trim()">Save</button>
+        <button class="modal-cancel" @click="showForm=false">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ INFO SECTIONS ════════════════════════════ -->
+  <div class="info-sections">
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h2>About This Tool</h2>
+      </div>
+      <div class="info-body">
+        <p><strong>SWOT Analysis Maker</strong> is a free, browser-based tool for building structured strategic analysis matrices. It covers all four SWOT quadrants — <strong>Strengths</strong> (internal advantages), <strong>Weaknesses</strong> (internal disadvantages), <strong>Opportunities</strong> (external positives), and <strong>Threats</strong> (external risks).</p>
+        <p>Each item supports a short text entry, an optional explanatory note, and a <strong>priority level</strong> (High / Medium / Low) shown as a colour-coded dot. Items are draggable within each quadrant for custom ordering. The analysis auto-saves in your browser with every change — no account required.</p>
+        <p>Use SWOT analyses for product strategy, business planning, project kick-offs, competitive assessments, career planning, or any decision that benefits from structured thinking about internal capabilities versus external conditions.</p>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h2>How to Use</h2>
+      </div>
+      <div class="info-body">
+        <ul>
+          <li><strong>Title your analysis</strong> using the title and subtitle fields at the top. These appear in exports.</li>
+          <li><strong>Add items</strong> to any quadrant by clicking the "Add …" button at the bottom of each card. Enter the factor text, an optional note, and select a priority level.</li>
+          <li><strong>Edit or delete</strong> items by hovering and clicking the pencil or bin icon on the right side of each item.</li>
+          <li><strong>Reorder</strong> items within a quadrant by dragging them up or down.</li>
+          <li><strong>Priority dots</strong>: 🔴 High, 🟡 Medium, 🟢 Low — visible at a glance without expanding each item.</li>
+          <li><strong>Export:</strong> click PNG to download an image, or PDF for a document-ready version. Both capture the full 2×2 grid including your title.</li>
+          <li><strong>Backup:</strong> use "JSON" to copy the full analysis as JSON. "Import" to paste it back on any device.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h2>Logic &amp; Background</h2>
+      </div>
+      <div class="info-body">
+        <p><strong>SWOT</strong> was developed in the 1960s–70s at Stanford Research Institute. The 2×2 matrix classifies factors along two axes: <em>internal vs. external</em> origin, and <em>helpful vs. harmful</em> effect. This creates four quadrants that together give a 360° view of a situation.</p>
+        <p>The key distinction: <strong>Strengths and Weaknesses</strong> describe what you <em>control</em> (skills, resources, processes, reputation). <strong>Opportunities and Threats</strong> describe the <em>environment</em> you operate in (market trends, competition, regulations, technology shifts).</p>
+        <p>Effective SWOT items are <strong>specific and actionable</strong> — not "good team" but "5-person team with domain expertise in logistics software." Prioritising items (High / Medium / Low) helps focus strategy: cross-reference High-priority Strengths against High-priority Opportunities to find where to invest, or High-priority Weaknesses against High-priority Threats to find where to defend.</p>
+        <p>State is stored in <code>localStorage</code> via Alpine.js reactive watchers and persists across sessions. Export uses <code>html2canvas</code> at 2× DPR scale for crisp output, fed into <code>jsPDF</code> for PDF generation — both loaded on-demand via dynamic import.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ══ Related Tools ════════════════════════════ -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>Related Tools</h2>
+      <a href="../../tools.html" class="view-all-link">All Tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="related-grid">
+      <a class="related-tool-card" href="timeline-maker.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#14b8a6,#0d9488)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12"/><circle cx="6" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="18" cy="12" r="2" fill="currentColor"/></svg>
+        </div>
+        <div class="rt-name">Timeline Maker</div>
+        <div class="rt-desc">Build vertical or horizontal visual timelines with custom events and dates.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="json-to-chart.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="rt-name">JSON to Chart</div>
+        <div class="rt-desc">Paste or upload JSON data and generate charts instantly.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="chart-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#3b82f6,#2563eb)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg>
+        </div>
+        <div class="rt-name">Chart Generator</div>
+        <div class="rt-desc">Create bar, line, pie, radar, and scatter charts from your data.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="../math/twos-complement.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M21 14h-4M21 17h-4M21 20h-4"/></svg>
+        </div>
+        <div class="rt-name">Two's Complement</div>
+        <div class="rt-desc">Convert signed integers to two's complement binary with step-by-step.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Related Blog -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>From the Blog</h2>
+      <a href="../../blog.html" class="view-all-link">All Posts <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="blog-grid">
+      <a class="blog-card" href="../../blog/swot-analysis-guide.html">
+        <span class="blog-cat" style="background:rgba(167,139,250,.1);color:#c4b5fd;">Strategy</span>
+        <div class="blog-title">How to Run a SWOT Analysis That Actually Drives Decisions</div>
+        <div class="blog-excerpt">Step-by-step guide for building a useful SWOT matrix — what to include, what to avoid, and how to turn findings into actions.</div>
+        <div class="blog-meta">May 2025 · 7 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/strategic-planning-frameworks.html">
+        <span class="blog-cat" style="background:rgba(96,165,250,.1);color:#93c5fd;">Business</span>
+        <div class="blog-title">Strategic Planning Frameworks: SWOT, PESTLE, Porter's Five Forces</div>
+        <div class="blog-excerpt">When to use SWOT vs. PESTLE vs. Porter's Five Forces — a practical guide to choosing the right analysis tool.</div>
+        <div class="blog-meta">April 2025 · 8 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/product-strategy-tools.html">
+        <span class="blog-cat" style="background:rgba(20,184,166,.1);color:#5eead4;">Product</span>
+        <div class="blog-title">5 Tools Every Product Manager Needs for Strategy Sessions</div>
+        <div class="blog-excerpt">From SWOT matrices to opportunity canvases — the lightweight tools that make strategy sessions more productive.</div>
+        <div class="blog-meta">March 2025 · 5 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Report -->
+  <div style="text-align:center;padding:24px 0 0;" x-data="{open:false,reason:'',details:'',submitted:false}">
+    <button style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--faint);cursor:pointer;" @click="open=true">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Report an Issue
+    </button>
+    <div style="position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;" x-show="open" x-cloak @click.self="open=false">
+      <div style="background:var(--card);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:440px;padding:28px;">
+        <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:6px;">Report an Issue</h3>
+        <p style="font-size:.84rem;color:var(--text2);margin-bottom:18px;">Let us know what's wrong with <strong>SWOT Analysis Maker</strong>.</p>
+        <select style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;margin-bottom:12px;" x-model="reason">
+          <option value="">Select a reason…</option>
+          <option>Tool not working correctly</option>
+          <option>Export not working</option>
+          <option>UI / display issue</option>
+          <option>Missing feature</option>
+          <option>Other</option>
+        </select>
+        <textarea style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;min-height:88px;resize:vertical;font-family:inherit;margin-bottom:12px;" x-model="details" placeholder="Describe the issue (optional)…"></textarea>
+        <div style="display:flex;gap:10px;">
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:700;border:none;background:var(--agrad);color:#fff;cursor:pointer;" :style="!reason?'opacity:.4;cursor:default':''" @click="submitted=true;setTimeout(()=>{open=false;submitted=false},2000)" :disabled="!reason">Submit</button>
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;" @click="open=false">Cancel</button>
+        </div>
+        <p style="margin-top:12px;text-align:center;font-size:.82rem;color:#86efac;" x-show="submitted">Thank you — report received!</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ TOAST ══════════════════════════════════════ -->
+<div class="swot-toast" x-show="toast" x-cloak x-text="toast"></div>
+
+<!-- ══ FOOTER ════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#flg)"/>
+          <rect x="6" y="6"  width="12" height="12" rx="3" fill="rgba(34,197,94,.7)"/>
+          <rect x="22" y="6"  width="12" height="12" rx="3" fill="rgba(248,113,113,.7)"/>
+          <rect x="6" y="22" width="12" height="12" rx="3" fill="rgba(96,165,250,.7)"/>
+          <rect x="22" y="22" width="12" height="12" rx="3" fill="rgba(251,191,36,.7)"/>
+          <defs><linearGradient id="flg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free online tools for developers, designers, and data people.</p>
+    </div>
+    <nav class="footer-nav-wrap">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=Productivity">Productivity</a>
+        <a href="../../tools.html?cat=Design">Design</a>
+        <a href="../../tools.html?cat=Math">Math</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../about.html">About</a>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy</a>
+        <a href="../../terms.html">Terms</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="inner">
+      <p>&copy; 2025 The Tool Empire. All rights reserved.</p>
+      <p>Built with Alpine.js</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

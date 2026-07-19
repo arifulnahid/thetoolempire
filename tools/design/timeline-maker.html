@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Timeline Maker — Create Visual Timelines Online Free | The Tool Empire</title>
+<meta name="description" content="Free online timeline maker. Create beautiful vertical or horizontal timelines, add events with dates, descriptions and colors, then export as PNG or PDF."/>
+<meta name="keywords" content="timeline maker, timeline creator, online timeline, visual timeline, project timeline, history timeline, free timeline tool"/>
+<meta name="robots" content="index,follow"/>
+<meta name="author" content="The Tool Empire"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/design/timeline-maker.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Timeline Maker — Create Visual Timelines Online Free"/>
+<meta property="og:description" content="Build beautiful vertical or horizontal timelines with custom colors, dates, and descriptions. Export as PNG or PDF — no sign-up needed."/>
+<meta property="og:url" content="https://thetoolempire.com/tools/design/timeline-maker.html"/>
+<meta property="og:site_name" content="The Tool Empire"/>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":"SoftwareApplication","name":"Timeline Maker","applicationCategory":"UtilityApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/design/timeline-maker.html","description":"Free browser-based timeline maker. Create vertical or horizontal visual timelines with custom events, dates, colors, and descriptions. Export as PNG or PDF.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+    {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+    {"@type":"ListItem","position":3,"name":"Design Tools","item":"https://thetoolempire.com/tools.html#design"},
+    {"@type":"ListItem","position":4,"name":"Timeline Maker","item":"https://thetoolempire.com/tools/design/timeline-maker.html"}
+  ]}
+]}</script>
+
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+<link rel="manifest" href="../../manifest.json"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<link rel="stylesheet" href="timeline-maker.css"/>
+<link rel="stylesheet" href="../../assets/css/report-modal.css"/>
+<script src="timeline-maker.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="timelineMakerApp()" x-init="init()">
+
+<!-- ══ HEADER ════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hg)"/>
+        <line x1="8" y1="20" x2="32" y2="20" stroke="#fff" stroke-width="2"/>
+        <circle cx="13" cy="20" r="3" fill="#fff"/>
+        <circle cx="22" cy="20" r="3" fill="#fff"/>
+        <circle cx="31" cy="20" r="3" fill="#fff"/>
+        <line x1="13" y1="20" x2="13" y2="12" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+        <line x1="22" y1="20" x2="22" y2="28" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+        <line x1="31" y1="20" x2="31" y2="12" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#14b8a6"/><stop offset="1" stop-color="#0d9488"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Design Tools
+  </div>
+  <h1><span class="g">Timeline</span> Maker</h1>
+  <p>Build beautiful vertical or horizontal timelines with custom events, colors, and dates. Export as PNG or PDF.</p>
+</div>
+
+<!-- ══ TOOL ══════════════════════════════════════════════ -->
+<div class="page-wrap">
+  <div class="tl-layout">
+
+    <!-- ── Sidebar ──────────────────────────────────────── -->
+    <aside class="tl-sidebar">
+
+      <!-- Timeline settings -->
+      <div class="sidebar-card">
+        <div class="sc-label">Timeline Settings</div>
+        <input class="tl-title-input" x-model="title" placeholder="Timeline title…" maxlength="80"/>
+        <input class="tl-sub-input"   x-model="subtitle" placeholder="Subtitle or date range (optional)…" maxlength="100"/>
+        <div class="opts-row" style="margin-top:10px;">
+          <button class="opt-toggle" :class="{on: showDates}"  @click="showDates=!showDates">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Dates
+          </button>
+          <button class="opt-toggle" :class="{on: showYear}"   @click="showYear=!showYear">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+            Year
+          </button>
+          <button class="opt-toggle" :class="{on: sortByDate}" @click="sortByDate=!sortByDate">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+            Sort
+          </button>
+        </div>
+      </div>
+
+      <!-- Events list -->
+      <div class="sidebar-card">
+        <div class="sc-label">Events (<span x-text="events.length"></span>)</div>
+
+        <div class="event-list" id="evList">
+          <template x-if="!events.length">
+            <div style="text-align:center;padding:16px;color:var(--faint);font-size:.8rem;">No events yet. Add one below.</div>
+          </template>
+          <template x-for="ev in sorted" :key="ev.id">
+            <div class="ev-item"
+                 :class="{'drag-over': dragOver===ev.id}"
+                 draggable="true"
+                 @dragstart="dragStart(ev.id)"
+                 @dragenter.prevent="dragEnter(ev.id)"
+                 @dragleave="dragLeave()"
+                 @dragover.prevent
+                 @drop.prevent="drop(ev.id)"
+                 @dragend="dragEnd()">
+              <div class="drag-handle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
+              </div>
+              <div class="ev-dot" :style="`background:${getColor(ev.color).bg}`"></div>
+              <div class="ev-item-title" x-text="ev.title"></div>
+              <div class="ev-item-date" x-text="formatDate(ev.date)"></div>
+              <div class="ev-item-actions">
+                <button class="ev-ico-btn" @click.stop="openEdit(ev)" title="Edit">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </button>
+                <button class="ev-ico-btn del" @click.stop="deleteEvent(ev.id)" title="Delete">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                </button>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <button class="action-btn primary" style="margin-top:10px;" @click="openAdd()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Event
+        </button>
+      </div>
+
+      <!-- Import / export -->
+      <div class="sidebar-card">
+        <div class="sc-label">Data</div>
+        <button class="action-btn" @click="copyJson()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy as JSON
+        </button>
+        <button class="action-btn" @click="importJson()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Import JSON
+        </button>
+        <button class="action-btn danger" @click="clearAll()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6M9 6V4h6v2"/></svg>
+          Clear All
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- ── Canvas ────────────────────────────────────────── -->
+    <div class="tl-canvas-wrap">
+
+      <!-- Toolbar -->
+      <div class="canvas-toolbar">
+        <div class="ct-left">
+          <button class="ct-btn" :class="{active: layout==='vertical'}"   @click="layout='vertical'">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22"/><circle cx="12" cy="6" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="18" r="2"/></svg>
+            Vertical
+          </button>
+          <button class="ct-btn" :class="{active: layout==='horizontal'}" @click="layout='horizontal'">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/></svg>
+            Horizontal
+          </button>
+        </div>
+        <div class="ct-right">
+          <button class="dl-btn" :class="{loading: exporting}" @click="exportPng()" :disabled="exporting">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span x-text="exporting ? 'Exporting…' : 'PNG'"></span>
+          </button>
+          <button class="dl-btn" :class="{loading: exporting}" @click="exportPdf()" :disabled="exporting">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+            PDF
+          </button>
+        </div>
+      </div>
+
+      <!-- Timeline canvas -->
+      <div class="tl-canvas" x-ref="tlCanvas">
+
+        <!-- Header -->
+        <div class="tl-header" x-show="title || subtitle">
+          <div class="tl-main-title" x-text="title"></div>
+          <div class="tl-main-sub"   x-show="subtitle" x-text="subtitle"></div>
+        </div>
+
+        <!-- Empty state -->
+        <div class="empty-state" x-show="!events.length">
+          <div class="empty-icon">📅</div>
+          <p>Add events in the sidebar to build your timeline</p>
+        </div>
+
+        <!-- ─── VERTICAL ─── -->
+        <div class="tl-vertical" x-show="layout==='vertical' && events.length">
+          <div class="tl-vertical-line"></div>
+          <div class="tl-events-v">
+            <template x-for="ev in sorted" :key="ev.id">
+              <div class="tl-event-v">
+                <!-- Content (alternates sides) -->
+                <div class="ev-content-v">
+                  <div class="ev-card-v" :style="`border-color:${getColor(ev.color).bg}33`">
+                    <div class="ev-card-date" x-show="showDates && ev.date" :style="`color:${getColor(ev.color).bg}`" x-text="dateRange(ev)"></div>
+                    <div class="ev-card-title" x-text="ev.title"></div>
+                    <div class="ev-card-desc"  x-show="ev.desc" x-text="ev.desc"></div>
+                  </div>
+                </div>
+                <!-- Node -->
+                <div class="ev-node-v">
+                  <div class="ev-dot-v" :style="`background:${getColor(ev.color).bg};box-shadow:0 0 0 2px ${getColor(ev.color).bg}`"></div>
+                  <div class="ev-line-v"></div>
+                </div>
+                <!-- Spacer -->
+                <div class="ev-spacer-v"></div>
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <!-- ─── HORIZONTAL ─── -->
+        <div class="tl-horizontal" x-show="layout==='horizontal' && events.length">
+          <div class="tl-h-inner">
+            <!-- Top cards (odd indices) -->
+            <div class="tl-h-top">
+              <template x-for="(ev, i) in sorted" :key="'ht'+ev.id">
+                <div class="h-ev-top" x-show="i % 2 === 0">
+                  <div class="ev-card-h" :style="`border-color:${getColor(ev.color).bg}33`">
+                    <div class="ev-card-date" x-show="showDates && ev.date" :style="`color:${getColor(ev.color).bg}`" x-text="dateRange(ev)"></div>
+                    <div class="ev-card-title" x-text="ev.title"></div>
+                    <div class="ev-card-desc"  x-show="ev.desc" x-text="ev.desc"></div>
+                  </div>
+                </div>
+                <div class="h-ev-top" x-show="i % 2 !== 0" style="visibility:hidden;">
+                  <div class="ev-card-h"><div class="ev-card-title">&nbsp;</div></div>
+                </div>
+              </template>
+            </div>
+            <!-- Line -->
+            <div class="tl-h-line">
+              <template x-for="(ev, i) in sorted" :key="'hl'+ev.id">
+                <div class="h-line-seg">
+                  <div class="h-line-track" x-show="i > 0"></div>
+                  <div class="h-line-node" :style="`background:${getColor(ev.color).bg};box-shadow:0 0 0 2px ${getColor(ev.color).bg}`"></div>
+                  <div class="h-line-track" x-show="i < sorted.length - 1"></div>
+                </div>
+              </template>
+            </div>
+            <!-- Bottom cards (even indices offset) -->
+            <div class="tl-h-bot">
+              <template x-for="(ev, i) in sorted" :key="'hb'+ev.id">
+                <div class="h-ev-bot" x-show="i % 2 !== 0">
+                  <div class="ev-card-h" :style="`border-color:${getColor(ev.color).bg}33`">
+                    <div class="ev-card-date" x-show="showDates && ev.date" :style="`color:${getColor(ev.color).bg}`" x-text="dateRange(ev)"></div>
+                    <div class="ev-card-title" x-text="ev.title"></div>
+                    <div class="ev-card-desc"  x-show="ev.desc" x-text="ev.desc"></div>
+                  </div>
+                </div>
+                <div class="h-ev-bot" x-show="i % 2 === 0" style="visibility:hidden;">
+                  <div class="ev-card-h"><div class="ev-card-title">&nbsp;</div></div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /tl-canvas -->
+    </div><!-- /tl-canvas-wrap -->
+
+  </div><!-- /tl-layout -->
+
+  <!-- ══ EVENT FORM MODAL ════════════════════════════════ -->
+  <div class="modal-overlay" x-show="showForm" x-cloak @click.self="showForm=false">
+    <div class="modal-box">
+      <div class="modal-title" x-text="editId !== null ? 'Edit Event' : 'Add Event'"></div>
+
+      <div class="form-group">
+        <label class="form-label">Event Title *</label>
+        <input class="form-input" x-model="form.title" x-ref="formTitle" placeholder="e.g. Product Launch" @keydown.enter="saveForm()" maxlength="100"/>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Date(s)</label>
+        <div class="date-row">
+          <input class="form-input" x-model="form.date"    type="date" placeholder="Start date"/>
+          <input class="form-input" x-model="form.endDate" type="date" placeholder="End date (opt)"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-textarea" x-model="form.desc" placeholder="Event details…" maxlength="300"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Color</label>
+        <div class="color-row">
+          <template x-for="c in $store ? [] : []"></template>
+          <button class="color-chip" style="background:#8b5cf6" :class="{active:form.color==='violet'}" @click="form.color='violet'" title="Violet"></button>
+          <button class="color-chip" style="background:#3b82f6" :class="{active:form.color==='blue'}"   @click="form.color='blue'"   title="Blue"></button>
+          <button class="color-chip" style="background:#06b6d4" :class="{active:form.color==='cyan'}"   @click="form.color='cyan'"   title="Cyan"></button>
+          <button class="color-chip" style="background:#10b981" :class="{active:form.color==='green'}"  @click="form.color='green'"  title="Green"></button>
+          <button class="color-chip" style="background:#f59e0b" :class="{active:form.color==='amber'}"  @click="form.color='amber'"  title="Amber"></button>
+          <button class="color-chip" style="background:#f97316" :class="{active:form.color==='orange'}" @click="form.color='orange'" title="Orange"></button>
+          <button class="color-chip" style="background:#f43f5e" :class="{active:form.color==='rose'}"   @click="form.color='rose'"   title="Rose"></button>
+          <button class="color-chip" style="background:#ec4899" :class="{active:form.color==='pink'}"   @click="form.color='pink'"   title="Pink"></button>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="modal-save"   @click="saveForm()"      :disabled="!form.title.trim()">Save</button>
+        <button class="modal-cancel" @click="showForm=false">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ INFO SECTIONS ════════════════════════════════════ -->
+  <div class="info-sections">
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h2>About This Tool</h2>
+      </div>
+      <div class="info-body">
+        <p><strong>Timeline Maker</strong> is a free browser-based tool for creating clean, visual timelines — project roadmaps, historical timelines, personal milestones, or any sequence of events.</p>
+        <p>It supports two layouts: <strong>Vertical</strong> (classic alternating-card style) and <strong>Horizontal</strong> (swimlane style, great for project phases). Each event gets a title, optional start and end dates, a description, and a colour. Events can be ordered automatically by date or dragged into a custom order. Your timeline saves automatically in the browser — no account required.</p>
+        <p>Export options include <strong>PNG</strong> (for presentations or sharing) and <strong>PDF</strong> (for printing or documents). You can also copy the timeline data as JSON and import it back at any time.</p>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h2>How to Use</h2>
+      </div>
+      <div class="info-body">
+        <ul>
+          <li><strong>Add events</strong> using the "Add Event" button in the sidebar. Fill in the title (required), dates, description, and pick a colour.</li>
+          <li><strong>Edit or delete</strong> any event by hovering over it in the sidebar list and clicking the edit (pencil) or delete (bin) icon.</li>
+          <li><strong>Reorder</strong> events by dragging them in the sidebar list. Turn off "Sort by Date" first to enable free ordering.</li>
+          <li><strong>Switch layouts</strong> between Vertical and Horizontal using the buttons above the canvas.</li>
+          <li><strong>Toggle options</strong>: show/hide dates and years, or enable date-based auto-sorting.</li>
+          <li><strong>Export:</strong> click PNG or PDF in the canvas toolbar. The download captures the entire timeline canvas.</li>
+          <li><strong>Backup:</strong> use "Copy as JSON" to save the full timeline data. Paste it back with "Import JSON" to restore.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h2>Logic &amp; Technical Notes</h2>
+      </div>
+      <div class="info-body">
+        <p>All state is managed with <strong>Alpine.js v3</strong> and persisted to <code>localStorage</code> — the timeline auto-saves on every change and is restored on page load. Event ordering follows either ISO 8601 date sorting (<code>new Date(dateString)</code>) or the user's custom drag order stored in array position.</p>
+        <p>The vertical layout uses a two-column CSS Grid with alternating <code>nth-child(odd/even)</code> placement. The horizontal layout uses <code>min-width: max-content</code> flex rows with events staggered above and below the central line by index parity.</p>
+        <p><strong>Export</strong> uses <code>html2canvas</code> (rendered at 2× scale for retina quality) then <code>jsPDF</code> for PDF output. Both libraries are loaded on-demand via dynamic <code>import()</code> from jsDelivr CDN so they don't affect initial page load. JSON import/export uses <code>JSON.parse</code> / <code>navigator.clipboard</code>, with new <code>id</code> values assigned on import to prevent collisions.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ══ Related Tools ════════════════════════════════════ -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>Related Tools</h2>
+      <a href="../../tools.html" class="view-all-link">All Tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="related-grid">
+      <a class="related-tool-card" href="json-to-chart.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="rt-name">JSON to Chart</div>
+        <div class="rt-desc">Paste or upload JSON data and generate beautiful charts instantly.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="chart-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#3b82f6,#2563eb)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="9 9 12 6 15 9"/><line x1="12" y1="6" x2="12" y2="18"/></svg>
+        </div>
+        <div class="rt-name">Chart Generator</div>
+        <div class="rt-desc">Create bar, line, pie, radar, and scatter charts from your data.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="gradient-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#f97316,#ea580c)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><defs/><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20"/></svg>
+        </div>
+        <div class="rt-name">Gradient Generator</div>
+        <div class="rt-desc">Build custom CSS gradients with full color-stop control.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="color-picker.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#10b981,#059669)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <div class="rt-name">Color Picker</div>
+        <div class="rt-desc">Pick, convert, and explore colors in HEX, RGB, HSL, and CMYK.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ Related Blog ══════════════════════════════════════ -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>From the Blog</h2>
+      <a href="../../blog.html" class="view-all-link">All Posts <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="blog-grid">
+      <a class="blog-card" href="../../blog/timeline-best-practices.html">
+        <span class="blog-cat" style="background:rgba(20,184,166,.1);color:#5eead4;">Design</span>
+        <div class="blog-title">Timeline Design Best Practices for Projects</div>
+        <div class="blog-excerpt">How to structure milestones, pick the right granularity, and communicate timelines clearly to stakeholders.</div>
+        <div class="blog-meta">May 2025 · 5 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/project-roadmap-guide.html">
+        <span class="blog-cat" style="background:rgba(139,92,246,.1);color:#c4b5fd;">Project Mgmt</span>
+        <div class="blog-title">How to Build a Project Roadmap That Teams Actually Use</div>
+        <div class="blog-excerpt">Practical advice on creating living roadmaps that stay relevant through sprints and shifting priorities.</div>
+        <div class="blog-meta">April 2025 · 7 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/data-visualization-tips.html">
+        <span class="blog-cat" style="background:rgba(59,130,246,.1);color:#93c5fd;">Data Viz</span>
+        <div class="blog-title">Data Visualization: Choosing the Right Chart Type</div>
+        <div class="blog-excerpt">When to use timelines, Gantt charts, bar charts, and when each format misleads rather than informs.</div>
+        <div class="blog-meta">March 2025 · 6 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Report -->
+  <div style="text-align:center;padding:24px 0 0;" x-data="{open:false,reason:'',details:'',submitted:false}">
+    <button style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--faint);cursor:pointer;transition:all .14s;" @click="open=true" onmouseover="this.style.borderColor='#f87171';this.style.color='#f87171'" onmouseout="this.style.borderColor='';this.style.color=''">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Report an Issue
+    </button>
+    <div style="position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;" x-show="open" x-cloak @click.self="open=false">
+      <div style="background:var(--card);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:440px;padding:28px;">
+        <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:6px;">Report an Issue</h3>
+        <p style="font-size:.84rem;color:var(--text2);margin-bottom:18px;">Let us know what's wrong with <strong>Timeline Maker</strong>.</p>
+        <select style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;margin-bottom:12px;" x-model="reason">
+          <option value="">Select a reason…</option>
+          <option>Tool not working correctly</option>
+          <option>Export not working</option>
+          <option>UI / display issue</option>
+          <option>Missing feature</option>
+          <option>Other</option>
+        </select>
+        <textarea style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;min-height:88px;resize:vertical;font-family:inherit;margin-bottom:12px;" x-model="details" placeholder="Describe the issue (optional)…"></textarea>
+        <div style="display:flex;gap:10px;">
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:700;border:none;background:var(--agrad);color:#fff;cursor:pointer;opacity:1;" :style="!reason?'opacity:.4;cursor:default':''" @click="submitted=true;setTimeout(()=>{open=false;submitted=false},2000)" :disabled="!reason">Submit</button>
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;" @click="open=false">Cancel</button>
+        </div>
+        <p style="margin-top:12px;text-align:center;font-size:.82rem;color:#86efac;" x-show="submitted">Thank you — report received!</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ TOAST ════════════════════════════════════════════ -->
+<div class="tl-toast" x-show="toast" x-cloak x-text="toast"></div>
+
+<!-- ══ FOOTER ════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#flg)"/>
+          <line x1="8" y1="20" x2="32" y2="20" stroke="#fff" stroke-width="2"/>
+          <circle cx="13" cy="20" r="3" fill="#fff"/>
+          <circle cx="22" cy="20" r="3" fill="#fff"/>
+          <circle cx="31" cy="20" r="3" fill="#fff"/>
+          <defs><linearGradient id="flg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#14b8a6"/><stop offset="1" stop-color="#0d9488"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free online tools for developers, designers, and data people.</p>
+    </div>
+    <nav class="footer-nav-wrap">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=Design">Design</a>
+        <a href="../../tools.html?cat=Math">Math</a>
+        <a href="../../tools.html?cat=Dev">Developer</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../about.html">About</a>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy</a>
+        <a href="../../terms.html">Terms</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="inner">
+      <p>&copy; 2025 The Tool Empire. All rights reserved.</p>
+      <p>Built with Alpine.js</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

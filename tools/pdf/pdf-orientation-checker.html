@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>PDF Orientation Checker — Detect Portrait &amp; Landscape Pages | The Tool Empire</title>
+<meta name="description" content="Free PDF orientation checker. Instantly detect portrait, landscape, and square pages in any PDF. See thumbnails, dimensions, paper sizes, and rotation — no upload, 100% private."/>
+<meta name="keywords" content="pdf orientation checker, pdf page orientation, portrait landscape pdf, pdf dimensions, check pdf orientation, pdf page size checker, pdf rotation checker"/>
+<meta name="robots" content="index,follow"/>
+<meta name="author" content="The Tool Empire"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/pdf/pdf-orientation-checker.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="PDF Orientation Checker — Detect Portrait &amp; Landscape Pages"/>
+<meta property="og:description" content="Detect portrait, landscape, and square pages in any PDF. Shows thumbnails, dimensions in points, recognized paper sizes, and rotation angles. No upload required."/>
+<meta property="og:url" content="https://thetoolempire.com/tools/pdf/pdf-orientation-checker.html"/>
+<meta property="og:site_name" content="The Tool Empire"/>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[
+  {"@type":"SoftwareApplication","name":"PDF Orientation Checker","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/pdf/pdf-orientation-checker.html","description":"Free browser-based PDF orientation checker. Analyses every page of a PDF to detect portrait, landscape, and square pages. Shows thumbnails, exact dimensions in points, standard paper size names, and page rotation angles. No upload — 100% private.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+    {"@type":"ListItem","position":2,"name":"PDF Tools","item":"https://thetoolempire.com/tools.html#PDF"},
+    {"@type":"ListItem","position":3,"name":"PDF Orientation Checker","item":"https://thetoolempire.com/tools/pdf/pdf-orientation-checker.html"}
+  ]}
+]}</script>
+
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+<link rel="manifest" href="../../manifest.json"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<link rel="stylesheet" href="pdf-orientation-checker.css"/>
+<script src="pdf-orientation-checker.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="pdfOrientationApp()" x-init="init()" x-cloak>
+
+<!-- ══ HEADER ════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hg)"/>
+        <rect x="9" y="6" width="14" height="20" rx="2" fill="rgba(255,255,255,.85)"/>
+        <rect x="17" y="14" width="14" height="20" rx="2" fill="rgba(255,255,255,.95)"/>
+        <line x1="11" y1="11" x2="21" y2="11" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="11" y1="14" x2="20" y2="14" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="19" y1="19" x2="28" y2="19" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="19" y1="22" x2="27" y2="22" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round"/>
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#3b82f6"/><stop offset="1" stop-color="#1d4ed8"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    PDF Tools
+  </div>
+  <h1><span class="g">PDF Orientation</span> Checker</h1>
+  <p>Detect portrait, landscape, and square pages in any PDF — with thumbnails, exact dimensions, paper size names, and rotation angles. No upload. 100% private.</p>
+</div>
+
+<!-- ══ TOOL ══════════════════════════════════════════════ -->
+<div class="page-wrap">
+
+  <div class="tool-card">
+
+    <!-- ── ERROR BAR ── -->
+    <div class="error-bar" x-show="error" x-transition>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".5" fill="currentColor"/></svg>
+      <span x-text="error"></span>
+    </div>
+
+    <!-- ══ UPLOAD STATE ══ -->
+    <div x-show="stage==='upload'">
+      <label
+        class="drop-zone"
+        :class="{dragover: isDragOver}"
+        @dragover.prevent="isDragOver=true"
+        @dragleave.prevent="isDragOver=false"
+        @drop.prevent="onDrop($event)"
+        for="pdfFileInput"
+        role="button"
+        aria-label="Drop a PDF file here or click to browse"
+      >
+        <div class="drop-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="13" x2="12" y2="17"/><polyline points="9 15 12 18 15 15"/></svg>
+        </div>
+        <div class="drop-title">Drop your PDF here</div>
+        <div class="drop-sub">or</div>
+        <span class="drop-browse" tabindex="0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Browse PDF file
+        </span>
+        <div class="drop-privacy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Your file never leaves your device
+        </div>
+      </label>
+      <input id="pdfFileInput" type="file" accept=".pdf,application/pdf" style="display:none" @change="onFileInput($event)"/>
+    </div>
+
+    <!-- ══ PROCESSING STATE ══ -->
+    <div x-show="stage==='processing'" class="progress-wrap">
+      <div class="drop-icon" style="width:48px;height:48px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      </div>
+      <div class="progress-pct" x-text="progress + '%'"></div>
+      <div class="progress-bar-track" style="width:320px;">
+        <div class="progress-bar-fill" :style="`width:${progress}%`"></div>
+      </div>
+      <div class="progress-label" x-text="progressMsg || 'Preparing…'"></div>
+    </div>
+
+    <!-- ══ RESULTS STATE ══ -->
+    <div x-show="stage==='results'">
+
+      <!-- File info + actions -->
+      <div class="results-head">
+        <div class="results-file">
+          <div class="results-file-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div>
+            <div class="results-file-name" x-text="fileName"></div>
+            <div class="results-file-size" x-text="fileSizeLabel + ' · ' + pageCount + ' pages'"></div>
+          </div>
+        </div>
+        <div class="results-acts">
+          <button class="btn sm" @click="exportCSV()" :disabled="pages.some(p=>p.loading)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export CSV
+          </button>
+          <button class="btn sm" @click="reset()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.53"/></svg>
+            New PDF
+          </button>
+        </div>
+      </div>
+
+      <!-- Summary stats -->
+      <div class="summary-bar">
+        <div class="stat-card"
+          :class="filterOrient==='all' ? 'active' : ''"
+          @click="filterOrient='all'">
+          <span class="stat-dot total"></span>
+          <div class="stat-body">
+            <div class="stat-num" x-text="summary.total"></div>
+            <div class="stat-label">Total Pages</div>
+          </div>
+        </div>
+        <div class="stat-card"
+          :class="filterOrient==='Portrait' ? 'active-portrait' : ''"
+          @click="filterOrient = filterOrient==='Portrait' ? 'all' : 'Portrait'">
+          <span class="stat-dot portrait"></span>
+          <div class="stat-body">
+            <div class="stat-num" style="color:var(--portrait)" x-text="summary.portrait"></div>
+            <div class="stat-label">Portrait</div>
+          </div>
+        </div>
+        <div class="stat-card"
+          :class="filterOrient==='Landscape' ? 'active-landscape' : ''"
+          @click="filterOrient = filterOrient==='Landscape' ? 'all' : 'Landscape'">
+          <span class="stat-dot landscape"></span>
+          <div class="stat-body">
+            <div class="stat-num" style="color:var(--landscape)" x-text="summary.landscape"></div>
+            <div class="stat-label">Landscape</div>
+          </div>
+        </div>
+        <div class="stat-card"
+          :class="filterOrient==='Square' ? 'active-square' : ''"
+          @click="filterOrient = filterOrient==='Square' ? 'all' : 'Square'">
+          <span class="stat-dot square"></span>
+          <div class="stat-body">
+            <div class="stat-num" style="color:var(--square)" x-text="summary.square"></div>
+            <div class="stat-label">Square</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls bar -->
+      <div class="controls-bar">
+        <div class="filter-pills">
+          <button class="filter-pill" :class="filterOrient==='all' ? 'active' : ''" @click="filterOrient='all'">All</button>
+          <button class="filter-pill" :class="filterOrient==='Portrait' ? 'fp' : ''" @click="filterOrient = filterOrient==='Portrait' ? 'all' : 'Portrait'" x-show="summary.portrait > 0">Portrait</button>
+          <button class="filter-pill" :class="filterOrient==='Landscape' ? 'fl' : ''" @click="filterOrient = filterOrient==='Landscape' ? 'all' : 'Landscape'" x-show="summary.landscape > 0">Landscape</button>
+          <button class="filter-pill" :class="filterOrient==='Square' ? 'fs' : ''" @click="filterOrient = filterOrient==='Square' ? 'all' : 'Square'" x-show="summary.square > 0">Square</button>
+        </div>
+        <div class="view-toggle">
+          <button class="view-btn" :class="{active: viewMode==='grid'}" @click="viewMode='grid'" title="Grid view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </button>
+          <button class="view-btn" :class="{active: viewMode==='list'}" @click="viewMode='list'" title="List view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Empty filter state -->
+      <div class="filter-empty" x-show="filteredPages.length === 0 && !pages.some(p=>p.loading)">
+        No <span x-text="filterOrient.toLowerCase()"></span> pages in this PDF.
+      </div>
+
+      <!-- ── GRID VIEW ── -->
+      <div class="page-grid" x-show="viewMode==='grid'">
+        <template x-for="p in filteredPages" :key="p.num">
+          <div class="page-card">
+            <!-- Thumbnail -->
+            <div class="thumb-wrap" :style="p.thumb && !p.loading ? '' : 'min-height:80px;'">
+              <template x-if="p.loading">
+                <div class="thumb-skeleton" style="width:100%;min-height:80px;"></div>
+              </template>
+              <template x-if="!p.loading && p.thumb">
+                <img :src="p.thumb" :alt="'Page ' + p.num + ' thumbnail'" loading="lazy"/>
+              </template>
+              <template x-if="!p.loading">
+                <span class="page-num-badge" x-text="p.num"></span>
+              </template>
+              <template x-if="!p.loading && p.orientation">
+                <span class="orient-badge" :class="p.orientation.toLowerCase()" x-text="p.orientation"></span>
+              </template>
+            </div>
+            <!-- Info -->
+            <div class="page-card-info" x-show="!p.loading">
+              <div class="page-dims" x-text="p.width + ' × ' + p.height + ' pt'"></div>
+              <div class="page-size-name" x-text="p.sizeName" x-show="p.sizeName"></div>
+              <div class="page-rotation" x-text="'↻ ' + p.rotation + '°'" x-show="p.rotation !== 0"></div>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <!-- ── LIST VIEW ── -->
+      <div class="page-list" x-show="viewMode==='list'">
+        <!-- Header -->
+        <div class="list-row header-row">
+          <span style="text-align:center;">#</span>
+          <span></span>
+          <span>Dimensions</span>
+          <span>Size</span>
+          <span>Orientation</span>
+          <span>Rotation</span>
+        </div>
+        <template x-for="p in filteredPages" :key="p.num">
+          <div class="list-row">
+            <span class="list-pg-num" x-text="p.num"></span>
+            <div class="list-thumb-cell">
+              <template x-if="p.loading">
+                <div class="list-thumb-skel"></div>
+              </template>
+              <template x-if="!p.loading && p.thumb">
+                <img class="list-thumb" :src="p.thumb" :alt="'Page ' + p.num" loading="lazy"/>
+              </template>
+            </div>
+            <span class="list-dims" x-text="p.loading ? '…' : (p.width + ' × ' + p.height + ' pt')"></span>
+            <span class="list-size" x-text="p.sizeName || '—'"></span>
+            <span>
+              <span x-show="!p.loading" class="list-orient-badge" :class="p.orientation.toLowerCase()" x-text="p.orientation"></span>
+              <span x-show="p.loading" style="color:var(--faint);font-size:.76rem;">…</span>
+            </span>
+            <span class="list-rotation" x-text="p.loading ? '' : (p.rotation + '°')"></span>
+          </div>
+        </template>
+      </div>
+
+    </div><!-- /results -->
+
+  </div><!-- /tool-card -->
+
+  <!-- ══ INFO SECTIONS ══════════════════════════════════ -->
+  <div class="info-sections">
+
+    <!-- About -->
+    <div class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".5" fill="currentColor"/></svg>
+        </div>
+        <h2>About PDF Orientation Checker</h2>
+      </div>
+      <div class="info-body">
+        <p>Mixed-orientation PDFs — documents where some pages are portrait and others are landscape — are common in reports, presentations exported to PDF, or scanned documents. Identifying which pages need rotating before printing or merging can save significant time and paper waste.</p>
+        <p>This tool analyses every page of your PDF directly in the browser using PDF.js. It renders a thumbnail of each page and reports the visual orientation (portrait, landscape, or square), the exact dimensions in PDF points, the closest standard paper size (A4, Letter, A3, etc.), and the page's built-in rotation angle. Everything runs client-side — your file never leaves your device.</p>
+      </div>
+    </div>
+
+    <!-- How to Use -->
+    <div class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <h2>How to Use</h2>
+      </div>
+      <div class="info-body">
+        <ul>
+          <li><strong>Upload</strong> — Drag and drop a PDF onto the drop zone, or click "Browse PDF file" to select one from your device.</li>
+          <li><strong>Analysis</strong> — The tool processes each page sequentially. A progress bar and thumbnail grid appear as each page completes.</li>
+          <li><strong>Summary cards</strong> — Click a card (Portrait / Landscape / Square) to filter the grid to only those pages.</li>
+          <li><strong>Grid / List toggle</strong> — Switch between a visual grid with thumbnails or a compact list view showing all pages in a table.</li>
+          <li><strong>Export CSV</strong> — Download a spreadsheet with page number, width, height, orientation, rotation, and paper size name for every page.</li>
+          <li><strong>New PDF</strong> — Click "New PDF" to reset and analyse a different file.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Logic & Algorithm -->
+    <div class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h2>Logic &amp; Algorithm</h2>
+      </div>
+      <div class="info-body">
+        <p>The tool uses PDF.js (<code>pdfjs-dist@3.11.174</code>) to parse the PDF binary in-browser. Processing works page-by-page:</p>
+        <ul>
+          <li><strong>Dimension extraction</strong> — <code>page.getViewport({ scale: 1 })</code> returns the page's visual width and height in PDF user units (points, where 72 pt = 1 inch). This call automatically applies the page's built-in <code>/Rotate</code> value, so the dimensions reflect what the viewer renders, not the raw MediaBox.</li>
+          <li><strong>Orientation detection</strong> — <code>width &gt; height</code> → Landscape; <code>height &gt; width</code> → Portrait; <code>width === height</code> → Square.</li>
+          <li><strong>Rotation reporting</strong> — <code>page.rotate</code> exposes the explicit PDF rotation (0, 90, 180, or 270°). A page showing as landscape because of a <code>/Rotate 90</code> annotation will have its portrait native dimensions but correctly report a 90° rotation.</li>
+          <li><strong>Paper size identification</strong> — Detected dimensions are compared against standard sizes (A5, A4, A3, A2, B5, B4, Letter, Legal, Tabloid) using a ±3 pt tolerance to allow for rounding in PDF exporters.</li>
+          <li><strong>Thumbnails</strong> — Each page is rendered onto an off-screen <code>&lt;canvas&gt;</code> at a scale of <code>130 / max(width, height)</code> so the longest dimension is ≤ 130 px. The canvas is exported as a JPEG data URL at 0.75 quality. The pdfjsLib document object is kept outside the Alpine proxy to prevent serialisation errors.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ RELATED TOOLS ══════════════════════════════════ -->
+  <section class="related-section">
+    <div class="related-header">
+      <h2>Related Tools</h2>
+      <a href="../../tools.html" class="view-all-link">
+        View all tools
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <div class="related-grid">
+
+      <a href="rotate-pdf.html" class="related-tool-card">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><rect x="3" y="13" width="10" height="9" rx="1.5"/></svg>
+        </div>
+        <span class="rt-name">Rotate PDF</span>
+        <span class="rt-desc">Rotate individual or all pages left, right, or 180°. Live thumbnails, no upload.</span>
+        <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+      <a href="pdf-metadata.html" class="related-tool-card">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#6366f1,#4f46e5)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <span class="rt-name">PDF Metadata Editor</span>
+        <span class="rt-desc">View and edit PDF title, author, keywords, and dates. Lossless — content untouched.</span>
+        <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+      <a href="merge-pdf.html" class="related-tool-card">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#818cf8,#6366f1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6H3v16h13v-5"/><path d="M21 2H8v13h13V2z"/></svg>
+        </div>
+        <span class="rt-name">Merge PDF</span>
+        <span class="rt-desc">Combine multiple PDFs into one. Drag to reorder, preserves text and fonts.</span>
+        <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+      <a href="pdf-compressor.html" class="related-tool-card">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#14b8a6,#0d9488)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </div>
+        <span class="rt-name">PDF Compressor</span>
+        <span class="rt-desc">Reduce PDF file size with 4 quality presets. See before/after savings. No upload.</span>
+        <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ══ RELATED BLOG ═══════════════════════════════════ -->
+  <section class="related-section">
+    <div class="related-header">
+      <h2>From the Blog</h2>
+      <a href="../../blog.html" class="view-all-link">
+        All articles
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <div class="blog-grid">
+
+      <a href="../../blog.html" class="blog-card">
+        <span class="blog-cat" style="background:rgba(59,130,246,.1);color:#93c5fd;">PDF</span>
+        <span class="blog-title">Portrait vs. Landscape in PDFs: When Pages Go Sideways</span>
+        <span class="blog-excerpt">Why mixed-orientation PDFs happen, how to find them, and the best ways to fix them before printing or sending.</span>
+        <span class="blog-meta">5 min read</span>
+        <span class="blog-read">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+      <a href="../../blog.html" class="blog-card">
+        <span class="blog-cat" style="background:rgba(59,130,246,.1);color:#93c5fd;">PDF</span>
+        <span class="blog-title">Understanding PDF Page Sizes: A4, Letter, Legal, and Beyond</span>
+        <span class="blog-excerpt">A complete guide to the most common PDF paper sizes, their dimensions in points, millimetres, and inches, and when to use each.</span>
+        <span class="blog-meta">4 min read</span>
+        <span class="blog-read">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+      <a href="../../blog.html" class="blog-card">
+        <span class="blog-cat" style="background:rgba(59,130,246,.1);color:#93c5fd;">Productivity</span>
+        <span class="blog-title">The Best Free Browser-Based PDF Tools in 2025</span>
+        <span class="blog-excerpt">No installs, no uploads to third-party servers — these client-side PDF tools run entirely in your browser and keep your files private.</span>
+        <span class="blog-meta">6 min read</span>
+        <span class="blog-read">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+
+    </div>
+  </section>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ FOOTER ═════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#fg)"/>
+          <rect x="9" y="6" width="14" height="20" rx="2" fill="rgba(255,255,255,.85)"/>
+          <rect x="17" y="14" width="14" height="20" rx="2" fill="rgba(255,255,255,.95)"/>
+          <defs><linearGradient id="fg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#3b82f6"/><stop offset="1" stop-color="#1d4ed8"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free, fast, browser-based tools for creators and developers. No sign-up. No tracking. Just tools.</p>
+    </div>
+    <nav class="footer-nav-wrap">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html#PDF">PDF Tools</a>
+        <a href="../../tools.html#Utilities">Utilities</a>
+        <a href="../../tools.html#Image">Image Tools</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+        <a href="../../about.html">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../terms.html">Terms of Use</a>
+        <a href="../../sitemap.xml">Sitemap</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="inner">
+      <p>&copy; <span x-text="new Date().getFullYear()"></span> The Tool Empire. All rights reserved.</p>
+      <p>All tools run locally in your browser.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ REPORT MODAL ═══════════════════════════════════════ -->
+<script src="../../assets/js/report-modal.js"></script>
+<div x-data="reportModal()" x-cloak>
+  <button class="rm-trigger" @click="openModal()" aria-label="Report or send feedback">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+    Report / Feedback
+  </button>
+  <div class="rm-overlay" x-show="open"
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+    @click.self="closeModal()">
+    <div class="rm-modal" @click.stop>
+      <template x-if="!submitted">
+        <div>
+          <h3>Report / Feedback</h3>
+          <p>Found a bug or have a suggestion? We'd love to hear from you.</p>
+          <div class="rm-field">
+            <label>Type</label>
+            <select x-model="type">
+              <option value="bug">Bug Report</option>
+              <option value="feature">Feature Request</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="rm-field">
+            <label>Message</label>
+            <textarea x-model="message" placeholder="Describe the issue or suggestion…" rows="4"></textarea>
+          </div>
+          <div class="rm-field">
+            <label>Email (optional)</label>
+            <input type="email" x-model="email" placeholder="you@example.com"/>
+          </div>
+          <div class="rm-actions">
+            <button class="rm-btn" @click="closeModal()">Cancel</button>
+            <button class="rm-btn primary" @click="submitReport()" :disabled="!message.trim()">Send</button>
+          </div>
+        </div>
+      </template>
+      <template x-if="submitted">
+        <div class="rm-success">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <h3>Thank you!</h3>
+          <p>Your feedback has been received. We'll look into it soon.</p>
+        </div>
+      </template>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

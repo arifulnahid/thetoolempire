@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Breadcrumb Schema Generator — JSON-LD BreadcrumbList Structured Data | The Tool Empire</title>
+  <meta name="description" content="Generate JSON-LD BreadcrumbList structured data for Google rich results. Build your breadcrumb trail, preview the SERP path, validate the markup, and copy ready-to-paste code. Free, no signup."/>
+  <meta name="keywords" content="breadcrumb schema generator, json-ld breadcrumblist, breadcrumb structured data, google rich results breadcrumb, schema markup, seo structured data"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/seo/breadcrumb-schema-generator.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Breadcrumb Schema Generator — JSON-LD BreadcrumbList Structured Data"/>
+  <meta property="og:description" content="Build JSON-LD BreadcrumbList structured data for Google rich results. Enter your breadcrumb trail, preview the SERP path, validate, and copy the code."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/seo/breadcrumb-schema-generator.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"Breadcrumb Schema Generator","description":"Generate JSON-LD BreadcrumbList structured data for Google rich results. Build breadcrumb trails, preview the SERP path, validate, and copy ready-to-paste code.","url":"https://thetoolempire.com/tools/seo/breadcrumb-schema-generator.html","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"SEO Tools","item":"https://thetoolempire.com/tools.html#seo"},
+      {"@type":"ListItem","position":3,"name":"Breadcrumb Schema Generator","item":"https://thetoolempire.com/tools/seo/breadcrumb-schema-generator.html"}
+    ]}
+  ]}
+  </script>
+
+  <link rel="stylesheet" href="breadcrumb-schema-generator.css"/>
+</head>
+<body x-data="breadcrumbSchemaApp()" x-cloak>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <a href="../../index.html" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+    </div>
+    <span class="nav-logo-text">Tool Empire</span>
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-tool">Breadcrumb Schema Generator</span>
+  <div class="nav-spacer"></div>
+  <a href="../../tools.html" class="nav-tools-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    All Tools
+  </a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    SEO Structured Data
+  </div>
+  <h1>Breadcrumb <span>Schema Generator</span></h1>
+  <p class="hero-sub">Build JSON-LD BreadcrumbList markup for Google rich results — define your navigation path, preview the SERP trail, validate, and copy the code.</p>
+</section>
+
+<!-- ── TOOL CARD ── -->
+<div class="tool-card">
+  <div class="bc-layout">
+
+    <!-- LEFT: Editor -->
+    <div style="display:flex;flex-direction:column;gap:16px;">
+
+      <!-- Breadcrumb items -->
+      <div class="panel">
+        <div class="panel-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <span class="panel-title">Breadcrumb Trail</span>
+          <span class="panel-sub" x-text="filledCrumbs.length + ' of ' + crumbs.length + ' named'"></span>
+        </div>
+        <div class="panel-body">
+
+          <div class="crumb-list">
+            <template x-for="(crumb, idx) in crumbs" :key="crumb.id">
+              <div class="crumb-item">
+                <div class="crumb-item-header">
+                  <div class="crumb-pos" x-text="idx + 1"></div>
+                  <span class="crumb-preview" :class="crumb.name.trim() ? 'filled' : ''"
+                    x-text="crumb.name.trim() || 'Unnamed item'"></span>
+                  <div class="crumb-actions">
+                    <button class="crumb-act-btn" title="Move up" :disabled="idx===0" @click="moveUp(idx)">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+                    </button>
+                    <button class="crumb-act-btn" title="Move down" :disabled="idx===crumbs.length-1" @click="moveDown(idx)">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <button class="crumb-act-btn danger" title="Remove" @click="removeCrumb(crumb.id)" :disabled="crumbs.length<=1">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="crumb-item-body">
+                  <div>
+                    <div class="field-label">Name</div>
+                    <input class="crumb-input" type="text"
+                      :placeholder="idx===0 ? 'Home' : (idx===crumbs.length-1 ? 'Current Page' : 'Category')"
+                      x-model="crumb.name"/>
+                  </div>
+                  <div>
+                    <div class="field-label">URL</div>
+                    <input class="crumb-input url-input" type="url"
+                      :placeholder="idx===0 ? 'https://example.com/' : 'https://example.com/path/'"
+                      x-model="crumb.url"/>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+
+          <!-- Buttons -->
+          <div class="list-actions">
+            <button class="add-crumb-btn" @click="addCrumb()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Level
+            </button>
+            <button class="parse-toggle-btn" @click="showParse=!showParse">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+              Parse from URL
+            </button>
+            <button class="clear-btn" @click="clearAll()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+              Clear
+            </button>
+          </div>
+
+          <!-- Parse from URL -->
+          <div class="parse-panel" x-show="showParse" x-transition>
+            <p class="parse-hint">Paste a full URL and we'll auto-generate breadcrumb items from its path segments.</p>
+            <div class="parse-bar">
+              <input class="parse-input" type="url" placeholder="https://example.com/blog/seo/breadcrumbs"
+                x-model="parseInput" @keydown.enter="parseUrl()"/>
+              <button class="parse-btn" @click="parseUrl()">Parse</button>
+            </div>
+            <span class="parse-err" x-show="parseError" x-text="parseError"></span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: Preview + Validation + Code -->
+    <div class="right-col">
+
+      <!-- Trail visual -->
+      <div class="panel">
+        <div class="panel-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="panel-title">Trail Preview</span>
+        </div>
+        <div class="bc-trail-wrap">
+          <div class="bc-trail-label">Your breadcrumb path</div>
+          <template x-if="filledCrumbs.length === 0">
+            <div class="bc-trail-empty">Add names above to see the trail</div>
+          </template>
+          <div class="bc-trail" x-show="filledCrumbs.length > 0">
+            <template x-for="(c, i) in filledCrumbs" :key="c.id">
+              <div class="bc-trail-crumb">
+                <span class="bc-trail-name" :class="i===filledCrumbs.length-1?'last':''" x-text="c.name"></span>
+                <span class="bc-trail-sep" x-show="i < filledCrumbs.length - 1">›</span>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <!-- SERP Preview -->
+      <div class="panel">
+        <div class="panel-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <span class="panel-title">Google SERP Preview</span>
+        </div>
+        <div class="serp-wrap">
+          <div class="serp-top">
+            <div class="serp-breadcrumb">
+              <div class="serp-breadcrumb-favicon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7"/></svg>
+              </div>
+              <template x-if="filledCrumbs.length === 0">
+                <span class="serp-bc-item">example.com › page</span>
+              </template>
+              <template x-for="(c, i) in filledCrumbs" :key="c.id">
+                <span style="display:flex;align-items:center;gap:6px;">
+                  <span class="serp-bc-item" :class="i===filledCrumbs.length-1?'last':''" x-text="c.name"></span>
+                  <span class="serp-bc-sep" x-show="i < filledCrumbs.length - 1">›</span>
+                </span>
+              </template>
+            </div>
+            <div class="serp-title" x-text="filledCrumbs.length ? filledCrumbs[filledCrumbs.length-1].name + ' — ' + baseUrl : 'Page Title — example.com'"></div>
+            <div class="serp-desc">This is where your page meta description appears in the search result. The breadcrumb trail above replaces the plain URL Google would otherwise show.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Validation -->
+      <div class="panel">
+        <div class="panel-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          <span class="panel-title">Validation</span>
+          <span class="panel-sub" x-text="scorePass + '/' + scoreTotal + ' checks'"></span>
+        </div>
+        <div class="panel-body">
+          <div class="val-score-bar">
+            <div class="val-score-num" x-text="scorePass"></div>
+            <div style="flex:1;">
+              <div class="val-score-label" x-text="'of ' + scoreTotal + ' checks passed'"></div>
+              <div class="val-track">
+                <div class="val-fill"
+                  :class="errorCount>0?'error':(warnCount>0?'warn':'ok')"
+                  :style="'width:' + Math.round(scorePass/scoreTotal*100) + '%'"></div>
+              </div>
+            </div>
+          </div>
+          <div class="val-list">
+            <template x-for="v in validations" :key="v.label">
+              <div class="val-item">
+                <div class="val-icon" :class="v.pass ? 'pass' : ('fail-' + v.level)">
+                  <template x-if="v.pass">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  </template>
+                  <template x-if="!v.pass && v.level==='error'">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                  </template>
+                  <template x-if="!v.pass && v.level==='warn'">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                  </template>
+                  <template x-if="!v.pass && v.level==='info'">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  </template>
+                </div>
+                <div class="val-text">
+                  <div class="val-label" x-text="v.label"></div>
+                  <div class="val-note" x-text="v.note"></div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <!-- Generated Code -->
+      <div class="panel">
+        <div class="code-header">
+          <span class="code-lang">JSON-LD &lt;script&gt; embed</span>
+          <div class="copy-btns">
+            <button class="copy-btn-sm" :class="jsonCopied?'copied':''" @click="copyJson()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              <span x-text="jsonCopied ? '✓ Copied' : 'JSON'"></span>
+            </button>
+            <button class="copy-btn-sm primary" :class="codeCopied?'copied':''" @click="copyCode()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              <span x-text="codeCopied ? '✓ Copied!' : 'Copy HTML'"></span>
+            </button>
+          </div>
+        </div>
+        <pre class="code-pre" x-text="'<script type=\'application/ld+json\'>\n' + generatedSchema + '\n</script>'"></pre>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── INFO SECTIONS ── -->
+<div class="info-sections">
+
+  <!-- About -->
+  <div class="info-card">
+    <div class="info-card-header" @click="$el.nextElementSibling.classList.toggle('open'); $el.querySelector('.info-card-chevron').classList.toggle('open')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span class="info-card-title">About This Tool</span>
+      <svg class="info-card-chevron open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polyline points="18 15 12 9 6 15"/></svg>
+    </div>
+    <div class="info-card-body open">
+      <p>The <strong>Breadcrumb Schema Generator</strong> creates <code>BreadcrumbList</code> structured data in JSON-LD format. When this markup is present on a page and Google indexes it, the search result displays the breadcrumb navigation path (e.g. <em>Home › Blog › SEO</em>) in place of the raw URL, giving users more context about where the page sits in your site hierarchy — and typically improving click-through rate.</p>
+      <p>Breadcrumb structured data is one of the most widely supported rich result types. It appears in both mobile and desktop Google Search, and is also used by Bing. All processing happens in your browser — no data is sent to any server.</p>
+      <p>Use the <strong>Parse from URL</strong> feature to automatically generate breadcrumb items from any URL's path segments, then edit the names as needed before copying the code.</p>
+    </div>
+  </div>
+
+  <!-- How to Use -->
+  <div class="info-card">
+    <div class="info-card-header" @click="$el.nextElementSibling.classList.toggle('open'); $el.querySelector('.info-card-chevron').classList.toggle('open')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      <span class="info-card-title">How to Use</span>
+      <svg class="info-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polyline points="18 15 12 9 6 15"/></svg>
+    </div>
+    <div class="info-card-body">
+      <ol>
+        <li><strong>Build manually</strong> — fill in a Name and URL for each breadcrumb level, starting with "Home". Use the numbered rows in order from root to current page.</li>
+        <li><strong>Or parse a URL</strong> — click "Parse from URL", paste a full page address (e.g. <code>https://example.com/blog/seo/tips</code>), and the tool will generate items automatically from each path segment.</li>
+        <li><strong>Reorder or remove</strong> — use the up/down arrows or delete button on each row to adjust the trail.</li>
+        <li><strong>Preview the SERP trail</strong> — the Trail Preview and Google SERP Preview update live as you type.</li>
+        <li><strong>Check validation</strong> — fix any errors (red) before using the markup; warnings (yellow) are best-practice recommendations.</li>
+        <li><strong>Copy and embed</strong> — click "Copy HTML" to copy the full <code>&lt;script type="application/ld+json"&gt;</code> block and paste it anywhere inside your page's <code>&lt;head&gt;</code>.</li>
+        <li><strong>Test it</strong> — paste your URL into <a href="https://search.google.com/test/rich-results" style="color:var(--accent);" target="_blank" rel="noopener">Google's Rich Results Test</a> to confirm Google can parse the markup.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Logic & Algorithm -->
+  <div class="info-card">
+    <div class="info-card-header" @click="$el.nextElementSibling.classList.toggle('open'); $el.querySelector('.info-card-chevron').classList.toggle('open')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      <span class="info-card-title">Logic &amp; Algorithm</span>
+      <svg class="info-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polyline points="18 15 12 9 6 15"/></svg>
+    </div>
+    <div class="info-card-body">
+      <p>The generator builds a valid <code>BreadcrumbList</code> object following the <a href="https://schema.org/BreadcrumbList" style="color:var(--accent);" target="_blank" rel="noopener">Schema.org specification</a> and <a href="https://developers.google.com/search/docs/appearance/structured-data/breadcrumb" style="color:var(--accent);" target="_blank" rel="noopener">Google's breadcrumb guidelines</a>:</p>
+      <h4>Schema structure</h4>
+      <ul>
+        <li>Root: <code>{ "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [...] }</code></li>
+        <li>Each item: <code>{ "@type": "ListItem", "position": N, "name": "…", "item": "https://…" }</code></li>
+        <li>The <code>item</code> property (URL) is omitted if the field is left blank — but Google strongly recommends providing it for all items.</li>
+        <li>Only items with a non-empty name are included in the output. Empty rows are silently skipped.</li>
+      </ul>
+      <h4>URL parser</h4>
+      <p>The "Parse from URL" feature uses the browser's <code>URL</code> API to extract <code>pathname</code>, splits on <code>/</code>, filters empty segments, and builds one breadcrumb per segment. Names are derived by replacing hyphens and underscores with spaces, then title-casing each word. The first item is always "Home" pointing to the site origin.</p>
+      <h4>Validation checks</h4>
+      <ul>
+        <li><strong>Error</strong> — fewer than 2 filled items; any item missing a name.</li>
+        <li><strong>Warning</strong> — any item missing a URL; HTTP (non-HTTPS) URLs; mixed domains across items; last item has no URL; duplicate names.</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── RELATED TOOLS ── -->
+<div class="section-block">
+  <div class="section-title">Related <span>Tools</span></div>
+  <div class="related-grid">
+    <a href="../seo/faq-schema-generator.html" class="related-card">
+      <div class="related-icon" style="background:linear-gradient(135deg,#7c3aed,#4f46e5);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <div class="related-info">
+        <div class="related-name">FAQ Schema Generator</div>
+        <div class="related-desc">Build JSON-LD FAQPage markup and preview expandable Q&amp;A rich results.</div>
+      </div>
+    </a>
+    <a href="../seo/meta-tag-generator.html" class="related-card">
+      <div class="related-icon" style="background:linear-gradient(135deg,#f093fb,#f5576c);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </div>
+      <div class="related-info">
+        <div class="related-name">Meta Tag Generator</div>
+        <div class="related-desc">Generate complete SEO, Open Graph, and Twitter Card meta tags.</div>
+      </div>
+    </a>
+    <a href="../seo/robots-txt-generator.html" class="related-card">
+      <div class="related-icon" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      </div>
+      <div class="related-info">
+        <div class="related-name">Robots.txt Generator</div>
+        <div class="related-desc">Build a valid robots.txt file to control search engine crawlers.</div>
+      </div>
+    </a>
+    <a href="../seo/sitemap-generator.html" class="related-card">
+      <div class="related-icon" style="background:linear-gradient(135deg,#f97316,#fbbf24);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 10h16M4 14h10"/></svg>
+      </div>
+      <div class="related-info">
+        <div class="related-name">XML Sitemap Generator</div>
+        <div class="related-desc">Build a valid sitemap.xml in seconds with custom priorities and frequencies.</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- ── BLOG CARDS ── -->
+<div class="section-block">
+  <div class="section-title">Learn More About <span>Breadcrumbs &amp; SEO</span></div>
+  <div class="blog-grid">
+    <a href="../../blog/breadcrumb-schema-guide.html" class="blog-card">
+      <span class="blog-tag">SEO Guide</span>
+      <div class="blog-title">Breadcrumb Schema: Get Navigation Paths in Google Search</div>
+      <div class="blog-excerpt">Everything you need to know about BreadcrumbList structured data — what it does, how to implement it, and how to validate it with Google's Rich Results Test.</div>
+      <div class="blog-meta"><span>June 2026</span><span>7 min read</span></div>
+    </a>
+    <a href="../../blog/structured-data-types.html" class="blog-card">
+      <span class="blog-tag">Developer</span>
+      <div class="blog-title">JSON-LD vs Microdata vs RDFa: Which Should You Use?</div>
+      <div class="blog-excerpt">Compare the three structured data formats Google supports and learn why JSON-LD is the recommended approach for most sites.</div>
+      <div class="blog-meta"><span>May 2026</span><span>6 min read</span></div>
+    </a>
+    <a href="../../blog/rich-results-guide.html" class="blog-card">
+      <span class="blog-tag">SEO</span>
+      <div class="blog-title">Google Rich Results: A Complete Guide for 2026</div>
+      <div class="blog-excerpt">From FAQs to breadcrumbs and How-Tos — understand all the rich result types, their requirements, and how to measure their impact on click-through rate.</div>
+      <div class="blog-meta"><span>April 2026</span><span>10 min read</span></div>
+    </a>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <span class="footer-brand-name">The Tool Empire</span>
+        </div>
+        <p class="footer-tagline">Free browser-based tools for developers, designers, and content creators. No signup, no tracking.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">SEO Tools</div>
+        <div class="footer-links">
+          <a href="../seo/meta-tag-generator.html">Meta Tag Generator</a>
+          <a href="../seo/og-tag-generator.html">OG Tag Generator</a>
+          <a href="../seo/robots-txt-generator.html">Robots.txt Generator</a>
+          <a href="../seo/keyword-density.html">Keyword Density</a>
+          <a href="../seo/faq-schema-generator.html">FAQ Schema Generator</a>
+          <a href="breadcrumb-schema-generator.html">Breadcrumb Schema Generator</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="../../index.html">Home</a>
+          <a href="../../tools.html">All Tools</a>
+          <a href="../../blog.html">Blog</a>
+          <a href="../../about.html">About</a>
+          <a href="../../contact.html">Contact</a>
+          <a href="../../privacy.html">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 The Tool Empire. All rights reserved.</span>
+      <span><a href="../../privacy.html">Privacy</a> · <a href="../../terms.html">Terms</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ── REPORT MODAL ── -->
+<div id="report-modal-root"></div>
+<script src="../../assets/js/report-modal.js"></script>
+
+<script src="breadcrumb-schema-generator.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

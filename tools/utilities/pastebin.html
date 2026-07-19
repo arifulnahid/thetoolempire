@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Pastebin — Share Code &amp; Text with Syntax Highlighting | The Tool Empire</title>
+<meta name="description" content="Free online pastebin. Paste code or text, choose a language for syntax highlighting, generate a shareable link encoded in the URL, copy, or download. No account needed."/>
+<meta name="keywords" content="pastebin, code share, paste code online, syntax highlighting, share code link, code snippet share, javascript pastebin, python pastebin"/>
+<meta name="robots" content="index,follow"/>
+<meta name="author" content="The Tool Empire"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/utilities/pastebin.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Pastebin — Share Code &amp; Text with Syntax Highlighting"/>
+<meta property="og:description" content="Paste code, pick a language, get a shareable link — no account required. 28 languages, live syntax highlighting, download as file."/>
+<meta property="og:url" content="https://thetoolempire.com/tools/utilities/pastebin.html"/>
+<meta property="og:site_name" content="The Tool Empire"/>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":"SoftwareApplication","name":"Pastebin","applicationCategory":"DeveloperApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/utilities/pastebin.html","description":"Free online pastebin. Paste code or text, select a language, generate a shareable URL, copy or download. 28 languages with syntax highlighting. No account needed.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+    {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+    {"@type":"ListItem","position":3,"name":"Utilities","item":"https://thetoolempire.com/tools.html#Utilities"},
+    {"@type":"ListItem","position":4,"name":"Pastebin","item":"https://thetoolempire.com/tools/utilities/pastebin.html"}
+  ]}
+]}</script>
+
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+<link rel="manifest" href="../../manifest.json"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<!-- Prism.js syntax highlighting -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css"/>
+
+<link rel="stylesheet" href="pastebin.css"/>
+<script src="pastebin.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="pastebinApp()" x-init="init()">
+
+<!-- ══ HEADER ════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hg)"/>
+        <rect x="10" y="8"  width="20" height="3"  rx="1.5" fill="rgba(255,255,255,.9)"/>
+        <rect x="10" y="15" width="15" height="2.5" rx="1.2" fill="rgba(255,255,255,.6)"/>
+        <rect x="10" y="21" width="18" height="2.5" rx="1.2" fill="rgba(255,255,255,.6)"/>
+        <rect x="10" y="27" width="12" height="2.5" rx="1.2" fill="rgba(255,255,255,.4)"/>
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#14b8a6"/><stop offset="1" stop-color="#0d9488"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+    Utilities
+  </div>
+  <h1><span class="g">Pastebin</span></h1>
+  <p>Paste code or text, pick a language, share via link — no account needed. 28 languages with live syntax highlighting.</p>
+</div>
+
+<!-- ══ TOOL ══════════════════════════════════════════════ -->
+<div class="page-wrap">
+
+  <!-- ── TOOL CARD ──────────────────────────────────── -->
+  <div class="tool-card">
+
+    <!-- Meta bar -->
+    <div class="pb-meta">
+      <input class="pb-title-input" type="text" x-model="title" placeholder="Untitled paste…" maxlength="120"/>
+      <select class="lang-select" x-model="lang">
+        <template x-for="l in languages" :key="l.id">
+          <option :value="l.id" x-text="l.label"></option>
+        </template>
+      </select>
+      <div class="pb-actions">
+        <button class="pb-btn primary" :disabled="!content" @click="getLink()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          Get Link
+        </button>
+        <button class="pb-btn" :class="{done: contentCopied}" :disabled="!content" @click="copyContent()">
+          <svg x-show="!contentCopied" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <svg x-show="contentCopied" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span x-text="contentCopied ? 'Copied!' : 'Copy'"></span>
+        </button>
+        <button class="pb-btn" :disabled="!content" @click="download()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </button>
+        <button class="pb-btn danger" :disabled="!content && !title" @click="clearAll()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+          Clear
+        </button>
+      </div>
+    </div>
+
+    <!-- Share URL bar -->
+    <div class="share-bar" x-show="showShareBar" x-cloak>
+      <span class="share-bar-label">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        Share link
+      </span>
+      <input class="share-url-input" type="text" x-ref="shareInput" :value="shareUrl" readonly @click="$event.target.select()"/>
+      <button class="pb-btn" :class="{done: linkCopied}" @click="copyLink()" style="flex-shrink:0;">
+        <svg x-show="!linkCopied" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <svg x-show="linkCopied" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <span x-text="linkCopied ? 'Copied!' : 'Copy Link'"></span>
+      </button>
+      <button class="share-close" @click="showShareBar = false">×</button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="pb-tabs">
+      <button class="pb-tab" :class="{active: tab === 'write'}" @click="tab = 'write'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        Write
+      </button>
+      <button class="pb-tab" :class="{active: tab === 'preview'}" @click="tab = 'preview'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        Preview
+        <span x-show="!!content" style="font-size:.65rem;color:var(--accent);" x-text="langLabel"></span>
+      </button>
+    </div>
+
+    <!-- Write tab -->
+    <div class="pb-editor-wrap" x-show="tab === 'write'">
+      <textarea
+        class="pb-editor"
+        x-model="content"
+        placeholder="Paste or type your code here…&#10;&#10;Tab key inserts 2 spaces."
+        spellcheck="false"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        @keydown.tab.prevent="handleTab($event)">
+      </textarea>
+    </div>
+
+    <!-- Preview tab -->
+    <div class="pb-preview-wrap" x-show="tab === 'preview'" x-cloak>
+      <pre class="line-numbers" x-show="lang !== 'plain'"><code x-ref="codeBlock"></code></pre>
+      <div class="pb-plain-text" x-show="lang === 'plain'" x-text="content"></div>
+    </div>
+
+    <!-- Status bar -->
+    <div class="pb-status">
+      <span class="pb-status-item"><strong x-text="charCount.toLocaleString()"></strong> chars</span>
+      <span class="pb-status-item"><strong x-text="wordCount.toLocaleString()"></strong> words</span>
+      <span class="pb-status-item"><strong x-text="lineCount.toLocaleString()"></strong> lines</span>
+      <span class="lang-badge" x-text="langLabel"></span>
+    </div>
+
+  </div><!-- /tool-card -->
+
+  <!-- ── RECENT PASTES ──────────────────────────────── -->
+  <div class="recent-section" x-show="recentPastes.length > 0" x-cloak>
+    <div class="recent-header">
+      <h2>Recent Pastes</h2>
+      <button class="recent-clear" @click="recentPastes = []; localStorage.removeItem('tte-pastebin')">Clear history</button>
+    </div>
+    <div class="recent-list">
+      <template x-for="paste in recentPastes" :key="paste.id">
+        <div class="recent-item" @click="openRecent(paste)">
+          <div class="recent-lang-dot"></div>
+          <div class="recent-info">
+            <div class="recent-title" x-text="paste.title"></div>
+            <div class="recent-preview" x-text="paste.preview"></div>
+          </div>
+          <div class="recent-meta">
+            <span x-text="formatDate(paste.created)"></span>
+            <span x-text="paste.chars.toLocaleString() + ' chars · ' + (paste.lines || 1) + ' lines'"></span>
+          </div>
+          <button class="recent-remove" @click.stop="removeRecent(paste.id)" title="Remove">×</button>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <!-- ══ INFO SECTIONS ═══════════════════════════════════ -->
+  <div class="info-sections">
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <h2>About This Tool</h2>
+      </div>
+      <div class="info-body">
+        <p><strong>Pastebin</strong> is a free, serverless code and text sharing tool. Paste anything — code, config, logs, notes — pick a language, and click <em>Get Link</em> to generate a shareable URL. No account, no sign-up, no expiry.</p>
+        <p>The share link is entirely self-contained: your paste is encoded directly in the URL hash using Base64. Anyone with the link can open it in their browser and see the highlighted code. Nothing is stored on a server — the link IS the paste.</p>
+        <p>28 programming languages are supported for syntax highlighting via Prism.js, including JavaScript, TypeScript, Python, Go, Rust, SQL, YAML, Markdown and more. Your recent pastes are saved to your browser's local storage so you can quickly return to them.</p>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <h2>How to Use</h2>
+      </div>
+      <div class="info-body">
+        <ul>
+          <li><strong>Title</strong> — optional. Displayed in the browser tab and stored in the link. Helps you remember what the paste is about.</li>
+          <li><strong>Language</strong> — select from the dropdown for syntax highlighting. Choose "Plain Text" for raw content with no colouring. The language selector also determines the download file extension (<code>.js</code>, <code>.py</code>, etc.).</li>
+          <li><strong>Write tab</strong> — the editor. Type or paste code. The Tab key inserts 2 spaces instead of moving focus.</li>
+          <li><strong>Preview tab</strong> — shows the syntax-highlighted version using Prism.js. Line numbers are shown. Switch back to Write to keep editing.</li>
+          <li><strong>Get Link</strong> — encodes your title, language, and content into a URL hash and shows the share URL. Click the URL or "Copy Link" to copy it. Share it with anyone — the link opens directly into Preview mode.</li>
+          <li><strong>Copy</strong> — copies the raw text content to your clipboard.</li>
+          <li><strong>Download</strong> — saves the paste as a file with the correct extension for the selected language.</li>
+          <li><strong>Recent Pastes</strong> — shown below the editor after you use Get Link. Click any entry to reopen it. History is per-browser and stored locally.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <h2>How Serverless Sharing Works</h2>
+      </div>
+      <div class="info-body">
+        <p>Traditional pastebins store content on a server and give you a short ID (e.g. <code>pastebin.com/xZ3kA9</code>). This tool takes a different approach: the content lives entirely in the URL hash.</p>
+        <p>When you click <strong>Get Link</strong>, the tool serializes your title, language, and content to JSON, encodes that JSON as a Base64 string using <code>btoa()</code>, and appends it to the page URL after a <code>#</code>. The resulting URL looks like <code>pastebin.html#eyJ0aXRsZSI6...</code>.</p>
+        <p>When someone opens that link, the page reads <code>window.location.hash</code>, Base64-decodes it with <code>atob()</code>, parses the JSON, and renders the paste. No server roundtrip — the entire paste travels inside the URL itself.</p>
+        <p><strong>Limitations:</strong> URL length is limited by browsers and servers. Most environments support URLs up to ~8,000 characters, which comfortably holds code snippets up to ~5 KB. Very large files won't share well via URL — use the Download button and share the file directly instead.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ══ RELATED TOOLS ═══════════════════════════════════ -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>Related Tools</h2>
+      <a href="../../tools.html" class="view-all-link">All Tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="related-grid">
+      <a class="related-tool-card" href="../text/diff-checker.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#fa709a,#fee140)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+        </div>
+        <div class="rt-name">Text Diff Checker</div>
+        <div class="rt-desc">Compare two pieces of text side-by-side and highlight every addition, deletion, and change.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="../text/rich-text-editor.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#6C63FF,#4ECDC4)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <div class="rt-name">Rich Text Editor</div>
+        <div class="rt-desc">WYSIWYG editor for formatted text, tables, links, lists, and code. Export HTML or plain text.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="../coding/ascii-unicode.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+        </div>
+        <div class="rt-name">ASCII / Unicode Converter</div>
+        <div class="rt-desc">Convert text to ASCII, hex, binary, octal, HTML entities, or URL encoding.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="../text/word-counter.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#667eea,#764ba2)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 10h16M4 14h10"/></svg>
+        </div>
+        <div class="rt-name">Word Counter</div>
+        <div class="rt-desc">Count words, characters, sentences, and paragraphs. Reading time estimate included.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Blog -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>From the Blog</h2>
+      <a href="../../blog.html" class="view-all-link">All Posts <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="blog-grid">
+      <a class="blog-card" href="../../blog/sharing-code-online.html">
+        <span class="blog-cat" style="background:rgba(20,184,166,.1);color:#5eead4;">Dev</span>
+        <div class="blog-title">The Best Ways to Share Code Online in 2025</div>
+        <div class="blog-excerpt">Pastebins, gists, Carbon screenshots, StackBlitz embeds — when to use each and the trade-offs for security and collaboration.</div>
+        <div class="blog-meta">June 2025 · 5 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/url-encoding-guide.html">
+        <span class="blog-cat" style="background:rgba(20,184,166,.1);color:#5eead4;">Dev</span>
+        <div class="blog-title">URL Encoding, Base64, and the Hash — What Each Is For</div>
+        <div class="blog-excerpt">The difference between percent-encoding, Base64, and the URL fragment — with real examples of when each appears in web apps.</div>
+        <div class="blog-meta">May 2025 · 6 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/syntax-highlighting-guide.html">
+        <span class="blog-cat" style="background:rgba(20,184,166,.1);color:#5eead4;">Dev</span>
+        <div class="blog-title">How Syntax Highlighting Works: Tokenizers, Grammars, and Themes</div>
+        <div class="blog-excerpt">From regex-based tokenizers to tree-sitter parsers — how tools like Prism.js and highlight.js turn raw code into colorful HTML.</div>
+        <div class="blog-meta">April 2025 · 8 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Report -->
+  <div style="text-align:center;padding:24px 0 0;" x-data="{open:false,reason:'',details:'',submitted:false}">
+    <button style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--faint);cursor:pointer;" @click="open=true">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Report an Issue
+    </button>
+    <div style="position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;" x-show="open" x-cloak @click.self="open=false">
+      <div style="background:var(--card);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:440px;padding:28px;">
+        <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:6px;">Report an Issue</h3>
+        <p style="font-size:.84rem;color:var(--text2);margin-bottom:18px;">Let us know what's wrong with <strong>Pastebin</strong>.</p>
+        <select style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;margin-bottom:12px;" x-model="reason">
+          <option value="">Select a reason…</option>
+          <option>Share link not working</option>
+          <option>Syntax highlighting incorrect</option>
+          <option>Copy button not working</option>
+          <option>Download not working</option>
+          <option>Language missing</option>
+          <option>Other</option>
+        </select>
+        <textarea style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;min-height:88px;resize:vertical;font-family:inherit;margin-bottom:12px;" x-model="details" placeholder="Describe the issue (optional)…"></textarea>
+        <div style="display:flex;gap:10px;">
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:700;border:none;background:var(--agrad);color:#fff;cursor:pointer;" :style="!reason?'opacity:.4;cursor:default':''" @click="submitted=true;setTimeout(()=>{open=false;submitted=false},2000)" :disabled="!reason">Submit</button>
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;" @click="open=false">Cancel</button>
+        </div>
+        <p style="margin-top:12px;text-align:center;font-size:.82rem;color:#86efac;" x-show="submitted">Thank you — report received!</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ FOOTER ════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#flg)"/>
+          <rect x="10" y="8"  width="20" height="3"  rx="1.5" fill="rgba(255,255,255,.9)"/>
+          <rect x="10" y="15" width="15" height="2.5" rx="1.2" fill="rgba(255,255,255,.6)"/>
+          <rect x="10" y="21" width="18" height="2.5" rx="1.2" fill="rgba(255,255,255,.6)"/>
+          <rect x="10" y="27" width="12" height="2.5" rx="1.2" fill="rgba(255,255,255,.4)"/>
+          <defs><linearGradient id="flg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#14b8a6"/><stop offset="1" stop-color="#0d9488"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free online tools for developers, designers, and data people.</p>
+    </div>
+    <nav class="footer-nav-wrap">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=Utilities">Utilities</a>
+        <a href="../../tools.html?cat=CSS">CSS</a>
+        <a href="../../tools.html?cat=Coding">Coding</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../about.html">About</a>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy</a>
+        <a href="../../terms.html">Terms</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="inner">
+      <p>&copy; 2025 The Tool Empire. All rights reserved.</p>
+      <p>Built with Alpine.js &amp; Prism.js</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Prism.js — loaded after Alpine so data-manual works correctly -->
+<script data-manual src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<script>
+  if (typeof Prism !== 'undefined' && Prism.plugins && Prism.plugins.autoloader) {
+    Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/';
+  }
+</script>
+
+</body>
+</html>

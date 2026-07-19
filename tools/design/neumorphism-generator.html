@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Neumorphism Generator — Free Soft UI CSS Tool | The Tool Empire</title>
+<meta name="description" content="Free online neumorphism CSS generator. Adjust shadow distance, blur, intensity, shape type and light direction with a live preview. Copy ready-to-use CSS instantly."/>
+<meta name="keywords" content="neumorphism generator, soft UI CSS, neumorphic design, soft shadow CSS, neumorphism tool, neumorph generator"/>
+<meta name="robots" content="index,follow"/>
+<meta name="author" content="The Tool Empire"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/design/neumorphism-generator.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Neumorphism Generator — Free Soft UI CSS Tool"/>
+<meta property="og:description" content="Design soft neumorphic UI components with live preview. Control shadows, shape type, and light direction — then copy the CSS."/>
+<meta property="og:url" content="https://thetoolempire.com/tools/design/neumorphism-generator.html"/>
+<meta property="og:site_name" content="The Tool Empire"/>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":"SoftwareApplication","name":"Neumorphism Generator","applicationCategory":"DeveloperApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/design/neumorphism-generator.html","description":"Free browser-based neumorphism CSS generator with live preview. Adjust shadow, blur, intensity, shape, and light direction then copy the CSS code.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+    {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+    {"@type":"ListItem","position":3,"name":"Design","item":"https://thetoolempire.com/tools.html#Design"},
+    {"@type":"ListItem","position":4,"name":"Neumorphism Generator","item":"https://thetoolempire.com/tools/design/neumorphism-generator.html"}
+  ]}
+]}</script>
+
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+<link rel="manifest" href="../../manifest.json"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<link rel="stylesheet" href="neumorphism-generator.css"/>
+<script src="neumorphism-generator.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="neumorphismApp()">
+
+<!-- ══ HEADER ════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hg)"/>
+        <ellipse cx="20" cy="20" rx="10" ry="10" fill="rgba(255,255,255,.15)" stroke="rgba(255,255,255,.4)" stroke-width="2"/>
+        <ellipse cx="20" cy="20" rx="5" ry="5" fill="rgba(255,255,255,.6)"/>
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#818cf8"/><stop offset="1" stop-color="#6366f1"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    Design Tools
+  </div>
+  <h1><span class="g">Neumorphism</span> Generator</h1>
+  <p>Design soft UI components with dual-shadow neumorphism. Control shadow, blur, shape, and light direction — then copy the CSS.</p>
+</div>
+
+<!-- ══ TOOL ══════════════════════════════════════════════ -->
+<div class="page-wrap">
+
+  <div class="tool-header">
+    <button class="th-btn danger" @click="reset()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.66"/></svg>
+      Reset
+    </button>
+  </div>
+
+  <!-- ══ MAIN LAYOUT ══════════════════════════════════ -->
+  <div class="nm-layout">
+
+    <!-- ── CONTROLS ──────────────────────────────────── -->
+    <div class="nm-controls">
+
+      <!-- Base color -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">
+          Base Color
+          <span class="ctrl-val" x-text="bgColor.toUpperCase()"></span>
+        </div>
+        <div class="color-row">
+          <input type="color" x-model="bgColor" title="Background & element colour"/>
+          <span class="color-hex" x-text="bgColor.toUpperCase()"></span>
+        </div>
+        <!-- Dark / light swatch preview -->
+        <div class="swatch-row" style="margin-top:10px;">
+          <div class="swatch" :style="`background:${darkColor}; color:${lightColor};`" x-text="darkColor.toUpperCase()"></div>
+          <div class="swatch" :style="`background:${lightColor}; color:${darkColor};`" x-text="lightColor.toUpperCase()"></div>
+        </div>
+      </div>
+
+      <div class="ctrl-sep"></div>
+
+      <!-- Shadow distance -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Shadow Distance <span class="ctrl-val" x-text="distance + 'px'"></span></div>
+        <input type="range" x-model.number="distance" min="1" max="40" step="1"/>
+      </div>
+
+      <!-- Blur -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Shadow Blur <span class="ctrl-val" x-text="blur + 'px'"></span></div>
+        <input type="range" x-model.number="blur" min="1" max="60" step="1"/>
+      </div>
+
+      <!-- Intensity -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Shadow Intensity <span class="ctrl-val" x-text="(intensity*100).toFixed(0) + '%'"></span></div>
+        <input type="range" x-model.number="intensity" min="0.02" max="0.4" step="0.01"/>
+      </div>
+
+      <!-- Border radius -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Border Radius <span class="ctrl-val" x-text="borderRadius + 'px'"></span></div>
+        <input type="range" x-model.number="borderRadius" min="0" max="100" step="2"/>
+      </div>
+
+      <div class="ctrl-sep"></div>
+
+      <!-- Shape type -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Shape Type</div>
+        <div class="seg-group cols-2">
+          <template x-for="s in shapes" :key="s.id">
+            <button class="seg-btn" :class="{active: shape === s.id}" @click="shape = s.id" x-text="s.label"></button>
+          </template>
+        </div>
+      </div>
+
+      <!-- Light direction -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Light Source</div>
+        <div class="seg-group cols-2">
+          <template x-for="d in lightDirs" :key="d.id">
+            <button class="seg-btn" :class="{active: lightDir === d.id}" @click="lightDir = d.id" x-text="d.label"></button>
+          </template>
+        </div>
+      </div>
+
+    </div><!-- /nm-controls -->
+
+    <!-- ── PREVIEW ─────────────────────────────────── -->
+    <div class="nm-preview">
+      <div class="preview-scene" :style="`background: ${bgColor}`">
+
+        <!-- Neumorphic card -->
+        <div class="preview-card" :style="neumStyleStr">
+
+          <!-- Icon circle — also neumorphic, direction-aware -->
+          <div class="pc-icon"
+               :style="`background:${bgColor}; box-shadow:${innerShadowStr}; border-radius:50%;`">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" :style="`color:${textColor}`">
+              <path d="M12 2a7 7 0 0 1 7 7c0 4.5-7 13-7 13S5 13.5 5 9a7 7 0 0 1 7-7z"/>
+              <circle cx="12" cy="9" r="2.5"/>
+            </svg>
+          </div>
+
+          <div class="pc-name"  :style="`color:${textColor}`">Neumorphic Card</div>
+          <div class="pc-sub"   :style="`color:${textColor}; opacity:.65`">Soft UI Component</div>
+          <div class="pc-divider" :style="`background:${textColor}; opacity:.15; height:1px; width:100%;`"></div>
+          <div class="pc-stats">
+            <div :style="`color:${textColor}`"><span>12</span><p>Tasks</p></div>
+            <div :style="`color:${textColor}`"><span>84%</span><p>Done</p></div>
+            <div :style="`color:${textColor}`"><span>3d</span><p>Left</p></div>
+          </div>
+          <button class="pc-btn"
+                  :style="`background:${bgColor}; color:${textColor}; box-shadow:${innerShadowStr};`">
+            View Details
+          </button>
+
+        </div>
+      </div>
+    </div><!-- /nm-preview -->
+
+  </div><!-- /nm-layout -->
+
+  <!-- ══ CSS OUTPUT ════════════════════════════════════ -->
+  <div class="nm-code-wrap">
+    <div class="nm-code-head">
+      <div class="nm-code-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Generated CSS
+      </div>
+      <button class="copy-btn" :class="{ done: copied }" @click="copyCSS()">
+        <svg x-show="!copied" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <svg x-show="copied"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <span x-text="copied ? 'Copied!' : 'Copy CSS'"></span>
+      </button>
+    </div>
+    <div class="nm-code-body">
+      <pre x-text="cssCode"></pre>
+    </div>
+  </div>
+
+  <!-- ══ INFO SECTIONS ════════════════════════════════ -->
+  <div class="info-sections">
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <h2>About This Tool</h2>
+      </div>
+      <div class="info-body">
+        <p><strong>Neumorphism Generator</strong> is a free, browser-based tool for designing soft UI "neumorphic" CSS components. Pick a base colour, dial in your shadow parameters, select a shape type, and watch the live preview update instantly. When you're happy, copy the <code>.neumorphic</code> CSS rule and paste it into your project.</p>
+        <p>Neumorphism (a portmanteau of <em>new</em> and <em>skeuomorphism</em>) places elements on a surface using two shadows — one dark, one light — to simulate a soft, embossed appearance as if the element is extruding from the page. It gained popularity around 2020 as a contrast to flat design.</p>
+        <p>The swatch row below the colour picker shows you the auto-computed dark and light shadow colours. These are derived from your base colour using darkening and lightening algorithms rather than preset values.</p>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <h2>How to Use</h2>
+      </div>
+      <div class="info-body">
+        <ul>
+          <li><strong>Base Color</strong> — the single most important control. In neumorphism, the element background <em>must</em> match the page background. The two shadow colours are automatically derived from this. Medium greys (like <code>#e0e5ec</code>) and soft pastels work best.</li>
+          <li><strong>Shadow Distance</strong> — how far the shadows are offset from the element. Larger values feel more dramatic; 5–12 px is a realistic range for components.</li>
+          <li><strong>Shadow Blur</strong> — how soft the shadow edges are. Typically 1.5–2× the distance value for a natural look.</li>
+          <li><strong>Shadow Intensity</strong> — how dark the dark shadow and how light the light shadow are. High intensity (>25%) looks harsh and unnatural; 10–18% is ideal.</li>
+          <li><strong>Border Radius</strong> — round corners emphasise the soft material feel. Pill-shaped elements (50 px+) are common in neumorphic buttons.</li>
+          <li><strong>Shape Type</strong> — <em>Flat</em> is the standard raised look. <em>Pressed</em> inverts the shadows (<code>inset</code>) to appear pushed in — ideal for active states. <em>Concave</em> and <em>Convex</em> add a gradient to suggest curved surfaces.</li>
+          <li><strong>Light Source</strong> — determines the direction the virtual light comes from, changing which corner holds the dark vs. light shadow.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <h2>Logic &amp; Technical Notes</h2>
+      </div>
+      <div class="info-body">
+        <p>The effect is produced entirely by <code>box-shadow</code>. Two shadows are cast — one using a darkened variant of the base colour (placed in the direction <em>away</em> from the light source) and one using a lightened variant (placed toward the light source). This mimics how a raised surface would catch and cast light on a flat background.</p>
+        <p>The dark shadow colour is computed as <code>rgb(r*(1−i), g*(1−i), b*(1−i))</code> where <em>i</em> is the intensity. The light colour uses <code>rgb(r + (255−r)*2i, …)</code>. These are applied as <code>box-shadow: Xpx Ypx Bpx darkColor, −Xpx −Ypx Bpx lightColor</code>.</p>
+        <p>For <strong>Pressed</strong>, both shadows use the <code>inset</code> keyword, which renders them inside the element border box rather than outside — making the element appear pushed into the surface instead of raised from it.</p>
+        <p>For <strong>Concave</strong> and <strong>Convex</strong>, a <code>linear-gradient</code> background is added using the same dark/light colours. Concave applies the gradient in the same direction as the dark shadow (light source side gets the lighter colour); Convex reverses it.</p>
+        <p>The critical accessibility note: neumorphism has poor contrast between element boundaries and background because both use the same colour. Use it only for decorative or non-interactive elements unless you increase intensity significantly.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ══ Related Tools ════════════════════════════════ -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>Related Tools</h2>
+      <a href="../../tools.html" class="view-all-link">All Tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="related-grid">
+      <a class="related-tool-card" href="glassmorphism-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#0ea5e9,#0284c7)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div class="rt-name">Glassmorphism Generator</div>
+        <div class="rt-desc">Design frosted-glass UI with blur, opacity, and border controls. Copy the CSS instantly.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="../css/css-triangle-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#f97316,#ea580c)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 22 2 22"/></svg>
+        </div>
+        <div class="rt-name">CSS Triangle Generator</div>
+        <div class="rt-desc">Generate pure-CSS triangles in any direction, size and colour. Copy the border trick CSS.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="org-chart.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#10b981,#059669)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="19" r="3"/><circle cx="19" cy="19" r="3"/><line x1="12" y1="8" x2="5" y2="16"/><line x1="12" y1="8" x2="19" y2="16"/></svg>
+        </div>
+        <div class="rt-name">Org Chart Maker</div>
+        <div class="rt-desc">Build hierarchical organizational charts with auto-layout and export.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="swot-analysis.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#a78bfa,#7c3aed)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <div class="rt-name">SWOT Analysis Maker</div>
+        <div class="rt-desc">Build Strengths, Weaknesses, Opportunities, and Threats matrices with priority levels.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Blog -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>From the Blog</h2>
+      <a href="../../blog.html" class="view-all-link">All Posts <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="blog-grid">
+      <a class="blog-card" href="../../blog/neumorphism-guide.html">
+        <span class="blog-cat" style="background:rgba(129,140,248,.1);color:#a5b4fc;">Design</span>
+        <div class="blog-title">Neumorphism: Why It Looks Great in Dribbble and Fails in Production</div>
+        <div class="blog-excerpt">The accessibility and usability tradeoffs behind the soft-UI trend — and how to use it responsibly.</div>
+        <div class="blog-meta">June 2025 · 6 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/css-box-shadow-guide.html">
+        <span class="blog-cat" style="background:rgba(99,102,241,.1);color:#a5b4fc;">CSS</span>
+        <div class="blog-title">CSS box-shadow: Every Value Explained with Visual Examples</div>
+        <div class="blog-excerpt">Offset, blur, spread, inset, colour — a complete practical guide to CSS box-shadow with interactive demos.</div>
+        <div class="blog-meta">May 2025 · 7 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/ui-design-trends-2025.html">
+        <span class="blog-cat" style="background:rgba(167,139,250,.1);color:#c4b5fd;">Trends</span>
+        <div class="blog-title">UI Design Trends 2025: What's In, What's Out</div>
+        <div class="blog-excerpt">From glassmorphism to bento grids — the design patterns shaping interfaces this year and what to avoid.</div>
+        <div class="blog-meta">April 2025 · 8 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Report -->
+  <div style="text-align:center;padding:24px 0 0;" x-data="{open:false,reason:'',details:'',submitted:false}">
+    <button style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--faint);cursor:pointer;" @click="open=true">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Report an Issue
+    </button>
+    <div style="position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;" x-show="open" x-cloak @click.self="open=false">
+      <div style="background:var(--card);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:440px;padding:28px;">
+        <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:6px;">Report an Issue</h3>
+        <p style="font-size:.84rem;color:var(--text2);margin-bottom:18px;">Let us know what's wrong with <strong>Neumorphism Generator</strong>.</p>
+        <select style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;margin-bottom:12px;" x-model="reason">
+          <option value="">Select a reason…</option>
+          <option>Preview not updating</option>
+          <option>CSS output is wrong</option>
+          <option>Shadows not rendering</option>
+          <option>Copy button not working</option>
+          <option>Missing feature</option>
+          <option>Other</option>
+        </select>
+        <textarea style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;min-height:88px;resize:vertical;font-family:inherit;margin-bottom:12px;" x-model="details" placeholder="Describe the issue (optional)…"></textarea>
+        <div style="display:flex;gap:10px;">
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:700;border:none;background:var(--agrad);color:#fff;cursor:pointer;" :style="!reason?'opacity:.4;cursor:default':''" @click="submitted=true;setTimeout(()=>{open=false;submitted=false},2000)" :disabled="!reason">Submit</button>
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;" @click="open=false">Cancel</button>
+        </div>
+        <p style="margin-top:12px;text-align:center;font-size:.82rem;color:#86efac;" x-show="submitted">Thank you — report received!</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ FOOTER ════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#flg)"/>
+          <ellipse cx="20" cy="20" rx="10" ry="10" fill="rgba(255,255,255,.15)" stroke="rgba(255,255,255,.4)" stroke-width="2"/>
+          <ellipse cx="20" cy="20" rx="5" ry="5" fill="rgba(255,255,255,.6)"/>
+          <defs><linearGradient id="flg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#818cf8"/><stop offset="1" stop-color="#6366f1"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free online tools for developers, designers, and data people.</p>
+    </div>
+    <nav class="footer-nav-wrap">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=Design">Design</a>
+        <a href="../../tools.html?cat=CSS">CSS</a>
+        <a href="../../tools.html?cat=Productivity">Productivity</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../about.html">About</a>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy</a>
+        <a href="../../terms.html">Terms</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="inner">
+      <p>&copy; 2025 The Tool Empire. All rights reserved.</p>
+      <p>Built with Alpine.js</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

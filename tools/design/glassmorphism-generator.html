@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Glassmorphism Generator — Free CSS Glass Effect Tool | The Tool Empire</title>
+<meta name="description" content="Free online glassmorphism CSS generator. Adjust blur, opacity, border, shadow and border-radius with a live preview. Copy ready-to-use CSS instantly."/>
+<meta name="keywords" content="glassmorphism generator, glass effect CSS, frosted glass CSS, glassmorphism CSS, backdrop-filter generator, CSS glass UI"/>
+<meta name="robots" content="index,follow"/>
+<meta name="author" content="The Tool Empire"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/design/glassmorphism-generator.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Glassmorphism Generator — Free CSS Glass Effect Tool"/>
+<meta property="og:description" content="Adjust blur, opacity, border, and shadow with a live preview. Copy ready-to-use CSS for any glassmorphism UI component."/>
+<meta property="og:url" content="https://thetoolempire.com/tools/design/glassmorphism-generator.html"/>
+<meta property="og:site_name" content="The Tool Empire"/>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":"SoftwareApplication","name":"Glassmorphism Generator","applicationCategory":"DeveloperApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/design/glassmorphism-generator.html","description":"Free browser-based glassmorphism CSS generator with live preview. Adjust blur, opacity, saturation, border, and shadow then copy the CSS code.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+    {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+    {"@type":"ListItem","position":3,"name":"Design","item":"https://thetoolempire.com/tools.html#Design"},
+    {"@type":"ListItem","position":4,"name":"Glassmorphism Generator","item":"https://thetoolempire.com/tools/design/glassmorphism-generator.html"}
+  ]}
+]}</script>
+
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+<link rel="manifest" href="../../manifest.json"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<link rel="stylesheet" href="glassmorphism-generator.css"/>
+<script src="glassmorphism-generator.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="glassmorphismApp()">
+
+<!-- ══ HEADER ════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hg)"/>
+        <rect x="8" y="10" width="24" height="4" rx="2" fill="rgba(255,255,255,.9)"/>
+        <rect x="12" y="18" width="16" height="4" rx="2" fill="rgba(255,255,255,.7)"/>
+        <rect x="8" y="26" width="24" height="4" rx="2" fill="rgba(255,255,255,.5)"/>
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#0ea5e9"/><stop offset="1" stop-color="#0284c7"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    Design Tools
+  </div>
+  <h1><span class="g">Glassmorphism</span> Generator</h1>
+  <p>Adjust blur, opacity, saturation, border, and shadow with a live preview — then copy the CSS in one click.</p>
+</div>
+
+<!-- ══ TOOL ══════════════════════════════════════════════ -->
+<div class="page-wrap">
+
+  <!-- Toolbar -->
+  <div class="tool-header">
+    <button class="th-btn danger" @click="reset()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.66"/></svg>
+      Reset
+    </button>
+  </div>
+
+  <!-- ══ MAIN LAYOUT ══════════════════════════════════ -->
+  <div class="gg-layout">
+
+    <!-- ── CONTROLS ──────────────────────────────────── -->
+    <div class="gg-controls">
+
+      <!-- Style presets -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Quick Presets</div>
+        <div class="sp-grid">
+          <template x-for="sp in stylePresets" :key="sp.id">
+            <button class="sp-btn" @click="applyStylePreset(sp)" x-text="sp.label"></button>
+          </template>
+        </div>
+      </div>
+
+      <div class="ctrl-sep"></div>
+
+      <!-- Background Color -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">
+          Glass Color
+          <span class="ctrl-val" x-text="bgColor.toUpperCase()"></span>
+        </div>
+        <div class="color-row">
+          <input type="color" x-model="bgColor" title="Glass tint colour"/>
+          <span class="color-hex" x-text="bgColor.toUpperCase()"></span>
+        </div>
+      </div>
+
+      <!-- Background Opacity -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">
+          Background Opacity
+          <span class="ctrl-val" x-text="parseFloat(bgOpacity).toFixed(2)"></span>
+        </div>
+        <input type="range" x-model.number="bgOpacity" min="0" max="1" step="0.01"/>
+      </div>
+
+      <!-- Blur -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">
+          Blur
+          <span class="ctrl-val" x-text="blurAmount + 'px'"></span>
+        </div>
+        <input type="range" x-model.number="blurAmount" min="0" max="60" step="1"/>
+      </div>
+
+      <!-- Saturation -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">
+          Saturation
+          <span class="ctrl-val" x-text="saturation + '%'"></span>
+        </div>
+        <input type="range" x-model.number="saturation" min="0" max="300" step="5"/>
+      </div>
+
+      <div class="ctrl-sep"></div>
+
+      <!-- Border Opacity -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">
+          Border Opacity
+          <span class="ctrl-val" x-text="parseFloat(borderOpacity).toFixed(2)"></span>
+        </div>
+        <input type="range" x-model.number="borderOpacity" min="0" max="1" step="0.01"/>
+      </div>
+
+      <!-- Border Width -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">
+          Border Width
+          <span class="ctrl-val" x-text="borderWidth + 'px'"></span>
+        </div>
+        <input type="range" x-model.number="borderWidth" min="0" max="4" step="1"/>
+      </div>
+
+      <!-- Border Radius -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">
+          Border Radius
+          <span class="ctrl-val" x-text="borderRadius + 'px'"></span>
+        </div>
+        <input type="range" x-model.number="borderRadius" min="0" max="48" step="1"/>
+      </div>
+
+      <div class="ctrl-sep"></div>
+
+      <!-- Shadow Blur -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">
+          Shadow Blur
+          <span class="ctrl-val" x-text="shadowBlur + 'px'"></span>
+        </div>
+        <input type="range" x-model.number="shadowBlur" min="0" max="80" step="2"/>
+      </div>
+
+      <!-- Shadow Opacity -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">
+          Shadow Opacity
+          <span class="ctrl-val" x-text="parseFloat(shadowOpacity).toFixed(2)"></span>
+        </div>
+        <input type="range" x-model.number="shadowOpacity" min="0" max="0.8" step="0.01"/>
+      </div>
+
+      <!-- Shadow Color -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">
+          Shadow Color
+          <span class="ctrl-val" x-text="shadowColor.toUpperCase()"></span>
+        </div>
+        <div class="color-row">
+          <input type="color" x-model="shadowColor" title="Shadow colour"/>
+          <span class="color-hex" x-text="shadowColor.toUpperCase()"></span>
+        </div>
+      </div>
+
+      <div class="ctrl-sep"></div>
+
+      <!-- BG Scene -->
+      <div class="ctrl-group">
+        <div class="ctrl-label">Background Scene</div>
+        <div class="bg-chips">
+          <template x-for="p in bgPresets" :key="p.id">
+            <div style="text-align:center;">
+              <button
+                class="bg-chip"
+                :class="{ active: bgPreset === p.id }"
+                :style="`background: ${p.bg}`"
+                :title="p.label"
+                @click="bgPreset = p.id">
+              </button>
+              <div class="bg-chip-label" x-text="p.label"></div>
+            </div>
+          </template>
+        </div>
+      </div>
+
+    </div><!-- /gg-controls -->
+
+    <!-- ── PREVIEW ─────────────────────────────────── -->
+    <div class="gg-preview">
+      <div class="preview-scene" :style="`background: ${currentBg}`">
+
+        <!-- Decorative blobs for depth -->
+        <div class="blob blob-1" :style="`background: rgba(255,255,255,0.3)`"></div>
+        <div class="blob blob-2" :style="`background: rgba(0,0,0,0.2)`"></div>
+        <div class="blob blob-3" :style="`background: rgba(255,255,255,0.15)`"></div>
+
+        <!-- Glass card with live style binding -->
+        <div class="preview-card" :style="glassStyleStr">
+          <div class="pc-avatar">SC</div>
+          <div class="pc-name">Sarah Chen</div>
+          <div class="pc-role">Senior Designer · Remote</div>
+          <div class="pc-divider"></div>
+          <div class="pc-stats">
+            <div><span>128</span><p>Projects</p></div>
+            <div><span>4.9</span><p>Rating</p></div>
+            <div><span>2.4k</span><p>Followers</p></div>
+          </div>
+          <button class="pc-follow">Follow</button>
+        </div>
+
+      </div>
+    </div><!-- /gg-preview -->
+
+  </div><!-- /gg-layout -->
+
+  <!-- ══ CSS OUTPUT ════════════════════════════════════ -->
+  <div class="gg-code-wrap">
+    <div class="gg-code-head">
+      <div class="gg-code-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Generated CSS
+      </div>
+      <button class="copy-btn" :class="{ done: copied }" @click="copyCSS()">
+        <svg x-show="!copied" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <svg x-show="copied" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <span x-text="copied ? 'Copied!' : 'Copy CSS'"></span>
+      </button>
+    </div>
+    <div class="gg-code-body">
+      <pre x-text="cssCode"></pre>
+    </div>
+  </div>
+
+  <!-- ══ INFO SECTIONS ════════════════════════════════ -->
+  <div class="info-sections">
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h2>About This Tool</h2>
+      </div>
+      <div class="info-body">
+        <p><strong>Glassmorphism Generator</strong> lets you design frosted-glass UI components in real time. Adjust every parameter — blur, opacity, saturation, border, and drop shadow — and see the effect update live on a sample card placed in front of a colourful gradient scene.</p>
+        <p>Glassmorphism is a design trend popularised in macOS Big Sur and Windows 11. It uses <code>backdrop-filter: blur()</code> to create the impression of frosted glass: the element's background is a blurred, semi-transparent window into what sits behind it. Combined with a subtle border and soft shadow, it produces a layered, depth-rich interface.</p>
+        <p>The tool is purely client-side — nothing is sent to a server. All state resets when you close the tab (use Copy CSS to save your work).</p>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h2>How to Use</h2>
+      </div>
+      <div class="info-body">
+        <ul>
+          <li><strong>Quick Presets</strong> — click Subtle, Frosted, Heavy, or Opaque to jump to a ready-made starting point, then fine-tune from there.</li>
+          <li><strong>Glass Color</strong> — the colour tint of the glass panel. White (<code>#ffffff</code>) gives the classic frosted look; blue or violet tints are common in dark UIs.</li>
+          <li><strong>Background Opacity</strong> — how opaque the tint is. Lower values (0.05–0.2) give a more see-through glass. Too high and it no longer reads as glass.</li>
+          <li><strong>Blur</strong> — controls <code>backdrop-filter: blur()</code>. 10–20 px is a realistic range; very high values (40 px+) create a dreamy soft focus. Zero disables the effect entirely.</li>
+          <li><strong>Saturation</strong> — boosts or reduces colour intensity in the blurred backdrop. Values above 100% make the background colours pop through the glass; values below desaturate it.</li>
+          <li><strong>Border</strong> — a translucent border that outlines the glass edge. Higher opacity borders improve legibility of the card edge against complex backgrounds.</li>
+          <li><strong>Shadow</strong> — depth cue for the card. Larger blur + higher opacity creates the impression of the card floating further above the background.</li>
+          <li><strong>Background Scene</strong> — choose a gradient background to test your glass against. Glassmorphism only works on top of rich, colourful backgrounds.</li>
+          <li>When satisfied, click <strong>Copy CSS</strong> and paste the <code>.glass</code> class into your project.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h2>Logic &amp; Technical Notes</h2>
+      </div>
+      <div class="info-body">
+        <p>The glass effect relies on the CSS <code>backdrop-filter</code> property, which applies a filter (blur, saturation, etc.) to everything <em>behind</em> the element. It requires the element to have at least a partially transparent background so the filtered backdrop shows through.</p>
+        <p>The generated rule uses both <code>backdrop-filter</code> and <code>-webkit-backdrop-filter</code> (the WebKit-prefixed version required for Safari). Browser support is excellent — Chromium 76+, Firefox 103+, Safari 9+. For older browsers the element simply renders as a translucent panel without blur.</p>
+        <p>The <strong>saturation</strong> component (<code>saturate()</code> inside <code>backdrop-filter</code>) is what gives expensive macOS-style glass its vivid quality. Setting it to 180–200% increases the perceived depth of the blur by making background colours more visible through the glass.</p>
+        <p>In this tool, the live preview updates every slider value reactively through Alpine.js. The <code>:style</code> binding on the card element receives a concatenated CSS string that includes all six properties, so the browser re-renders the blur in real time as you drag sliders. The CSS code block mirrors the same values formatted as a ready-to-copy block.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ══ Related Tools ════════════════════════════════ -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>Related Tools</h2>
+      <a href="../../tools.html" class="view-all-link">All Tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="related-grid">
+      <a class="related-tool-card" href="json-to-chart.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="rt-name">JSON to Chart</div>
+        <div class="rt-desc">Paste or upload JSON data and generate beautiful bar, line, pie, and more charts instantly.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="org-chart.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#10b981,#059669)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="19" r="3"/><circle cx="19" cy="19" r="3"/><line x1="12" y1="8" x2="5" y2="16"/><line x1="12" y1="8" x2="19" y2="16"/></svg>
+        </div>
+        <div class="rt-name">Org Chart Maker</div>
+        <div class="rt-desc">Build hierarchical organizational charts with auto-layout, zoom, and export.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="timeline-maker.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#14b8a6,#0d9488)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="12" x2="22" y2="12"/><circle cx="6" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="18" cy="12" r="2" fill="currentColor"/></svg>
+        </div>
+        <div class="rt-name">Timeline Maker</div>
+        <div class="rt-desc">Build vertical or horizontal visual timelines with custom events and dates.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="swot-analysis.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#a78bfa,#7c3aed)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <div class="rt-name">SWOT Analysis Maker</div>
+        <div class="rt-desc">Build Strengths, Weaknesses, Opportunities, and Threats matrices with priority levels.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Blog -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>From the Blog</h2>
+      <a href="../../blog.html" class="view-all-link">All Posts <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="blog-grid">
+      <a class="blog-card" href="../../blog/glassmorphism-design-guide.html">
+        <span class="blog-cat" style="background:rgba(14,165,233,.1);color:#7dd3fc;">Design</span>
+        <div class="blog-title">Glassmorphism Done Right: When to Use It and When to Avoid It</div>
+        <div class="blog-excerpt">The frosted-glass trend looks stunning in portfolios but can hurt usability. Here's how to apply it well.</div>
+        <div class="blog-meta">May 2025 · 6 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/backdrop-filter-css.html">
+        <span class="blog-cat" style="background:rgba(99,102,241,.1);color:#a5b4fc;">CSS</span>
+        <div class="blog-title">backdrop-filter: Everything You Need to Know</div>
+        <div class="blog-excerpt">Deep dive into CSS backdrop-filter — how blur, saturate, brightness work, performance considerations, and browser quirks.</div>
+        <div class="blog-meta">April 2025 · 8 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/ui-design-trends-2025.html">
+        <span class="blog-cat" style="background:rgba(167,139,250,.1);color:#c4b5fd;">Trends</span>
+        <div class="blog-title">UI Design Trends 2025: What's In, What's Out</div>
+        <div class="blog-excerpt">From glassmorphism to bento grids to variable fonts — the design patterns shaping interfaces this year.</div>
+        <div class="blog-meta">March 2025 · 7 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Report -->
+  <div style="text-align:center;padding:24px 0 0;" x-data="{open:false,reason:'',details:'',submitted:false}">
+    <button style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--faint);cursor:pointer;" @click="open=true">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Report an Issue
+    </button>
+    <div style="position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;" x-show="open" x-cloak @click.self="open=false">
+      <div style="background:var(--card);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:440px;padding:28px;">
+        <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:6px;">Report an Issue</h3>
+        <p style="font-size:.84rem;color:var(--text2);margin-bottom:18px;">Let us know what's wrong with <strong>Glassmorphism Generator</strong>.</p>
+        <select style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;margin-bottom:12px;" x-model="reason">
+          <option value="">Select a reason…</option>
+          <option>Preview not updating</option>
+          <option>CSS output is wrong</option>
+          <option>Copy button not working</option>
+          <option>Sliders not responding</option>
+          <option>Missing feature</option>
+          <option>Other</option>
+        </select>
+        <textarea style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;min-height:88px;resize:vertical;font-family:inherit;margin-bottom:12px;" x-model="details" placeholder="Describe the issue (optional)…"></textarea>
+        <div style="display:flex;gap:10px;">
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:700;border:none;background:var(--agrad);color:#fff;cursor:pointer;" :style="!reason?'opacity:.4;cursor:default':''" @click="submitted=true;setTimeout(()=>{open=false;submitted=false},2000)" :disabled="!reason">Submit</button>
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;" @click="open=false">Cancel</button>
+        </div>
+        <p style="margin-top:12px;text-align:center;font-size:.82rem;color:#86efac;" x-show="submitted">Thank you — report received!</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ FOOTER ════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#flg)"/>
+          <rect x="8" y="10" width="24" height="4" rx="2" fill="rgba(255,255,255,.9)"/>
+          <rect x="12" y="18" width="16" height="4" rx="2" fill="rgba(255,255,255,.7)"/>
+          <rect x="8" y="26" width="24" height="4" rx="2" fill="rgba(255,255,255,.5)"/>
+          <defs><linearGradient id="flg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#0ea5e9"/><stop offset="1" stop-color="#0284c7"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free online tools for developers, designers, and data people.</p>
+    </div>
+    <nav class="footer-nav-wrap">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=Design">Design</a>
+        <a href="../../tools.html?cat=Productivity">Productivity</a>
+        <a href="../../tools.html?cat=Math">Math</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../about.html">About</a>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy</a>
+        <a href="../../terms.html">Terms</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="inner">
+      <p>&copy; 2025 The Tool Empire. All rights reserved.</p>
+      <p>Built with Alpine.js</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

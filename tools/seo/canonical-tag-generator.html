@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Canonical Tag Generator — Prevent Duplicate Content with rel=canonical | The Tool Empire</title>
+  <meta name="description" content="Generate canonical link tags to fix duplicate content issues. Build, validate, and copy rel=canonical HTML for any URL — with bulk mode for processing multiple pages at once. Free, no signup."/>
+  <meta name="keywords" content="canonical tag generator, rel canonical generator, canonical url generator, duplicate content seo, canonical link tag, seo canonical"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/seo/canonical-tag-generator.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Canonical Tag Generator — Prevent Duplicate Content"/>
+  <meta property="og:description" content="Generate canonical link tags to prevent duplicate content issues. Validate and copy rel=canonical HTML — with bulk mode for multiple URLs."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/seo/canonical-tag-generator.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"Canonical Tag Generator","description":"Generate canonical link tags to prevent duplicate content issues. Build, validate, and copy rel=canonical HTML with URL normalisation options and bulk mode.","url":"https://thetoolempire.com/tools/seo/canonical-tag-generator.html","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"SEO Tools","item":"https://thetoolempire.com/tools.html#seo"},
+      {"@type":"ListItem","position":3,"name":"Canonical Tag Generator","item":"https://thetoolempire.com/tools/seo/canonical-tag-generator.html"}
+    ]}
+  ]}
+  </script>
+
+  <link rel="stylesheet" href="canonical-tag-generator.css"/>
+</head>
+<body x-data="canonicalApp()" x-cloak>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <a href="../../index.html" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+    </div>
+    <span class="nav-logo-text">Tool Empire</span>
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-tool">Canonical Tag Generator</span>
+  <div class="nav-spacer"></div>
+  <a href="../../tools.html" class="nav-tools-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    All Tools
+  </a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+    SEO — Duplicate Content
+  </div>
+  <h1>Canonical Tag <span>Generator</span></h1>
+  <p class="hero-sub">Build <code style="background:rgba(16,185,129,.15);padding:2px 7px;border-radius:5px;font-size:14px;color:#34d399;">&lt;link rel="canonical"&gt;</code> tags with URL normalisation, live validation, and bulk mode for multiple pages.</p>
+</section>
+
+<!-- ── TOOL CARD ── -->
+<div class="tool-card">
+
+  <!-- Mode tabs -->
+  <div class="mode-tabs">
+    <button class="mode-tab" :class="mode==='single'?'active':''" @click="mode='single'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+      Single URL
+    </button>
+    <button class="mode-tab" :class="mode==='bulk'?'active':''" @click="mode='bulk'">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      Bulk Mode
+    </button>
+  </div>
+
+  <!-- ── SINGLE MODE ── -->
+  <div x-show="mode==='single'" x-transition>
+    <div class="cg-layout">
+
+      <!-- LEFT -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+
+        <!-- URL input -->
+        <div class="panel">
+          <div class="panel-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+            <span class="panel-title">Page URL</span>
+          </div>
+          <div class="panel-body">
+            <div class="url-field">
+              <div class="field-label">Enter the canonical URL for this page</div>
+              <div class="url-input-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                <input class="url-main-input" type="url" placeholder="https://example.com/page"
+                  x-model="rawUrl" autocomplete="off" spellcheck="false"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Options -->
+        <div class="panel">
+          <div class="panel-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M12 2v2M12 20v2M2 12h2M20 12h2M4.93 19.07l1.41-1.41M19.07 19.07l-1.41-1.41"/></svg>
+            <span class="panel-title">Normalisation Options</span>
+          </div>
+          <div class="panel-body">
+            <div class="options-grid">
+              <label class="opt-toggle">
+                <div class="opt-toggle-left">
+                  <span class="opt-toggle-name">Force HTTPS</span>
+                  <span class="opt-toggle-desc">Upgrade http:// to https://</span>
+                </div>
+                <div class="toggle-sw">
+                  <input type="checkbox" x-model="forceHttps"/>
+                  <div class="toggle-track"></div>
+                </div>
+              </label>
+              <label class="opt-toggle">
+                <div class="opt-toggle-left">
+                  <span class="opt-toggle-name">Strip www</span>
+                  <span class="opt-toggle-desc">Remove www. prefix</span>
+                </div>
+                <div class="toggle-sw">
+                  <input type="checkbox" x-model="stripWww"/>
+                  <div class="toggle-track"></div>
+                </div>
+              </label>
+              <label class="opt-toggle">
+                <div class="opt-toggle-left">
+                  <span class="opt-toggle-name">Strip trailing slash</span>
+                  <span class="opt-toggle-desc">Remove trailing / from paths</span>
+                </div>
+                <div class="toggle-sw">
+                  <input type="checkbox" x-model="stripTrailingSlash"/>
+                  <div class="toggle-track"></div>
+                </div>
+              </label>
+              <label class="opt-toggle">
+                <div class="opt-toggle-left">
+                  <span class="opt-toggle-name">Strip all query params</span>
+                  <span class="opt-toggle-desc">Remove entire ?query string</span>
+                </div>
+                <div class="toggle-sw">
+                  <input type="checkbox" x-model="stripQuery"/>
+                  <div class="toggle-track"></div>
+                </div>
+              </label>
+              <label class="opt-toggle">
+                <div class="opt-toggle-left">
+                  <span class="opt-toggle-name">Strip fragment (#)</span>
+                  <span class="opt-toggle-desc">Remove #hash anchors</span>
+                </div>
+                <div class="toggle-sw">
+                  <input type="checkbox" x-model="stripHash"/>
+                  <div class="toggle-track"></div>
+                </div>
+              </label>
+            </div>
+
+            <div x-show="!stripQuery">
+              <div class="field-label" style="margin-bottom:6px;">Strip specific params <span style="font-weight:400;text-transform:none;letter-spacing:0;">(comma-separated)</span></div>
+              <input class="params-input" type="text" placeholder="utm_source, utm_medium, fbclid, gclid"
+                x-model="customParams" :disabled="stripQuery"/>
+              <div class="params-hint" style="margin-top:5px;">These parameters will be removed even if "Strip all" is off.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Output tag -->
+        <div class="output-box">
+          <div class="output-header">
+            <span class="output-lang">HTML — &lt;head&gt;</span>
+            <div class="output-copy-row">
+              <button class="copy-sm" :class="htmlCopied?'copied':''" @click="copyUrl()" title="Copy canonical URL only">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+                <span x-text="htmlCopied ? '✓ URL' : 'URL'"></span>
+              </button>
+              <button class="copy-sm primary" :class="copied?'copied':''" @click="copySingle()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                <span x-text="copied ? '✓ Copied!' : 'Copy Tag'"></span>
+              </button>
+            </div>
+          </div>
+          <div class="output-pre">
+            <template x-if="htmlTag">
+              <span x-text="htmlTag"></span>
+            </template>
+            <template x-if="!htmlTag">
+              <span class="output-placeholder">Your canonical tag will appear here…</span>
+            </template>
+          </div>
+          <template x-if="canonical">
+            <div class="url-pill">
+              <div class="url-pill-label">Canonical URL</div>
+              <span x-text="canonical"></span>
+            </div>
+          </template>
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="right-col">
+
+        <!-- URL anatomy preview -->
+        <div class="panel">
+          <div class="panel-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+            <span class="panel-title">URL Anatomy</span>
+          </div>
+          <div class="preview-card-body">
+            <template x-if="canonical">
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div class="preview-row">
+                  <div class="preview-row-label">Scheme</div>
+                  <div class="preview-row-val green" x-text="canonical.split('://')[0] + '://'"></div>
+                </div>
+                <div class="preview-row">
+                  <div class="preview-row-label">Host</div>
+                  <div class="preview-row-val" x-text="(()=>{ try{ return new URL(canonical).hostname }catch{return '—'} })()"></div>
+                </div>
+                <div class="preview-row">
+                  <div class="preview-row-label">Path</div>
+                  <div class="preview-row-val" x-text="(()=>{ try{ return new URL(canonical).pathname||'/' }catch{return '—'} })()"></div>
+                </div>
+                <div class="preview-row">
+                  <div class="preview-row-label">Query</div>
+                  <div class="preview-row-val" :class="(()=>{ try{ return new URL(canonical).search }catch{return ''} })()?'':'empty'"
+                    x-text="(()=>{ try{ const s=new URL(canonical).search; return s||'none' }catch{return '—'} })()"></div>
+                </div>
+                <div class="preview-row">
+                  <div class="preview-row-label">Fragment</div>
+                  <div class="preview-row-val" x-text="(()=>{ try{ const h=new URL(canonical).hash; return h||'none' }catch{return '—'} })()"></div>
+                </div>
+              </div>
+            </template>
+            <template x-if="!canonical">
+              <p style="font-size:13px;color:var(--text2);">Enter a URL to see its anatomy.</p>
+            </template>
+          </div>
+        </div>
+
+        <!-- Validation -->
+        <div class="panel" x-show="rawUrl.trim()">
+          <div class="panel-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            <span class="panel-title">Validation</span>
+            <span class="panel-sub" x-text="scorePass + '/' + scoreTotal"></span>
+          </div>
+          <div class="panel-body">
+            <div class="val-score-bar">
+              <div class="val-score-num" x-text="scorePass"></div>
+              <div style="flex:1;">
+                <div class="val-score-label" x-text="'of ' + scoreTotal + ' checks passed'"></div>
+                <div class="val-track">
+                  <div class="val-fill"
+                    :class="errorCount>0?'error':(warnCount>0?'warn':'ok')"
+                    :style="scoreTotal ? 'width:' + Math.round(scorePass/scoreTotal*100) + '%' : 'width:0'"></div>
+                </div>
+              </div>
+            </div>
+            <div class="val-list">
+              <template x-for="v in validations" :key="v.label">
+                <div class="val-item">
+                  <div class="val-icon" :class="v.pass ? 'pass' : ('fail-' + v.level)">
+                    <template x-if="v.pass">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    </template>
+                    <template x-if="!v.pass && v.level==='error'">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                    </template>
+                    <template x-if="!v.pass && v.level==='warn'">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    </template>
+                    <template x-if="!v.pass && v.level==='info'">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    </template>
+                  </div>
+                  <div class="val-text">
+                    <div class="val-label" x-text="v.label"></div>
+                    <div class="val-note" x-text="v.note"></div>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Best practices checklist -->
+        <div class="panel">
+          <div class="panel-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            <span class="panel-title">Canonical Best Practices</span>
+          </div>
+          <div class="panel-body">
+            <div class="checklist">
+              <div class="checklist-item">
+                <div class="checklist-num">1</div>
+                <div class="checklist-text"><strong>Self-referential canonicals</strong> — every page should have a canonical pointing to itself, not just duplicates.</div>
+              </div>
+              <div class="checklist-item">
+                <div class="checklist-num">2</div>
+                <div class="checklist-text"><strong>Place in &lt;head&gt;</strong> — the tag must appear in the <code>&lt;head&gt;</code> section, not in <code>&lt;body&gt;</code>.</div>
+              </div>
+              <div class="checklist-item">
+                <div class="checklist-num">3</div>
+                <div class="checklist-text"><strong>Use absolute URLs</strong> — always use full <code>https://example.com/path</code> URLs, never relative paths.</div>
+              </div>
+              <div class="checklist-item">
+                <div class="checklist-num">4</div>
+                <div class="checklist-text"><strong>One canonical per page</strong> — multiple canonical tags on the same page will be ignored by Google.</div>
+              </div>
+              <div class="checklist-item">
+                <div class="checklist-num">5</div>
+                <div class="checklist-text"><strong>Consistent with hreflang</strong> — if using hreflang, canonical and hreflang URLs must agree on the preferred version.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BULK MODE ── -->
+  <div x-show="mode==='bulk'" x-transition>
+    <div class="panel">
+      <div class="panel-header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        <span class="panel-title">Bulk Canonical Generator</span>
+        <span class="panel-sub">One URL per line — same options as single mode apply</span>
+      </div>
+      <div class="panel-body">
+        <div class="bulk-layout">
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="field-label">Input URLs (one per line)</div>
+            <textarea class="bulk-ta" placeholder="https://example.com/page-1
+https://example.com/page-2?utm_source=email
+http://www.example.com/page-3/" x-model="bulkInput"></textarea>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="field-label">Generated canonical tags</div>
+            <textarea class="bulk-ta output" readonly
+              :placeholder="bulkDone ? '' : 'Output will appear here after clicking Generate…'"
+              x-model="bulkOutput"></textarea>
+          </div>
+        </div>
+        <div class="bulk-actions">
+          <button class="bulk-run-btn" @click="runBulk()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Generate Tags
+          </button>
+          <button class="bulk-clear-btn" @click="clearBulk()">Clear</button>
+          <button class="copy-sm primary" :class="bulkCopied?'copied':''" x-show="bulkDone" @click="copyBulk()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span x-text="bulkCopied ? '✓ Copied!' : 'Copy All'"></span>
+          </button>
+          <span class="bulk-count" x-show="bulkDone" x-text="bulkOutput.split('\n').filter(l=>l.trim()).length + ' tags generated'"></span>
+        </div>
+        <p style="font-size:12px;color:var(--text2);">Normalisation options set in Single URL mode (Force HTTPS, Strip www, etc.) are applied to bulk output as well.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── INFO SECTIONS ── -->
+<div class="info-sections">
+
+  <!-- About -->
+  <div class="info-card">
+    <div class="info-card-header" @click="$el.nextElementSibling.classList.toggle('open'); $el.querySelector('.info-card-chevron').classList.toggle('open')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span class="info-card-title">About This Tool</span>
+      <svg class="info-card-chevron open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polyline points="18 15 12 9 6 15"/></svg>
+    </div>
+    <div class="info-card-body open">
+      <p>A <strong>canonical tag</strong> (<code>&lt;link rel="canonical" href="…"/&gt;</code>) tells search engines which version of a URL is the "master" copy when multiple URLs serve identical or near-identical content. Without one, Google may index the wrong version, split link equity across duplicates, or suppress your preferred page in favour of a crawled variant.</p>
+      <p>Common scenarios that require canonical tags: HTTP vs HTTPS, www vs non-www, trailing slash vs no trailing slash, URLs with and without query strings (filtering, sorting, pagination), print-friendly versions of pages, and syndicated content.</p>
+      <p>This tool generates the correct <code>&lt;link&gt;</code> tag and applies URL normalisation options — force HTTPS, strip www, remove query strings, strip fragments — so the canonical URL is always clean and consistent before you paste it into your <code>&lt;head&gt;</code>. Bulk mode lets you process a whole list at once.</p>
+    </div>
+  </div>
+
+  <!-- How to Use -->
+  <div class="info-card">
+    <div class="info-card-header" @click="$el.nextElementSibling.classList.toggle('open'); $el.querySelector('.info-card-chevron').classList.toggle('open')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      <span class="info-card-title">How to Use</span>
+      <svg class="info-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polyline points="18 15 12 9 6 15"/></svg>
+    </div>
+    <div class="info-card-body">
+      <h4>Single URL mode</h4>
+      <ol>
+        <li>Paste your page URL (with or without <code>https://</code>) into the URL field.</li>
+        <li>Toggle the normalisation options — Force HTTPS is on by default. Use "Strip specific params" to remove only tracking parameters like <code>utm_source</code> or <code>fbclid</code>.</li>
+        <li>The canonical tag and URL anatomy panel update live.</li>
+        <li>Check the validation list — fix errors before using the tag.</li>
+        <li>Click <strong>Copy Tag</strong> to copy the full <code>&lt;link&gt;</code> element, then paste it into your page's <code>&lt;head&gt;</code>.</li>
+      </ol>
+      <h4>Bulk mode</h4>
+      <ol>
+        <li>Switch to Bulk Mode via the tab at the top.</li>
+        <li>Paste one URL per line into the left textarea.</li>
+        <li>Click <strong>Generate Tags</strong> — all normalisation options from Single URL mode are applied.</li>
+        <li>Click <strong>Copy All</strong> to copy the entire output.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Logic & Algorithm -->
+  <div class="info-card">
+    <div class="info-card-header" @click="$el.nextElementSibling.classList.toggle('open'); $el.querySelector('.info-card-chevron').classList.toggle('open')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      <span class="info-card-title">Logic &amp; Algorithm</span>
+      <svg class="info-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polyline points="18 15 12 9 6 15"/></svg>
+    </div>
+    <div class="info-card-body">
+      <p>URL normalisation is performed using the browser's native <code>URL</code> API to guarantee RFC-compliant parsing:</p>
+      <h4>Processing pipeline</h4>
+      <ol>
+        <li><strong>Scheme injection</strong> — if no <code>http(s)://</code> is present, <code>https://</code> is prepended. If Force HTTPS is on, existing <code>http://</code> is replaced.</li>
+        <li><strong>www stripping</strong> — removes the <code>www.</code> prefix from <code>hostname</code>.</li>
+        <li><strong>Fragment removal</strong> — clears <code>URL.hash</code> (fragments are never sent to the server and Google ignores them in canonicals).</li>
+        <li><strong>Query handling</strong> — either clears <code>URL.search</code> entirely (Strip all), or uses <code>URLSearchParams.delete()</code> to remove only the specified parameter names.</li>
+        <li><strong>Trailing slash</strong> — removes trailing <code>/</code> from <code>pathname</code> unless the path is exactly <code>/</code> (root).</li>
+        <li><strong>Output</strong> — calls <code>URL.href</code> to produce the final normalised URL. The <code>&amp;</code> and <code>"</code> characters are HTML-escaped before embedding in the <code>href</code> attribute.</li>
+      </ol>
+      <h4>Validation checks</h4>
+      <ul>
+        <li><strong>Error</strong> — URL cannot be parsed.</li>
+        <li><strong>Warning</strong> — HTTP protocol; query string present; fragment present; tracking parameters detected; mixed case in URL; double slashes in path.</li>
+        <li><strong>Info</strong> — non-default port number present.</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── RELATED TOOLS ── -->
+<div class="section-block">
+  <div class="section-title">Related <span>Tools</span></div>
+  <div class="related-grid">
+    <a href="../seo/meta-tag-generator.html" class="related-card">
+      <div class="related-icon" style="background:linear-gradient(135deg,#f093fb,#f5576c);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </div>
+      <div class="related-info">
+        <div class="related-name">Meta Tag Generator</div>
+        <div class="related-desc">Generate complete SEO, Open Graph, and Twitter Card meta tags.</div>
+      </div>
+    </a>
+    <a href="../seo/robots-txt-generator.html" class="related-card">
+      <div class="related-icon" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      </div>
+      <div class="related-info">
+        <div class="related-name">Robots.txt Generator</div>
+        <div class="related-desc">Build a valid robots.txt file to control search engine crawlers.</div>
+      </div>
+    </a>
+    <a href="../seo/breadcrumb-schema-generator.html" class="related-card">
+      <div class="related-icon" style="background:linear-gradient(135deg,#0ea5e9,#6366f1);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="related-info">
+        <div class="related-name">Breadcrumb Schema Generator</div>
+        <div class="related-desc">Build JSON-LD BreadcrumbList markup for Google rich results.</div>
+      </div>
+    </a>
+    <a href="../seo/sitemap-generator.html" class="related-card">
+      <div class="related-icon" style="background:linear-gradient(135deg,#f97316,#fbbf24);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 10h16M4 14h10"/></svg>
+      </div>
+      <div class="related-info">
+        <div class="related-name">XML Sitemap Generator</div>
+        <div class="related-desc">Build a valid sitemap.xml with custom priorities and frequencies.</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- ── BLOG CARDS ── -->
+<div class="section-block">
+  <div class="section-title">Learn More About <span>Canonical Tags</span></div>
+  <div class="blog-grid">
+    <a href="../../blog/canonical-tag-guide.html" class="blog-card">
+      <span class="blog-tag">SEO Guide</span>
+      <div class="blog-title">Canonical Tags Explained: How to Fix Duplicate Content</div>
+      <div class="blog-excerpt">A complete guide to rel=canonical — what it does, when to use it, common mistakes, and how Google actually treats canonical hints vs directives.</div>
+      <div class="blog-meta"><span>June 2026</span><span>9 min read</span></div>
+    </a>
+    <a href="../../blog/duplicate-content-seo.html" class="blog-card">
+      <span class="blog-tag">SEO</span>
+      <div class="blog-title">Duplicate Content: The Complete SEO Guide</div>
+      <div class="blog-excerpt">Understand how Google handles duplicate and near-duplicate content, what the real ranking impact is, and all the tools you can use to resolve it.</div>
+      <div class="blog-meta"><span>May 2026</span><span>11 min read</span></div>
+    </a>
+    <a href="../../blog/hreflang-canonical.html" class="blog-card">
+      <span class="blog-tag">International SEO</span>
+      <div class="blog-title">Hreflang + Canonical: How They Work Together</div>
+      <div class="blog-excerpt">When you have multilingual or multi-regional content, hreflang and canonical must align. Learn the rules and common pitfalls to avoid mixed signals.</div>
+      <div class="blog-meta"><span>April 2026</span><span>8 min read</span></div>
+    </a>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <span class="footer-brand-name">The Tool Empire</span>
+        </div>
+        <p class="footer-tagline">Free browser-based tools for developers, designers, and content creators. No signup, no tracking.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">SEO Tools</div>
+        <div class="footer-links">
+          <a href="../seo/meta-tag-generator.html">Meta Tag Generator</a>
+          <a href="../seo/og-tag-generator.html">OG Tag Generator</a>
+          <a href="../seo/robots-txt-generator.html">Robots.txt Generator</a>
+          <a href="../seo/faq-schema-generator.html">FAQ Schema Generator</a>
+          <a href="../seo/breadcrumb-schema-generator.html">Breadcrumb Schema Generator</a>
+          <a href="canonical-tag-generator.html">Canonical Tag Generator</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="../../index.html">Home</a>
+          <a href="../../tools.html">All Tools</a>
+          <a href="../../blog.html">Blog</a>
+          <a href="../../about.html">About</a>
+          <a href="../../contact.html">Contact</a>
+          <a href="../../privacy.html">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 The Tool Empire. All rights reserved.</span>
+      <span><a href="../../privacy.html">Privacy</a> · <a href="../../terms.html">Terms</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ── REPORT MODAL ── -->
+<div id="report-modal-root"></div>
+<script src="../../assets/js/report-modal.js"></script>
+
+<script src="canonical-tag-generator.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

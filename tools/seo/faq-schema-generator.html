@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FAQ Schema Generator — JSON-LD FAQPage Structured Data | The Tool Empire</title>
+  <meta name="description" content="Generate JSON-LD FAQPage structured data for Google rich results. Add Q&A pairs, preview the SERP accordion, validate your markup, and copy ready-to-paste code. Free, no signup."/>
+  <meta name="keywords" content="faq schema generator, json-ld faq, faqpage structured data, google rich results faq, schema markup generator, seo structured data"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://thetoolempire.com/tools/seo/faq-schema-generator.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="FAQ Schema Generator — JSON-LD FAQPage Structured Data"/>
+  <meta property="og:description" content="Build JSON-LD FAQPage structured data for Google rich results. Add questions and answers, preview the SERP accordion, validate your markup, and copy the code."/>
+  <meta property="og:url" content="https://thetoolempire.com/tools/seo/faq-schema-generator.html"/>
+  <meta property="og:site_name" content="The Tool Empire"/>
+  <meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"SoftwareApplication","name":"FAQ Schema Generator","description":"Generate JSON-LD FAQPage structured data for Google rich results. Add Q&A pairs, preview the SERP accordion, validate your markup, and copy ready-to-paste code.","url":"https://thetoolempire.com/tools/seo/faq-schema-generator.html","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+      {"@type":"ListItem","position":2,"name":"SEO Tools","item":"https://thetoolempire.com/tools.html#seo"},
+      {"@type":"ListItem","position":3,"name":"FAQ Schema Generator","item":"https://thetoolempire.com/tools/seo/faq-schema-generator.html"}
+    ]}
+  ]}
+  </script>
+
+  <link rel="stylesheet" href="faq-schema-generator.css"/>
+</head>
+<body x-data="faqSchemaApp()" x-cloak>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <a href="../../index.html" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+    </div>
+    <span class="nav-logo-text">Tool Empire</span>
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-tool">FAQ Schema Generator</span>
+  <div class="nav-spacer"></div>
+  <a href="../../tools.html" class="nav-tools-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    All Tools
+  </a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    SEO Structured Data
+  </div>
+  <h1>FAQ <span>Schema Generator</span></h1>
+  <p class="hero-sub">Build JSON-LD FAQPage markup for Google rich results — add Q&amp;A pairs, preview the SERP accordion, validate, and copy the code.</p>
+</section>
+
+<!-- ── TOOL CARD ── -->
+<div class="tool-card">
+  <div class="faq-layout">
+
+    <!-- LEFT: Editor -->
+    <div style="display:flex;flex-direction:column;gap:16px;">
+
+      <!-- Meta fields -->
+      <div class="panel">
+        <div class="panel-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span class="panel-title">Page Info</span>
+          <span class="panel-sub">Optional</span>
+        </div>
+        <div class="panel-body">
+          <div class="meta-row">
+            <div>
+              <div class="field-label">Page Name <span>(optional)</span></div>
+              <input class="faq-input" type="text" placeholder="e.g. Product FAQ" x-model="pageName"/>
+            </div>
+            <div>
+              <div class="field-label">Page URL <span>(optional)</span></div>
+              <input class="faq-input" type="url" placeholder="https://example.com/faq" x-model="pageUrl"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Items -->
+      <div class="panel">
+        <div class="panel-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span class="panel-title">FAQ Items</span>
+          <span class="panel-sub" x-text="filledFaqs.length + ' / ' + faqs.length + ' complete'"></span>
+        </div>
+        <div class="panel-body">
+
+          <div class="faq-list">
+            <template x-for="(faq, idx) in faqs" :key="faq.id">
+              <div class="faq-item">
+                <div class="faq-item-header">
+                  <div class="faq-num" x-text="idx + 1"></div>
+                  <span class="faq-item-label">Question &amp; Answer</span>
+                  <div class="faq-item-actions">
+                    <button class="faq-act-btn" title="Move up" :disabled="idx===0" @click="moveUp(idx)">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+                    </button>
+                    <button class="faq-act-btn" title="Move down" :disabled="idx===faqs.length-1" @click="moveDown(idx)">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <button class="faq-act-btn danger" title="Remove" @click="removeFaq(faq.id)" :disabled="faqs.length<=1">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="faq-item-body">
+                  <div>
+                    <div class="field-label">Question</div>
+                    <input class="faq-q-input" type="text"
+                      placeholder="What is your return policy?"
+                      x-model="faq.question"/>
+                    <div class="char-hint" :class="faq.question.length>180?'warn':''" x-text="faq.question.length + ' chars'"></div>
+                  </div>
+                  <div>
+                    <div class="field-label">Answer</div>
+                    <textarea class="faq-a-input" rows="3"
+                      placeholder="We offer a 30-day hassle-free return policy…"
+                      x-model="faq.answer"></textarea>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+
+          <!-- Add / Import -->
+          <div class="faq-actions">
+            <button class="add-faq-btn" @click="addFaq()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Question
+            </button>
+            <button class="import-btn" @click="showImport=!showImport">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/></svg>
+              Import JSON-LD
+            </button>
+            <button class="import-btn" @click="clearAll()" style="margin-left:auto;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+              Clear All
+            </button>
+          </div>
+
+          <!-- Import panel -->
+          <div class="import-panel" x-show="showImport" x-transition>
+            <div class="field-label" style="margin-bottom:8px;">Paste existing FAQPage JSON-LD</div>
+            <textarea class="import-ta" x-model="importRaw" placeholder='{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[...]}'></textarea>
+            <div class="import-row">
+              <button class="import-go-btn" @click="tryImport()">Import</button>
+              <span class="import-err" x-text="importError"></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Preview + Validation + Code -->
+    <div class="right-col">
+
+      <!-- SERP Preview -->
+      <div class="panel">
+        <div class="panel-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <span class="panel-title">Google SERP Preview</span>
+        </div>
+        <div class="serp-preview">
+          <div class="serp-top">
+            <div class="serp-site">
+              <div class="serp-favicon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7"/></svg>
+              </div>
+              <span class="serp-domain" x-text="pageUrl ? (pageUrl.replace(/^https?:\/\//,'').split('/')[0]) : 'yoursite.com'"></span>
+            </div>
+            <div class="serp-url-line" x-text="pageUrl || 'https://yoursite.com/faq'"></div>
+            <div class="serp-title" x-text="pageName || 'Your Page Title — Frequently Asked Questions'"></div>
+            <div class="serp-desc">Get answers to the most common questions about our products, shipping, returns, and more.</div>
+          </div>
+          <div class="serp-faqs">
+            <template x-if="filledFaqs.length === 0">
+              <div class="serp-empty">Add questions above to see the rich-result preview</div>
+            </template>
+            <template x-for="faq in filledFaqs" :key="faq.id">
+              <div class="serp-faq-item">
+                <div class="serp-faq-q" @click="togglePreview(faq.id)">
+                  <span x-text="faq.question"></span>
+                  <svg class="serp-faq-chevron" :class="activePreviewId===faq.id?'open':''" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px;flex-shrink:0;margin-left:8px;"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="serp-faq-a" x-show="activePreviewId===faq.id" x-transition x-text="faq.answer"></div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <!-- Validation -->
+      <div class="panel">
+        <div class="panel-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          <span class="panel-title">Validation</span>
+          <span class="panel-sub" x-text="scorePass + '/' + scoreTotal + ' checks'"></span>
+        </div>
+        <div class="panel-body">
+          <div class="val-score-bar">
+            <div class="val-score-num" x-text="scorePass"></div>
+            <div style="flex:1;">
+              <div class="val-score-label" x-text="'of ' + scoreTotal + ' checks passed'"></div>
+              <div class="val-track">
+                <div class="val-fill"
+                  :class="errorCount>0?'error':(warnCount>0?'warn':'ok')"
+                  :style="'width:' + Math.round(scorePass/scoreTotal*100) + '%'"></div>
+              </div>
+            </div>
+          </div>
+          <div class="val-list">
+            <template x-for="v in validations" :key="v.label">
+              <div class="val-item">
+                <div class="val-icon" :class="v.pass ? 'pass' : ('fail-' + v.level)">
+                  <template x-if="v.pass">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  </template>
+                  <template x-if="!v.pass && v.level==='error'">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                  </template>
+                  <template x-if="!v.pass && v.level==='warn'">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                  </template>
+                  <template x-if="!v.pass && v.level==='info'">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  </template>
+                </div>
+                <div class="val-text">
+                  <div class="val-label" x-text="v.label"></div>
+                  <div class="val-note" x-text="v.note"></div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <!-- Generated Code -->
+      <div class="panel">
+        <div class="code-header">
+          <span class="code-lang">JSON-LD &lt;script&gt; embed</span>
+          <div class="copy-btns">
+            <button class="copy-btn-sm" @click="copyJson()" title="Copy raw JSON only">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              JSON
+            </button>
+            <button class="copy-btn-sm primary" :class="codeCopied?'copied':''" @click="copyCode()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              <span x-text="codeCopied ? '✓ Copied!' : 'Copy HTML'"></span>
+            </button>
+          </div>
+        </div>
+        <pre class="code-pre" x-text="'<script type=\'application/ld+json\'>\n' + generatedSchema + '\n</script>'"></pre>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── INFO SECTIONS ── -->
+<div class="info-sections">
+
+  <!-- About -->
+  <div class="info-card">
+    <div class="info-card-header" @click="$el.nextElementSibling.classList.toggle('open'); $el.querySelector('.info-card-chevron').classList.toggle('open')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span class="info-card-title">About This Tool</span>
+      <svg class="info-card-chevron open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polyline points="18 15 12 9 6 15"/></svg>
+    </div>
+    <div class="info-card-body open">
+      <p>The <strong>FAQ Schema Generator</strong> creates <code>FAQPage</code> structured data in JSON-LD format — the markup Google uses to display expandable question-and-answer accordion blocks directly in search results (called "rich results"). When your page includes this markup and Google indexes it, your FAQ items can appear as expanded snippets beneath your regular listing, occupying more SERP real estate and improving click-through rate.</p>
+      <p>This tool runs entirely in your browser. No data is sent to any server. The generated code is standards-compliant with <a href="https://schema.org/FAQPage" style="color:var(--accent);" target="_blank" rel="noopener">Schema.org FAQPage</a> and the <a href="https://developers.google.com/search/docs/appearance/structured-data/faqpage" style="color:var(--accent);" target="_blank" rel="noopener">Google Search rich results specification</a>.</p>
+      <p>You can also import existing JSON-LD to edit it — useful when updating a live page's FAQ section.</p>
+    </div>
+  </div>
+
+  <!-- How to Use -->
+  <div class="info-card">
+    <div class="info-card-header" @click="$el.nextElementSibling.classList.toggle('open'); $el.querySelector('.info-card-chevron').classList.toggle('open')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      <span class="info-card-title">How to Use</span>
+      <svg class="info-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polyline points="18 15 12 9 6 15"/></svg>
+    </div>
+    <div class="info-card-body">
+      <ol>
+        <li><strong>Add FAQ items</strong> — type your questions and their answers. Click "Add Question" to add more pairs.</li>
+        <li><strong>Reorder items</strong> — use the up/down arrows to rearrange questions. Google may display them in order.</li>
+        <li><strong>Set page info</strong> — optionally enter your page name and URL. These help Google associate the schema with the correct page.</li>
+        <li><strong>Preview</strong> — click any question in the SERP Preview to see how the expandable answer looks in Google search results.</li>
+        <li><strong>Check validation</strong> — the checklist highlights any issues that might prevent Google from showing the rich result.</li>
+        <li><strong>Copy code</strong> — click "Copy HTML" to copy the full <code>&lt;script type="application/ld+json"&gt;</code> block and paste it into your page's <code>&lt;head&gt;</code> section.</li>
+        <li><strong>Test it</strong> — paste your URL into <a href="https://search.google.com/test/rich-results" style="color:var(--accent);" target="_blank" rel="noopener">Google's Rich Results Test</a> to confirm Google can parse the markup.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Logic & Algorithm -->
+  <div class="info-card">
+    <div class="info-card-header" @click="$el.nextElementSibling.classList.toggle('open'); $el.querySelector('.info-card-chevron').classList.toggle('open')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      <span class="info-card-title">Logic &amp; Algorithm</span>
+      <svg class="info-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polyline points="18 15 12 9 6 15"/></svg>
+    </div>
+    <div class="info-card-body">
+      <p>The generator builds a valid <code>FAQPage</code> object following the <a href="https://schema.org/FAQPage" style="color:var(--accent);" target="_blank" rel="noopener">Schema.org specification</a>:</p>
+      <h4>Schema structure</h4>
+      <ul>
+        <li>Root: <code>{ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [...] }</code></li>
+        <li>Each item: <code>{ "@type": "Question", "name": "...", "acceptedAnswer": { "@type": "Answer", "text": "..." } }</code></li>
+        <li>Only completed pairs (non-empty question and answer) are included in the output.</li>
+      </ul>
+      <h4>Validation checks</h4>
+      <ul>
+        <li><strong>Error</strong> — at least one complete FAQ item required; no empty questions or answers allowed.</li>
+        <li><strong>Warning</strong> — duplicate questions; questions over 180 chars; <code>&lt;script&gt;</code> tags in answers.</li>
+        <li><strong>Info</strong> — HTTPS page URL recommended.</li>
+      </ul>
+      <h4>Import parser</h4>
+      <p>The import parser accepts raw <code>FAQPage</code> JSON or a <code>@graph</code> array containing a <code>FAQPage</code> node. It maps <code>mainEntity[n].name</code> → question and <code>mainEntity[n].acceptedAnswer.text</code> → answer.</p>
+      <h4>Code output</h4>
+      <p>The <strong>Copy JSON</strong> button copies the raw object (for embedding in existing scripts). The <strong>Copy HTML</strong> button wraps it in <code>&lt;script type="application/ld+json"&gt;…&lt;/script&gt;</code> tags ready to drop into your <code>&lt;head&gt;</code>.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── RELATED TOOLS ── -->
+<div class="section-block">
+  <div class="section-title">Related <span>Tools</span></div>
+  <div class="related-grid">
+    <a href="../seo/meta-tag-generator.html" class="related-card">
+      <div class="related-icon" style="background:linear-gradient(135deg,#f093fb,#f5576c);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </div>
+      <div class="related-info">
+        <div class="related-name">Meta Tag Generator</div>
+        <div class="related-desc">Generate complete SEO, Open Graph, and Twitter Card meta tags.</div>
+      </div>
+    </a>
+    <a href="../utilities/open-graph-preview.html" class="related-card">
+      <div class="related-icon" style="background:linear-gradient(135deg,#f97316,#f59e0b);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+      </div>
+      <div class="related-info">
+        <div class="related-name">Open Graph Preview</div>
+        <div class="related-desc">Preview how your URL looks on Twitter/X, Facebook, Discord, and more.</div>
+      </div>
+    </a>
+    <a href="../seo/robots-txt-generator.html" class="related-card">
+      <div class="related-icon" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      </div>
+      <div class="related-info">
+        <div class="related-name">Robots.txt Generator</div>
+        <div class="related-desc">Build a valid robots.txt file to control search engine crawlers.</div>
+      </div>
+    </a>
+    <a href="../seo/keyword-density.html" class="related-card">
+      <div class="related-icon" style="background:linear-gradient(135deg,#10b981,#34d399);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M8 11h6M11 8v6"/></svg>
+      </div>
+      <div class="related-info">
+        <div class="related-name">Keyword Density Checker</div>
+        <div class="related-desc">Analyze keyword frequency and density to optimize your content.</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- ── BLOG CARDS ── -->
+<div class="section-block">
+  <div class="section-title">Learn More About <span>Structured Data</span></div>
+  <div class="blog-grid">
+    <a href="../../blog/faq-schema-guide.html" class="blog-card">
+      <span class="blog-tag">SEO Guide</span>
+      <div class="blog-title">FAQ Schema: How to Get Rich Results in Google</div>
+      <div class="blog-excerpt">A complete walkthrough of FAQPage structured data — what it is, how to implement it, and how to test that Google can read it.</div>
+      <div class="blog-meta"><span>June 2026</span><span>8 min read</span></div>
+    </a>
+    <a href="../../blog/structured-data-types.html" class="blog-card">
+      <span class="blog-tag">Developer</span>
+      <div class="blog-title">JSON-LD vs Microdata vs RDFa: Which Should You Use?</div>
+      <div class="blog-excerpt">Compare the three structured data formats Google supports and learn why JSON-LD is the recommended approach for most sites.</div>
+      <div class="blog-meta"><span>May 2026</span><span>6 min read</span></div>
+    </a>
+    <a href="../../blog/rich-results-guide.html" class="blog-card">
+      <span class="blog-tag">SEO</span>
+      <div class="blog-title">Google Rich Results: A Complete Guide for 2026</div>
+      <div class="blog-excerpt">From FAQs to How-Tos and breadcrumbs — understand all the rich result types, their requirements, and how to measure their impact on CTR.</div>
+      <div class="blog-meta"><span>April 2026</span><span>10 min read</span></div>
+    </a>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <span class="footer-brand-name">The Tool Empire</span>
+        </div>
+        <p class="footer-tagline">Free browser-based tools for developers, designers, and content creators. No signup, no tracking.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">SEO Tools</div>
+        <div class="footer-links">
+          <a href="../seo/meta-tag-generator.html">Meta Tag Generator</a>
+          <a href="../seo/og-tag-generator.html">OG Tag Generator</a>
+          <a href="../seo/robots-txt-generator.html">Robots.txt Generator</a>
+          <a href="../seo/keyword-density.html">Keyword Density</a>
+          <a href="../seo/sitemap-generator.html">Sitemap Generator</a>
+          <a href="faq-schema-generator.html">FAQ Schema Generator</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="../../index.html">Home</a>
+          <a href="../../tools.html">All Tools</a>
+          <a href="../../blog.html">Blog</a>
+          <a href="../../about.html">About</a>
+          <a href="../../contact.html">Contact</a>
+          <a href="../../privacy.html">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 The Tool Empire. All rights reserved.</span>
+      <span><a href="../../privacy.html">Privacy</a> · <a href="../../terms.html">Terms</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ── REPORT MODAL ── -->
+<div id="report-modal-root"></div>
+<script src="../../assets/js/report-modal.js"></script>
+
+<script src="faq-schema-generator.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

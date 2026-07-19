@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Instagram Bio Space Generator — Line Breaks, Spacing &amp; Formatting | The Tool Empire</title>
+<meta name="description" content="Generate perfectly spaced Instagram bios. Add invisible line-break characters so blank lines actually show up, control spacing between bio lines, insert symbols and emojis, preview your profile, and copy with one click."/>
+<meta name="keywords" content="instagram bio space generator, instagram bio line break, instagram bio spacing, invisible character instagram bio, instagram bio formatter, instagram bio blank line, instagram bio template, instagram bio copy paste"/>
+<meta name="robots" content="index,follow"/>
+<meta name="author" content="The Tool Empire"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/social/instagram-bio-space-generator.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Instagram Bio Space Generator — Line Breaks, Spacing &amp; Formatting"/>
+<meta property="og:description" content="Build Instagram bios with real line spacing. Add invisible separator characters so blank lines survive Instagram's whitespace collapse. Preview, customise, and copy instantly."/>
+<meta property="og:url" content="https://thetoolempire.com/tools/social/instagram-bio-space-generator.html"/>
+<meta property="og:site_name" content="The Tool Empire"/>
+<meta property="og:image" content="https://thetoolempire.com/assets/og-image.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[
+  {"@type":"SoftwareApplication","name":"Instagram Bio Space Generator","applicationCategory":"SocialMediaApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/social/instagram-bio-space-generator.html","description":"Free browser-based Instagram bio space generator. Write each bio line in a separate input, control the spacing between lines (none, 1 blank, or 2 blank lines) using invisible Braille Pattern Blank characters (U+2800). Insert symbols, emojis, and decorative dividers from a symbol picker. Apply one of five bio templates for instant structure. Preview your bio inside a realistic Instagram profile mockup. Track the 150-character limit in real time. Copy the fully formatted bio in one click. No upload, no account.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Line-based bio editor with individual inputs for each line","Per-line spacing control: no gap, 1 blank line, or 2 blank lines","Invisible Braille Pattern Blank (U+2800) separator prevents Instagram's whitespace collapse","5 quick-reorder buttons (move line up / move line down)","Symbol picker with 5 groups: Bullets, Dividers, Arrows, Decor, Lines","Symbol insertion at cursor position of the focused line","5 bio templates: Creator, Business, Minimal, Influencer, Personal","Live Instagram profile preview mockup with realistic UI","150-character counter with colour-coded progress bar","Raw bio output box showing exact characters including invisible separators","One-click copy of the complete formatted bio","100% client-side — no upload, no server, no sign-up"]},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+    {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+    {"@type":"ListItem","position":3,"name":"Social Media","item":"https://thetoolempire.com/tools.html#social-media"},
+    {"@type":"ListItem","position":4,"name":"Instagram Bio Space Generator","item":"https://thetoolempire.com/tools/social/instagram-bio-space-generator.html"}
+  ]},
+  {"@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Why does my Instagram bio lose blank lines?","acceptedAnswer":{"@type":"Answer","text":"Instagram's text editor strips trailing whitespace, so a blank line (which is just an empty newline) gets collapsed when your profile loads. To keep a visible blank line, you need to place a character that looks invisible but isn't whitespace — like the Braille Pattern Blank (U+2800). This tool inserts that character automatically when you select '1 blank' or '2 blank' spacing between your bio lines."}},
+    {"@type":"Question","name":"How many characters does an Instagram bio allow?","acceptedAnswer":{"@type":"Answer","text":"Instagram bios support up to 150 characters. This includes newline characters and the invisible spacing characters inserted by this tool, so the counter in the generator accounts for all of them — including ⠀ separators and \\n line breaks."}},
+    {"@type":"Question","name":"Can I reorder the lines in my bio?","acceptedAnswer":{"@type":"Answer","text":"Yes. Each line row has ↑ and ↓ buttons on the left side. Clicking ↑ swaps that line with the one above it; clicking ↓ swaps it with the line below. This lets you restructure your bio without cutting and pasting."}},
+    {"@type":"Question","name":"Does this work for Instagram bio on PC and mobile?","acceptedAnswer":{"@type":"Answer","text":"Yes. The invisible character trick works across all Instagram surfaces — mobile app (iOS and Android) and desktop web. The Braille Pattern Blank is rendered as a zero-width character by Instagram on all platforms, preserving the blank line."}},
+    {"@type":"Question","name":"How do I insert the bio into Instagram?","acceptedAnswer":{"@type":"Answer","text":"Click 'Copy Bio' in the generator, then open Instagram, go to Edit Profile, tap the Bio field, select all existing text, and paste. The invisible characters and line breaks will be preserved on paste. On web, you may need to use the mobile app to add line breaks — some browsers collapse them before Instagram can save."}}
+  ]}
+]}</script>
+
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+<link rel="manifest" href="../../manifest.json"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<link rel="stylesheet" href="instagram-bio-space-generator.css"/>
+<script src="instagram-bio-space-generator.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="igBioSpaceApp()" x-cloak>
+
+<!-- ══ HEADER ══════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hg)"/>
+        <rect x="8" y="8" width="24" height="24" rx="6" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="2.5"/>
+        <circle cx="20" cy="20" r="5" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="2"/>
+        <circle cx="27" cy="13" r="1.8" fill="rgba(255,255,255,.9)"/>
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#22d3ee"/><stop offset="1" stop-color="#0ea5e9"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    Instagram
+  </div>
+  <h1><span class="g">Instagram Bio</span> Space Generator</h1>
+  <p>Build a perfectly spaced Instagram bio. Add invisible line-break separators so blank lines actually show up, control the gap between every line, and copy it in one click.</p>
+</div>
+
+<!-- ══ TOOL ════════════════════════════════════════════════ -->
+<div class="page-wrap">
+
+<div class="tool-card">
+  <div class="ibg-layout">
+
+    <!-- ── LEFT: EDITOR PANEL ── -->
+    <div class="editor-panel">
+
+      <div class="editor-panel-title">Bio Lines</div>
+
+      <!-- Line-based editor -->
+      <div class="lines-list">
+        <template x-for="(line, i) in lines" :key="line.id">
+          <div class="bio-line-wrap">
+            <div class="bio-line-row">
+              <!-- Move up -->
+              <button class="line-move-btn" @click="moveLine(i, -1)" :disabled="i === 0" title="Move line up">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+              </button>
+              <!-- Move down -->
+              <button class="line-move-btn" @click="moveLine(i, 1)" :disabled="i === lines.length - 1" title="Move line down">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <!-- Line input -->
+              <input
+                class="bio-line-input"
+                type="text"
+                x-model="line.text"
+                @focus="onLineFocus(i)"
+                :placeholder="'Line ' + (i + 1)"
+                maxlength="150"/>
+              <!-- Line number badge -->
+              <span class="line-num" x-text="i + 1"></span>
+              <!-- Remove -->
+              <button class="line-remove-btn" @click="removeLine(i)" :disabled="lines.length <= 1" title="Remove line">×</button>
+            </div>
+
+            <!-- Spacing selector: shown between every line pair (not after the last line) -->
+            <div class="bio-spacing-strip" x-show="i < lines.length - 1">
+              <span class="spacing-label">Gap after</span>
+              <div class="spacing-btns">
+                <button class="spacing-btn" :class="{active: line.spaceAfter === 0}" @click="line.spaceAfter = 0" title="No blank line gap">None</button>
+                <button class="spacing-btn" :class="{active: line.spaceAfter === 1}" @click="line.spaceAfter = 1" title="One blank line (adds invisible separator)">1 line</button>
+                <button class="spacing-btn" :class="{active: line.spaceAfter === 2}" @click="line.spaceAfter = 2" title="Two blank lines">2 lines</button>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <!-- Add line -->
+      <button class="add-line-btn" @click="addLine()" :disabled="lines.length >= 10">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add line <span x-show="lines.length >= 10" style="font-size:11px;color:var(--text2)">(max 10)</span>
+      </button>
+
+      <!-- Symbol picker -->
+      <div class="coll-section">
+        <div class="coll-header" @click="showSymbols = !showSymbols">
+          <span>✦ Symbol Picker</span>
+          <svg class="coll-chevron" :class="{open: showSymbols}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="coll-body" x-show="showSymbols" x-transition>
+          <p style="font-size:11px;color:var(--text2);margin-bottom:8px">Click a symbol to insert it at the cursor in the last focused line.</p>
+          <div class="sym-tabs">
+            <template x-for="(group, gi) in symbols" :key="group.group">
+              <button class="sym-tab" :class="{active: activeGroup === gi}" @click="activeGroup = gi" x-text="group.group"></button>
+            </template>
+          </div>
+          <div class="sym-grid">
+            <template x-for="sym in symbols[activeGroup].chars" :key="sym">
+              <button class="sym-btn" @click="insertSymbol(sym)" x-text="sym"></button>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <!-- Templates -->
+      <div class="coll-section">
+        <div class="coll-header" @click="showTemplates = !showTemplates">
+          <span>📄 Bio Templates</span>
+          <svg class="coll-chevron" :class="{open: showTemplates}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="coll-body" x-show="showTemplates" x-transition>
+          <p style="font-size:11px;color:var(--text2);margin-bottom:10px">Replaces your current bio lines with a starter structure.</p>
+          <div class="tpl-grid">
+            <template x-for="t in templates" :key="t.label">
+              <button class="tpl-card" @click="applyTemplate(t)" x-text="t.label"></button>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <div class="editor-footer">
+        <button class="clear-btn" @click="clear()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+          Clear all
+        </button>
+      </div>
+
+    </div><!-- /editor-panel -->
+
+    <!-- ── RIGHT: PREVIEW PANEL ── -->
+    <div class="preview-panel">
+
+      <!-- Stats -->
+      <div class="stats-bar">
+        <div>
+          <div class="stat-row">
+            <span class="stat-label">Characters</span>
+            <span class="stat-val"
+              :class="{'over': charOverLimit, 'warn': charNearLimit}"
+              x-text="charCount + ' / 150'"></span>
+          </div>
+          <div class="char-track">
+            <div class="char-fill" :class="{'over': charOverLimit, 'warn': charNearLimit}" :style="'width:' + charPct + '%'"></div>
+          </div>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Bio lines</span>
+          <span class="stat-val" x-text="lineCount + ' / 10'"></span>
+        </div>
+      </div>
+
+      <!-- Instagram profile preview -->
+      <div class="ig-profile-phone">
+        <!-- Status bar -->
+        <div class="ig-status-bar">
+          <span>9:41</span>
+          <div class="ig-status-icons">
+            <svg width="14" height="11" viewBox="0 0 24 18" fill="none"><rect x="0" y="12" width="4" height="6" rx="1" fill="currentColor"/><rect x="7" y="8" width="4" height="10" rx="1" fill="currentColor"/><rect x="14" y="4" width="4" height="14" rx="1" fill="currentColor"/><rect x="21" y="0" width="3" height="18" rx="1" fill="currentColor" opacity=".4"/></svg>
+            <svg width="14" height="11" viewBox="0 0 24 18" fill="none"><path d="M12 3C7.03 3 2.6 5.06 0 8.5l2.22 2.22A11.57 11.57 0 0112 6c3.87 0 7.3 1.9 9.78 4.72L24 8.5C21.4 5.06 16.97 3 12 3zM12 9c-2.76 0-5.25 1.12-7.05 2.93L7.17 14.1A7.43 7.43 0 0112 12a7.43 7.43 0 014.83 2.1l2.22-2.17A10.24 10.24 0 0012 9zm0 6a3 3 0 100 6 3 3 0 000-6z" fill="currentColor"/></svg>
+            <svg width="24" height="11" viewBox="0 0 38 18" fill="none"><rect x="0" y="3" width="28" height="12" rx="3" stroke="currentColor" stroke-width="1.5"/><rect x="1.5" y="4.5" width="22" height="9" rx="2" fill="currentColor"/><rect x="29" y="6" width="4" height="6" rx="1.5" fill="currentColor" opacity=".5"/></svg>
+          </div>
+        </div>
+
+        <!-- Navigation bar -->
+        <div class="ig-profile-nav">
+          <svg class="ig-nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          <span class="ig-nav-username">youraccount</span>
+          <svg class="ig-nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+        </div>
+
+        <!-- Profile body -->
+        <div class="ig-profile-body">
+          <div class="ig-header-row">
+            <div class="ig-avatar-ring">
+              <div class="ig-avatar-inner">
+                <span class="ig-avatar-initials">👤</span>
+              </div>
+            </div>
+            <div class="ig-stats-row">
+              <div class="ig-stat-item">
+                <div class="ig-stat-num">37</div>
+                <div class="ig-stat-lbl">Posts</div>
+              </div>
+              <div class="ig-stat-item">
+                <div class="ig-stat-num">1,204</div>
+                <div class="ig-stat-lbl">Followers</div>
+              </div>
+              <div class="ig-stat-item">
+                <div class="ig-stat-num">512</div>
+                <div class="ig-stat-lbl">Following</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ig-profile-name">youraccount</div>
+
+          <!-- Live bio preview -->
+          <div
+            class="ig-profile-bio-text"
+            :class="{'empty': !bioOutput}"
+            x-text="bioOutput || 'Your bio will appear here…'"></div>
+
+          <div class="ig-profile-btns">
+            <button class="ig-profile-btn">Edit profile</button>
+            <button class="ig-profile-btn">Share profile</button>
+          </div>
+        </div>
+
+        <!-- Grid tabs + post thumbnails -->
+        <div class="ig-grid-sep"></div>
+        <div class="ig-grid-tabs">
+          <div class="ig-grid-tab active">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </div>
+          <div class="ig-grid-tab">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </div>
+        </div>
+        <div class="ig-post-grid">
+          <div class="ig-post-thumb"></div>
+          <div class="ig-post-thumb"></div>
+          <div class="ig-post-thumb"></div>
+        </div>
+      </div>
+
+      <!-- Copy -->
+      <div class="copy-section">
+        <button class="copy-btn primary" @click="copyBio()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          <span x-text="copied ? '✓ Copied!' : 'Copy Bio'"></span>
+        </button>
+      </div>
+
+      <!-- Raw output (shows invisible chars) -->
+      <div>
+        <div class="output-label" style="margin-bottom:5px">Raw output (⠀ = invisible separator)</div>
+        <div class="bio-output-box" x-text="bioOutput"></div>
+      </div>
+
+    </div><!-- /preview-panel -->
+  </div><!-- /ibg-layout -->
+</div><!-- /tool-card -->
+
+<!-- ══ INFO SECTIONS ═══════════════════════════════════════ -->
+<div class="info-sections-wrap">
+
+  <!-- About -->
+  <div class="info-section">
+    <div class="info-icon-row">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".5" fill="currentColor"/></svg>
+      </div>
+      <h2>About Instagram Bio Space Generator</h2>
+    </div>
+    <div class="info-body">
+      <p>Your Instagram bio is the first thing a potential follower reads. A well-spaced bio with clear visual hierarchy — a title on one line, a value proposition below, then a clean call-to-action — converts profile visitors into followers far more effectively than a wall of text on a single line. The problem is that Instagram deliberately collapses blank lines: any empty line you type gets stripped the moment the bio is saved, leaving everything crammed together.</p>
+      <p>This generator solves the spacing problem by inserting an invisible Unicode character — the <strong>Braille Pattern Blank (U+2800, rendered as ⠀)</strong> — on each intended blank line. Instagram does not recognise this character as whitespace, so it passes through the save process intact, creating a visually blank line that actually holds space. The tool gives you a line-by-line editor so you can write each bio section separately, choose the exact spacing between them, drop in symbols and dividers, and see the result in a live profile preview before you copy.</p>
+    </div>
+  </div>
+
+  <!-- How to Use -->
+  <div class="info-section">
+    <div class="info-icon-row">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <h2>How to Use</h2>
+    </div>
+    <div class="info-body">
+      <ul>
+        <li><strong>Write each bio line separately</strong> — each input in the editor is one visible line of your bio. Start with your title or role, then add location, hobby, or CTA lines below.</li>
+        <li><strong>Set spacing between lines</strong> — below each line (except the last) is a spacing strip with three options: <em>None</em> (lines appear directly beneath each other), <em>1 line</em> (one invisible blank line between them), or <em>2 lines</em> (two blank lines). The character counter updates in real time to include the invisible separators.</li>
+        <li><strong>Reorder lines</strong> — use the ↑ and ↓ buttons on the left of each row to rearrange lines without cutting and pasting.</li>
+        <li><strong>Insert symbols</strong> — click a symbol in the picker to insert it at the cursor of the last focused line. Use bullets (•, ✦, ★) as list markers, dividers (|, —, ·) for inline separation, or decorative lines (──, · · ·) as full-line dividers.</li>
+        <li><strong>Apply a template</strong> — expand Bio Templates and click one to load a ready-made structure. Replace the placeholder text in [brackets] with your own content.</li>
+        <li><strong>Check the preview</strong> — the right panel shows your bio inside a realistic Instagram profile mockup that updates as you type. The 150-character counter turns amber above 120 characters and red if you exceed 150.</li>
+        <li><strong>Copy and paste into Instagram</strong> — click "Copy Bio", open Instagram, go to Edit Profile → Bio, select all existing text, and paste. For best results, paste from the mobile app.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Logic & Algorithm -->
+  <div class="info-section">
+    <div class="info-icon-row">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </div>
+      <h2>Logic &amp; Algorithm</h2>
+    </div>
+    <div class="info-body">
+      <p><strong>Bio output construction</strong> — the <code>bioOutput</code> computed getter assembles the final string from the <code>lines</code> array. It starts with <code>lines[0].text</code>, then for each subsequent line checks the previous line's <code>spaceAfter</code> value:</p>
+      <ul>
+        <li><strong>spaceAfter = 0</strong> — appends <code>\n</code> then the next line's text (lines appear directly adjacent).</li>
+        <li><strong>spaceAfter = 1</strong> — appends <code>\n⠀</code> (newline + Braille blank), then <code>\n</code> + the next line's text. Result: one visually empty line between the two content lines.</li>
+        <li><strong>spaceAfter = 2</strong> — appends <code>\n⠀\n⠀</code>, giving two blank lines. The expression uses <code>('\n' + IB_SEP).repeat(n)</code> to handle any count cleanly.</li>
+      </ul>
+      <p style="margin-top:10px"><strong>Character counting</strong> — all characters in <code>bioOutput</code> are counted, including <code>\n</code> newlines (1 char each) and <code>⠀</code> separators (1 char each). A "1 blank line" gap therefore adds 3 characters (<code>\n⠀\n</code>) before the next line, and a "2 blank lines" gap adds 5 characters. The counter reflects this so you won't hit Instagram's 150-character limit by surprise.</p>
+      <p><strong>Symbol insertion at cursor</strong> — each line input fires <code>@focus="onLineFocus(i)"</code>, storing the index of the most recently focused input in <code>_focused</code> (a plain non-reactive property). When a symbol button is clicked, <code>insertSymbol(sym)</code> reads <code>selectionStart</code> from the DOM node at that index, splices the symbol into the string at that position using <code>String.slice</code>, then restores the cursor via <code>$nextTick</code>. The element must be re-focused since the click event moved focus to the symbol button.</p>
+    </div>
+  </div>
+
+</div><!-- /info-sections-wrap -->
+
+<!-- ══ RELATED TOOLS ════════════════════════════════════════ -->
+<section class="related-section">
+  <div class="related-header">
+    <h2>Related Tools</h2>
+    <a href="../../tools.html" class="view-all-link">
+      View all tools
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+  <div class="related-grid">
+
+    <a href="instagram-caption-formatter.html" class="related-tool-card">
+      <div class="rt-icon" style="background:linear-gradient(135deg,#d946ef,#a855f7)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 10h16M4 14h10"/></svg>
+      </div>
+      <span class="rt-name">Instagram Caption Formatter</span>
+      <span class="rt-desc">Format captions with bold and italic Unicode fonts, fix line breaks, manage hashtags, and insert CTAs.</span>
+      <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+
+    <a href="instagram-grid-splitter.html" class="related-tool-card">
+      <div class="rt-icon" style="background:linear-gradient(135deg,#833ab4,#e1306c,#f77737)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      </div>
+      <span class="rt-name">Instagram Grid Splitter</span>
+      <span class="rt-desc">Split any image into a seamless multi-post Instagram grid. Tiles numbered in the correct posting order.</span>
+      <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+
+    <a href="instagram-post-resizer.html" class="related-tool-card">
+      <div class="rt-icon" style="background:linear-gradient(135deg,#833AB4,#E1306C,#F77737)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </div>
+      <span class="rt-name">Instagram Post Resizer</span>
+      <span class="rt-desc">Resize any image to perfect Instagram dimensions — Square, Portrait, Story, Reels, and more.</span>
+      <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+
+    <a href="../utilities/youtube-chapter-generator.html" class="related-tool-card">
+      <div class="rt-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+      </div>
+      <span class="rt-name">YouTube Chapter Generator</span>
+      <span class="rt-desc">Build, validate, and copy YouTube chapter timestamps. Enforces all of YouTube's chapter rules.</span>
+      <span class="rt-link">Use tool <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+
+  </div>
+</section>
+
+<!-- ══ BLOG CARDS ═══════════════════════════════════════════ -->
+<section class="related-section">
+  <div class="related-header">
+    <h2>From the Blog</h2>
+    <a href="../../blog.html" class="view-all-link">
+      All articles
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+  <div class="blog-grid">
+
+    <a href="../../blog.html" class="blog-card">
+      <span class="blog-cat" style="background:rgba(34,211,238,.1);color:#67e8f9">Instagram</span>
+      <span class="blog-title">How to Write an Instagram Bio That Converts Profile Visitors to Followers</span>
+      <span class="blog-excerpt">The six-second rule, social proof triggers, and CTA placement — a framework for a bio that makes people tap "Follow" without thinking.</span>
+      <span class="blog-meta">7 min read</span>
+      <span class="blog-read">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+
+    <a href="../../blog.html" class="blog-card">
+      <span class="blog-cat" style="background:rgba(34,211,238,.1);color:#67e8f9">Social Media</span>
+      <span class="blog-title">The Hidden Characters That Make Instagram Bios and Captions Look Amazing</span>
+      <span class="blog-excerpt">From Braille blanks to Unicode Mathematical fonts — the invisible text tricks that top creators use to make their bios stand out.</span>
+      <span class="blog-meta">5 min read</span>
+      <span class="blog-read">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+
+    <a href="../../blog.html" class="blog-card">
+      <span class="blog-cat" style="background:rgba(34,211,238,.1);color:#67e8f9">Growth</span>
+      <span class="blog-title">Instagram Profile Optimisation: Every Element That Drives Growth</span>
+      <span class="blog-excerpt">Username, profile photo, highlight covers, bio, link, and first-impression grid — a complete audit framework for your Instagram profile.</span>
+      <span class="blog-meta">9 min read</span>
+      <span class="blog-read">Read article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
+
+  </div>
+</section>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ FOOTER ══════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#fg)"/>
+          <rect x="8" y="8" width="24" height="24" rx="6" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="2.5"/>
+          <circle cx="20" cy="20" r="5" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="2"/>
+          <circle cx="27" cy="13" r="1.8" fill="rgba(255,255,255,.9)"/>
+          <defs><linearGradient id="fg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#22d3ee"/><stop offset="1" stop-color="#0ea5e9"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free, fast, browser-based tools for creators and developers. No sign-up. No tracking. Just tools.</p>
+    </div>
+    <nav class="footer-nav-wrap">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html#social-media">Social Media</a>
+        <a href="../../tools.html#Image">Image Tools</a>
+        <a href="../../tools.html#Utilities">Utilities</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+        <a href="../../about.html">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../terms.html">Terms of Use</a>
+        <a href="../../sitemap.xml">Sitemap</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="inner">
+      <p>&copy; <span x-text="new Date().getFullYear()"></span> The Tool Empire. All rights reserved.</p>
+      <p>All tools run locally in your browser.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ REPORT MODAL ════════════════════════════════════════ -->
+<script src="../../assets/js/report-modal.js"></script>
+<div x-data="reportModal()" x-cloak>
+  <button class="rm-trigger" @click="openModal()" aria-label="Report or send feedback">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+    Report / Feedback
+  </button>
+  <div class="rm-overlay" x-show="open"
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+    @click.self="closeModal()">
+    <div class="rm-modal" @click.stop>
+      <template x-if="!submitted">
+        <div>
+          <h3>Report / Feedback</h3>
+          <p>Found a bug or have a suggestion? We'd love to hear from you.</p>
+          <div class="rm-field">
+            <label>Type</label>
+            <select x-model="type">
+              <option value="bug">Bug Report</option>
+              <option value="feature">Feature Request</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="rm-field">
+            <label>Message</label>
+            <textarea x-model="message" placeholder="Describe the issue or suggestion…" rows="4"></textarea>
+          </div>
+          <div class="rm-field">
+            <label>Email (optional)</label>
+            <input type="email" x-model="email" placeholder="you@example.com"/>
+          </div>
+          <div class="rm-actions">
+            <button class="rm-btn" @click="closeModal()">Cancel</button>
+            <button class="rm-btn primary" @click="submitReport()" :disabled="!message.trim()">Send</button>
+          </div>
+        </div>
+      </template>
+      <template x-if="submitted">
+        <div class="rm-success">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <h3>Thank you!</h3>
+          <p>Your feedback has been received. We'll look into it soon.</p>
+        </div>
+      </template>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

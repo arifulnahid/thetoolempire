@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CSS Grid Generator — Interactive Visual Grid Builder | The Tool Empire</title>
+<meta name="description" content="Free CSS Grid generator with a live interactive preview. Set columns, rows, gaps, and custom track sizes. Drag to place grid items and copy the complete CSS code."/>
+<meta name="keywords" content="CSS grid generator, grid-template-columns, grid-template-rows, CSS layout tool, grid-area generator, CSS grid builder, fr unit, grid gap"/>
+<meta name="robots" content="index,follow"/>
+<meta name="author" content="The Tool Empire"/>
+<link rel="canonical" href="https://thetoolempire.com/tools/css/css-grid-generator.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="CSS Grid Generator — Interactive Visual Grid Builder"/>
+<meta property="og:description" content="Build CSS grid layouts visually. Set columns, rows, gaps, custom track sizes, and place items by dragging. Copy the complete CSS instantly."/>
+<meta property="og:url" content="https://thetoolempire.com/tools/css/css-grid-generator.html"/>
+<meta property="og:site_name" content="The Tool Empire"/>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":"SoftwareApplication","name":"CSS Grid Generator","applicationCategory":"DeveloperApplication","operatingSystem":"Any","url":"https://thetoolempire.com/tools/css/css-grid-generator.html","description":"Interactive CSS grid layout builder. Configure columns, rows, gaps, custom track sizes, and place spanning items visually. Generates complete grid CSS code.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://thetoolempire.com/"},
+    {"@type":"ListItem","position":2,"name":"Tools","item":"https://thetoolempire.com/tools.html"},
+    {"@type":"ListItem","position":3,"name":"CSS","item":"https://thetoolempire.com/tools.html#CSS"},
+    {"@type":"ListItem","position":4,"name":"CSS Grid Generator","item":"https://thetoolempire.com/tools/css/css-grid-generator.html"}
+  ]}
+]}</script>
+
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg"/>
+<link rel="manifest" href="../../manifest.json"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNN44ER8MF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNN44ER8MF');</script>
+
+<link rel="stylesheet" href="css-grid-generator.css"/>
+<script src="css-grid-generator.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="cssGridApp()" x-init="init()">
+
+<!-- ══ HEADER ════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="url(#hg)"/>
+        <rect x="7" y="7" width="10" height="10" rx="2" fill="rgba(255,255,255,.85)"/>
+        <rect x="21" y="7" width="12" height="10" rx="2" fill="rgba(255,255,255,.5)"/>
+        <rect x="7" y="21" width="12" height="12" rx="2" fill="rgba(255,255,255,.5)"/>
+        <rect x="23" y="21" width="10" height="12" rx="2" fill="rgba(255,255,255,.85)"/>
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#10b981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs>
+      </svg>
+      <span class="logo-text">The Tool Empire</span>
+    </a>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../blog.html">Blog</a>
+      <a href="../../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+    CSS Tools
+  </div>
+  <h1><span class="g">CSS Grid</span> Generator</h1>
+  <p>Set columns, rows, gaps, and track sizes. Click and drag on the preview to place spanning grid items. Copy the complete CSS.</p>
+</div>
+
+<!-- ══ TOOL ══════════════════════════════════════════════ -->
+<div class="page-wrap">
+
+  <div class="gg-layout">
+
+    <!-- ─── CONTROLS ─────────────────────────────── -->
+    <div class="gg-controls">
+
+      <!-- Columns -->
+      <div>
+        <div class="ctrl-head">Columns</div>
+        <div class="ctrl-row">
+          <span>Count</span>
+          <span class="ctrl-val" x-text="cols"></span>
+        </div>
+        <input type="range" x-model.number="cols" min="1" max="12" step="1" style="margin-bottom:14px;"/>
+        <div class="toggle-row">
+          <span class="toggle-label">Custom track sizes</span>
+          <button class="toggle-btn" :class="{on: useCustomCols}" @click="useCustomCols = !useCustomCols"
+                  x-text="useCustomCols ? 'On' : 'Off'"></button>
+        </div>
+        <div class="custom-sizes" x-show="useCustomCols" x-cloak>
+          <template x-for="(size, i) in colSizes.slice(0, cols)" :key="i">
+            <div class="size-field">
+              <label x-text="`Col ${i + 1}`"></label>
+              <input type="text" x-model="colSizes[i]" placeholder="1fr"/>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <div class="ctrl-sep"></div>
+
+      <!-- Rows -->
+      <div>
+        <div class="ctrl-head">Rows</div>
+        <div class="ctrl-row">
+          <span>Count</span>
+          <span class="ctrl-val" x-text="rows"></span>
+        </div>
+        <input type="range" x-model.number="rows" min="1" max="8" step="1" style="margin-bottom:14px;"/>
+        <div class="toggle-row">
+          <span class="toggle-label">Custom track sizes</span>
+          <button class="toggle-btn" :class="{on: useCustomRows}" @click="useCustomRows = !useCustomRows"
+                  x-text="useCustomRows ? 'On' : 'Off'"></button>
+        </div>
+        <div class="custom-sizes" x-show="useCustomRows" x-cloak>
+          <template x-for="(size, i) in rowSizes.slice(0, rows)" :key="i">
+            <div class="size-field">
+              <label x-text="`Row ${i + 1}`"></label>
+              <input type="text" x-model="rowSizes[i]" placeholder="1fr"/>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <div class="ctrl-sep"></div>
+
+      <!-- Gap -->
+      <div>
+        <div class="ctrl-head">Gap</div>
+        <div class="gap-row">
+          <div class="gap-field">
+            <label>Column Gap</label>
+            <input type="range" x-model.number="colGap" min="0" max="64" step="2"/>
+            <span class="gap-val" x-text="colGap + 'px'"></span>
+          </div>
+          <div class="gap-field">
+            <label>Row Gap</label>
+            <input type="range" x-model.number="rowGap" min="0" max="64" step="2"/>
+            <span class="gap-val" x-text="rowGap + 'px'"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ctrl-sep"></div>
+
+      <!-- Items -->
+      <div>
+        <div class="ctrl-head">Placed Items (<span x-text="items.length"></span>)</div>
+
+        <div class="items-list" x-show="items.length > 0">
+          <template x-for="(item, i) in items" :key="item.id">
+            <div class="item-row">
+              <div class="item-dot" :style="`background:${item.color}`"></div>
+              <div class="item-info">
+                <div class="item-name" x-text="item.label"></div>
+                <div class="item-span"
+                     x-text="`col ${item.colStart}/${item.colEnd} · row ${item.rowStart}/${item.rowEnd}`"></div>
+              </div>
+              <button class="item-remove" @click="removeItem(item.id)" title="Remove item">×</button>
+            </div>
+          </template>
+        </div>
+
+        <p class="items-empty" x-show="items.length === 0">
+          No items placed yet. Drag on the grid →
+        </p>
+
+        <button class="clear-btn" :disabled="items.length === 0" @click="clearItems()" style="margin-top:10px;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+          Clear All Items
+        </button>
+      </div>
+
+    </div><!-- /gg-controls -->
+
+    <!-- ─── PREVIEW ───────────────────────────────── -->
+    <div class="gg-preview">
+      <div class="preview-label">Live Preview — click &amp; drag to place items</div>
+
+      <div class="preview-scene" @pointerup.window="cancelPlace()">
+
+        <!-- Empty hint -->
+        <div class="preview-empty" x-show="items.length === 0" x-cloak>
+          <svg class="preview-empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+          </svg>
+          <span class="preview-empty-text">Click · Drag · Release to place a grid item</span>
+        </div>
+
+        <div class="preview-grid-wrap">
+          <div :style="containerStyle">
+
+            <!-- Reference cells -->
+            <template x-for="cell in cellList" :key="`c${cell.col}r${cell.row}`">
+              <div class="grid-ref-cell"
+                   :class="{'is-drag': isDragHighlighted(cell.col, cell.row)}"
+                   :style="cellStyle(cell.col, cell.row)"
+                   @pointerdown.prevent="startCell(cell.col, cell.row)"
+                   @pointerenter="hoverCell(cell.col, cell.row)"
+                   @pointerup="endCell(cell.col, cell.row)">
+                <span class="cell-coord" x-text="`${cell.col}×${cell.row}`"></span>
+              </div>
+            </template>
+
+            <!-- Placed items -->
+            <template x-for="item in items" :key="item.id">
+              <div class="grid-placed-item" :style="itemStyle(item)">
+                <span x-text="item.label"></span>
+              </div>
+            </template>
+
+          </div>
+        </div>
+      </div>
+    </div><!-- /gg-preview -->
+
+  </div><!-- /gg-layout -->
+
+  <!-- ── CODE OUTPUT ──────────────────────────────────── -->
+  <div class="gg-code-wrap">
+    <div class="gg-code-head">
+      <div class="gg-code-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Generated CSS
+      </div>
+      <button class="copy-btn" :class="{done: copied}" @click="copyCSS()">
+        <svg x-show="!copied" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <svg x-show="copied"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <span x-text="copied ? 'Copied!' : 'Copy CSS'"></span>
+      </button>
+    </div>
+    <div class="gg-code-body">
+      <pre x-text="cssCode"></pre>
+    </div>
+  </div>
+
+  <!-- ══ INFO SECTIONS ═══════════════════════════════════ -->
+  <div class="info-sections">
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <h2>About This Tool</h2>
+      </div>
+      <div class="info-body">
+        <p><strong>CSS Grid Generator</strong> is an interactive visual builder for CSS Grid layouts. Configure the number of columns and rows (up to 12 × 8), set uniform or custom track sizes using any valid CSS unit (<code>fr</code>, <code>px</code>, <code>auto</code>, <code>minmax()</code>), and control column and row gaps independently.</p>
+        <p>The live preview renders your exact grid using real CSS — what you see is literally the code you get. Click and drag across cells in the preview to place a grid item that spans those rows and columns. Each item is assigned a distinct colour and appears in the items list on the left where you can remove individual items or clear them all.</p>
+        <p>The generated CSS output includes the container rule (<code>.grid-container</code>) and a separate rule for each placed item (<code>.item-1</code>, <code>.item-2</code>, etc.) with <code>grid-column</code> and <code>grid-row</code> span values ready to copy.</p>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <h2>How to Use</h2>
+      </div>
+      <div class="info-body">
+        <ul>
+          <li><strong>Columns / Rows</strong> — drag the count sliders to set grid dimensions. The preview updates instantly. Adding/removing tracks also clears any items that fall outside the new bounds.</li>
+          <li><strong>Custom track sizes</strong> — toggle "On" to reveal per-track size inputs. Type any valid CSS value: <code>1fr</code>, <code>200px</code>, <code>auto</code>, <code>minmax(100px, 1fr)</code>. Leave on default for equal <code>1fr</code> tracks.</li>
+          <li><strong>Gap</strong> — set column gap and row gap independently. When they're equal, the output uses the <code>gap</code> shorthand; otherwise it uses <code>row-gap col-gap</code>.</li>
+          <li><strong>Placing items</strong> — in the preview, press and hold on a starting cell, drag to an ending cell, then release. The span covered becomes a new grid item with an auto-assigned colour. The cell coordinates (<code>col×row</code>) are shown in each cell to guide placement.</li>
+          <li><strong>Removing items</strong> — click the × button next to any item in the left panel's items list, or use "Clear All Items" to start over.</li>
+          <li>Click <strong>Copy CSS</strong> to copy the complete CSS — container + all item rules.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-icon-row">
+        <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <h2>How CSS Grid Works</h2>
+      </div>
+      <div class="info-body">
+        <p>CSS Grid is a two-dimensional layout system. Setting <code>display: grid</code> on a container turns its direct children into grid items. The key properties:</p>
+        <ul>
+          <li><strong><code>grid-template-columns</code></strong> — defines the width of each column track. <code>repeat(3, 1fr)</code> creates three equal columns, each taking one third of available space. Mix units: <code>200px 1fr 1fr</code> — a fixed sidebar and two flexible columns.</li>
+          <li><strong><code>grid-template-rows</code></strong> — same concept for row heights. Without an explicit height on the container, <code>fr</code> rows are sized to content. Set a fixed container height to make <code>fr</code> rows divide available vertical space.</li>
+          <li><strong><code>gap</code></strong> (formerly <code>grid-gap</code>) — shorthand for <code>row-gap</code> and <code>column-gap</code>. One value: equal gaps. Two values: <code>row-gap column-gap</code>.</li>
+          <li><strong><code>grid-column: 1 / 3</code></strong> — places a child starting at column line 1 and ending at line 3 (spans 2 columns). Line numbers start at 1. <code>-1</code> refers to the last line.</li>
+          <li><strong><code>grid-row: 1 / 2</code></strong> — places a child in row track 1 (between lines 1 and 2).</li>
+          <li><strong><code>fr</code> unit</strong> — "fractional unit." Distributes remaining space proportionally. After fixed/auto tracks consume their space, <code>fr</code> tracks share what's left.</li>
+        </ul>
+        <p>Children without explicit placement auto-flow into the next available cell — you don't need to specify positions for every item, only for those that span multiple tracks.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ══ RELATED TOOLS ═══════════════════════════════════ -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>Related Tools</h2>
+      <a href="../../tools.html" class="view-all-link">All Tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="related-grid">
+      <a class="related-tool-card" href="css-gradient-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M3 12h18"/></svg>
+        </div>
+        <div class="rt-name">CSS Gradient Generator</div>
+        <div class="rt-desc">Linear, radial, and conic gradient builder with colour-stop editor and 12 presets.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="css-shape-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#f43f5e,#e11d48)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 22 2 22"/><circle cx="17" cy="8" r="3"/></svg>
+        </div>
+        <div class="rt-name">CSS Shape Generator</div>
+        <div class="rt-desc">22 pure-CSS shapes via clip-path and border-radius — circles, stars, arrows and more.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="css-triangle-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#f97316,#ea580c)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 22 2 22"/></svg>
+        </div>
+        <div class="rt-name">CSS Triangle Generator</div>
+        <div class="rt-desc">8-direction triangles using the CSS border trick. No images, no SVG required.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="related-tool-card" href="../design/glassmorphism-generator.html">
+        <div class="rt-icon" style="background:linear-gradient(135deg,#0ea5e9,#0284c7)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div class="rt-name">Glassmorphism Generator</div>
+        <div class="rt-desc">Frosted-glass UI component generator with backdrop-filter and live preview.</div>
+        <span class="rt-link">Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Blog -->
+  <div class="related-section">
+    <div class="related-header">
+      <h2>From the Blog</h2>
+      <a href="../../blog.html" class="view-all-link">All Posts <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    <div class="blog-grid">
+      <a class="blog-card" href="../../blog/css-grid-guide.html">
+        <span class="blog-cat" style="background:rgba(16,185,129,.1);color:#34d399;">CSS</span>
+        <div class="blog-title">CSS Grid: The Complete Visual Guide</div>
+        <div class="blog-excerpt">Everything about grid-template-columns, grid-template-rows, grid-area, auto-placement, named lines, and the fr unit.</div>
+        <div class="blog-meta">June 2025 · 12 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/css-grid-vs-flexbox.html">
+        <span class="blog-cat" style="background:rgba(16,185,129,.1);color:#34d399;">CSS</span>
+        <div class="blog-title">CSS Grid vs Flexbox: When to Use Which</div>
+        <div class="blog-excerpt">Grid is for two-dimensional layout; Flexbox is for one dimension. But the real answer depends on your content and intent — here's the full breakdown.</div>
+        <div class="blog-meta">May 2025 · 7 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a class="blog-card" href="../../blog/css-layout-patterns.html">
+        <span class="blog-cat" style="background:rgba(16,185,129,.1);color:#34d399;">CSS</span>
+        <div class="blog-title">10 CSS Grid Layout Patterns You'll Actually Use</div>
+        <div class="blog-excerpt">Holy grail, card grid, sidebar layout, masonry approximation, and 6 more layout patterns with concise code examples.</div>
+        <div class="blog-meta">April 2025 · 9 min read</div>
+        <span class="blog-read">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Report -->
+  <div style="text-align:center;padding:24px 0 0;" x-data="{open:false,reason:'',details:'',submitted:false}">
+    <button style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--faint);cursor:pointer;" @click="open=true">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Report an Issue
+    </button>
+    <div style="position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;" x-show="open" x-cloak @click.self="open=false">
+      <div style="background:var(--card);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:440px;padding:28px;">
+        <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:6px;">Report an Issue</h3>
+        <p style="font-size:.84rem;color:var(--text2);margin-bottom:18px;">Let us know what's wrong with <strong>CSS Grid Generator</strong>.</p>
+        <select style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;margin-bottom:12px;" x-model="reason">
+          <option value="">Select a reason…</option>
+          <option>Preview not rendering correctly</option>
+          <option>Wrong CSS output</option>
+          <option>Item placement not working</option>
+          <option>Custom sizes not applying</option>
+          <option>Copy button not working</option>
+          <option>Other</option>
+        </select>
+        <textarea style="width:100%;padding:10px 14px;background:var(--input);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:.86rem;outline:none;min-height:88px;resize:vertical;font-family:inherit;margin-bottom:12px;" x-model="details" placeholder="Describe the issue (optional)…"></textarea>
+        <div style="display:flex;gap:10px;">
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:700;border:none;background:var(--agrad);color:#fff;cursor:pointer;" :style="!reason?'opacity:.4;cursor:default':''" @click="submitted=true;setTimeout(()=>{open=false;submitted=false},2000)" :disabled="!reason">Submit</button>
+          <button style="flex:1;padding:10px;border-radius:8px;font-size:.87rem;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;" @click="open=false">Cancel</button>
+        </div>
+        <p style="margin-top:12px;text-align:center;font-size:.82rem;color:#86efac;" x-show="submitted">Thank you — report received!</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ FOOTER ════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="../../index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="10" fill="url(#flg)"/>
+          <rect x="7" y="7" width="10" height="10" rx="2" fill="rgba(255,255,255,.85)"/>
+          <rect x="21" y="7" width="12" height="10" rx="2" fill="rgba(255,255,255,.5)"/>
+          <rect x="7" y="21" width="12" height="12" rx="2" fill="rgba(255,255,255,.5)"/>
+          <rect x="23" y="21" width="10" height="12" rx="2" fill="rgba(255,255,255,.85)"/>
+          <defs><linearGradient id="flg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#10b981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs>
+        </svg>
+        <span class="logo-text">The Tool Empire</span>
+      </a>
+      <p class="footer-tagline">Free online tools for developers, designers, and data people.</p>
+    </div>
+    <nav class="footer-nav-wrap">
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="../../tools.html">All Tools</a>
+        <a href="../../tools.html?cat=CSS">CSS</a>
+        <a href="../../tools.html?cat=Design">Design</a>
+        <a href="../../tools.html?cat=Coding">Coding</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../../about.html">About</a>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="../../privacy.html">Privacy</a>
+        <a href="../../terms.html">Terms</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="inner">
+      <p>&copy; 2025 The Tool Empire. All rights reserved.</p>
+      <p>Built with Alpine.js</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

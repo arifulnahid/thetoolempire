@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inverse Case Converter — Free Online Case Inversion Tool | The Tool Empire</title>
+<meta name="description" content="Free online inverse case converter. Instantly invert every letter's capitalization — lowercase becomes UPPERCASE and vice versa. Same as toggle case, in one click. 100% private.">
+<meta name="keywords" content="inverse case converter, invert text case, reverse case letters, inverse capitalization, swap letter case, free case converter">
+<link rel="canonical" href="https://thetoolempire.com/inverse-case-converter.html">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#6C63FF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Inverse Case Converter — Free Online Case Inversion Tool">
+<meta property="og:description" content="Invert every letter's capitalization instantly — lowercase becomes UPPERCASE and vice versa. No signup, no server, 100% private.">
+<meta property="og:url" content="https://thetoolempire.com/inverse-case-converter.html">
+
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Inverse Case Converter",
+  "url": "https://thetoolempire.com/inverse-case-converter.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any (Web Browser)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online inverse case converter that inverts the capitalization of every letter — lowercase becomes uppercase and uppercase becomes lowercase — entirely in the browser.",
+  "featureList": [
+    "Real-time case inversion",
+    "Fixes text typed with caps lock accidentally on",
+    "One-click switch to UPPERCASE",
+    "One-click switch to lowercase",
+    "One-click switch to Title Case",
+    "One-click switch to Sentence case",
+    "Live word and character counts",
+    "Copy, clear and download as .txt",
+    "Preserves numbers, punctuation and spacing",
+    "100% private, browser-only processing"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is this inverse case converter free to use?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The inverse case converter is completely free, has no usage limits, and doesn't require an account." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the tool store or upload my text?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. All conversion happens locally in your browser with JavaScript. Your text is never sent to a server or saved anywhere." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is inverse case the same as toggle case?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Inverse case and toggle case describe the same operation: every lowercase letter becomes uppercase and every uppercase letter becomes lowercase. Both names are used interchangeably across different tools, so this page and our Toggle Case Converter produce identical results." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is inverse case different from aLtErNaTiNg case?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Alternating case ignores your original capitalization and forces a strict up-down-up-down pattern across letters. Inverse case instead flips whatever case each letter already was, so the result depends entirely on how you originally typed the text." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I convert accented letters with inverse case?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The tool uses standard Unicode case conversion, so accented letters such as é and É are correctly inverted along with plain ASCII letters." }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --purple:#6C63FF;
+    --purple-dark:#4B44CC;
+    --purple-soft:#F0EEFF;
+    --mint:#00B894;
+    --mint-soft:#E4FBF4;
+    --amber:#E08E1D;
+    --amber-soft:#FFF3E0;
+    --coral:#E4573D;
+    --ink:#15132B;
+    --ink-soft:#5C5876;
+    --paper:#FBFAFF;
+    --panel:#FFFFFF;
+    --line:#E4E1F5;
+    --radius:14px;
+    --font-display:'Space Grotesk',system-ui,sans-serif;
+    --font-body:'Inter',system-ui,sans-serif;
+    --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap');
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--purple-dark);}
+  h1,h2,h3{font-family:var(--font-display); line-height:1.15; margin:0 0 .5em;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  :focus-visible{outline:3px solid var(--purple); outline-offset:2px; border-radius:4px;}
+
+  header.site{
+    position:sticky; top:0; z-index:40;
+    background:rgba(251,250,255,.9); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:16px 0;}
+  .logo{font-family:var(--font-display); font-weight:700; font-size:1.15rem; text-decoration:none; color:var(--ink); display:flex; align-items:center; gap:8px;}
+  .logo .dot{width:10px;height:10px;border-radius:3px;background:var(--purple);display:inline-block;}
+  .nav-links{display:flex; gap:28px; list-style:none; margin:0; padding:0;}
+  .nav-links a{text-decoration:none; color:var(--ink-soft); font-weight:600; font-size:.94rem;}
+  .nav-links a:hover{color:var(--purple-dark);}
+  .nav-links a.active{color:var(--purple-dark);}
+
+  .hero{padding:48px 0 8px;}
+  .breadcrumb{font-size:.82rem; color:var(--ink-soft); margin-bottom:16px;}
+  .breadcrumb a{color:var(--ink-soft); text-decoration:none;}
+  .breadcrumb a:hover{color:var(--purple-dark);}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--purple-dark); background:var(--purple-soft); border:1px solid #DCD8FF;
+    padding:5px 12px; border-radius:999px; margin-bottom:16px;
+  }
+  h1{font-size:clamp(2rem,4.5vw,2.9rem); color:var(--ink);}
+  .lede{font-size:1.08rem; color:var(--ink-soft); max-width:640px; margin:0 0 8px;}
+  .note{
+    display:flex; gap:10px; align-items:flex-start; background:var(--purple-soft); border:1px solid #DCD8FF;
+    border-radius:12px; padding:12px 16px; font-size:.88rem; color:var(--ink-soft); max-width:640px; margin-top:14px;
+  }
+  .note strong{color:var(--purple-dark);}
+
+  .tool-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; margin:28px 0; box-shadow:0 1px 2px rgba(21,19,43,.03), 0 10px 30px -18px rgba(108,99,255,.25);
+  }
+  .toolbar{display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between; align-items:center; margin-bottom:12px;}
+  .toolbar-actions{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+  .btn{
+    font-family:var(--font-body); font-weight:600; font-size:.86rem; cursor:pointer;
+    border-radius:9px; padding:8px 14px; border:1px solid var(--line); background:#fff; color:var(--ink);
+    transition:transform .08s ease, border-color .15s ease, background .15s ease;
+  }
+  .btn:hover{border-color:var(--purple); color:var(--purple-dark);}
+  .btn:active{transform:scale(.97);}
+  .btn.primary{background:var(--purple); color:#fff; border-color:var(--purple);}
+  .btn.primary:hover{background:var(--purple-dark); border-color:var(--purple-dark); color:#fff;}
+  .btn.copied{background:var(--mint); border-color:var(--mint); color:#fff;}
+
+  textarea{
+    width:100%; min-height:200px; resize:vertical;
+    border:1.5px solid var(--line); border-radius:10px; padding:16px;
+    font-family:var(--font-body); font-size:1rem; color:var(--ink);
+    background:var(--paper);
+  }
+  textarea:focus{border-color:var(--purple); outline:none; box-shadow:0 0 0 4px rgba(108,99,255,.12);}
+  textarea[readonly]{background:var(--ink); color:var(--mint); font-family:var(--font-mono); cursor:text;}
+  .field-label{display:flex; justify-content:space-between; align-items:center; margin:16px 0 6px;}
+  .field-label span{font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft);}
+
+  /* Signature: mirror-reflection indicator */
+  .mirror-wrap{display:flex; align-items:center; gap:12px;}
+  .mirror-icon{
+    position:relative; width:40px; height:26px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono); font-weight:700; font-size:.95rem; border-radius:8px; border:1px solid var(--line);
+    background:var(--panel); overflow:hidden;
+  }
+  .mirror-icon .top{color:var(--ink);}
+  .mirror-icon .bottom{position:absolute; bottom:0; left:0; right:0; height:50%; background:var(--ink); color:var(--mint); display:flex; align-items:center; justify-content:center; transform:scaleY(-1); font-size:.7rem; transition:opacity .2s ease;}
+  .mirror-icon.on .bottom{opacity:1;}
+  .mirror-icon:not(.on) .bottom{opacity:.25;}
+  .switch-lbl{font-family:var(--font-mono); font-size:.72rem; letter-spacing:.06em; color:var(--ink-soft); font-weight:600;}
+
+  .case-switch{display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 4px;}
+  .case-btn{
+    font-family:var(--font-mono); font-size:.8rem; font-weight:600; cursor:pointer;
+    border-radius:9px; padding:9px 14px; border:1.5px solid var(--line); background:#fff; color:var(--ink-soft);
+    transition:all .15s ease;
+  }
+  .case-btn:hover{border-color:var(--purple); color:var(--purple-dark);}
+  .case-btn.active{background:var(--ink); border-color:var(--ink); color:var(--mint);}
+
+  .digits{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:18px;}
+  .digit{background:var(--purple-soft); border-radius:10px; padding:12px 10px; text-align:center;}
+  .digit .num{font-family:var(--font-mono); font-weight:700; font-size:1.2rem; color:var(--purple-dark); font-variant-numeric:tabular-nums;}
+  .digit .lbl{font-size:.7rem; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); margin-top:4px;}
+  @media (max-width:640px){ .digits{grid-template-columns:repeat(2,1fr);} }
+
+  .section{padding:36px 0;}
+  .section h2{font-size:1.5rem;}
+
+  .flip-demo{display:grid; grid-template-columns:1fr auto 1fr; gap:16px; align-items:center;}
+  @media (max-width:700px){ .flip-demo{grid-template-columns:1fr; text-align:center;} }
+  .flip-card{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; text-align:center;}
+  .flip-card .tag{font-family:var(--font-mono); font-size:.68rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); margin-bottom:8px;}
+  .flip-card .txt{font-family:var(--font-mono); font-size:1.1rem; font-weight:600; color:var(--ink); word-break:break-word;}
+  .flip-arrow{font-size:1.6rem; color:var(--purple); font-weight:700;}
+
+  .features{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px;}
+  .feature{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px;}
+  .feature .f-icon{width:34px; height:34px; border-radius:9px; background:var(--purple-soft); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-weight:700; color:var(--purple-dark); margin-bottom:10px;}
+  .feature h3{font-size:1rem; margin:0 0 6px;}
+  .feature p{font-size:.86rem; color:var(--ink-soft); margin:0; max-width:none;}
+
+  table{width:100%; border-collapse:collapse; background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); font-size:.92rem;}
+  th{background:var(--purple-soft); color:var(--purple-dark); font-family:var(--font-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.06em;}
+  tr:last-child td{border-bottom:none;}
+
+  article.seo p{color:var(--ink-soft); max-width:760px;}
+  article.seo h3{font-size:1.15rem; margin-top:1.4em;}
+  article.seo ul{color:var(--ink-soft); max-width:760px; padding-left:1.2em;}
+  .guide-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start;}
+  @media (max-width:800px){ .guide-grid{grid-template-columns:1fr;} }
+
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{width:100%; text-align:left; background:none; border:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:12px; padding:18px 4px; font-family:var(--font-display); font-weight:600; font-size:1.02rem; color:var(--ink);}
+  .faq-q .icon{font-family:var(--font-mono); color:var(--purple); font-size:1.2rem; flex-shrink:0;}
+  .faq-a{padding:0 4px 18px; color:var(--ink-soft); max-width:720px;}
+
+  .related{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;}
+  .related a{display:block; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; text-decoration:none; color:var(--ink); font-weight:600; font-size:.94rem; transition:border-color .15s ease, transform .08s ease;}
+  .related a:hover{border-color:var(--purple); transform:translateY(-2px);}
+  .related a span{display:block; font-weight:400; font-size:.82rem; color:var(--ink-soft); margin-top:4px;}
+
+  footer.site{border-top:1px solid var(--line); background:var(--panel); margin-top:40px; padding:40px 0 24px;}
+  .foot-grid{display:grid; grid-template-columns:2fr 1fr 1fr; gap:24px;}
+  @media (max-width:700px){ .foot-grid{grid-template-columns:1fr; gap:20px;} }
+  footer.site h4{font-family:var(--font-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); margin:0 0 10px;}
+  footer.site ul{list-style:none; margin:0; padding:0; display:grid; gap:8px;}
+  footer.site a{color:var(--ink-soft); text-decoration:none; font-size:.9rem;}
+  footer.site a:hover{color:var(--purple-dark);}
+  .foot-bottom{margin-top:28px; padding-top:20px; border-top:1px solid var(--line); font-size:.8rem; color:var(--ink-soft); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+</style>
+</head>
+<body x-data="inverseCaseConverter()">
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="https://thetoolempire.com/" class="logo"><span class="dot"></span>The Tool Empire</a>
+    <ul class="nav-links">
+      <li><a href="https://thetoolempire.com/index.html">Home</a></li>
+      <li><a href="https://thetoolempire.com/tools.html" class="active">Tools</a></li>
+      <li><a href="https://thetoolempire.com/blog.html">Blog</a></li>
+      <li><a href="https://thetoolempire.com/contact.html">Contact</a></li>
+      <li><a href="https://thetoolempire.com/about.html">About</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="breadcrumb"><a href="https://thetoolempire.com/">Home</a> / <a href="https://thetoolempire.com/tools.html">Tools</a> / Inverse Case Converter</p>
+    <span class="eyebrow">● Text Tools</span>
+    <h1>Inverse Case Converter</h1>
+    <p class="lede">Type or paste text below and every letter's capitalization inverts instantly — lowercase becomes UPPERCASE and UPPERCASE becomes lowercase.</p>
+    <div class="note">💡 <span><strong>Note:</strong> "Inverse case" and "toggle case" describe the same operation. This tool and our <a href="https://thetoolempire.com/toggle-case-converter.html">Toggle Case Converter</a> produce identical results — use whichever name you searched for.</span></div>
+  </div>
+
+  <div class="wrap">
+    <div class="tool-card">
+      <div class="toolbar">
+        <div class="mirror-wrap">
+          <div class="mirror-icon" :class="{on: activeCase === 'inverse'}">
+            <span class="top">Aa</span>
+            <span class="bottom">Aa</span>
+          </div>
+          <span class="switch-lbl" x-text="activeCase === 'inverse' ? 'inverse case: on' : 'inverse case: off'"></span>
+        </div>
+        <div class="toolbar-actions">
+          <button class="btn primary" @click="loadSample()">Load sample text</button>
+          <button class="btn" @click="clearText()">Clear</button>
+        </div>
+      </div>
+
+      <div class="field-label"><span>Your text</span></div>
+      <label for="inv-input" style="position:absolute;left:-9999px;">Text to convert</label>
+      <textarea id="inv-input" x-model="text" placeholder="Start typing, or paste your text here…" spellcheck="true"></textarea>
+
+      <div class="case-switch">
+        <button class="case-btn" :class="{active: activeCase==='inverse'}" @click="activeCase='inverse'">iNVERSE cASE</button>
+        <button class="case-btn" :class="{active: activeCase==='upper'}" @click="activeCase='upper'">UPPERCASE</button>
+        <button class="case-btn" :class="{active: activeCase==='lower'}" @click="activeCase='lower'">lowercase</button>
+        <button class="case-btn" :class="{active: activeCase==='title'}" @click="activeCase='title'">Title Case</button>
+        <button class="case-btn" :class="{active: activeCase==='sentence'}" @click="activeCase='sentence'">Sentence case</button>
+      </div>
+
+      <div class="field-label">
+        <span x-text="'Converted (' + caseLabel + ')'"></span>
+        <button class="btn" :class="{copied: justCopied}" @click="copyOutput()" x-text="justCopied ? 'Copied ✓' : 'Copy result'"></button>
+      </div>
+      <textarea readonly x-text="convertedText" placeholder="Your converted text will appear here…"></textarea>
+
+      <div class="digits">
+        <div class="digit"><div class="num" x-text="words"></div><div class="lbl">Words</div></div>
+        <div class="digit"><div class="num" x-text="charsWithSpaces"></div><div class="lbl">Characters</div></div>
+        <div class="digit"><div class="num" x-text="upperFlipped"></div><div class="lbl">Letters inverted to upper</div></div>
+        <div class="digit"><div class="num" x-text="lowerFlipped"></div><div class="lbl">Letters inverted to lower</div></div>
+      </div>
+
+      <div class="toolbar" style="margin-top:14px; margin-bottom:0;">
+        <div class="toolbar-actions">
+          <button class="btn" @click="downloadTxt()">Download result as .txt</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <h2>See it in action</h2>
+    <p style="color:var(--ink-soft); max-width:640px;">Every letter's capitalization is mirrored — as if reflected across a line.</p>
+    <div class="flip-demo">
+      <div class="flip-card"><div class="tag">Original</div><div class="txt">The Quick Brown Fox</div></div>
+      <div class="flip-arrow">→</div>
+      <div class="flip-card"><div class="tag">Inverse case</div><div class="txt">tHE qUICK bROWN fOX</div></div>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <h2>Every feature, at a glance</h2>
+    <p style="color:var(--ink-soft); max-width:640px;">Everything this inverse case converter does, in one place.</p>
+    <div class="features">
+      <div class="feature"><div class="f-icon">⇄</div><h3>Real-time case inversion</h3><p>Every letter's capitalization inverts instantly as you type or paste — no button to click.</p></div>
+      <div class="feature"><div class="f-icon">⇪</div><h3>Fixes caps-lock typos</h3><p>Instantly recovers text typed with Caps Lock accidentally left on.</p></div>
+      <div class="feature"><div class="f-icon">⇪</div><h3>One-click UPPERCASE</h3><p>Switch the same text to all caps with a single click.</p></div>
+      <div class="feature"><div class="f-icon">⇩</div><h3>One-click lowercase</h3><p>Switch the same text to all lowercase with a single click.</p></div>
+      <div class="feature"><div class="f-icon">Tt</div><h3>Title Case & Sentence case</h3><p>Also includes Title Case for headlines and Sentence case for standard prose.</p></div>
+      <div class="feature"><div class="f-icon">Ω</div><h3>Unicode-aware inversion</h3><p>Accented letters like é and É invert correctly along with plain ASCII letters.</p></div>
+      <div class="feature"><div class="f-icon">#</div><h3>Numbers & punctuation untouched</h3><p>Only letters are inverted — numbers, symbols and punctuation stay exactly as typed.</p></div>
+      <div class="feature"><div class="f-icon">W</div><h3>Live conversion stats</h3><p>See how many letters inverted to upper vs. lower, alongside word and character counts.</p></div>
+      <div class="feature"><div class="f-icon">⧉</div><h3>Copy & download</h3><p>Copy the converted text to your clipboard or download it as a plain .txt file in one click.</p></div>
+      <div class="feature"><div class="f-icon">🔒</div><h3>100% private</h3><p>All conversion happens locally in your browser. Nothing you type is ever uploaded or stored.</p></div>
+      <div class="feature"><div class="f-icon">∞</div><h3>Free & unlimited</h3><p>No signup, no paywall, no daily limit — use it as many times as you like.</p></div>
+      <div class="feature"><div class="f-icon">▢</div><h3>Works on any device</h3><p>Fully responsive layout that works the same on phone, tablet and desktop.</p></div>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <article class="seo">
+      <h2>What is an inverse case converter?</h2>
+      <p>An inverse case converter flips the capitalization of every letter in your text: each lowercase letter becomes uppercase, and each uppercase letter becomes lowercase — turning "The Quick Brown Fox" into "tHE qUICK bROWN fOX." This one runs entirely as JavaScript inside your browser, so there's no upload and no server round-trip: your text never leaves your device. The conversion updates live as you type or paste.</p>
+
+      <div class="guide-grid">
+        <div>
+          <h3>How inverse case works</h3>
+          <p>The tool checks each letter individually and mirrors its case: lowercase becomes uppercase, uppercase becomes lowercase. Numbers, punctuation, emoji and whitespace are left completely untouched. Because the result depends entirely on your original capitalization, running the same converted text through inverse case a second time returns you to the original text.</p>
+        </div>
+        <div>
+          <h3>"Inverse case" vs. "toggle case"</h3>
+          <p>These are two names for the exact same transformation. Some tools and communities call it "toggle case," others call it "inverse case" or "invert case" — but the underlying logic is identical: flip whatever case each letter currently is. We built this page under the "inverse case" name since that's how many people search for it, and it produces the same result as our <a href="https://thetoolempire.com/toggle-case-converter.html">Toggle Case Converter</a>.</p>
+        </div>
+      </div>
+
+      <h3>Common uses for inverse case</h3>
+      <ul>
+        <li><strong>Fixing Caps Lock mistakes</strong> — recover text typed with Caps Lock accidentally left on.</li>
+        <li><strong>Stylized or meme text</strong> — create playful, attention-grabbing text for captions and casual messages.</li>
+        <li><strong>Design & typography experiments</strong> — quickly preview how inverted capitalization reads before committing to a style.</li>
+        <li><strong>Text obfuscation for puzzles</strong> — invert capitalization as a light, reversible transformation for wordplay or ciphers.</li>
+        <li><strong>Quality-checking case-sensitive systems</strong> — test how a string behaves with its case fully inverted.</li>
+      </ul>
+
+      <h3>Case style comparison</h3>
+      <table>
+        <thead><tr><th>Case style</th><th>Example (from "The Quick Fox")</th><th>Common use</th></tr></thead>
+        <tbody>
+          <tr><td>iNVERSE cASE</td><td>tHE qUICK fOX</td><td>Fixing Caps Lock typos, stylized text</td></tr>
+          <tr><td>UPPERCASE</td><td>THE QUICK FOX</td><td>Headers, warnings, acronyms, constants</td></tr>
+          <tr><td>lowercase</td><td>the quick fox</td><td>Usernames, URLs, minimalist branding</td></tr>
+          <tr><td>Title Case</td><td>The Quick Fox</td><td>Headlines, book & movie titles</td></tr>
+          <tr><td>Sentence case</td><td>The quick fox</td><td>Body text, standard prose</td></tr>
+        </tbody>
+      </table>
+    </article>
+  </div>
+
+  <div class="wrap section">
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <template x-for="(f, i) in faqs" :key="i">
+        <div class="faq-item">
+          <button class="faq-q" @click="openFaq = openFaq === i ? null : i" :aria-expanded="openFaq === i">
+            <span x-text="f.q"></span>
+            <span class="icon" x-text="openFaq === i ? '−' : '+'"></span>
+          </button>
+          <div class="faq-a" x-show="openFaq === i" x-text="f.a"></div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <h2>Related tools</h2>
+    <div class="related">
+      <a href="https://thetoolempire.com/toggle-case-converter.html">Toggle Case Converter<span>The same operation, another name</span></a>
+      <a href="https://thetoolempire.com/uppercase-converter.html">Uppercase Converter<span>Turn text into ALL CAPS</span></a>
+      <a href="https://thetoolempire.com/lowercase-converter.html">Lowercase Converter<span>Turn text into lowercase</span></a>
+      <a href="https://thetoolempire.com/title-case-converter.html">Title Case Converter<span>Smart AP-style headline capitalization</span></a>
+      <a href="https://thetoolempire.com/tools.html">Browse all tools<span>100+ free browser-based tools</span></a>
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-grid">
+    <div>
+      <a href="https://thetoolempire.com/" class="logo"><span class="dot"></span>The Tool Empire</a>
+      <p style="color:var(--ink-soft); font-size:.9rem; max-width:320px; margin-top:10px;">Free, browser-based tools. No signup, no server, no data collection — ever.</p>
+    </div>
+    <div>
+      <h4>Tools</h4>
+      <ul>
+        <li><a href="https://thetoolempire.com/tools.html">All Tools</a></li>
+        <li><a href="https://thetoolempire.com/blog.html">Blog</a></li>
+        <li><a href="https://thetoolempire.com/contact.html">Contact</a></li>
+        <li><a href="https://thetoolempire.com/about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="https://thetoolempire.com/privacy.html">Privacy Policy</a></li>
+        <li><a href="https://thetoolempire.com/terms.html">Terms of Use</a></li>
+        <li><a href="https://thetoolempire.com/sitemap.xml">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© The Tool Empire. All rights reserved.</span>
+    <span>All tools run locally in your browser.</span>
+  </div>
+</footer>
+
+<script>
+function inverseCaseConverter(){
+  return {
+    text:'',
+    activeCase:'inverse',
+    justCopied:false,
+    openFaq:null,
+    faqs:[
+      {q:'Is this inverse case converter free to use?', a:"Yes. It's completely free, has no usage limits, and doesn't require an account."},
+      {q:'Does the tool store or upload my text?', a:'No. All conversion happens locally in your browser with JavaScript. Your text is never sent to a server or saved anywhere.'},
+      {q:'Is inverse case the same as toggle case?', a:'Yes. Inverse case and toggle case describe the same operation: every lowercase letter becomes uppercase and every uppercase letter becomes lowercase. Both names are used interchangeably across different tools, so this page and our Toggle Case Converter produce identical results.'},
+      {q:'How is inverse case different from aLtErNaTiNg case?', a:"Alternating case ignores your original capitalization and forces a strict up-down-up-down pattern across letters. Inverse case instead flips whatever case each letter already was, so the result depends entirely on how you originally typed the text."},
+      {q:'Can I convert accented letters with inverse case?', a:'Yes. The tool uses standard Unicode case conversion, so accented letters such as é and É are correctly inverted along with plain ASCII letters.'}
+    ],
+    get trimmed(){ return this.text.trim(); },
+    get words(){ return this.trimmed ? this.trimmed.split(/\s+/).length : 0; },
+    get charsWithSpaces(){ return this.text.length; },
+    toInverseCase(str){
+      let out = '';
+      for(const ch of str){
+        const lower = ch.toLowerCase();
+        const upper = ch.toUpperCase();
+        if(ch === lower && ch !== upper) out += upper;
+        else if(ch === upper && ch !== lower) out += lower;
+        else out += ch;
+      }
+      return out;
+    },
+    toTitleCase(str){
+      return str.replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+    },
+    toSentenceCase(str){
+      const lower = str.toLowerCase();
+      return lower.replace(/(^\s*\w|[.!?]\s+\w)/g, c => c.toUpperCase());
+    },
+    get upperFlipped(){ return (this.text.match(/[a-z\u00E0-\u024F]/g) || []).length; },
+    get lowerFlipped(){ return (this.text.match(/[A-Z\u00C0-\u00DE]/g) || []).length; },
+    get caseLabel(){
+      return {
+        inverse:'iNVERSE cASE', upper:'UPPERCASE', lower:'lowercase',
+        title:'Title Case', sentence:'Sentence case'
+      }[this.activeCase];
+    },
+    get convertedText(){
+      switch(this.activeCase){
+        case 'inverse': return this.toInverseCase(this.text);
+        case 'upper': return this.text.toUpperCase();
+        case 'lower': return this.text.toLowerCase();
+        case 'title': return this.toTitleCase(this.text);
+        case 'sentence': return this.toSentenceCase(this.text);
+        default: return this.toInverseCase(this.text);
+      }
+    },
+    clearText(){ this.text=''; },
+    loadSample(){
+      this.text = "The Quick Brown Fox Jumps Over The Lazy Dog";
+    },
+    async copyOutput(){
+      if(!this.convertedText) return;
+      try{
+        await navigator.clipboard.writeText(this.convertedText);
+        this.justCopied = true;
+        setTimeout(()=> this.justCopied = false, 1500);
+      }catch(e){ /* clipboard unavailable */ }
+    },
+    downloadTxt(){
+      if(!this.convertedText) return;
+      const blob = new Blob([this.convertedText], {type:'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'inverse-case-converted-text.txt';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  }
+}
+</script>
+</body>
+</html>

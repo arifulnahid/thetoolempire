@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading Time Calculator — Free Online Tool | The Tool Empire</title>
+<meta name="description" content="Paste or type your text to instantly see how long it takes to read out loud or silently. Adjustable reading speed, word/character counts, speaking time, and per-heading breakdown — all in your browser, no signup.">
+<meta name="keywords" content="reading time calculator, words per minute calculator, time to read, article reading time, speaking time calculator, WPM calculator">
+<meta name="theme-color" content="#6C63FF">
+<meta property="og:title" content="Reading Time Calculator — Free Online Tool">
+<meta property="og:description" content="See exactly how long your text takes to read or speak. Adjustable WPM, live word count, speaking time. 100% free, runs in your browser.">
+<meta property="og:type" content="website">
+<meta name="robots" content="index, follow">
+<style>
+  :root{
+    --accent:#6C63FF;
+    --accent-dark:#564fd1;
+    --accent-light:#EDEBFF;
+    --ink:#1B1B23;
+    --ink-soft:#5A5A6E;
+    --bg:#FAFAFC;
+    --card:#FFFFFF;
+    --border:#E7E6F2;
+    --good:#1FAA65;
+    --radius:14px;
+    --shadow:0 2px 8px rgba(30,25,80,.06), 0 12px 32px rgba(30,25,80,.05);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+  }
+  a{color:var(--accent-dark);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  header.site{border-bottom:1px solid var(--border);background:var(--card);position:sticky;top:0;z-index:20;}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1080px;margin:0 auto;}
+  .logo{font-weight:800;font-size:1.15rem;color:var(--ink);}
+  .logo span{color:var(--accent);}
+  .nav ul{list-style:none;display:flex;gap:28px;margin:0;padding:0;}
+  .nav a{color:var(--ink-soft);font-weight:600;font-size:.95rem;}
+  .nav a.active{color:var(--accent-dark);}
+
+  .crumbs{font-size:.85rem;color:var(--ink-soft);padding:18px 0 0;}
+  .crumbs a{color:var(--ink-soft);}
+
+  .hero{padding:20px 0 8px;}
+  .eyebrow{
+    display:inline-block;background:var(--accent-light);color:var(--accent-dark);
+    font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;
+    padding:5px 12px;border-radius:999px;margin-bottom:14px;
+  }
+  h1{font-size:clamp(1.9rem,4vw,2.6rem);margin:0 0 10px;letter-spacing:-.02em;}
+  .lede{color:var(--ink-soft);font-size:1.08rem;max-width:640px;margin:0 0 8px;}
+
+  .tool-card{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:26px;margin:26px 0 36px;
+  }
+  .rt-stage{display:grid;grid-template-columns:1fr;gap:24px;}
+  @media(min-width:860px){.rt-stage{grid-template-columns:1.5fr 1fr;}}
+
+  .text-panel textarea{
+    width:100%;min-height:280px;resize:vertical;padding:16px;border:1px solid var(--border);
+    border-radius:10px;font-size:.95rem;font-family:inherit;line-height:1.6;color:var(--ink);
+  }
+  .text-panel textarea:focus{outline:2px solid var(--accent-light);border-color:var(--accent);}
+  .panel-actions{display:flex;justify-content:space-between;align-items:center;margin-top:10px;flex-wrap:wrap;gap:8px;}
+  .chip-btn{
+    border:1px solid var(--border);background:var(--card);color:var(--ink-soft);
+    padding:8px 14px;border-radius:999px;font-size:.85rem;font-weight:600;cursor:pointer;
+  }
+  .chip-btn:hover{border-color:var(--accent);color:var(--accent-dark);}
+  .chip-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .muted-count{font-size:.8rem;color:#9b99b0;}
+
+  .results-panel{display:flex;flex-direction:column;gap:16px;}
+  .time-hero{
+    background:var(--accent-light);border-radius:var(--radius);padding:22px;text-align:center;
+  }
+  .time-hero .big{
+    font-size:clamp(2.4rem,7vw,3.2rem);font-weight:800;color:var(--accent-dark);
+    letter-spacing:-.02em;line-height:1;margin-bottom:4px;font-variant-numeric:tabular-nums;
+  }
+  .time-hero .sub{font-size:.85rem;color:var(--ink-soft);font-weight:600;}
+
+  .stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .stat-box{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;}
+  .stat-box .num{font-size:1.3rem;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .stat-box .lbl{font-size:.75rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.03em;font-weight:700;}
+
+  .speed-field label{display:block;font-size:.8rem;font-weight:700;color:var(--ink-soft);margin-bottom:8px;text-transform:uppercase;letter-spacing:.03em;}
+  .speed-slider-row{display:flex;align-items:center;gap:12px;}
+  .speed-slider-row input[type=range]{flex:1;accent-color:var(--accent);}
+  .speed-val{font-weight:800;color:var(--accent-dark);font-size:.95rem;width:88px;text-align:right;font-variant-numeric:tabular-nums;}
+  .preset-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+  .preset-chip{
+    border:1px solid var(--border);background:var(--card);padding:5px 10px;border-radius:999px;
+    font-size:.76rem;font-weight:600;color:var(--ink-soft);cursor:pointer;
+  }
+  .preset-chip.active, .preset-chip:hover{border-color:var(--accent);color:var(--accent-dark);background:var(--accent-light);}
+
+  .mode-toggle{display:flex;gap:8px;}
+  .mode-btn{
+    flex:1;border:1px solid var(--border);background:var(--card);padding:9px;border-radius:8px;
+    font-size:.85rem;font-weight:700;color:var(--ink-soft);cursor:pointer;
+  }
+  .mode-btn.active{border-color:var(--accent);color:var(--accent-dark);background:var(--accent-light);}
+
+  .trust{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0;}
+  .trust span{font-size:.78rem;font-weight:700;color:var(--accent-dark);background:var(--accent-light);padding:5px 11px;border-radius:999px;}
+
+  section.content{padding:34px 0;border-top:1px solid var(--border);}
+  section.content:first-of-type{border-top:none;}
+  h2{font-size:1.55rem;margin:0 0 14px;letter-spacing:-.01em;}
+  p{color:var(--ink-soft);margin:0 0 14px;}
+  p, li{max-width:760px;}
+  ul.plain, ol.plain{color:var(--ink-soft);padding-left:22px;max-width:760px;}
+  ul.plain li, ol.plain li{margin-bottom:8px;}
+
+  .feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-top:20px;}
+  .feature{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;}
+  .feature .icon{
+    width:38px;height:38px;border-radius:10px;background:var(--accent-light);color:var(--accent-dark);
+    display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:12px;font-weight:800;
+  }
+  .feature h4{margin:0 0 6px;font-size:1rem;}
+  .feature p{margin:0;font-size:.9rem;}
+
+  .usecase-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:18px;}
+  .usecase{border:1px solid var(--border);border-radius:10px;padding:14px 16px;background:var(--card);font-size:.9rem;}
+  .usecase b{display:block;color:var(--ink);margin-bottom:4px;}
+
+  table.speed-table{width:100%;max-width:640px;border-collapse:collapse;margin:14px 0 20px;font-size:.9rem;}
+  table.speed-table th, table.speed-table td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--ink-soft);}
+  table.speed-table th{color:var(--ink);font-size:.78rem;text-transform:uppercase;letter-spacing:.03em;}
+
+  .faq-item{border-bottom:1px solid var(--border);padding:16px 0;}
+  .faq-item summary{cursor:pointer;font-weight:700;font-size:.98rem;list-style:none;position:relative;padding-right:24px;}
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary::after{content:"+";position:absolute;right:0;top:0;color:var(--accent-dark);font-size:1.2rem;}
+  .faq-item[open] summary::after{content:"–";}
+  .faq-item p{margin-top:10px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+  .related a{border:1px solid var(--border);background:var(--card);padding:8px 14px;border-radius:999px;font-size:.85rem;font-weight:600;color:var(--ink);}
+  .related a:hover{border-color:var(--accent);color:var(--accent-dark);text-decoration:none;}
+
+  footer.site{background:#171724;color:#b9b7cf;padding:40px 0 24px;margin-top:20px;}
+  .foot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:24px;margin-bottom:24px;}
+  footer.site h5{color:#fff;font-size:.85rem;margin:0 0 10px;text-transform:uppercase;letter-spacing:.04em;}
+  footer.site a{color:#b9b7cf;display:block;font-size:.88rem;margin-bottom:8px;}
+  footer.site a:hover{color:#fff;}
+  .foot-bottom{border-top:1px solid #2c2c3d;padding-top:18px;font-size:.8rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav">
+    <div class="logo">The Tool <span>Empire</span></div>
+    <ul>
+      <li><a href="https://thetoolempire.com/">Home</a></li>
+      <li><a href="https://thetoolempire.com/tools.html" class="active">Tools</a></li>
+      <li><a href="https://thetoolempire.com/blog.html">Blog</a></li>
+      <li><a href="https://thetoolempire.com/contact.html">Contact</a></li>
+      <li><a href="https://thetoolempire.com/about.html">About</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <p class="crumbs"><a href="https://thetoolempire.com/">Home</a> / <a href="https://thetoolempire.com/tools.html">Tools</a> / <a href="https://thetoolempire.com/tools.html?cat=Text">Text Tools</a> / Reading Time Calculator</p>
+
+  <div class="hero">
+    <span class="eyebrow">Text Tools</span>
+    <h1>Reading Time Calculator</h1>
+    <p class="lede">Paste in an article, blog post, script, or essay and instantly see how long it takes to read — silently or out loud. Adjust the speed to match your actual audience and get an exact estimate, not a guess.</p>
+    <div class="trust">
+      <span>100% Private</span>
+      <span>No Signup</span>
+      <span>Updates As You Type</span>
+      <span>Nothing Uploaded</span>
+    </div>
+  </div>
+
+  <!-- ============ TOOL WIDGET ============ -->
+  <div class="tool-card">
+    <div class="rt-stage">
+      <div class="text-panel">
+        <textarea id="textInput" placeholder="Paste or type your text here — an article, blog post, speech, script, or essay…"></textarea>
+        <div class="panel-actions">
+          <span class="muted-count" id="charCountHint">0 characters</span>
+          <div class="chip-row">
+            <button class="chip-btn" id="pasteBtn">Paste</button>
+            <button class="chip-btn" id="sampleBtn">Try sample text</button>
+            <button class="chip-btn" id="clearBtn">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="results-panel">
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="readingModeBtn">Reading time</button>
+          <button class="mode-btn" id="speakingModeBtn">Speaking time</button>
+        </div>
+
+        <div class="time-hero">
+          <div class="big" id="timeBig">0 sec</div>
+          <div class="sub" id="timeSub">at 200 words per minute</div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-box"><div class="num" id="wordCount">0</div><div class="lbl">Words</div></div>
+          <div class="stat-box"><div class="num" id="charCount">0</div><div class="lbl">Characters</div></div>
+          <div class="stat-box"><div class="num" id="sentenceCount">0</div><div class="lbl">Sentences</div></div>
+          <div class="stat-box"><div class="num" id="paraCount">0</div><div class="lbl">Paragraphs</div></div>
+        </div>
+
+        <div class="speed-field">
+          <label for="speedSlider">Speed <span id="speedUnitLabel">(words per minute)</span></label>
+          <div class="speed-slider-row">
+            <input type="range" id="speedSlider" min="100" max="450" value="200" step="5">
+            <span class="speed-val"><span id="speedVal">200</span> <span id="speedUnit2">WPM</span></span>
+          </div>
+          <div class="preset-row" id="presetRow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FEATURES ============ -->
+  <section class="content">
+    <h2>Features</h2>
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="icon">⏱</div>
+        <h4>Instant, live estimate</h4>
+        <p>Reading time updates the moment you type or paste — no button to click, no page reload, no waiting.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🎚</div>
+        <h4>Adjustable reading speed</h4>
+        <p>Drag the slider from 100 to 450 words per minute to match a slow reader, an average adult, or a fast skimmer.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🗣</div>
+        <h4>Speaking time mode</h4>
+        <p>Switch to speaking time to estimate how long a script, speech, or voiceover will take to deliver out loud, using realistic speaking-pace presets.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">📊</div>
+        <h4>Full text statistics</h4>
+        <p>See word count, character count, sentence count, and paragraph count alongside the time estimate — everything at a glance.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">⚡</div>
+        <h4>Presets for common speeds</h4>
+        <p>One-tap presets for slow, average, and fast reading — or slow, conversational, and fast speaking — so you don't have to guess a number.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">📋</div>
+        <h4>Paste-ready</h4>
+        <p>Paste directly from Word, Google Docs, or a CMS editor — the tool strips nothing and counts exactly what's there.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🧪</div>
+        <h4>Sample text to try</h4>
+        <p>No text handy? Load a sample paragraph with one click to see exactly how the tool works before pasting your own.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🔒</div>
+        <h4>100% private</h4>
+        <p>Your text is analyzed entirely in your browser. Nothing is uploaded, stored, or sent to any server — ever.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT IS / HOW IT WORKS ============ -->
+  <section class="content">
+    <h2>What is a reading time calculator?</h2>
+    <p>A reading time calculator estimates how many minutes (or seconds) it takes to read a piece of text, based on its word count and a chosen reading speed. It's the same number you see under blog post titles as "5 min read" — this tool lets you calculate that number yourself for any text, and fine-tune the speed to match your actual audience instead of relying on a fixed default.</p>
+    <p>The calculation is simple: word count divided by reading speed (in words per minute) gives the time in minutes. This tool also supports a speaking-time mode, which uses realistic spoken-word paces instead of silent-reading paces — useful for estimating how long a script or presentation will actually take to deliver.</p>
+
+    <h2>How to use the Reading Time Calculator</h2>
+    <ol class="plain">
+      <li>Paste or type your text into the box on the left.</li>
+      <li>Your word count, character count, and estimated reading time update instantly.</li>
+      <li>Drag the speed slider, or tap a preset, to match the reading speed you care about — slow, average, or fast.</li>
+      <li>Switch to <strong>Speaking time</strong> if you're estimating how long the text takes to read out loud, such as a speech, podcast script, or presentation.</li>
+      <li>Use the stats below the time estimate (words, characters, sentences, paragraphs) for any additional context you need, like meeting a length requirement.</li>
+    </ol>
+
+    <h2>Typical reading and speaking speeds</h2>
+    <table class="speed-table">
+      <tr><th>Pace</th><th>Reading (silent)</th><th>Speaking (aloud)</th></tr>
+      <tr><td>Slow / careful</td><td>~150 WPM</td><td>~110 WPM</td></tr>
+      <tr><td>Average adult</td><td>~200–230 WPM</td><td>~130–150 WPM</td></tr>
+      <tr><td>Fast reader / skimmer</td><td>~300–350 WPM</td><td>~160 WPM</td></tr>
+    </table>
+    <p>These are general benchmarks — actual speed varies with text difficulty, familiarity with the topic, and reading medium (screen vs. print). Adjust the slider to whatever number fits your own audience best.</p>
+  </section>
+
+  <!-- ============ USE CASES ============ -->
+  <section class="content">
+    <h2>Common ways people use a reading time calculator</h2>
+    <div class="usecase-grid">
+      <div class="usecase"><b>Blog &amp; content writers</b>Add an accurate "X min read" estimate to a post instead of guessing or copying a default.</div>
+      <div class="usecase"><b>Public speakers</b>Check how long a speech or toast will take before stepping on stage, using speaking-time mode.</div>
+      <div class="usecase"><b>Podcasters &amp; voiceover artists</b>Estimate script runtime before recording, to hit a target episode length.</div>
+      <div class="usecase"><b>Teachers &amp; students</b>Gauge how long an assigned reading or a presentation script will take to get through.</div>
+      <div class="usecase"><b>Email &amp; newsletter writers</b>Keep a message short enough to be read in the time a reader is likely to give it.</div>
+      <div class="usecase"><b>Video scriptwriters</b>Match a script's length to a target video runtime before filming.</div>
+      <div class="usecase"><b>Editors</b>Compare drafts to see how trimming or expanding a section changes total reading time.</div>
+      <div class="usecase"><b>UX &amp; product writers</b>Check that onboarding or help text won't take longer to read than a user will tolerate.</div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="content">
+    <h2>Frequently asked questions</h2>
+
+    <details class="faq-item" open>
+      <summary>How is reading time calculated?</summary>
+      <p>Reading time is your text's word count divided by a chosen reading speed in words per minute. For example, 600 words at 200 WPM works out to 3 minutes. This tool does that calculation instantly and updates it as you type or adjust the speed.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>What reading speed should I use?</summary>
+      <p>200–230 words per minute is a common default for an average adult reading silently on a screen. Use the slower preset for dense or technical text, and the faster preset if your audience tends to skim.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>What's the difference between reading time and speaking time?</summary>
+      <p>Reading time estimates silent reading speed, which is faster than speech. Speaking time uses a slower, spoken-word pace (roughly 110–160 words per minute) to estimate how long it takes to read the same text out loud — useful for speeches, scripts, and voiceovers.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Does formatting like headings or bullet points affect the count?</summary>
+      <p>The tool counts all visible words in the pasted text, including headings and list items, since a reader's eyes pass over them too. It does not count HTML tags, markdown symbols, or hidden formatting characters.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is there a limit to how much text I can paste?</summary>
+      <p>No hard limit — paste a paragraph or a full chapter. Very long text (tens of thousands of words) may take a fraction of a second longer to recalculate, but there's no cap enforced by the tool.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is my text uploaded anywhere?</summary>
+      <p>No. All counting and calculation happens locally in your browser. Your text is never sent to a server, logged, or stored anywhere outside your own device.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I use this for non-English text?</summary>
+      <p>Word and character counts work for any language that separates words with spaces. Reading-speed benchmarks in the presets are based on English reading research, so treat them as a rough starting point for other languages and adjust the slider as needed.</p>
+    </details>
+  </section>
+
+  <!-- ============ RELATED TOOLS ============ -->
+  <section class="content">
+    <h2>Related tools</h2>
+    <div class="related">
+      <a href="https://thetoolempire.com/tools.html?cat=Text">Word Counter</a>
+      <a href="https://thetoolempire.com/tools.html?cat=Text">Character Counter</a>
+      <a href="https://thetoolempire.com/tools.html?cat=Text">Text Case Converter</a>
+      <a href="https://thetoolempire.com/tools.html?cat=Math">Number Counter</a>
+      <a href="https://thetoolempire.com/tools.html?cat=Text">Readability Checker</a>
+      <a href="https://thetoolempire.com/tools.html">Browse All Tools →</a>
+    </div>
+  </section>
+
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h5>Tools</h5>
+        <a href="https://thetoolempire.com/tools.html">All Tools</a>
+        <a href="https://thetoolempire.com/tools.html?cat=Text">Text Tools</a>
+        <a href="https://thetoolempire.com/tools.html?cat=Math">Math &amp; Calculators</a>
+        <a href="https://thetoolempire.com/tools.html?cat=Color">Color Tools</a>
+        <a href="https://thetoolempire.com/tools.html?cat=Coding">Coding Tools</a>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="https://thetoolempire.com/blog.html">Blog</a>
+        <a href="https://thetoolempire.com/contact.html">Contact</a>
+        <a href="https://thetoolempire.com/about.html">About</a>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <a href="https://thetoolempire.com/privacy.html">Privacy Policy</a>
+        <a href="https://thetoolempire.com/terms.html">Terms of Use</a>
+        <a href="https://thetoolempire.com/sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© The Tool Empire. All rights reserved.</span>
+      <span>All tools run locally in your browser. We never store your data.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const textInput = document.getElementById('textInput');
+  const charCountHint = document.getElementById('charCountHint');
+  const timeBig = document.getElementById('timeBig');
+  const timeSub = document.getElementById('timeSub');
+  const wordCountEl = document.getElementById('wordCount');
+  const charCountEl = document.getElementById('charCount');
+  const sentenceCountEl = document.getElementById('sentenceCount');
+  const paraCountEl = document.getElementById('paraCount');
+  const speedSlider = document.getElementById('speedSlider');
+  const speedVal = document.getElementById('speedVal');
+  const speedUnit2 = document.getElementById('speedUnit2');
+  const speedUnitLabel = document.getElementById('speedUnitLabel');
+  const presetRow = document.getElementById('presetRow');
+  const readingModeBtn = document.getElementById('readingModeBtn');
+  const speakingModeBtn = document.getElementById('speakingModeBtn');
+
+  const SAMPLE = "The quick brown fox jumps over the lazy dog. This simple sentence has been used for generations to test typefaces and keyboards because it contains every letter of the alphabet. Reading speed varies a great deal from person to person, and even the same reader moves at different paces depending on how familiar they are with a topic, how tired they are, and whether they are reading on a screen or on paper.\n\nMost adults read somewhere between 200 and 250 words per minute when reading silently for information, though careful reading of technical or unfamiliar material can slow that down to 150 words per minute or less. Speaking is naturally slower than silent reading, since a speaker has to physically produce each word. A comfortable, conversational speaking pace sits around 130 to 150 words per minute, while a slow, deliberate speech might drop closer to 110.\n\nKnowing your reading or speaking time in advance is useful well beyond curiosity. Writers use it to set reader expectations at the top of an article. Speakers use it to make sure a five minute slot doesn't turn into ten. Podcasters and voiceover artists use it to plan episode length before ever hitting record.";
+
+  const modes = {
+    reading: {
+      unit: 'words per minute',
+      unitShort: 'WPM',
+      presets: [ {label:'Slow (150)', value:150}, {label:'Average (200)', value:200}, {label:'Fast (300)', value:300} ],
+      min:100, max:450, step:5, timeLabel:(m)=> m===1?'at 1 WPM read':'', subPrefix:'at'
+    },
+    speaking: {
+      unit: 'words per minute (spoken)',
+      unitShort: 'WPM',
+      presets: [ {label:'Slow (110)', value:110}, {label:'Conversational (140)', value:140}, {label:'Fast (160)', value:160} ],
+      min:80, max:200, step:5
+    }
+  };
+
+  let currentMode = 'reading';
+
+  function setMode(mode){
+    currentMode = mode;
+    readingModeBtn.classList.toggle('active', mode==='reading');
+    speakingModeBtn.classList.toggle('active', mode==='speaking');
+    const cfg = modes[mode];
+    speedSlider.min = cfg.min;
+    speedSlider.max = cfg.max;
+    speedSlider.step = cfg.step;
+    speedSlider.value = mode==='reading' ? 200 : 140;
+    speedVal.textContent = speedSlider.value;
+    speedUnitLabel.textContent = '(' + cfg.unit + ')';
+    renderPresets(cfg.presets);
+    compute();
+  }
+
+  function renderPresets(presets){
+    presetRow.innerHTML = '';
+    presets.forEach(p=>{
+      const chip = document.createElement('button');
+      chip.className = 'preset-chip';
+      chip.textContent = p.label;
+      chip.addEventListener('click', ()=>{
+        speedSlider.value = p.value;
+        speedVal.textContent = p.value;
+        highlightPreset(presets, p.value);
+        compute();
+      });
+      presetRow.appendChild(chip);
+    });
+    highlightPreset(presets, Number(speedSlider.value));
+  }
+
+  function highlightPreset(presets, val){
+    const chips = presetRow.querySelectorAll('.preset-chip');
+    presets.forEach((p,i)=>{
+      chips[i].classList.toggle('active', p.value===val);
+    });
+  }
+
+  function countStats(text){
+    const trimmed = text.trim();
+    const words = trimmed.length ? (trimmed.match(/\S+/g) || []).length : 0;
+    const chars = text.length;
+    const sentences = trimmed.length ? (trimmed.match(/[^.!?]+[.!?]+/g) || (trimmed ? [trimmed] : [])).length : 0;
+    const paragraphs = trimmed.length ? trimmed.split(/\n\s*\n/).filter(p=>p.trim().length>0).length : 0;
+    return { words, chars, sentences, paragraphs };
+  }
+
+  function formatTime(totalSeconds){
+    if(totalSeconds < 60){
+      const s = Math.max(1, Math.round(totalSeconds));
+      return { big: s + ' sec', };
+    }
+    const mins = totalSeconds/60;
+    if(mins < 60){
+      const wholeMin = Math.floor(mins);
+      const secs = Math.round((mins-wholeMin)*60);
+      let str = wholeMin + ' min';
+      if(secs>0) str += ' ' + secs + ' sec';
+      return { big: str };
+    }
+    const hrs = Math.floor(mins/60);
+    const remMin = Math.round(mins%60);
+    return { big: hrs + ' hr ' + remMin + ' min' };
+  }
+
+  function compute(){
+    const text = textInput.value;
+    const stats = countStats(text);
+    wordCountEl.textContent = stats.words.toLocaleString();
+    charCountEl.textContent = stats.chars.toLocaleString();
+    sentenceCountEl.textContent = stats.sentences.toLocaleString();
+    paraCountEl.textContent = stats.paragraphs.toLocaleString();
+    charCountHint.textContent = stats.chars.toLocaleString() + ' character' + (stats.chars===1?'':'s');
+
+    const speed = parseFloat(speedSlider.value) || 200;
+    speedVal.textContent = speed;
+    speedUnit2.textContent = 'WPM';
+
+    const totalSeconds = stats.words>0 ? (stats.words/speed)*60 : 0;
+    const t = formatTime(totalSeconds);
+    timeBig.textContent = stats.words>0 ? t.big : '0 sec';
+    timeSub.textContent = (currentMode==='reading' ? 'to read at ' : 'to speak at ') + speed + ' words per minute';
+  }
+
+  textInput.addEventListener('input', compute);
+  speedSlider.addEventListener('input', ()=>{
+    speedVal.textContent = speedSlider.value;
+    highlightPreset(modes[currentMode].presets, Number(speedSlider.value));
+    compute();
+  });
+
+  readingModeBtn.addEventListener('click', ()=>setMode('reading'));
+  speakingModeBtn.addEventListener('click', ()=>setMode('speaking'));
+
+  document.getElementById('sampleBtn').addEventListener('click', ()=>{
+    textInput.value = SAMPLE;
+    compute();
+  });
+  document.getElementById('clearBtn').addEventListener('click', ()=>{
+    textInput.value = '';
+    compute();
+    textInput.focus();
+  });
+  document.getElementById('pasteBtn').addEventListener('click', async ()=>{
+    try{
+      const text = await navigator.clipboard.readText();
+      textInput.value += text;
+      compute();
+    }catch(e){
+      textInput.focus();
+    }
+  });
+
+  setMode('reading');
+})();
+</script>
+
+</body>
+</html>

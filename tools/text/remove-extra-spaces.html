@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remove Extra Spaces: Clean Up Whitespace From Text Online Free | The Tool Empire</title>
+<meta name="description" content="Free online tool to remove extra spaces, blank lines and tabs from text. See exactly where hidden whitespace is hiding, then clean it up instantly with one click. 100% private.">
+<meta name="keywords" content="remove extra spaces, remove double spaces, whitespace remover, clean up text spacing, trim text online, remove blank lines, remove tabs from text">
+<link rel="canonical" href="https://thetoolempire.com/remove-extra-spaces.html">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#6C63FF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Remove Extra Spaces: Clean Up Whitespace From Text Online Free">
+<meta property="og:description" content="Spot and remove extra spaces, blank lines and tabs from any text instantly. No signup, no server, 100% private.">
+<meta property="og:url" content="https://thetoolempire.com/remove-extra-spaces.html">
+
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Remove Extra Spaces",
+  "url": "https://thetoolempire.com/remove-extra-spaces.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any (Web Browser)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online tool that visualizes hidden whitespace and removes extra spaces, blank lines and tabs from text, with configurable cleanup options, entirely in the browser.",
+  "featureList": [
+    "Visualizes hidden spaces, tabs and line breaks",
+    "Collapses multiple spaces into one",
+    "Trims leading and trailing whitespace on every line",
+    "Removes blank or empty lines",
+    "Converts tabs to single spaces",
+    "Trims whitespace from the start and end of the whole text",
+    "Live before/after character counts",
+    "Copy, clear and download as .txt",
+    "100% private, browser-only processing"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is this remove extra spaces tool free to use?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The tool is completely free, has no usage limits, and doesn't require an account." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the tool store or upload my text?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. All cleanup happens locally in your browser with JavaScript. Your text is never sent to a server or saved anywhere." }
+    },
+    {
+      "@type": "Question",
+      "name": "What counts as an 'extra' space?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Any run of two or more consecutive space characters is treated as extra, since normal prose only needs a single space between words. The tool also treats leading and trailing spaces on a line, and tab characters, as removable whitespace depending on which options you enable." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I remove blank lines without collapsing spaces?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Each cleanup action has its own toggle, so you can enable only 'Remove blank lines' while leaving spacing and tabs untouched, or combine any set of options you need." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why would text have extra spaces in the first place?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Extra spaces commonly come from copying text out of PDFs, pasting from formatted documents like Word, double-spacing habits after periods, or code and data exports that use inconsistent indentation and line spacing." }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --purple:#6C63FF;
+    --purple-dark:#4B44CC;
+    --purple-soft:#F0EEFF;
+    --mint:#00B894;
+    --mint-soft:#E4FBF4;
+    --amber:#E08E1D;
+    --amber-soft:#FFF3E0;
+    --coral:#E4573D;
+    --coral-soft:#FDE7E3;
+    --ink:#15132B;
+    --ink-soft:#5C5876;
+    --paper:#FBFAFF;
+    --panel:#FFFFFF;
+    --line:#E4E1F5;
+    --radius:14px;
+    --font-display:'Space Grotesk',system-ui,sans-serif;
+    --font-body:'Inter',system-ui,sans-serif;
+    --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap');
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--purple-dark);}
+  h1,h2,h3{font-family:var(--font-display); line-height:1.15; margin:0 0 .5em;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  :focus-visible{outline:3px solid var(--purple); outline-offset:2px; border-radius:4px;}
+
+  header.site{
+    position:sticky; top:0; z-index:40;
+    background:rgba(251,250,255,.9); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:16px 0;}
+  .logo{font-family:var(--font-display); font-weight:700; font-size:1.15rem; text-decoration:none; color:var(--ink); display:flex; align-items:center; gap:8px;}
+  .logo .dot{width:10px;height:10px;border-radius:3px;background:var(--purple);display:inline-block;}
+  .nav-links{display:flex; gap:28px; list-style:none; margin:0; padding:0;}
+  .nav-links a{text-decoration:none; color:var(--ink-soft); font-weight:600; font-size:.94rem;}
+  .nav-links a:hover{color:var(--purple-dark);}
+  .nav-links a.active{color:var(--purple-dark);}
+
+  .hero{padding:48px 0 8px;}
+  .breadcrumb{font-size:.82rem; color:var(--ink-soft); margin-bottom:16px;}
+  .breadcrumb a{color:var(--ink-soft); text-decoration:none;}
+  .breadcrumb a:hover{color:var(--purple-dark);}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--purple-dark); background:var(--purple-soft); border:1px solid #DCD8FF;
+    padding:5px 12px; border-radius:999px; margin-bottom:16px;
+  }
+  h1{font-size:clamp(1.9rem,4.3vw,2.8rem); color:var(--ink);}
+  .lede{font-size:1.08rem; color:var(--ink-soft); max-width:640px; margin:0 0 8px;}
+
+  .tool-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; margin:28px 0; box-shadow:0 1px 2px rgba(21,19,43,.03), 0 10px 30px -18px rgba(108,99,255,.25);
+  }
+  .toolbar{display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between; align-items:center; margin-bottom:12px;}
+  .toolbar-actions{display:flex; gap:8px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--font-body); font-weight:600; font-size:.86rem; cursor:pointer;
+    border-radius:9px; padding:8px 14px; border:1px solid var(--line); background:#fff; color:var(--ink);
+    transition:transform .08s ease, border-color .15s ease, background .15s ease;
+  }
+  .btn:hover{border-color:var(--purple); color:var(--purple-dark);}
+  .btn:active{transform:scale(.97);}
+  .btn.primary{background:var(--purple); color:#fff; border-color:var(--purple);}
+  .btn.primary:hover{background:var(--purple-dark); border-color:var(--purple-dark); color:#fff;}
+  .btn.copied{background:var(--mint); border-color:var(--mint); color:#fff;}
+
+  textarea{
+    width:100%; min-height:180px; resize:vertical;
+    border:1.5px solid var(--line); border-radius:10px; padding:16px;
+    font-family:var(--font-mono); font-size:.92rem; color:var(--ink);
+    background:var(--paper);
+  }
+  textarea:focus{border-color:var(--purple); outline:none; box-shadow:0 0 0 4px rgba(108,99,255,.12);}
+  .field-label{display:flex; justify-content:space-between; align-items:center; margin:16px 0 6px;}
+  .field-label span{font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft);}
+
+  /* Signature: whitespace visualizer */
+  .visualizer{
+    width:100%; min-height:180px; border:1.5px solid var(--line); border-radius:10px; padding:16px;
+    font-family:var(--font-mono); font-size:.92rem; line-height:1.7; color:var(--ink);
+    background:var(--ink); white-space:pre-wrap; word-break:break-word; overflow:auto;
+  }
+  .visualizer .sp{color:rgba(255,255,255,.25);}
+  .visualizer .sp-extra{color:var(--coral); background:rgba(228,87,61,.22); border-radius:2px;}
+  .visualizer .tab-mark{color:var(--amber); background:rgba(224,142,29,.2); border-radius:2px;}
+  .visualizer .nl-mark{color:rgba(255,255,255,.3);}
+  .visualizer .txt{color:#EDEBFF;}
+  .visualizer .blank-line{background:rgba(228,87,61,.12); display:inline-block; width:100%;}
+
+  .legend{display:flex; flex-wrap:wrap; gap:14px; margin-top:10px; font-size:.78rem; color:var(--ink-soft);}
+  .legend span{display:inline-flex; align-items:center; gap:6px;}
+  .legend .swatch{width:12px; height:12px; border-radius:3px; display:inline-block;}
+
+  .options{display:flex; flex-wrap:wrap; gap:10px; margin:16px 0;}
+  .opt-pill{
+    display:flex; align-items:center; gap:8px; font-size:.84rem; font-weight:600; color:var(--ink-soft);
+    background:var(--panel); border:1.5px solid var(--line); border-radius:999px; padding:8px 14px; cursor:pointer;
+    transition:all .15s ease;
+  }
+  .opt-pill.on{border-color:var(--purple); color:var(--purple-dark); background:var(--purple-soft);}
+  .opt-pill input{accent-color:var(--purple); width:15px; height:15px;}
+
+  .digits{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:18px;}
+  .digit{background:var(--purple-soft); border-radius:10px; padding:12px 10px; text-align:center;}
+  .digit .num{font-family:var(--font-mono); font-weight:700; font-size:1.2rem; color:var(--purple-dark); font-variant-numeric:tabular-nums;}
+  .digit .lbl{font-size:.7rem; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); margin-top:4px;}
+  @media (max-width:640px){ .digits{grid-template-columns:repeat(2,1fr);} }
+
+  .section{padding:36px 0;}
+  .section h2{font-size:1.5rem;}
+
+  .features{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px;}
+  .feature{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px;}
+  .feature .f-icon{width:34px; height:34px; border-radius:9px; background:var(--purple-soft); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-weight:700; color:var(--purple-dark); margin-bottom:10px;}
+  .feature h3{font-size:1rem; margin:0 0 6px;}
+  .feature p{font-size:.86rem; color:var(--ink-soft); margin:0; max-width:none;}
+
+  table{width:100%; border-collapse:collapse; background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); font-size:.92rem;}
+  th{background:var(--purple-soft); color:var(--purple-dark); font-family:var(--font-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.06em;}
+  tr:last-child td{border-bottom:none;}
+  td code{font-family:var(--font-mono); font-size:.85rem; background:var(--purple-soft); color:var(--purple-dark); padding:2px 6px; border-radius:5px;}
+
+  article.seo p{color:var(--ink-soft); max-width:760px;}
+  article.seo h3{font-size:1.15rem; margin-top:1.4em;}
+  article.seo ul{color:var(--ink-soft); max-width:760px; padding-left:1.2em;}
+  .guide-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start;}
+  @media (max-width:800px){ .guide-grid{grid-template-columns:1fr;} }
+
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{width:100%; text-align:left; background:none; border:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:12px; padding:18px 4px; font-family:var(--font-display); font-weight:600; font-size:1.02rem; color:var(--ink);}
+  .faq-q .icon{font-family:var(--font-mono); color:var(--purple); font-size:1.2rem; flex-shrink:0;}
+  .faq-a{padding:0 4px 18px; color:var(--ink-soft); max-width:720px;}
+
+  .related{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;}
+  .related a{display:block; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; text-decoration:none; color:var(--ink); font-weight:600; font-size:.94rem; transition:border-color .15s ease, transform .08s ease;}
+  .related a:hover{border-color:var(--purple); transform:translateY(-2px);}
+  .related a span{display:block; font-weight:400; font-size:.82rem; color:var(--ink-soft); margin-top:4px;}
+
+  footer.site{border-top:1px solid var(--line); background:var(--panel); margin-top:40px; padding:40px 0 24px;}
+  .foot-grid{display:grid; grid-template-columns:2fr 1fr 1fr; gap:24px;}
+  @media (max-width:700px){ .foot-grid{grid-template-columns:1fr; gap:20px;} }
+  footer.site h4{font-family:var(--font-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); margin:0 0 10px;}
+  footer.site ul{list-style:none; margin:0; padding:0; display:grid; gap:8px;}
+  footer.site a{color:var(--ink-soft); text-decoration:none; font-size:.9rem;}
+  footer.site a:hover{color:var(--purple-dark);}
+  .foot-bottom{margin-top:28px; padding-top:20px; border-top:1px solid var(--line); font-size:.8rem; color:var(--ink-soft); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+</style>
+</head>
+<body x-data="removeExtraSpaces()">
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="https://thetoolempire.com/" class="logo"><span class="dot"></span>The Tool Empire</a>
+    <ul class="nav-links">
+      <li><a href="https://thetoolempire.com/index.html">Home</a></li>
+      <li><a href="https://thetoolempire.com/tools.html" class="active">Tools</a></li>
+      <li><a href="https://thetoolempire.com/blog.html">Blog</a></li>
+      <li><a href="https://thetoolempire.com/contact.html">Contact</a></li>
+      <li><a href="https://thetoolempire.com/about.html">About</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="breadcrumb"><a href="https://thetoolempire.com/">Home</a> / <a href="https://thetoolempire.com/tools.html">Tools</a> / Remove Extra Spaces</p>
+    <span class="eyebrow">● Text Tools</span>
+    <h1>Remove Extra Spaces From Text Online</h1>
+    <p class="lede">Paste your text below to see exactly where extra spaces, tabs and blank lines are hiding, then clean them all up instantly with nothing ever leaving your browser.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="tool-card">
+      <div class="toolbar">
+        <div class="toolbar-actions">
+          <button class="btn primary" @click="loadSample()">Load sample text</button>
+          <button class="btn" @click="clearText()">Clear</button>
+        </div>
+      </div>
+
+      <div class="field-label"><span>Your text</span></div>
+      <label for="res-input" style="position:absolute;left:-9999px;">Text to clean</label>
+      <textarea id="res-input" x-model="text" placeholder="Paste text with extra spaces, tabs or blank lines here…" spellcheck="false"></textarea>
+
+      <div class="field-label"><span>Whitespace visualizer</span></div>
+      <div class="visualizer" x-html="visualizedHtml"></div>
+      <div class="legend">
+        <span><span class="swatch" style="background:rgba(228,87,61,.5)"></span> extra space</span>
+        <span><span class="swatch" style="background:rgba(224,142,29,.5)"></span> tab character</span>
+        <span><span class="swatch" style="background:rgba(228,87,61,.25)"></span> blank line</span>
+      </div>
+
+      <div class="field-label" style="margin-top:20px;"><span>Cleanup options</span></div>
+      <div class="options">
+        <label class="opt-pill" :class="{on: opts.collapseSpaces}"><input type="checkbox" x-model="opts.collapseSpaces"> Collapse multiple spaces</label>
+        <label class="opt-pill" :class="{on: opts.trimLines}"><input type="checkbox" x-model="opts.trimLines"> Trim start/end of each line</label>
+        <label class="opt-pill" :class="{on: opts.removeTabs}"><input type="checkbox" x-model="opts.removeTabs"> Convert tabs to spaces</label>
+        <label class="opt-pill" :class="{on: opts.removeBlankLines}"><input type="checkbox" x-model="opts.removeBlankLines"> Remove blank lines</label>
+        <label class="opt-pill" :class="{on: opts.trimWhole}"><input type="checkbox" x-model="opts.trimWhole"> Trim whole text</label>
+      </div>
+
+      <div class="field-label">
+        <span>Cleaned result</span>
+        <button class="btn" :class="{copied: justCopied}" @click="copyOutput()" x-text="justCopied ? 'Copied ✓' : 'Copy result'"></button>
+      </div>
+      <textarea readonly x-text="cleanedText" placeholder="Your cleaned text will appear here…"></textarea>
+
+      <div class="digits">
+        <div class="digit"><div class="num" x-text="text.length"></div><div class="lbl">Original characters</div></div>
+        <div class="digit"><div class="num" x-text="cleanedText.length"></div><div class="lbl">Cleaned characters</div></div>
+        <div class="digit"><div class="num" x-text="charsRemoved"></div><div class="lbl">Characters removed</div></div>
+        <div class="digit"><div class="num" x-text="extraSpaceCount"></div><div class="lbl">Extra spaces found</div></div>
+      </div>
+
+      <div class="toolbar" style="margin-top:14px; margin-bottom:0;">
+        <div class="toolbar-actions">
+          <button class="btn" @click="downloadTxt()">Download result as .txt</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <h2>Every feature, at a glance</h2>
+    <p style="color:var(--ink-soft); max-width:640px;">Everything this tool does, in one place.</p>
+    <div class="features">
+      <div class="feature"><div class="f-icon">👁</div><h3>Whitespace visualizer</h3><p>See exactly where extra spaces, tabs and blank lines are hiding before you clean anything up.</p></div>
+      <div class="feature"><div class="f-icon">▫▫</div><h3>Collapse multiple spaces</h3><p>Turns any run of two or more spaces into a single space.</p></div>
+      <div class="feature"><div class="f-icon">⇥</div><h3>Convert tabs to spaces</h3><p>Replaces tab characters with a single space for consistent formatting.</p></div>
+      <div class="feature"><div class="f-icon">↵</div><h3>Remove blank lines</h3><p>Strips empty lines to tighten up spacing between paragraphs.</p></div>
+      <div class="feature"><div class="f-icon">✂</div><h3>Trim each line</h3><p>Removes leading and trailing whitespace from every individual line.</p></div>
+      <div class="feature"><div class="f-icon">⤢</div><h3>Trim whole text</h3><p>Removes whitespace from the very start and end of the entire block.</p></div>
+      <div class="feature"><div class="f-icon">⚙</div><h3>Fully configurable</h3><p>Toggle each cleanup rule independently to fit exactly what you need.</p></div>
+      <div class="feature"><div class="f-icon">W</div><h3>Live before/after stats</h3><p>See original vs. cleaned character counts and how many extra spaces were found.</p></div>
+      <div class="feature"><div class="f-icon">⧉</div><h3>Copy & download</h3><p>Copy the cleaned text to your clipboard or download it as a plain .txt file in one click.</p></div>
+      <div class="feature"><div class="f-icon">🔒</div><h3>100% private</h3><p>All cleanup happens locally in your browser. Nothing you type is ever uploaded or stored.</p></div>
+      <div class="feature"><div class="f-icon">∞</div><h3>Free & unlimited</h3><p>No signup, no paywall, no daily limit — use it as many times as you like.</p></div>
+      <div class="feature"><div class="f-icon">▢</div><h3>Works on any device</h3><p>Fully responsive layout that works the same on phone, tablet and desktop.</p></div>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <article class="seo">
+      <h2>What does this tool do?</h2>
+      <p>This tool finds and removes unwanted whitespace from text: extra spaces between words, tabs, leading and trailing spaces on each line, and blank lines. Before cleaning anything, it shows you a visualizer where every space, tab and line break is made visible, so you can see exactly what's hiding in text that looks fine at a glance. Everything runs as JavaScript inside your browser — there's no upload and no server round-trip, so your text never leaves your device.</p>
+
+      <div class="guide-grid">
+        <div>
+          <h3>Why hidden whitespace causes problems</h3>
+          <p>Extra spaces are invisible in normal reading but can break things: double spaces after periods can trip up automated formatting, trailing whitespace can cause diffs in version control to look messier than they are, and inconsistent line spacing can make plain-text or Markdown output render unpredictably. Because whitespace doesn't show up visually in a normal text box, it's easy to paste in dozens of extra spaces without noticing.</p>
+        </div>
+        <div>
+          <h3>How the cleanup options work together</h3>
+          <p>Each option is independent, so you can combine them however you need. "Collapse multiple spaces" only affects runs of two or more spaces; "Trim start/end of each line" removes whitespace at the edges of every line without touching spacing in the middle; "Remove blank lines" deletes empty lines entirely; and "Trim whole text" only affects the very start and end of the full input, not anything in between.</p>
+        </div>
+      </div>
+
+      <h3>Common sources of extra whitespace</h3>
+      <ul>
+        <li><strong>Copying from PDFs</strong> — PDF text extraction often inserts irregular spacing and line breaks.</li>
+        <li><strong>Pasting from Word or Google Docs</strong> — formatted documents can carry over invisible spacing artifacts.</li>
+        <li><strong>Old typing habits</strong> — double-spacing after a period was standard with typewriters and persists in some writing.</li>
+        <li><strong>Code and data exports</strong> — CSV exports and scraped data often contain inconsistent indentation and stray tabs.</li>
+        <li><strong>Chat and email threads</strong> — quoted replies can accumulate extra blank lines with each forward.</li>
+      </ul>
+
+      <h3>What each option removes</h3>
+      <table>
+        <thead><tr><th>Option</th><th>Example before</th><th>Example after</th></tr></thead>
+        <tbody>
+          <tr><td>Collapse multiple spaces</td><td><code>hello&nbsp;&nbsp;&nbsp;world</code></td><td><code>hello world</code></td></tr>
+          <tr><td>Trim start/end of each line</td><td><code>&nbsp;&nbsp;hello world&nbsp;&nbsp;</code></td><td><code>hello world</code></td></tr>
+          <tr><td>Convert tabs to spaces</td><td><code>hello[TAB]world</code></td><td><code>hello world</code></td></tr>
+          <tr><td>Remove blank lines</td><td><code>line one\n\nline two</code></td><td><code>line one\nline two</code></td></tr>
+          <tr><td>Trim whole text</td><td><code>\n\nhello world\n\n</code></td><td><code>hello world</code></td></tr>
+        </tbody>
+      </table>
+    </article>
+  </div>
+
+  <div class="wrap section">
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <template x-for="(f, i) in faqs" :key="i">
+        <div class="faq-item">
+          <button class="faq-q" @click="openFaq = openFaq === i ? null : i" :aria-expanded="openFaq === i">
+            <span x-text="f.q"></span>
+            <span class="icon" x-text="openFaq === i ? '−' : '+'"></span>
+          </button>
+          <div class="faq-a" x-show="openFaq === i" x-text="f.a"></div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <h2>Related tools</h2>
+    <div class="related">
+      <a href="https://thetoolempire.com/word-counter.html">Word Counter<span>Count words, sentences & reading time</span></a>
+      <a href="https://thetoolempire.com/line-counter.html">Line Counter<span>Count lines, blanks & duplicates</span></a>
+      <a href="https://thetoolempire.com/character-counter.html">Character Counter<span>Count characters with & without spaces</span></a>
+      <a href="https://thetoolempire.com/sentence-case-converter.html">Sentence Case Converter<span>Capitalize the start of every sentence</span></a>
+      <a href="https://thetoolempire.com/tools.html">Browse all tools<span>100+ free browser-based tools</span></a>
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-grid">
+    <div>
+      <a href="https://thetoolempire.com/" class="logo"><span class="dot"></span>The Tool Empire</a>
+      <p style="color:var(--ink-soft); font-size:.9rem; max-width:320px; margin-top:10px;">Free, browser-based tools. No signup, no server, no data collection — ever.</p>
+    </div>
+    <div>
+      <h4>Tools</h4>
+      <ul>
+        <li><a href="https://thetoolempire.com/tools.html">All Tools</a></li>
+        <li><a href="https://thetoolempire.com/blog.html">Blog</a></li>
+        <li><a href="https://thetoolempire.com/contact.html">Contact</a></li>
+        <li><a href="https://thetoolempire.com/about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="https://thetoolempire.com/privacy.html">Privacy Policy</a></li>
+        <li><a href="https://thetoolempire.com/terms.html">Terms of Use</a></li>
+        <li><a href="https://thetoolempire.com/sitemap.xml">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© The Tool Empire. All rights reserved.</span>
+    <span>All tools run locally in your browser.</span>
+  </div>
+</footer>
+
+<script>
+function removeExtraSpaces(){
+  return {
+    text:'',
+    justCopied:false,
+    openFaq:null,
+    opts:{
+      collapseSpaces:true,
+      trimLines:true,
+      removeTabs:true,
+      removeBlankLines:false,
+      trimWhole:true
+    },
+    faqs:[
+      {q:'Is this remove extra spaces tool free to use?', a:"Yes. The tool is completely free, has no usage limits, and doesn't require an account."},
+      {q:'Does the tool store or upload my text?', a:'No. All cleanup happens locally in your browser with JavaScript. Your text is never sent to a server or saved anywhere.'},
+      {q:"What counts as an 'extra' space?", a:'Any run of two or more consecutive space characters is treated as extra, since normal prose only needs a single space between words. The tool also treats leading and trailing spaces on a line, and tab characters, as removable whitespace depending on which options you enable.'},
+      {q:'Can I remove blank lines without collapsing spaces?', a:"Yes. Each cleanup action has its own toggle, so you can enable only 'Remove blank lines' while leaving spacing and tabs untouched, or combine any set of options you need."},
+      {q:'Why would text have extra spaces in the first place?', a:'Extra spaces commonly come from copying text out of PDFs, pasting from formatted documents like Word, double-spacing habits after periods, or code and data exports that use inconsistent indentation and line spacing.'}
+    ],
+    escapeHtml(str){
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    },
+    get visualizedHtml(){
+      if(!this.text) return '<span style="color:rgba(255,255,255,.35)">Your text will appear here with hidden whitespace highlighted…</span>';
+      const lines = this.text.split('\n');
+      return lines.map(line=>{
+        const isBlank = line.trim().length === 0;
+        let html = '';
+        let i = 0;
+        while(i < line.length){
+          const ch = line[i];
+          if(ch === ' '){
+            let runLen = 0;
+            let j = i;
+            while(j < line.length && line[j] === ' '){ runLen++; j++; }
+            const cls = runLen > 1 ? 'sp sp-extra' : 'sp';
+            for(let k=0;k<runLen;k++){ html += `<span class="${cls}">·</span>`; }
+            i = j;
+          } else if(ch === '\t'){
+            html += '<span class="tab-mark">→</span>';
+            i++;
+          } else {
+            let j = i;
+            let text = '';
+            while(j < line.length && line[j] !== ' ' && line[j] !== '\t'){ text += line[j]; j++; }
+            html += `<span class="txt">${this.escapeHtml(text)}</span>`;
+            i = j;
+          }
+        }
+        if(isBlank) html = `<span class="blank-line">&nbsp;</span>`;
+        return html + '<span class="nl-mark">¶</span>\n';
+      }).join('');
+    },
+    get extraSpaceCount(){
+      const matches = this.text.match(/ {2,}/g);
+      if(!matches) return 0;
+      return matches.reduce((sum,m)=> sum + (m.length - 1), 0);
+    },
+    get cleanedText(){
+      let out = this.text;
+      if(this.opts.removeTabs){
+        out = out.replace(/\t/g, ' ');
+      }
+      if(this.opts.trimLines){
+        out = out.split('\n').map(l=>l.trim()).join('\n');
+      }
+      if(this.opts.collapseSpaces){
+        out = out.split('\n').map(l=> l.replace(/ {2,}/g, ' ')).join('\n');
+      }
+      if(this.opts.removeBlankLines){
+        out = out.split('\n').filter(l=> l.trim().length > 0).join('\n');
+      }
+      if(this.opts.trimWhole){
+        out = out.replace(/^\s+|\s+$/g, '');
+      }
+      return out;
+    },
+    get charsRemoved(){
+      return Math.max(0, this.text.length - this.cleanedText.length);
+    },
+    clearText(){ this.text=''; },
+    loadSample(){
+      this.text = "  Hello   world,   this   text   has  extra   spaces.  \n\n\n\tIt also has   a tab character and  \n\nsome blank lines mixed in.   \n\n\n";
+    },
+    async copyOutput(){
+      if(!this.cleanedText) return;
+      try{
+        await navigator.clipboard.writeText(this.cleanedText);
+        this.justCopied = true;
+        setTimeout(()=> this.justCopied = false, 1500);
+      }catch(e){ /* clipboard unavailable */ }
+    },
+    downloadTxt(){
+      if(!this.cleanedText) return;
+      const blob = new Blob([this.cleanedText], {type:'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'cleaned-text.txt';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  }
+}
+</script>
+</body>
+</html>

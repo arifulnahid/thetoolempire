@@ -1,25 +1,11 @@
 1. Counting Tools
-Number Counter
-Reading Time Calculator
-Speaking Time Calculator
+
+
 2. Case Conversion
-Uppercase Converter
-Lowercase Converter
-Sentence Case Converter
-Title Case Converter
-Capitalize Each Word
-Toggle Case Converter
-Inverse Case Converter
-Camel Case Converter
-Pascal Case Converter
-Snake Case Converter
-Kebab Case Converter
-Dot Case Converter
-Constant Case Converter
-Train Case Converter
-Cobol Case Converter
+
+
 3. Text Cleaning
-Remove Extra Spaces
+
 Trim Text
 Remove Blank Lines
 Remove Duplicate Lines

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capitalize Each Word — Free Title Case Converter | The Tool Empire</title>
+<meta name="description" content="Instantly capitalize each word in your text — for titles, headlines, names, and headings. Choose Smart Title Case (AP/Chicago-style, keeps small words lowercase) or capitalize every single word. Handles apostrophes and hyphens correctly. Runs in your browser, no signup.">
+<meta name="keywords" content="capitalize each word, title case converter, capitalize every word, title case generator, headline capitalization, AP style title case">
+<meta name="theme-color" content="#6C63FF">
+<meta property="og:title" content="Capitalize Each Word — Free Title Case Converter">
+<meta property="og:description" content="Convert any text to proper title case or capitalize every word instantly. Smart handling of small words, apostrophes, and hyphens. 100% free, runs in your browser.">
+<meta property="og:type" content="website">
+<meta name="robots" content="index, follow">
+<style>
+  :root{
+    --accent:#6C63FF;
+    --accent-dark:#564fd1;
+    --accent-light:#EDEBFF;
+    --ink:#1B1B23;
+    --ink-soft:#5A5A6E;
+    --bg:#FAFAFC;
+    --card:#FFFFFF;
+    --border:#E7E6F2;
+    --good:#1FAA65;
+    --radius:14px;
+    --shadow:0 2px 8px rgba(30,25,80,.06), 0 12px 32px rgba(30,25,80,.05);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+  }
+  a{color:var(--accent-dark);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  header.site{border-bottom:1px solid var(--border);background:var(--card);position:sticky;top:0;z-index:20;}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1080px;margin:0 auto;}
+  .logo{font-weight:800;font-size:1.15rem;color:var(--ink);}
+  .logo span{color:var(--accent);}
+  .nav ul{list-style:none;display:flex;gap:28px;margin:0;padding:0;}
+  .nav a{color:var(--ink-soft);font-weight:600;font-size:.95rem;}
+  .nav a.active{color:var(--accent-dark);}
+
+  .crumbs{font-size:.85rem;color:var(--ink-soft);padding:18px 0 0;}
+  .crumbs a{color:var(--ink-soft);}
+
+  .hero{padding:20px 0 8px;}
+  .eyebrow{
+    display:inline-block;background:var(--accent-light);color:var(--accent-dark);
+    font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;
+    padding:5px 12px;border-radius:999px;margin-bottom:14px;
+  }
+  h1{font-size:clamp(1.9rem,4vw,2.6rem);margin:0 0 10px;letter-spacing:-.02em;}
+  .lede{color:var(--ink-soft);font-size:1.08rem;max-width:640px;margin:0 0 8px;}
+
+  .tool-card{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:26px;margin:26px 0 36px;
+  }
+
+  .mode-toggle{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+  .mode-btn{
+    border:1px solid var(--border);background:var(--card);padding:10px 16px;border-radius:9px;
+    font-size:.86rem;font-weight:700;color:var(--ink-soft);cursor:pointer;
+  }
+  .mode-btn.active{border-color:var(--accent);color:var(--accent-dark);background:var(--accent-light);}
+
+  .cc-stage{display:grid;grid-template-columns:1fr;gap:20px;}
+  @media(min-width:860px){.cc-stage{grid-template-columns:1fr 1fr;}}
+
+  .panel-label{font-size:.78rem;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.03em;margin-bottom:8px;display:block;}
+  textarea{
+    width:100%;min-height:260px;resize:vertical;padding:16px;border:1px solid var(--border);
+    border-radius:10px;font-size:.95rem;font-family:inherit;line-height:1.6;color:var(--ink);
+  }
+  textarea:focus{outline:2px solid var(--accent-light);border-color:var(--accent);}
+  #outputBox{background:var(--bg);}
+  .panel-actions{display:flex;justify-content:space-between;align-items:center;margin-top:10px;flex-wrap:wrap;gap:8px;}
+  .chip-btn{
+    border:1px solid var(--border);background:var(--card);color:var(--ink-soft);
+    padding:8px 14px;border-radius:999px;font-size:.85rem;font-weight:600;cursor:pointer;
+  }
+  .chip-btn:hover{border-color:var(--accent);color:var(--accent-dark);}
+  .chip-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .chip-btn.primary:hover{background:var(--accent-dark);}
+  .chip-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .muted-count{font-size:.8rem;color:#9b99b0;}
+
+  .options-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:16px 0 4px;padding-top:16px;border-top:1px solid var(--border);}
+  .toggle-inline{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--ink-soft);font-weight:600;}
+  .switch{position:relative;width:38px;height:21px;flex-shrink:0;}
+  .switch input{opacity:0;width:0;height:0;}
+  .slider-tg{position:absolute;inset:0;background:#dcdaef;border-radius:999px;cursor:pointer;transition:.2s;}
+  .slider-tg:before{content:"";position:absolute;height:15px;width:15px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;}
+  input:checked + .slider-tg{background:var(--accent);}
+  input:checked + .slider-tg:before{transform:translateX(17px);}
+
+  .exceptions-field{margin-top:14px;}
+  .exceptions-field label{display:block;font-size:.78rem;font-weight:700;color:var(--ink-soft);margin-bottom:6px;text-transform:uppercase;letter-spacing:.03em;}
+  .exceptions-field input[type=text]{
+    width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-size:.85rem;font-family:inherit;
+  }
+  .exceptions-field input[type=text]:focus{outline:2px solid var(--accent-light);border-color:var(--accent);}
+  .exceptions-hint{font-size:.76rem;color:#9b99b0;margin-top:5px;}
+
+  .trust{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0;}
+  .trust span{font-size:.78rem;font-weight:700;color:var(--accent-dark);background:var(--accent-light);padding:5px 11px;border-radius:999px;}
+
+  section.content{padding:34px 0;border-top:1px solid var(--border);}
+  section.content:first-of-type{border-top:none;}
+  h2{font-size:1.55rem;margin:0 0 14px;letter-spacing:-.01em;}
+  p{color:var(--ink-soft);margin:0 0 14px;}
+  p, li{max-width:760px;}
+  ul.plain, ol.plain{color:var(--ink-soft);padding-left:22px;max-width:760px;}
+  ul.plain li, ol.plain li{margin-bottom:8px;}
+
+  .feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-top:20px;}
+  .feature{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;}
+  .feature .icon{
+    width:38px;height:38px;border-radius:10px;background:var(--accent-light);color:var(--accent-dark);
+    display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:12px;font-weight:800;
+  }
+  .feature h4{margin:0 0 6px;font-size:1rem;}
+  .feature p{margin:0;font-size:.9rem;}
+
+  .usecase-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:18px;}
+  .usecase{border:1px solid var(--border);border-radius:10px;padding:14px 16px;background:var(--card);font-size:.9rem;}
+  .usecase b{display:block;color:var(--ink);margin-bottom:4px;}
+
+  table.example-table{width:100%;max-width:760px;border-collapse:collapse;margin:14px 0 20px;font-size:.9rem;}
+  table.example-table th, table.example-table td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--ink-soft);}
+  table.example-table th{color:var(--ink);font-size:.78rem;text-transform:uppercase;letter-spacing:.03em;}
+  table.example-table td.result{color:var(--ink);font-weight:600;}
+
+  .faq-item{border-bottom:1px solid var(--border);padding:16px 0;}
+  .faq-item summary{cursor:pointer;font-weight:700;font-size:.98rem;list-style:none;position:relative;padding-right:24px;}
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary::after{content:"+";position:absolute;right:0;top:0;color:var(--accent-dark);font-size:1.2rem;}
+  .faq-item[open] summary::after{content:"–";}
+  .faq-item p{margin-top:10px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+  .related a{border:1px solid var(--border);background:var(--card);padding:8px 14px;border-radius:999px;font-size:.85rem;font-weight:600;color:var(--ink);}
+  .related a:hover{border-color:var(--accent);color:var(--accent-dark);text-decoration:none;}
+
+  footer.site{background:#171724;color:#b9b7cf;padding:40px 0 24px;margin-top:20px;}
+  .foot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:24px;margin-bottom:24px;}
+  footer.site h5{color:#fff;font-size:.85rem;margin:0 0 10px;text-transform:uppercase;letter-spacing:.04em;}
+  footer.site a{color:#b9b7cf;display:block;font-size:.88rem;margin-bottom:8px;}
+  footer.site a:hover{color:#fff;}
+  .foot-bottom{border-top:1px solid #2c2c3d;padding-top:18px;font-size:.8rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav">
+    <div class="logo">The Tool <span>Empire</span></div>
+    <ul>
+      <li><a href="https://thetoolempire.com/">Home</a></li>
+      <li><a href="https://thetoolempire.com/tools.html" class="active">Tools</a></li>
+      <li><a href="https://thetoolempire.com/blog.html">Blog</a></li>
+      <li><a href="https://thetoolempire.com/contact.html">Contact</a></li>
+      <li><a href="https://thetoolempire.com/about.html">About</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <p class="crumbs"><a href="https://thetoolempire.com/">Home</a> / <a href="https://thetoolempire.com/tools.html">Tools</a> / <a href="https://thetoolempire.com/tools.html?cat=Text">Text Tools</a> / Capitalize Each Word</p>
+
+  <div class="hero">
+    <span class="eyebrow">Text Tools</span>
+    <h1>Capitalize Each Word</h1>
+    <p class="lede">Paste any text and instantly capitalize the first letter of every word — perfect for titles, headlines, names, and headings. Choose smart title case that keeps small words lowercase, or capitalize absolutely everything.</p>
+    <div class="trust">
+      <span>100% Private</span>
+      <span>No Signup</span>
+      <span>Updates As You Type</span>
+      <span>Nothing Uploaded</span>
+    </div>
+  </div>
+
+  <!-- ============ TOOL WIDGET ============ -->
+  <div class="tool-card">
+    <div class="mode-toggle" id="modeToggle">
+      <button class="mode-btn active" data-mode="smart">Smart Title Case</button>
+      <button class="mode-btn" data-mode="every">Capitalize Every Word</button>
+      <button class="mode-btn" data-mode="first">First Letter of Sentence</button>
+    </div>
+
+    <div class="cc-stage">
+      <div>
+        <span class="panel-label">Your text</span>
+        <textarea id="inputBox" placeholder="Paste or type your title, headline, or text here…"></textarea>
+        <div class="panel-actions">
+          <span class="muted-count" id="wordCountHint">0 words</span>
+          <div class="chip-row">
+            <button class="chip-btn" id="pasteBtn">Paste</button>
+            <button class="chip-btn" id="sampleBtn">Try example</button>
+            <button class="chip-btn" id="clearBtn">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <span class="panel-label">Result</span>
+        <textarea id="outputBox" readonly placeholder="Your capitalized text will appear here…"></textarea>
+        <div class="panel-actions">
+          <span class="muted-count" id="copyHint">&nbsp;</span>
+          <div class="chip-row">
+            <button class="chip-btn primary" id="copyBtn">Copy result</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="options-row" id="smartOptions">
+      <label class="toggle-inline">
+        <span class="switch"><input type="checkbox" id="capFirstLast" checked><span class="slider-tg"></span></span>
+        Always capitalize first &amp; last word
+      </label>
+      <label class="toggle-inline">
+        <span class="switch"><input type="checkbox" id="handleHyphens" checked><span class="slider-tg"></span></span>
+        Capitalize both sides of hyphenated words
+      </label>
+    </div>
+
+    <div class="exceptions-field" id="exceptionsField">
+      <label for="exceptionsInput">Words to keep lowercase</label>
+      <input type="text" id="exceptionsInput" value="a, an, and, as, at, but, by, for, in, nor, of, on, or, so, the, to, up, yet">
+      <p class="exceptions-hint">Comma-separated list of short/minor words that stay lowercase unless they start or end the title (standard AP/Chicago-style rule).</p>
+    </div>
+  </div>
+
+  <!-- ============ FEATURES ============ -->
+  <section class="content">
+    <h2>Features</h2>
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="icon">Aa</div>
+        <h4>Three capitalization styles</h4>
+        <p>Choose Smart Title Case for proper headlines, Capitalize Every Word for names and labels, or First Letter of Sentence for regular prose.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">📝</div>
+        <h4>Editable small-word list</h4>
+        <p>Customize exactly which minor words ("a", "the", "of", "and"...) stay lowercase in Smart Title Case, to match AP, Chicago, or your own house style.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">‘</div>
+        <h4>Apostrophe-safe</h4>
+        <p>Handles contractions and possessives correctly — "don't" becomes "Don't", not "Don'T", and "world's" becomes "World's".</p>
+      </div>
+      <div class="feature">
+        <div class="icon">-</div>
+        <h4>Hyphenated word support</h4>
+        <p>Optionally capitalizes both sides of a hyphenated word, so "state-of-the-art" can become "State-of-the-Art" correctly.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">⏱</div>
+        <h4>Instant live conversion</h4>
+        <p>Your result updates the moment you type, paste, or switch options — no button to click, no page reload.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">📋</div>
+        <h4>One-click copy</h4>
+        <p>Copy the finished result straight to your clipboard, ready to paste into a document, CMS, or spreadsheet.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🧪</div>
+        <h4>Example text to try</h4>
+        <p>No text handy? Load a sample headline with one click to see how each capitalization style behaves.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🔒</div>
+        <h4>100% private</h4>
+        <p>Every conversion happens locally in your browser. Nothing you type is ever uploaded, logged, or shared with a server.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT IS / HOW TO USE ============ -->
+  <section class="content">
+    <h2>What does "Capitalize Each Word" mean?</h2>
+    <p>Capitalizing each word means making the first letter of every word uppercase while leaving the rest lowercase — the style you see in book titles, movie titles, and most headlines. It's more specific than simply capitalizing the first letter of a sentence, and it comes in a few different flavors depending on where you're using it.</p>
+    <p>This tool covers the three most common versions: <strong>Smart Title Case</strong>, which follows standard style-guide rules by keeping short connecting words ("a", "the", "of", "and") lowercase unless they're first or last; <strong>Capitalize Every Word</strong>, which uppercases the first letter of every single word with no exceptions, useful for names, labels, and stylized headings; and <strong>First Letter of Sentence</strong>, which only capitalizes the very first word of each sentence, matching normal prose rules.</p>
+
+    <h2>How to use Capitalize Each Word</h2>
+    <ol class="plain">
+      <li>Paste or type your text into the box on the left.</li>
+      <li>Pick a style at the top: <strong>Smart Title Case</strong>, <strong>Capitalize Every Word</strong>, or <strong>First Letter of Sentence</strong>.</li>
+      <li>For Smart Title Case, edit the "words to keep lowercase" list if you want to match a specific style guide.</li>
+      <li>Toggle whether hyphenated words should have both sides capitalized.</li>
+      <li>Copy the finished result from the right-hand box with one click.</li>
+    </ol>
+
+    <h2>Examples</h2>
+    <table class="example-table">
+      <tr><th>Original</th><th>Smart Title Case</th><th>Capitalize Every Word</th></tr>
+      <tr><td>the lord of the rings</td><td class="result">The Lord of the Rings</td><td class="result">The Lord Of The Rings</td></tr>
+      <tr><td>a state-of-the-art solution</td><td class="result">A State-of-the-Art Solution</td><td class="result">A State-Of-The-Art Solution</td></tr>
+      <tr><td>don't stop believing</td><td class="result">Don't Stop Believing</td><td class="result">Don't Stop Believing</td></tr>
+      <tr><td>10 tips for a better résumé</td><td class="result">10 Tips for a Better Résumé</td><td class="result">10 Tips For A Better Résumé</td></tr>
+    </table>
+  </section>
+
+  <!-- ============ USE CASES ============ -->
+  <section class="content">
+    <h2>Common ways people use this tool</h2>
+    <div class="usecase-grid">
+      <div class="usecase"><b>Blog &amp; article titles</b>Format a headline correctly before publishing, without manually retyping each word.</div>
+      <div class="usecase"><b>Resumes &amp; job titles</b>Make job titles and section headings consistent across an entire résumé.</div>
+      <div class="usecase"><b>Book &amp; movie titles</b>Apply proper title case to a creative work's title following standard style conventions.</div>
+      <div class="usecase"><b>Product &amp; brand names</b>Capitalize every word in a product name or catalog listing for a polished, consistent look.</div>
+      <div class="usecase"><b>Slide decks &amp; headings</b>Keep every slide title and section header capitalized the same way throughout a presentation.</div>
+      <div class="usecase"><b>Social media posts</b>Format a headline-style post or caption so it reads as a proper title, not a run of lowercase text.</div>
+      <div class="usecase"><b>Spreadsheets &amp; data cleanup</b>Clean up inconsistently-cased names or labels pasted from another source in bulk.</div>
+      <div class="usecase"><b>Email subject lines</b>Give a subject line a clean, professional title-case look before sending.</div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="content">
+    <h2>Frequently asked questions</h2>
+
+    <details class="faq-item" open>
+      <summary>What's the difference between "Smart Title Case" and "Capitalize Every Word"?</summary>
+      <p>Smart Title Case follows standard style-guide rules (similar to AP or Chicago style) by keeping short connecting words like "a", "the", "of", and "and" lowercase unless they're the first or last word. Capitalize Every Word ignores those rules and uppercases the first letter of every word with no exceptions — useful for names, labels, or acronym-style headings.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Does it handle contractions and possessives correctly?</summary>
+      <p>Yes. The tool only capitalizes the first letter of each word, so contractions like "don't" become "Don't" rather than "Don'T", and possessives like "world's" become "World's".</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I customize which words stay lowercase in Smart Title Case?</summary>
+      <p>Yes. Edit the comma-separated list in the "Words to keep lowercase" field to match your own house style or a specific style guide, and the result updates instantly.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>How does it handle hyphenated words?</summary>
+      <p>By default, both sides of a hyphenated word are capitalized (e.g. "state-of-the-art" becomes "State-of-the-Art" in Smart Title Case). Turn off "Capitalize both sides of hyphenated words" if you'd rather only capitalize the first part.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Will it mess up acronyms or all-caps words already in my text?</summary>
+      <p>The tool lowercases the rest of each word before capitalizing the first letter, which means an acronym like "NASA" would become "Nasa". If your text has acronyms you want preserved exactly, adjust those words manually after conversion, or add them to your own review pass.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is my text uploaded anywhere?</summary>
+      <p>No. All text conversion happens locally in your browser. Nothing you type or paste is sent to a server, logged, or stored anywhere outside your own device.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Does it work with non-English text?</summary>
+      <p>Basic capitalization works for any language using the Latin alphabet, including accented characters. The default lowercase word list is tailored to English style rules, so you may want to clear or edit it when working with other languages.</p>
+    </details>
+  </section>
+
+  <!-- ============ RELATED TOOLS ============ -->
+  <section class="content">
+    <h2>Related tools</h2>
+    <div class="related">
+      <a href="https://thetoolempire.com/tools.html?cat=Text">Text Case Converter</a>
+      <a href="https://thetoolempire.com/tools.html?cat=Text">Word Counter</a>
+      <a href="https://thetoolempire.com/tools.html?cat=Text">Character Counter</a>
+      <a href="https://thetoolempire.com/tools.html?cat=Text">Reading Time Calculator</a>
+      <a href="https://thetoolempire.com/tools.html?cat=Text">Speaking Time Calculator</a>
+      <a href="https://thetoolempire.com/tools.html">Browse All Tools →</a>
+    </div>
+  </section>
+
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h5>Tools</h5>
+        <a href="https://thetoolempire.com/tools.html">All Tools</a>
+        <a href="https://thetoolempire.com/tools.html?cat=Text">Text Tools</a>
+        <a href="https://thetoolempire.com/tools.html?cat=Math">Math &amp; Calculators</a>
+        <a href="https://thetoolempire.com/tools.html?cat=Color">Color Tools</a>
+        <a href="https://thetoolempire.com/tools.html?cat=Coding">Coding Tools</a>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="https://thetoolempire.com/blog.html">Blog</a>
+        <a href="https://thetoolempire.com/contact.html">Contact</a>
+        <a href="https://thetoolempire.com/about.html">About</a>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <a href="https://thetoolempire.com/privacy.html">Privacy Policy</a>
+        <a href="https://thetoolempire.com/terms.html">Terms of Use</a>
+        <a href="https://thetoolempire.com/sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© The Tool Empire. All rights reserved.</span>
+      <span>All tools run locally in your browser. We never store your data.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const inputBox = document.getElementById('inputBox');
+  const outputBox = document.getElementById('outputBox');
+  const wordCountHint = document.getElementById('wordCountHint');
+  const copyHint = document.getElementById('copyHint');
+  const modeToggle = document.getElementById('modeToggle');
+  const smartOptions = document.getElementById('smartOptions');
+  const exceptionsField = document.getElementById('exceptionsField');
+  const exceptionsInput = document.getElementById('exceptionsInput');
+  const capFirstLast = document.getElementById('capFirstLast');
+  const handleHyphens = document.getElementById('handleHyphens');
+
+  let mode = 'smart';
+
+  const SAMPLE = "the lord of the rings: a state-of-the-art journey through middle-earth\ndon't stop believing — 10 tips for a better résumé";
+
+  function capWord(word){
+    if(!word) return word;
+    // find first letter char (skip leading punctuation/quotes)
+    const match = word.match(/^([^a-zA-Z\u00C0-\u024F]*)([a-zA-Z\u00C0-\u024F])(.*)$/);
+    if(!match) return word;
+    return match[1] + match[2].toUpperCase() + match[3].toLowerCase();
+  }
+
+  function capWordWithHyphens(word, doHyphens){
+    if(doHyphens && word.indexOf('-') > -1){
+      return word.split('-').map(part=>capWord(part)).join('-');
+    }
+    return capWord(word);
+  }
+
+  function getExceptions(){
+    return exceptionsInput.value.split(',')
+      .map(w=>w.trim().toLowerCase())
+      .filter(w=>w.length>0);
+  }
+
+  function smartTitleCase(text){
+    const exceptions = getExceptions();
+    const doHyphens = handleHyphens.checked;
+    const alwaysFirstLast = capFirstLast.checked;
+
+    return text.split('\n').map(line=>{
+      const tokens = line.split(/(\s+)/); // keep whitespace tokens
+      const wordIndices = [];
+      tokens.forEach((t,i)=>{ if(t.trim().length>0) wordIndices.push(i); });
+
+      return tokens.map((tok, idx)=>{
+        if(tok.trim().length===0) return tok;
+        const wordPos = wordIndices.indexOf(idx);
+        const isFirst = wordPos===0;
+        const isLast = wordPos===wordIndices.length-1;
+        const bareWord = tok.replace(/^[^a-zA-Z\u00C0-\u024F]*|[^a-zA-Z\u00C0-\u024F]*$/g,'').toLowerCase();
+
+        if(!isFirst && !isLast && alwaysFirstLast && exceptions.includes(bareWord)){
+          return tok.toLowerCase();
+        }
+        if(!alwaysFirstLast && exceptions.includes(bareWord)){
+          return tok.toLowerCase();
+        }
+        return capWordWithHyphens(tok, doHyphens);
+      }).join('');
+    }).join('\n');
+  }
+
+  function capitalizeEveryWord(text){
+    const doHyphens = handleHyphens.checked;
+    return text.split('\n').map(line=>{
+      return line.split(/(\s+)/).map(tok=>{
+        if(tok.trim().length===0) return tok;
+        return capWordWithHyphens(tok, doHyphens);
+      }).join('');
+    }).join('\n');
+  }
+
+  function firstLetterOfSentence(text){
+    return text.split('\n').map(line=>{
+      let result = '';
+      let capNext = true;
+      for(let i=0;i<line.length;i++){
+        const ch = line[i];
+        if(/[a-zA-Z\u00C0-\u024F]/.test(ch)){
+          result += capNext ? ch.toUpperCase() : ch.toLowerCase();
+          capNext = false;
+        } else {
+          result += ch;
+          if(/[.!?]/.test(ch)) capNext = true;
+        }
+      }
+      return result;
+    }).join('\n');
+  }
+
+  function countWords(text){
+    const trimmed = text.trim();
+    return trimmed.length ? (trimmed.match(/\S+/g) || []).length : 0;
+  }
+
+  function compute(){
+    const text = inputBox.value;
+    let result = '';
+    if(mode==='smart') result = smartTitleCase(text);
+    else if(mode==='every') result = capitalizeEveryWord(text);
+    else result = firstLetterOfSentence(text);
+
+    outputBox.value = result;
+    const wc = countWords(text);
+    wordCountHint.textContent = wc.toLocaleString() + ' word' + (wc===1?'':'s');
+
+    smartOptions.style.display = mode==='every' ? 'flex' : (mode==='smart' ? 'flex' : 'none');
+    exceptionsField.style.display = mode==='smart' ? 'block' : 'none';
+  }
+
+  modeToggle.querySelectorAll('.mode-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      modeToggle.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      mode = btn.getAttribute('data-mode');
+      compute();
+    });
+  });
+
+  inputBox.addEventListener('input', compute);
+  exceptionsInput.addEventListener('input', compute);
+  capFirstLast.addEventListener('change', compute);
+  handleHyphens.addEventListener('change', compute);
+
+  document.getElementById('sampleBtn').addEventListener('click', ()=>{
+    inputBox.value = SAMPLE;
+    compute();
+  });
+  document.getElementById('clearBtn').addEventListener('click', ()=>{
+    inputBox.value = '';
+    compute();
+    inputBox.focus();
+  });
+  document.getElementById('pasteBtn').addEventListener('click', async ()=>{
+    try{
+      const text = await navigator.clipboard.readText();
+      inputBox.value += text;
+      compute();
+    }catch(e){
+      inputBox.focus();
+    }
+  });
+  document.getElementById('copyBtn').addEventListener('click', ()=>{
+    navigator.clipboard && navigator.clipboard.writeText(outputBox.value).catch(()=>{});
+    copyHint.textContent = 'Copied!';
+    setTimeout(()=>copyHint.textContent = '\u00A0', 1200);
+  });
+
+  compute();
+})();
+</script>
+
+</body>
+</html>

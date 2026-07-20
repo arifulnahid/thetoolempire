@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Title Case Converter — Free Online Text to Title Case Tool | The Tool Empire</title>
+<meta name="description" content="Free online title case converter. Instantly format headlines with proper Title Case — capitalizing major words and lowercasing minor words like 'a', 'the' and 'of'. 100% private — nothing leaves your browser.">
+<meta name="keywords" content="title case converter, capitalize title, headline capitalization, title case tool, AP style title case, free case converter">
+<link rel="canonical" href="https://thetoolempire.com/title-case-converter.html">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#6C63FF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Title Case Converter — Free Online Text to Title Case Tool">
+<meta property="og:description" content="Format headlines with proper Title Case instantly, with quick switches to UPPERCASE, lowercase and Sentence case. No signup, no server, 100% private.">
+<meta property="og:url" content="https://thetoolempire.com/title-case-converter.html">
+
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Title Case Converter",
+  "url": "https://thetoolempire.com/title-case-converter.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any (Web Browser)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online title case converter that formats headlines with proper capitalization rules — capitalizing major words while lowercasing minor words like articles, short prepositions and conjunctions — with one-click switches to UPPERCASE, lowercase and Sentence case, entirely in the browser.",
+  "featureList": [
+    "Real-time conversion to proper Title Case",
+    "Lowercases minor words (a, an, the, of, and, in...)",
+    "Always capitalizes the first and last word",
+    "Capitalizes the word after a colon",
+    "One-click switch to UPPERCASE",
+    "One-click switch to lowercase",
+    "One-click switch to Sentence case",
+    "Live word and character counts",
+    "Copy, clear and download as .txt",
+    "100% private, browser-only processing"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is this title case converter free to use?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The title case converter is completely free, has no usage limits, and doesn't require an account." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the tool store or upload my text?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. All conversion happens locally in your browser with JavaScript. Your text is never sent to a server or saved anywhere." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why isn't every word capitalized?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Proper title case, as used by AP style and most editorial style guides, keeps short 'minor' words like a, an, the, and, of, in and on lowercase unless they're the first or last word of the title, or follow a colon. This tool follows that convention rather than capitalizing every single word." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it capitalize the word after a colon?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The word immediately following a colon is always capitalized, even if it's normally a minor word, matching standard title formatting used in book and article subtitles." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do different style guides handle title case differently?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. AP, Chicago, APA and MLA style each have slightly different minor-word lists and rules for prepositions of four or more letters. This tool uses a common AP-adjacent convention suited for web headlines and general use." }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --purple:#6C63FF;
+    --purple-dark:#4B44CC;
+    --purple-soft:#F0EEFF;
+    --mint:#00B894;
+    --mint-soft:#E4FBF4;
+    --amber:#E08E1D;
+    --amber-soft:#FFF3E0;
+    --coral:#E4573D;
+    --ink:#15132B;
+    --ink-soft:#5C5876;
+    --paper:#FBFAFF;
+    --panel:#FFFFFF;
+    --line:#E4E1F5;
+    --radius:14px;
+    --font-display:'Space Grotesk',system-ui,sans-serif;
+    --font-body:'Inter',system-ui,sans-serif;
+    --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap');
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--purple-dark);}
+  h1,h2,h3{font-family:var(--font-display); line-height:1.15; margin:0 0 .5em;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  :focus-visible{outline:3px solid var(--purple); outline-offset:2px; border-radius:4px;}
+
+  header.site{
+    position:sticky; top:0; z-index:40;
+    background:rgba(251,250,255,.9); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:16px 0;}
+  .logo{font-family:var(--font-display); font-weight:700; font-size:1.15rem; text-decoration:none; color:var(--ink); display:flex; align-items:center; gap:8px;}
+  .logo .dot{width:10px;height:10px;border-radius:3px;background:var(--purple);display:inline-block;}
+  .nav-links{display:flex; gap:28px; list-style:none; margin:0; padding:0;}
+  .nav-links a{text-decoration:none; color:var(--ink-soft); font-weight:600; font-size:.94rem;}
+  .nav-links a:hover{color:var(--purple-dark);}
+  .nav-links a.active{color:var(--purple-dark);}
+
+  .hero{padding:48px 0 8px;}
+  .breadcrumb{font-size:.82rem; color:var(--ink-soft); margin-bottom:16px;}
+  .breadcrumb a{color:var(--ink-soft); text-decoration:none;}
+  .breadcrumb a:hover{color:var(--purple-dark);}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--purple-dark); background:var(--purple-soft); border:1px solid #DCD8FF;
+    padding:5px 12px; border-radius:999px; margin-bottom:16px;
+  }
+  h1{font-size:clamp(2rem,4.5vw,2.9rem); color:var(--ink);}
+  .lede{font-size:1.08rem; color:var(--ink-soft); max-width:640px; margin:0 0 8px;}
+
+  .tool-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; margin:28px 0; box-shadow:0 1px 2px rgba(21,19,43,.03), 0 10px 30px -18px rgba(108,99,255,.25);
+  }
+  .toolbar{display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between; align-items:center; margin-bottom:12px;}
+  .toolbar-actions{display:flex; gap:8px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--font-body); font-weight:600; font-size:.86rem; cursor:pointer;
+    border-radius:9px; padding:8px 14px; border:1px solid var(--line); background:#fff; color:var(--ink);
+    transition:transform .08s ease, border-color .15s ease, background .15s ease;
+  }
+  .btn:hover{border-color:var(--purple); color:var(--purple-dark);}
+  .btn:active{transform:scale(.97);}
+  .btn.primary{background:var(--purple); color:#fff; border-color:var(--purple);}
+  .btn.primary:hover{background:var(--purple-dark); border-color:var(--purple-dark); color:#fff;}
+  .btn.copied{background:var(--mint); border-color:var(--mint); color:#fff;}
+
+  textarea{
+    width:100%; min-height:200px; resize:vertical;
+    border:1.5px solid var(--line); border-radius:10px; padding:16px;
+    font-family:var(--font-body); font-size:1rem; color:var(--ink);
+    background:var(--paper);
+  }
+  textarea:focus{border-color:var(--purple); outline:none; box-shadow:0 0 0 4px rgba(108,99,255,.12);}
+  textarea[readonly]{background:var(--ink); color:var(--mint); font-family:var(--font-mono); cursor:text;}
+  .field-label{display:flex; justify-content:space-between; align-items:center; margin:16px 0 6px;}
+  .field-label span{font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft);}
+
+  .capslock{
+    display:flex; align-items:center; gap:10px; padding:6px 14px 6px 10px;
+    border-radius:999px; border:1px solid var(--line); background:var(--panel);
+  }
+  .capslock .led{
+    width:11px; height:11px; border-radius:50%; background:#3a3752;
+    box-shadow:inset 0 1px 2px rgba(0,0,0,.4);
+    transition:background .15s ease, box-shadow .15s ease;
+  }
+  .capslock.on .led{background:var(--mint); box-shadow:0 0 8px 2px rgba(0,184,148,.65), inset 0 1px 1px rgba(255,255,255,.4);}
+  .capslock .cap-lbl{font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; color:var(--ink-soft); font-weight:600;}
+  .capslock.on .cap-lbl{color:#0A8A6F;}
+
+  .case-switch{display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 4px;}
+  .case-btn{
+    font-family:var(--font-mono); font-size:.8rem; font-weight:600; cursor:pointer;
+    border-radius:9px; padding:9px 14px; border:1.5px solid var(--line); background:#fff; color:var(--ink-soft);
+    transition:all .15s ease;
+  }
+  .case-btn:hover{border-color:var(--purple); color:var(--purple-dark);}
+  .case-btn.active{background:var(--ink); border-color:var(--ink); color:var(--mint);}
+
+  .digits{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:18px;}
+  .digit{background:var(--purple-soft); border-radius:10px; padding:12px 10px; text-align:center;}
+  .digit .num{font-family:var(--font-mono); font-weight:700; font-size:1.2rem; color:var(--purple-dark); font-variant-numeric:tabular-nums;}
+  .digit .lbl{font-size:.7rem; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); margin-top:4px;}
+  @media (max-width:640px){ .digits{grid-template-columns:repeat(2,1fr);} }
+
+  /* Minor-words legend */
+  .legend{display:flex; flex-wrap:wrap; gap:6px; margin-top:16px;}
+  .chip{font-family:var(--font-mono); font-size:.72rem; padding:4px 10px; border-radius:999px; background:var(--mint-soft); color:#0A8A6F; border:1px solid #C7F2E6;}
+  .legend-note{font-size:.8rem; color:var(--ink-soft); margin-top:8px;}
+
+  .section{padding:36px 0;}
+  .section h2{font-size:1.5rem;}
+
+  .features{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px;}
+  .feature{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px;}
+  .feature .f-icon{width:34px; height:34px; border-radius:9px; background:var(--purple-soft); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-weight:700; color:var(--purple-dark); margin-bottom:10px;}
+  .feature h3{font-size:1rem; margin:0 0 6px;}
+  .feature p{font-size:.86rem; color:var(--ink-soft); margin:0; max-width:none;}
+
+  table{width:100%; border-collapse:collapse; background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); font-size:.92rem;}
+  th{background:var(--purple-soft); color:var(--purple-dark); font-family:var(--font-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.06em;}
+  tr:last-child td{border-bottom:none;}
+
+  article.seo p{color:var(--ink-soft); max-width:760px;}
+  article.seo h3{font-size:1.15rem; margin-top:1.4em;}
+  article.seo ul{color:var(--ink-soft); max-width:760px; padding-left:1.2em;}
+  .guide-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start;}
+  @media (max-width:800px){ .guide-grid{grid-template-columns:1fr;} }
+
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{width:100%; text-align:left; background:none; border:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:12px; padding:18px 4px; font-family:var(--font-display); font-weight:600; font-size:1.02rem; color:var(--ink);}
+  .faq-q .icon{font-family:var(--font-mono); color:var(--purple); font-size:1.2rem; flex-shrink:0;}
+  .faq-a{padding:0 4px 18px; color:var(--ink-soft); max-width:720px;}
+
+  .related{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;}
+  .related a{display:block; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; text-decoration:none; color:var(--ink); font-weight:600; font-size:.94rem; transition:border-color .15s ease, transform .08s ease;}
+  .related a:hover{border-color:var(--purple); transform:translateY(-2px);}
+  .related a span{display:block; font-weight:400; font-size:.82rem; color:var(--ink-soft); margin-top:4px;}
+
+  footer.site{border-top:1px solid var(--line); background:var(--panel); margin-top:40px; padding:40px 0 24px;}
+  .foot-grid{display:grid; grid-template-columns:2fr 1fr 1fr; gap:24px;}
+  @media (max-width:700px){ .foot-grid{grid-template-columns:1fr; gap:20px;} }
+  footer.site h4{font-family:var(--font-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); margin:0 0 10px;}
+  footer.site ul{list-style:none; margin:0; padding:0; display:grid; gap:8px;}
+  footer.site a{color:var(--ink-soft); text-decoration:none; font-size:.9rem;}
+  footer.site a:hover{color:var(--purple-dark);}
+  .foot-bottom{margin-top:28px; padding-top:20px; border-top:1px solid var(--line); font-size:.8rem; color:var(--ink-soft); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+</style>
+</head>
+<body x-data="titleCaseConverter()">
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="https://thetoolempire.com/" class="logo"><span class="dot"></span>The Tool Empire</a>
+    <ul class="nav-links">
+      <li><a href="https://thetoolempire.com/index.html">Home</a></li>
+      <li><a href="https://thetoolempire.com/tools.html" class="active">Tools</a></li>
+      <li><a href="https://thetoolempire.com/blog.html">Blog</a></li>
+      <li><a href="https://thetoolempire.com/contact.html">Contact</a></li>
+      <li><a href="https://thetoolempire.com/about.html">About</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="breadcrumb"><a href="https://thetoolempire.com/">Home</a> / <a href="https://thetoolempire.com/tools.html">Tools</a> / Title Case Converter</p>
+    <span class="eyebrow">● Text Tools</span>
+    <h1>Title Case Converter</h1>
+    <p class="lede">Type or paste a headline below and it converts to proper Title Case instantly — capitalizing major words while keeping short words like "a", "the" and "of" lowercase, with nothing ever leaving your browser.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="tool-card">
+      <div class="toolbar">
+        <div class="capslock" :class="{on: activeCase === 'title'}">
+          <span class="led"></span>
+          <span class="cap-lbl" x-text="activeCase === 'title' ? 'title case: on' : 'title case: off'"></span>
+        </div>
+        <div class="toolbar-actions">
+          <button class="btn primary" @click="loadSample()">Load sample text</button>
+          <button class="btn" @click="clearText()">Clear</button>
+        </div>
+      </div>
+
+      <div class="field-label"><span>Your text</span></div>
+      <label for="tc-input" style="position:absolute;left:-9999px;">Text to convert</label>
+      <textarea id="tc-input" x-model="text" placeholder="Start typing a headline or title here…" spellcheck="true"></textarea>
+
+      <div class="case-switch">
+        <button class="case-btn" :class="{active: activeCase==='title'}" @click="activeCase='title'">Title Case</button>
+        <button class="case-btn" :class="{active: activeCase==='upper'}" @click="activeCase='upper'">UPPERCASE</button>
+        <button class="case-btn" :class="{active: activeCase==='lower'}" @click="activeCase='lower'">lowercase</button>
+        <button class="case-btn" :class="{active: activeCase==='sentence'}" @click="activeCase='sentence'">Sentence case</button>
+        <button class="case-btn" :class="{active: activeCase==='alternating'}" @click="activeCase='alternating'">aLtErNaTiNg cAsE</button>
+      </div>
+
+      <div class="field-label">
+        <span x-text="'Converted (' + caseLabel + ')'"></span>
+        <button class="btn" :class="{copied: justCopied}" @click="copyOutput()" x-text="justCopied ? 'Copied ✓' : 'Copy result'"></button>
+      </div>
+      <textarea readonly x-text="convertedText" placeholder="Your converted text will appear here…"></textarea>
+
+      <div class="digits">
+        <div class="digit"><div class="num" x-text="words"></div><div class="lbl">Words</div></div>
+        <div class="digit"><div class="num" x-text="charsWithSpaces"></div><div class="lbl">Characters</div></div>
+        <div class="digit"><div class="num" x-text="minorWordCount"></div><div class="lbl">Minor Words Lowercased</div></div>
+        <div class="digit"><div class="num" x-text="alreadyTitleCase ? 'Yes' : 'No'"></div><div class="lbl">Already Title Case</div></div>
+      </div>
+
+      <div class="legend" x-show="activeCase==='title'">
+        <span class="chip">a</span><span class="chip">an</span><span class="chip">the</span>
+        <span class="chip">and</span><span class="chip">but</span><span class="chip">or</span><span class="chip">nor</span>
+        <span class="chip">as</span><span class="chip">at</span><span class="chip">by</span><span class="chip">for</span>
+        <span class="chip">from</span><span class="chip">in</span><span class="chip">into</span><span class="chip">of</span>
+        <span class="chip">off</span><span class="chip">on</span><span class="chip">per</span><span class="chip">so</span>
+        <span class="chip">than</span><span class="chip">to</span><span class="chip">up</span><span class="chip">via</span><span class="chip">with</span><span class="chip">yet</span>
+      </div>
+      <p class="legend-note" x-show="activeCase==='title'">These minor words stay lowercase unless they're the first or last word, or follow a colon.</p>
+
+      <div class="toolbar" style="margin-top:14px; margin-bottom:0;">
+        <div class="toolbar-actions">
+          <button class="btn" @click="downloadTxt()">Download result as .txt</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <h2>Every feature, at a glance</h2>
+    <p style="color:var(--ink-soft); max-width:640px;">Everything this title case converter does, in one place.</p>
+    <div class="features">
+      <div class="feature"><div class="f-icon">Tt</div><h3>Real-time Title Case conversion</h3><p>Formats your headline the moment you type or paste — no button to click.</p></div>
+      <div class="feature"><div class="f-icon">a</div><h3>Lowercases minor words</h3><p>Articles, short prepositions and conjunctions like a, the, and, of, in stay lowercase, matching editorial style guides.</p></div>
+      <div class="feature"><div class="f-icon">⇥</div><h3>Always capitalizes first & last word</h3><p>The first and last word of every title are capitalized even if they're normally minor words.</p></div>
+      <div class="feature"><div class="f-icon">:</div><h3>Capitalizes after a colon</h3><p>The word right after a colon is capitalized, correct for subtitles like "Title: A Subtitle".</p></div>
+      <div class="feature"><div class="f-icon">⇪</div><h3>One-click UPPERCASE & lowercase</h3><p>Compare the same text as all caps or all lowercase in one click.</p></div>
+      <div class="feature"><div class="f-icon">Aa</div><h3>Sentence case & alternating case</h3><p>Also includes Sentence case and a playful aLtErNaTiNg case option.</p></div>
+      <div class="feature"><div class="f-icon">¶</div><h3>Works line by line</h3><p>Each line is treated as its own title, so multi-line lists format correctly.</p></div>
+      <div class="feature"><div class="f-icon">W</div><h3>Live word & character counts</h3><p>Word count, character count and a count of lowercased minor words update live.</p></div>
+      <div class="feature"><div class="f-icon">⧉</div><h3>Copy & download</h3><p>Copy the converted text to your clipboard or download it as a plain .txt file.</p></div>
+      <div class="feature"><div class="f-icon">🔒</div><h3>100% private</h3><p>All conversion happens locally in your browser. Nothing you type is ever uploaded or stored.</p></div>
+      <div class="feature"><div class="f-icon">∞</div><h3>Free & unlimited</h3><p>No signup, no paywall, no daily limit — use it as many times as you like.</p></div>
+      <div class="feature"><div class="f-icon">▢</div><h3>Works on any device</h3><p>Fully responsive layout that works the same on phone, tablet and desktop.</p></div>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <article class="seo">
+      <h2>What is a title case converter?</h2>
+      <p>A title case converter formats headlines and titles using the capitalization convention seen in books, articles and headlines: major words are capitalized, while short "minor" words are kept lowercase unless they open or close the title. Typing "the lord of the rings" produces "The Lord of the Rings" — not "The Lord Of The Rings" — because "of" and "the" are minor words in the middle of the title. This tool runs entirely as JavaScript in your browser, so nothing you type is ever uploaded.</p>
+
+      <div class="guide-grid">
+        <div>
+          <h3>Which words stay lowercase</h3>
+          <p>This converter uses a common minor-word list covering articles (a, an, the), coordinating conjunctions (and, but, or, nor, so, yet), and short prepositions (in, on, at, by, of, to, up, via, with, and similar). These words are lowercased anywhere in the middle of a title. The very first word and the very last word of each line are always capitalized, and so is the first word after a colon, regardless of whether it's on the minor-word list.</p>
+        </div>
+        <div>
+          <h3>Multi-line titles and lists</h3>
+          <p>If you paste multiple lines — a list of blog post titles, for example — each line is treated as its own independent title. That means the first and last word of every single line gets capitalized correctly, rather than only the very first and very last word of the entire pasted block.</p>
+        </div>
+      </div>
+
+      <h3>Common uses for title case</h3>
+      <ul>
+        <li><strong>Blog & article headlines</strong> — most editorial style guides expect proper title case for headlines.</li>
+        <li><strong>Book, movie & song titles</strong> — title case is the standard convention for creative works.</li>
+        <li><strong>Page titles & navigation labels</strong> — website menus and page titles commonly use title case for a polished look.</li>
+        <li><strong>Email subject lines</strong> — title case can make subject lines feel more intentional and professional.</li>
+        <li><strong>Presentation slide titles</strong> — decks and slide headers frequently use title case for consistency.</li>
+      </ul>
+
+      <h3>How style guides differ</h3>
+      <table>
+        <thead><tr><th>Style guide</th><th>Notable rule</th></tr></thead>
+        <tbody>
+          <tr><td>AP Style</td><td>Lowercases most words under 4 letters; this tool follows a similar convention</td></tr>
+          <tr><td>Chicago Manual of Style</td><td>Lowercases articles, coordinating conjunctions, and short prepositions regardless of length</td></tr>
+          <tr><td>APA Style</td><td>Capitalizes words of 4+ letters and all major words, including longer prepositions</td></tr>
+          <tr><td>MLA Style</td><td>Similar to Chicago, with its own list of exceptions for subtitles</td></tr>
+        </tbody>
+      </table>
+    </article>
+  </div>
+
+  <div class="wrap section">
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <template x-for="(f, i) in faqs" :key="i">
+        <div class="faq-item">
+          <button class="faq-q" @click="openFaq = openFaq === i ? null : i" :aria-expanded="openFaq === i">
+            <span x-text="f.q"></span>
+            <span class="icon" x-text="openFaq === i ? '−' : '+'"></span>
+          </button>
+          <div class="faq-a" x-show="openFaq === i" x-text="f.a"></div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <h2>Related tools</h2>
+    <div class="related">
+      <a href="https://thetoolempire.com/sentence-case-converter.html">Sentence Case Converter<span>Capitalize the start of every sentence</span></a>
+      <a href="https://thetoolempire.com/uppercase-converter.html">Uppercase Converter<span>Turn text into ALL CAPS</span></a>
+      <a href="https://thetoolempire.com/lowercase-converter.html">Lowercase Converter<span>Turn text into lowercase</span></a>
+      <a href="https://thetoolempire.com/word-counter.html">Word Counter<span>Count words, sentences & reading time</span></a>
+      <a href="https://thetoolempire.com/tools.html">Browse all tools<span>100+ free browser-based tools</span></a>
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-grid">
+    <div>
+      <a href="https://thetoolempire.com/" class="logo"><span class="dot"></span>The Tool Empire</a>
+      <p style="color:var(--ink-soft); font-size:.9rem; max-width:320px; margin-top:10px;">Free, browser-based tools. No signup, no server, no data collection — ever.</p>
+    </div>
+    <div>
+      <h4>Tools</h4>
+      <ul>
+        <li><a href="https://thetoolempire.com/tools.html">All Tools</a></li>
+        <li><a href="https://thetoolempire.com/blog.html">Blog</a></li>
+        <li><a href="https://thetoolempire.com/contact.html">Contact</a></li>
+        <li><a href="https://thetoolempire.com/about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="https://thetoolempire.com/privacy.html">Privacy Policy</a></li>
+        <li><a href="https://thetoolempire.com/terms.html">Terms of Use</a></li>
+        <li><a href="https://thetoolempire.com/sitemap.xml">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© The Tool Empire. All rights reserved.</span>
+    <span>All tools run locally in your browser.</span>
+  </div>
+</footer>
+
+<script>
+function titleCaseConverter(){
+  return {
+    text:'',
+    activeCase:'title',
+    justCopied:false,
+    openFaq:null,
+    minorWords:new Set(['a','an','and','as','at','but','by','for','from','if','in','into','nor','of','off','on','or','per','so','than','the','to','up','via','with','yet']),
+    faqs:[
+      {q:'Is this title case converter free to use?', a:"Yes. It's completely free, has no usage limits, and doesn't require an account."},
+      {q:'Does the tool store or upload my text?', a:'No. All conversion happens locally in your browser with JavaScript. Your text is never sent to a server or saved anywhere.'},
+      {q:"Why isn't every word capitalized?", a:"Proper title case, as used by AP style and most editorial style guides, keeps short 'minor' words like a, an, the, and, of, in and on lowercase unless they're the first or last word of the title, or follow a colon. This tool follows that convention rather than capitalizing every single word."},
+      {q:'Does it capitalize the word after a colon?', a:"Yes. The word immediately following a colon is always capitalized, even if it's normally a minor word, matching standard title formatting used in book and article subtitles."},
+      {q:'Do different style guides handle title case differently?', a:'Yes. AP, Chicago, APA and MLA style each have slightly different minor-word lists and rules for prepositions of four or more letters. This tool uses a common AP-adjacent convention suited for web headlines and general use.'}
+    ],
+    get trimmed(){ return this.text.trim(); },
+    get words(){ return this.trimmed ? this.trimmed.split(/\s+/).length : 0; },
+    get charsWithSpaces(){ return this.text.length; },
+    capitalizeToken(tok){
+      return tok.replace(/([a-zA-Z\u00C0-\u024F]+)/, m => m.charAt(0).toUpperCase() + m.slice(1).toLowerCase());
+    },
+    lowercaseToken(tok){ return tok.toLowerCase(); },
+    toProperTitleCase(line){
+      const parts = line.split(/(\s+)/);
+      const wordIdx = [];
+      parts.forEach((p,i)=>{ if(/\S/.test(p)) wordIdx.push(i); });
+      if(!wordIdx.length) return line;
+      const firstIdx = wordIdx[0];
+      const lastIdx = wordIdx[wordIdx.length-1];
+      let prevEndedColon = false;
+      return parts.map((p,i)=>{
+        if(!/\S/.test(p)) return p;
+        const bareLower = p.toLowerCase().replace(/[^a-z]/g,'');
+        const forceCap = (i===firstIdx) || (i===lastIdx) || prevEndedColon;
+        prevEndedColon = /:\s*$/.test(p);
+        if(forceCap || !this.minorWords.has(bareLower)){
+          return this.capitalizeToken(p);
+        }
+        return this.lowercaseToken(p);
+      }).join('');
+    },
+    toTitleCase(str){
+      return str.split('\n').map(l=>this.toProperTitleCase(l)).join('\n');
+    },
+    toSentenceCase(str){
+      const lower = str.toLowerCase();
+      return lower.replace(/(^\s*\w|[.!?]\s+\w)/g, c => c.toUpperCase());
+    },
+    toAlternating(str){
+      let out = '';
+      let i = 0;
+      for(const ch of str){
+        if(/[a-zA-Z]/.test(ch)){
+          out += i % 2 === 0 ? ch.toLowerCase() : ch.toUpperCase();
+          i++;
+        } else {
+          out += ch;
+        }
+      }
+      return out;
+    },
+    get minorWordCount(){
+      if(!this.trimmed) return 0;
+      const tokens = this.trimmed.split(/\s+/);
+      let count = 0;
+      tokens.forEach((t,i)=>{
+        const bare = t.toLowerCase().replace(/[^a-z]/g,'');
+        if(i!==0 && i!==tokens.length-1 && this.minorWords.has(bare)) count++;
+      });
+      return count;
+    },
+    get alreadyTitleCase(){
+      if(!this.trimmed) return false;
+      return this.text === this.toTitleCase(this.text);
+    },
+    get caseLabel(){
+      return {
+        title:'Title Case', upper:'UPPERCASE', lower:'lowercase',
+        sentence:'Sentence case', alternating:'aLtErNaTiNg cAsE'
+      }[this.activeCase];
+    },
+    get convertedText(){
+      switch(this.activeCase){
+        case 'title': return this.toTitleCase(this.text);
+        case 'upper': return this.text.toUpperCase();
+        case 'lower': return this.text.toLowerCase();
+        case 'sentence': return this.toSentenceCase(this.text);
+        case 'alternating': return this.toAlternating(this.text);
+        default: return this.toTitleCase(this.text);
+      }
+    },
+    clearText(){ this.text=''; },
+    loadSample(){
+      this.text = "the lord of the rings: the fellowship of the ring\na guide to the galaxy for beginners\nhow to build a website from scratch";
+    },
+    async copyOutput(){
+      if(!this.convertedText) return;
+      try{
+        await navigator.clipboard.writeText(this.convertedText);
+        this.justCopied = true;
+        setTimeout(()=> this.justCopied = false, 1500);
+      }catch(e){ /* clipboard unavailable */ }
+    },
+    downloadTxt(){
+      if(!this.convertedText) return;
+      const blob = new Blob([this.convertedText], {type:'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'title-case-converted-text.txt';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  }
+}
+</script>
+</body>
+</html>

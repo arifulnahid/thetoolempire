@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snake Case Converter: Convert Text to snake_case Online Free | The Tool Empire</title>
+<meta name="description" content="Free online snake case converter. Instantly turn any text, phrase or camelCase variable into snake_case or SCREAMING_SNAKE_CASE, with one-click switches to camelCase, PascalCase and kebab-case. 100% private.">
+<meta name="keywords" content="snake case converter, convert to snake_case, text to snake case, snake case generator, camelCase to snake_case, python variable naming, screaming snake case">
+<link rel="canonical" href="https://thetoolempire.com/snake-case-converter.html">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#6C63FF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Snake Case Converter: Convert Text to snake_case Online Free">
+<meta property="og:description" content="Turn any text or camelCase variable into snake_case instantly, with quick switches to camelCase, PascalCase and kebab-case. No signup, no server, 100% private.">
+<meta property="og:url" content="https://thetoolempire.com/snake-case-converter.html">
+
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Snake Case Converter",
+  "url": "https://thetoolempire.com/snake-case-converter.html",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any (Web Browser)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online snake case converter that turns text, phrases or camelCase/PascalCase variable names into snake_case or SCREAMING_SNAKE_CASE, with one-click switches to camelCase, PascalCase and kebab-case, entirely in the browser.",
+  "featureList": [
+    "Real-time conversion to snake_case",
+    "One-click switch to SCREAMING_SNAKE_CASE",
+    "One-click switch to camelCase",
+    "One-click switch to PascalCase",
+    "One-click switch to kebab-case",
+    "Detects word boundaries in camelCase and PascalCase input",
+    "Strips extra spaces, hyphens and underscores automatically",
+    "Live word and character counts",
+    "Copy, clear and download as .txt",
+    "100% private, browser-only processing"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is this snake case converter free to use?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The snake case converter is completely free, has no usage limits, and doesn't require an account." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the tool store or upload my text?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. All conversion happens locally in your browser with JavaScript. Your text is never sent to a server or saved anywhere." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is snake_case used for?",
+      "acceptedAnswer": { "@type": "Answer", "text": "snake_case is the standard naming convention for variables and functions in Python, Ruby, and Rust, and is also common for database column names, file names, and URL slugs in many frameworks." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I convert camelCase or PascalCase input into snake_case?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The tool detects word boundaries inside camelCase and PascalCase input, such as 'firstName' or 'UserProfileData', and correctly splits them into separate words before rejoining with underscores." }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between snake_case and SCREAMING_SNAKE_CASE?",
+      "acceptedAnswer": { "@type": "Answer", "text": "snake_case uses all lowercase letters joined by underscores, typically used for variables and functions. SCREAMING_SNAKE_CASE (also called CONSTANT_CASE) uses all uppercase letters joined by underscores, conventionally used for constants and environment variables." }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --purple:#6C63FF;
+    --purple-dark:#4B44CC;
+    --purple-soft:#F0EEFF;
+    --mint:#00B894;
+    --mint-soft:#E4FBF4;
+    --amber:#E08E1D;
+    --amber-soft:#FFF3E0;
+    --coral:#E4573D;
+    --ink:#15132B;
+    --ink-soft:#5C5876;
+    --paper:#FBFAFF;
+    --panel:#FFFFFF;
+    --line:#E4E1F5;
+    --radius:14px;
+    --font-display:'Space Grotesk',system-ui,sans-serif;
+    --font-body:'Inter',system-ui,sans-serif;
+    --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap');
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--purple-dark);}
+  h1,h2,h3{font-family:var(--font-display); line-height:1.15; margin:0 0 .5em;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  :focus-visible{outline:3px solid var(--purple); outline-offset:2px; border-radius:4px;}
+
+  header.site{
+    position:sticky; top:0; z-index:40;
+    background:rgba(251,250,255,.9); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:16px 0;}
+  .logo{font-family:var(--font-display); font-weight:700; font-size:1.15rem; text-decoration:none; color:var(--ink); display:flex; align-items:center; gap:8px;}
+  .logo .dot{width:10px;height:10px;border-radius:3px;background:var(--purple);display:inline-block;}
+  .nav-links{display:flex; gap:28px; list-style:none; margin:0; padding:0;}
+  .nav-links a{text-decoration:none; color:var(--ink-soft); font-weight:600; font-size:.94rem;}
+  .nav-links a:hover{color:var(--purple-dark);}
+  .nav-links a.active{color:var(--purple-dark);}
+
+  .hero{padding:48px 0 8px;}
+  .breadcrumb{font-size:.82rem; color:var(--ink-soft); margin-bottom:16px;}
+  .breadcrumb a{color:var(--ink-soft); text-decoration:none;}
+  .breadcrumb a:hover{color:var(--purple-dark);}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--purple-dark); background:var(--purple-soft); border:1px solid #DCD8FF;
+    padding:5px 12px; border-radius:999px; margin-bottom:16px;
+  }
+  h1{font-size:clamp(1.8rem,4.2vw,2.7rem); color:var(--ink);}
+  .lede{font-size:1.08rem; color:var(--ink-soft); max-width:640px; margin:0 0 8px;}
+
+  .tool-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; margin:28px 0; box-shadow:0 1px 2px rgba(21,19,43,.03), 0 10px 30px -18px rgba(108,99,255,.25);
+  }
+  .toolbar{display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between; align-items:center; margin-bottom:12px;}
+  .toolbar-actions{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+  .btn{
+    font-family:var(--font-body); font-weight:600; font-size:.86rem; cursor:pointer;
+    border-radius:9px; padding:8px 14px; border:1px solid var(--line); background:#fff; color:var(--ink);
+    transition:transform .08s ease, border-color .15s ease, background .15s ease;
+  }
+  .btn:hover{border-color:var(--purple); color:var(--purple-dark);}
+  .btn:active{transform:scale(.97);}
+  .btn.primary{background:var(--purple); color:#fff; border-color:var(--purple);}
+  .btn.primary:hover{background:var(--purple-dark); border-color:var(--purple-dark); color:#fff;}
+  .btn.copied{background:var(--mint); border-color:var(--mint); color:#fff;}
+
+  textarea{
+    width:100%; min-height:160px; resize:vertical;
+    border:1.5px solid var(--line); border-radius:10px; padding:16px;
+    font-family:var(--font-mono); font-size:.95rem; color:var(--ink);
+    background:var(--paper);
+  }
+  textarea:focus{border-color:var(--purple); outline:none; box-shadow:0 0 0 4px rgba(108,99,255,.12);}
+  textarea[readonly]{background:var(--ink); color:var(--mint); cursor:text;}
+  .field-label{display:flex; justify-content:space-between; align-items:center; margin:16px 0 6px;}
+  .field-label span{font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft);}
+
+  /* Signature: snake made of chained word segments */
+  .snake-wrap{display:flex; align-items:center; gap:2px; flex-wrap:wrap; padding:4px 0;}
+  .snake-seg{
+    font-family:var(--font-mono); font-size:.82rem; font-weight:700; color:#fff;
+    background:var(--purple); padding:6px 10px; position:relative;
+  }
+  .snake-seg:first-child{border-radius:8px 4px 4px 8px;}
+  .snake-seg:last-child{border-radius:4px 8px 8px 4px;}
+  .snake-seg:not(:first-child):not(:last-child){border-radius:4px;}
+  .snake-seg::after{
+    content:"_"; position:absolute; right:-9px; top:50%; transform:translateY(-50%);
+    color:var(--ink-soft); font-weight:700;
+  }
+  .snake-seg:last-child::after{content:"";}
+  .snake-seg:nth-child(odd){background:var(--purple);}
+  .snake-seg:nth-child(even){background:var(--purple-dark);}
+  .snake-eyes{font-size:.7rem;}
+
+  .case-switch{display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 4px;}
+  .case-btn{
+    font-family:var(--font-mono); font-size:.8rem; font-weight:600; cursor:pointer;
+    border-radius:9px; padding:9px 14px; border:1.5px solid var(--line); background:#fff; color:var(--ink-soft);
+    transition:all .15s ease;
+  }
+  .case-btn:hover{border-color:var(--purple); color:var(--purple-dark);}
+  .case-btn.active{background:var(--ink); border-color:var(--ink); color:var(--mint);}
+
+  .digits{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:18px;}
+  .digit{background:var(--purple-soft); border-radius:10px; padding:12px 10px; text-align:center;}
+  .digit .num{font-family:var(--font-mono); font-weight:700; font-size:1.1rem; color:var(--purple-dark); font-variant-numeric:tabular-nums; word-break:break-word;}
+  .digit .lbl{font-size:.7rem; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); margin-top:4px;}
+  @media (max-width:640px){ .digits{grid-template-columns:repeat(2,1fr);} }
+
+  .section{padding:36px 0;}
+  .section h2{font-size:1.5rem;}
+
+  .features{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px;}
+  .feature{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px;}
+  .feature .f-icon{width:34px; height:34px; border-radius:9px; background:var(--purple-soft); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-weight:700; color:var(--purple-dark); margin-bottom:10px;}
+  .feature h3{font-size:1rem; margin:0 0 6px;}
+  .feature p{font-size:.86rem; color:var(--ink-soft); margin:0; max-width:none;}
+
+  table{width:100%; border-collapse:collapse; background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); font-size:.92rem;}
+  td code, .code-cell{font-family:var(--font-mono); font-size:.88rem; background:var(--purple-soft); color:var(--purple-dark); padding:2px 6px; border-radius:5px;}
+  th{background:var(--purple-soft); color:var(--purple-dark); font-family:var(--font-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.06em;}
+  tr:last-child td{border-bottom:none;}
+
+  article.seo p{color:var(--ink-soft); max-width:760px;}
+  article.seo h3{font-size:1.15rem; margin-top:1.4em;}
+  article.seo ul{color:var(--ink-soft); max-width:760px; padding-left:1.2em;}
+  article.seo code{font-family:var(--font-mono); background:var(--purple-soft); color:var(--purple-dark); padding:2px 6px; border-radius:5px; font-size:.9em;}
+  .guide-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start;}
+  @media (max-width:800px){ .guide-grid{grid-template-columns:1fr;} }
+
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{width:100%; text-align:left; background:none; border:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:12px; padding:18px 4px; font-family:var(--font-display); font-weight:600; font-size:1.02rem; color:var(--ink);}
+  .faq-q .icon{font-family:var(--font-mono); color:var(--purple); font-size:1.2rem; flex-shrink:0;}
+  .faq-a{padding:0 4px 18px; color:var(--ink-soft); max-width:720px;}
+
+  .related{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;}
+  .related a{display:block; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; text-decoration:none; color:var(--ink); font-weight:600; font-size:.94rem; transition:border-color .15s ease, transform .08s ease;}
+  .related a:hover{border-color:var(--purple); transform:translateY(-2px);}
+  .related a span{display:block; font-weight:400; font-size:.82rem; color:var(--ink-soft); margin-top:4px;}
+
+  footer.site{border-top:1px solid var(--line); background:var(--panel); margin-top:40px; padding:40px 0 24px;}
+  .foot-grid{display:grid; grid-template-columns:2fr 1fr 1fr; gap:24px;}
+  @media (max-width:700px){ .foot-grid{grid-template-columns:1fr; gap:20px;} }
+  footer.site h4{font-family:var(--font-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); margin:0 0 10px;}
+  footer.site ul{list-style:none; margin:0; padding:0; display:grid; gap:8px;}
+  footer.site a{color:var(--ink-soft); text-decoration:none; font-size:.9rem;}
+  footer.site a:hover{color:var(--purple-dark);}
+  .foot-bottom{margin-top:28px; padding-top:20px; border-top:1px solid var(--line); font-size:.8rem; color:var(--ink-soft); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+</style>
+</head>
+<body x-data="snakeCaseConverter()">
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="https://thetoolempire.com/" class="logo"><span class="dot"></span>The Tool Empire</a>
+    <ul class="nav-links">
+      <li><a href="https://thetoolempire.com/index.html">Home</a></li>
+      <li><a href="https://thetoolempire.com/tools.html" class="active">Tools</a></li>
+      <li><a href="https://thetoolempire.com/blog.html">Blog</a></li>
+      <li><a href="https://thetoolempire.com/contact.html">Contact</a></li>
+      <li><a href="https://thetoolempire.com/about.html">About</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="breadcrumb"><a href="https://thetoolempire.com/">Home</a> / <a href="https://thetoolempire.com/tools.html">Tools</a> / Snake Case Converter</p>
+    <span class="eyebrow">● Developer Tools</span>
+    <h1>Snake Case Converter: Turn Any Text into snake_case Online</h1>
+    <p class="lede">Type or paste a phrase, sentence, or camelCase variable name below and it converts to snake_case instantly — with one-click switches to SCREAMING_SNAKE_CASE, camelCase, PascalCase and kebab-case.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="tool-card">
+      <div class="toolbar">
+        <div class="snake-wrap" aria-hidden="true">
+          <template x-for="(seg, i) in snakePreviewSegments" :key="i">
+            <span class="snake-seg" x-text="seg + (i === snakePreviewSegments.length-1 ? ' 🐍' : '')"></span>
+          </template>
+        </div>
+        <div class="toolbar-actions">
+          <button class="btn primary" @click="loadSample()">Load sample text</button>
+          <button class="btn" @click="clearText()">Clear</button>
+        </div>
+      </div>
+
+      <div class="field-label"><span>Your text or variable name</span></div>
+      <label for="sc-input" style="position:absolute;left:-9999px;">Text to convert</label>
+      <textarea id="sc-input" x-model="text" placeholder="e.g. First Name, firstName, or Total-Order-Amount…" spellcheck="false"></textarea>
+
+      <div class="case-switch">
+        <button class="case-btn" :class="{active: activeCase==='snake'}" @click="activeCase='snake'">snake_case</button>
+        <button class="case-btn" :class="{active: activeCase==='screaming'}" @click="activeCase='screaming'">SCREAMING_SNAKE_CASE</button>
+        <button class="case-btn" :class="{active: activeCase==='camel'}" @click="activeCase='camel'">camelCase</button>
+        <button class="case-btn" :class="{active: activeCase==='pascal'}" @click="activeCase='pascal'">PascalCase</button>
+        <button class="case-btn" :class="{active: activeCase==='kebab'}" @click="activeCase='kebab'">kebab-case</button>
+      </div>
+
+      <div class="field-label">
+        <span x-text="'Converted (' + caseLabel + ')'"></span>
+        <button class="btn" :class="{copied: justCopied}" @click="copyOutput()" x-text="justCopied ? 'Copied ✓' : 'Copy result'"></button>
+      </div>
+      <textarea readonly x-text="convertedText" placeholder="Your converted text will appear here…"></textarea>
+
+      <div class="digits">
+        <div class="digit"><div class="num" x-text="wordCount"></div><div class="lbl">Words detected</div></div>
+        <div class="digit"><div class="num" x-text="charsWithSpaces"></div><div class="lbl">Input characters</div></div>
+        <div class="digit"><div class="num" x-text="convertedText.length"></div><div class="lbl">Output characters</div></div>
+        <div class="digit"><div class="num" x-text="underscoreCount"></div><div class="lbl">Underscores added</div></div>
+      </div>
+
+      <div class="toolbar" style="margin-top:14px; margin-bottom:0;">
+        <div class="toolbar-actions">
+          <button class="btn" @click="downloadTxt()">Download result as .txt</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <h2>Every feature, at a glance</h2>
+    <p style="color:var(--ink-soft); max-width:640px;">Everything this snake case converter does, in one place.</p>
+    <div class="features">
+      <div class="feature"><div class="f-icon">_</div><h3>Real-time snake_case conversion</h3><p>Converts your text to snake_case instantly as you type or paste — no button to click.</p></div>
+      <div class="feature"><div class="f-icon">A_B</div><h3>SCREAMING_SNAKE_CASE mode</h3><p>One-click switch to all-caps underscore case for constants and environment variables.</p></div>
+      <div class="feature"><div class="f-icon">aB</div><h3>camelCase & PascalCase</h3><p>Also converts to camelCase and PascalCase for languages that prefer those conventions.</p></div>
+      <div class="feature"><div class="f-icon">-</div><h3>kebab-case</h3><p>One-click switch to hyphen-separated kebab-case for URL slugs and CSS class names.</p></div>
+      <div class="feature"><div class="f-icon">🔍</div><h3>Smart word-boundary detection</h3><p>Automatically splits camelCase and PascalCase input like "firstName" into separate words.</p></div>
+      <div class="feature"><div class="f-icon">✂</div><h3>Cleans up messy input</h3><p>Strips extra spaces, hyphens and underscores so mixed formatting still converts cleanly.</p></div>
+      <div class="feature"><div class="f-icon">#</div><h3>Numbers preserved</h3><p>Digits within words are kept in place and treated as part of the surrounding word.</p></div>
+      <div class="feature"><div class="f-icon">W</div><h3>Live conversion stats</h3><p>See word count, input/output character counts, and underscores added as you type.</p></div>
+      <div class="feature"><div class="f-icon">⧉</div><h3>Copy & download</h3><p>Copy the converted text to your clipboard or download it as a plain .txt file in one click.</p></div>
+      <div class="feature"><div class="f-icon">🔒</div><h3>100% private</h3><p>All conversion happens locally in your browser. Nothing you type is ever uploaded or stored.</p></div>
+      <div class="feature"><div class="f-icon">∞</div><h3>Free & unlimited</h3><p>No signup, no paywall, no daily limit — use it as many times as you like.</p></div>
+      <div class="feature"><div class="f-icon">▢</div><h3>Works on any device</h3><p>Fully responsive layout that works the same on phone, tablet and desktop.</p></div>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <article class="seo">
+      <h2>What is snake_case, and what is this converter for?</h2>
+      <p>Snake case is a naming convention where every word in a phrase is lowercased and joined together with underscores — turning "First Name" or "firstName" into <code>first_name</code>. This tool converts any input — plain sentences, hyphenated phrases, or camelCase/PascalCase variable names — into snake_case instantly, entirely as JavaScript inside your browser. There's no upload and no server round-trip, so your code or data never leaves your device.</p>
+
+      <div class="guide-grid">
+        <div>
+          <h3>How word boundaries are detected</h3>
+          <p>The converter splits your input wherever a new word logically begins: at spaces, hyphens, underscores, and at the transition from a lowercase letter to an uppercase letter (as in "firstName" → "first" + "Name"). It also handles consecutive capitals correctly, so "UserID" becomes <code>user_id</code> rather than <code>user_i_d</code>. Detected words are then rejoined using the rules of whichever case style you select.</p>
+        </div>
+        <div>
+          <h3>snake_case vs. SCREAMING_SNAKE_CASE</h3>
+          <p><code>snake_case</code> uses lowercase letters and is the standard for variable and function names in Python, Ruby and Rust. <code>SCREAMING_SNAKE_CASE</code> (also called CONSTANT_CASE) uses uppercase letters and underscores, and is the near-universal convention for constants and environment variables across almost every language, including <code>MAX_RETRY_COUNT</code> or <code>DATABASE_URL</code>.</p>
+        </div>
+      </div>
+
+      <h3>Where snake_case is used</h3>
+      <ul>
+        <li><strong>Python, Ruby & Rust</strong> — the official style guide convention for variable and function names.</li>
+        <li><strong>Database columns</strong> — most SQL databases use snake_case for table and column names.</li>
+        <li><strong>Environment variables</strong> — typically written in SCREAMING_SNAKE_CASE, like <code>API_SECRET_KEY</code>.</li>
+        <li><strong>File & directory names</strong> — many command-line tools and static site generators prefer snake_case file names.</li>
+        <li><strong>Configuration keys</strong> — YAML and JSON config files commonly use snake_case for readability.</li>
+      </ul>
+
+      <h3>Naming convention comparison</h3>
+      <table>
+        <thead><tr><th>Case style</th><th>Example</th><th>Common use</th></tr></thead>
+        <tbody>
+          <tr><td>snake_case</td><td><span class="code-cell">first_name</span></td><td>Python/Ruby/Rust variables, DB columns</td></tr>
+          <tr><td>SCREAMING_SNAKE_CASE</td><td><span class="code-cell">FIRST_NAME</span></td><td>Constants, environment variables</td></tr>
+          <tr><td>camelCase</td><td><span class="code-cell">firstName</span></td><td>JavaScript/Java variables & functions</td></tr>
+          <tr><td>PascalCase</td><td><span class="code-cell">FirstName</span></td><td>Class names, C#/Java types, React components</td></tr>
+          <tr><td>kebab-case</td><td><span class="code-cell">first-name</span></td><td>URL slugs, HTML attributes, CSS classes</td></tr>
+        </tbody>
+      </table>
+    </article>
+  </div>
+
+  <div class="wrap section">
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <template x-for="(f, i) in faqs" :key="i">
+        <div class="faq-item">
+          <button class="faq-q" @click="openFaq = openFaq === i ? null : i" :aria-expanded="openFaq === i">
+            <span x-text="f.q"></span>
+            <span class="icon" x-text="openFaq === i ? '−' : '+'"></span>
+          </button>
+          <div class="faq-a" x-show="openFaq === i" x-text="f.a"></div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <h2>Related tools</h2>
+    <div class="related">
+      <a href="https://thetoolempire.com/dot-case-converter.html">Dot Case Converter<span>Convert text to dot.case for config keys</span></a>
+      <a href="https://thetoolempire.com/train-case-converter.html">Train Case Converter<span>Convert text to Train-Case for HTTP headers</span></a>
+      <a href="https://thetoolempire.com/uppercase-converter.html">Uppercase Converter<span>Turn text into ALL CAPS</span></a>
+      <a href="https://thetoolempire.com/lowercase-converter.html">Lowercase Converter<span>Turn text into lowercase</span></a>
+      <a href="https://thetoolempire.com/title-case-converter.html">Title Case Converter<span>Smart AP-style headline capitalization</span></a>
+      <a href="https://thetoolempire.com/toggle-case-converter.html">Toggle Case Converter<span>Flip every letter's case</span></a>
+      <a href="https://thetoolempire.com/tools.html">Browse all tools<span>100+ free browser-based tools</span></a>
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-grid">
+    <div>
+      <a href="https://thetoolempire.com/" class="logo"><span class="dot"></span>The Tool Empire</a>
+      <p style="color:var(--ink-soft); font-size:.9rem; max-width:320px; margin-top:10px;">Free, browser-based tools. No signup, no server, no data collection — ever.</p>
+    </div>
+    <div>
+      <h4>Tools</h4>
+      <ul>
+        <li><a href="https://thetoolempire.com/tools.html">All Tools</a></li>
+        <li><a href="https://thetoolempire.com/blog.html">Blog</a></li>
+        <li><a href="https://thetoolempire.com/contact.html">Contact</a></li>
+        <li><a href="https://thetoolempire.com/about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="https://thetoolempire.com/privacy.html">Privacy Policy</a></li>
+        <li><a href="https://thetoolempire.com/terms.html">Terms of Use</a></li>
+        <li><a href="https://thetoolempire.com/sitemap.xml">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© The Tool Empire. All rights reserved.</span>
+    <span>All tools run locally in your browser.</span>
+  </div>
+</footer>
+
+<script>
+function snakeCaseConverter(){
+  return {
+    text:'',
+    activeCase:'snake',
+    justCopied:false,
+    openFaq:null,
+    faqs:[
+      {q:'Is this snake case converter free to use?', a:"Yes. It's completely free, has no usage limits, and doesn't require an account."},
+      {q:'Does the tool store or upload my text?', a:'No. All conversion happens locally in your browser with JavaScript. Your text is never sent to a server or saved anywhere.'},
+      {q:'What is snake_case used for?', a:'snake_case is the standard naming convention for variables and functions in Python, Ruby, and Rust, and is also common for database column names, file names, and URL slugs in many frameworks.'},
+      {q:'Can I convert camelCase or PascalCase input into snake_case?', a:"Yes. The tool detects word boundaries inside camelCase and PascalCase input, such as 'firstName' or 'UserProfileData', and correctly splits them into separate words before rejoining with underscores."},
+      {q:"What's the difference between snake_case and SCREAMING_SNAKE_CASE?", a:'snake_case uses all lowercase letters joined by underscores, typically used for variables and functions. SCREAMING_SNAKE_CASE (also called CONSTANT_CASE) uses all uppercase letters joined by underscores, conventionally used for constants and environment variables.'}
+    ],
+    get trimmed(){ return this.text.trim(); },
+    get charsWithSpaces(){ return this.text.length; },
+    getWords(str){
+      if(!str.trim()) return [];
+      const spaced = str
+        .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+        .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')
+        .replace(/[_\-]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+      return spaced.split(' ').filter(Boolean);
+    },
+    get words(){ return this.getWords(this.text); },
+    get wordCount(){ return this.words.length; },
+    toSnake(words){ return words.map(w=>w.toLowerCase()).join('_'); },
+    toScreaming(words){ return words.map(w=>w.toUpperCase()).join('_'); },
+    toCamel(words){
+      return words.map((w,i)=> i===0 ? w.toLowerCase() : w.charAt(0).toUpperCase()+w.slice(1).toLowerCase()).join('');
+    },
+    toPascal(words){
+      return words.map(w=> w.charAt(0).toUpperCase()+w.slice(1).toLowerCase()).join('');
+    },
+    toKebab(words){ return words.map(w=>w.toLowerCase()).join('-'); },
+    get caseLabel(){
+      return {
+        snake:'snake_case', screaming:'SCREAMING_SNAKE_CASE', camel:'camelCase',
+        pascal:'PascalCase', kebab:'kebab-case'
+      }[this.activeCase];
+    },
+    get convertedText(){
+      const w = this.words;
+      switch(this.activeCase){
+        case 'snake': return this.toSnake(w);
+        case 'screaming': return this.toScreaming(w);
+        case 'camel': return this.toCamel(w);
+        case 'pascal': return this.toPascal(w);
+        case 'kebab': return this.toKebab(w);
+        default: return this.toSnake(w);
+      }
+    },
+    get underscoreCount(){
+      return (this.activeCase==='snake' || this.activeCase==='screaming') && this.wordCount > 1 ? this.wordCount - 1 : 0;
+    },
+    get snakePreviewSegments(){
+      const w = this.words.length ? this.words : ['snake','case'];
+      return w.slice(0,4).map(x=>x.toLowerCase());
+    },
+    clearText(){ this.text=''; },
+    loadSample(){
+      this.text = "First Name";
+    },
+    async copyOutput(){
+      if(!this.convertedText) return;
+      try{
+        await navigator.clipboard.writeText(this.convertedText);
+        this.justCopied = true;
+        setTimeout(()=> this.justCopied = false, 1500);
+      }catch(e){ /* clipboard unavailable */ }
+    },
+    downloadTxt(){
+      if(!this.convertedText) return;
+      const blob = new Blob([this.convertedText], {type:'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'snake-case-converted-text.txt';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  }
+}
+</script>
+</body>
+</html>

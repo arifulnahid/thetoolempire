@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Camel Case Converter — Free Online Coding Tool | The Tool Empire</title>
+<meta name="description" content="Convert text or variable names to camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, and more — instantly. Paste a list of names or a sentence and get clean, consistent naming for your code. Runs in your browser, no signup.">
+<meta name="keywords" content="camel case converter, camelCase generator, PascalCase converter, snake_case converter, kebab-case converter, variable name converter, case converter for code">
+<meta name="theme-color" content="#6C63FF">
+<meta property="og:title" content="Camel Case Converter — Free Online Coding Tool">
+<meta property="og:description" content="Convert any text to camelCase, PascalCase, snake_case, kebab-case, or CONSTANT_CASE instantly. Handles multi-line lists. 100% free, runs in your browser.">
+<meta property="og:type" content="website">
+<meta name="robots" content="index, follow">
+<style>
+  :root{
+    --accent:#6C63FF;
+    --accent-dark:#564fd1;
+    --accent-light:#EDEBFF;
+    --ink:#1B1B23;
+    --ink-soft:#5A5A6E;
+    --bg:#FAFAFC;
+    --card:#FFFFFF;
+    --border:#E7E6F2;
+    --good:#1FAA65;
+    --radius:14px;
+    --shadow:0 2px 8px rgba(30,25,80,.06), 0 12px 32px rgba(30,25,80,.05);
+    --mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+  }
+  a{color:var(--accent-dark);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  header.site{border-bottom:1px solid var(--border);background:var(--card);position:sticky;top:0;z-index:20;}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1080px;margin:0 auto;}
+  .logo{font-weight:800;font-size:1.15rem;color:var(--ink);}
+  .logo span{color:var(--accent);}
+  .nav ul{list-style:none;display:flex;gap:28px;margin:0;padding:0;}
+  .nav a{color:var(--ink-soft);font-weight:600;font-size:.95rem;}
+  .nav a.active{color:var(--accent-dark);}
+
+  .crumbs{font-size:.85rem;color:var(--ink-soft);padding:18px 0 0;}
+  .crumbs a{color:var(--ink-soft);}
+
+  .hero{padding:20px 0 8px;}
+  .eyebrow{
+    display:inline-block;background:var(--accent-light);color:var(--accent-dark);
+    font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;
+    padding:5px 12px;border-radius:999px;margin-bottom:14px;
+  }
+  h1{font-size:clamp(1.9rem,4vw,2.6rem);margin:0 0 10px;letter-spacing:-.02em;}
+  .lede{color:var(--ink-soft);font-size:1.08rem;max-width:640px;margin:0 0 8px;}
+
+  .tool-card{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:26px;margin:26px 0 36px;
+  }
+
+  .panel-label{font-size:.78rem;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.03em;margin-bottom:8px;display:block;}
+  textarea{
+    width:100%;min-height:140px;resize:vertical;padding:16px;border:1px solid var(--border);
+    border-radius:10px;font-size:.95rem;font-family:var(--mono);line-height:1.6;color:var(--ink);
+  }
+  textarea:focus{outline:2px solid var(--accent-light);border-color:var(--accent);}
+  .panel-actions{display:flex;justify-content:space-between;align-items:center;margin-top:10px;flex-wrap:wrap;gap:8px;}
+  .chip-btn{
+    border:1px solid var(--border);background:var(--card);color:var(--ink-soft);
+    padding:8px 14px;border-radius:999px;font-size:.85rem;font-weight:600;cursor:pointer;
+  }
+  .chip-btn:hover{border-color:var(--accent);color:var(--accent-dark);}
+  .chip-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .muted-count{font-size:.8rem;color:#9b99b0;}
+
+  .split-note{display:flex;align-items:center;gap:8px;margin:14px 0 20px;font-size:.85rem;color:var(--ink-soft);font-weight:600;}
+  .switch{position:relative;width:38px;height:21px;flex-shrink:0;}
+  .switch input{opacity:0;width:0;height:0;}
+  .slider-tg{position:absolute;inset:0;background:#dcdaef;border-radius:999px;cursor:pointer;transition:.2s;}
+  .slider-tg:before{content:"";position:absolute;height:15px;width:15px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;}
+  input:checked + .slider-tg{background:var(--accent);}
+  input:checked + .slider-tg:before{transform:translateX(17px);}
+
+  .results-grid{display:grid;grid-template-columns:1fr;gap:14px;}
+  @media(min-width:720px){.results-grid{grid-template-columns:1fr 1fr;}}
+  .result-card{
+    background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px 18px;
+  }
+  .result-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+  .result-name{font-weight:700;font-size:.85rem;color:var(--ink);}
+  .result-sub{font-size:.72rem;color:#9b99b0;font-weight:600;}
+  .copy-icon{
+    border:1px solid var(--border);background:var(--card);color:var(--ink-soft);
+    padding:5px 11px;border-radius:999px;font-size:.74rem;font-weight:700;cursor:pointer;
+  }
+  .copy-icon:hover{border-color:var(--accent);color:var(--accent-dark);}
+  pre.result-output{
+    margin:0;font-family:var(--mono);font-size:.88rem;color:var(--accent-dark);
+    white-space:pre-wrap;word-break:break-word;max-height:160px;overflow-y:auto;
+    background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 12px;
+  }
+
+  .trust{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0;}
+  .trust span{font-size:.78rem;font-weight:700;color:var(--accent-dark);background:var(--accent-light);padding:5px 11px;border-radius:999px;}
+
+  section.content{padding:34px 0;border-top:1px solid var(--border);}
+  section.content:first-of-type{border-top:none;}
+  h2{font-size:1.55rem;margin:0 0 14px;letter-spacing:-.01em;}
+  p{color:var(--ink-soft);margin:0 0 14px;}
+  p, li{max-width:760px;}
+  ul.plain, ol.plain{color:var(--ink-soft);padding-left:22px;max-width:760px;}
+  ul.plain li, ol.plain li{margin-bottom:8px;}
+  code.inline{background:var(--accent-light);color:var(--accent-dark);padding:1px 7px;border-radius:5px;font-family:var(--mono);font-size:.88em;}
+
+  .feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-top:20px;}
+  .feature{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;}
+  .feature .icon{
+    width:38px;height:38px;border-radius:10px;background:var(--accent-light);color:var(--accent-dark);
+    display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:12px;font-weight:800;
+  }
+  .feature h4{margin:0 0 6px;font-size:1rem;}
+  .feature p{margin:0;font-size:.9rem;}
+
+  .usecase-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:18px;}
+  .usecase{border:1px solid var(--border);border-radius:10px;padding:14px 16px;background:var(--card);font-size:.9rem;}
+  .usecase b{display:block;color:var(--ink);margin-bottom:4px;}
+
+  table.example-table{width:100%;max-width:760px;border-collapse:collapse;margin:14px 0 20px;font-size:.88rem;}
+  table.example-table th, table.example-table td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--ink-soft);font-family:var(--mono);}
+  table.example-table th{color:var(--ink);font-size:.72rem;text-transform:uppercase;letter-spacing:.03em;font-family:'Segoe UI',sans-serif;}
+  table.example-table td.result{color:var(--accent-dark);font-weight:600;}
+
+  .faq-item{border-bottom:1px solid var(--border);padding:16px 0;}
+  .faq-item summary{cursor:pointer;font-weight:700;font-size:.98rem;list-style:none;position:relative;padding-right:24px;}
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary::after{content:"+";position:absolute;right:0;top:0;color:var(--accent-dark);font-size:1.2rem;}
+  .faq-item[open] summary::after{content:"–";}
+  .faq-item p{margin-top:10px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+  .related a{border:1px solid var(--border);background:var(--card);padding:8px 14px;border-radius:999px;font-size:.85rem;font-weight:600;color:var(--ink);}
+  .related a:hover{border-color:var(--accent);color:var(--accent-dark);text-decoration:none;}
+
+  footer.site{background:#171724;color:#b9b7cf;padding:40px 0 24px;margin-top:20px;}
+  .foot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:24px;margin-bottom:24px;}
+  footer.site h5{color:#fff;font-size:.85rem;margin:0 0 10px;text-transform:uppercase;letter-spacing:.04em;}
+  footer.site a{color:#b9b7cf;display:block;font-size:.88rem;margin-bottom:8px;}
+  footer.site a:hover{color:#fff;}
+  .foot-bottom{border-top:1px solid #2c2c3d;padding-top:18px;font-size:.8rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav">
+    <div class="logo">The Tool <span>Empire</span></div>
+    <ul>
+      <li><a href="https://thetoolempire.com/">Home</a></li>
+      <li><a href="https://thetoolempire.com/tools.html" class="active">Tools</a></li>
+      <li><a href="https://thetoolempire.com/blog.html">Blog</a></li>
+      <li><a href="https://thetoolempire.com/contact.html">Contact</a></li>
+      <li><a href="https://thetoolempire.com/about.html">About</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <p class="crumbs"><a href="https://thetoolempire.com/">Home</a> / <a href="https://thetoolempire.com/tools.html">Tools</a> / <a href="https://thetoolempire.com/tools.html?cat=Coding">Coding Tools</a> / Camel Case Converter</p>
+
+  <div class="hero">
+    <span class="eyebrow">Coding Tools</span>
+    <h1>Camel Case Converter</h1>
+    <p class="lede">Paste a variable name, a sentence, or a whole list of names and instantly convert it to camelCase — plus PascalCase, snake_case, kebab-case, CONSTANT_CASE, and dot.case, all at once.</p>
+    <div class="trust">
+      <span>100% Private</span>
+      <span>No Signup</span>
+      <span>Updates As You Type</span>
+      <span>Nothing Uploaded</span>
+    </div>
+  </div>
+
+  <!-- ============ TOOL WIDGET ============ -->
+  <div class="tool-card">
+    <span class="panel-label">Your text or variable names</span>
+    <textarea id="inputBox" placeholder="user first name&#10;background-color&#10;order_total_price&#10;PascalCaseExample"></textarea>
+    <div class="panel-actions">
+      <span class="muted-count" id="wordCountHint">0 lines</span>
+      <div class="chip-row">
+        <button class="chip-btn" id="pasteBtn">Paste</button>
+        <button class="chip-btn" id="sampleBtn">Try example</button>
+        <button class="chip-btn" id="clearBtn">Clear</button>
+      </div>
+    </div>
+
+    <div class="split-note">
+      <span class="switch"><input type="checkbox" id="lineByLineToggle" checked><span class="slider-tg"></span></span>
+      Treat each line as a separate name (turn off to convert the whole block as one phrase)
+    </div>
+
+    <div class="results-grid" id="resultsGrid"></div>
+  </div>
+
+  <!-- ============ FEATURES ============ -->
+  <section class="content">
+    <h2>Features</h2>
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="icon">🐫</div>
+        <h4>Six naming conventions at once</h4>
+        <p>Get camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, and dot.case results side by side from a single input.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">📋</div>
+        <h4>List mode for bulk conversion</h4>
+        <p>Paste a whole list of variable or column names, one per line, and convert every one of them at once instead of doing it name by name.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🔍</div>
+        <h4>Smart word detection</h4>
+        <p>Recognizes existing camelCase, PascalCase, snake_case, kebab-case, and spaced text as input, and splits it back into words correctly before converting.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">⏱</div>
+        <h4>Instant, live conversion</h4>
+        <p>Every format updates the moment you type or paste — no button to click, no page reload.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">📄</div>
+        <h4>One-click copy per format</h4>
+        <p>Copy just the camelCase result, or any other format, straight to your clipboard without touching the rest.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🔢</div>
+        <h4>Handles numbers and acronyms</h4>
+        <p>Keeps digits attached sensibly and treats runs of capital letters (like "ID" or "URL") as their own word when splitting.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🧪</div>
+        <h4>Example input to try</h4>
+        <p>No text handy? Load a sample list of mixed-format names with one click to see every conversion in action.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🔒</div>
+        <h4>100% private</h4>
+        <p>Every conversion happens locally in your browser. Nothing you type is ever uploaded, logged, or sent to a server.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT IS / HOW TO USE ============ -->
+  <section class="content">
+    <h2>What is camelCase?</h2>
+    <p>Camel case is a naming convention where words are joined together with no spaces or punctuation, and every word after the first starts with a capital letter — like <code class="inline">firstName</code> or <code class="inline">totalOrderPrice</code>. The capital letters create little "humps" in the middle of the word, which is where the name comes from. It's one of the most common conventions for variable and function names in languages like JavaScript, Java, and Swift.</p>
+    <p>This tool also converts to the other naming styles you'll run into across different languages and contexts: <strong>PascalCase</strong> (capitalizes the first word too, common for class names), <strong>snake_case</strong> (words joined with underscores, common in Python and database columns), <strong>kebab-case</strong> (words joined with hyphens, common in URLs and CSS), <strong>CONSTANT_CASE</strong> (all uppercase with underscores, common for constants), and <strong>dot.case</strong> (words joined with periods, used in some config keys and namespaces).</p>
+
+    <h2>How to use the Camel Case Converter</h2>
+    <ol class="plain">
+      <li>Paste your text into the box — a single phrase, an existing variable name, or a list of names (one per line).</li>
+      <li>Leave <strong>"Treat each line as a separate name"</strong> on to convert a list in bulk, or turn it off to treat the whole block as one phrase.</li>
+      <li>All six formats update instantly below: camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, and dot.case.</li>
+      <li>Click <strong>Copy</strong> on whichever format you need — only that result is copied to your clipboard.</li>
+    </ol>
+
+    <h2>Examples</h2>
+    <table class="example-table">
+      <tr><th>Input</th><th>camelCase</th><th>snake_case</th><th>kebab-case</th></tr>
+      <tr><td>background color</td><td class="result">backgroundColor</td><td class="result">background_color</td><td class="result">background-color</td></tr>
+      <tr><td>Order_Total_Price</td><td class="result">orderTotalPrice</td><td class="result">order_total_price</td><td class="result">order-total-price</td></tr>
+      <tr><td>user-id-2</td><td class="result">userId2</td><td class="result">user_id_2</td><td class="result">user-id-2</td></tr>
+      <tr><td>APIResponseData</td><td class="result">apiResponseData</td><td class="result">api_response_data</td><td class="result">api-response-data</td></tr>
+    </table>
+  </section>
+
+  <!-- ============ USE CASES ============ -->
+  <section class="content">
+    <h2>Common ways people use this tool</h2>
+    <div class="usecase-grid">
+      <div class="usecase"><b>JavaScript / Java / Swift variables</b>Convert a descriptive phrase straight into a properly-cased variable name.</div>
+      <div class="usecase"><b>Python &amp; database columns</b>Get clean snake_case names for functions, variables, or SQL/database column names.</div>
+      <div class="usecase"><b>CSS classes &amp; URL slugs</b>Generate kebab-case class names or URL-friendly slugs from a title or phrase.</div>
+      <div class="usecase"><b>Constants &amp; environment variables</b>Produce CONSTANT_CASE names for config values, environment variables, or enum members.</div>
+      <div class="usecase"><b>Refactoring legacy code</b>Convert a batch of old snake_case or kebab-case names to camelCase (or vice versa) when standardizing a codebase.</div>
+      <div class="usecase"><b>API design</b>Keep field names consistent across a JSON API, converting between camelCase and snake_case conventions.</div>
+      <div class="usecase"><b>Spreadsheet &amp; CSV headers</b>Clean up inconsistent column headers before importing data into code or a database.</div>
+      <div class="usecase"><b>Class &amp; component names</b>Generate PascalCase names for classes, React components, or C#/Java types from a plain description.</div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="content">
+    <h2>Frequently asked questions</h2>
+
+    <details class="faq-item" open>
+      <summary>What's the difference between camelCase and PascalCase?</summary>
+      <p>Both join words with no spaces and capitalize the start of each word after the first. The difference is the very first word: camelCase starts lowercase (<code class="inline">firstName</code>), while PascalCase capitalizes it too (<code class="inline">FirstName</code>). PascalCase is typically used for class and type names, while camelCase is used for variables and functions.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I convert a whole list of names at once?</summary>
+      <p>Yes. Paste one name per line and keep "Treat each line as a separate name" turned on — each line is converted independently and the results are shown stacked in the same order.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I convert an existing snake_case or kebab-case name to camelCase?</summary>
+      <p>Yes. The tool detects underscores, hyphens, spaces, and existing capital-letter word boundaries in your input, splits it back into individual words, and rebuilds it in whichever format you need.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>How does it handle acronyms like "ID" or "URL"?</summary>
+      <p>Runs of capital letters are treated as their own word during splitting, so "APIResponse" is read as "API" + "Response". In camelCase and PascalCase output, that acronym is capitalized only on its first letter (e.g. "apiResponse"), matching common style guide conventions.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>What happens to numbers in the input?</summary>
+      <p>Digits are kept attached to the nearest word boundary rather than being treated as a separate word, so "user2Id" and "user_id_2" convert sensibly without inserting awkward extra separators around the number.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is my text uploaded anywhere?</summary>
+      <p>No. All splitting and conversion happens locally in your browser. Nothing you type or paste is sent to a server, logged, or stored anywhere outside your own device.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Does it support languages other than English?</summary>
+      <p>Word-splitting on separators (spaces, underscores, hyphens, capital letters) works the same regardless of language. Accented Latin characters are supported; non-Latin scripts are passed through but won't be split into separate "words" the way Latin-alphabet text is.</p>
+    </details>
+  </section>
+
+  <!-- ============ RELATED TOOLS ============ -->
+  <section class="content">
+    <h2>Related tools</h2>
+    <div class="related">
+      <a href="https://thetoolempire.com/tools.html?cat=Text">Capitalize Each Word</a>
+      <a href="https://thetoolempire.com/tools.html?cat=Text">Text Case Converter</a>
+      <a href="https://thetoolempire.com/tools.html?cat=Text">Word Counter</a>
+      <a href="https://thetoolempire.com/tools.html?cat=Coding">JSON Formatter</a>
+      <a href="https://thetoolempire.com/tools.html?cat=Coding">Slug Generator</a>
+      <a href="https://thetoolempire.com/tools.html">Browse All Tools →</a>
+    </div>
+  </section>
+
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h5>Tools</h5>
+        <a href="https://thetoolempire.com/tools.html">All Tools</a>
+        <a href="https://thetoolempire.com/tools.html?cat=Text">Text Tools</a>
+        <a href="https://thetoolempire.com/tools.html?cat=Math">Math &amp; Calculators</a>
+        <a href="https://thetoolempire.com/tools.html?cat=Color">Color Tools</a>
+        <a href="https://thetoolempire.com/tools.html?cat=Coding">Coding Tools</a>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="https://thetoolempire.com/blog.html">Blog</a>
+        <a href="https://thetoolempire.com/contact.html">Contact</a>
+        <a href="https://thetoolempire.com/about.html">About</a>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <a href="https://thetoolempire.com/privacy.html">Privacy Policy</a>
+        <a href="https://thetoolempire.com/terms.html">Terms of Use</a>
+        <a href="https://thetoolempire.com/sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© The Tool Empire. All rights reserved.</span>
+      <span>All tools run locally in your browser. We never store your data.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const inputBox = document.getElementById('inputBox');
+  const wordCountHint = document.getElementById('wordCountHint');
+  const lineByLineToggle = document.getElementById('lineByLineToggle');
+  const resultsGrid = document.getElementById('resultsGrid');
+
+  const SAMPLE = "user first name\nbackground-color\norder_total_price\nPascalCaseExample\nAPIResponseData\nuser-id-2";
+
+  const FORMATS = [
+    { key:'camel', name:'camelCase', sub:'JS / Java variables' },
+    { key:'pascal', name:'PascalCase', sub:'Classes / components' },
+    { key:'snake', name:'snake_case', sub:'Python / DB columns' },
+    { key:'kebab', name:'kebab-case', sub:'CSS / URL slugs' },
+    { key:'constant', name:'CONSTANT_CASE', sub:'Constants / env vars' },
+    { key:'dot', name:'dot.case', sub:'Config keys / namespaces' }
+  ];
+
+  // Split any input string into an array of lowercase words.
+  function splitWords(str){
+    if(!str) return [];
+    // insert separators around camel/Pascal boundaries and acronym boundaries
+    let s = str
+      .replace(/([a-z0-9\u00C0-\u024F])([A-Z])/g, '$1 $2')      // fooBar -> foo Bar
+      .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')                 // APIResponse -> API Response
+      .replace(/[_\-.]+/g, ' ')                                  // underscores/hyphens/dots -> space
+      .replace(/\s+/g, ' ')
+      .trim();
+    if(s.length===0) return [];
+    return s.split(' ').filter(w=>w.length>0).map(w=>w.toLowerCase());
+  }
+
+  function toCamel(words){
+    return words.map((w,i)=> i===0 ? w : w.charAt(0).toUpperCase()+w.slice(1)).join('');
+  }
+  function toPascal(words){
+    return words.map(w=> w.charAt(0).toUpperCase()+w.slice(1)).join('');
+  }
+  function toSnake(words){ return words.join('_'); }
+  function toKebab(words){ return words.join('-'); }
+  function toConstant(words){ return words.join('_').toUpperCase(); }
+  function toDot(words){ return words.join('.'); }
+
+  function convertLine(line){
+    const words = splitWords(line);
+    if(words.length===0) return { camel:'', pascal:'', snake:'', kebab:'', constant:'', dot:'' };
+    return {
+      camel: toCamel(words),
+      pascal: toPascal(words),
+      snake: toSnake(words),
+      kebab: toKebab(words),
+      constant: toConstant(words),
+      dot: toDot(words)
+    };
+  }
+
+  function renderResults(){
+    resultsGrid.innerHTML = '';
+    const raw = inputBox.value;
+    const lineByLine = lineByLineToggle.checked;
+
+    let lines;
+    if(lineByLine){
+      lines = raw.split('\n').filter(l=>l.trim().length>0);
+    } else {
+      lines = raw.trim().length ? [raw.replace(/\n/g,' ')] : [];
+    }
+
+    wordCountHint.textContent = lines.length + ' line' + (lines.length===1?'':'s');
+
+    FORMATS.forEach(fmt=>{
+      const card = document.createElement('div');
+      card.className = 'result-card';
+
+      const head = document.createElement('div');
+      head.className = 'result-head';
+      head.innerHTML = '<span class="result-name">'+fmt.name+'<br><span class="result-sub">'+fmt.sub+'</span></span>';
+
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'copy-icon';
+      copyBtn.textContent = 'Copy';
+      head.appendChild(copyBtn);
+
+      const pre = document.createElement('pre');
+      pre.className = 'result-output';
+
+      const outputLines = lines.map(l => convertLine(l)[fmt.key]);
+      pre.textContent = outputLines.join('\n');
+
+      copyBtn.addEventListener('click', ()=>{
+        navigator.clipboard && navigator.clipboard.writeText(pre.textContent).catch(()=>{});
+        const old = copyBtn.textContent;
+        copyBtn.textContent = 'Copied!';
+        setTimeout(()=>copyBtn.textContent = old, 1100);
+      });
+
+      card.appendChild(head);
+      card.appendChild(pre);
+      resultsGrid.appendChild(card);
+    });
+  }
+
+  inputBox.addEventListener('input', renderResults);
+  lineByLineToggle.addEventListener('change', renderResults);
+
+  document.getElementById('sampleBtn').addEventListener('click', ()=>{
+    inputBox.value = SAMPLE;
+    renderResults();
+  });
+  document.getElementById('clearBtn').addEventListener('click', ()=>{
+    inputBox.value = '';
+    renderResults();
+    inputBox.focus();
+  });
+  document.getElementById('pasteBtn').addEventListener('click', async ()=>{
+    try{
+      const text = await navigator.clipboard.readText();
+      inputBox.value += text;
+      renderResults();
+    }catch(e){
+      inputBox.focus();
+    }
+  });
+
+  renderResults();
+})();
+</script>
+
+</body>
+</html>

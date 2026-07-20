@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Counter — Free Online Word & Character Count Tool | The Tool Empire</title>
+<meta name="description" content="Free online word counter. Count words, characters, sentences, paragraphs, reading time and keyword density instantly as you type. 100% private — nothing leaves your browser.">
+<meta name="keywords" content="word counter, character counter, word count tool, count words online, essay word counter, free word counter">
+<link rel="canonical" href="https://thetoolempire.com/word-counter.html">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#6C63FF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Word Counter — Free Online Word & Character Count Tool">
+<meta property="og:description" content="Count words, characters, sentences and reading time instantly. No signup, no server, 100% private.">
+<meta property="og:url" content="https://thetoolempire.com/word-counter.html">
+
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Word Counter",
+  "url": "https://thetoolempire.com/word-counter.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any (Web Browser)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online word counter that counts words, characters, sentences, paragraphs, reading time and keyword density in real time, entirely in the browser."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is this word counter free to use?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The word counter is completely free, has no usage limits, and doesn't require an account." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the word counter store or upload my text?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. All counting happens locally in your browser with JavaScript. Your text is never sent to a server or saved anywhere." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the word count calculated?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The tool splits your text on whitespace to count words, so hyphenated words and contractions count as one word each, matching how word processors like Microsoft Word and Google Docs count." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is reading time estimated?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Reading time is estimated using an average silent reading speed of 200 words per minute. Speaking time uses an average speech rate of 130 words per minute." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use this to check Twitter, SMS or Instagram limits?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The limit checker compares your character count against common limits for X/Twitter, SMS, Instagram captions, meta descriptions, LinkedIn posts, Reddit titles and YouTube titles." }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --purple:#6C63FF;
+    --purple-dark:#4B44CC;
+    --purple-soft:#F0EEFF;
+    --mint:#00B894;
+    --mint-soft:#E4FBF4;
+    --amber:#E08E1D;
+    --amber-soft:#FFF3E0;
+    --ink:#15132B;
+    --ink-soft:#5C5876;
+    --paper:#FBFAFF;
+    --panel:#FFFFFF;
+    --line:#E4E1F5;
+    --radius:14px;
+    --font-display:'Space Grotesk',system-ui,sans-serif;
+    --font-body:'Inter',system-ui,sans-serif;
+    --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap');
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--purple-dark);}
+  h1,h2,h3{font-family:var(--font-display); line-height:1.15; margin:0 0 .5em;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  :focus-visible{outline:3px solid var(--purple); outline-offset:2px; border-radius:4px;}
+
+  /* Header */
+  header.site{
+    position:sticky; top:0; z-index:40;
+    background:rgba(251,250,255,.9); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:16px 0;}
+  .logo{font-family:var(--font-display); font-weight:700; font-size:1.15rem; text-decoration:none; color:var(--ink); display:flex; align-items:center; gap:8px;}
+  .logo .dot{width:10px;height:10px;border-radius:3px;background:var(--purple);display:inline-block;}
+  .nav-links{display:flex; gap:28px; list-style:none; margin:0; padding:0;}
+  .nav-links a{text-decoration:none; color:var(--ink-soft); font-weight:600; font-size:.94rem;}
+  .nav-links a:hover{color:var(--purple-dark);}
+  .nav-links a.active{color:var(--purple-dark);}
+
+  /* Hero */
+  .hero{padding:48px 0 8px;}
+  .breadcrumb{font-size:.82rem; color:var(--ink-soft); margin-bottom:16px;}
+  .breadcrumb a{color:var(--ink-soft); text-decoration:none;}
+  .breadcrumb a:hover{color:var(--purple-dark);}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--purple-dark); background:var(--purple-soft); border:1px solid #DCD8FF;
+    padding:5px 12px; border-radius:999px; margin-bottom:16px;
+  }
+  h1{font-size:clamp(2rem,4.5vw,2.9rem); color:var(--ink);}
+  .lede{font-size:1.08rem; color:var(--ink-soft); max-width:640px; margin:0 0 8px;}
+
+  /* Tool card */
+  .tool-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; margin:28px 0; box-shadow:0 1px 2px rgba(21,19,43,.03), 0 10px 30px -18px rgba(108,99,255,.25);
+  }
+  .toolbar{display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between; align-items:center; margin-bottom:12px;}
+  .toolbar-actions{display:flex; gap:8px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--font-body); font-weight:600; font-size:.86rem; cursor:pointer;
+    border-radius:9px; padding:8px 14px; border:1px solid var(--line); background:#fff; color:var(--ink);
+    transition:transform .08s ease, border-color .15s ease, background .15s ease;
+  }
+  .btn:hover{border-color:var(--purple); color:var(--purple-dark);}
+  .btn:active{transform:scale(.97);}
+  .btn.primary{background:var(--purple); color:#fff; border-color:var(--purple);}
+  .btn.primary:hover{background:var(--purple-dark); border-color:var(--purple-dark); color:#fff;}
+  .btn.copied{background:var(--mint); border-color:var(--mint); color:#fff;}
+
+  textarea{
+    width:100%; min-height:260px; resize:vertical;
+    border:1.5px solid var(--line); border-radius:10px; padding:16px;
+    font-family:var(--font-body); font-size:1rem; color:var(--ink);
+    background:var(--paper);
+  }
+  textarea:focus{border-color:var(--purple); outline:none; box-shadow:0 0 0 4px rgba(108,99,255,.12);}
+  .textarea-foot{display:flex; justify-content:space-between; font-size:.78rem; color:var(--ink-soft); margin-top:6px;}
+
+  /* Digit counter panel — signature element */
+  .digits{
+    display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-top:18px;
+  }
+  .digit{
+    background:var(--ink); border-radius:10px; padding:14px 10px; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .digit::after{
+    content:""; position:absolute; left:0; right:0; top:49%; height:1px; background:rgba(255,255,255,.08);
+  }
+  .digit .num{
+    font-family:var(--font-mono); font-weight:700; font-size:clamp(1.3rem,3vw,1.7rem);
+    color:var(--mint); letter-spacing:.02em; font-variant-numeric:tabular-nums;
+  }
+  .digit .lbl{
+    font-family:var(--font-mono); font-size:.62rem; letter-spacing:.09em; text-transform:uppercase;
+    color:rgba(255,255,255,.55); margin-top:4px;
+  }
+  @media (max-width:760px){ .digits{grid-template-columns:repeat(2,1fr);} }
+  @media (min-width:761px) and (max-width:980px){ .digits{grid-template-columns:repeat(3,1fr);} }
+
+  .subs{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:12px;}
+  .sub{background:var(--purple-soft); border-radius:10px; padding:12px 14px;}
+  .sub .num{font-family:var(--font-mono); font-weight:700; font-size:1.15rem; color:var(--purple-dark);}
+  .sub .lbl{font-size:.76rem; color:var(--ink-soft);}
+  @media (max-width:760px){ .subs{grid-template-columns:1fr 1fr;} }
+
+  /* Limit checker */
+  .section{padding:36px 0;}
+  .section h2{font-size:1.5rem;}
+  .limits{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px;}
+  .limit-card{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 16px;}
+  .limit-head{display:flex; justify-content:space-between; font-size:.86rem; font-weight:600; margin-bottom:8px;}
+  .limit-head .count{font-family:var(--font-mono); color:var(--ink-soft); font-weight:500;}
+  .bar{height:8px; border-radius:999px; background:var(--line); overflow:hidden;}
+  .bar > span{display:block; height:100%; background:var(--purple); border-radius:999px; transition:width .2s ease, background .2s ease;}
+  .limit-card.over .bar > span{background:var(--amber);}
+  .limit-card.over .limit-head .count{color:var(--amber);}
+
+  /* Keywords */
+  table{width:100%; border-collapse:collapse; background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); font-size:.92rem;}
+  th{background:var(--purple-soft); color:var(--purple-dark); font-family:var(--font-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.06em;}
+  tr:last-child td{border-bottom:none;}
+  .empty-note{color:var(--ink-soft); font-size:.9rem; padding:14px 0;}
+
+  /* Article */
+  article.seo p{color:var(--ink-soft); max-width:760px;}
+  article.seo h3{font-size:1.15rem; margin-top:1.4em;}
+  article.seo ul{color:var(--ink-soft); max-width:760px; padding-left:1.2em;}
+  .guide-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start;}
+  @media (max-width:800px){ .guide-grid{grid-template-columns:1fr;} }
+
+  /* FAQ */
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+    padding:18px 4px; font-family:var(--font-display); font-weight:600; font-size:1.02rem; color:var(--ink);
+  }
+  .faq-q .icon{font-family:var(--font-mono); color:var(--purple); font-size:1.2rem; flex-shrink:0;}
+  .faq-a{padding:0 4px 18px; color:var(--ink-soft); max-width:720px;}
+
+  /* Related tools */
+  .related{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;}
+  .related a{
+    display:block; background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:16px; text-decoration:none; color:var(--ink); font-weight:600; font-size:.94rem;
+    transition:border-color .15s ease, transform .08s ease;
+  }
+  .related a:hover{border-color:var(--purple); transform:translateY(-2px);}
+  .related a span{display:block; font-weight:400; font-size:.82rem; color:var(--ink-soft); margin-top:4px;}
+
+  /* Footer */
+  footer.site{border-top:1px solid var(--line); background:var(--panel); margin-top:40px; padding:40px 0 24px;}
+  .foot-grid{display:grid; grid-template-columns:2fr 1fr 1fr; gap:24px;}
+  @media (max-width:700px){ .foot-grid{grid-template-columns:1fr; gap:20px;} }
+  footer.site h4{font-family:var(--font-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); margin:0 0 10px;}
+  footer.site ul{list-style:none; margin:0; padding:0; display:grid; gap:8px;}
+  footer.site a{color:var(--ink-soft); text-decoration:none; font-size:.9rem;}
+  footer.site a:hover{color:var(--purple-dark);}
+  .foot-bottom{margin-top:28px; padding-top:20px; border-top:1px solid var(--line); font-size:.8rem; color:var(--ink-soft); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+</style>
+</head>
+<body x-data="wordCounter()">
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="https://thetoolempire.com/" class="logo"><span class="dot"></span>The Tool Empire</a>
+    <ul class="nav-links">
+      <li><a href="https://thetoolempire.com/index.html">Home</a></li>
+      <li><a href="https://thetoolempire.com/tools.html" class="active">Tools</a></li>
+      <li><a href="https://thetoolempire.com/blog.html">Blog</a></li>
+      <li><a href="https://thetoolempire.com/contact.html">Contact</a></li>
+      <li><a href="https://thetoolempire.com/about.html">About</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="breadcrumb"><a href="https://thetoolempire.com/">Home</a> / <a href="https://thetoolempire.com/tools.html">Tools</a> / Word Counter</p>
+    <span class="eyebrow">● Text Tools</span>
+    <h1>Word Counter</h1>
+    <p class="lede">Paste or type your text below to count words, characters, sentences and paragraphs — updated instantly, with nothing ever leaving your browser.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="tool-card">
+      <div class="toolbar">
+        <div class="toolbar-actions">
+          <button class="btn primary" @click="loadSample()">Load sample text</button>
+          <button class="btn" :class="{copied: justCopied}" @click="copyText()" x-text="justCopied ? 'Copied ✓' : 'Copy text'"></button>
+          <button class="btn" @click="clearText()">Clear</button>
+        </div>
+        <div class="toolbar-actions">
+          <button class="btn" @click="downloadTxt()">Download .txt</button>
+        </div>
+      </div>
+
+      <label for="wc-input" class="visually-hidden" style="position:absolute;left:-9999px;">Text to count</label>
+      <textarea id="wc-input" x-model="text" placeholder="Start typing, or paste your text here…" spellcheck="true"></textarea>
+      <div class="textarea-foot">
+        <span x-text="words + ' words · ' + charsWithSpaces + ' characters'"></span>
+        <span x-text="'≈ ' + readingTime + ' min read'"></span>
+      </div>
+
+      <!-- Signature: digital odometer-style counter panel -->
+      <div class="digits">
+        <div class="digit"><div class="num" x-text="words"></div><div class="lbl">Words</div></div>
+        <div class="digit"><div class="num" x-text="charsWithSpaces"></div><div class="lbl">Characters</div></div>
+        <div class="digit"><div class="num" x-text="charsNoSpaces"></div><div class="lbl">No Spaces</div></div>
+        <div class="digit"><div class="num" x-text="sentences"></div><div class="lbl">Sentences</div></div>
+        <div class="digit"><div class="num" x-text="paragraphs"></div><div class="lbl">Paragraphs</div></div>
+        <div class="digit"><div class="num" x-text="readingTime + 'm'"></div><div class="lbl">Read Time</div></div>
+      </div>
+
+      <div class="subs">
+        <div class="sub"><div class="num" x-text="avgWordLength"></div><div class="lbl">Avg. word length</div></div>
+        <div class="sub"><div class="num" x-text="uniqueWords"></div><div class="lbl">Unique words</div></div>
+        <div class="sub"><div class="num" x-text="speakingTime + ' min'"></div><div class="lbl">Speaking time</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <h2>Check against common limits</h2>
+    <p style="color:var(--ink-soft); max-width:640px;">See how your character count compares to popular platform limits.</p>
+    <div class="limits">
+      <template x-for="l in limitList" :key="l.name">
+        <div class="limit-card" :class="{over: charsWithSpaces > l.max}">
+          <div class="limit-head">
+            <span x-text="l.name"></span>
+            <span class="count" x-text="charsWithSpaces + ' / ' + l.max"></span>
+          </div>
+          <div class="bar"><span :style="'width:' + Math.min(100, (charsWithSpaces / l.max) * 100) + '%'"></span></div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <h2>Keyword density</h2>
+    <p style="color:var(--ink-soft); max-width:640px;">The most frequently used words in your text (common stopwords like "the" and "and" are excluded).</p>
+    <table x-show="topKeywords.length">
+      <thead><tr><th>Word</th><th>Count</th><th>Density</th></tr></thead>
+      <tbody>
+        <template x-for="k in topKeywords" :key="k.word">
+          <tr>
+            <td x-text="k.word"></td>
+            <td x-text="k.count"></td>
+            <td x-text="k.density + '%'"></td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+    <p class="empty-note" x-show="!topKeywords.length">Start typing above to see your most-used keywords.</p>
+  </div>
+
+  <div class="wrap section">
+    <article class="seo">
+      <h2>What is a word counter?</h2>
+      <p>A word counter is a text-analysis tool that tallies the number of words, characters, sentences and paragraphs in a piece of writing. This one runs entirely as JavaScript inside your browser — there's no upload and no server round-trip, so your draft, essay or manuscript never leaves your device. Every count updates live as you type or paste, and the numbers reset the moment you clear the box.</p>
+
+      <div class="guide-grid">
+        <div>
+          <h3>How word count is calculated</h3>
+          <p>Words are counted by splitting your text on whitespace, which mirrors how Microsoft Word and Google Docs count. A hyphenated term like "well-known" counts as one word, and a contraction like "don't" also counts as one word. Numbers and standalone symbols count as words too, since most word-processors treat them the same way.</p>
+        </div>
+        <div>
+          <h3>How reading and speaking time are estimated</h3>
+          <p>Reading time is based on an average adult silent-reading speed of 200 words per minute — a common baseline used by blog platforms and editors. Speaking time assumes a conversational pace of around 130 words per minute, useful for timing a speech, video script or podcast segment.</p>
+        </div>
+      </div>
+
+      <h3>Why word count matters</h3>
+      <ul>
+        <li><strong>Academic writing</strong> — essays, dissertations and college applications (like the Common App's 650-word cap) often enforce strict minimums or maximums.</li>
+        <li><strong>SEO content</strong> — search-friendly articles are frequently benchmarked against a target word count for topical depth.</li>
+        <li><strong>Social media</strong> — platforms like X/Twitter and SMS impose hard character limits that cut off your message if exceeded.</li>
+        <li><strong>Scriptwriting</strong> — a rough rule of thumb is one script page (~250 words) per minute of screen time.</li>
+        <li><strong>Editing</strong> — tracking word count over time helps writers hit daily targets or trim a bloated draft.</li>
+      </ul>
+
+      <h3>Typical word count guidelines</h3>
+      <table>
+        <thead><tr><th>Format</th><th>Typical length</th></tr></thead>
+        <tbody>
+          <tr><td>Tweet / X post</td><td>Up to 280 characters</td></tr>
+          <tr><td>Text message (SMS)</td><td>Up to 160 characters</td></tr>
+          <tr><td>Blog post</td><td>600–2,000 words</td></tr>
+          <tr><td>Meta description</td><td>Up to 155 characters</td></tr>
+          <tr><td>College application essay (Common App)</td><td>650 words max</td></tr>
+          <tr><td>Novel chapter</td><td>2,000–5,000 words</td></tr>
+          <tr><td>Cover letter</td><td>250–400 words</td></tr>
+        </tbody>
+      </table>
+    </article>
+  </div>
+
+  <div class="wrap section">
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <template x-for="(f, i) in faqs" :key="i">
+        <div class="faq-item">
+          <button class="faq-q" @click="openFaq = openFaq === i ? null : i" :aria-expanded="openFaq === i">
+            <span x-text="f.q"></span>
+            <span class="icon" x-text="openFaq === i ? '−' : '+'"></span>
+          </button>
+          <div class="faq-a" x-show="openFaq === i" x-text="f.a"></div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <h2>Related tools</h2>
+    <div class="related">
+      <a href="https://thetoolempire.com/character-counter.html">Character Counter<span>Count characters with & without spaces</span></a>
+      <a href="https://thetoolempire.com/sentence-counter.html">Sentence Counter<span>Break text down sentence by sentence</span></a>
+      <a href="https://thetoolempire.com/paragraph-counter.html">Paragraph Counter<span>Check paragraph length & structure</span></a>
+      <a href="https://thetoolempire.com/line-counter.html">Line Counter<span>Count lines, blanks & duplicates</span></a>
+      <a href="https://thetoolempire.com/reading-time-calculator.html">Reading Time Calculator<span>Estimate reading & speaking time</span></a>
+      <a href="https://thetoolempire.com/text-case-converter.html">Text Case Converter<span>UPPER, lower, Title & Sentence case</span></a>
+      <a href="https://thetoolempire.com/tools.html">Browse all tools<span>100+ free browser-based tools</span></a>
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-grid">
+    <div>
+      <a href="https://thetoolempire.com/" class="logo"><span class="dot"></span>The Tool Empire</a>
+      <p style="color:var(--ink-soft); font-size:.9rem; max-width:320px; margin-top:10px;">Free, browser-based tools. No signup, no server, no data collection — ever.</p>
+    </div>
+    <div>
+      <h4>Tools</h4>
+      <ul>
+        <li><a href="https://thetoolempire.com/tools.html">All Tools</a></li>
+        <li><a href="https://thetoolempire.com/blog.html">Blog</a></li>
+        <li><a href="https://thetoolempire.com/contact.html">Contact</a></li>
+        <li><a href="https://thetoolempire.com/about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="https://thetoolempire.com/privacy.html">Privacy Policy</a></li>
+        <li><a href="https://thetoolempire.com/terms.html">Terms of Use</a></li>
+        <li><a href="https://thetoolempire.com/sitemap.xml">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© The Tool Empire. All rights reserved.</span>
+    <span>All tools run locally in your browser.</span>
+  </div>
+</footer>
+
+<script>
+function wordCounter(){
+  return {
+    text:'',
+    justCopied:false,
+    openFaq:null,
+    stopwords:new Set(['the','a','an','and','or','but','is','are','was','were','be','been','being','to','of','in','on','at','for','with','as','by','that','this','it','from','or','which','their','its','his','her','they','you','we','i','not','have','has','had','will','would','can','could','should','so','if','than','then','into','about','out','up','down','over','under']),
+    limitList:[
+      {name:'X / Twitter post', max:280},
+      {name:'SMS text message', max:160},
+      {name:'Instagram caption', max:2200},
+      {name:'Meta description', max:155},
+      {name:'LinkedIn post', max:3000},
+      {name:'Reddit title', max:300}
+    ],
+    faqs:[
+      {q:'Is this word counter free to use?', a:"Yes. It's completely free, has no usage limits, and doesn't require an account."},
+      {q:'Does the word counter store or upload my text?', a:'No. All counting happens locally in your browser with JavaScript. Your text is never sent to a server or saved anywhere.'},
+      {q:'How is the word count calculated?', a:"The tool splits your text on whitespace to count words, so hyphenated words and contractions count as one word each — the same convention used by Microsoft Word and Google Docs."},
+      {q:'How is reading time estimated?', a:'Reading time uses an average silent reading speed of 200 words per minute. Speaking time uses an average speech rate of 130 words per minute.'},
+      {q:'Can I use this to check Twitter, SMS or Instagram limits?', a:'Yes. The limit checker compares your character count against common limits for X/Twitter, SMS, Instagram captions, meta descriptions, LinkedIn posts and Reddit titles.'}
+    ],
+    get trimmed(){ return this.text.trim(); },
+    get words(){ return this.trimmed ? this.trimmed.split(/\s+/).length : 0; },
+    get charsWithSpaces(){ return this.text.length; },
+    get charsNoSpaces(){ return this.text.replace(/\s/g,'').length; },
+    get sentences(){
+      if(!this.trimmed) return 0;
+      const m = this.trimmed.match(/[^.!?]+[.!?]+/g);
+      return m ? m.length : (this.trimmed ? 1 : 0);
+    },
+    get paragraphs(){
+      if(!this.trimmed) return 0;
+      const parts = this.text.split(/\n\s*\n/).map(p=>p.trim()).filter(Boolean);
+      return parts.length || (this.trimmed ? 1 : 0);
+    },
+    get readingTime(){ return this.words ? Math.max(1, Math.round(this.words/200)) : 0; },
+    get speakingTime(){ return this.words ? Math.max(1, Math.round(this.words/130)) : 0; },
+    get avgWordLength(){
+      if(!this.words) return 0;
+      const letters = this.trimmed.replace(/[^a-zA-Z]/g,'').length;
+      return (letters / this.words).toFixed(1);
+    },
+    get wordList(){
+      if(!this.trimmed) return [];
+      return this.trimmed.toLowerCase().match(/[a-z0-9']+/g) || [];
+    },
+    get uniqueWords(){ return new Set(this.wordList).size; },
+    get topKeywords(){
+      const counts = {};
+      this.wordList.forEach(w=>{
+        if(this.stopwords.has(w) || w.length < 3) return;
+        counts[w] = (counts[w]||0) + 1;
+      });
+      const total = this.wordList.length || 1;
+      return Object.entries(counts)
+        .sort((a,b)=>b[1]-a[1])
+        .slice(0,5)
+        .map(([word,count])=>({word, count, density:((count/total)*100).toFixed(1)}));
+    },
+    clearText(){ this.text=''; },
+    loadSample(){
+      this.text = "Clear, concise writing starts with knowing how much space you actually have. Whether you're trimming a tweet, hitting an essay's word minimum, or pacing out a script, a live word counter takes the guesswork out of editing. Paste your own draft here to see real counts update as you type.";
+    },
+    async copyText(){
+      if(!this.text) return;
+      try{
+        await navigator.clipboard.writeText(this.text);
+        this.justCopied = true;
+        setTimeout(()=> this.justCopied = false, 1500);
+      }catch(e){ /* clipboard unavailable */ }
+    },
+    downloadTxt(){
+      if(!this.text) return;
+      const blob = new Blob([this.text], {type:'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'word-counter-text.txt';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  }
+}
+</script>
+</body>
+</html>

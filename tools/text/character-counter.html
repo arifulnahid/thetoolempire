@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Character Counter — Free Online Character Count Tool | The Tool Empire</title>
+<meta name="description" content="Free online character counter. Count characters with and without spaces, letters, numbers, punctuation and symbols instantly as you type. 100% private — nothing leaves your browser.">
+<meta name="keywords" content="character counter, count characters online, character count tool, letter counter, free character counter">
+<link rel="canonical" href="https://thetoolempire.com/character-counter.html">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#6C63FF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Character Counter — Free Online Character Count Tool">
+<meta property="og:description" content="Count characters, letters, numbers and punctuation instantly. No signup, no server, 100% private.">
+<meta property="og:url" content="https://thetoolempire.com/character-counter.html">
+
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Character Counter",
+  "url": "https://thetoolempire.com/character-counter.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any (Web Browser)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online character counter that counts characters with and without spaces, letters, numbers, punctuation and symbols in real time, entirely in the browser."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is this character counter free to use?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The character counter is completely free, has no usage limits, and doesn't require an account." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the character counter store or upload my text?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. All counting happens locally in your browser with JavaScript. Your text is never sent to a server or saved anywhere." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do spaces count as characters?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Usually yes. Most platforms with a character limit, including X/Twitter, SMS and meta descriptions, count spaces toward the total. This tool shows both counts — with spaces and without — so you can check either figure." }
+    },
+    {
+      "@type": "Question",
+      "name": "How are emoji and accented letters counted?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The tool counts Unicode code points, the same convention browsers use. A visible emoji or an accented letter like é typically counts as one character, though some platforms such as SMS may count certain emoji as two to four characters internally." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use this to check Twitter, SMS or meta description limits?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The limit checker compares your character count against common limits for X/Twitter, SMS, Instagram captions, meta descriptions, LinkedIn posts and Reddit titles." }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --purple:#6C63FF;
+    --purple-dark:#4B44CC;
+    --purple-soft:#F0EEFF;
+    --mint:#00B894;
+    --mint-soft:#E4FBF4;
+    --amber:#E08E1D;
+    --amber-soft:#FFF3E0;
+    --ink:#15132B;
+    --ink-soft:#5C5876;
+    --paper:#FBFAFF;
+    --panel:#FFFFFF;
+    --line:#E4E1F5;
+    --radius:14px;
+    --font-display:'Space Grotesk',system-ui,sans-serif;
+    --font-body:'Inter',system-ui,sans-serif;
+    --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap');
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--purple-dark);}
+  h1,h2,h3{font-family:var(--font-display); line-height:1.15; margin:0 0 .5em;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  :focus-visible{outline:3px solid var(--purple); outline-offset:2px; border-radius:4px;}
+
+  header.site{
+    position:sticky; top:0; z-index:40;
+    background:rgba(251,250,255,.9); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:16px 0;}
+  .logo{font-family:var(--font-display); font-weight:700; font-size:1.15rem; text-decoration:none; color:var(--ink); display:flex; align-items:center; gap:8px;}
+  .logo .dot{width:10px;height:10px;border-radius:3px;background:var(--purple);display:inline-block;}
+  .nav-links{display:flex; gap:28px; list-style:none; margin:0; padding:0;}
+  .nav-links a{text-decoration:none; color:var(--ink-soft); font-weight:600; font-size:.94rem;}
+  .nav-links a:hover{color:var(--purple-dark);}
+  .nav-links a.active{color:var(--purple-dark);}
+
+  .hero{padding:48px 0 8px;}
+  .breadcrumb{font-size:.82rem; color:var(--ink-soft); margin-bottom:16px;}
+  .breadcrumb a{color:var(--ink-soft); text-decoration:none;}
+  .breadcrumb a:hover{color:var(--purple-dark);}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--purple-dark); background:var(--purple-soft); border:1px solid #DCD8FF;
+    padding:5px 12px; border-radius:999px; margin-bottom:16px;
+  }
+  h1{font-size:clamp(2rem,4.5vw,2.9rem); color:var(--ink);}
+  .lede{font-size:1.08rem; color:var(--ink-soft); max-width:640px; margin:0 0 8px;}
+
+  .tool-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; margin:28px 0; box-shadow:0 1px 2px rgba(21,19,43,.03), 0 10px 30px -18px rgba(108,99,255,.25);
+  }
+  .toolbar{display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between; align-items:center; margin-bottom:12px;}
+  .toolbar-actions{display:flex; gap:8px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--font-body); font-weight:600; font-size:.86rem; cursor:pointer;
+    border-radius:9px; padding:8px 14px; border:1px solid var(--line); background:#fff; color:var(--ink);
+    transition:transform .08s ease, border-color .15s ease, background .15s ease;
+  }
+  .btn:hover{border-color:var(--purple); color:var(--purple-dark);}
+  .btn:active{transform:scale(.97);}
+  .btn.primary{background:var(--purple); color:#fff; border-color:var(--purple);}
+  .btn.primary:hover{background:var(--purple-dark); border-color:var(--purple-dark); color:#fff;}
+  .btn.copied{background:var(--mint); border-color:var(--mint); color:#fff;}
+  .btn.active-toggle{background:var(--ink); border-color:var(--ink); color:#fff;}
+
+  textarea{
+    width:100%; min-height:260px; resize:vertical;
+    border:1.5px solid var(--line); border-radius:10px; padding:16px;
+    font-family:var(--font-body); font-size:1rem; color:var(--ink);
+    background:var(--paper);
+  }
+  textarea:focus{border-color:var(--purple); outline:none; box-shadow:0 0 0 4px rgba(108,99,255,.12);}
+  .textarea-foot{display:flex; justify-content:space-between; font-size:.78rem; color:var(--ink-soft); margin-top:6px;}
+
+  /* Signature: big primary character readout + digit grid */
+  .primary-count{
+    display:flex; align-items:baseline; gap:14px; margin-top:20px; flex-wrap:wrap;
+    background:var(--ink); border-radius:12px; padding:20px 22px;
+  }
+  .primary-count .big{
+    font-family:var(--font-mono); font-weight:700; color:var(--mint);
+    font-size:clamp(2.4rem,7vw,3.6rem); line-height:1; font-variant-numeric:tabular-nums;
+  }
+  .primary-count .meta{display:flex; flex-direction:column; gap:2px;}
+  .primary-count .meta .lbl{font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.55);}
+  .primary-count .toggle-space{margin-left:auto; display:flex; gap:6px;}
+  .mini-toggle{
+    font-family:var(--font-mono); font-size:.72rem; padding:6px 10px; border-radius:7px; cursor:pointer;
+    border:1px solid rgba(255,255,255,.2); background:transparent; color:rgba(255,255,255,.7);
+  }
+  .mini-toggle.on{background:var(--mint); border-color:var(--mint); color:var(--ink);}
+
+  .digits{display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-top:14px;}
+  .digit{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 10px; text-align:center;}
+  .digit .num{font-family:var(--font-mono); font-weight:700; font-size:1.3rem; color:var(--purple-dark); font-variant-numeric:tabular-nums;}
+  .digit .lbl{font-size:.68rem; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); margin-top:4px;}
+  @media (max-width:760px){ .digits{grid-template-columns:repeat(2,1fr);} .primary-count .toggle-space{margin-left:0;} }
+  @media (min-width:761px) and (max-width:980px){ .digits{grid-template-columns:repeat(3,1fr);} }
+
+  .section{padding:36px 0;}
+  .section h2{font-size:1.5rem;}
+  .limits{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px;}
+  .limit-card{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 16px;}
+  .limit-head{display:flex; justify-content:space-between; font-size:.86rem; font-weight:600; margin-bottom:8px;}
+  .limit-head .count{font-family:var(--font-mono); color:var(--ink-soft); font-weight:500;}
+  .bar{height:8px; border-radius:999px; background:var(--line); overflow:hidden;}
+  .bar > span{display:block; height:100%; background:var(--purple); border-radius:999px; transition:width .2s ease, background .2s ease;}
+  .limit-card.over .bar > span{background:var(--amber);}
+  .limit-card.over .limit-head .count{color:var(--amber);}
+
+  table{width:100%; border-collapse:collapse; background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); font-size:.92rem;}
+  th{background:var(--purple-soft); color:var(--purple-dark); font-family:var(--font-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.06em;}
+  tr:last-child td{border-bottom:none;}
+  .empty-note{color:var(--ink-soft); font-size:.9rem; padding:14px 0;}
+
+  article.seo p{color:var(--ink-soft); max-width:760px;}
+  article.seo h3{font-size:1.15rem; margin-top:1.4em;}
+  article.seo ul{color:var(--ink-soft); max-width:760px; padding-left:1.2em;}
+  .guide-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start;}
+  @media (max-width:800px){ .guide-grid{grid-template-columns:1fr;} }
+
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+    padding:18px 4px; font-family:var(--font-display); font-weight:600; font-size:1.02rem; color:var(--ink);
+  }
+  .faq-q .icon{font-family:var(--font-mono); color:var(--purple); font-size:1.2rem; flex-shrink:0;}
+  .faq-a{padding:0 4px 18px; color:var(--ink-soft); max-width:720px;}
+
+  .related{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;}
+  .related a{
+    display:block; background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:16px; text-decoration:none; color:var(--ink); font-weight:600; font-size:.94rem;
+    transition:border-color .15s ease, transform .08s ease;
+  }
+  .related a:hover{border-color:var(--purple); transform:translateY(-2px);}
+  .related a span{display:block; font-weight:400; font-size:.82rem; color:var(--ink-soft); margin-top:4px;}
+
+  footer.site{border-top:1px solid var(--line); background:var(--panel); margin-top:40px; padding:40px 0 24px;}
+  .foot-grid{display:grid; grid-template-columns:2fr 1fr 1fr; gap:24px;}
+  @media (max-width:700px){ .foot-grid{grid-template-columns:1fr; gap:20px;} }
+  footer.site h4{font-family:var(--font-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); margin:0 0 10px;}
+  footer.site ul{list-style:none; margin:0; padding:0; display:grid; gap:8px;}
+  footer.site a{color:var(--ink-soft); text-decoration:none; font-size:.9rem;}
+  footer.site a:hover{color:var(--purple-dark);}
+  .foot-bottom{margin-top:28px; padding-top:20px; border-top:1px solid var(--line); font-size:.8rem; color:var(--ink-soft); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+</style>
+</head>
+<body x-data="charCounter()">
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="https://thetoolempire.com/" class="logo"><span class="dot"></span>The Tool Empire</a>
+    <ul class="nav-links">
+      <li><a href="https://thetoolempire.com/index.html">Home</a></li>
+      <li><a href="https://thetoolempire.com/tools.html" class="active">Tools</a></li>
+      <li><a href="https://thetoolempire.com/blog.html">Blog</a></li>
+      <li><a href="https://thetoolempire.com/contact.html">Contact</a></li>
+      <li><a href="https://thetoolempire.com/about.html">About</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="breadcrumb"><a href="https://thetoolempire.com/">Home</a> / <a href="https://thetoolempire.com/tools.html">Tools</a> / Character Counter</p>
+    <span class="eyebrow">● Text Tools</span>
+    <h1>Character Counter</h1>
+    <p class="lede">Paste or type your text below to count characters, letters, numbers and punctuation — updated instantly, with nothing ever leaving your browser.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="tool-card">
+      <div class="toolbar">
+        <div class="toolbar-actions">
+          <button class="btn primary" @click="loadSample()">Load sample text</button>
+          <button class="btn" :class="{copied: justCopied}" @click="copyText()" x-text="justCopied ? 'Copied ✓' : 'Copy text'"></button>
+          <button class="btn" @click="clearText()">Clear</button>
+        </div>
+        <div class="toolbar-actions">
+          <button class="btn" @click="downloadTxt()">Download .txt</button>
+        </div>
+      </div>
+
+      <label for="cc-input" style="position:absolute;left:-9999px;">Text to count</label>
+      <textarea id="cc-input" x-model="text" placeholder="Start typing, or paste your text here…" spellcheck="true"></textarea>
+      <div class="textarea-foot">
+        <span x-text="words + ' words · ' + sentences + ' sentences'"></span>
+        <span x-text="lines + ' line' + (lines===1?'':'s')"></span>
+      </div>
+
+      <!-- Signature: big primary readout with a with/without-spaces toggle -->
+      <div class="primary-count">
+        <div class="big" x-text="includeSpaces ? charsWithSpaces : charsNoSpaces"></div>
+        <div class="meta">
+          <span class="lbl">Characters</span>
+          <span class="lbl" x-text="includeSpaces ? 'including spaces' : 'excluding spaces'"></span>
+        </div>
+        <div class="toggle-space">
+          <button class="mini-toggle" :class="{on: includeSpaces}" @click="includeSpaces = true">With spaces</button>
+          <button class="mini-toggle" :class="{on: !includeSpaces}" @click="includeSpaces = false">No spaces</button>
+        </div>
+      </div>
+
+      <div class="digits">
+        <div class="digit"><div class="num" x-text="letters"></div><div class="lbl">Letters</div></div>
+        <div class="digit"><div class="num" x-text="numbers"></div><div class="lbl">Numbers</div></div>
+        <div class="digit"><div class="num" x-text="spaces"></div><div class="lbl">Spaces</div></div>
+        <div class="digit"><div class="num" x-text="punctuation"></div><div class="lbl">Punctuation</div></div>
+        <div class="digit"><div class="num" x-text="uniqueChars"></div><div class="lbl">Unique chars</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <h2>Check against common limits</h2>
+    <p style="color:var(--ink-soft); max-width:640px;">See how your character count (with spaces) compares to popular platform limits.</p>
+    <div class="limits">
+      <template x-for="l in limitList" :key="l.name">
+        <div class="limit-card" :class="{over: charsWithSpaces > l.max}">
+          <div class="limit-head">
+            <span x-text="l.name"></span>
+            <span class="count" x-text="charsWithSpaces + ' / ' + l.max"></span>
+          </div>
+          <div class="bar"><span :style="'width:' + Math.min(100, (charsWithSpaces / l.max) * 100) + '%'"></span></div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <h2>Character breakdown</h2>
+    <p style="color:var(--ink-soft); max-width:640px;">How your character count splits across letters, numbers, spaces, punctuation and other symbols.</p>
+    <table x-show="charsWithSpaces">
+      <thead><tr><th>Type</th><th>Count</th><th>Share</th></tr></thead>
+      <tbody>
+        <template x-for="b in breakdown" :key="b.label">
+          <tr>
+            <td x-text="b.label"></td>
+            <td x-text="b.count"></td>
+            <td x-text="b.pct + '%'"></td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+    <p class="empty-note" x-show="!charsWithSpaces">Start typing above to see the character breakdown.</p>
+  </div>
+
+  <div class="wrap section">
+    <article class="seo">
+      <h2>What is a character counter?</h2>
+      <p>A character counter is a text-analysis tool that tallies every character in a piece of writing — letters, numbers, spaces, punctuation marks and symbols. This one runs entirely as JavaScript inside your browser, so there's no upload and no server round-trip: your text never leaves your device. Every count updates live as you type or paste, and resets the moment you clear the box.</p>
+
+      <div class="guide-grid">
+        <div>
+          <h3>With spaces vs. without spaces</h3>
+          <p>Most platforms with a hard limit — X/Twitter, SMS, meta descriptions, ad headlines — count spaces toward the total. Some contexts, like translation or transcription pricing, quote by characters excluding spaces instead. Use the toggle above to switch between the two, and check whichever figure applies to your use case.</p>
+        </div>
+        <div>
+          <h3>How characters are counted</h3>
+          <p>The tool counts Unicode code points, the same convention modern browsers and programming languages use. Letters, digits and punctuation each count as one character. Accented letters like é or ñ count as one; a visible emoji generally counts as one glyph, though some platforms internally count certain emoji as two to four characters.</p>
+        </div>
+      </div>
+
+      <h3>Why character count matters</h3>
+      <ul>
+        <li><strong>Social media</strong> — X/Twitter, SMS and other platforms cut off or reject text past a hard character limit.</li>
+        <li><strong>SEO</strong> — title tags and meta descriptions are truncated in search results past a set character length.</li>
+        <li><strong>Forms and databases</strong> — usernames, product codes and database fields often enforce a maximum character length.</li>
+        <li><strong>Translation & transcription</strong> — many services price work per 1,000 characters, usually excluding spaces.</li>
+        <li><strong>Typesetting</strong> — designers use character counts to estimate how much space a block of copy will take up.</li>
+      </ul>
+
+      <h3>Common character limits</h3>
+      <table>
+        <thead><tr><th>Platform / field</th><th>Character limit</th></tr></thead>
+        <tbody>
+          <tr><td>X / Twitter post</td><td>280 characters</td></tr>
+          <tr><td>SMS text message</td><td>160 characters (per segment)</td></tr>
+          <tr><td>Instagram caption</td><td>2,200 characters</td></tr>
+          <tr><td>Google meta description</td><td>~155 characters</td></tr>
+          <tr><td>HTML title tag</td><td>~60 characters</td></tr>
+          <tr><td>LinkedIn post</td><td>3,000 characters</td></tr>
+          <tr><td>Reddit title</td><td>300 characters</td></tr>
+        </tbody>
+      </table>
+    </article>
+  </div>
+
+  <div class="wrap section">
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <template x-for="(f, i) in faqs" :key="i">
+        <div class="faq-item">
+          <button class="faq-q" @click="openFaq = openFaq === i ? null : i" :aria-expanded="openFaq === i">
+            <span x-text="f.q"></span>
+            <span class="icon" x-text="openFaq === i ? '−' : '+'"></span>
+          </button>
+          <div class="faq-a" x-show="openFaq === i" x-text="f.a"></div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <h2>Related tools</h2>
+    <div class="related">
+      <a href="https://thetoolempire.com/word-counter.html">Word Counter<span>Count words, sentences & reading time</span></a>
+      <a href="https://thetoolempire.com/sentence-counter.html">Sentence Counter<span>Break text down sentence by sentence</span></a>
+      <a href="https://thetoolempire.com/paragraph-counter.html">Paragraph Counter<span>Check paragraph length & structure</span></a>
+      <a href="https://thetoolempire.com/line-counter.html">Line Counter<span>Count lines, blanks & duplicates</span></a>
+      <a href="https://thetoolempire.com/reading-time-calculator.html">Reading Time Calculator<span>Estimate reading & speaking time</span></a>
+      <a href="https://thetoolempire.com/text-case-converter.html">Text Case Converter<span>UPPER, lower, Title & Sentence case</span></a>
+      <a href="https://thetoolempire.com/tools.html">Browse all tools<span>100+ free browser-based tools</span></a>
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-grid">
+    <div>
+      <a href="https://thetoolempire.com/" class="logo"><span class="dot"></span>The Tool Empire</a>
+      <p style="color:var(--ink-soft); font-size:.9rem; max-width:320px; margin-top:10px;">Free, browser-based tools. No signup, no server, no data collection — ever.</p>
+    </div>
+    <div>
+      <h4>Tools</h4>
+      <ul>
+        <li><a href="https://thetoolempire.com/tools.html">All Tools</a></li>
+        <li><a href="https://thetoolempire.com/blog.html">Blog</a></li>
+        <li><a href="https://thetoolempire.com/contact.html">Contact</a></li>
+        <li><a href="https://thetoolempire.com/about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="https://thetoolempire.com/privacy.html">Privacy Policy</a></li>
+        <li><a href="https://thetoolempire.com/terms.html">Terms of Use</a></li>
+        <li><a href="https://thetoolempire.com/sitemap.xml">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© The Tool Empire. All rights reserved.</span>
+    <span>All tools run locally in your browser.</span>
+  </div>
+</footer>
+
+<script>
+function charCounter(){
+  return {
+    text:'',
+    includeSpaces:true,
+    justCopied:false,
+    openFaq:null,
+    limitList:[
+      {name:'X / Twitter post', max:280},
+      {name:'SMS text message', max:160},
+      {name:'Instagram caption', max:2200},
+      {name:'Meta description', max:155},
+      {name:'LinkedIn post', max:3000},
+      {name:'Reddit title', max:300}
+    ],
+    faqs:[
+      {q:'Is this character counter free to use?', a:"Yes. It's completely free, has no usage limits, and doesn't require an account."},
+      {q:'Does the character counter store or upload my text?', a:'No. All counting happens locally in your browser with JavaScript. Your text is never sent to a server or saved anywhere.'},
+      {q:'Do spaces count as characters?', a:'Usually yes — most platforms with a character limit, including X/Twitter, SMS and meta descriptions, count spaces toward the total. This tool shows both counts so you can check either figure.'},
+      {q:'How are emoji and accented letters counted?', a:'The tool counts Unicode code points, the same convention browsers use. A visible emoji or an accented letter like é typically counts as one character, though some platforms like SMS may count certain emoji as two to four characters internally.'},
+      {q:'Can I use this to check Twitter, SMS or meta description limits?', a:'Yes. The limit checker compares your character count against common limits for X/Twitter, SMS, Instagram captions, meta descriptions, LinkedIn posts and Reddit titles.'}
+    ],
+    get charsWithSpaces(){ return this.text.length; },
+    get charsNoSpaces(){ return this.text.replace(/\s/g,'').length; },
+    get trimmed(){ return this.text.trim(); },
+    get words(){ return this.trimmed ? this.trimmed.split(/\s+/).length : 0; },
+    get sentences(){
+      if(!this.trimmed) return 0;
+      const m = this.trimmed.match(/[^.!?]+[.!?]+/g);
+      return m ? m.length : (this.trimmed ? 1 : 0);
+    },
+    get lines(){ return this.text ? this.text.split('\n').length : 0; },
+    get letters(){ return (this.text.match(/[a-zA-Z\u00C0-\u024F]/g) || []).length; },
+    get numbers(){ return (this.text.match(/[0-9]/g) || []).length; },
+    get spaces(){ return (this.text.match(/ /g) || []).length; },
+    get punctuation(){ return (this.text.match(/[.,!?;:'"(){}\[\]\-\_\/\\]/g) || []).length; },
+    get otherSymbols(){
+      const accounted = this.letters + this.numbers + (this.text.match(/\s/g)||[]).length + this.punctuation;
+      return Math.max(0, this.charsWithSpaces - accounted);
+    },
+    get uniqueChars(){ return new Set(this.text.replace(/\s/g,'').toLowerCase().split('')).size; },
+    get breakdown(){
+      const total = this.charsWithSpaces || 1;
+      const rows = [
+        {label:'Letters', count:this.letters},
+        {label:'Numbers', count:this.numbers},
+        {label:'Spaces', count:(this.text.match(/\s/g)||[]).length},
+        {label:'Punctuation', count:this.punctuation},
+        {label:'Other symbols', count:this.otherSymbols}
+      ];
+      return rows.map(r => ({...r, pct: ((r.count/total)*100).toFixed(1)}));
+    },
+    clearText(){ this.text=''; },
+    loadSample(){
+      this.text = "Character limits show up everywhere: a tweet caps out at 280, an SMS at 160, a meta description around 155. This counter breaks your text down into letters, numbers, spaces and punctuation so you know exactly where every character goes.";
+    },
+    async copyText(){
+      if(!this.text) return;
+      try{
+        await navigator.clipboard.writeText(this.text);
+        this.justCopied = true;
+        setTimeout(()=> this.justCopied = false, 1500);
+      }catch(e){ /* clipboard unavailable */ }
+    },
+    downloadTxt(){
+      if(!this.text) return;
+      const blob = new Blob([this.text], {type:'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'character-counter-text.txt';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  }
+}
+</script>
+</body>
+</html>

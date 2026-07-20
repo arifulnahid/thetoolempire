@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentence Counter — Free Online Sentence Count & Readability Tool | The Tool Empire</title>
+<meta name="description" content="Free online sentence counter. Count sentences, see average sentence length, spot your longest and shortest sentences, and check readability instantly. 100% private — nothing leaves your browser.">
+<meta name="keywords" content="sentence counter, count sentences online, sentence count tool, average sentence length, readability checker, free sentence counter">
+<link rel="canonical" href="https://thetoolempire.com/sentence-counter.html">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#6C63FF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sentence Counter — Free Online Sentence Count & Readability Tool">
+<meta property="og:description" content="Count sentences, check average length, and spot readability issues instantly. No signup, no server, 100% private.">
+<meta property="og:url" content="https://thetoolempire.com/sentence-counter.html">
+
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Sentence Counter",
+  "url": "https://thetoolempire.com/sentence-counter.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any (Web Browser)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online sentence counter that counts sentences, calculates average sentence length, flags the longest and shortest sentences, and breaks down sentence-length distribution for readability, entirely in the browser.",
+  "featureList": [
+    "Real-time sentence counting",
+    "Word and character counts",
+    "Average sentence length",
+    "Longest and shortest sentence detection",
+    "Sentence length distribution for readability",
+    "Paragraph counting",
+    "Reading and speaking time estimates",
+    "Per-sentence breakdown list",
+    "Copy, clear and download as .txt",
+    "100% private, browser-only processing"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is this sentence counter free to use?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The sentence counter is completely free, has no usage limits, and doesn't require an account." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the sentence counter store or upload my text?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. All counting happens locally in your browser with JavaScript. Your text is never sent to a server or saved anywhere." }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the tool detect where a sentence ends?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The tool splits text on periods, question marks and exclamation points followed by a space or line break. Because of this, abbreviations like 'Dr.' or decimal numbers like '3.14' can occasionally be miscounted as sentence breaks, so always spot-check unusual formatting." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a good average sentence length?",
+      "acceptedAnswer": { "@type": "Answer", "text": "For general web and business writing, 15 to 20 words per sentence is considered easy to read. Academic and technical writing often runs longer, while marketing and children's content typically aims shorter, around 8 to 12 words." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does sentence length matter for readability?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Long, complex sentences are harder to follow and increase reading difficulty scores like Flesch-Kincaid. Mixing sentence lengths keeps writing engaging, while consistently long sentences can tire readers and bury the main point." }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --purple:#6C63FF;
+    --purple-dark:#4B44CC;
+    --purple-soft:#F0EEFF;
+    --mint:#00B894;
+    --mint-soft:#E4FBF4;
+    --amber:#E08E1D;
+    --amber-soft:#FFF3E0;
+    --coral:#E4573D;
+    --ink:#15132B;
+    --ink-soft:#5C5876;
+    --paper:#FBFAFF;
+    --panel:#FFFFFF;
+    --line:#E4E1F5;
+    --radius:14px;
+    --font-display:'Space Grotesk',system-ui,sans-serif;
+    --font-body:'Inter',system-ui,sans-serif;
+    --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap');
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--purple-dark);}
+  h1,h2,h3{font-family:var(--font-display); line-height:1.15; margin:0 0 .5em;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  :focus-visible{outline:3px solid var(--purple); outline-offset:2px; border-radius:4px;}
+
+  header.site{
+    position:sticky; top:0; z-index:40;
+    background:rgba(251,250,255,.9); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:16px 0;}
+  .logo{font-family:var(--font-display); font-weight:700; font-size:1.15rem; text-decoration:none; color:var(--ink); display:flex; align-items:center; gap:8px;}
+  .logo .dot{width:10px;height:10px;border-radius:3px;background:var(--purple);display:inline-block;}
+  .nav-links{display:flex; gap:28px; list-style:none; margin:0; padding:0;}
+  .nav-links a{text-decoration:none; color:var(--ink-soft); font-weight:600; font-size:.94rem;}
+  .nav-links a:hover{color:var(--purple-dark);}
+  .nav-links a.active{color:var(--purple-dark);}
+
+  .hero{padding:48px 0 8px;}
+  .breadcrumb{font-size:.82rem; color:var(--ink-soft); margin-bottom:16px;}
+  .breadcrumb a{color:var(--ink-soft); text-decoration:none;}
+  .breadcrumb a:hover{color:var(--purple-dark);}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--purple-dark); background:var(--purple-soft); border:1px solid #DCD8FF;
+    padding:5px 12px; border-radius:999px; margin-bottom:16px;
+  }
+  h1{font-size:clamp(2rem,4.5vw,2.9rem); color:var(--ink);}
+  .lede{font-size:1.08rem; color:var(--ink-soft); max-width:640px; margin:0 0 8px;}
+
+  .tool-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; margin:28px 0; box-shadow:0 1px 2px rgba(21,19,43,.03), 0 10px 30px -18px rgba(108,99,255,.25);
+  }
+  .toolbar{display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between; align-items:center; margin-bottom:12px;}
+  .toolbar-actions{display:flex; gap:8px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--font-body); font-weight:600; font-size:.86rem; cursor:pointer;
+    border-radius:9px; padding:8px 14px; border:1px solid var(--line); background:#fff; color:var(--ink);
+    transition:transform .08s ease, border-color .15s ease, background .15s ease;
+  }
+  .btn:hover{border-color:var(--purple); color:var(--purple-dark);}
+  .btn:active{transform:scale(.97);}
+  .btn.primary{background:var(--purple); color:#fff; border-color:var(--purple);}
+  .btn.primary:hover{background:var(--purple-dark); border-color:var(--purple-dark); color:#fff;}
+  .btn.copied{background:var(--mint); border-color:var(--mint); color:#fff;}
+
+  textarea{
+    width:100%; min-height:240px; resize:vertical;
+    border:1.5px solid var(--line); border-radius:10px; padding:16px;
+    font-family:var(--font-body); font-size:1rem; color:var(--ink);
+    background:var(--paper);
+  }
+  textarea:focus{border-color:var(--purple); outline:none; box-shadow:0 0 0 4px rgba(108,99,255,.12);}
+  .textarea-foot{display:flex; justify-content:space-between; font-size:.78rem; color:var(--ink-soft); margin-top:6px;}
+
+  .digits{display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-top:18px;}
+  .digit{background:var(--ink); border-radius:10px; padding:14px 10px; text-align:center; position:relative; overflow:hidden;}
+  .digit::after{content:""; position:absolute; left:0; right:0; top:49%; height:1px; background:rgba(255,255,255,.08);}
+  .digit .num{font-family:var(--font-mono); font-weight:700; font-size:clamp(1.2rem,3vw,1.6rem); color:var(--mint); font-variant-numeric:tabular-nums;}
+  .digit .lbl{font-family:var(--font-mono); font-size:.6rem; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.55); margin-top:4px;}
+  @media (max-width:760px){ .digits{grid-template-columns:repeat(2,1fr);} }
+  @media (min-width:761px) and (max-width:980px){ .digits{grid-template-columns:repeat(3,1fr);} }
+
+  .subs{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:12px;}
+  .sub{background:var(--purple-soft); border-radius:10px; padding:12px 14px;}
+  .sub .num{font-family:var(--font-mono); font-weight:700; font-size:1.05rem; color:var(--purple-dark); word-break:break-word;}
+  .sub .lbl{font-size:.76rem; color:var(--ink-soft);}
+  @media (max-width:760px){ .subs{grid-template-columns:1fr;} }
+
+  .section{padding:36px 0;}
+  .section h2{font-size:1.5rem;}
+
+  /* Signature: sentence ledger */
+  .ledger{background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  .ledger-row{display:grid; grid-template-columns:40px 1fr auto; gap:14px; align-items:start; padding:12px 16px; border-bottom:1px solid var(--line);}
+  .ledger-row:last-child{border-bottom:none;}
+  .ledger-row:nth-child(odd){background:var(--paper);}
+  .ledger-idx{font-family:var(--font-mono); font-weight:700; color:var(--purple); font-size:.85rem; padding-top:2px;}
+  .ledger-text{font-size:.94rem; color:var(--ink);}
+  .ledger-badges{display:flex; gap:6px; flex-shrink:0;}
+  .badge{font-family:var(--font-mono); font-size:.68rem; padding:3px 8px; border-radius:999px; white-space:nowrap;}
+  .badge.words{background:var(--purple-soft); color:var(--purple-dark);}
+  .badge.chars{background:var(--mint-soft); color:#0A8A6F;}
+  .badge.long{background:var(--amber-soft); color:var(--amber);}
+
+  /* Distribution bars */
+  .dist{display:grid; gap:10px;}
+  .dist-row{display:grid; grid-template-columns:110px 1fr 60px; gap:12px; align-items:center; font-size:.88rem;}
+  .dist-bar{height:14px; border-radius:999px; background:var(--line); overflow:hidden;}
+  .dist-bar > span{display:block; height:100%; border-radius:999px;}
+  .dist-bar.short > span{background:var(--mint);}
+  .dist-bar.ideal > span{background:var(--purple);}
+  .dist-bar.long > span{background:var(--coral);}
+
+  table{width:100%; border-collapse:collapse; background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); font-size:.92rem;}
+  th{background:var(--purple-soft); color:var(--purple-dark); font-family:var(--font-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.06em;}
+  tr:last-child td{border-bottom:none;}
+  .empty-note{color:var(--ink-soft); font-size:.9rem; padding:14px 0;}
+
+  /* Features grid for SEO */
+  .features{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px;}
+  .feature{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px;}
+  .feature .f-icon{width:34px; height:34px; border-radius:9px; background:var(--purple-soft); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-weight:700; color:var(--purple-dark); margin-bottom:10px;}
+  .feature h3{font-size:1rem; margin:0 0 6px;}
+  .feature p{font-size:.86rem; color:var(--ink-soft); margin:0; max-width:none;}
+
+  article.seo p{color:var(--ink-soft); max-width:760px;}
+  article.seo h3{font-size:1.15rem; margin-top:1.4em;}
+  article.seo ul{color:var(--ink-soft); max-width:760px; padding-left:1.2em;}
+  .guide-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start;}
+  @media (max-width:800px){ .guide-grid{grid-template-columns:1fr;} }
+
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{width:100%; text-align:left; background:none; border:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:12px; padding:18px 4px; font-family:var(--font-display); font-weight:600; font-size:1.02rem; color:var(--ink);}
+  .faq-q .icon{font-family:var(--font-mono); color:var(--purple); font-size:1.2rem; flex-shrink:0;}
+  .faq-a{padding:0 4px 18px; color:var(--ink-soft); max-width:720px;}
+
+  .related{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;}
+  .related a{display:block; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; text-decoration:none; color:var(--ink); font-weight:600; font-size:.94rem; transition:border-color .15s ease, transform .08s ease;}
+  .related a:hover{border-color:var(--purple); transform:translateY(-2px);}
+  .related a span{display:block; font-weight:400; font-size:.82rem; color:var(--ink-soft); margin-top:4px;}
+
+  footer.site{border-top:1px solid var(--line); background:var(--panel); margin-top:40px; padding:40px 0 24px;}
+  .foot-grid{display:grid; grid-template-columns:2fr 1fr 1fr; gap:24px;}
+  @media (max-width:700px){ .foot-grid{grid-template-columns:1fr; gap:20px;} }
+  footer.site h4{font-family:var(--font-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); margin:0 0 10px;}
+  footer.site ul{list-style:none; margin:0; padding:0; display:grid; gap:8px;}
+  footer.site a{color:var(--ink-soft); text-decoration:none; font-size:.9rem;}
+  footer.site a:hover{color:var(--purple-dark);}
+  .foot-bottom{margin-top:28px; padding-top:20px; border-top:1px solid var(--line); font-size:.8rem; color:var(--ink-soft); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+</style>
+</head>
+<body x-data="sentenceCounter()">
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="https://thetoolempire.com/" class="logo"><span class="dot"></span>The Tool Empire</a>
+    <ul class="nav-links">
+      <li><a href="https://thetoolempire.com/index.html">Home</a></li>
+      <li><a href="https://thetoolempire.com/tools.html" class="active">Tools</a></li>
+      <li><a href="https://thetoolempire.com/blog.html">Blog</a></li>
+      <li><a href="https://thetoolempire.com/contact.html">Contact</a></li>
+      <li><a href="https://thetoolempire.com/about.html">About</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="breadcrumb"><a href="https://thetoolempire.com/">Home</a> / <a href="https://thetoolempire.com/tools.html">Tools</a> / Sentence Counter</p>
+    <span class="eyebrow">● Text Tools</span>
+    <h1>Sentence Counter</h1>
+    <p class="lede">Paste or type your text below to count sentences, measure average sentence length, and see a per-sentence breakdown — updated instantly, with nothing ever leaving your browser.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="tool-card">
+      <div class="toolbar">
+        <div class="toolbar-actions">
+          <button class="btn primary" @click="loadSample()">Load sample text</button>
+          <button class="btn" :class="{copied: justCopied}" @click="copyText()" x-text="justCopied ? 'Copied ✓' : 'Copy text'"></button>
+          <button class="btn" @click="clearText()">Clear</button>
+        </div>
+        <div class="toolbar-actions">
+          <button class="btn" @click="downloadTxt()">Download .txt</button>
+        </div>
+      </div>
+
+      <label for="sc-input" style="position:absolute;left:-9999px;">Text to count</label>
+      <textarea id="sc-input" x-model="text" placeholder="Start typing, or paste a few paragraphs here…" spellcheck="true"></textarea>
+      <div class="textarea-foot">
+        <span x-text="words + ' words · ' + charsWithSpaces + ' characters'"></span>
+        <span x-text="'≈ ' + readingTime + ' min read'"></span>
+      </div>
+
+      <div class="digits">
+        <div class="digit"><div class="num" x-text="sentenceCount"></div><div class="lbl">Sentences</div></div>
+        <div class="digit"><div class="num" x-text="words"></div><div class="lbl">Words</div></div>
+        <div class="digit"><div class="num" x-text="charsWithSpaces"></div><div class="lbl">Characters</div></div>
+        <div class="digit"><div class="num" x-text="paragraphs"></div><div class="lbl">Paragraphs</div></div>
+        <div class="digit"><div class="num" x-text="avgWordsPerSentence"></div><div class="lbl">Avg Words/Sent</div></div>
+        <div class="digit"><div class="num" x-text="readingTime + 'm'"></div><div class="lbl">Read Time</div></div>
+      </div>
+
+      <div class="subs">
+        <div class="sub"><div class="num" x-text="longestSentence ? longestSentence.words + ' words' : '—'"></div><div class="lbl">Longest sentence</div></div>
+        <div class="sub"><div class="num" x-text="shortestSentence ? shortestSentence.words + ' words' : '—'"></div><div class="lbl">Shortest sentence</div></div>
+        <div class="sub"><div class="num" x-text="avgSentenceChars"></div><div class="lbl">Avg. sentence length (chars)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <h2>Sentence-by-sentence breakdown</h2>
+    <p style="color:var(--ink-soft); max-width:640px;">Every detected sentence, numbered in order, with its word and character count. Sentences over 25 words are flagged as long.</p>
+    <div class="ledger" x-show="sentenceList.length">
+      <template x-for="(s, i) in sentenceList" :key="i">
+        <div class="ledger-row">
+          <div class="ledger-idx" x-text="(i+1) + '.'"></div>
+          <div class="ledger-text" x-text="s.text"></div>
+          <div class="ledger-badges">
+            <span class="badge words" x-text="s.words + ' w'"></span>
+            <span class="badge chars" x-text="s.chars + ' c'"></span>
+            <span class="badge long" x-show="s.words > 25">long</span>
+          </div>
+        </div>
+      </template>
+    </div>
+    <p class="empty-note" x-show="!sentenceList.length">Start typing above to see each sentence listed here.</p>
+  </div>
+
+  <div class="wrap section">
+    <h2>Sentence length distribution</h2>
+    <p style="color:var(--ink-soft); max-width:640px;">Readability tools generally treat sentences under 12 words as short, 12–25 words as ideal for general writing, and over 25 words as long and harder to read.</p>
+    <div class="dist" x-show="sentenceList.length">
+      <div class="dist-row">
+        <span>Short (&lt;12w)</span>
+        <div class="dist-bar short"><span :style="'width:' + distPct.short + '%'"></span></div>
+        <span x-text="distCount.short + ' (' + distPct.short + '%)'"></span>
+      </div>
+      <div class="dist-row">
+        <span>Ideal (12–25w)</span>
+        <div class="dist-bar ideal"><span :style="'width:' + distPct.ideal + '%'"></span></div>
+        <span x-text="distCount.ideal + ' (' + distPct.ideal + '%)'"></span>
+      </div>
+      <div class="dist-row">
+        <span>Long (&gt;25w)</span>
+        <div class="dist-bar long"><span :style="'width:' + distPct.long + '%'"></span></div>
+        <span x-text="distCount.long + ' (' + distPct.long + '%)'"></span>
+      </div>
+    </div>
+    <p class="empty-note" x-show="!sentenceList.length">Start typing above to see your sentence length distribution.</p>
+  </div>
+
+  <div class="wrap section">
+    <h2>Every feature, at a glance</h2>
+    <p style="color:var(--ink-soft); max-width:640px;">Everything this sentence counter does, in one place.</p>
+    <div class="features">
+      <div class="feature"><div class="f-icon">#</div><h3>Real-time sentence counting</h3><p>Counts sentences the moment you type or paste — no button to click, no page reload.</p></div>
+      <div class="feature"><div class="f-icon">W</div><h3>Word & character counts</h3><p>Total words and characters are calculated alongside your sentence count for the full picture.</p></div>
+      <div class="feature"><div class="f-icon">Ø</div><h3>Average sentence length</h3><p>See your average words-per-sentence and average characters-per-sentence at a glance.</p></div>
+      <div class="feature"><div class="f-icon">↕</div><h3>Longest & shortest sentence</h3><p>Instantly spot your longest and shortest sentence to catch run-ons or clipped fragments.</p></div>
+      <div class="feature"><div class="f-icon">▤</div><h3>Length distribution</h3><p>A short / ideal / long breakdown of every sentence, based on common readability thresholds.</p></div>
+      <div class="feature"><div class="f-icon">¶</div><h3>Paragraph counting</h3><p>Paragraphs are counted alongside sentences so you can check pacing across a full draft.</p></div>
+      <div class="feature"><div class="f-icon">⏱</div><h3>Reading & speaking time</h3><p>Estimated reading time (200 wpm) and speaking time (130 wpm) for scripts, speeches or blog posts.</p></div>
+      <div class="feature"><div class="f-icon">≡</div><h3>Per-sentence breakdown</h3><p>Every sentence is listed individually with its own word and character count, flagged if it runs long.</p></div>
+      <div class="feature"><div class="f-icon">⧉</div><h3>Copy, clear & download</h3><p>Copy your text to the clipboard, clear the box, or download it as a plain .txt file in one click.</p></div>
+      <div class="feature"><div class="f-icon">🔒</div><h3>100% private</h3><p>All counting happens locally in your browser. Nothing you type is ever uploaded or stored.</p></div>
+      <div class="feature"><div class="f-icon">∞</div><h3>Free & unlimited</h3><p>No signup, no paywall, no daily limit — use it as many times as you like.</p></div>
+      <div class="feature"><div class="f-icon">▢</div><h3>Works on any device</h3><p>Fully responsive layout that works the same on phone, tablet and desktop.</p></div>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <article class="seo">
+      <h2>What is a sentence counter?</h2>
+      <p>A sentence counter is a text-analysis tool that detects and tallies the number of sentences in a piece of writing, alongside supporting stats like word count, average sentence length, and readability distribution. This one runs entirely as JavaScript inside your browser — there's no upload and no server round-trip, so your draft never leaves your device. Every count updates live as you type or paste.</p>
+
+      <div class="guide-grid">
+        <div>
+          <h3>How sentences are detected</h3>
+          <p>The tool splits text on periods, question marks and exclamation points that are followed by a space or a line break, then trims and discards any empty fragments. This matches how most editors and grammar checkers segment sentences. Because abbreviations like "Dr." or "e.g." and decimal numbers like "3.14" contain periods too, unusual formatting can occasionally be miscounted — always spot-check technical or heavily abbreviated text.</p>
+        </div>
+        <div>
+          <h3>Why sentence count and length matter</h3>
+          <p>Sentence count and average length are two of the biggest drivers behind readability scores like Flesch-Kincaid and Gunning Fog. Shorter, varied sentences are easier to scan on a screen and tend to perform better in web copy, while consistently long sentences increase cognitive load and can bury your main point. Tracking this while you write — rather than after — makes editing faster.</p>
+        </div>
+      </div>
+
+      <h3>Who uses a sentence counter</h3>
+      <ul>
+        <li><strong>Writers & editors</strong> — spot run-on sentences and fragments before a piece goes to print.</li>
+        <li><strong>Students</strong> — check that essays meet sentence-structure requirements for grammar assignments.</li>
+        <li><strong>Content marketers</strong> — keep landing page and ad copy scannable by watching average sentence length.</li>
+        <li><strong>SEO writers</strong> — readability scores that search-friendly content tools reward are heavily influenced by sentence length.</li>
+        <li><strong>ESL learners</strong> — shorter, simpler sentences are easier to read and translate accurately.</li>
+      </ul>
+
+      <h3>Recommended average sentence length by writing type</h3>
+      <table>
+        <thead><tr><th>Writing type</th><th>Typical average length</th></tr></thead>
+        <tbody>
+          <tr><td>Marketing / ad copy</td><td>8–12 words</td></tr>
+          <tr><td>Blog posts & web content</td><td>15–20 words</td></tr>
+          <tr><td>Business & professional writing</td><td>15–20 words</td></tr>
+          <tr><td>Journalism</td><td>20–25 words</td></tr>
+          <tr><td>Academic & technical writing</td><td>20–30 words</td></tr>
+          <tr><td>Legal documents</td><td>25–35+ words</td></tr>
+        </tbody>
+      </table>
+    </article>
+  </div>
+
+  <div class="wrap section">
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <template x-for="(f, i) in faqs" :key="i">
+        <div class="faq-item">
+          <button class="faq-q" @click="openFaq = openFaq === i ? null : i" :aria-expanded="openFaq === i">
+            <span x-text="f.q"></span>
+            <span class="icon" x-text="openFaq === i ? '−' : '+'"></span>
+          </button>
+          <div class="faq-a" x-show="openFaq === i" x-text="f.a"></div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <div class="wrap section">
+    <h2>Related tools</h2>
+    <div class="related">
+      <a href="https://thetoolempire.com/word-counter.html">Word Counter<span>Count words, sentences & reading time</span></a>
+      <a href="https://thetoolempire.com/character-counter.html">Character Counter<span>Count characters with & without spaces</span></a>
+      <a href="https://thetoolempire.com/paragraph-counter.html">Paragraph Counter<span>Check paragraph length & structure</span></a>
+      <a href="https://thetoolempire.com/line-counter.html">Line Counter<span>Count lines, blanks & duplicates</span></a>
+      <a href="https://thetoolempire.com/reading-time-calculator.html">Reading Time Calculator<span>Estimate reading & speaking time</span></a>
+      <a href="https://thetoolempire.com/text-case-converter.html">Text Case Converter<span>UPPER, lower, Title & Sentence case</span></a>
+      <a href="https://thetoolempire.com/tools.html">Browse all tools<span>100+ free browser-based tools</span></a>
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-grid">
+    <div>
+      <a href="https://thetoolempire.com/" class="logo"><span class="dot"></span>The Tool Empire</a>
+      <p style="color:var(--ink-soft); font-size:.9rem; max-width:320px; margin-top:10px;">Free, browser-based tools. No signup, no server, no data collection — ever.</p>
+    </div>
+    <div>
+      <h4>Tools</h4>
+      <ul>
+        <li><a href="https://thetoolempire.com/tools.html">All Tools</a></li>
+        <li><a href="https://thetoolempire.com/blog.html">Blog</a></li>
+        <li><a href="https://thetoolempire.com/contact.html">Contact</a></li>
+        <li><a href="https://thetoolempire.com/about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="https://thetoolempire.com/privacy.html">Privacy Policy</a></li>
+        <li><a href="https://thetoolempire.com/terms.html">Terms of Use</a></li>
+        <li><a href="https://thetoolempire.com/sitemap.xml">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© The Tool Empire. All rights reserved.</span>
+    <span>All tools run locally in your browser.</span>
+  </div>
+</footer>
+
+<script>
+function sentenceCounter(){
+  return {
+    text:'',
+    justCopied:false,
+    openFaq:null,
+    faqs:[
+      {q:'Is this sentence counter free to use?', a:"Yes. It's completely free, has no usage limits, and doesn't require an account."},
+      {q:'Does the sentence counter store or upload my text?', a:'No. All counting happens locally in your browser with JavaScript. Your text is never sent to a server or saved anywhere.'},
+      {q:'How does the tool detect where a sentence ends?', a:"The tool splits text on periods, question marks and exclamation points followed by a space or line break. Abbreviations like 'Dr.' or decimal numbers like '3.14' can occasionally be miscounted as sentence breaks, so spot-check unusual formatting."},
+      {q:'What is a good average sentence length?', a:'For general web and business writing, 15 to 20 words per sentence is considered easy to read. Academic and technical writing often runs longer, while marketing content typically aims shorter, around 8 to 12 words.'},
+      {q:'Why does sentence length matter for readability?', a:'Long, complex sentences are harder to follow and increase reading difficulty scores like Flesch-Kincaid. Mixing sentence lengths keeps writing engaging, while consistently long sentences can tire readers and bury the main point.'}
+    ],
+    get trimmed(){ return this.text.trim(); },
+    get words(){ return this.trimmed ? this.trimmed.split(/\s+/).length : 0; },
+    get charsWithSpaces(){ return this.text.length; },
+    get paragraphs(){
+      if(!this.trimmed) return 0;
+      const parts = this.text.split(/\n\s*\n/).map(p=>p.trim()).filter(Boolean);
+      return parts.length || (this.trimmed ? 1 : 0);
+    },
+    get readingTime(){ return this.words ? Math.max(1, Math.round(this.words/200)) : 0; },
+    get sentenceList(){
+      if(!this.trimmed) return [];
+      const raw = this.trimmed.match(/[^.!?]+[.!?]+(\s|$)|[^.!?]+$/g) || [];
+      return raw.map(s=>{
+        const clean = s.trim();
+        const w = clean.split(/\s+/).filter(Boolean).length;
+        return { text: clean, words: w, chars: clean.length };
+      }).filter(s=>s.text.length);
+    },
+    get sentenceCount(){ return this.sentenceList.length; },
+    get avgWordsPerSentence(){
+      if(!this.sentenceCount) return 0;
+      return (this.words / this.sentenceCount).toFixed(1);
+    },
+    get avgSentenceChars(){
+      if(!this.sentenceCount) return 0;
+      const total = this.sentenceList.reduce((sum,s)=>sum+s.chars,0);
+      return Math.round(total / this.sentenceCount);
+    },
+    get longestSentence(){
+      if(!this.sentenceList.length) return null;
+      return this.sentenceList.reduce((a,b)=> b.words > a.words ? b : a);
+    },
+    get shortestSentence(){
+      if(!this.sentenceList.length) return null;
+      return this.sentenceList.reduce((a,b)=> b.words < a.words ? b : a);
+    },
+    get distCount(){
+      const c = {short:0, ideal:0, long:0};
+      this.sentenceList.forEach(s=>{
+        if(s.words < 12) c.short++;
+        else if(s.words <= 25) c.ideal++;
+        else c.long++;
+      });
+      return c;
+    },
+    get distPct(){
+      const total = this.sentenceCount || 1;
+      const c = this.distCount;
+      return {
+        short: Math.round((c.short/total)*100),
+        ideal: Math.round((c.ideal/total)*100),
+        long: Math.round((c.long/total)*100)
+      };
+    },
+    clearText(){ this.text=''; },
+    loadSample(){
+      this.text = "Good writing balances short sentences with longer ones. Short sentences punch. They create emphasis and give the reader a place to breathe between more complex ideas that carry supporting detail, context or nuance. A sentence counter helps you see that rhythm at a glance instead of guessing. Try pasting your own draft here to check your average sentence length.";
+    },
+    async copyText(){
+      if(!this.text) return;
+      try{
+        await navigator.clipboard.writeText(this.text);
+        this.justCopied = true;
+        setTimeout(()=> this.justCopied = false, 1500);
+      }catch(e){ /* clipboard unavailable */ }
+    },
+    downloadTxt(){
+      if(!this.text) return;
+      const blob = new Blob([this.text], {type:'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'sentence-counter-text.txt';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  }
+}
+</script>
+</body>
+</html>

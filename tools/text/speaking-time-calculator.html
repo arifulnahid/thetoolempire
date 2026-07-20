@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speaking Time Calculator — Free Online Tool | The Tool Empire</title>
+<meta name="description" content="Find out how long a speech, script, or presentation will take to deliver out loud — or work backwards from a target time to find your word count. Adjustable speaking pace presets for speeches, toasts, and presentations. Runs in your browser, no signup.">
+<meta name="keywords" content="speaking time calculator, speech length calculator, words per minute speaking, presentation timer, script timing tool, how long is my speech">
+<meta name="theme-color" content="#6C63FF">
+<meta property="og:title" content="Speaking Time Calculator — Free Online Tool">
+<meta property="og:description" content="Time your speech, toast, or presentation before you deliver it. Adjustable speaking pace, word-count-to-time and time-to-word-count, both directions. 100% free, runs in your browser.">
+<meta property="og:type" content="website">
+<meta name="robots" content="index, follow">
+<style>
+  :root{
+    --accent:#6C63FF;
+    --accent-dark:#564fd1;
+    --accent-light:#EDEBFF;
+    --ink:#1B1B23;
+    --ink-soft:#5A5A6E;
+    --bg:#FAFAFC;
+    --card:#FFFFFF;
+    --border:#E7E6F2;
+    --good:#1FAA65;
+    --radius:14px;
+    --shadow:0 2px 8px rgba(30,25,80,.06), 0 12px 32px rgba(30,25,80,.05);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+  }
+  a{color:var(--accent-dark);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  header.site{border-bottom:1px solid var(--border);background:var(--card);position:sticky;top:0;z-index:20;}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1080px;margin:0 auto;}
+  .logo{font-weight:800;font-size:1.15rem;color:var(--ink);}
+  .logo span{color:var(--accent);}
+  .nav ul{list-style:none;display:flex;gap:28px;margin:0;padding:0;}
+  .nav a{color:var(--ink-soft);font-weight:600;font-size:.95rem;}
+  .nav a.active{color:var(--accent-dark);}
+
+  .crumbs{font-size:.85rem;color:var(--ink-soft);padding:18px 0 0;}
+  .crumbs a{color:var(--ink-soft);}
+
+  .hero{padding:20px 0 8px;}
+  .eyebrow{
+    display:inline-block;background:var(--accent-light);color:var(--accent-dark);
+    font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;
+    padding:5px 12px;border-radius:999px;margin-bottom:14px;
+  }
+  h1{font-size:clamp(1.9rem,4vw,2.6rem);margin:0 0 10px;letter-spacing:-.02em;}
+  .lede{color:var(--ink-soft);font-size:1.08rem;max-width:640px;margin:0 0 8px;}
+
+  .tool-card{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:26px;margin:26px 0 36px;
+  }
+
+  .mode-toggle{display:flex;gap:8px;margin-bottom:22px;max-width:460px;}
+  .mode-btn{
+    flex:1;border:1px solid var(--border);background:var(--card);padding:11px;border-radius:9px;
+    font-size:.88rem;font-weight:700;color:var(--ink-soft);cursor:pointer;
+  }
+  .mode-btn.active{border-color:var(--accent);color:var(--accent-dark);background:var(--accent-light);}
+
+  .st-stage{display:grid;grid-template-columns:1fr;gap:24px;}
+  @media(min-width:860px){.st-stage{grid-template-columns:1.5fr 1fr;}}
+
+  .text-panel textarea{
+    width:100%;min-height:280px;resize:vertical;padding:16px;border:1px solid var(--border);
+    border-radius:10px;font-size:.95rem;font-family:inherit;line-height:1.6;color:var(--ink);
+  }
+  .text-panel textarea:focus{outline:2px solid var(--accent-light);border-color:var(--accent);}
+  .panel-actions{display:flex;justify-content:space-between;align-items:center;margin-top:10px;flex-wrap:wrap;gap:8px;}
+  .chip-btn{
+    border:1px solid var(--border);background:var(--card);color:var(--ink-soft);
+    padding:8px 14px;border-radius:999px;font-size:.85rem;font-weight:600;cursor:pointer;
+  }
+  .chip-btn:hover{border-color:var(--accent);color:var(--accent-dark);}
+  .chip-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .muted-count{font-size:.8rem;color:#9b99b0;}
+
+  .target-panel{display:flex;flex-direction:column;gap:16px;}
+  .target-inputs{display:flex;gap:12px;}
+  .target-inputs .field{flex:1;}
+  .field label{display:block;font-size:.8rem;font-weight:700;color:var(--ink-soft);margin-bottom:6px;text-transform:uppercase;letter-spacing:.03em;}
+  .field input[type=number]{
+    width:100%;padding:11px 12px;border:1px solid var(--border);border-radius:8px;font-size:1rem;font-family:inherit;
+  }
+  .field input[type=number]:focus{outline:2px solid var(--accent-light);border-color:var(--accent);}
+
+  .results-panel{display:flex;flex-direction:column;gap:16px;}
+  .time-hero{background:var(--accent-light);border-radius:var(--radius);padding:22px;text-align:center;}
+  .time-hero .big{
+    font-size:clamp(2.4rem,7vw,3.2rem);font-weight:800;color:var(--accent-dark);
+    letter-spacing:-.02em;line-height:1;margin-bottom:4px;font-variant-numeric:tabular-nums;
+  }
+  .time-hero .sub{font-size:.85rem;color:var(--ink-soft);font-weight:600;}
+
+  .stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .stat-box{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;}
+  .stat-box .num{font-size:1.3rem;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .stat-box .lbl{font-size:.75rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.03em;font-weight:700;}
+
+  .speed-field label{display:block;font-size:.8rem;font-weight:700;color:var(--ink-soft);margin-bottom:8px;text-transform:uppercase;letter-spacing:.03em;}
+  .speed-slider-row{display:flex;align-items:center;gap:12px;}
+  .speed-slider-row input[type=range]{flex:1;accent-color:var(--accent);}
+  .speed-val{font-weight:800;color:var(--accent-dark);font-size:.95rem;width:88px;text-align:right;font-variant-numeric:tabular-nums;}
+  .preset-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+  .preset-chip{
+    border:1px solid var(--border);background:var(--card);padding:5px 10px;border-radius:999px;
+    font-size:.76rem;font-weight:600;color:var(--ink-soft);cursor:pointer;
+  }
+  .preset-chip.active, .preset-chip:hover{border-color:var(--accent);color:var(--accent-dark);background:var(--accent-light);}
+
+  .occasion-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+  .occasion-chip{
+    border:1px solid var(--border);background:var(--card);padding:6px 12px;border-radius:999px;
+    font-size:.78rem;font-weight:600;color:var(--ink-soft);cursor:pointer;
+  }
+  .occasion-chip.active, .occasion-chip:hover{border-color:var(--accent);color:var(--accent-dark);background:var(--accent-light);}
+
+  .target-word-box{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:.85rem;color:var(--ink-soft);}
+  .target-word-box b{color:var(--ink);}
+
+  .trust{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0;}
+  .trust span{font-size:.78rem;font-weight:700;color:var(--accent-dark);background:var(--accent-light);padding:5px 11px;border-radius:999px;}
+
+  section.content{padding:34px 0;border-top:1px solid var(--border);}
+  section.content:first-of-type{border-top:none;}
+  h2{font-size:1.55rem;margin:0 0 14px;letter-spacing:-.01em;}
+  p{color:var(--ink-soft);margin:0 0 14px;}
+  p, li{max-width:760px;}
+  ul.plain, ol.plain{color:var(--ink-soft);padding-left:22px;max-width:760px;}
+  ul.plain li, ol.plain li{margin-bottom:8px;}
+
+  .feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-top:20px;}
+  .feature{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;}
+  .feature .icon{
+    width:38px;height:38px;border-radius:10px;background:var(--accent-light);color:var(--accent-dark);
+    display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:12px;font-weight:800;
+  }
+  .feature h4{margin:0 0 6px;font-size:1rem;}
+  .feature p{margin:0;font-size:.9rem;}
+
+  .usecase-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:18px;}
+  .usecase{border:1px solid var(--border);border-radius:10px;padding:14px 16px;background:var(--card);font-size:.9rem;}
+  .usecase b{display:block;color:var(--ink);margin-bottom:4px;}
+
+  table.speed-table{width:100%;max-width:640px;border-collapse:collapse;margin:14px 0 20px;font-size:.9rem;}
+  table.speed-table th, table.speed-table td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--ink-soft);}
+  table.speed-table th{color:var(--ink);font-size:.78rem;text-transform:uppercase;letter-spacing:.03em;}
+
+  .faq-item{border-bottom:1px solid var(--border);padding:16px 0;}
+  .faq-item summary{cursor:pointer;font-weight:700;font-size:.98rem;list-style:none;position:relative;padding-right:24px;}
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary::after{content:"+";position:absolute;right:0;top:0;color:var(--accent-dark);font-size:1.2rem;}
+  .faq-item[open] summary::after{content:"–";}
+  .faq-item p{margin-top:10px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+  .related a{border:1px solid var(--border);background:var(--card);padding:8px 14px;border-radius:999px;font-size:.85rem;font-weight:600;color:var(--ink);}
+  .related a:hover{border-color:var(--accent);color:var(--accent-dark);text-decoration:none;}
+
+  footer.site{background:#171724;color:#b9b7cf;padding:40px 0 24px;margin-top:20px;}
+  .foot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:24px;margin-bottom:24px;}
+  footer.site h5{color:#fff;font-size:.85rem;margin:0 0 10px;text-transform:uppercase;letter-spacing:.04em;}
+  footer.site a{color:#b9b7cf;display:block;font-size:.88rem;margin-bottom:8px;}
+  footer.site a:hover{color:#fff;}
+  .foot-bottom{border-top:1px solid #2c2c3d;padding-top:18px;font-size:.8rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;}
+
+  .hidden{display:none !important;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav">
+    <div class="logo">The Tool <span>Empire</span></div>
+    <ul>
+      <li><a href="https://thetoolempire.com/">Home</a></li>
+      <li><a href="https://thetoolempire.com/tools.html" class="active">Tools</a></li>
+      <li><a href="https://thetoolempire.com/blog.html">Blog</a></li>
+      <li><a href="https://thetoolempire.com/contact.html">Contact</a></li>
+      <li><a href="https://thetoolempire.com/about.html">About</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <p class="crumbs"><a href="https://thetoolempire.com/">Home</a> / <a href="https://thetoolempire.com/tools.html">Tools</a> / <a href="https://thetoolempire.com/tools.html?cat=Text">Text Tools</a> / Speaking Time Calculator</p>
+
+  <div class="hero">
+    <span class="eyebrow">Text Tools</span>
+    <h1>Speaking Time Calculator</h1>
+    <p class="lede">Find out exactly how long a speech, toast, presentation, or script takes to deliver out loud — or flip it around and find out how many words you need to fill a target time slot.</p>
+    <div class="trust">
+      <span>100% Private</span>
+      <span>No Signup</span>
+      <span>Updates As You Type</span>
+      <span>Nothing Uploaded</span>
+    </div>
+  </div>
+
+  <!-- ============ TOOL WIDGET ============ -->
+  <div class="tool-card">
+    <div class="mode-toggle">
+      <button class="mode-btn active" id="scriptModeBtn">I have a script</button>
+      <button class="mode-btn" id="targetModeBtn">I have a target time</button>
+    </div>
+
+    <!-- SCRIPT -> TIME -->
+    <div id="scriptMode" class="st-stage">
+      <div class="text-panel">
+        <textarea id="textInput" placeholder="Paste your speech, toast, presentation, or script here…"></textarea>
+        <div class="panel-actions">
+          <span class="muted-count" id="charCountHint">0 characters</span>
+          <div class="chip-row">
+            <button class="chip-btn" id="pasteBtn">Paste</button>
+            <button class="chip-btn" id="sampleBtn">Try sample script</button>
+            <button class="chip-btn" id="clearBtn">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="results-panel">
+        <div class="time-hero">
+          <div class="big" id="timeBig">0 sec</div>
+          <div class="sub" id="timeSub">to speak at 140 words per minute</div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-box"><div class="num" id="wordCount">0</div><div class="lbl">Words</div></div>
+          <div class="stat-box"><div class="num" id="charCount">0</div><div class="lbl">Characters</div></div>
+          <div class="stat-box"><div class="num" id="sentenceCount">0</div><div class="lbl">Sentences</div></div>
+          <div class="stat-box"><div class="num" id="paraCount">0</div><div class="lbl">Paragraphs</div></div>
+        </div>
+
+        <div class="speed-field">
+          <label for="speedSlider">Speaking pace (words per minute)</label>
+          <div class="speed-slider-row">
+            <input type="range" id="speedSlider" min="80" max="200" value="140" step="5">
+            <span class="speed-val"><span id="speedVal">140</span> WPM</span>
+          </div>
+          <div class="preset-row" id="presetRow"></div>
+          <div class="occasion-row" id="occasionRow"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TARGET TIME -> WORDS -->
+    <div id="targetMode" class="st-stage hidden">
+      <div class="target-panel">
+        <div class="target-inputs">
+          <div class="field">
+            <label for="targetMin">Minutes</label>
+            <input type="number" id="targetMin" min="0" value="5">
+          </div>
+          <div class="field">
+            <label for="targetSec">Seconds</label>
+            <input type="number" id="targetSec" min="0" max="59" value="0">
+          </div>
+        </div>
+
+        <div class="speed-field">
+          <label for="speedSlider2">Speaking pace (words per minute)</label>
+          <div class="speed-slider-row">
+            <input type="range" id="speedSlider2" min="80" max="200" value="140" step="5">
+            <span class="speed-val"><span id="speedVal2">140</span> WPM</span>
+          </div>
+          <div class="preset-row" id="presetRow2"></div>
+          <div class="occasion-row" id="occasionRow2"></div>
+        </div>
+
+        <div class="target-word-box">
+          Aim for roughly <b id="targetWordsLo">0</b>–<b id="targetWordsHi">0</b> words to comfortably fill your target time, allowing room for natural pauses.
+        </div>
+      </div>
+
+      <div class="results-panel">
+        <div class="time-hero">
+          <div class="big" id="targetWordsBig">0 words</div>
+          <div class="sub">needed for your target time</div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-box"><div class="num" id="targetPages">0</div><div class="lbl">≈ Pages (double-spaced)</div></div>
+          <div class="stat-box"><div class="num" id="targetMinutesEcho">0</div><div class="lbl">Target minutes</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FEATURES ============ -->
+  <section class="content">
+    <h2>Features</h2>
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="icon">🔁</div>
+        <h4>Two-way calculation</h4>
+        <p>Paste a script to get its speaking time, or enter a target time to find out exactly how many words to write. One tool, both directions.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🎚</div>
+        <h4>Adjustable speaking pace</h4>
+        <p>Drag the slider from 80 to 200 words per minute to match a slow, deliberate delivery or a brisk, energetic one.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🎤</div>
+        <h4>Occasion-based presets</h4>
+        <p>One-tap presets for wedding toasts, TED-style talks, eulogies, sales pitches, and auctioneer-style fast talk — each using a realistic real-world pace.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">📊</div>
+        <h4>Full script statistics</h4>
+        <p>See word count, character count, sentence count, and paragraph count alongside your speaking-time estimate.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">📄</div>
+        <h4>Word-count target range</h4>
+        <p>Working from a target time? Get a comfortable word-count range that accounts for natural pauses, not just a bare mathematical minimum.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">📋</div>
+        <h4>Paste-ready</h4>
+        <p>Paste directly from Word, Google Docs, or your notes app — the tool counts exactly what's there, instantly.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🧪</div>
+        <h4>Sample script to try</h4>
+        <p>No script handy yet? Load a sample with one click to see the tool in action before pasting your own.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🔒</div>
+        <h4>100% private</h4>
+        <p>Your script is analyzed entirely on your device. Nothing is uploaded, stored, or sent to a server — ever.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT IS / HOW TO USE ============ -->
+  <section class="content">
+    <h2>What is a speaking time calculator?</h2>
+    <p>A speaking time calculator estimates how long it takes to say a piece of text out loud, based on its word count and a realistic spoken-word pace. It's built specifically around speech, not silent reading — people speak noticeably slower than they read to themselves, and a script that looks short on the page can run much longer once you're actually standing in front of an audience.</p>
+    <p>This tool works in two directions. If you already have a script, paste it in and get an instant time estimate. If you're starting from a time slot instead — a 5-minute toast, a 20-minute conference talk — switch to target-time mode and the tool tells you how many words to aim for.</p>
+
+    <h2>How to use the Speaking Time Calculator</h2>
+    <ol class="plain">
+      <li>Choose <strong>"I have a script"</strong> if you want to time text you've already written, or <strong>"I have a target time"</strong> if you're writing toward a time limit.</li>
+      <li>In script mode, paste your text and watch the speaking time update instantly.</li>
+      <li>In target-time mode, enter your minutes and seconds, and the tool shows the word count to aim for.</li>
+      <li>Adjust the <strong>speaking pace</strong> slider, or tap an occasion preset, to match how you actually talk — slower for a eulogy, brisker for a pitch.</li>
+      <li>Use the word count, page estimate, and sentence/paragraph stats to sanity-check your draft against your time limit before you rehearse.</li>
+    </ol>
+
+    <h2>Typical speaking paces by occasion</h2>
+    <table class="speed-table">
+      <tr><th>Occasion</th><th>Typical pace</th></tr>
+      <tr><td>Eulogy / solemn speech</td><td>~100–110 WPM</td></tr>
+      <tr><td>Wedding toast</td><td>~120–130 WPM</td></tr>
+      <tr><td>Conference talk / TED-style</td><td>~140–150 WPM</td></tr>
+      <tr><td>Conversational presentation</td><td>~130–150 WPM</td></tr>
+      <tr><td>Energetic sales pitch</td><td>~150–170 WPM</td></tr>
+      <tr><td>Fast auctioneer-style delivery</td><td>~190–250+ WPM</td></tr>
+    </table>
+    <p>These are general starting points, not hard rules — your own natural pace, how well you know the material, and whether you plan to pause for emphasis or audience reaction will all shift the real number. Rehearsing out loud with a timer is always the most accurate check.</p>
+  </section>
+
+  <!-- ============ USE CASES ============ -->
+  <section class="content">
+    <h2>Common ways people use a speaking time calculator</h2>
+    <div class="usecase-grid">
+      <div class="usecase"><b>Wedding speeches &amp; toasts</b>Make sure a best man or maid of honor speech lands in that sweet spot of 3–5 minutes.</div>
+      <div class="usecase"><b>Conference &amp; TED-style talks</b>Fit a script precisely into a strict 10, 15, or 20-minute slot before you're on stage.</div>
+      <div class="usecase"><b>Sales &amp; pitch decks</b>Time a pitch so it fits inside a fixed meeting slot with room for questions.</div>
+      <div class="usecase"><b>Podcast &amp; video scripts</b>Estimate segment length before recording, to hit a target episode or video runtime.</div>
+      <div class="usecase"><b>Eulogies &amp; tributes</b>Check that a heartfelt tribute fits the time given at a service without needing to rush.</div>
+      <div class="usecase"><b>Voiceover artists</b>Estimate narration length for an ad, explainer video, or audiobook sample before recording.</div>
+      <div class="usecase"><b>Teachers &amp; students</b>Time an oral presentation or debate speech against a class time limit.</div>
+      <div class="usecase"><b>Toastmasters &amp; debate</b>Practice hitting a precise time window, since many formats penalize speeches that run short or long.</div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="content">
+    <h2>Frequently asked questions</h2>
+
+    <details class="faq-item" open>
+      <summary>How is speaking time calculated?</summary>
+      <p>Speaking time is your word count divided by a chosen speaking pace in words per minute. For example, 700 words at 140 WPM comes out to 5 minutes. This tool calculates that instantly and updates it as you type, paste, or adjust the pace slider.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Why is speaking time different from reading time?</summary>
+      <p>Reading silently is faster than speaking out loud, since a speaker has to physically articulate every word and typically adds pauses for emphasis, breath, and audience reaction. A typical silent reading pace is 200–230 words per minute, while a typical speaking pace is closer to 110–160 words per minute.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>How many words do I need for a 5-minute speech?</summary>
+      <p>At a conversational pace of around 130–140 words per minute, a 5-minute speech runs roughly 650–700 words. Switch to target-time mode, enter 5 minutes, and adjust the pace slider to get a range tailored to your own delivery style.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Does the calculator account for pauses and audience reaction?</summary>
+      <p>The word-count target range in target-time mode is built with some buffer for natural pauses, but it can't account for planned dramatic pauses, laughs, or applause breaks. For a speech with a lot of intentional pause time, aim toward the lower end of the suggested word range.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>What pace should I use for my type of speech?</summary>
+      <p>Use the occasion presets as a starting point — slower for a eulogy or solemn toast, average for a conference talk, faster for an energetic pitch — then fine-tune with the slider based on how you actually speak. Rehearsing out loud with a stopwatch is the most reliable way to confirm your real pace.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is my script uploaded anywhere?</summary>
+      <p>No. All counting and calculation happens locally in your browser. Your script is never sent to a server, logged, or stored anywhere outside your own device.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I use this for non-English scripts?</summary>
+      <p>Word and character counts work for any language that separates words with spaces. The speaking-pace benchmarks are based on English speech research, so treat them as a starting point and adjust the slider to match your own language and delivery.</p>
+    </details>
+  </section>
+
+  <!-- ============ RELATED TOOLS ============ -->
+  <section class="content">
+    <h2>Related tools</h2>
+    <div class="related">
+      <a href="https://thetoolempire.com/tools.html?cat=Text">Reading Time Calculator</a>
+      <a href="https://thetoolempire.com/tools.html?cat=Text">Word Counter</a>
+      <a href="https://thetoolempire.com/tools.html?cat=Text">Character Counter</a>
+      <a href="https://thetoolempire.com/tools.html?cat=Math">Number Counter</a>
+      <a href="https://thetoolempire.com/tools.html?cat=Text">Text Case Converter</a>
+      <a href="https://thetoolempire.com/tools.html">Browse All Tools →</a>
+    </div>
+  </section>
+
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h5>Tools</h5>
+        <a href="https://thetoolempire.com/tools.html">All Tools</a>
+        <a href="https://thetoolempire.com/tools.html?cat=Text">Text Tools</a>
+        <a href="https://thetoolempire.com/tools.html?cat=Math">Math &amp; Calculators</a>
+        <a href="https://thetoolempire.com/tools.html?cat=Color">Color Tools</a>
+        <a href="https://thetoolempire.com/tools.html?cat=Coding">Coding Tools</a>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="https://thetoolempire.com/blog.html">Blog</a>
+        <a href="https://thetoolempire.com/contact.html">Contact</a>
+        <a href="https://thetoolempire.com/about.html">About</a>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <a href="https://thetoolempire.com/privacy.html">Privacy Policy</a>
+        <a href="https://thetoolempire.com/terms.html">Terms of Use</a>
+        <a href="https://thetoolempire.com/sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© The Tool Empire. All rights reserved.</span>
+      <span>All tools run locally in your browser. We never store your data.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const textInput = document.getElementById('textInput');
+  const charCountHint = document.getElementById('charCountHint');
+  const timeBig = document.getElementById('timeBig');
+  const timeSub = document.getElementById('timeSub');
+  const wordCountEl = document.getElementById('wordCount');
+  const charCountEl = document.getElementById('charCount');
+  const sentenceCountEl = document.getElementById('sentenceCount');
+  const paraCountEl = document.getElementById('paraCount');
+  const speedSlider = document.getElementById('speedSlider');
+  const speedVal = document.getElementById('speedVal');
+  const presetRow = document.getElementById('presetRow');
+  const occasionRow = document.getElementById('occasionRow');
+
+  const targetMin = document.getElementById('targetMin');
+  const targetSec = document.getElementById('targetSec');
+  const speedSlider2 = document.getElementById('speedSlider2');
+  const speedVal2 = document.getElementById('speedVal2');
+  const presetRow2 = document.getElementById('presetRow2');
+  const occasionRow2 = document.getElementById('occasionRow2');
+  const targetWordsBig = document.getElementById('targetWordsBig');
+  const targetWordsLo = document.getElementById('targetWordsLo');
+  const targetWordsHi = document.getElementById('targetWordsHi');
+  const targetPages = document.getElementById('targetPages');
+  const targetMinutesEcho = document.getElementById('targetMinutesEcho');
+
+  const scriptModeBtn = document.getElementById('scriptModeBtn');
+  const targetModeBtn = document.getElementById('targetModeBtn');
+  const scriptModeDiv = document.getElementById('scriptMode');
+  const targetModeDiv = document.getElementById('targetMode');
+
+  const SAMPLE = "Thank you all so much for being here tonight. When I first met Sarah, I was convinced she was completely wrong for my brother. She showed up forty minutes late, ordered the spiciest thing on the menu, and somehow talked her way into a free dessert. It took about ten minutes of dinner conversation before I understood exactly what he saw in her.\n\nOver the years I've watched the two of them build something steady and warm, the kind of relationship that makes the rest of us a little jealous, if we're honest. She challenges him. She makes him laugh until he can't breathe. And more than once, she's talked him out of a genuinely terrible decision, which the rest of the family is deeply grateful for.\n\nSo if you'll raise your glasses with me — to Sarah and to my brother, to forty more years of spicy food and free dessert, and to a marriage as loud, warm, and stubborn as the two of you are. Cheers.";
+
+  const paceRow = [
+    {label:'Slow (110)', value:110},
+    {label:'Conversational (140)', value:140},
+    {label:'Fast (170)', value:170}
+  ];
+
+  const occasions = [
+    {label:'Eulogy', value:105},
+    {label:'Wedding toast', value:125},
+    {label:'Conference talk', value:145},
+    {label:'Sales pitch', value:160},
+    {label:'Auctioneer style', value:220}
+  ];
+
+  function buildChips(container, items, slider, valEl, onPick, isOccasion){
+    container.innerHTML = '';
+    items.forEach(item=>{
+      const chip = document.createElement('button');
+      chip.className = isOccasion ? 'occasion-chip' : 'preset-chip';
+      chip.textContent = item.label;
+      chip.addEventListener('click', ()=>{
+        slider.value = item.value;
+        valEl.textContent = item.value;
+        highlightChips(container, items, item.value);
+        onPick();
+      });
+      container.appendChild(chip);
+    });
+  }
+
+  function highlightChips(container, items, val){
+    const chips = container.children;
+    items.forEach((item,i)=>{
+      chips[i].classList.toggle('active', item.value===val);
+    });
+  }
+
+  function countStats(text){
+    const trimmed = text.trim();
+    const words = trimmed.length ? (trimmed.match(/\S+/g) || []).length : 0;
+    const chars = text.length;
+    const sentences = trimmed.length ? (trimmed.match(/[^.!?]+[.!?]+/g) || (trimmed ? [trimmed] : [])).length : 0;
+    const paragraphs = trimmed.length ? trimmed.split(/\n\s*\n/).filter(p=>p.trim().length>0).length : 0;
+    return { words, chars, sentences, paragraphs };
+  }
+
+  function formatTime(totalSeconds){
+    if(totalSeconds < 60){
+      const s = Math.max(1, Math.round(totalSeconds));
+      return s + ' sec';
+    }
+    const mins = totalSeconds/60;
+    if(mins < 60){
+      const wholeMin = Math.floor(mins);
+      const secs = Math.round((mins-wholeMin)*60);
+      let str = wholeMin + ' min';
+      if(secs>0) str += ' ' + secs + ' sec';
+      return str;
+    }
+    const hrs = Math.floor(mins/60);
+    const remMin = Math.round(mins%60);
+    return hrs + ' hr ' + remMin + ' min';
+  }
+
+  function computeScript(){
+    const text = textInput.value;
+    const stats = countStats(text);
+    wordCountEl.textContent = stats.words.toLocaleString();
+    charCountEl.textContent = stats.chars.toLocaleString();
+    sentenceCountEl.textContent = stats.sentences.toLocaleString();
+    paraCountEl.textContent = stats.paragraphs.toLocaleString();
+    charCountHint.textContent = stats.chars.toLocaleString() + ' character' + (stats.chars===1?'':'s');
+
+    const speed = parseFloat(speedSlider.value) || 140;
+    speedVal.textContent = speed;
+
+    const totalSeconds = stats.words>0 ? (stats.words/speed)*60 : 0;
+    timeBig.textContent = stats.words>0 ? formatTime(totalSeconds) : '0 sec';
+    timeSub.textContent = 'to speak at ' + speed + ' words per minute';
+  }
+
+  function computeTarget(){
+    const mins = parseFloat(targetMin.value) || 0;
+    const secs = parseFloat(targetSec.value) || 0;
+    const totalMinutes = mins + (secs/60);
+    const speed = parseFloat(speedSlider2.value) || 140;
+    speedVal2.textContent = speed;
+
+    const words = Math.round(totalMinutes * speed);
+    targetWordsBig.textContent = words.toLocaleString() + ' words';
+    targetWordsLo.textContent = Math.max(0, Math.round(words*0.9)).toLocaleString();
+    targetWordsHi.textContent = Math.round(words*1.1).toLocaleString();
+    targetPages.textContent = (words/275).toFixed(1);
+    targetMinutesEcho.textContent = (mins + (secs/60)).toFixed(secs%60===0?0:1);
+  }
+
+  textInput.addEventListener('input', computeScript);
+  speedSlider.addEventListener('input', ()=>{
+    speedVal.textContent = speedSlider.value;
+    highlightChips(presetRow, paceRow, Number(speedSlider.value));
+    highlightChips(occasionRow, occasions, Number(speedSlider.value));
+    computeScript();
+  });
+
+  speedSlider2.addEventListener('input', ()=>{
+    speedVal2.textContent = speedSlider2.value;
+    highlightChips(presetRow2, paceRow, Number(speedSlider2.value));
+    highlightChips(occasionRow2, occasions, Number(speedSlider2.value));
+    computeTarget();
+  });
+  targetMin.addEventListener('input', computeTarget);
+  targetSec.addEventListener('input', computeTarget);
+
+  document.getElementById('sampleBtn').addEventListener('click', ()=>{
+    textInput.value = SAMPLE;
+    computeScript();
+  });
+  document.getElementById('clearBtn').addEventListener('click', ()=>{
+    textInput.value = '';
+    computeScript();
+    textInput.focus();
+  });
+  document.getElementById('pasteBtn').addEventListener('click', async ()=>{
+    try{
+      const text = await navigator.clipboard.readText();
+      textInput.value += text;
+      computeScript();
+    }catch(e){
+      textInput.focus();
+    }
+  });
+
+  scriptModeBtn.addEventListener('click', ()=>{
+    scriptModeBtn.classList.add('active');
+    targetModeBtn.classList.remove('active');
+    scriptModeDiv.classList.remove('hidden');
+    targetModeDiv.classList.add('hidden');
+  });
+  targetModeBtn.addEventListener('click', ()=>{
+    targetModeBtn.classList.add('active');
+    scriptModeBtn.classList.remove('active');
+    targetModeDiv.classList.remove('hidden');
+    scriptModeDiv.classList.add('hidden');
+  });
+
+  buildChips(presetRow, paceRow, speedSlider, speedVal, computeScript, false);
+  buildChips(occasionRow, occasions, speedSlider, speedVal, computeScript, true);
+  buildChips(presetRow2, paceRow, speedSlider2, speedVal2, computeTarget, false);
+  buildChips(occasionRow2, occasions, speedSlider2, speedVal2, computeTarget, true);
+
+  computeScript();
+  computeTarget();
+})();
+</script>
+
+</body>
+</html>
